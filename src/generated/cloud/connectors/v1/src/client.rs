@@ -124,6 +124,23 @@ impl Connectors {
     }
 
     /// Gets details of a single Connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection(&self) -> super::builder::connectors::GetConnection {
         super::builder::connectors::GetConnection::new(self.inner.clone())
     }
@@ -179,6 +196,23 @@ impl Connectors {
     }
 
     /// Gets details of a provider.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_provider()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_provider(&self) -> super::builder::connectors::GetProvider {
         super::builder::connectors::GetProvider::new(self.inner.clone())
     }
@@ -189,6 +223,23 @@ impl Connectors {
     }
 
     /// Gets details of a single Connector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connector(&self) -> super::builder::connectors::GetConnector {
         super::builder::connectors::GetConnector::new(self.inner.clone())
     }
@@ -199,12 +250,46 @@ impl Connectors {
     }
 
     /// Gets details of a single connector version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connector_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connector_version(&self) -> super::builder::connectors::GetConnectorVersion {
         super::builder::connectors::GetConnectorVersion::new(self.inner.clone())
     }
 
     /// Gets schema metadata of a connection.
     /// SchemaMetadata is a singleton resource for each connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection_schema_metadata()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_schema_metadata(
         &self,
     ) -> super::builder::connectors::GetConnectionSchemaMetadata {
@@ -244,12 +329,46 @@ impl Connectors {
 
     /// Gets the runtimeConfig of a location.
     /// RuntimeConfig is a singleton resource for each location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_runtime_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_runtime_config(&self) -> super::builder::connectors::GetRuntimeConfig {
         super::builder::connectors::GetRuntimeConfig::new(self.inner.clone())
     }
 
     /// GetGlobalSettings gets settings of a project.
     /// GlobalSettings is a singleton resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_global_settings()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_global_settings(&self) -> super::builder::connectors::GetGlobalSettings {
         super::builder::connectors::GetGlobalSettings::new(self.inner.clone())
     }
@@ -260,6 +379,22 @@ impl Connectors {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::connectors::GetLocation {
         super::builder::connectors::GetLocation::new(self.inner.clone())
     }
@@ -269,12 +404,44 @@ impl Connectors {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::connectors::SetIamPolicy {
         super::builder::connectors::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::connectors::GetIamPolicy {
         super::builder::connectors::GetIamPolicy::new(self.inner.clone())
     }
@@ -286,6 +453,22 @@ impl Connectors {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::connectors::TestIamPermissions {
         super::builder::connectors::TestIamPermissions::new(self.inner.clone())
     }
@@ -299,6 +482,22 @@ impl Connectors {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::connectors::GetOperation {
         super::builder::connectors::GetOperation::new(self.inner.clone())
     }
@@ -306,6 +505,21 @@ impl Connectors {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::connectors::DeleteOperation {
         super::builder::connectors::DeleteOperation::new(self.inner.clone())
     }
@@ -313,6 +527,21 @@ impl Connectors {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_connectors_v1::client::Connectors;
+    /// async fn sample(
+    ///    client: &Connectors
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::connectors::CancelOperation {
         super::builder::connectors::CancelOperation::new(self.inner.clone())
     }

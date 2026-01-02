@@ -157,6 +157,22 @@ impl IcebergCatalogService {
     /// config allowlisting).
     ///
     /// This is not a GCP resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iceberg_catalog_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iceberg_catalog_config(
         &self,
     ) -> super::builder::iceberg_catalog_service::GetIcebergCatalogConfig {
@@ -165,6 +181,22 @@ impl IcebergCatalogService {
 
     /// Lists Iceberg namespaces in the catalog. We only support one level of
     /// nesting for namespaces.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_iceberg_namespaces()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_iceberg_namespaces(
         &self,
     ) -> super::builder::iceberg_catalog_service::ListIcebergNamespaces {
@@ -173,6 +205,22 @@ impl IcebergCatalogService {
 
     /// Gets an Iceberg namespace in the catalog (or checks if it exists, if the
     /// method is HEAD).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iceberg_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iceberg_namespace(
         &self,
     ) -> super::builder::iceberg_catalog_service::GetIcebergNamespace {
@@ -180,6 +228,22 @@ impl IcebergCatalogService {
     }
 
     /// Creates a namespace in the catalog.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_iceberg_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_iceberg_namespace(
         &self,
     ) -> super::builder::iceberg_catalog_service::CreateIcebergNamespace {
@@ -187,6 +251,21 @@ impl IcebergCatalogService {
     }
 
     /// Returns 204, not 200 on success.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_iceberg_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_iceberg_namespace(
         &self,
     ) -> super::builder::iceberg_catalog_service::DeleteIcebergNamespace {
@@ -194,6 +273,22 @@ impl IcebergCatalogService {
     }
 
     /// Updates namespace properties.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_iceberg_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_iceberg_namespace(
         &self,
     ) -> super::builder::iceberg_catalog_service::UpdateIcebergNamespace {
@@ -201,6 +296,22 @@ impl IcebergCatalogService {
     }
 
     /// Lists table identifiers (not *tables*) in the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_iceberg_table_identifiers()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_iceberg_table_identifiers(
         &self,
     ) -> super::builder::iceberg_catalog_service::ListIcebergTableIdentifiers {
@@ -210,6 +321,22 @@ impl IcebergCatalogService {
     }
 
     /// Creates a table in the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_iceberg_table()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_iceberg_table(
         &self,
     ) -> super::builder::iceberg_catalog_service::CreateIcebergTable {
@@ -217,6 +344,21 @@ impl IcebergCatalogService {
     }
 
     /// Deletes a table in the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_iceberg_table()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_iceberg_table(
         &self,
     ) -> super::builder::iceberg_catalog_service::DeleteIcebergTable {
@@ -224,11 +366,43 @@ impl IcebergCatalogService {
     }
 
     /// Gets a table in the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iceberg_table()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iceberg_table(&self) -> super::builder::iceberg_catalog_service::GetIcebergTable {
         super::builder::iceberg_catalog_service::GetIcebergTable::new(self.inner.clone())
     }
 
     /// Loads credentials for a table in the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .load_iceberg_table_credentials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn load_iceberg_table_credentials(
         &self,
     ) -> super::builder::iceberg_catalog_service::LoadIcebergTableCredentials {
@@ -239,6 +413,22 @@ impl IcebergCatalogService {
 
     /// This is CommitTable Iceberg API, which maps to `UpdateIcebergTable` in the
     /// Google API nomenclature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_iceberg_table()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_iceberg_table(
         &self,
     ) -> super::builder::iceberg_catalog_service::UpdateIcebergTable {
@@ -246,6 +436,22 @@ impl IcebergCatalogService {
     }
 
     /// Register a table using given metadata file location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .register_iceberg_table()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn register_iceberg_table(
         &self,
     ) -> super::builder::iceberg_catalog_service::RegisterIcebergTable {
@@ -253,6 +459,22 @@ impl IcebergCatalogService {
     }
 
     /// Returns the Iceberg REST Catalog configuration options.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iceberg_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iceberg_catalog(
         &self,
     ) -> super::builder::iceberg_catalog_service::GetIcebergCatalog {
@@ -260,6 +482,22 @@ impl IcebergCatalogService {
     }
 
     /// Lists the Iceberg REST Catalogs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_iceberg_catalogs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_iceberg_catalogs(
         &self,
     ) -> super::builder::iceberg_catalog_service::ListIcebergCatalogs {
@@ -271,6 +509,21 @@ impl IcebergCatalogService {
     /// namespace.
     ///
     /// Delete is not supported for all catalog types.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_iceberg_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_iceberg_catalog(
         &self,
     ) -> super::builder::iceberg_catalog_service::DeleteIcebergCatalog {
@@ -278,6 +531,22 @@ impl IcebergCatalogService {
     }
 
     /// Update the Iceberg REST Catalog configuration options.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_iceberg_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_iceberg_catalog(
         &self,
     ) -> super::builder::iceberg_catalog_service::UpdateIcebergCatalog {
@@ -291,6 +560,22 @@ impl IcebergCatalogService {
     ///
     /// If the bucket does not exist, of the caller does not have bucket metadata
     /// permissions, the catalog will not be created.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_iceberg_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_iceberg_catalog(
         &self,
     ) -> super::builder::iceberg_catalog_service::CreateIcebergCatalog {
@@ -298,6 +583,22 @@ impl IcebergCatalogService {
     }
 
     /// Failover the catalog to a new primary replica region.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
+    /// async fn sample(
+    ///    client: &IcebergCatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .failover_iceberg_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn failover_iceberg_catalog(
         &self,
     ) -> super::builder::iceberg_catalog_service::FailoverIcebergCatalog {

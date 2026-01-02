@@ -123,6 +123,22 @@ impl LookupService {
     /// Resolving a service is not considered an active developer method.
     ///
     /// [google.cloud.servicedirectory.v1.Service]: crate::model::Service
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::LookupService;
+    /// async fn sample(
+    ///    client: &LookupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .resolve_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resolve_service(&self) -> super::builder::lookup_service::ResolveService {
         super::builder::lookup_service::ResolveService::new(self.inner.clone())
     }
@@ -133,6 +149,22 @@ impl LookupService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::LookupService;
+    /// async fn sample(
+    ///    client: &LookupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::lookup_service::GetLocation {
         super::builder::lookup_service::GetLocation::new(self.inner.clone())
     }
@@ -263,6 +295,22 @@ impl RegistrationService {
     }
 
     /// Creates a namespace, and returns the new namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_namespace(&self) -> super::builder::registration_service::CreateNamespace {
         super::builder::registration_service::CreateNamespace::new(self.inner.clone())
     }
@@ -273,22 +321,86 @@ impl RegistrationService {
     }
 
     /// Gets a namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_namespace()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_namespace(&self) -> super::builder::registration_service::GetNamespace {
         super::builder::registration_service::GetNamespace::new(self.inner.clone())
     }
 
     /// Updates a namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_namespace(&self) -> super::builder::registration_service::UpdateNamespace {
         super::builder::registration_service::UpdateNamespace::new(self.inner.clone())
     }
 
     /// Deletes a namespace. This also deletes all services and endpoints in
     /// the namespace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_namespace()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_namespace(&self) -> super::builder::registration_service::DeleteNamespace {
         super::builder::registration_service::DeleteNamespace::new(self.inner.clone())
     }
 
     /// Creates a service, and returns the new service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service(&self) -> super::builder::registration_service::CreateService {
         super::builder::registration_service::CreateService::new(self.inner.clone())
     }
@@ -299,22 +411,86 @@ impl RegistrationService {
     }
 
     /// Gets a service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::registration_service::GetService {
         super::builder::registration_service::GetService::new(self.inner.clone())
     }
 
     /// Updates a service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::registration_service::UpdateService {
         super::builder::registration_service::UpdateService::new(self.inner.clone())
     }
 
     /// Deletes a service. This also deletes all endpoints associated with
     /// the service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::registration_service::DeleteService {
         super::builder::registration_service::DeleteService::new(self.inner.clone())
     }
 
     /// Creates an endpoint, and returns the new endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_endpoint(&self) -> super::builder::registration_service::CreateEndpoint {
         super::builder::registration_service::CreateEndpoint::new(self.inner.clone())
     }
@@ -325,31 +501,127 @@ impl RegistrationService {
     }
 
     /// Gets an endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint(&self) -> super::builder::registration_service::GetEndpoint {
         super::builder::registration_service::GetEndpoint::new(self.inner.clone())
     }
 
     /// Updates an endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_endpoint(&self) -> super::builder::registration_service::UpdateEndpoint {
         super::builder::registration_service::UpdateEndpoint::new(self.inner.clone())
     }
 
     /// Deletes an endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_endpoint(&self) -> super::builder::registration_service::DeleteEndpoint {
         super::builder::registration_service::DeleteEndpoint::new(self.inner.clone())
     }
 
     /// Gets the IAM Policy for a resource (namespace or service only).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::registration_service::GetIamPolicy {
         super::builder::registration_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM Policy for a resource (namespace or service only).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::registration_service::SetIamPolicy {
         super::builder::registration_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Tests IAM permissions for a resource (namespace or service only).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::registration_service::TestIamPermissions {
         super::builder::registration_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -360,6 +632,22 @@ impl RegistrationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
+    /// async fn sample(
+    ///    client: &RegistrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::registration_service::GetLocation {
         super::builder::registration_service::GetLocation::new(self.inner.clone())
     }

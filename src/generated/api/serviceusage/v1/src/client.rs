@@ -159,6 +159,22 @@ impl ServiceUsage {
     }
 
     /// Returns the service configuration and enabled state for a given service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
+    /// async fn sample(
+    ///    client: &ServiceUsage
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::service_usage::GetService {
         super::builder::service_usage::GetService::new(self.inner.clone())
     }
@@ -199,6 +215,22 @@ impl ServiceUsage {
 
     /// Returns the service configurations and enabled states for a given list of
     /// services.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
+    /// async fn sample(
+    ///    client: &ServiceUsage
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_get_services()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_get_services(&self) -> super::builder::service_usage::BatchGetServices {
         super::builder::service_usage::BatchGetServices::new(self.inner.clone())
     }
@@ -213,6 +245,22 @@ impl ServiceUsage {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
+    /// async fn sample(
+    ///    client: &ServiceUsage
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::service_usage::GetOperation {
         super::builder::service_usage::GetOperation::new(self.inner.clone())
     }

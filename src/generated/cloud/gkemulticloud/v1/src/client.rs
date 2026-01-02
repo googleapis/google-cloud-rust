@@ -202,6 +202,23 @@ impl AttachedClusters {
     /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AttachedCluster]: crate::model::AttachedCluster
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_attached_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attached_cluster(&self) -> super::builder::attached_clusters::GetAttachedCluster {
         super::builder::attached_clusters::GetAttachedCluster::new(self.inner.clone())
     }
@@ -243,6 +260,23 @@ impl AttachedClusters {
 
     /// Returns information, such as supported Kubernetes versions, on a given
     /// Google Cloud location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_attached_server_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attached_server_config(
         &self,
     ) -> super::builder::attached_clusters::GetAttachedServerConfig {
@@ -250,6 +284,22 @@ impl AttachedClusters {
     }
 
     /// Generates the install manifest to be installed on the target cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_attached_cluster_install_manifest()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_attached_cluster_install_manifest(
         &self,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterInstallManifest {
@@ -259,6 +309,22 @@ impl AttachedClusters {
     }
 
     /// Generates an access token for a cluster agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_attached_cluster_agent_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_attached_cluster_agent_token(
         &self,
     ) -> super::builder::attached_clusters::GenerateAttachedClusterAgentToken {
@@ -277,6 +343,22 @@ impl AttachedClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::attached_clusters::GetOperation {
         super::builder::attached_clusters::GetOperation::new(self.inner.clone())
     }
@@ -284,6 +366,21 @@ impl AttachedClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::attached_clusters::DeleteOperation {
         super::builder::attached_clusters::DeleteOperation::new(self.inner.clone())
     }
@@ -291,6 +388,21 @@ impl AttachedClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
+    /// async fn sample(
+    ///    client: &AttachedClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::attached_clusters::CancelOperation {
         super::builder::attached_clusters::CancelOperation::new(self.inner.clone())
     }
@@ -446,6 +558,23 @@ impl AwsClusters {
     /// resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aws_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_aws_cluster(&self) -> super::builder::aws_clusters::GetAwsCluster {
         super::builder::aws_clusters::GetAwsCluster::new(self.inner.clone())
@@ -489,6 +618,22 @@ impl AwsClusters {
     }
 
     /// Generates an access token for a cluster agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_aws_cluster_agent_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn generate_aws_cluster_agent_token(
         &self,
@@ -500,6 +645,22 @@ impl AwsClusters {
     /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsCluster]: crate::model::AwsCluster
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_aws_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn generate_aws_access_token(
         &self,
@@ -579,6 +740,23 @@ impl AwsClusters {
     /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AwsNodePool]: crate::model::AwsNodePool
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aws_node_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_aws_node_pool(&self) -> super::builder::aws_clusters::GetAwsNodePool {
         super::builder::aws_clusters::GetAwsNodePool::new(self.inner.clone())
@@ -624,6 +802,22 @@ impl AwsClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aws_open_id_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_aws_open_id_config(&self) -> super::builder::aws_clusters::GetAwsOpenIdConfig {
         super::builder::aws_clusters::GetAwsOpenIdConfig::new(self.inner.clone())
@@ -631,6 +825,22 @@ impl AwsClusters {
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aws_json_web_keys()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_aws_json_web_keys(&self) -> super::builder::aws_clusters::GetAwsJsonWebKeys {
         super::builder::aws_clusters::GetAwsJsonWebKeys::new(self.inner.clone())
@@ -638,6 +848,23 @@ impl AwsClusters {
 
     /// Returns information, such as supported AWS regions and Kubernetes
     /// versions, on a given Google Cloud location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aws_server_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_aws_server_config(&self) -> super::builder::aws_clusters::GetAwsServerConfig {
         super::builder::aws_clusters::GetAwsServerConfig::new(self.inner.clone())
@@ -653,6 +880,22 @@ impl AwsClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::aws_clusters::GetOperation {
         super::builder::aws_clusters::GetOperation::new(self.inner.clone())
     }
@@ -660,6 +903,21 @@ impl AwsClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::aws_clusters::DeleteOperation {
         super::builder::aws_clusters::DeleteOperation::new(self.inner.clone())
     }
@@ -667,6 +925,21 @@ impl AwsClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
+    /// async fn sample(
+    ///    client: &AwsClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::aws_clusters::CancelOperation {
         super::builder::aws_clusters::CancelOperation::new(self.inner.clone())
     }
@@ -808,6 +1081,23 @@ impl AzureClusters {
     /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureClient]: crate::model::AzureClient
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_client()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_client(&self) -> super::builder::azure_clusters::GetAzureClient {
         super::builder::azure_clusters::GetAzureClient::new(self.inner.clone())
@@ -895,6 +1185,23 @@ impl AzureClusters {
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_cluster(&self) -> super::builder::azure_clusters::GetAzureCluster {
         super::builder::azure_clusters::GetAzureCluster::new(self.inner.clone())
@@ -938,6 +1245,22 @@ impl AzureClusters {
     }
 
     /// Generates an access token for a cluster agent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_azure_cluster_agent_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn generate_azure_cluster_agent_token(
         &self,
@@ -949,6 +1272,22 @@ impl AzureClusters {
     /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureCluster]: crate::model::AzureCluster
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_azure_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn generate_azure_access_token(
         &self,
@@ -1004,6 +1343,23 @@ impl AzureClusters {
     /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource.
     ///
     /// [google.cloud.gkemulticloud.v1.AzureNodePool]: crate::model::AzureNodePool
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_node_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_node_pool(&self) -> super::builder::azure_clusters::GetAzureNodePool {
         super::builder::azure_clusters::GetAzureNodePool::new(self.inner.clone())
@@ -1049,6 +1405,22 @@ impl AzureClusters {
     /// [OpenID Connect Discovery 1.0
     /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
     /// for details.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_open_id_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_open_id_config(&self) -> super::builder::azure_clusters::GetAzureOpenIdConfig {
         super::builder::azure_clusters::GetAzureOpenIdConfig::new(self.inner.clone())
@@ -1056,6 +1428,22 @@ impl AzureClusters {
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_json_web_keys()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_json_web_keys(&self) -> super::builder::azure_clusters::GetAzureJsonWebKeys {
         super::builder::azure_clusters::GetAzureJsonWebKeys::new(self.inner.clone())
@@ -1063,6 +1451,23 @@ impl AzureClusters {
 
     /// Returns information, such as supported Azure regions and Kubernetes
     /// versions, on a given Google Cloud location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_azure_server_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_azure_server_config(&self) -> super::builder::azure_clusters::GetAzureServerConfig {
         super::builder::azure_clusters::GetAzureServerConfig::new(self.inner.clone())
@@ -1078,6 +1483,22 @@ impl AzureClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::azure_clusters::GetOperation {
         super::builder::azure_clusters::GetOperation::new(self.inner.clone())
     }
@@ -1085,6 +1506,21 @@ impl AzureClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::azure_clusters::DeleteOperation {
         super::builder::azure_clusters::DeleteOperation::new(self.inner.clone())
     }
@@ -1092,6 +1528,21 @@ impl AzureClusters {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
+    /// async fn sample(
+    ///    client: &AzureClusters
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::azure_clusters::CancelOperation {
         super::builder::azure_clusters::CancelOperation::new(self.inner.clone())
     }

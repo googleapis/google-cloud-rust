@@ -128,6 +128,22 @@ impl SecretManagerService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation {
         super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
     }
@@ -138,6 +154,22 @@ impl SecretManagerService {
     }
 
     /// Creates a new Secret containing no SecretVersions.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
     }
@@ -152,6 +184,22 @@ impl SecretManagerService {
     }
 
     /// Creates a new Secret containing no SecretVersions.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_secret_by_project_and_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_secret_by_project_and_location(
         &self,
     ) -> super::builder::secret_manager_service::CreateSecretByProjectAndLocation {
@@ -162,12 +210,44 @@ impl SecretManagerService {
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
     }
 
     /// Creates a new SecretVersion containing secret data and attaches
     /// it to an existing Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_secret_version_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_secret_version_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::AddSecretVersionByProjectAndLocationAndSecret {
@@ -177,21 +257,85 @@ impl SecretManagerService {
     }
 
     /// Gets metadata for a given Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret {
         super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
     }
 
     /// Deletes a Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret {
         super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
     }
 
     /// Updates metadata of an existing Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
     }
 
     /// Gets metadata for a given Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_secret_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::GetSecretByProjectAndLocationAndSecret {
@@ -201,6 +345,22 @@ impl SecretManagerService {
     }
 
     /// Deletes a Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_secret_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_secret_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::DeleteSecretByProjectAndLocationAndSecret {
@@ -210,6 +370,22 @@ impl SecretManagerService {
     }
 
     /// Updates metadata of an existing Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_secret_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_secret_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::UpdateSecretByProjectAndLocationAndSecret {
@@ -241,6 +417,22 @@ impl SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion {
         super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
     }
@@ -249,6 +441,22 @@ impl SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_secret_version_by_project_and_location_and_secret_and_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::GetSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
@@ -258,6 +466,22 @@ impl SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .access_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn access_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::AccessSecretVersion {
@@ -268,6 +492,22 @@ impl SecretManagerService {
     ///
     /// `projects/_*_/secrets/_*_/versions/latest` is an alias to the most recently
     /// created SecretVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .access_secret_version_by_project_and_location_and_secret_and_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn access_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::AccessSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
@@ -277,6 +517,22 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .disable_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::DisableSecretVersion {
@@ -287,6 +543,22 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// DISABLED.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .disable_secret_version_by_project_and_location_and_secret_and_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DisableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
@@ -296,6 +568,22 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .enable_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::EnableSecretVersion {
@@ -306,6 +594,22 @@ impl SecretManagerService {
     ///
     /// Sets the state of the SecretVersion to
     /// ENABLED.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .enable_secret_version_by_project_and_location_and_secret_and_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::EnableSecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
@@ -316,6 +620,22 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .destroy_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn destroy_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::DestroySecretVersion {
@@ -327,6 +647,22 @@ impl SecretManagerService {
     /// Sets the state of the SecretVersion to
     /// DESTROYED and irrevocably destroys the
     /// secret data.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .destroy_secret_version_by_project_and_location_and_secret_and_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn destroy_secret_version_by_project_and_location_and_secret_and_version(&self) -> super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion
     {
         super::builder::secret_manager_service::DestroySecretVersionByProjectAndLocationAndSecretAndVersion::new(self.inner.clone())
@@ -337,6 +673,22 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
     }
@@ -346,6 +698,22 @@ impl SecretManagerService {
     ///
     /// Permissions on SecretVersions are enforced according
     /// to the policy set on the associated Secret.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::SetIamPolicyByProjectAndLocationAndSecret {
@@ -356,12 +724,44 @@ impl SecretManagerService {
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy {
         super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::GetIamPolicyByProjectAndLocationAndSecret {
@@ -377,6 +777,22 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::secret_manager_service::TestIamPermissions {
@@ -390,6 +806,22 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use secretmanager_openapi_v1::client::SecretManagerService;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions_by_project_and_location_and_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions_by_project_and_location_and_secret(
         &self,
     ) -> super::builder::secret_manager_service::TestIamPermissionsByProjectAndLocationAndSecret

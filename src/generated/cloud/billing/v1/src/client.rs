@@ -122,6 +122,23 @@ impl CloudBilling {
     /// Gets information about a billing account. The current authenticated user
     /// must be a [viewer of the billing
     /// account](https://cloud.google.com/billing/docs/how-to/billing-access).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_billing_account()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_billing_account(&self) -> super::builder::cloud_billing::GetBillingAccount {
         super::builder::cloud_billing::GetBillingAccount::new(self.inner.clone())
     }
@@ -139,6 +156,22 @@ impl CloudBilling {
     /// IAM permission, which is typically given to the
     /// [administrator](https://cloud.google.com/billing/docs/how-to/billing-access)
     /// of the billing account.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_billing_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_billing_account(&self) -> super::builder::cloud_billing::UpdateBillingAccount {
         super::builder::cloud_billing::UpdateBillingAccount::new(self.inner.clone())
     }
@@ -158,6 +191,22 @@ impl CloudBilling {
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
     /// This method will return an error if the parent account has not been
     /// provisioned for subaccounts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_billing_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_billing_account(&self) -> super::builder::cloud_billing::CreateBillingAccount {
         super::builder::cloud_billing::CreateBillingAccount::new(self.inner.clone())
     }
@@ -177,6 +226,22 @@ impl CloudBilling {
     /// which can be granted by assigning the [Project
     /// Viewer](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles)
     /// role.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_project_billing_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_project_billing_info(&self) -> super::builder::cloud_billing::GetProjectBillingInfo {
         super::builder::cloud_billing::GetProjectBillingInfo::new(self.inner.clone())
     }
@@ -213,6 +278,22 @@ impl CloudBilling {
     /// resources used by the project will be shut down. Thus, unless you wish to
     /// disable billing, you should always call this method with the name of an
     /// *open* billing account.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_project_billing_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_project_billing_info(
         &self,
     ) -> super::builder::cloud_billing::UpdateProjectBillingInfo {
@@ -223,6 +304,22 @@ impl CloudBilling {
     /// The caller must have the `billing.accounts.getIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::cloud_billing::GetIamPolicy {
         super::builder::cloud_billing::GetIamPolicy::new(self.inner.clone())
     }
@@ -232,6 +329,22 @@ impl CloudBilling {
     /// The caller must have the `billing.accounts.setIamPolicy` permission on the
     /// account, which is often given to billing account
     /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::cloud_billing::SetIamPolicy {
         super::builder::cloud_billing::SetIamPolicy::new(self.inner.clone())
     }
@@ -239,11 +352,43 @@ impl CloudBilling {
     /// Tests the access control policy for a billing account. This method takes
     /// the resource and a set of permissions as input and returns the subset of
     /// the input permissions that the caller is allowed for that resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::cloud_billing::TestIamPermissions {
         super::builder::cloud_billing::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Changes which parent organization a billing account belongs to.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_billing_v1::client::CloudBilling;
+    /// async fn sample(
+    ///    client: &CloudBilling
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .move_billing_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn move_billing_account(&self) -> super::builder::cloud_billing::MoveBillingAccount {
         super::builder::cloud_billing::MoveBillingAccount::new(self.inner.clone())
     }

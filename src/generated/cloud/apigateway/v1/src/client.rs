@@ -127,6 +127,23 @@ impl ApiGatewayService {
     }
 
     /// Gets details of a single Gateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gateway()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_gateway(&self) -> super::builder::api_gateway_service::GetGateway {
         super::builder::api_gateway_service::GetGateway::new(self.inner.clone())
     }
@@ -182,6 +199,23 @@ impl ApiGatewayService {
     }
 
     /// Gets details of a single Api.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_api()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_api(&self) -> super::builder::api_gateway_service::GetApi {
         super::builder::api_gateway_service::GetApi::new(self.inner.clone())
     }
@@ -237,6 +271,23 @@ impl ApiGatewayService {
     }
 
     /// Gets details of a single ApiConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_api_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_api_config(&self) -> super::builder::api_gateway_service::GetApiConfig {
         super::builder::api_gateway_service::GetApiConfig::new(self.inner.clone())
     }
@@ -296,6 +347,22 @@ impl ApiGatewayService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_gateway_service::GetOperation {
         super::builder::api_gateway_service::GetOperation::new(self.inner.clone())
     }
@@ -303,6 +370,21 @@ impl ApiGatewayService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::api_gateway_service::DeleteOperation {
         super::builder::api_gateway_service::DeleteOperation::new(self.inner.clone())
     }
@@ -310,6 +392,21 @@ impl ApiGatewayService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
+    /// async fn sample(
+    ///    client: &ApiGatewayService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::api_gateway_service::CancelOperation {
         super::builder::api_gateway_service::CancelOperation::new(self.inner.clone())
     }

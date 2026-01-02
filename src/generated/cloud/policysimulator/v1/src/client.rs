@@ -157,6 +157,23 @@ impl OrgPolicyViolationsPreviewService {
     /// is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.OrgPolicyViolationsPreview]: crate::model::OrgPolicyViolationsPreview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_org_policy_violations_preview()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_org_policy_violations_preview(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview {
@@ -219,6 +236,22 @@ impl OrgPolicyViolationsPreviewService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
+    /// async fn sample(
+    ///    client: &OrgPolicyViolationsPreviewService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::org_policy_violations_preview_service::GetOperation {
@@ -345,6 +378,23 @@ impl Simulator {
     /// `Replay` is available for at least 7 days.
     ///
     /// [google.cloud.policysimulator.v1.Replay]: crate::model::Replay
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// async fn sample(
+    ///    client: &Simulator,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_replay()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replay(&self) -> super::builder::simulator::GetReplay {
         super::builder::simulator::GetReplay::new(self.inner.clone())
     }
@@ -386,6 +436,22 @@ impl Simulator {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policysimulator_v1::client::Simulator;
+    /// async fn sample(
+    ///    client: &Simulator
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::simulator::GetOperation {
         super::builder::simulator::GetOperation::new(self.inner.clone())
     }

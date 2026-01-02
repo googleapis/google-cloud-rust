@@ -147,6 +147,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_channel()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel(&self) -> super::builder::livestream_service::GetChannel {
         super::builder::livestream_service::GetChannel::new(self.inner.clone())
     }
@@ -265,6 +282,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified input.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_input()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_input(&self) -> super::builder::livestream_service::GetInput {
         super::builder::livestream_service::GetInput::new(self.inner.clone())
     }
@@ -300,11 +334,43 @@ impl LivestreamService {
     }
 
     /// Preview the streaming content of the specified input.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .preview_input()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn preview_input(&self) -> super::builder::livestream_service::PreviewInput {
         super::builder::livestream_service::PreviewInput::new(self.inner.clone())
     }
 
     /// Creates an event with the provided unique ID in the specified channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_event(&self) -> super::builder::livestream_service::CreateEvent {
         super::builder::livestream_service::CreateEvent::new(self.inner.clone())
     }
@@ -315,11 +381,43 @@ impl LivestreamService {
     }
 
     /// Returns the specified event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_event()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_event(&self) -> super::builder::livestream_service::GetEvent {
         super::builder::livestream_service::GetEvent::new(self.inner.clone())
     }
 
     /// Deletes the specified event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_event(&self) -> super::builder::livestream_service::DeleteEvent {
         super::builder::livestream_service::DeleteEvent::new(self.inner.clone())
     }
@@ -330,6 +428,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified clip.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_clip()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_clip(&self) -> super::builder::livestream_service::GetClip {
         super::builder::livestream_service::GetClip::new(self.inner.clone())
     }
@@ -386,6 +501,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified DVR session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dvr_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dvr_session(&self) -> super::builder::livestream_service::GetDvrSession {
         super::builder::livestream_service::GetDvrSession::new(self.inner.clone())
     }
@@ -452,6 +584,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_asset()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_asset(&self) -> super::builder::livestream_service::GetAsset {
         super::builder::livestream_service::GetAsset::new(self.inner.clone())
     }
@@ -462,6 +611,23 @@ impl LivestreamService {
     }
 
     /// Returns the specified pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pool(&self) -> super::builder::livestream_service::GetPool {
         super::builder::livestream_service::GetPool::new(self.inner.clone())
     }
@@ -487,6 +653,22 @@ impl LivestreamService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::livestream_service::GetLocation {
         super::builder::livestream_service::GetLocation::new(self.inner.clone())
     }
@@ -501,6 +683,22 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::livestream_service::GetOperation {
         super::builder::livestream_service::GetOperation::new(self.inner.clone())
     }
@@ -508,6 +706,21 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::livestream_service::DeleteOperation {
         super::builder::livestream_service::DeleteOperation::new(self.inner.clone())
     }
@@ -515,6 +728,21 @@ impl LivestreamService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_livestream_v1::client::LivestreamService;
+    /// async fn sample(
+    ///    client: &LivestreamService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::livestream_service::CancelOperation {
         super::builder::livestream_service::CancelOperation::new(self.inner.clone())
     }

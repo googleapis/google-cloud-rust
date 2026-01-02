@@ -119,22 +119,86 @@ impl CompanyService {
     }
 
     /// Creates a new company entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::CompanyService;
+    /// async fn sample(
+    ///    client: &CompanyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_company()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_company(&self) -> super::builder::company_service::CreateCompany {
         super::builder::company_service::CreateCompany::new(self.inner.clone())
     }
 
     /// Retrieves specified company.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::CompanyService;
+    /// async fn sample(
+    ///    client: &CompanyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_company()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_company(&self) -> super::builder::company_service::GetCompany {
         super::builder::company_service::GetCompany::new(self.inner.clone())
     }
 
     /// Updates specified company.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::CompanyService;
+    /// async fn sample(
+    ///    client: &CompanyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_company()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_company(&self) -> super::builder::company_service::UpdateCompany {
         super::builder::company_service::UpdateCompany::new(self.inner.clone())
     }
 
     /// Deletes specified company.
     /// Prerequisite: The company has no jobs associated with it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::CompanyService;
+    /// async fn sample(
+    ///    client: &CompanyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_company()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_company(&self) -> super::builder::company_service::DeleteCompany {
         super::builder::company_service::DeleteCompany::new(self.inner.clone())
     }
@@ -147,6 +211,22 @@ impl CompanyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::CompanyService;
+    /// async fn sample(
+    ///    client: &CompanyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::company_service::GetOperation {
         super::builder::company_service::GetOperation::new(self.inner.clone())
     }
@@ -256,6 +336,22 @@ impl Completion {
 
     /// Completes the specified prefix with keyword suggestions.
     /// Intended for use by a job search auto-complete search box.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::Completion;
+    /// async fn sample(
+    ///    client: &Completion
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .complete_query()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_query(&self) -> super::builder::completion::CompleteQuery {
         super::builder::completion::CompleteQuery::new(self.inner.clone())
     }
@@ -263,6 +359,22 @@ impl Completion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::Completion;
+    /// async fn sample(
+    ///    client: &Completion
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::completion::GetOperation {
         super::builder::completion::GetOperation::new(self.inner.clone())
     }
@@ -377,6 +489,22 @@ impl EventService {
     /// [Learn
     /// more](https://cloud.google.com/talent-solution/docs/management-tools)
     /// about self service tools.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::EventService;
+    /// async fn sample(
+    ///    client: &EventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_client_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_client_event(&self) -> super::builder::event_service::CreateClientEvent {
         super::builder::event_service::CreateClientEvent::new(self.inner.clone())
     }
@@ -384,6 +512,22 @@ impl EventService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::EventService;
+    /// async fn sample(
+    ///    client: &EventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::event_service::GetOperation {
         super::builder::event_service::GetOperation::new(self.inner.clone())
     }
@@ -495,6 +639,22 @@ impl JobService {
     ///
     /// Typically, the job becomes searchable within 10 seconds, but it may take
     /// up to 5 minutes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job(&self) -> super::builder::job_service::CreateJob {
         super::builder::job_service::CreateJob::new(self.inner.clone())
     }
@@ -516,6 +676,23 @@ impl JobService {
 
     /// Retrieves the specified job, whose status is OPEN or recently EXPIRED
     /// within the last 90 days.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::job_service::GetJob {
         super::builder::job_service::GetJob::new(self.inner.clone())
     }
@@ -524,6 +701,22 @@ impl JobService {
     ///
     /// Typically, updated contents become visible in search results within 10
     /// seconds, but it may take up to 5 minutes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_job(&self) -> super::builder::job_service::UpdateJob {
         super::builder::job_service::UpdateJob::new(self.inner.clone())
     }
@@ -547,6 +740,21 @@ impl JobService {
     ///
     /// Typically, the job becomes unsearchable within 10 seconds, but it may take
     /// up to 5 minutes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::job_service::DeleteJob {
         super::builder::job_service::DeleteJob::new(self.inner.clone())
     }
@@ -581,6 +789,22 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .search_jobs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_jobs(&self) -> super::builder::job_service::SearchJobs {
         super::builder::job_service::SearchJobs::new(self.inner.clone())
     }
@@ -600,6 +824,22 @@ impl JobService {
     ///
     /// [google.cloud.talent.v4.Job.visibility]: crate::model::Job::visibility
     /// [google.cloud.talent.v4.SearchJobsRequest]: crate::model::SearchJobsRequest
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .search_jobs_for_alert()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_jobs_for_alert(&self) -> super::builder::job_service::SearchJobsForAlert {
         super::builder::job_service::SearchJobsForAlert::new(self.inner.clone())
     }
@@ -607,6 +847,22 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
         super::builder::job_service::GetOperation::new(self.inner.clone())
     }
@@ -715,21 +971,85 @@ impl TenantService {
     }
 
     /// Creates a new tenant entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::TenantService;
+    /// async fn sample(
+    ///    client: &TenantService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tenant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tenant(&self) -> super::builder::tenant_service::CreateTenant {
         super::builder::tenant_service::CreateTenant::new(self.inner.clone())
     }
 
     /// Retrieves specified tenant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::TenantService;
+    /// async fn sample(
+    ///    client: &TenantService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tenant()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tenant(&self) -> super::builder::tenant_service::GetTenant {
         super::builder::tenant_service::GetTenant::new(self.inner.clone())
     }
 
     /// Updates specified tenant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::TenantService;
+    /// async fn sample(
+    ///    client: &TenantService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tenant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tenant(&self) -> super::builder::tenant_service::UpdateTenant {
         super::builder::tenant_service::UpdateTenant::new(self.inner.clone())
     }
 
     /// Deletes specified tenant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::TenantService;
+    /// async fn sample(
+    ///    client: &TenantService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_tenant()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_tenant(&self) -> super::builder::tenant_service::DeleteTenant {
         super::builder::tenant_service::DeleteTenant::new(self.inner.clone())
     }
@@ -742,6 +1062,22 @@ impl TenantService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_talent_v4::client::TenantService;
+    /// async fn sample(
+    ///    client: &TenantService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tenant_service::GetOperation {
         super::builder::tenant_service::GetOperation::new(self.inner.clone())
     }

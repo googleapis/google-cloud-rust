@@ -126,6 +126,23 @@ impl Tpu {
     }
 
     /// Gets the details of a node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node(&self) -> super::builder::tpu::GetNode {
         super::builder::tpu::GetNode::new(self.inner.clone())
     }
@@ -211,6 +228,23 @@ impl Tpu {
     }
 
     /// Gets details of a queued resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_queued_resource()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_queued_resource(&self) -> super::builder::tpu::GetQueuedResource {
         super::builder::tpu::GetQueuedResource::new(self.inner.clone())
     }
@@ -261,6 +295,22 @@ impl Tpu {
     }
 
     /// Generates the Cloud TPU service identity for the project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_service_identity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_service_identity(&self) -> super::builder::tpu::GenerateServiceIdentity {
         super::builder::tpu::GenerateServiceIdentity::new(self.inner.clone())
     }
@@ -271,6 +321,23 @@ impl Tpu {
     }
 
     /// Gets AcceleratorType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_accelerator_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_accelerator_type(&self) -> super::builder::tpu::GetAcceleratorType {
         super::builder::tpu::GetAcceleratorType::new(self.inner.clone())
     }
@@ -281,11 +348,44 @@ impl Tpu {
     }
 
     /// Gets a runtime version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_runtime_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_runtime_version(&self) -> super::builder::tpu::GetRuntimeVersion {
         super::builder::tpu::GetRuntimeVersion::new(self.inner.clone())
     }
 
     /// Retrieves the guest attributes for the node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_guest_attributes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_guest_attributes(&self) -> super::builder::tpu::GetGuestAttributes {
         super::builder::tpu::GetGuestAttributes::new(self.inner.clone())
     }
@@ -296,6 +396,22 @@ impl Tpu {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::tpu::GetLocation {
         super::builder::tpu::GetLocation::new(self.inner.clone())
     }
@@ -310,6 +426,22 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tpu::GetOperation {
         super::builder::tpu::GetOperation::new(self.inner.clone())
     }
@@ -317,6 +449,21 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::tpu::DeleteOperation {
         super::builder::tpu::DeleteOperation::new(self.inner.clone())
     }
@@ -324,6 +471,21 @@ impl Tpu {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_tpu_v2::client::Tpu;
+    /// async fn sample(
+    ///    client: &Tpu
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::tpu::CancelOperation {
         super::builder::tpu::CancelOperation::new(self.inner.clone())
     }

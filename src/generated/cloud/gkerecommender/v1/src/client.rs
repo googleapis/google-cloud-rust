@@ -126,12 +126,44 @@ impl GkeInferenceQuickstart {
 
     /// Fetches available models. Open-source models follow the Huggingface Hub
     /// `owner/model_name` format.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_models()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_models(&self) -> super::builder::gke_inference_quickstart::FetchModels {
         super::builder::gke_inference_quickstart::FetchModels::new(self.inner.clone())
     }
 
     /// Fetches available model servers. Open-source model servers use simplified,
     /// lowercase names (e.g., `vllm`).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_model_servers()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_model_servers(
         &self,
     ) -> super::builder::gke_inference_quickstart::FetchModelServers {
@@ -145,6 +177,22 @@ impl GkeInferenceQuickstart {
     /// accelerator. For example, `vllm` uses semver on GPUs, but returns nightly
     /// build tags on TPUs. All available versions will be returned when different
     /// schemas are present.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_model_server_versions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_model_server_versions(
         &self,
     ) -> super::builder::gke_inference_quickstart::FetchModelServerVersions {
@@ -172,6 +220,22 @@ impl GkeInferenceQuickstart {
     /// Quickstart
     /// recipes](https://cloud.google.com/kubernetes-engine/docs/how-to/machine-learning/inference/inference-quickstart)
     /// for deployment details.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_optimized_manifest()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_optimized_manifest(
         &self,
     ) -> super::builder::gke_inference_quickstart::GenerateOptimizedManifest {
@@ -181,6 +245,22 @@ impl GkeInferenceQuickstart {
     /// Fetches all of the benchmarking data available for a profile. Benchmarking
     /// data returns all of the performance metrics available for a given model
     /// server setup on a given instance type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
+    /// async fn sample(
+    ///    client: &GkeInferenceQuickstart
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_benchmarking_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_benchmarking_data(
         &self,
     ) -> super::builder::gke_inference_quickstart::FetchBenchmarkingData {

@@ -143,6 +143,23 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the Posture name does not
     /// exist. In case revision_id is not provided then the latest Posture revision
     /// by UpdateTime is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_posture()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture(&self) -> super::builder::security_posture::GetPosture {
         super::builder::security_posture::GetPosture::new(self.inner.clone())
     }
@@ -234,6 +251,23 @@ impl SecurityPosture {
     }
 
     /// Gets details of a single PostureDeployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_posture_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture_deployment(&self) -> super::builder::security_posture::GetPostureDeployment {
         super::builder::security_posture::GetPostureDeployment::new(self.inner.clone())
     }
@@ -301,6 +335,23 @@ impl SecurityPosture {
     /// NOT_FOUND error is returned if the revision_id or the PostureTemplate name
     /// does not exist. In case revision_id is not provided then the
     /// PostureTemplate with latest revision_id is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_posture_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_posture_template(&self) -> super::builder::security_posture::GetPostureTemplate {
         super::builder::security_posture::GetPostureTemplate::new(self.inner.clone())
     }
@@ -311,6 +362,22 @@ impl SecurityPosture {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::security_posture::GetLocation {
         super::builder::security_posture::GetLocation::new(self.inner.clone())
     }
@@ -325,6 +392,22 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::security_posture::GetOperation {
         super::builder::security_posture::GetOperation::new(self.inner.clone())
     }
@@ -332,6 +415,21 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::security_posture::DeleteOperation {
         super::builder::security_posture::DeleteOperation::new(self.inner.clone())
     }
@@ -339,6 +437,21 @@ impl SecurityPosture {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securityposture_v1::client::SecurityPosture;
+    /// async fn sample(
+    ///    client: &SecurityPosture
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::security_posture::CancelOperation {
         super::builder::security_posture::CancelOperation::new(self.inner.clone())
     }

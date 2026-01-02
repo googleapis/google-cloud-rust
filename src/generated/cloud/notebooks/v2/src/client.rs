@@ -127,6 +127,23 @@ impl NotebookService {
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::notebook_service::GetInstance {
         super::builder::notebook_service::GetInstance::new(self.inner.clone())
     }
@@ -222,6 +239,22 @@ impl NotebookService {
     }
 
     /// Checks whether a notebook instance is upgradable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_instance_upgradability()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_instance_upgradability(
         &self,
     ) -> super::builder::notebook_service::CheckInstanceUpgradability {
@@ -279,6 +312,22 @@ impl NotebookService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::notebook_service::GetLocation {
         super::builder::notebook_service::GetLocation::new(self.inner.clone())
     }
@@ -288,12 +337,44 @@ impl NotebookService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::notebook_service::SetIamPolicy {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::notebook_service::GetIamPolicy {
         super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -305,6 +386,22 @@ impl NotebookService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::notebook_service::TestIamPermissions {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -319,6 +416,22 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::notebook_service::GetOperation {
         super::builder::notebook_service::GetOperation::new(self.inner.clone())
     }
@@ -326,6 +439,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::notebook_service::DeleteOperation {
         super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
     }
@@ -333,6 +461,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_notebooks_v2::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::notebook_service::CancelOperation {
         super::builder::notebook_service::CancelOperation::new(self.inner.clone())
     }

@@ -120,6 +120,22 @@ impl SecurityCenter {
 
     /// Creates a ResourceValueConfig for an organization. Maps user's tags to
     /// difference resource values for use by the attack path simulation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_create_resource_value_configs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_resource_value_configs(
         &self,
     ) -> super::builder::security_center::BatchCreateResourceValueConfigs {
@@ -145,22 +161,86 @@ impl SecurityCenter {
     }
 
     /// Creates a BigQuery export.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_big_query_export()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_big_query_export(&self) -> super::builder::security_center::CreateBigQueryExport {
         super::builder::security_center::CreateBigQueryExport::new(self.inner.clone())
     }
 
     /// Creates a finding in a location. The corresponding source must exist for
     /// finding creation to succeed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_finding()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_finding(&self) -> super::builder::security_center::CreateFinding {
         super::builder::security_center::CreateFinding::new(self.inner.clone())
     }
 
     /// Creates a mute config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_mute_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_mute_config(&self) -> super::builder::security_center::CreateMuteConfig {
         super::builder::security_center::CreateMuteConfig::new(self.inner.clone())
     }
 
     /// Creates a notification config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_notification_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_notification_config(
         &self,
     ) -> super::builder::security_center::CreateNotificationConfig {
@@ -168,22 +248,86 @@ impl SecurityCenter {
     }
 
     /// Creates a source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_source()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_source(&self) -> super::builder::security_center::CreateSource {
         super::builder::security_center::CreateSource::new(self.inner.clone())
     }
 
     /// Deletes an existing BigQuery export.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_big_query_export()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_big_query_export(&self) -> super::builder::security_center::DeleteBigQueryExport {
         super::builder::security_center::DeleteBigQueryExport::new(self.inner.clone())
     }
 
     /// Deletes an existing mute config. If no location is specified, default is
     /// global.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_mute_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_mute_config(&self) -> super::builder::security_center::DeleteMuteConfig {
         super::builder::security_center::DeleteMuteConfig::new(self.inner.clone())
     }
 
     /// Deletes a notification config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_notification_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notification_config(
         &self,
     ) -> super::builder::security_center::DeleteNotificationConfig {
@@ -191,6 +335,22 @@ impl SecurityCenter {
     }
 
     /// Deletes a ResourceValueConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_resource_value_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_resource_value_config(
         &self,
     ) -> super::builder::security_center::DeleteResourceValueConfig {
@@ -198,33 +358,134 @@ impl SecurityCenter {
     }
 
     /// Gets a BigQuery export.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_big_query_export()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_big_query_export(&self) -> super::builder::security_center::GetBigQueryExport {
         super::builder::security_center::GetBigQueryExport::new(self.inner.clone())
     }
 
     /// Get the simulation by name or the latest simulation for the given
     /// organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_simulation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_simulation(&self) -> super::builder::security_center::GetSimulation {
         super::builder::security_center::GetSimulation::new(self.inner.clone())
     }
 
     /// Get the valued resource by name
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_valued_resource()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_valued_resource(&self) -> super::builder::security_center::GetValuedResource {
         super::builder::security_center::GetValuedResource::new(self.inner.clone())
     }
 
     /// Gets the access control policy on the specified Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::security_center::GetIamPolicy {
         super::builder::security_center::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets a mute config. If no location is specified, default is
     /// global.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mute_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mute_config(&self) -> super::builder::security_center::GetMuteConfig {
         super::builder::security_center::GetMuteConfig::new(self.inner.clone())
     }
 
     /// Gets a notification config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notification_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_config(
         &self,
     ) -> super::builder::security_center::GetNotificationConfig {
@@ -232,6 +493,23 @@ impl SecurityCenter {
     }
 
     /// Gets a ResourceValueConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_value_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_value_config(
         &self,
     ) -> super::builder::security_center::GetResourceValueConfig {
@@ -239,6 +517,23 @@ impl SecurityCenter {
     }
 
     /// Gets a source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_source(&self) -> super::builder::security_center::GetSource {
         super::builder::security_center::GetSource::new(self.inner.clone())
     }
@@ -322,33 +617,129 @@ impl SecurityCenter {
 
     /// Updates the state of a finding. If no location is specified, finding is
     /// assumed to be in global
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_finding_state()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_finding_state(&self) -> super::builder::security_center::SetFindingState {
         super::builder::security_center::SetFindingState::new(self.inner.clone())
     }
 
     /// Sets the access control policy on the specified Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::security_center::SetIamPolicy {
         super::builder::security_center::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Updates the mute state of a finding. If no location is specified, finding
     /// is assumed to be in global
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_mute()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_mute(&self) -> super::builder::security_center::SetMute {
         super::builder::security_center::SetMute::new(self.inner.clone())
     }
 
     /// Returns the permissions that a caller has on the specified source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::security_center::TestIamPermissions {
         super::builder::security_center::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a BigQuery export.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_big_query_export()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_big_query_export(&self) -> super::builder::security_center::UpdateBigQueryExport {
         super::builder::security_center::UpdateBigQueryExport::new(self.inner.clone())
     }
 
     /// Updates external system. This is for a given finding. If no location is
     /// specified, finding is assumed to be in global
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_external_system()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_external_system(&self) -> super::builder::security_center::UpdateExternalSystem {
         super::builder::security_center::UpdateExternalSystem::new(self.inner.clone())
     }
@@ -356,18 +747,66 @@ impl SecurityCenter {
     /// Creates or updates a finding. If no location is specified, finding is
     /// assumed to be in global. The corresponding source must exist for a finding
     /// creation to succeed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_finding()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_finding(&self) -> super::builder::security_center::UpdateFinding {
         super::builder::security_center::UpdateFinding::new(self.inner.clone())
     }
 
     /// Updates a mute config. If no location is specified, default is
     /// global.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_mute_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_mute_config(&self) -> super::builder::security_center::UpdateMuteConfig {
         super::builder::security_center::UpdateMuteConfig::new(self.inner.clone())
     }
 
     /// Updates a notification config. The following update
     /// fields are allowed: description, pubsub_topic, streaming_config.filter
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_notification_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_notification_config(
         &self,
     ) -> super::builder::security_center::UpdateNotificationConfig {
@@ -375,6 +814,22 @@ impl SecurityCenter {
     }
 
     /// Updates an existing ResourceValueConfigs with new rules.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_resource_value_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_resource_value_config(
         &self,
     ) -> super::builder::security_center::UpdateResourceValueConfig {
@@ -384,11 +839,43 @@ impl SecurityCenter {
     /// Updates security marks. For Finding Security marks, if no location is
     /// specified, finding is assumed to be in global. Assets Security Marks can
     /// only be accessed through global endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_security_marks()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_security_marks(&self) -> super::builder::security_center::UpdateSecurityMarks {
         super::builder::security_center::UpdateSecurityMarks::new(self.inner.clone())
     }
 
     /// Updates a source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_source()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_source(&self) -> super::builder::security_center::UpdateSource {
         super::builder::security_center::UpdateSource::new(self.inner.clone())
     }
@@ -403,6 +890,22 @@ impl SecurityCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::security_center::GetOperation {
         super::builder::security_center::GetOperation::new(self.inner.clone())
     }
@@ -410,6 +913,21 @@ impl SecurityCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::security_center::DeleteOperation {
         super::builder::security_center::DeleteOperation::new(self.inner.clone())
     }
@@ -417,6 +935,21 @@ impl SecurityCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
+    /// async fn sample(
+    ///    client: &SecurityCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::security_center::CancelOperation {
         super::builder::security_center::CancelOperation::new(self.inner.clone())
     }

@@ -126,6 +126,23 @@ impl DepService {
     }
 
     /// Gets details of the specified `LbTrafficExtension` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_traffic_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lb_traffic_extension(&self) -> super::builder::dep_service::GetLbTrafficExtension {
         super::builder::dep_service::GetLbTrafficExtension::new(self.inner.clone())
     }
@@ -188,6 +205,23 @@ impl DepService {
     }
 
     /// Gets details of the specified `LbRouteExtension` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_route_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lb_route_extension(&self) -> super::builder::dep_service::GetLbRouteExtension {
         super::builder::dep_service::GetLbRouteExtension::new(self.inner.clone())
     }
@@ -243,6 +277,23 @@ impl DepService {
     }
 
     /// Gets details of the specified `LbEdgeExtension` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lb_edge_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lb_edge_extension(&self) -> super::builder::dep_service::GetLbEdgeExtension {
         super::builder::dep_service::GetLbEdgeExtension::new(self.inner.clone())
     }
@@ -298,6 +349,23 @@ impl DepService {
     }
 
     /// Gets details of the specified `AuthzExtension` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_authz_extension()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authz_extension(&self) -> super::builder::dep_service::GetAuthzExtension {
         super::builder::dep_service::GetAuthzExtension::new(self.inner.clone())
     }
@@ -355,6 +423,22 @@ impl DepService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dep_service::GetLocation {
         super::builder::dep_service::GetLocation::new(self.inner.clone())
     }
@@ -364,12 +448,44 @@ impl DepService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dep_service::SetIamPolicy {
         super::builder::dep_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dep_service::GetIamPolicy {
         super::builder::dep_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -381,6 +497,22 @@ impl DepService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::dep_service::TestIamPermissions {
         super::builder::dep_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -395,6 +527,22 @@ impl DepService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dep_service::GetOperation {
         super::builder::dep_service::GetOperation::new(self.inner.clone())
     }
@@ -402,6 +550,21 @@ impl DepService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::dep_service::DeleteOperation {
         super::builder::dep_service::DeleteOperation::new(self.inner.clone())
     }
@@ -409,6 +572,21 @@ impl DepService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::DepService;
+    /// async fn sample(
+    ///    client: &DepService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::dep_service::CancelOperation {
         super::builder::dep_service::CancelOperation::new(self.inner.clone())
     }
@@ -525,6 +703,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single EndpointPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint_policy(&self) -> super::builder::network_services::GetEndpointPolicy {
         super::builder::network_services::GetEndpointPolicy::new(self.inner.clone())
     }
@@ -583,6 +778,23 @@ impl NetworkServices {
     }
 
     /// Gets details of the specified `WasmPluginVersion` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_wasm_plugin_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_wasm_plugin_version(
         &self,
     ) -> super::builder::network_services::GetWasmPluginVersion {
@@ -631,6 +843,23 @@ impl NetworkServices {
     }
 
     /// Gets details of the specified `WasmPlugin` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_wasm_plugin()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_wasm_plugin(&self) -> super::builder::network_services::GetWasmPlugin {
         super::builder::network_services::GetWasmPlugin::new(self.inner.clone())
     }
@@ -687,6 +916,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single Gateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gateway()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_gateway(&self) -> super::builder::network_services::GetGateway {
         super::builder::network_services::GetGateway::new(self.inner.clone())
     }
@@ -742,6 +988,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single GrpcRoute.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_grpc_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_grpc_route(&self) -> super::builder::network_services::GetGrpcRoute {
         super::builder::network_services::GetGrpcRoute::new(self.inner.clone())
     }
@@ -797,6 +1060,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single HttpRoute.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_http_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_http_route(&self) -> super::builder::network_services::GetHttpRoute {
         super::builder::network_services::GetHttpRoute::new(self.inner.clone())
     }
@@ -852,6 +1132,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single TcpRoute.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tcp_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tcp_route(&self) -> super::builder::network_services::GetTcpRoute {
         super::builder::network_services::GetTcpRoute::new(self.inner.clone())
     }
@@ -907,6 +1204,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single TlsRoute.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tls_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tls_route(&self) -> super::builder::network_services::GetTlsRoute {
         super::builder::network_services::GetTlsRoute::new(self.inner.clone())
     }
@@ -962,6 +1276,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single ServiceBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_binding(&self) -> super::builder::network_services::GetServiceBinding {
         super::builder::network_services::GetServiceBinding::new(self.inner.clone())
     }
@@ -1017,6 +1348,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single Mesh.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mesh()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mesh(&self) -> super::builder::network_services::GetMesh {
         super::builder::network_services::GetMesh::new(self.inner.clone())
     }
@@ -1074,6 +1422,23 @@ impl NetworkServices {
     }
 
     /// Gets details of a single ServiceLbPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_lb_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_lb_policy(&self) -> super::builder::network_services::GetServiceLbPolicy {
         super::builder::network_services::GetServiceLbPolicy::new(self.inner.clone())
     }
@@ -1130,11 +1495,45 @@ impl NetworkServices {
     }
 
     /// Get a single RouteView of a Gateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gateway_route_view()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_gateway_route_view(&self) -> super::builder::network_services::GetGatewayRouteView {
         super::builder::network_services::GetGatewayRouteView::new(self.inner.clone())
     }
 
     /// Get a single RouteView of a Mesh.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mesh_route_view()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mesh_route_view(&self) -> super::builder::network_services::GetMeshRouteView {
         super::builder::network_services::GetMeshRouteView::new(self.inner.clone())
     }
@@ -1157,6 +1556,22 @@ impl NetworkServices {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::network_services::GetLocation {
         super::builder::network_services::GetLocation::new(self.inner.clone())
     }
@@ -1166,12 +1581,44 @@ impl NetworkServices {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::network_services::SetIamPolicy {
         super::builder::network_services::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::network_services::GetIamPolicy {
         super::builder::network_services::GetIamPolicy::new(self.inner.clone())
     }
@@ -1183,6 +1630,22 @@ impl NetworkServices {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::network_services::TestIamPermissions {
         super::builder::network_services::TestIamPermissions::new(self.inner.clone())
     }
@@ -1197,6 +1660,22 @@ impl NetworkServices {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::network_services::GetOperation {
         super::builder::network_services::GetOperation::new(self.inner.clone())
     }
@@ -1204,6 +1683,21 @@ impl NetworkServices {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::network_services::DeleteOperation {
         super::builder::network_services::DeleteOperation::new(self.inner.clone())
     }
@@ -1211,6 +1705,21 @@ impl NetworkServices {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkservices_v1::client::NetworkServices;
+    /// async fn sample(
+    ///    client: &NetworkServices
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::network_services::CancelOperation {
         super::builder::network_services::CancelOperation::new(self.inner.clone())
     }

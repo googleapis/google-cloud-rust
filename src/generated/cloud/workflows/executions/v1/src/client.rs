@@ -128,16 +128,65 @@ impl Executions {
     }
 
     /// Creates a new execution using the latest revision of the given workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_execution(&self) -> super::builder::executions::CreateExecution {
         super::builder::executions::CreateExecution::new(self.inner.clone())
     }
 
     /// Returns an execution of the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_execution()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_execution(&self) -> super::builder::executions::GetExecution {
         super::builder::executions::GetExecution::new(self.inner.clone())
     }
 
     /// Cancels an execution of the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::client::Executions;
+    /// async fn sample(
+    ///    client: &Executions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_execution(&self) -> super::builder::executions::CancelExecution {
         super::builder::executions::CancelExecution::new(self.inner.clone())
     }

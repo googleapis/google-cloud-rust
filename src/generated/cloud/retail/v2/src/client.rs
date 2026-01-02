@@ -152,6 +152,22 @@ impl AnalyticsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::AnalyticsService;
+    /// async fn sample(
+    ///    client: &AnalyticsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::analytics_service::GetOperation {
         super::builder::analytics_service::GetOperation::new(self.inner.clone())
     }
@@ -270,6 +286,22 @@ impl CatalogService {
     /// Updates the [Catalog][google.cloud.retail.v2.Catalog]s.
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_catalog()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_catalog(&self) -> super::builder::catalog_service::UpdateCatalog {
         super::builder::catalog_service::UpdateCatalog::new(self.inner.clone())
     }
@@ -313,6 +345,21 @@ impl CatalogService {
     /// [google.cloud.retail.v2.ProductService.ListProducts]: crate::client::ProductService::list_products
     /// [google.cloud.retail.v2.SearchRequest.branch]: crate::model::SearchRequest::branch
     /// [google.cloud.retail.v2.SearchService.Search]: crate::client::SearchService::search
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .set_default_branch()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_default_branch(&self) -> super::builder::catalog_service::SetDefaultBranch {
         super::builder::catalog_service::SetDefaultBranch::new(self.inner.clone())
     }
@@ -322,6 +369,22 @@ impl CatalogService {
     /// method under a specified parent catalog.
     ///
     /// [google.cloud.retail.v2.CatalogService.SetDefaultBranch]: crate::client::CatalogService::set_default_branch
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_default_branch()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_default_branch(&self) -> super::builder::catalog_service::GetDefaultBranch {
         super::builder::catalog_service::GetDefaultBranch::new(self.inner.clone())
     }
@@ -329,6 +392,23 @@ impl CatalogService {
     /// Gets a [CompletionConfig][google.cloud.retail.v2.CompletionConfig].
     ///
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_completion_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_completion_config(&self) -> super::builder::catalog_service::GetCompletionConfig {
         super::builder::catalog_service::GetCompletionConfig::new(self.inner.clone())
     }
@@ -336,6 +416,22 @@ impl CatalogService {
     /// Updates the [CompletionConfig][google.cloud.retail.v2.CompletionConfig]s.
     ///
     /// [google.cloud.retail.v2.CompletionConfig]: crate::model::CompletionConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_completion_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_completion_config(
         &self,
     ) -> super::builder::catalog_service::UpdateCompletionConfig {
@@ -345,6 +441,23 @@ impl CatalogService {
     /// Gets an [AttributesConfig][google.cloud.retail.v2.AttributesConfig].
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_attributes_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attributes_config(&self) -> super::builder::catalog_service::GetAttributesConfig {
         super::builder::catalog_service::GetAttributesConfig::new(self.inner.clone())
     }
@@ -359,6 +472,22 @@ impl CatalogService {
     /// catalog attribute fields, e.g., searchable and dynamic facetable options.
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_attributes_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_attributes_config(
         &self,
     ) -> super::builder::catalog_service::UpdateAttributesConfig {
@@ -374,6 +503,22 @@ impl CatalogService {
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_catalog_attribute()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_catalog_attribute(&self) -> super::builder::catalog_service::AddCatalogAttribute {
         super::builder::catalog_service::AddCatalogAttribute::new(self.inner.clone())
     }
@@ -387,6 +532,22 @@ impl CatalogService {
     ///
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_catalog_attribute()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_catalog_attribute(
         &self,
     ) -> super::builder::catalog_service::RemoveCatalogAttribute {
@@ -405,6 +566,22 @@ impl CatalogService {
     /// [google.cloud.retail.v2.AttributesConfig]: crate::model::AttributesConfig
     /// [google.cloud.retail.v2.CatalogAttribute]: crate::model::CatalogAttribute
     /// [google.cloud.retail.v2.CatalogAttribute.key]: crate::model::CatalogAttribute::key
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .replace_catalog_attribute()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn replace_catalog_attribute(
         &self,
     ) -> super::builder::catalog_service::ReplaceCatalogAttribute {
@@ -421,6 +598,22 @@ impl CatalogService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
         super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
@@ -538,6 +731,22 @@ impl CompletionService {
     ///
     /// This feature is only available for users who have Retail Search enabled.
     /// Enable Retail Search on Cloud Console before using this feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CompletionService;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .complete_query()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
     }
@@ -577,6 +786,22 @@ impl CompletionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::CompletionService;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::completion_service::GetOperation {
         super::builder::completion_service::GetOperation::new(self.inner.clone())
     }
@@ -690,6 +915,22 @@ impl ControlService {
     /// an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_control(&self) -> super::builder::control_service::CreateControl {
         super::builder::control_service::CreateControl::new(self.inner.clone())
     }
@@ -700,6 +941,21 @@ impl ControlService {
     /// a NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_control(&self) -> super::builder::control_service::DeleteControl {
         super::builder::control_service::DeleteControl::new(self.inner.clone())
     }
@@ -712,11 +968,44 @@ impl ControlService {
     /// NOT_FOUND error is returned.
     ///
     /// [google.cloud.retail.v2.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_control(&self) -> super::builder::control_service::UpdateControl {
         super::builder::control_service::UpdateControl::new(self.inner.clone())
     }
 
     /// Gets a Control.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_control()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_control(&self) -> super::builder::control_service::GetControl {
         super::builder::control_service::GetControl::new(self.inner.clone())
     }
@@ -739,6 +1028,22 @@ impl ControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::control_service::GetOperation {
         super::builder::control_service::GetOperation::new(self.inner.clone())
     }
@@ -864,6 +1169,22 @@ impl ConversationalSearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation {
         super::builder::conversational_search_service::GetOperation::new(self.inner.clone())
     }
@@ -977,6 +1298,22 @@ impl GenerativeQuestionService {
 
     /// Manages overal generative question feature state -- enables toggling
     /// feature on and off.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_generative_questions_feature_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_generative_questions_feature_config(
         &self,
     ) -> super::builder::generative_question_service::UpdateGenerativeQuestionsFeatureConfig {
@@ -987,6 +1324,22 @@ impl GenerativeQuestionService {
 
     /// Manages overal generative question feature state -- enables toggling
     /// feature on and off.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_generative_questions_feature_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_generative_questions_feature_config(
         &self,
     ) -> super::builder::generative_question_service::GetGenerativeQuestionsFeatureConfig {
@@ -996,6 +1349,22 @@ impl GenerativeQuestionService {
     }
 
     /// Returns all questions for a given catalog.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_generative_question_configs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_generative_question_configs(
         &self,
     ) -> super::builder::generative_question_service::ListGenerativeQuestionConfigs {
@@ -1005,6 +1374,22 @@ impl GenerativeQuestionService {
     }
 
     /// Allows management of individual questions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_generative_question_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_generative_question_config(
         &self,
     ) -> super::builder::generative_question_service::UpdateGenerativeQuestionConfig {
@@ -1014,6 +1399,22 @@ impl GenerativeQuestionService {
     }
 
     /// Allows management of multiple questions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_update_generative_question_configs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_generative_question_configs(
         &self,
     ) -> super::builder::generative_question_service::BatchUpdateGenerativeQuestionConfigs {
@@ -1032,6 +1433,22 @@ impl GenerativeQuestionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
+    /// async fn sample(
+    ///    client: &GenerativeQuestionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::generative_question_service::GetOperation {
         super::builder::generative_question_service::GetOperation::new(self.inner.clone())
     }
@@ -1166,21 +1583,85 @@ impl ModelService {
     }
 
     /// Gets a model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
     }
 
     /// Pauses the training of an existing model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .pause_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_model(&self) -> super::builder::model_service::PauseModel {
         super::builder::model_service::PauseModel::new(self.inner.clone())
     }
 
     /// Resumes the training of an existing model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .resume_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_model(&self) -> super::builder::model_service::ResumeModel {
         super::builder::model_service::ResumeModel::new(self.inner.clone())
     }
 
     /// Deletes an existing model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_model(&self) -> super::builder::model_service::DeleteModel {
         super::builder::model_service::DeleteModel::new(self.inner.clone())
     }
@@ -1194,6 +1675,22 @@ impl ModelService {
     /// currently can be updated are: `filtering_option` and
     /// `periodic_tuning_state`.
     /// If other values are provided, this API method ignores them.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_model(&self) -> super::builder::model_service::UpdateModel {
         super::builder::model_service::UpdateModel::new(self.inner.clone())
     }
@@ -1223,6 +1720,22 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
         super::builder::model_service::GetOperation::new(self.inner.clone())
     }
@@ -1334,6 +1847,22 @@ impl PredictionService {
     }
 
     /// Makes a recommendation prediction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .predict()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn predict(&self) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
     }
@@ -1348,6 +1877,22 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
     }
@@ -1461,6 +2006,22 @@ impl ProductService {
     /// Creates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// async fn sample(
+    ///    client: &ProductService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_product(&self) -> super::builder::product_service::CreateProduct {
         super::builder::product_service::CreateProduct::new(self.inner.clone())
     }
@@ -1468,6 +2029,23 @@ impl ProductService {
     /// Gets a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// async fn sample(
+    ///    client: &ProductService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_product()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_product(&self) -> super::builder::product_service::GetProduct {
         super::builder::product_service::GetProduct::new(self.inner.clone())
     }
@@ -1482,6 +2060,22 @@ impl ProductService {
     /// Updates a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// async fn sample(
+    ///    client: &ProductService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_product(&self) -> super::builder::product_service::UpdateProduct {
         super::builder::product_service::UpdateProduct::new(self.inner.clone())
     }
@@ -1489,6 +2083,21 @@ impl ProductService {
     /// Deletes a [Product][google.cloud.retail.v2.Product].
     ///
     /// [google.cloud.retail.v2.Product]: crate::model::Product
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// async fn sample(
+    ///    client: &ProductService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_product(&self) -> super::builder::product_service::DeleteProduct {
         super::builder::product_service::DeleteProduct::new(self.inner.clone())
     }
@@ -1846,6 +2455,22 @@ impl ProductService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ProductService;
+    /// async fn sample(
+    ///    client: &ProductService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::product_service::GetOperation {
         super::builder::product_service::GetOperation::new(self.inner.clone())
     }
@@ -1974,6 +2599,22 @@ impl SearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::SearchService;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
         super::builder::search_service::GetOperation::new(self.inner.clone())
     }
@@ -2092,6 +2733,22 @@ impl ServingConfigService {
     ///
     /// [google.cloud.retail.v2.Catalog]: crate::model::Catalog
     /// [google.cloud.retail.v2.ServingConfig]: crate::model::ServingConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_serving_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_serving_config(
         &self,
     ) -> super::builder::serving_config_service::CreateServingConfig {
@@ -2101,6 +2758,21 @@ impl ServingConfigService {
     /// Deletes a ServingConfig.
     ///
     /// Returns a NotFound error if the ServingConfig does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_serving_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_serving_config(
         &self,
     ) -> super::builder::serving_config_service::DeleteServingConfig {
@@ -2108,6 +2780,22 @@ impl ServingConfigService {
     }
 
     /// Updates a ServingConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_serving_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_serving_config(
         &self,
     ) -> super::builder::serving_config_service::UpdateServingConfig {
@@ -2117,6 +2805,23 @@ impl ServingConfigService {
     /// Gets a ServingConfig.
     ///
     /// Returns a NotFound error if the ServingConfig does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_serving_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_serving_config(&self) -> super::builder::serving_config_service::GetServingConfig {
         super::builder::serving_config_service::GetServingConfig::new(self.inner.clone())
     }
@@ -2135,6 +2840,22 @@ impl ServingConfigService {
     /// Returns a ALREADY_EXISTS error if the control has already been applied.
     /// Returns a FAILED_PRECONDITION error if the addition could exceed maximum
     /// number of control allowed for that type of control.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_control(&self) -> super::builder::serving_config_service::AddControl {
         super::builder::serving_config_service::AddControl::new(self.inner.clone())
     }
@@ -2143,6 +2864,22 @@ impl ServingConfigService {
     /// The control is removed from the ServingConfig.
     /// Returns a NOT_FOUND error if the Control is not enabled for the
     /// ServingConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_control(&self) -> super::builder::serving_config_service::RemoveControl {
         super::builder::serving_config_service::RemoveControl::new(self.inner.clone())
     }
@@ -2157,6 +2894,22 @@ impl ServingConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation {
         super::builder::serving_config_service::GetOperation::new(self.inner.clone())
     }
@@ -2268,6 +3021,22 @@ impl UserEventService {
     }
 
     /// Writes a single user event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_user_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_user_event(&self) -> super::builder::user_event_service::WriteUserEvent {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
     }
@@ -2279,6 +3048,22 @@ impl UserEventService {
     ///
     /// This method is used only by the Retail API JavaScript pixel and Google Tag
     /// Manager. Users should not call this method directly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .collect_user_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn collect_user_event(&self) -> super::builder::user_event_service::CollectUserEvent {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
     }
@@ -2354,6 +3139,22 @@ impl UserEventService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_retail_v2::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation {
         super::builder::user_event_service::GetOperation::new(self.inner.clone())
     }

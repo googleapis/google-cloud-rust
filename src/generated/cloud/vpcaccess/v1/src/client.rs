@@ -140,6 +140,23 @@ impl VpcAccessService {
 
     /// Gets a Serverless VPC Access connector. Returns NOT_FOUND if the resource
     /// does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// async fn sample(
+    ///    client: &VpcAccessService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connector(&self) -> super::builder::vpc_access_service::GetConnector {
         super::builder::vpc_access_service::GetConnector::new(self.inner.clone())
     }
@@ -180,6 +197,22 @@ impl VpcAccessService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::client::VpcAccessService;
+    /// async fn sample(
+    ///    client: &VpcAccessService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vpc_access_service::GetOperation {
         super::builder::vpc_access_service::GetOperation::new(self.inner.clone())
     }

@@ -135,6 +135,23 @@ impl AlertPolicyService {
     }
 
     /// Gets a single alerting policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// async fn sample(
+    ///    client: &AlertPolicyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_alert_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_alert_policy(&self) -> super::builder::alert_policy_service::GetAlertPolicy {
         super::builder::alert_policy_service::GetAlertPolicy::new(self.inner.clone())
     }
@@ -144,6 +161,22 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// async fn sample(
+    ///    client: &AlertPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_alert_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_alert_policy(&self) -> super::builder::alert_policy_service::CreateAlertPolicy {
         super::builder::alert_policy_service::CreateAlertPolicy::new(self.inner.clone())
     }
@@ -153,6 +186,21 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// async fn sample(
+    ///    client: &AlertPolicyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_alert_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_alert_policy(&self) -> super::builder::alert_policy_service::DeleteAlertPolicy {
         super::builder::alert_policy_service::DeleteAlertPolicy::new(self.inner.clone())
     }
@@ -165,6 +213,22 @@ impl AlertPolicyService {
     /// Design your application to single-thread API calls that modify the state of
     /// alerting policies in a single project. This includes calls to
     /// CreateAlertPolicy, DeleteAlertPolicy and UpdateAlertPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
+    /// async fn sample(
+    ///    client: &AlertPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_alert_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_alert_policy(&self) -> super::builder::alert_policy_service::UpdateAlertPolicy {
         super::builder::alert_policy_service::UpdateAlertPolicy::new(self.inner.clone())
     }
@@ -289,22 +353,86 @@ impl GroupService {
     }
 
     /// Gets a single group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// async fn sample(
+    ///    client: &GroupService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::group_service::GetGroup {
         super::builder::group_service::GetGroup::new(self.inner.clone())
     }
 
     /// Creates a new group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// async fn sample(
+    ///    client: &GroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_group(&self) -> super::builder::group_service::CreateGroup {
         super::builder::group_service::CreateGroup::new(self.inner.clone())
     }
 
     /// Updates an existing group.
     /// You can change any group attributes except `name`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// async fn sample(
+    ///    client: &GroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_group(&self) -> super::builder::group_service::UpdateGroup {
         super::builder::group_service::UpdateGroup::new(self.inner.clone())
     }
 
     /// Deletes an existing group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::GroupService;
+    /// async fn sample(
+    ///    client: &GroupService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_group(&self) -> super::builder::group_service::DeleteGroup {
         super::builder::group_service::DeleteGroup::new(self.inner.clone())
     }
@@ -426,6 +554,22 @@ impl MetricService {
     }
 
     /// Gets a single monitored resource descriptor.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_monitored_resource_descriptor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_monitored_resource_descriptor(
         &self,
     ) -> super::builder::metric_service::GetMonitoredResourceDescriptor {
@@ -438,6 +582,22 @@ impl MetricService {
     }
 
     /// Gets a single metric descriptor.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metric_descriptor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metric_descriptor(&self) -> super::builder::metric_service::GetMetricDescriptor {
         super::builder::metric_service::GetMetricDescriptor::new(self.inner.clone())
     }
@@ -448,6 +608,22 @@ impl MetricService {
     /// [custom metrics](https://cloud.google.com/monitoring/custom-metrics).
     /// The metric descriptor is updated if it already exists,
     /// except that metric labels are never removed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_metric_descriptor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_metric_descriptor(
         &self,
     ) -> super::builder::metric_service::CreateMetricDescriptor {
@@ -457,6 +633,21 @@ impl MetricService {
     /// Deletes a metric descriptor. Only user-created
     /// [custom metrics](https://cloud.google.com/monitoring/custom-metrics) can be
     /// deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_metric_descriptor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_metric_descriptor(
         &self,
     ) -> super::builder::metric_service::DeleteMetricDescriptor {
@@ -475,6 +666,21 @@ impl MetricService {
     /// This method does not support
     /// [resource locations constraint of an organization
     /// policy](https://cloud.google.com/resource-manager/docs/organization-policy/defining-locations#setting_the_organization_policy).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .create_time_series()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_time_series(&self) -> super::builder::metric_service::CreateTimeSeries {
         super::builder::metric_service::CreateTimeSeries::new(self.inner.clone())
     }
@@ -490,6 +696,21 @@ impl MetricService {
     /// instead.
     ///
     /// [google.monitoring.v3.MetricService.CreateTimeSeries]: crate::client::MetricService::create_time_series
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::MetricService;
+    /// async fn sample(
+    ///    client: &MetricService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .create_service_time_series()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_time_series(
         &self,
     ) -> super::builder::metric_service::CreateServiceTimeSeries {
@@ -616,6 +837,23 @@ impl NotificationChannelService {
 
     /// Gets a single channel descriptor. The descriptor indicates which fields
     /// are expected / permitted for a notification channel of the given type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notification_channel_descriptor()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel_descriptor(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannelDescriptor {
@@ -640,6 +878,23 @@ impl NotificationChannelService {
     /// response may truncate or omit passwords, API keys, or other private key
     /// matter and thus the response may not be 100% identical to the information
     /// that was supplied in the call to the create method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notification_channel()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannel {
@@ -655,6 +910,22 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_notification_channel()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::CreateNotificationChannel {
@@ -670,6 +941,22 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_notification_channel()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::UpdateNotificationChannel {
@@ -684,6 +971,21 @@ impl NotificationChannelService {
     /// notification channels in a single project. This includes calls to
     /// CreateNotificationChannel, DeleteNotificationChannel and
     /// UpdateNotificationChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_notification_channel()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::DeleteNotificationChannel {
@@ -694,6 +996,21 @@ impl NotificationChannelService {
 
     /// Causes a verification code to be delivered to the channel. The code
     /// can then be supplied in `VerifyNotificationChannel` to verify the channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .send_notification_channel_verification_code()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn send_notification_channel_verification_code(
         &self,
     ) -> super::builder::notification_channel_service::SendNotificationChannelVerificationCode {
@@ -723,6 +1040,22 @@ impl NotificationChannelService {
     /// have a shorter expiration (e.g. codes such as "G-123456") whereas
     /// GetVerificationCode() will typically return a much longer, websafe base
     /// 64 encoded string that has a longer expiration time.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notification_channel_verification_code()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification_channel_verification_code(
         &self,
     ) -> super::builder::notification_channel_service::GetNotificationChannelVerificationCode {
@@ -734,6 +1067,22 @@ impl NotificationChannelService {
     /// Verifies a `NotificationChannel` by proving receipt of the code
     /// delivered to the channel as a result of calling
     /// `SendNotificationChannelVerificationCode`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
+    /// async fn sample(
+    ///    client: &NotificationChannelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_notification_channel()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_notification_channel(
         &self,
     ) -> super::builder::notification_channel_service::VerifyNotificationChannel {
@@ -967,11 +1316,44 @@ impl ServiceMonitoringService {
     }
 
     /// Create a `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service(&self) -> super::builder::service_monitoring_service::CreateService {
         super::builder::service_monitoring_service::CreateService::new(self.inner.clone())
     }
 
     /// Get the named `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::service_monitoring_service::GetService {
         super::builder::service_monitoring_service::GetService::new(self.inner.clone())
     }
@@ -982,16 +1364,63 @@ impl ServiceMonitoringService {
     }
 
     /// Update this `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service(&self) -> super::builder::service_monitoring_service::UpdateService {
         super::builder::service_monitoring_service::UpdateService::new(self.inner.clone())
     }
 
     /// Soft delete this `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service(&self) -> super::builder::service_monitoring_service::DeleteService {
         super::builder::service_monitoring_service::DeleteService::new(self.inner.clone())
     }
 
     /// Create a `ServiceLevelObjective` for the given `Service`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service_level_objective()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::CreateServiceLevelObjective {
@@ -1001,6 +1430,23 @@ impl ServiceMonitoringService {
     }
 
     /// Get a `ServiceLevelObjective` by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_level_objective()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::GetServiceLevelObjective {
@@ -1019,6 +1465,22 @@ impl ServiceMonitoringService {
     }
 
     /// Update the given `ServiceLevelObjective`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_service_level_objective()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::UpdateServiceLevelObjective {
@@ -1028,6 +1490,21 @@ impl ServiceMonitoringService {
     }
 
     /// Delete the given `ServiceLevelObjective`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
+    /// async fn sample(
+    ///    client: &ServiceMonitoringService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_service_level_objective()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_service_level_objective(
         &self,
     ) -> super::builder::service_monitoring_service::DeleteServiceLevelObjective {
@@ -1144,6 +1621,22 @@ impl SnoozeService {
     /// Creates a `Snooze` that will prevent alerts, which match the provided
     /// criteria, from being opened. The `Snooze` applies for a specific time
     /// interval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// async fn sample(
+    ///    client: &SnoozeService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_snooze()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_snooze(&self) -> super::builder::snooze_service::CreateSnooze {
         super::builder::snooze_service::CreateSnooze::new(self.inner.clone())
     }
@@ -1155,12 +1648,45 @@ impl SnoozeService {
     }
 
     /// Retrieves a `Snooze` by `name`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// async fn sample(
+    ///    client: &SnoozeService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_snooze()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snooze(&self) -> super::builder::snooze_service::GetSnooze {
         super::builder::snooze_service::GetSnooze::new(self.inner.clone())
     }
 
     /// Updates a `Snooze`, identified by its `name`, with the parameters in the
     /// given `Snooze` object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::SnoozeService;
+    /// async fn sample(
+    ///    client: &SnoozeService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_snooze()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_snooze(&self) -> super::builder::snooze_service::UpdateSnooze {
         super::builder::snooze_service::UpdateSnooze::new(self.inner.clone())
     }
@@ -1287,6 +1813,23 @@ impl UptimeCheckService {
     }
 
     /// Gets a single Uptime check configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// async fn sample(
+    ///    client: &UptimeCheckService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_uptime_check_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::GetUptimeCheckConfig {
@@ -1294,6 +1837,22 @@ impl UptimeCheckService {
     }
 
     /// Creates a new Uptime check configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// async fn sample(
+    ///    client: &UptimeCheckService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_uptime_check_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::CreateUptimeCheckConfig {
@@ -1304,6 +1863,22 @@ impl UptimeCheckService {
     /// configuration with a new one or replace only certain fields in the current
     /// configuration by specifying the fields to be updated via `updateMask`.
     /// Returns the updated configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// async fn sample(
+    ///    client: &UptimeCheckService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_uptime_check_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::UpdateUptimeCheckConfig {
@@ -1313,6 +1888,21 @@ impl UptimeCheckService {
     /// Deletes an Uptime check configuration. Note that this method will fail
     /// if the Uptime check configuration is referenced by an alert policy or
     /// other dependent configs that would be rendered invalid by the deletion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
+    /// async fn sample(
+    ///    client: &UptimeCheckService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_uptime_check_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_uptime_check_config(
         &self,
     ) -> super::builder::uptime_check_service::DeleteUptimeCheckConfig {

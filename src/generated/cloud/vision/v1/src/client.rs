@@ -121,6 +121,22 @@ impl ImageAnnotator {
     }
 
     /// Run image detection and annotation for a batch of images.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ImageAnnotator;
+    /// async fn sample(
+    ///    client: &ImageAnnotator
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_annotate_images()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_annotate_images(&self) -> super::builder::image_annotator::BatchAnnotateImages {
         super::builder::image_annotator::BatchAnnotateImages::new(self.inner.clone())
     }
@@ -132,6 +148,22 @@ impl ImageAnnotator {
     /// AnnotateFileRequest.pages) frames (gif) or pages (pdf or tiff) from each
     /// file provided and perform detection and annotation for each image
     /// extracted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ImageAnnotator;
+    /// async fn sample(
+    ///    client: &ImageAnnotator
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_annotate_files()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_annotate_files(&self) -> super::builder::image_annotator::BatchAnnotateFiles {
         super::builder::image_annotator::BatchAnnotateFiles::new(self.inner.clone())
     }
@@ -186,6 +218,22 @@ impl ImageAnnotator {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ImageAnnotator;
+    /// async fn sample(
+    ///    client: &ImageAnnotator
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::image_annotator::GetOperation {
         super::builder::image_annotator::GetOperation::new(self.inner.clone())
     }
@@ -319,6 +367,22 @@ impl ProductSearch {
     ///
     /// * Returns INVALID_ARGUMENT if display_name is missing, or is longer than
     ///   4096 characters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_product_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_product_set(&self) -> super::builder::product_search::CreateProductSet {
         super::builder::product_search::CreateProductSet::new(self.inner.clone())
     }
@@ -338,6 +402,23 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the ProductSet does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_product_set()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_product_set(&self) -> super::builder::product_search::GetProductSet {
         super::builder::product_search::GetProductSet::new(self.inner.clone())
     }
@@ -350,6 +431,22 @@ impl ProductSearch {
     /// * Returns NOT_FOUND if the ProductSet does not exist.
     /// * Returns INVALID_ARGUMENT if display_name is present in update_mask but
     ///   missing from the request or longer than 4096 characters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_product_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_product_set(&self) -> super::builder::product_search::UpdateProductSet {
         super::builder::product_search::UpdateProductSet::new(self.inner.clone())
     }
@@ -358,6 +455,21 @@ impl ProductSearch {
     /// ProductSet are not deleted.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_product_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_product_set(&self) -> super::builder::product_search::DeleteProductSet {
         super::builder::product_search::DeleteProductSet::new(self.inner.clone())
     }
@@ -370,6 +482,22 @@ impl ProductSearch {
     ///   characters.
     /// * Returns INVALID_ARGUMENT if description is longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is missing or invalid.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_product(&self) -> super::builder::product_search::CreateProduct {
         super::builder::product_search::CreateProduct::new(self.inner.clone())
     }
@@ -388,6 +516,23 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the Product does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_product()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_product(&self) -> super::builder::product_search::GetProduct {
         super::builder::product_search::GetProduct::new(self.inner.clone())
     }
@@ -407,6 +552,22 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if description is present in update_mask but is
     ///   longer than 4096 characters.
     /// * Returns INVALID_ARGUMENT if product_category is present in update_mask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_product(&self) -> super::builder::product_search::UpdateProduct {
         super::builder::product_search::UpdateProduct::new(self.inner.clone())
     }
@@ -416,6 +577,21 @@ impl ProductSearch {
     /// Metadata of the product and all its images will be deleted right away, but
     /// search queries against ProductSets containing the product may still work
     /// until all related caches are refreshed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_product()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_product(&self) -> super::builder::product_search::DeleteProduct {
         super::builder::product_search::DeleteProduct::new(self.inner.clone())
     }
@@ -439,6 +615,22 @@ impl ProductSearch {
     /// * Returns INVALID_ARGUMENT if bounding_poly is not provided, and nothing
     ///   compatible with the parent product's product_category is detected.
     /// * Returns INVALID_ARGUMENT if bounding_poly contains more than 10 polygons.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_reference_image()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_reference_image(&self) -> super::builder::product_search::CreateReferenceImage {
         super::builder::product_search::CreateReferenceImage::new(self.inner.clone())
     }
@@ -450,6 +642,21 @@ impl ProductSearch {
     /// caches are refreshed.
     ///
     /// The actual image files are not deleted from Google Cloud Storage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_reference_image()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_reference_image(&self) -> super::builder::product_search::DeleteReferenceImage {
         super::builder::product_search::DeleteReferenceImage::new(self.inner.clone())
     }
@@ -470,6 +677,23 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the specified image does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_reference_image()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reference_image(&self) -> super::builder::product_search::GetReferenceImage {
         super::builder::product_search::GetReferenceImage::new(self.inner.clone())
     }
@@ -482,6 +706,21 @@ impl ProductSearch {
     /// Possible errors:
     ///
     /// * Returns NOT_FOUND if the Product or the ProductSet doesn't exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .add_product_to_product_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_product_to_product_set(
         &self,
     ) -> super::builder::product_search::AddProductToProductSet {
@@ -489,6 +728,21 @@ impl ProductSearch {
     }
 
     /// Removes a Product from the specified ProductSet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .remove_product_from_product_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_product_from_product_set(
         &self,
     ) -> super::builder::product_search::RemoveProductFromProductSet {
@@ -579,6 +833,22 @@ impl ProductSearch {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vision_v1::client::ProductSearch;
+    /// async fn sample(
+    ///    client: &ProductSearch
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::product_search::GetOperation {
         super::builder::product_search::GetOperation::new(self.inner.clone())
     }

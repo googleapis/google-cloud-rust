@@ -123,27 +123,107 @@ impl DataPolicyService {
 
     /// Creates a new data policy under a project with the given `dataPolicyId`
     /// (used as the display name), policy tag, and data policy type.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_policy(&self) -> super::builder::data_policy_service::CreateDataPolicy {
         super::builder::data_policy_service::CreateDataPolicy::new(self.inner.clone())
     }
 
     /// Updates the metadata for an existing data policy. The target data policy
     /// can be specified by the resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_data_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_policy(&self) -> super::builder::data_policy_service::UpdateDataPolicy {
         super::builder::data_policy_service::UpdateDataPolicy::new(self.inner.clone())
     }
 
     /// Renames the id (display name) of the specified data policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_data_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_data_policy(&self) -> super::builder::data_policy_service::RenameDataPolicy {
         super::builder::data_policy_service::RenameDataPolicy::new(self.inner.clone())
     }
 
     /// Deletes the data policy specified by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_data_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_policy(&self) -> super::builder::data_policy_service::DeleteDataPolicy {
         super::builder::data_policy_service::DeleteDataPolicy::new(self.inner.clone())
     }
 
     /// Gets the data policy specified by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_policy(&self) -> super::builder::data_policy_service::GetDataPolicy {
         super::builder::data_policy_service::GetDataPolicy::new(self.inner.clone())
     }
@@ -154,16 +234,64 @@ impl DataPolicyService {
     }
 
     /// Gets the IAM policy for the specified data policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_policy_service::GetIamPolicy {
         super::builder::data_policy_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM policy for the specified data policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_policy_service::SetIamPolicy {
         super::builder::data_policy_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the caller's permission on the specified data policy resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
+    /// async fn sample(
+    ///    client: &DataPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::data_policy_service::TestIamPermissions {
         super::builder::data_policy_service::TestIamPermissions::new(self.inner.clone())
     }

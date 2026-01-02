@@ -129,6 +129,23 @@ impl SecureSourceManager {
     }
 
     /// Gets details of a single instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::secure_source_manager::GetInstance {
         super::builder::secure_source_manager::GetInstance::new(self.inner.clone())
     }
@@ -172,6 +189,23 @@ impl SecureSourceManager {
     }
 
     /// Gets metadata of a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_repository()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_repository(&self) -> super::builder::secure_source_manager::GetRepository {
         super::builder::secure_source_manager::GetRepository::new(self.inner.clone())
     }
@@ -230,6 +264,23 @@ impl SecureSourceManager {
     }
 
     /// Gets metadata of a hook.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_hook()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hook(&self) -> super::builder::secure_source_manager::GetHook {
         super::builder::secure_source_manager::GetHook::new(self.inner.clone())
     }
@@ -280,17 +331,65 @@ impl SecureSourceManager {
     }
 
     /// Get IAM policy for a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy_repo()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy_repo(&self) -> super::builder::secure_source_manager::GetIamPolicyRepo {
         super::builder::secure_source_manager::GetIamPolicyRepo::new(self.inner.clone())
     }
 
     /// Set IAM policy on a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy_repo()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy_repo(&self) -> super::builder::secure_source_manager::SetIamPolicyRepo {
         super::builder::secure_source_manager::SetIamPolicyRepo::new(self.inner.clone())
     }
 
     /// Test IAM permissions on a repository.
     /// IAM permission checks are not required on this method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions_repo()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions_repo(
         &self,
     ) -> super::builder::secure_source_manager::TestIamPermissionsRepo {
@@ -318,6 +417,23 @@ impl SecureSourceManager {
     }
 
     /// GetBranchRule gets a branch rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_branch_rule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_branch_rule(&self) -> super::builder::secure_source_manager::GetBranchRule {
         super::builder::secure_source_manager::GetBranchRule::new(self.inner.clone())
     }
@@ -368,6 +484,23 @@ impl SecureSourceManager {
     }
 
     /// Gets a pull request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pull_request()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pull_request(&self) -> super::builder::secure_source_manager::GetPullRequest {
         super::builder::secure_source_manager::GetPullRequest::new(self.inner.clone())
     }
@@ -450,6 +583,22 @@ impl SecureSourceManager {
     }
 
     /// Fetches a blob from a repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_blob()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_blob(&self) -> super::builder::secure_source_manager::FetchBlob {
         super::builder::secure_source_manager::FetchBlob::new(self.inner.clone())
     }
@@ -470,6 +619,23 @@ impl SecureSourceManager {
     }
 
     /// Gets an issue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_issue()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue(&self) -> super::builder::secure_source_manager::GetIssue {
         super::builder::secure_source_manager::GetIssue::new(self.inner.clone())
     }
@@ -540,6 +706,23 @@ impl SecureSourceManager {
     }
 
     /// Gets a pull request comment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pull_request_comment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pull_request_comment(
         &self,
     ) -> super::builder::secure_source_manager::GetPullRequestComment {
@@ -689,6 +872,23 @@ impl SecureSourceManager {
     }
 
     /// Gets an issue comment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_issue_comment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_issue_comment(&self) -> super::builder::secure_source_manager::GetIssueComment {
         super::builder::secure_source_manager::GetIssueComment::new(self.inner.clone())
     }
@@ -738,6 +938,22 @@ impl SecureSourceManager {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::secure_source_manager::GetLocation {
         super::builder::secure_source_manager::GetLocation::new(self.inner.clone())
     }
@@ -747,12 +963,44 @@ impl SecureSourceManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::secure_source_manager::SetIamPolicy {
         super::builder::secure_source_manager::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::secure_source_manager::GetIamPolicy {
         super::builder::secure_source_manager::GetIamPolicy::new(self.inner.clone())
     }
@@ -764,6 +1012,22 @@ impl SecureSourceManager {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::secure_source_manager::TestIamPermissions {
@@ -780,6 +1044,22 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::secure_source_manager::GetOperation {
         super::builder::secure_source_manager::GetOperation::new(self.inner.clone())
     }
@@ -787,6 +1067,21 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::secure_source_manager::DeleteOperation {
         super::builder::secure_source_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -794,6 +1089,21 @@ impl SecureSourceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::client::SecureSourceManager;
+    /// async fn sample(
+    ///    client: &SecureSourceManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::secure_source_manager::CancelOperation {
         super::builder::secure_source_manager::CancelOperation::new(self.inner.clone())
     }

@@ -128,6 +128,22 @@ impl Locations {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_location::client::Locations;
+    /// async fn sample(
+    ///    client: &Locations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::locations::GetLocation {
         super::builder::locations::GetLocation::new(self.inner.clone())
     }

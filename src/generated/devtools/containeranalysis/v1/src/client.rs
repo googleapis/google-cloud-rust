@@ -141,6 +141,22 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// async fn sample(
+    ///    client: &ContainerAnalysis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::container_analysis::SetIamPolicy {
         super::builder::container_analysis::SetIamPolicy::new(self.inner.clone())
     }
@@ -153,6 +169,22 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// async fn sample(
+    ///    client: &ContainerAnalysis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::container_analysis::GetIamPolicy {
         super::builder::container_analysis::GetIamPolicy::new(self.inner.clone())
     }
@@ -164,11 +196,43 @@ impl ContainerAnalysis {
     /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
     /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
     /// occurrences.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// async fn sample(
+    ///    client: &ContainerAnalysis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::container_analysis::TestIamPermissions {
         super::builder::container_analysis::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Gets a summary of the number and severity of occurrences.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// async fn sample(
+    ///    client: &ContainerAnalysis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vulnerability_occurrences_summary()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vulnerability_occurrences_summary(
         &self,
     ) -> super::builder::container_analysis::GetVulnerabilityOccurrencesSummary {
@@ -178,6 +242,22 @@ impl ContainerAnalysis {
     }
 
     /// Generates an SBOM for the given resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
+    /// async fn sample(
+    ///    client: &ContainerAnalysis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_sbom()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_sbom(&self) -> super::builder::container_analysis::ExportSBOM {
         super::builder::container_analysis::ExportSBOM::new(self.inner.clone())
     }

@@ -132,6 +132,23 @@ impl Grafeas {
     }
 
     /// Gets the specified occurrence.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_occurrence()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_occurrence(&self) -> super::builder::grafeas::GetOccurrence {
         super::builder::grafeas::GetOccurrence::new(self.inner.clone())
     }
@@ -144,32 +161,128 @@ impl Grafeas {
     /// Deletes the specified occurrence. For example, use this method to delete an
     /// occurrence when the occurrence is no longer applicable for the given
     /// resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_occurrence()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_occurrence(&self) -> super::builder::grafeas::DeleteOccurrence {
         super::builder::grafeas::DeleteOccurrence::new(self.inner.clone())
     }
 
     /// Creates a new occurrence.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_occurrence()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_occurrence(&self) -> super::builder::grafeas::CreateOccurrence {
         super::builder::grafeas::CreateOccurrence::new(self.inner.clone())
     }
 
     /// Creates new occurrences in batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_create_occurrences()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_occurrences(&self) -> super::builder::grafeas::BatchCreateOccurrences {
         super::builder::grafeas::BatchCreateOccurrences::new(self.inner.clone())
     }
 
     /// Updates the specified occurrence.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_occurrence()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_occurrence(&self) -> super::builder::grafeas::UpdateOccurrence {
         super::builder::grafeas::UpdateOccurrence::new(self.inner.clone())
     }
 
     /// Gets the note attached to the specified occurrence. Consumer projects can
     /// use this method to get a note that belongs to a provider project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_occurrence_note()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_occurrence_note(&self) -> super::builder::grafeas::GetOccurrenceNote {
         super::builder::grafeas::GetOccurrenceNote::new(self.inner.clone())
     }
 
     /// Gets the specified note.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_note()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_note(&self) -> super::builder::grafeas::GetNote {
         super::builder::grafeas::GetNote::new(self.inner.clone())
     }
@@ -180,21 +293,84 @@ impl Grafeas {
     }
 
     /// Deletes the specified note.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_note()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_note(&self) -> super::builder::grafeas::DeleteNote {
         super::builder::grafeas::DeleteNote::new(self.inner.clone())
     }
 
     /// Creates a new note.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_note()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_note(&self) -> super::builder::grafeas::CreateNote {
         super::builder::grafeas::CreateNote::new(self.inner.clone())
     }
 
     /// Creates new notes in batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_create_notes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_notes(&self) -> super::builder::grafeas::BatchCreateNotes {
         super::builder::grafeas::BatchCreateNotes::new(self.inner.clone())
     }
 
     /// Updates the specified note.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_grafeas_v1::client::Grafeas;
+    /// async fn sample(
+    ///    client: &Grafeas
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_note()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_note(&self) -> super::builder::grafeas::UpdateNote {
         super::builder::grafeas::UpdateNote::new(self.inner.clone())
     }

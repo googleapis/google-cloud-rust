@@ -230,6 +230,23 @@ impl CaseService {
     }
 
     /// Retrieve a case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// async fn sample(
+    ///    client: &CaseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_case()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_case(&self) -> super::builder::case_service::GetCase {
         super::builder::case_service::GetCase::new(self.inner.clone())
     }
@@ -253,11 +270,43 @@ impl CaseService {
     /// It must have the following fields set: `display_name`, `description`,
     /// `classification`, and `priority`. If you're just testing the API and don't
     /// want to route your case to an agent, set `testCase=true`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_case()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_case(&self) -> super::builder::case_service::CreateCase {
         super::builder::case_service::CreateCase::new(self.inner.clone())
     }
 
     /// Update a case. Only some fields can be updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_case()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_case(&self) -> super::builder::case_service::UpdateCase {
         super::builder::case_service::UpdateCase::new(self.inner.clone())
     }
@@ -269,11 +318,43 @@ impl CaseService {
     /// <https://cloud.google.com/support> and look for 'Technical support
     /// escalations' in the feature list to find out which ones let you
     /// do that.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .escalate_case()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn escalate_case(&self) -> super::builder::case_service::EscalateCase {
         super::builder::case_service::EscalateCase::new(self.inner.clone())
     }
 
     /// Close a case.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CaseService;
+    /// async fn sample(
+    ///    client: &CaseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .close_case()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn close_case(&self) -> super::builder::case_service::CloseCase {
         super::builder::case_service::CloseCase::new(self.inner.clone())
     }
@@ -405,6 +486,22 @@ impl CommentService {
     /// Add a new comment to a case.
     ///
     /// The comment must have the following fields set: `body`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_support_v2::client::CommentService;
+    /// async fn sample(
+    ///    client: &CommentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_comment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_comment(&self) -> super::builder::comment_service::CreateComment {
         super::builder::comment_service::CreateComment::new(self.inner.clone())
     }

@@ -131,6 +131,22 @@ impl StorageTransferService {
     /// ACLs to grant access to Storage Transfer Service. This service
     /// account is created and owned by Storage Transfer Service and can
     /// only be used by Storage Transfer Service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_google_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_google_service_account(
         &self,
     ) -> super::builder::storage_transfer_service::GetGoogleServiceAccount {
@@ -138,6 +154,22 @@ impl StorageTransferService {
     }
 
     /// Creates a transfer job that runs periodically.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_transfer_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_transfer_job(
         &self,
     ) -> super::builder::storage_transfer_service::CreateTransferJob {
@@ -157,6 +189,22 @@ impl StorageTransferService {
     /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::Status::Disabled
     /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::Status::Enabled
     /// [google.storagetransfer.v1.TransferJob.status]: crate::model::TransferJob::status
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_transfer_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_transfer_job(
         &self,
     ) -> super::builder::storage_transfer_service::UpdateTransferJob {
@@ -164,6 +212,22 @@ impl StorageTransferService {
     }
 
     /// Gets a transfer job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_transfer_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_transfer_job(&self) -> super::builder::storage_transfer_service::GetTransferJob {
         super::builder::storage_transfer_service::GetTransferJob::new(self.inner.clone())
     }
@@ -174,6 +238,21 @@ impl StorageTransferService {
     }
 
     /// Pauses a transfer operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .pause_transfer_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_transfer_operation(
         &self,
     ) -> super::builder::storage_transfer_service::PauseTransferOperation {
@@ -181,6 +260,21 @@ impl StorageTransferService {
     }
 
     /// Resumes a transfer operation that is paused.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .resume_transfer_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_transfer_operation(
         &self,
     ) -> super::builder::storage_transfer_service::ResumeTransferOperation {
@@ -209,6 +303,21 @@ impl StorageTransferService {
     /// [DELETED][google.storagetransfer.v1.TransferJob.Status.DELETED].
     ///
     /// [google.storagetransfer.v1.TransferJob.Status.DELETED]: crate::model::transfer_job::Status::Deleted
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_transfer_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_transfer_job(
         &self,
     ) -> super::builder::storage_transfer_service::DeleteTransferJob {
@@ -216,16 +325,64 @@ impl StorageTransferService {
     }
 
     /// Creates an agent pool resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_agent_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_agent_pool(&self) -> super::builder::storage_transfer_service::CreateAgentPool {
         super::builder::storage_transfer_service::CreateAgentPool::new(self.inner.clone())
     }
 
     /// Updates an existing agent pool resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_agent_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_agent_pool(&self) -> super::builder::storage_transfer_service::UpdateAgentPool {
         super::builder::storage_transfer_service::UpdateAgentPool::new(self.inner.clone())
     }
 
     /// Gets an agent pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_agent_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_agent_pool(&self) -> super::builder::storage_transfer_service::GetAgentPool {
         super::builder::storage_transfer_service::GetAgentPool::new(self.inner.clone())
     }
@@ -236,6 +393,21 @@ impl StorageTransferService {
     }
 
     /// Deletes an agent pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_agent_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_agent_pool(&self) -> super::builder::storage_transfer_service::DeleteAgentPool {
         super::builder::storage_transfer_service::DeleteAgentPool::new(self.inner.clone())
     }
@@ -249,6 +421,22 @@ impl StorageTransferService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::storage_transfer_service::GetOperation {
         super::builder::storage_transfer_service::GetOperation::new(self.inner.clone())
     }
@@ -274,6 +462,21 @@ impl StorageTransferService {
     /// before you canceled the job, tomorrow's transfer operation will
     /// compute a new delta with the five files that were not copied today
     /// plus any new files discovered tomorrow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
+    /// async fn sample(
+    ///    client: &StorageTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::storage_transfer_service::CancelOperation {
         super::builder::storage_transfer_service::CancelOperation::new(self.inner.clone())
     }

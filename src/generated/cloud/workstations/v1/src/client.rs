@@ -119,6 +119,23 @@ impl Workstations {
     }
 
     /// Returns the requested workstation cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workstation_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation_cluster(&self) -> super::builder::workstations::GetWorkstationCluster {
         super::builder::workstations::GetWorkstationCluster::new(self.inner.clone())
     }
@@ -182,6 +199,23 @@ impl Workstations {
     }
 
     /// Returns the requested workstation configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workstation_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation_config(&self) -> super::builder::workstations::GetWorkstationConfig {
         super::builder::workstations::GetWorkstationConfig::new(self.inner.clone())
     }
@@ -251,6 +285,23 @@ impl Workstations {
     }
 
     /// Returns the requested workstation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workstation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workstation(&self) -> super::builder::workstations::GetWorkstation {
         super::builder::workstations::GetWorkstation::new(self.inner.clone())
     }
@@ -343,6 +394,22 @@ impl Workstations {
 
     /// Returns a short-lived credential that can be used to send authenticated and
     /// authorized traffic to a workstation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_access_token(&self) -> super::builder::workstations::GenerateAccessToken {
         super::builder::workstations::GenerateAccessToken::new(self.inner.clone())
     }
@@ -352,12 +419,44 @@ impl Workstations {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::workstations::SetIamPolicy {
         super::builder::workstations::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::workstations::GetIamPolicy {
         super::builder::workstations::GetIamPolicy::new(self.inner.clone())
     }
@@ -369,6 +468,22 @@ impl Workstations {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::workstations::TestIamPermissions {
         super::builder::workstations::TestIamPermissions::new(self.inner.clone())
     }
@@ -383,6 +498,22 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::workstations::GetOperation {
         super::builder::workstations::GetOperation::new(self.inner.clone())
     }
@@ -390,6 +521,21 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::workstations::DeleteOperation {
         super::builder::workstations::DeleteOperation::new(self.inner.clone())
     }
@@ -397,6 +543,21 @@ impl Workstations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workstations_v1::client::Workstations;
+    /// async fn sample(
+    ///    client: &Workstations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::workstations::CancelOperation {
         super::builder::workstations::CancelOperation::new(self.inner.clone())
     }

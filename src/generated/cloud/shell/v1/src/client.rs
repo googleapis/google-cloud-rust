@@ -128,6 +128,23 @@ impl CloudShellService {
     }
 
     /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// async fn sample(
+    ///    client: &CloudShellService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_environment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_environment(&self) -> super::builder::cloud_shell_service::GetEnvironment {
         super::builder::cloud_shell_service::GetEnvironment::new(self.inner.clone())
     }
@@ -210,6 +227,22 @@ impl CloudShellService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_shell_v1::client::CloudShellService;
+    /// async fn sample(
+    ///    client: &CloudShellService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_shell_service::GetOperation {
         super::builder::cloud_shell_service::GetOperation::new(self.inner.clone())
     }

@@ -125,6 +125,23 @@ impl EdgeContainer {
     }
 
     /// Gets details of a single Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::edge_container::GetCluster {
         super::builder::edge_container::GetCluster::new(self.inner.clone())
     }
@@ -190,11 +207,43 @@ impl EdgeContainer {
     }
 
     /// Generates an access token for a Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_access_token(&self) -> super::builder::edge_container::GenerateAccessToken {
         super::builder::edge_container::GenerateAccessToken::new(self.inner.clone())
     }
 
     /// Generates an offline credential for a Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_offline_credential()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_offline_credential(
         &self,
     ) -> super::builder::edge_container::GenerateOfflineCredential {
@@ -207,6 +256,23 @@ impl EdgeContainer {
     }
 
     /// Gets details of a single NodePool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node_pool(&self) -> super::builder::edge_container::GetNodePool {
         super::builder::edge_container::GetNodePool::new(self.inner.clone())
     }
@@ -262,6 +328,23 @@ impl EdgeContainer {
     }
 
     /// Gets details of a single Machine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_machine()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_machine(&self) -> super::builder::edge_container::GetMachine {
         super::builder::edge_container::GetMachine::new(self.inner.clone())
     }
@@ -272,6 +355,23 @@ impl EdgeContainer {
     }
 
     /// Gets details of a single VPN connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vpn_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpn_connection(&self) -> super::builder::edge_container::GetVpnConnection {
         super::builder::edge_container::GetVpnConnection::new(self.inner.clone())
     }
@@ -307,6 +407,22 @@ impl EdgeContainer {
     }
 
     /// Gets the server config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_server_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_server_config(&self) -> super::builder::edge_container::GetServerConfig {
         super::builder::edge_container::GetServerConfig::new(self.inner.clone())
     }
@@ -317,6 +433,22 @@ impl EdgeContainer {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::edge_container::GetLocation {
         super::builder::edge_container::GetLocation::new(self.inner.clone())
     }
@@ -331,6 +463,22 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::edge_container::GetOperation {
         super::builder::edge_container::GetOperation::new(self.inner.clone())
     }
@@ -338,6 +486,21 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::edge_container::DeleteOperation {
         super::builder::edge_container::DeleteOperation::new(self.inner.clone())
     }
@@ -345,6 +508,21 @@ impl EdgeContainer {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_edgecontainer_v1::client::EdgeContainer;
+    /// async fn sample(
+    ///    client: &EdgeContainer
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::edge_container::CancelOperation {
         super::builder::edge_container::CancelOperation::new(self.inner.clone())
     }

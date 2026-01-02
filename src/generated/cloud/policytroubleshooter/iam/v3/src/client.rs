@@ -126,6 +126,22 @@ impl PolicyTroubleshooter {
     /// Checks whether a principal has a specific permission for a specific
     /// resource, and explains why the principal does or doesn't have that
     /// permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
+    /// async fn sample(
+    ///    client: &PolicyTroubleshooter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .troubleshoot_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn troubleshoot_iam_policy(
         &self,
     ) -> super::builder::policy_troubleshooter::TroubleshootIamPolicy {

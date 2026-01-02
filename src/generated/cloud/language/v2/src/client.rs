@@ -123,6 +123,22 @@ impl LanguageService {
     }
 
     /// Analyzes the sentiment of the provided text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::client::LanguageService;
+    /// async fn sample(
+    ///    client: &LanguageService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .analyze_sentiment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_sentiment(&self) -> super::builder::language_service::AnalyzeSentiment {
         super::builder::language_service::AnalyzeSentiment::new(self.inner.clone())
     }
@@ -130,21 +146,85 @@ impl LanguageService {
     /// Finds named entities (currently proper names and common nouns) in the text
     /// along with entity types, probability, mentions for each entity, and
     /// other properties.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::client::LanguageService;
+    /// async fn sample(
+    ///    client: &LanguageService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .analyze_entities()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn analyze_entities(&self) -> super::builder::language_service::AnalyzeEntities {
         super::builder::language_service::AnalyzeEntities::new(self.inner.clone())
     }
 
     /// Classifies a document into categories.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::client::LanguageService;
+    /// async fn sample(
+    ///    client: &LanguageService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .classify_text()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn classify_text(&self) -> super::builder::language_service::ClassifyText {
         super::builder::language_service::ClassifyText::new(self.inner.clone())
     }
 
     /// Moderates a document for harmful and sensitive categories.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::client::LanguageService;
+    /// async fn sample(
+    ///    client: &LanguageService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .moderate_text()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn moderate_text(&self) -> super::builder::language_service::ModerateText {
         super::builder::language_service::ModerateText::new(self.inner.clone())
     }
 
     /// A convenience method that provides all features in one call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_language_v2::client::LanguageService;
+    /// async fn sample(
+    ///    client: &LanguageService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .annotate_text()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn annotate_text(&self) -> super::builder::language_service::AnnotateText {
         super::builder::language_service::AnnotateText::new(self.inner.clone())
     }

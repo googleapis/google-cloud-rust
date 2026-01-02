@@ -136,6 +136,23 @@ impl ReachabilityService {
     }
 
     /// Gets the details of a specific Connectivity Test.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connectivity_test()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connectivity_test(
         &self,
     ) -> super::builder::reachability_service::GetConnectivityTest {
@@ -252,6 +269,22 @@ impl ReachabilityService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reachability_service::GetLocation {
         super::builder::reachability_service::GetLocation::new(self.inner.clone())
     }
@@ -261,12 +294,44 @@ impl ReachabilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::reachability_service::SetIamPolicy {
         super::builder::reachability_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::reachability_service::GetIamPolicy {
         super::builder::reachability_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -278,6 +343,22 @@ impl ReachabilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::reachability_service::TestIamPermissions {
         super::builder::reachability_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -292,6 +373,22 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::reachability_service::GetOperation {
         super::builder::reachability_service::GetOperation::new(self.inner.clone())
     }
@@ -299,6 +396,21 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::reachability_service::DeleteOperation {
         super::builder::reachability_service::DeleteOperation::new(self.inner.clone())
     }
@@ -306,6 +418,21 @@ impl ReachabilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
+    /// async fn sample(
+    ///    client: &ReachabilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::reachability_service::CancelOperation {
         super::builder::reachability_service::CancelOperation::new(self.inner.clone())
     }
@@ -426,6 +553,23 @@ impl VpcFlowLogsService {
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpc_flow_logs_config(
         &self,
     ) -> super::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig {
@@ -533,6 +677,22 @@ impl VpcFlowLogsService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vpc_flow_logs_service::GetLocation {
         super::builder::vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
@@ -542,12 +702,44 @@ impl VpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vpc_flow_logs_service::SetIamPolicy {
         super::builder::vpc_flow_logs_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vpc_flow_logs_service::GetIamPolicy {
         super::builder::vpc_flow_logs_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -559,6 +751,22 @@ impl VpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::vpc_flow_logs_service::TestIamPermissions {
@@ -575,6 +783,22 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vpc_flow_logs_service::GetOperation {
         super::builder::vpc_flow_logs_service::GetOperation::new(self.inner.clone())
     }
@@ -582,6 +806,21 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vpc_flow_logs_service::DeleteOperation {
         super::builder::vpc_flow_logs_service::DeleteOperation::new(self.inner.clone())
     }
@@ -589,6 +828,21 @@ impl VpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &VpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vpc_flow_logs_service::CancelOperation {
         super::builder::vpc_flow_logs_service::CancelOperation::new(self.inner.clone())
     }
@@ -713,6 +967,23 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Gets the details of a specific `VpcFlowLogsConfig`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vpc_flow_logs_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vpc_flow_logs_config(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig {
@@ -814,6 +1085,22 @@ impl OrganizationVpcFlowLogsService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::organization_vpc_flow_logs_service::GetLocation {
         super::builder::organization_vpc_flow_logs_service::GetLocation::new(self.inner.clone())
     }
@@ -823,6 +1110,22 @@ impl OrganizationVpcFlowLogsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::SetIamPolicy {
@@ -831,6 +1134,22 @@ impl OrganizationVpcFlowLogsService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetIamPolicy {
@@ -844,6 +1163,22 @@ impl OrganizationVpcFlowLogsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::TestIamPermissions {
@@ -864,6 +1199,22 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::GetOperation {
@@ -873,6 +1224,21 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::DeleteOperation {
@@ -882,6 +1248,21 @@ impl OrganizationVpcFlowLogsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
+    /// async fn sample(
+    ///    client: &OrganizationVpcFlowLogsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::organization_vpc_flow_logs_service::CancelOperation {

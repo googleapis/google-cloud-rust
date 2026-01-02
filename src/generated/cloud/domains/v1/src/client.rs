@@ -123,12 +123,44 @@ impl Domains {
     /// Availability results from this method are approximate; call
     /// `RetrieveRegisterParameters` on a domain before registering to confirm
     /// availability.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .search_domains()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_domains(&self) -> super::builder::domains::SearchDomains {
         super::builder::domains::SearchDomains::new(self.inner.clone())
     }
 
     /// Gets parameters needed to register a new domain name, including price and
     /// up-to-date availability. Use the returned values to call `RegisterDomain`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_register_parameters()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_register_parameters(
         &self,
     ) -> super::builder::domains::RetrieveRegisterParameters {
@@ -167,6 +199,22 @@ impl Domains {
     /// Domains is not supported.
     ///
     /// Use the returned values to call `TransferDomain`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_transfer_parameters()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_transfer_parameters(
         &self,
     ) -> super::builder::domains::RetrieveTransferParameters {
@@ -213,6 +261,23 @@ impl Domains {
     }
 
     /// Gets the details of a `Registration` resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_registration()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_registration(&self) -> super::builder::domains::GetRegistration {
         super::builder::domains::GetRegistration::new(self.inner.clone())
     }
@@ -346,6 +411,22 @@ impl Domains {
     ///
     /// You can call this method only after 60 days have elapsed since the initial
     /// domain registration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_authorization_code()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_authorization_code(
         &self,
     ) -> super::builder::domains::RetrieveAuthorizationCode {
@@ -356,6 +437,22 @@ impl Domains {
     ///
     /// You can call this method only after 60 days have elapsed since the initial
     /// domain registration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reset_authorization_code()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_authorization_code(&self) -> super::builder::domains::ResetAuthorizationCode {
         super::builder::domains::ResetAuthorizationCode::new(self.inner.clone())
     }
@@ -370,6 +467,22 @@ impl Domains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_domains_v1::client::Domains;
+    /// async fn sample(
+    ///    client: &Domains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::domains::GetOperation {
         super::builder::domains::GetOperation::new(self.inner.clone())
     }

@@ -126,6 +126,22 @@ impl DataFoundryService {
     }
 
     /// Generates synthetic data based on the provided configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_synthetic_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_synthetic_data(
         &self,
     ) -> super::builder::data_foundry_service::GenerateSyntheticData {
@@ -138,6 +154,22 @@ impl DataFoundryService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_foundry_service::GetLocation {
         super::builder::data_foundry_service::GetLocation::new(self.inner.clone())
     }
@@ -147,12 +179,44 @@ impl DataFoundryService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_foundry_service::SetIamPolicy {
         super::builder::data_foundry_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_foundry_service::GetIamPolicy {
         super::builder::data_foundry_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -164,6 +228,22 @@ impl DataFoundryService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::data_foundry_service::TestIamPermissions {
         super::builder::data_foundry_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -178,6 +258,22 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_foundry_service::GetOperation {
         super::builder::data_foundry_service::GetOperation::new(self.inner.clone())
     }
@@ -185,6 +281,21 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_foundry_service::DeleteOperation {
         super::builder::data_foundry_service::DeleteOperation::new(self.inner.clone())
     }
@@ -192,6 +303,21 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_foundry_service::CancelOperation {
         super::builder::data_foundry_service::CancelOperation::new(self.inner.clone())
     }
@@ -199,6 +325,22 @@ impl DataFoundryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DataFoundryService;
+    /// async fn sample(
+    ///    client: &DataFoundryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::data_foundry_service::WaitOperation {
         super::builder::data_foundry_service::WaitOperation::new(self.inner.clone())
     }
@@ -325,11 +467,44 @@ impl DatasetService {
     }
 
     /// Gets a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dataset()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::dataset_service::GetDataset {
         super::builder::dataset_service::GetDataset::new(self.inner.clone())
     }
 
     /// Updates a Dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_dataset()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset(&self) -> super::builder::dataset_service::UpdateDataset {
         super::builder::dataset_service::UpdateDataset::new(self.inner.clone())
     }
@@ -400,6 +575,22 @@ impl DatasetService {
     }
 
     /// Updates a DatasetVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_dataset_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_dataset_version(&self) -> super::builder::dataset_service::UpdateDatasetVersion {
         super::builder::dataset_service::UpdateDatasetVersion::new(self.inner.clone())
     }
@@ -420,6 +611,23 @@ impl DatasetService {
     }
 
     /// Gets a Dataset version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dataset_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset_version(&self) -> super::builder::dataset_service::GetDatasetVersion {
         super::builder::dataset_service::GetDatasetVersion::new(self.inner.clone())
     }
@@ -477,6 +685,23 @@ impl DatasetService {
     }
 
     /// Gets an AnnotationSpec.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_annotation_spec()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_annotation_spec(&self) -> super::builder::dataset_service::GetAnnotationSpec {
         super::builder::dataset_service::GetAnnotationSpec::new(self.inner.clone())
     }
@@ -494,6 +719,22 @@ impl DatasetService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dataset_service::GetLocation {
         super::builder::dataset_service::GetLocation::new(self.inner.clone())
     }
@@ -503,12 +744,44 @@ impl DatasetService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dataset_service::SetIamPolicy {
         super::builder::dataset_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dataset_service::GetIamPolicy {
         super::builder::dataset_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -520,6 +793,22 @@ impl DatasetService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::dataset_service::TestIamPermissions {
         super::builder::dataset_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -534,6 +823,22 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dataset_service::GetOperation {
         super::builder::dataset_service::GetOperation::new(self.inner.clone())
     }
@@ -541,6 +846,21 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::dataset_service::DeleteOperation {
         super::builder::dataset_service::DeleteOperation::new(self.inner.clone())
     }
@@ -548,6 +868,21 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::dataset_service::CancelOperation {
         super::builder::dataset_service::CancelOperation::new(self.inner.clone())
     }
@@ -555,6 +890,22 @@ impl DatasetService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DatasetService;
+    /// async fn sample(
+    ///    client: &DatasetService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::dataset_service::WaitOperation {
         super::builder::dataset_service::WaitOperation::new(self.inner.clone())
     }
@@ -689,6 +1040,23 @@ impl DeploymentResourcePoolService {
     }
 
     /// Get a DeploymentResourcePool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_deployment_resource_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment_resource_pool(
         &self,
     ) -> super::builder::deployment_resource_pool_service::GetDeploymentResourcePool {
@@ -761,6 +1129,22 @@ impl DeploymentResourcePoolService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::deployment_resource_pool_service::GetLocation {
         super::builder::deployment_resource_pool_service::GetLocation::new(self.inner.clone())
     }
@@ -770,12 +1154,44 @@ impl DeploymentResourcePoolService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::deployment_resource_pool_service::SetIamPolicy {
         super::builder::deployment_resource_pool_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::deployment_resource_pool_service::GetIamPolicy {
         super::builder::deployment_resource_pool_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -787,6 +1203,22 @@ impl DeploymentResourcePoolService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::deployment_resource_pool_service::TestIamPermissions {
@@ -807,6 +1239,22 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::deployment_resource_pool_service::GetOperation {
         super::builder::deployment_resource_pool_service::GetOperation::new(self.inner.clone())
     }
@@ -814,6 +1262,21 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::DeleteOperation {
@@ -823,6 +1286,21 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::CancelOperation {
@@ -832,6 +1310,22 @@ impl DeploymentResourcePoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::DeploymentResourcePoolService;
+    /// async fn sample(
+    ///    client: &DeploymentResourcePoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::deployment_resource_pool_service::WaitOperation {
@@ -963,6 +1457,23 @@ impl EndpointService {
     }
 
     /// Gets an Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint(&self) -> super::builder::endpoint_service::GetEndpoint {
         super::builder::endpoint_service::GetEndpoint::new(self.inner.clone())
     }
@@ -973,6 +1484,22 @@ impl EndpointService {
     }
 
     /// Updates an Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_endpoint(&self) -> super::builder::endpoint_service::UpdateEndpoint {
         super::builder::endpoint_service::UpdateEndpoint::new(self.inner.clone())
     }
@@ -1064,6 +1591,22 @@ impl EndpointService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::endpoint_service::GetLocation {
         super::builder::endpoint_service::GetLocation::new(self.inner.clone())
     }
@@ -1073,12 +1616,44 @@ impl EndpointService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::endpoint_service::SetIamPolicy {
         super::builder::endpoint_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::endpoint_service::GetIamPolicy {
         super::builder::endpoint_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1090,6 +1665,22 @@ impl EndpointService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::endpoint_service::TestIamPermissions {
         super::builder::endpoint_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1104,6 +1695,22 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::endpoint_service::GetOperation {
         super::builder::endpoint_service::GetOperation::new(self.inner.clone())
     }
@@ -1111,6 +1718,21 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::endpoint_service::DeleteOperation {
         super::builder::endpoint_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1118,6 +1740,21 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::endpoint_service::CancelOperation {
         super::builder::endpoint_service::CancelOperation::new(self.inner.clone())
     }
@@ -1125,6 +1762,22 @@ impl EndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EndpointService;
+    /// async fn sample(
+    ///    client: &EndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::endpoint_service::WaitOperation {
         super::builder::endpoint_service::WaitOperation::new(self.inner.clone())
     }
@@ -1239,6 +1892,22 @@ impl EvaluationService {
     }
 
     /// Evaluates instances based on a given metric.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .evaluate_instances()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evaluate_instances(&self) -> super::builder::evaluation_service::EvaluateInstances {
         super::builder::evaluation_service::EvaluateInstances::new(self.inner.clone())
     }
@@ -1249,6 +1918,22 @@ impl EvaluationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::evaluation_service::GetLocation {
         super::builder::evaluation_service::GetLocation::new(self.inner.clone())
     }
@@ -1258,12 +1943,44 @@ impl EvaluationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::evaluation_service::SetIamPolicy {
         super::builder::evaluation_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::evaluation_service::GetIamPolicy {
         super::builder::evaluation_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1275,6 +1992,22 @@ impl EvaluationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::evaluation_service::TestIamPermissions {
         super::builder::evaluation_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1289,6 +2022,22 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::evaluation_service::GetOperation {
         super::builder::evaluation_service::GetOperation::new(self.inner.clone())
     }
@@ -1296,6 +2045,21 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::evaluation_service::DeleteOperation {
         super::builder::evaluation_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1303,6 +2067,21 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::evaluation_service::CancelOperation {
         super::builder::evaluation_service::CancelOperation::new(self.inner.clone())
     }
@@ -1310,6 +2089,22 @@ impl EvaluationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::EvaluationService;
+    /// async fn sample(
+    ///    client: &EvaluationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::evaluation_service::WaitOperation {
         super::builder::evaluation_service::WaitOperation::new(self.inner.clone())
     }
@@ -1445,6 +2240,23 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureOnlineStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature_online_store()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_online_store(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureOnlineStore {
@@ -1521,6 +2333,23 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature_view()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureView {
@@ -1575,6 +2404,22 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Triggers on-demand sync for the FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sync_feature_view()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sync_feature_view(
         &self,
     ) -> super::builder::feature_online_store_admin_service::SyncFeatureView {
@@ -1582,6 +2427,23 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets details of a single FeatureViewSync.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature_view_sync()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_view_sync(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetFeatureViewSync {
@@ -1607,6 +2469,22 @@ impl FeatureOnlineStoreAdminService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_online_store_admin_service::GetLocation {
         super::builder::feature_online_store_admin_service::GetLocation::new(self.inner.clone())
     }
@@ -1616,6 +2494,22 @@ impl FeatureOnlineStoreAdminService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::feature_online_store_admin_service::SetIamPolicy {
@@ -1624,6 +2518,22 @@ impl FeatureOnlineStoreAdminService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetIamPolicy {
@@ -1637,6 +2547,22 @@ impl FeatureOnlineStoreAdminService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_online_store_admin_service::TestIamPermissions {
@@ -1657,6 +2583,22 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::GetOperation {
@@ -1666,6 +2608,21 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::DeleteOperation {
@@ -1675,6 +2632,21 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::CancelOperation {
@@ -1684,6 +2656,22 @@ impl FeatureOnlineStoreAdminService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreAdminService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreAdminService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::feature_online_store_admin_service::WaitOperation {
@@ -1801,6 +2789,22 @@ impl FeatureOnlineStoreService {
     }
 
     /// Fetch feature values under a FeatureView.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_feature_values()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_feature_values(
         &self,
     ) -> super::builder::feature_online_store_service::FetchFeatureValues {
@@ -1810,6 +2814,22 @@ impl FeatureOnlineStoreService {
     /// Search the nearest entities under a FeatureView.
     /// Search only works for indexable feature view; if a feature view isn't
     /// indexable, returns Invalid argument response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .search_nearest_entities()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_nearest_entities(
         &self,
     ) -> super::builder::feature_online_store_service::SearchNearestEntities {
@@ -1818,6 +2838,22 @@ impl FeatureOnlineStoreService {
 
     /// RPC to generate an access token for the given feature view. FeatureViews
     /// under the same FeatureOnlineStore share the same access token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_fetch_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_fetch_access_token(
         &self,
     ) -> super::builder::feature_online_store_service::GenerateFetchAccessToken {
@@ -1832,6 +2868,22 @@ impl FeatureOnlineStoreService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_online_store_service::GetLocation {
         super::builder::feature_online_store_service::GetLocation::new(self.inner.clone())
     }
@@ -1841,12 +2893,44 @@ impl FeatureOnlineStoreService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::feature_online_store_service::SetIamPolicy {
         super::builder::feature_online_store_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::feature_online_store_service::GetIamPolicy {
         super::builder::feature_online_store_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1858,6 +2942,22 @@ impl FeatureOnlineStoreService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_online_store_service::TestIamPermissions {
@@ -1874,6 +2974,22 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::feature_online_store_service::GetOperation {
         super::builder::feature_online_store_service::GetOperation::new(self.inner.clone())
     }
@@ -1881,6 +2997,21 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::feature_online_store_service::DeleteOperation {
@@ -1890,6 +3021,21 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::feature_online_store_service::CancelOperation {
@@ -1899,6 +3045,22 @@ impl FeatureOnlineStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureOnlineStoreService;
+    /// async fn sample(
+    ///    client: &FeatureOnlineStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::feature_online_store_service::WaitOperation {
         super::builder::feature_online_store_service::WaitOperation::new(self.inner.clone())
     }
@@ -2031,6 +3193,23 @@ impl FeatureRegistryService {
     }
 
     /// Gets details of a single FeatureGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature_group(&self) -> super::builder::feature_registry_service::GetFeatureGroup {
         super::builder::feature_registry_service::GetFeatureGroup::new(self.inner.clone())
     }
@@ -2109,6 +3288,23 @@ impl FeatureRegistryService {
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::feature_registry_service::GetFeature {
         super::builder::feature_registry_service::GetFeature::new(self.inner.clone())
     }
@@ -2154,6 +3350,22 @@ impl FeatureRegistryService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::feature_registry_service::GetLocation {
         super::builder::feature_registry_service::GetLocation::new(self.inner.clone())
     }
@@ -2163,12 +3375,44 @@ impl FeatureRegistryService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::feature_registry_service::SetIamPolicy {
         super::builder::feature_registry_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::feature_registry_service::GetIamPolicy {
         super::builder::feature_registry_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -2180,6 +3424,22 @@ impl FeatureRegistryService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::feature_registry_service::TestIamPermissions {
@@ -2196,6 +3456,22 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::feature_registry_service::GetOperation {
         super::builder::feature_registry_service::GetOperation::new(self.inner.clone())
     }
@@ -2203,6 +3479,21 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::feature_registry_service::DeleteOperation {
         super::builder::feature_registry_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2210,6 +3501,21 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::feature_registry_service::CancelOperation {
         super::builder::feature_registry_service::CancelOperation::new(self.inner.clone())
     }
@@ -2217,6 +3523,22 @@ impl FeatureRegistryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeatureRegistryService;
+    /// async fn sample(
+    ///    client: &FeatureRegistryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::feature_registry_service::WaitOperation {
         super::builder::feature_registry_service::WaitOperation::new(self.inner.clone())
     }
@@ -2334,6 +3656,22 @@ impl FeaturestoreOnlineServingService {
     /// Reads Feature values of a specific entity of an EntityType. For reading
     /// feature values of multiple entities of an EntityType, please use
     /// StreamingReadFeatureValues.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_feature_values()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_feature_values(
         &self,
     ) -> super::builder::featurestore_online_serving_service::ReadFeatureValues {
@@ -2347,6 +3685,22 @@ impl FeaturestoreOnlineServingService {
     /// The Feature values are merged into existing entities if any. The Feature
     /// values to be written must have timestamp within the online storage
     /// retention.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_feature_values()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_feature_values(
         &self,
     ) -> super::builder::featurestore_online_serving_service::WriteFeatureValues {
@@ -2363,6 +3717,22 @@ impl FeaturestoreOnlineServingService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::featurestore_online_serving_service::GetLocation {
         super::builder::featurestore_online_serving_service::GetLocation::new(self.inner.clone())
     }
@@ -2372,6 +3742,22 @@ impl FeaturestoreOnlineServingService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::featurestore_online_serving_service::SetIamPolicy {
@@ -2380,6 +3766,22 @@ impl FeaturestoreOnlineServingService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::featurestore_online_serving_service::GetIamPolicy {
@@ -2393,6 +3795,22 @@ impl FeaturestoreOnlineServingService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::featurestore_online_serving_service::TestIamPermissions {
@@ -2413,6 +3831,22 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::GetOperation {
@@ -2422,6 +3856,21 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::DeleteOperation {
@@ -2433,6 +3882,21 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::CancelOperation {
@@ -2444,6 +3908,22 @@ impl FeaturestoreOnlineServingService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreOnlineServingService;
+    /// async fn sample(
+    ///    client: &FeaturestoreOnlineServingService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::featurestore_online_serving_service::WaitOperation {
@@ -2575,6 +4055,23 @@ impl FeaturestoreService {
     }
 
     /// Gets details of a single Featurestore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_featurestore()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_featurestore(&self) -> super::builder::featurestore_service::GetFeaturestore {
         super::builder::featurestore_service::GetFeaturestore::new(self.inner.clone())
     }
@@ -2631,6 +4128,23 @@ impl FeaturestoreService {
     }
 
     /// Gets details of a single EntityType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entity_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entity_type(&self) -> super::builder::featurestore_service::GetEntityType {
         super::builder::featurestore_service::GetEntityType::new(self.inner.clone())
     }
@@ -2641,6 +4155,22 @@ impl FeaturestoreService {
     }
 
     /// Updates the parameters of a single EntityType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_entity_type()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_entity_type(&self) -> super::builder::featurestore_service::UpdateEntityType {
         super::builder::featurestore_service::UpdateEntityType::new(self.inner.clone())
     }
@@ -2694,6 +4224,23 @@ impl FeaturestoreService {
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::featurestore_service::GetFeature {
         super::builder::featurestore_service::GetFeature::new(self.inner.clone())
     }
@@ -2704,6 +4251,22 @@ impl FeaturestoreService {
     }
 
     /// Updates the parameters of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_feature()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_feature(&self) -> super::builder::featurestore_service::UpdateFeature {
         super::builder::featurestore_service::UpdateFeature::new(self.inner.clone())
     }
@@ -2835,6 +4398,22 @@ impl FeaturestoreService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::featurestore_service::GetLocation {
         super::builder::featurestore_service::GetLocation::new(self.inner.clone())
     }
@@ -2844,12 +4423,44 @@ impl FeaturestoreService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::featurestore_service::SetIamPolicy {
         super::builder::featurestore_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::featurestore_service::GetIamPolicy {
         super::builder::featurestore_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -2861,6 +4472,22 @@ impl FeaturestoreService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::featurestore_service::TestIamPermissions {
         super::builder::featurestore_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -2875,6 +4502,22 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::featurestore_service::GetOperation {
         super::builder::featurestore_service::GetOperation::new(self.inner.clone())
     }
@@ -2882,6 +4525,21 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::featurestore_service::DeleteOperation {
         super::builder::featurestore_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2889,6 +4547,21 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::featurestore_service::CancelOperation {
         super::builder::featurestore_service::CancelOperation::new(self.inner.clone())
     }
@@ -2896,6 +4569,22 @@ impl FeaturestoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::FeaturestoreService;
+    /// async fn sample(
+    ///    client: &FeaturestoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::featurestore_service::WaitOperation {
         super::builder::featurestore_service::WaitOperation::new(self.inner.clone())
     }
@@ -3011,6 +4700,22 @@ impl GenAiCacheService {
 
     /// Creates cached content, this call will initialize the cached content in the
     /// data storage, and users need to pay for the cache data storage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_cached_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::CreateCachedContent {
@@ -3018,11 +4723,44 @@ impl GenAiCacheService {
     }
 
     /// Gets cached content configurations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cached_content()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cached_content(&self) -> super::builder::gen_ai_cache_service::GetCachedContent {
         super::builder::gen_ai_cache_service::GetCachedContent::new(self.inner.clone())
     }
 
     /// Updates cached content configurations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_cached_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::UpdateCachedContent {
@@ -3030,6 +4768,22 @@ impl GenAiCacheService {
     }
 
     /// Deletes cached content
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_cached_content()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cached_content(
         &self,
     ) -> super::builder::gen_ai_cache_service::DeleteCachedContent {
@@ -3047,6 +4801,22 @@ impl GenAiCacheService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::gen_ai_cache_service::GetLocation {
         super::builder::gen_ai_cache_service::GetLocation::new(self.inner.clone())
     }
@@ -3056,12 +4826,44 @@ impl GenAiCacheService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::gen_ai_cache_service::SetIamPolicy {
         super::builder::gen_ai_cache_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::gen_ai_cache_service::GetIamPolicy {
         super::builder::gen_ai_cache_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3073,6 +4875,22 @@ impl GenAiCacheService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::gen_ai_cache_service::TestIamPermissions {
         super::builder::gen_ai_cache_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -3087,6 +4905,22 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gen_ai_cache_service::GetOperation {
         super::builder::gen_ai_cache_service::GetOperation::new(self.inner.clone())
     }
@@ -3094,6 +4928,21 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gen_ai_cache_service::DeleteOperation {
         super::builder::gen_ai_cache_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3101,6 +4950,21 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gen_ai_cache_service::CancelOperation {
         super::builder::gen_ai_cache_service::CancelOperation::new(self.inner.clone())
     }
@@ -3108,6 +4972,22 @@ impl GenAiCacheService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiCacheService;
+    /// async fn sample(
+    ///    client: &GenAiCacheService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::gen_ai_cache_service::WaitOperation {
         super::builder::gen_ai_cache_service::WaitOperation::new(self.inner.clone())
     }
@@ -3223,11 +5103,44 @@ impl GenAiTuningService {
 
     /// Creates a TuningJob. A created TuningJob right away will be attempted to
     /// be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tuning_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tuning_job(&self) -> super::builder::gen_ai_tuning_service::CreateTuningJob {
         super::builder::gen_ai_tuning_service::CreateTuningJob::new(self.inner.clone())
     }
 
     /// Gets a TuningJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tuning_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tuning_job(&self) -> super::builder::gen_ai_tuning_service::GetTuningJob {
         super::builder::gen_ai_tuning_service::GetTuningJob::new(self.inner.clone())
     }
@@ -3254,6 +5167,21 @@ impl GenAiTuningService {
     /// [google.cloud.aiplatform.v1.TuningJob.error]: crate::model::TuningJob::error
     /// [google.cloud.aiplatform.v1.TuningJob.state]: crate::model::TuningJob::state
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_tuning_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_tuning_job(&self) -> super::builder::gen_ai_tuning_service::CancelTuningJob {
         super::builder::gen_ai_tuning_service::CancelTuningJob::new(self.inner.clone())
     }
@@ -3279,6 +5207,22 @@ impl GenAiTuningService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::gen_ai_tuning_service::GetLocation {
         super::builder::gen_ai_tuning_service::GetLocation::new(self.inner.clone())
     }
@@ -3288,12 +5232,44 @@ impl GenAiTuningService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::gen_ai_tuning_service::SetIamPolicy {
         super::builder::gen_ai_tuning_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::gen_ai_tuning_service::GetIamPolicy {
         super::builder::gen_ai_tuning_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3305,6 +5281,22 @@ impl GenAiTuningService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::gen_ai_tuning_service::TestIamPermissions {
@@ -3321,6 +5313,22 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gen_ai_tuning_service::GetOperation {
         super::builder::gen_ai_tuning_service::GetOperation::new(self.inner.clone())
     }
@@ -3328,6 +5336,21 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gen_ai_tuning_service::DeleteOperation {
         super::builder::gen_ai_tuning_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3335,6 +5358,21 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gen_ai_tuning_service::CancelOperation {
         super::builder::gen_ai_tuning_service::CancelOperation::new(self.inner.clone())
     }
@@ -3342,6 +5380,22 @@ impl GenAiTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::GenAiTuningService;
+    /// async fn sample(
+    ///    client: &GenAiTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::gen_ai_tuning_service::WaitOperation {
         super::builder::gen_ai_tuning_service::WaitOperation::new(self.inner.clone())
     }
@@ -3473,6 +5527,23 @@ impl IndexEndpointService {
     }
 
     /// Gets an IndexEndpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_index_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index_endpoint(&self) -> super::builder::index_endpoint_service::GetIndexEndpoint {
         super::builder::index_endpoint_service::GetIndexEndpoint::new(self.inner.clone())
     }
@@ -3485,6 +5556,22 @@ impl IndexEndpointService {
     }
 
     /// Updates an IndexEndpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_index_endpoint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_index_endpoint(
         &self,
     ) -> super::builder::index_endpoint_service::UpdateIndexEndpoint {
@@ -3564,6 +5651,22 @@ impl IndexEndpointService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::index_endpoint_service::GetLocation {
         super::builder::index_endpoint_service::GetLocation::new(self.inner.clone())
     }
@@ -3573,12 +5676,44 @@ impl IndexEndpointService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::index_endpoint_service::SetIamPolicy {
         super::builder::index_endpoint_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::index_endpoint_service::GetIamPolicy {
         super::builder::index_endpoint_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3590,6 +5725,22 @@ impl IndexEndpointService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::index_endpoint_service::TestIamPermissions {
@@ -3606,6 +5757,22 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::index_endpoint_service::GetOperation {
         super::builder::index_endpoint_service::GetOperation::new(self.inner.clone())
     }
@@ -3613,6 +5780,21 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::index_endpoint_service::DeleteOperation {
         super::builder::index_endpoint_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3620,6 +5802,21 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::index_endpoint_service::CancelOperation {
         super::builder::index_endpoint_service::CancelOperation::new(self.inner.clone())
     }
@@ -3627,6 +5824,22 @@ impl IndexEndpointService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexEndpointService;
+    /// async fn sample(
+    ///    client: &IndexEndpointService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::index_endpoint_service::WaitOperation {
         super::builder::index_endpoint_service::WaitOperation::new(self.inner.clone())
     }
@@ -3753,6 +5966,23 @@ impl IndexService {
     }
 
     /// Gets an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_index()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index(&self) -> super::builder::index_service::GetIndex {
         super::builder::index_service::GetIndex::new(self.inner.clone())
     }
@@ -3798,11 +6028,43 @@ impl IndexService {
     }
 
     /// Add/update Datapoints into an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .upsert_datapoints()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upsert_datapoints(&self) -> super::builder::index_service::UpsertDatapoints {
         super::builder::index_service::UpsertDatapoints::new(self.inner.clone())
     }
 
     /// Remove Datapoints from an Index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_datapoints()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_datapoints(&self) -> super::builder::index_service::RemoveDatapoints {
         super::builder::index_service::RemoveDatapoints::new(self.inner.clone())
     }
@@ -3813,6 +6075,22 @@ impl IndexService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::index_service::GetLocation {
         super::builder::index_service::GetLocation::new(self.inner.clone())
     }
@@ -3822,12 +6100,44 @@ impl IndexService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::index_service::SetIamPolicy {
         super::builder::index_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::index_service::GetIamPolicy {
         super::builder::index_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -3839,6 +6149,22 @@ impl IndexService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::index_service::TestIamPermissions {
         super::builder::index_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -3853,6 +6179,22 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::index_service::GetOperation {
         super::builder::index_service::GetOperation::new(self.inner.clone())
     }
@@ -3860,6 +6202,21 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::index_service::DeleteOperation {
         super::builder::index_service::DeleteOperation::new(self.inner.clone())
     }
@@ -3867,6 +6224,21 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::index_service::CancelOperation {
         super::builder::index_service::CancelOperation::new(self.inner.clone())
     }
@@ -3874,6 +6246,22 @@ impl IndexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::IndexService;
+    /// async fn sample(
+    ///    client: &IndexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::index_service::WaitOperation {
         super::builder::index_service::WaitOperation::new(self.inner.clone())
     }
@@ -3986,11 +6374,44 @@ impl JobService {
 
     /// Creates a CustomJob. A created CustomJob right away
     /// will be attempted to be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_custom_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_custom_job(&self) -> super::builder::job_service::CreateCustomJob {
         super::builder::job_service::CreateCustomJob::new(self.inner.clone())
     }
 
     /// Gets a CustomJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_custom_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_custom_job(&self) -> super::builder::job_service::GetCustomJob {
         super::builder::job_service::GetCustomJob::new(self.inner.clone())
     }
@@ -4033,16 +6454,64 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.CustomJob.state]: crate::model::CustomJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetCustomJob]: crate::client::JobService::get_custom_job
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_custom_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_custom_job(&self) -> super::builder::job_service::CancelCustomJob {
         super::builder::job_service::CancelCustomJob::new(self.inner.clone())
     }
 
     /// Creates a DataLabelingJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_labeling_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_labeling_job(&self) -> super::builder::job_service::CreateDataLabelingJob {
         super::builder::job_service::CreateDataLabelingJob::new(self.inner.clone())
     }
 
     /// Gets a DataLabelingJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_labeling_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_labeling_job(&self) -> super::builder::job_service::GetDataLabelingJob {
         super::builder::job_service::GetDataLabelingJob::new(self.inner.clone())
     }
@@ -4068,11 +6537,42 @@ impl JobService {
     }
 
     /// Cancels a DataLabelingJob. Success of cancellation is not guaranteed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_data_labeling_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_data_labeling_job(&self) -> super::builder::job_service::CancelDataLabelingJob {
         super::builder::job_service::CancelDataLabelingJob::new(self.inner.clone())
     }
 
     /// Creates a HyperparameterTuningJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_hyperparameter_tuning_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::CreateHyperparameterTuningJob {
@@ -4080,6 +6580,23 @@ impl JobService {
     }
 
     /// Gets a HyperparameterTuningJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_hyperparameter_tuning_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::GetHyperparameterTuningJob {
@@ -4129,6 +6646,21 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.HyperparameterTuningJob.state]: crate::model::HyperparameterTuningJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetHyperparameterTuningJob]: crate::client::JobService::get_hyperparameter_tuning_job
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_hyperparameter_tuning_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_hyperparameter_tuning_job(
         &self,
     ) -> super::builder::job_service::CancelHyperparameterTuningJob {
@@ -4136,11 +6668,44 @@ impl JobService {
     }
 
     /// Creates a NasJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_nas_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_nas_job(&self) -> super::builder::job_service::CreateNasJob {
         super::builder::job_service::CreateNasJob::new(self.inner.clone())
     }
 
     /// Gets a NasJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_nas_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nas_job(&self) -> super::builder::job_service::GetNasJob {
         super::builder::job_service::GetNasJob::new(self.inner.clone())
     }
@@ -4183,11 +6748,43 @@ impl JobService {
     /// [google.cloud.aiplatform.v1.NasJob.error]: crate::model::NasJob::error
     /// [google.cloud.aiplatform.v1.NasJob.state]: crate::model::NasJob::state
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_nas_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_nas_job(&self) -> super::builder::job_service::CancelNasJob {
         super::builder::job_service::CancelNasJob::new(self.inner.clone())
     }
 
     /// Gets a NasTrialDetail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_nas_trial_detail()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nas_trial_detail(&self) -> super::builder::job_service::GetNasTrialDetail {
         super::builder::job_service::GetNasTrialDetail::new(self.inner.clone())
     }
@@ -4199,6 +6796,22 @@ impl JobService {
 
     /// Creates a BatchPredictionJob. A BatchPredictionJob once created will
     /// right away be attempted to start.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_batch_prediction_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_batch_prediction_job(
         &self,
     ) -> super::builder::job_service::CreateBatchPredictionJob {
@@ -4206,6 +6819,23 @@ impl JobService {
     }
 
     /// Gets a BatchPredictionJob
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_batch_prediction_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_batch_prediction_job(&self) -> super::builder::job_service::GetBatchPredictionJob {
         super::builder::job_service::GetBatchPredictionJob::new(self.inner.clone())
     }
@@ -4250,6 +6880,21 @@ impl JobService {
     ///
     /// [google.cloud.aiplatform.v1.BatchPredictionJob.state]: crate::model::BatchPredictionJob::state
     /// [google.cloud.aiplatform.v1.JobService.GetBatchPredictionJob]: crate::client::JobService::get_batch_prediction_job
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_batch_prediction_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_batch_prediction_job(
         &self,
     ) -> super::builder::job_service::CancelBatchPredictionJob {
@@ -4258,6 +6903,22 @@ impl JobService {
 
     /// Creates a ModelDeploymentMonitoringJob. It will run periodically on a
     /// configured interval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_model_deployment_monitoring_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::CreateModelDeploymentMonitoringJob {
@@ -4274,6 +6935,23 @@ impl JobService {
     }
 
     /// Gets a ModelDeploymentMonitoringJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model_deployment_monitoring_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::GetModelDeploymentMonitoringJob {
@@ -4327,6 +7005,21 @@ impl JobService {
     /// to 'PAUSED'.
     ///
     /// [google.cloud.aiplatform.v1.ModelDeploymentMonitoringJob.state]: crate::model::ModelDeploymentMonitoringJob::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .pause_model_deployment_monitoring_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::PauseModelDeploymentMonitoringJob {
@@ -4336,6 +7029,21 @@ impl JobService {
     /// Resumes a paused ModelDeploymentMonitoringJob. It will start to run from
     /// next scheduled time. A deleted ModelDeploymentMonitoringJob can't be
     /// resumed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .resume_model_deployment_monitoring_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_model_deployment_monitoring_job(
         &self,
     ) -> super::builder::job_service::ResumeModelDeploymentMonitoringJob {
@@ -4348,6 +7056,22 @@ impl JobService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::job_service::GetLocation {
         super::builder::job_service::GetLocation::new(self.inner.clone())
     }
@@ -4357,12 +7081,44 @@ impl JobService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::job_service::SetIamPolicy {
         super::builder::job_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::job_service::GetIamPolicy {
         super::builder::job_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4374,6 +7130,22 @@ impl JobService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::job_service::TestIamPermissions {
         super::builder::job_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4388,6 +7160,22 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::job_service::GetOperation {
         super::builder::job_service::GetOperation::new(self.inner.clone())
     }
@@ -4395,6 +7183,21 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::job_service::DeleteOperation {
         super::builder::job_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4402,6 +7205,21 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::job_service::CancelOperation {
         super::builder::job_service::CancelOperation::new(self.inner.clone())
     }
@@ -4409,6 +7227,22 @@ impl JobService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::JobService;
+    /// async fn sample(
+    ///    client: &JobService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::job_service::WaitOperation {
         super::builder::job_service::WaitOperation::new(self.inner.clone())
     }
@@ -4523,11 +7357,43 @@ impl LlmUtilityService {
     }
 
     /// Perform a token counting.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .count_tokens()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn count_tokens(&self) -> super::builder::llm_utility_service::CountTokens {
         super::builder::llm_utility_service::CountTokens::new(self.inner.clone())
     }
 
     /// Return a list of tokens based on the input text.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .compute_tokens()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_tokens(&self) -> super::builder::llm_utility_service::ComputeTokens {
         super::builder::llm_utility_service::ComputeTokens::new(self.inner.clone())
     }
@@ -4538,6 +7404,22 @@ impl LlmUtilityService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::llm_utility_service::GetLocation {
         super::builder::llm_utility_service::GetLocation::new(self.inner.clone())
     }
@@ -4547,12 +7429,44 @@ impl LlmUtilityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::llm_utility_service::SetIamPolicy {
         super::builder::llm_utility_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::llm_utility_service::GetIamPolicy {
         super::builder::llm_utility_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4564,6 +7478,22 @@ impl LlmUtilityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::llm_utility_service::TestIamPermissions {
         super::builder::llm_utility_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4578,6 +7508,22 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::llm_utility_service::GetOperation {
         super::builder::llm_utility_service::GetOperation::new(self.inner.clone())
     }
@@ -4585,6 +7531,21 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::llm_utility_service::DeleteOperation {
         super::builder::llm_utility_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4592,6 +7553,21 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::llm_utility_service::CancelOperation {
         super::builder::llm_utility_service::CancelOperation::new(self.inner.clone())
     }
@@ -4599,6 +7575,22 @@ impl LlmUtilityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::LlmUtilityService;
+    /// async fn sample(
+    ///    client: &LlmUtilityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::llm_utility_service::WaitOperation {
         super::builder::llm_utility_service::WaitOperation::new(self.inner.clone())
     }
@@ -4711,12 +7703,44 @@ impl MatchService {
     }
 
     /// Finds the nearest neighbors of each vector within the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .find_neighbors()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn find_neighbors(&self) -> super::builder::match_service::FindNeighbors {
         super::builder::match_service::FindNeighbors::new(self.inner.clone())
     }
 
     /// Reads the datapoints/vectors of the given IDs.
     /// A maximum of 1000 datapoints can be retrieved in a batch.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_index_datapoints()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_index_datapoints(&self) -> super::builder::match_service::ReadIndexDatapoints {
         super::builder::match_service::ReadIndexDatapoints::new(self.inner.clone())
     }
@@ -4727,6 +7751,22 @@ impl MatchService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::match_service::GetLocation {
         super::builder::match_service::GetLocation::new(self.inner.clone())
     }
@@ -4736,12 +7776,44 @@ impl MatchService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::match_service::SetIamPolicy {
         super::builder::match_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::match_service::GetIamPolicy {
         super::builder::match_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -4753,6 +7825,22 @@ impl MatchService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::match_service::TestIamPermissions {
         super::builder::match_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -4767,6 +7855,22 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::match_service::GetOperation {
         super::builder::match_service::GetOperation::new(self.inner.clone())
     }
@@ -4774,6 +7878,21 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::match_service::DeleteOperation {
         super::builder::match_service::DeleteOperation::new(self.inner.clone())
     }
@@ -4781,6 +7900,21 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::match_service::CancelOperation {
         super::builder::match_service::CancelOperation::new(self.inner.clone())
     }
@@ -4788,6 +7922,22 @@ impl MatchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MatchService;
+    /// async fn sample(
+    ///    client: &MatchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::match_service::WaitOperation {
         super::builder::match_service::WaitOperation::new(self.inner.clone())
     }
@@ -4917,6 +8067,23 @@ impl MetadataService {
     }
 
     /// Retrieves a specific MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metadata_store()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_store(&self) -> super::builder::metadata_service::GetMetadataStore {
         super::builder::metadata_service::GetMetadataStore::new(self.inner.clone())
     }
@@ -4943,11 +8110,44 @@ impl MetadataService {
     }
 
     /// Creates an Artifact associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_artifact()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_artifact(&self) -> super::builder::metadata_service::CreateArtifact {
         super::builder::metadata_service::CreateArtifact::new(self.inner.clone())
     }
 
     /// Retrieves a specific Artifact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_artifact()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_artifact(&self) -> super::builder::metadata_service::GetArtifact {
         super::builder::metadata_service::GetArtifact::new(self.inner.clone())
     }
@@ -4958,6 +8158,22 @@ impl MetadataService {
     }
 
     /// Updates a stored Artifact.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_artifact()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_artifact(&self) -> super::builder::metadata_service::UpdateArtifact {
         super::builder::metadata_service::UpdateArtifact::new(self.inner.clone())
     }
@@ -4993,11 +8209,44 @@ impl MetadataService {
     }
 
     /// Creates a Context associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_context()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_context(&self) -> super::builder::metadata_service::CreateContext {
         super::builder::metadata_service::CreateContext::new(self.inner.clone())
     }
 
     /// Retrieves a specific Context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_context()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_context(&self) -> super::builder::metadata_service::GetContext {
         super::builder::metadata_service::GetContext::new(self.inner.clone())
     }
@@ -5008,6 +8257,22 @@ impl MetadataService {
     }
 
     /// Updates a stored Context.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_context()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_context(&self) -> super::builder::metadata_service::UpdateContext {
         super::builder::metadata_service::UpdateContext::new(self.inner.clone())
     }
@@ -5045,6 +8310,22 @@ impl MetadataService {
     /// Adds a set of Artifacts and Executions to a Context. If any of the
     /// Artifacts or Executions have already been added to a Context, they are
     /// simply skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_context_artifacts_and_executions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_context_artifacts_and_executions(
         &self,
     ) -> super::builder::metadata_service::AddContextArtifactsAndExecutions {
@@ -5056,6 +8337,22 @@ impl MetadataService {
     /// simply skipped. If this call would create a cycle or cause any Context to
     /// have more than 10 parents, the request will fail with an INVALID_ARGUMENT
     /// error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_context_children()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_context_children(&self) -> super::builder::metadata_service::AddContextChildren {
         super::builder::metadata_service::AddContextChildren::new(self.inner.clone())
     }
@@ -5063,6 +8360,22 @@ impl MetadataService {
     /// Remove a set of children contexts from a parent Context. If any of the
     /// child Contexts were NOT added to the parent Context, they are
     /// simply skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_context_children()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_context_children(
         &self,
     ) -> super::builder::metadata_service::RemoveContextChildren {
@@ -5071,6 +8384,22 @@ impl MetadataService {
 
     /// Retrieves Artifacts and Executions within the specified Context, connected
     /// by Event edges and returned as a LineageSubgraph.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_context_lineage_subgraph()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_context_lineage_subgraph(
         &self,
     ) -> super::builder::metadata_service::QueryContextLineageSubgraph {
@@ -5078,11 +8407,44 @@ impl MetadataService {
     }
 
     /// Creates an Execution associated with a MetadataStore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_execution(&self) -> super::builder::metadata_service::CreateExecution {
         super::builder::metadata_service::CreateExecution::new(self.inner.clone())
     }
 
     /// Retrieves a specific Execution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_execution()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_execution(&self) -> super::builder::metadata_service::GetExecution {
         super::builder::metadata_service::GetExecution::new(self.inner.clone())
     }
@@ -5093,6 +8455,22 @@ impl MetadataService {
     }
 
     /// Updates a stored Execution.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_execution()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_execution(&self) -> super::builder::metadata_service::UpdateExecution {
         super::builder::metadata_service::UpdateExecution::new(self.inner.clone())
     }
@@ -5131,6 +8509,22 @@ impl MetadataService {
     /// Artifact was used as an input or output for an Execution. If an Event
     /// already exists between the Execution and the Artifact, the Event is
     /// skipped.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_execution_events()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_execution_events(&self) -> super::builder::metadata_service::AddExecutionEvents {
         super::builder::metadata_service::AddExecutionEvents::new(self.inner.clone())
     }
@@ -5138,6 +8532,22 @@ impl MetadataService {
     /// Obtains the set of input and output Artifacts for this Execution, in the
     /// form of LineageSubgraph that also contains the Execution and connecting
     /// Events.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_execution_inputs_and_outputs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_execution_inputs_and_outputs(
         &self,
     ) -> super::builder::metadata_service::QueryExecutionInputsAndOutputs {
@@ -5145,11 +8555,44 @@ impl MetadataService {
     }
 
     /// Creates a MetadataSchema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_metadata_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_metadata_schema(&self) -> super::builder::metadata_service::CreateMetadataSchema {
         super::builder::metadata_service::CreateMetadataSchema::new(self.inner.clone())
     }
 
     /// Retrieves a specific MetadataSchema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metadata_schema()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_schema(&self) -> super::builder::metadata_service::GetMetadataSchema {
         super::builder::metadata_service::GetMetadataSchema::new(self.inner.clone())
     }
@@ -5161,6 +8604,22 @@ impl MetadataService {
 
     /// Retrieves lineage of an Artifact represented through Artifacts and
     /// Executions connected by Event edges and returned as a LineageSubgraph.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_artifact_lineage_subgraph()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_artifact_lineage_subgraph(
         &self,
     ) -> super::builder::metadata_service::QueryArtifactLineageSubgraph {
@@ -5173,6 +8632,22 @@ impl MetadataService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::metadata_service::GetLocation {
         super::builder::metadata_service::GetLocation::new(self.inner.clone())
     }
@@ -5182,12 +8657,44 @@ impl MetadataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::metadata_service::GetIamPolicy {
         super::builder::metadata_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5199,6 +8706,22 @@ impl MetadataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5213,6 +8736,22 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::metadata_service::GetOperation {
         super::builder::metadata_service::GetOperation::new(self.inner.clone())
     }
@@ -5220,6 +8759,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::metadata_service::DeleteOperation {
         super::builder::metadata_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5227,6 +8781,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::metadata_service::CancelOperation {
         super::builder::metadata_service::CancelOperation::new(self.inner.clone())
     }
@@ -5234,6 +8803,22 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::metadata_service::WaitOperation {
         super::builder::metadata_service::WaitOperation::new(self.inner.clone())
     }
@@ -5381,6 +8966,22 @@ impl MigrationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::migration_service::GetLocation {
         super::builder::migration_service::GetLocation::new(self.inner.clone())
     }
@@ -5390,12 +8991,44 @@ impl MigrationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::migration_service::SetIamPolicy {
         super::builder::migration_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::migration_service::GetIamPolicy {
         super::builder::migration_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5407,6 +9040,22 @@ impl MigrationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::migration_service::TestIamPermissions {
         super::builder::migration_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5421,6 +9070,22 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::migration_service::GetOperation {
         super::builder::migration_service::GetOperation::new(self.inner.clone())
     }
@@ -5428,6 +9093,21 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::migration_service::DeleteOperation {
         super::builder::migration_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5435,6 +9115,21 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::migration_service::CancelOperation {
         super::builder::migration_service::CancelOperation::new(self.inner.clone())
     }
@@ -5442,6 +9137,22 @@ impl MigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::MigrationService;
+    /// async fn sample(
+    ///    client: &MigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::migration_service::WaitOperation {
         super::builder::migration_service::WaitOperation::new(self.inner.clone())
     }
@@ -5556,6 +9267,23 @@ impl ModelGardenService {
     }
 
     /// Gets a Model Garden publisher model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_publisher_model()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_publisher_model(&self) -> super::builder::model_garden_service::GetPublisherModel {
         super::builder::model_garden_service::GetPublisherModel::new(self.inner.clone())
     }
@@ -5581,6 +9309,22 @@ impl ModelGardenService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::model_garden_service::GetLocation {
         super::builder::model_garden_service::GetLocation::new(self.inner.clone())
     }
@@ -5590,12 +9334,44 @@ impl ModelGardenService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::model_garden_service::SetIamPolicy {
         super::builder::model_garden_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::model_garden_service::GetIamPolicy {
         super::builder::model_garden_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5607,6 +9383,22 @@ impl ModelGardenService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::model_garden_service::TestIamPermissions {
         super::builder::model_garden_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5621,6 +9413,22 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::model_garden_service::GetOperation {
         super::builder::model_garden_service::GetOperation::new(self.inner.clone())
     }
@@ -5628,6 +9436,21 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::model_garden_service::DeleteOperation {
         super::builder::model_garden_service::DeleteOperation::new(self.inner.clone())
     }
@@ -5635,6 +9458,21 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::model_garden_service::CancelOperation {
         super::builder::model_garden_service::CancelOperation::new(self.inner.clone())
     }
@@ -5642,6 +9480,22 @@ impl ModelGardenService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelGardenService;
+    /// async fn sample(
+    ///    client: &ModelGardenService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::model_garden_service::WaitOperation {
         super::builder::model_garden_service::WaitOperation::new(self.inner.clone())
     }
@@ -5768,6 +9622,23 @@ impl ModelService {
     }
 
     /// Gets a Model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::model_service::GetModel {
         super::builder::model_service::GetModel::new(self.inner.clone())
     }
@@ -5790,6 +9661,22 @@ impl ModelService {
     }
 
     /// Updates a Model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_model()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_model(&self) -> super::builder::model_service::UpdateModel {
         super::builder::model_service::UpdateModel::new(self.inner.clone())
     }
@@ -5862,6 +9749,22 @@ impl ModelService {
     }
 
     /// Merges a set of aliases for a Model version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .merge_version_aliases()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn merge_version_aliases(&self) -> super::builder::model_service::MergeVersionAliases {
         super::builder::model_service::MergeVersionAliases::new(self.inner.clone())
     }
@@ -5909,11 +9812,43 @@ impl ModelService {
     }
 
     /// Imports an externally generated ModelEvaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_model_evaluation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_model_evaluation(&self) -> super::builder::model_service::ImportModelEvaluation {
         super::builder::model_service::ImportModelEvaluation::new(self.inner.clone())
     }
 
     /// Imports a list of externally generated ModelEvaluationSlice.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_import_model_evaluation_slices()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_import_model_evaluation_slices(
         &self,
     ) -> super::builder::model_service::BatchImportModelEvaluationSlices {
@@ -5921,6 +9856,22 @@ impl ModelService {
     }
 
     /// Imports a list of externally generated EvaluatedAnnotations.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_import_evaluated_annotations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_import_evaluated_annotations(
         &self,
     ) -> super::builder::model_service::BatchImportEvaluatedAnnotations {
@@ -5928,6 +9879,23 @@ impl ModelService {
     }
 
     /// Gets a ModelEvaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_evaluation(&self) -> super::builder::model_service::GetModelEvaluation {
         super::builder::model_service::GetModelEvaluation::new(self.inner.clone())
     }
@@ -5938,6 +9906,23 @@ impl ModelService {
     }
 
     /// Gets a ModelEvaluationSlice.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model_evaluation_slice()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model_evaluation_slice(
         &self,
     ) -> super::builder::model_service::GetModelEvaluationSlice {
@@ -5957,6 +9942,22 @@ impl ModelService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::model_service::GetLocation {
         super::builder::model_service::GetLocation::new(self.inner.clone())
     }
@@ -5966,12 +9967,44 @@ impl ModelService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::model_service::SetIamPolicy {
         super::builder::model_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::model_service::GetIamPolicy {
         super::builder::model_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -5983,6 +10016,22 @@ impl ModelService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::model_service::TestIamPermissions {
         super::builder::model_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -5997,6 +10046,22 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::model_service::GetOperation {
         super::builder::model_service::GetOperation::new(self.inner.clone())
     }
@@ -6004,6 +10069,21 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::model_service::DeleteOperation {
         super::builder::model_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6011,6 +10091,21 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::model_service::CancelOperation {
         super::builder::model_service::CancelOperation::new(self.inner.clone())
     }
@@ -6018,6 +10113,22 @@ impl ModelService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ModelService;
+    /// async fn sample(
+    ///    client: &ModelService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::model_service::WaitOperation {
         super::builder::model_service::WaitOperation::new(self.inner.clone())
     }
@@ -6149,6 +10260,23 @@ impl NotebookService {
     }
 
     /// Gets a NotebookRuntimeTemplate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notebook_runtime_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::GetNotebookRuntimeTemplate {
@@ -6180,6 +10308,22 @@ impl NotebookService {
     }
 
     /// Updates a NotebookRuntimeTemplate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_notebook_runtime_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_notebook_runtime_template(
         &self,
     ) -> super::builder::notebook_service::UpdateNotebookRuntimeTemplate {
@@ -6205,6 +10349,23 @@ impl NotebookService {
     }
 
     /// Gets a NotebookRuntime.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notebook_runtime()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_runtime(&self) -> super::builder::notebook_service::GetNotebookRuntime {
         super::builder::notebook_service::GetNotebookRuntime::new(self.inner.clone())
     }
@@ -6296,6 +10457,23 @@ impl NotebookService {
     }
 
     /// Gets a NotebookExecutionJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notebook_execution_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notebook_execution_job(
         &self,
     ) -> super::builder::notebook_service::GetNotebookExecutionJob {
@@ -6332,6 +10510,22 @@ impl NotebookService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::notebook_service::GetLocation {
         super::builder::notebook_service::GetLocation::new(self.inner.clone())
     }
@@ -6341,12 +10535,44 @@ impl NotebookService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::notebook_service::SetIamPolicy {
         super::builder::notebook_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::notebook_service::GetIamPolicy {
         super::builder::notebook_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6358,6 +10584,22 @@ impl NotebookService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::notebook_service::TestIamPermissions {
         super::builder::notebook_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -6372,6 +10614,22 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::notebook_service::GetOperation {
         super::builder::notebook_service::GetOperation::new(self.inner.clone())
     }
@@ -6379,6 +10637,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::notebook_service::DeleteOperation {
         super::builder::notebook_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6386,6 +10659,21 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::notebook_service::CancelOperation {
         super::builder::notebook_service::CancelOperation::new(self.inner.clone())
     }
@@ -6393,6 +10681,22 @@ impl NotebookService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::NotebookService;
+    /// async fn sample(
+    ///    client: &NotebookService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::notebook_service::WaitOperation {
         super::builder::notebook_service::WaitOperation::new(self.inner.clone())
     }
@@ -6527,6 +10831,23 @@ impl PersistentResourceService {
     }
 
     /// Gets a PersistentResource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_persistent_resource()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_persistent_resource(
         &self,
     ) -> super::builder::persistent_resource_service::GetPersistentResource {
@@ -6605,6 +10926,22 @@ impl PersistentResourceService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::persistent_resource_service::GetLocation {
         super::builder::persistent_resource_service::GetLocation::new(self.inner.clone())
     }
@@ -6614,12 +10951,44 @@ impl PersistentResourceService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::persistent_resource_service::SetIamPolicy {
         super::builder::persistent_resource_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::persistent_resource_service::GetIamPolicy {
         super::builder::persistent_resource_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6631,6 +11000,22 @@ impl PersistentResourceService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::persistent_resource_service::TestIamPermissions {
@@ -6647,6 +11032,22 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::persistent_resource_service::GetOperation {
         super::builder::persistent_resource_service::GetOperation::new(self.inner.clone())
     }
@@ -6654,6 +11055,21 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::persistent_resource_service::DeleteOperation {
         super::builder::persistent_resource_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6661,6 +11077,21 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::persistent_resource_service::CancelOperation {
         super::builder::persistent_resource_service::CancelOperation::new(self.inner.clone())
     }
@@ -6668,6 +11099,22 @@ impl PersistentResourceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PersistentResourceService;
+    /// async fn sample(
+    ///    client: &PersistentResourceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::persistent_resource_service::WaitOperation {
         super::builder::persistent_resource_service::WaitOperation::new(self.inner.clone())
     }
@@ -6785,6 +11232,22 @@ impl PipelineService {
 
     /// Creates a TrainingPipeline. A created TrainingPipeline right away will be
     /// attempted to be run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_training_pipeline()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::CreateTrainingPipeline {
@@ -6792,6 +11255,23 @@ impl PipelineService {
     }
 
     /// Gets a TrainingPipeline.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_training_pipeline()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_training_pipeline(&self) -> super::builder::pipeline_service::GetTrainingPipeline {
         super::builder::pipeline_service::GetTrainingPipeline::new(self.inner.clone())
     }
@@ -6839,6 +11319,21 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.TrainingPipeline.error]: crate::model::TrainingPipeline::error
     /// [google.cloud.aiplatform.v1.TrainingPipeline.state]: crate::model::TrainingPipeline::state
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_training_pipeline()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_training_pipeline(
         &self,
     ) -> super::builder::pipeline_service::CancelTrainingPipeline {
@@ -6846,11 +11341,44 @@ impl PipelineService {
     }
 
     /// Creates a PipelineJob. A PipelineJob will run immediately when created.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_pipeline_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_pipeline_job(&self) -> super::builder::pipeline_service::CreatePipelineJob {
         super::builder::pipeline_service::CreatePipelineJob::new(self.inner.clone())
     }
 
     /// Gets a PipelineJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pipeline_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pipeline_job(&self) -> super::builder::pipeline_service::GetPipelineJob {
         super::builder::pipeline_service::GetPipelineJob::new(self.inner.clone())
     }
@@ -6912,6 +11440,21 @@ impl PipelineService {
     /// [google.cloud.aiplatform.v1.PipelineJob.state]: crate::model::PipelineJob::state
     /// [google.cloud.aiplatform.v1.PipelineService.GetPipelineJob]: crate::client::PipelineService::get_pipeline_job
     /// [google.rpc.Status.code]: rpc::model::Status::code
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_pipeline_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_pipeline_job(&self) -> super::builder::pipeline_service::CancelPipelineJob {
         super::builder::pipeline_service::CancelPipelineJob::new(self.inner.clone())
     }
@@ -6945,6 +11488,22 @@ impl PipelineService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::pipeline_service::GetLocation {
         super::builder::pipeline_service::GetLocation::new(self.inner.clone())
     }
@@ -6954,12 +11513,44 @@ impl PipelineService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::pipeline_service::SetIamPolicy {
         super::builder::pipeline_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::pipeline_service::GetIamPolicy {
         super::builder::pipeline_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -6971,6 +11562,22 @@ impl PipelineService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::pipeline_service::TestIamPermissions {
         super::builder::pipeline_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -6985,6 +11592,22 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::pipeline_service::GetOperation {
         super::builder::pipeline_service::GetOperation::new(self.inner.clone())
     }
@@ -6992,6 +11615,21 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::pipeline_service::DeleteOperation {
         super::builder::pipeline_service::DeleteOperation::new(self.inner.clone())
     }
@@ -6999,6 +11637,21 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::pipeline_service::CancelOperation {
         super::builder::pipeline_service::CancelOperation::new(self.inner.clone())
     }
@@ -7006,6 +11659,22 @@ impl PipelineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PipelineService;
+    /// async fn sample(
+    ///    client: &PipelineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::pipeline_service::WaitOperation {
         super::builder::pipeline_service::WaitOperation::new(self.inner.clone())
     }
@@ -7120,6 +11789,22 @@ impl PredictionService {
     }
 
     /// Perform an online prediction.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .predict()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn predict(&self) -> super::builder::prediction_service::Predict {
         super::builder::prediction_service::Predict::new(self.inner.clone())
     }
@@ -7139,18 +11824,66 @@ impl PredictionService {
     ///
     /// [google.cloud.aiplatform.v1.DeployedModel]: crate::model::DeployedModel
     /// [google.cloud.aiplatform.v1.Endpoint]: crate::model::Endpoint
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .raw_predict()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn raw_predict(&self) -> super::builder::prediction_service::RawPredict {
         super::builder::prediction_service::RawPredict::new(self.inner.clone())
     }
 
     /// Perform an unary online prediction request to a gRPC model server for
     /// Vertex first-party products and frameworks.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .direct_predict()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn direct_predict(&self) -> super::builder::prediction_service::DirectPredict {
         super::builder::prediction_service::DirectPredict::new(self.inner.clone())
     }
 
     /// Perform an unary online prediction request to a gRPC model server for
     /// custom containers.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .direct_raw_predict()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn direct_raw_predict(&self) -> super::builder::prediction_service::DirectRawPredict {
         super::builder::prediction_service::DirectRawPredict::new(self.inner.clone())
     }
@@ -7169,16 +11902,64 @@ impl PredictionService {
     ///
     /// [google.cloud.aiplatform.v1.DeployedModel.explanation_spec]: crate::model::DeployedModel::explanation_spec
     /// [google.cloud.aiplatform.v1.ExplainRequest.deployed_model_id]: crate::model::ExplainRequest::deployed_model_id
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .explain()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn explain(&self) -> super::builder::prediction_service::Explain {
         super::builder::prediction_service::Explain::new(self.inner.clone())
     }
 
     /// Generate content with multimodal inputs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_content(&self) -> super::builder::prediction_service::GenerateContent {
         super::builder::prediction_service::GenerateContent::new(self.inner.clone())
     }
 
     /// Embed content with multimodal inputs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .embed_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn embed_content(&self) -> super::builder::prediction_service::EmbedContent {
         super::builder::prediction_service::EmbedContent::new(self.inner.clone())
     }
@@ -7189,6 +11970,22 @@ impl PredictionService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::prediction_service::GetLocation {
         super::builder::prediction_service::GetLocation::new(self.inner.clone())
     }
@@ -7198,12 +11995,44 @@ impl PredictionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::prediction_service::SetIamPolicy {
         super::builder::prediction_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::prediction_service::GetIamPolicy {
         super::builder::prediction_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7215,6 +12044,22 @@ impl PredictionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::prediction_service::TestIamPermissions {
         super::builder::prediction_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -7229,6 +12074,22 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::prediction_service::GetOperation {
         super::builder::prediction_service::GetOperation::new(self.inner.clone())
     }
@@ -7236,6 +12097,21 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::prediction_service::DeleteOperation {
         super::builder::prediction_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7243,6 +12119,21 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::prediction_service::CancelOperation {
         super::builder::prediction_service::CancelOperation::new(self.inner.clone())
     }
@@ -7250,6 +12141,22 @@ impl PredictionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::PredictionService;
+    /// async fn sample(
+    ///    client: &PredictionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::prediction_service::WaitOperation {
         super::builder::prediction_service::WaitOperation::new(self.inner.clone())
     }
@@ -7365,6 +12272,22 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Queries using a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_reasoning_engine()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::QueryReasoningEngine {
@@ -7381,6 +12304,22 @@ impl ReasoningEngineExecutionService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reasoning_engine_execution_service::GetLocation {
         super::builder::reasoning_engine_execution_service::GetLocation::new(self.inner.clone())
     }
@@ -7390,6 +12329,22 @@ impl ReasoningEngineExecutionService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::SetIamPolicy {
@@ -7398,6 +12353,22 @@ impl ReasoningEngineExecutionService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::GetIamPolicy {
@@ -7411,6 +12382,22 @@ impl ReasoningEngineExecutionService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::TestIamPermissions {
@@ -7431,6 +12418,22 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::GetOperation {
@@ -7440,6 +12443,21 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::DeleteOperation {
@@ -7449,6 +12467,21 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::CancelOperation {
@@ -7458,6 +12491,22 @@ impl ReasoningEngineExecutionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineExecutionService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineExecutionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(
         &self,
     ) -> super::builder::reasoning_engine_execution_service::WaitOperation {
@@ -7591,6 +12640,23 @@ impl ReasoningEngineService {
     }
 
     /// Gets a reasoning engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_reasoning_engine()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reasoning_engine(
         &self,
     ) -> super::builder::reasoning_engine_service::GetReasoningEngine {
@@ -7644,6 +12710,22 @@ impl ReasoningEngineService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::reasoning_engine_service::GetLocation {
         super::builder::reasoning_engine_service::GetLocation::new(self.inner.clone())
     }
@@ -7653,12 +12735,44 @@ impl ReasoningEngineService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::reasoning_engine_service::SetIamPolicy {
         super::builder::reasoning_engine_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::reasoning_engine_service::GetIamPolicy {
         super::builder::reasoning_engine_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7670,6 +12784,22 @@ impl ReasoningEngineService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::reasoning_engine_service::TestIamPermissions {
@@ -7686,6 +12816,22 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::reasoning_engine_service::GetOperation {
         super::builder::reasoning_engine_service::GetOperation::new(self.inner.clone())
     }
@@ -7693,6 +12839,21 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::reasoning_engine_service::DeleteOperation {
         super::builder::reasoning_engine_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7700,6 +12861,21 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::reasoning_engine_service::CancelOperation {
         super::builder::reasoning_engine_service::CancelOperation::new(self.inner.clone())
     }
@@ -7707,6 +12883,22 @@ impl ReasoningEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ReasoningEngineService;
+    /// async fn sample(
+    ///    client: &ReasoningEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::reasoning_engine_service::WaitOperation {
         super::builder::reasoning_engine_service::WaitOperation::new(self.inner.clone())
     }
@@ -7822,6 +13014,22 @@ impl ScheduleService {
     }
 
     /// Creates a Schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_schedule(&self) -> super::builder::schedule_service::CreateSchedule {
         super::builder::schedule_service::CreateSchedule::new(self.inner.clone())
     }
@@ -7842,6 +13050,23 @@ impl ScheduleService {
     }
 
     /// Gets a Schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schedule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_schedule(&self) -> super::builder::schedule_service::GetSchedule {
         super::builder::schedule_service::GetSchedule::new(self.inner.clone())
     }
@@ -7857,6 +13082,21 @@ impl ScheduleService {
     /// will NOT be paused or canceled.
     ///
     /// [google.cloud.aiplatform.v1.Schedule.state]: crate::model::Schedule::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .pause_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn pause_schedule(&self) -> super::builder::schedule_service::PauseSchedule {
         super::builder::schedule_service::PauseSchedule::new(self.inner.clone())
     }
@@ -7873,6 +13113,21 @@ impl ScheduleService {
     ///
     /// [google.cloud.aiplatform.v1.Schedule.catch_up]: crate::model::Schedule::catch_up
     /// [google.cloud.aiplatform.v1.Schedule.state]: crate::model::Schedule::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .resume_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn resume_schedule(&self) -> super::builder::schedule_service::ResumeSchedule {
         super::builder::schedule_service::ResumeSchedule::new(self.inner.clone())
     }
@@ -7884,6 +13139,22 @@ impl ScheduleService {
     /// time_specification in the updated Schedule. All unstarted runs before the
     /// update time will be skipped while already created runs will NOT be paused
     /// or canceled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_schedule(&self) -> super::builder::schedule_service::UpdateSchedule {
         super::builder::schedule_service::UpdateSchedule::new(self.inner.clone())
     }
@@ -7894,6 +13165,22 @@ impl ScheduleService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::schedule_service::GetLocation {
         super::builder::schedule_service::GetLocation::new(self.inner.clone())
     }
@@ -7903,12 +13190,44 @@ impl ScheduleService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::schedule_service::SetIamPolicy {
         super::builder::schedule_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::schedule_service::GetIamPolicy {
         super::builder::schedule_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -7920,6 +13239,22 @@ impl ScheduleService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::schedule_service::TestIamPermissions {
         super::builder::schedule_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -7934,6 +13269,22 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::schedule_service::GetOperation {
         super::builder::schedule_service::GetOperation::new(self.inner.clone())
     }
@@ -7941,6 +13292,21 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::schedule_service::DeleteOperation {
         super::builder::schedule_service::DeleteOperation::new(self.inner.clone())
     }
@@ -7948,6 +13314,21 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::schedule_service::CancelOperation {
         super::builder::schedule_service::CancelOperation::new(self.inner.clone())
     }
@@ -7955,6 +13336,22 @@ impl ScheduleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::ScheduleService;
+    /// async fn sample(
+    ///    client: &ScheduleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::schedule_service::WaitOperation {
         super::builder::schedule_service::WaitOperation::new(self.inner.clone())
     }
@@ -8091,6 +13488,23 @@ impl SpecialistPoolService {
     }
 
     /// Gets a SpecialistPool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_specialist_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_specialist_pool(
         &self,
     ) -> super::builder::specialist_pool_service::GetSpecialistPool {
@@ -8144,6 +13558,22 @@ impl SpecialistPoolService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::specialist_pool_service::GetLocation {
         super::builder::specialist_pool_service::GetLocation::new(self.inner.clone())
     }
@@ -8153,12 +13583,44 @@ impl SpecialistPoolService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::specialist_pool_service::SetIamPolicy {
         super::builder::specialist_pool_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::specialist_pool_service::GetIamPolicy {
         super::builder::specialist_pool_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8170,6 +13632,22 @@ impl SpecialistPoolService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::specialist_pool_service::TestIamPermissions {
@@ -8186,6 +13664,22 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::specialist_pool_service::GetOperation {
         super::builder::specialist_pool_service::GetOperation::new(self.inner.clone())
     }
@@ -8193,6 +13687,21 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::specialist_pool_service::DeleteOperation {
         super::builder::specialist_pool_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8200,6 +13709,21 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::specialist_pool_service::CancelOperation {
         super::builder::specialist_pool_service::CancelOperation::new(self.inner.clone())
     }
@@ -8207,6 +13731,22 @@ impl SpecialistPoolService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::SpecialistPoolService;
+    /// async fn sample(
+    ///    client: &SpecialistPoolService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::specialist_pool_service::WaitOperation {
         super::builder::specialist_pool_service::WaitOperation::new(self.inner.clone())
     }
@@ -8336,6 +13876,23 @@ impl TensorboardService {
     }
 
     /// Gets a Tensorboard.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tensorboard()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard(&self) -> super::builder::tensorboard_service::GetTensorboard {
         super::builder::tensorboard_service::GetTensorboard::new(self.inner.clone())
     }
@@ -8376,6 +13933,22 @@ impl TensorboardService {
     }
 
     /// Returns a list of monthly active users for a given TensorBoard instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_tensorboard_usage()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_usage(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardUsage {
@@ -8383,6 +13956,22 @@ impl TensorboardService {
     }
 
     /// Returns the storage size for a given TensorBoard instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_tensorboard_size()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_size(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardSize {
@@ -8390,6 +13979,22 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tensorboard_experiment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardExperiment {
@@ -8397,6 +14002,23 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tensorboard_experiment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::GetTensorboardExperiment {
@@ -8404,6 +14026,22 @@ impl TensorboardService {
     }
 
     /// Updates a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tensorboard_experiment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_experiment(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardExperiment {
@@ -8435,6 +14073,22 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tensorboard_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_run(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardRun {
@@ -8442,6 +14096,22 @@ impl TensorboardService {
     }
 
     /// Batch create TensorboardRuns.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_create_tensorboard_runs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_tensorboard_runs(
         &self,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardRuns {
@@ -8449,11 +14119,44 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tensorboard_run()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_run(&self) -> super::builder::tensorboard_service::GetTensorboardRun {
         super::builder::tensorboard_service::GetTensorboardRun::new(self.inner.clone())
     }
 
     /// Updates a TensorboardRun.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tensorboard_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_run(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardRun {
@@ -8485,6 +14188,22 @@ impl TensorboardService {
     }
 
     /// Batch create TensorboardTimeSeries that belong to a TensorboardExperiment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_create_tensorboard_time_series()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_create_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::BatchCreateTensorboardTimeSeries {
@@ -8494,6 +14213,22 @@ impl TensorboardService {
     }
 
     /// Creates a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tensorboard_time_series()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::CreateTensorboardTimeSeries {
@@ -8501,6 +14236,23 @@ impl TensorboardService {
     }
 
     /// Gets a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tensorboard_time_series()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::GetTensorboardTimeSeries {
@@ -8508,6 +14260,22 @@ impl TensorboardService {
     }
 
     /// Updates a TensorboardTimeSeries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tensorboard_time_series()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_tensorboard_time_series(
         &self,
     ) -> super::builder::tensorboard_service::UpdateTensorboardTimeSeries {
@@ -8543,6 +14311,22 @@ impl TensorboardService {
     /// data points stored is less than the limit, all data is returned.
     /// Otherwise, the number limit of data points is randomly selected from
     /// this time series and returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_read_tensorboard_time_series_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_read_tensorboard_time_series_data(
         &self,
     ) -> super::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData {
@@ -8556,6 +14340,22 @@ impl TensorboardService {
     /// data points is randomly selected from this time series and returned.
     /// This value can be changed by changing max_data_points, which can't be
     /// greater than 10k.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .read_tensorboard_time_series_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn read_tensorboard_time_series_data(
         &self,
     ) -> super::builder::tensorboard_service::ReadTensorboardTimeSeriesData {
@@ -8564,6 +14364,22 @@ impl TensorboardService {
 
     /// Write time series data points of multiple TensorboardTimeSeries in multiple
     /// TensorboardRun's. If any data fail to be ingested, an error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_tensorboard_experiment_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_tensorboard_experiment_data(
         &self,
     ) -> super::builder::tensorboard_service::WriteTensorboardExperimentData {
@@ -8572,6 +14388,22 @@ impl TensorboardService {
 
     /// Write time series data points into multiple TensorboardTimeSeries under
     /// a TensorboardRun. If any data fail to be ingested, an error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_tensorboard_run_data()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_tensorboard_run_data(
         &self,
     ) -> super::builder::tensorboard_service::WriteTensorboardRunData {
@@ -8594,6 +14426,22 @@ impl TensorboardService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::tensorboard_service::GetLocation {
         super::builder::tensorboard_service::GetLocation::new(self.inner.clone())
     }
@@ -8603,12 +14451,44 @@ impl TensorboardService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::tensorboard_service::SetIamPolicy {
         super::builder::tensorboard_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::tensorboard_service::GetIamPolicy {
         super::builder::tensorboard_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8620,6 +14500,22 @@ impl TensorboardService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::tensorboard_service::TestIamPermissions {
         super::builder::tensorboard_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -8634,6 +14530,22 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tensorboard_service::GetOperation {
         super::builder::tensorboard_service::GetOperation::new(self.inner.clone())
     }
@@ -8641,6 +14553,21 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::tensorboard_service::DeleteOperation {
         super::builder::tensorboard_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8648,6 +14575,21 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::tensorboard_service::CancelOperation {
         super::builder::tensorboard_service::CancelOperation::new(self.inner.clone())
     }
@@ -8655,6 +14597,22 @@ impl TensorboardService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::TensorboardService;
+    /// async fn sample(
+    ///    client: &TensorboardService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::tensorboard_service::WaitOperation {
         super::builder::tensorboard_service::WaitOperation::new(self.inner.clone())
     }
@@ -8799,6 +14757,23 @@ impl VertexRagDataService {
     }
 
     /// Gets a RagCorpus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rag_corpus()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_corpus(&self) -> super::builder::vertex_rag_data_service::GetRagCorpus {
         super::builder::vertex_rag_data_service::GetRagCorpus::new(self.inner.clone())
     }
@@ -8824,6 +14799,22 @@ impl VertexRagDataService {
     }
 
     /// Upload a file into a RagCorpus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .upload_rag_file()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn upload_rag_file(&self) -> super::builder::vertex_rag_data_service::UploadRagFile {
         super::builder::vertex_rag_data_service::UploadRagFile::new(self.inner.clone())
     }
@@ -8844,6 +14835,23 @@ impl VertexRagDataService {
     }
 
     /// Gets a RagFile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rag_file()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_file(&self) -> super::builder::vertex_rag_data_service::GetRagFile {
         super::builder::vertex_rag_data_service::GetRagFile::new(self.inner.clone())
     }
@@ -8886,6 +14894,23 @@ impl VertexRagDataService {
     }
 
     /// Gets a RagEngineConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rag_engine_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rag_engine_config(
         &self,
     ) -> super::builder::vertex_rag_data_service::GetRagEngineConfig {
@@ -8898,6 +14923,22 @@ impl VertexRagDataService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vertex_rag_data_service::GetLocation {
         super::builder::vertex_rag_data_service::GetLocation::new(self.inner.clone())
     }
@@ -8907,12 +14948,44 @@ impl VertexRagDataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vertex_rag_data_service::SetIamPolicy {
         super::builder::vertex_rag_data_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vertex_rag_data_service::GetIamPolicy {
         super::builder::vertex_rag_data_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -8924,6 +14997,22 @@ impl VertexRagDataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::vertex_rag_data_service::TestIamPermissions {
@@ -8940,6 +15029,22 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vertex_rag_data_service::GetOperation {
         super::builder::vertex_rag_data_service::GetOperation::new(self.inner.clone())
     }
@@ -8947,6 +15052,21 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vertex_rag_data_service::DeleteOperation {
         super::builder::vertex_rag_data_service::DeleteOperation::new(self.inner.clone())
     }
@@ -8954,6 +15074,21 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vertex_rag_data_service::CancelOperation {
         super::builder::vertex_rag_data_service::CancelOperation::new(self.inner.clone())
     }
@@ -8961,6 +15096,22 @@ impl VertexRagDataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagDataService;
+    /// async fn sample(
+    ///    client: &VertexRagDataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vertex_rag_data_service::WaitOperation {
         super::builder::vertex_rag_data_service::WaitOperation::new(self.inner.clone())
     }
@@ -9075,12 +15226,44 @@ impl VertexRagService {
     }
 
     /// Retrieves relevant contexts for a query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_contexts()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_contexts(&self) -> super::builder::vertex_rag_service::RetrieveContexts {
         super::builder::vertex_rag_service::RetrieveContexts::new(self.inner.clone())
     }
 
     /// Given an input prompt, it returns augmented prompt from vertex rag store
     /// to guide LLM towards generating grounded responses.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .augment_prompt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn augment_prompt(&self) -> super::builder::vertex_rag_service::AugmentPrompt {
         super::builder::vertex_rag_service::AugmentPrompt::new(self.inner.clone())
     }
@@ -9088,6 +15271,22 @@ impl VertexRagService {
     /// Given an input text, it returns a score that evaluates the factuality of
     /// the text. It also extracts and returns claims from the text and provides
     /// supporting facts.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .corroborate_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn corroborate_content(&self) -> super::builder::vertex_rag_service::CorroborateContent {
         super::builder::vertex_rag_service::CorroborateContent::new(self.inner.clone())
     }
@@ -9098,6 +15297,22 @@ impl VertexRagService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vertex_rag_service::GetLocation {
         super::builder::vertex_rag_service::GetLocation::new(self.inner.clone())
     }
@@ -9107,12 +15322,44 @@ impl VertexRagService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vertex_rag_service::SetIamPolicy {
         super::builder::vertex_rag_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vertex_rag_service::GetIamPolicy {
         super::builder::vertex_rag_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -9124,6 +15371,22 @@ impl VertexRagService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::vertex_rag_service::TestIamPermissions {
         super::builder::vertex_rag_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -9138,6 +15401,22 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vertex_rag_service::GetOperation {
         super::builder::vertex_rag_service::GetOperation::new(self.inner.clone())
     }
@@ -9145,6 +15424,21 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vertex_rag_service::DeleteOperation {
         super::builder::vertex_rag_service::DeleteOperation::new(self.inner.clone())
     }
@@ -9152,6 +15446,21 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vertex_rag_service::CancelOperation {
         super::builder::vertex_rag_service::CancelOperation::new(self.inner.clone())
     }
@@ -9159,6 +15468,22 @@ impl VertexRagService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VertexRagService;
+    /// async fn sample(
+    ///    client: &VertexRagService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vertex_rag_service::WaitOperation {
         super::builder::vertex_rag_service::WaitOperation::new(self.inner.clone())
     }
@@ -9275,11 +15600,44 @@ impl VizierService {
 
     /// Creates a Study. A resource name will be generated after creation of the
     /// Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_study()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_study(&self) -> super::builder::vizier_service::CreateStudy {
         super::builder::vizier_service::CreateStudy::new(self.inner.clone())
     }
 
     /// Gets a Study by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_study()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_study(&self) -> super::builder::vizier_service::GetStudy {
         super::builder::vizier_service::GetStudy::new(self.inner.clone())
     }
@@ -9290,12 +15648,43 @@ impl VizierService {
     }
 
     /// Deletes a Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_study()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_study(&self) -> super::builder::vizier_service::DeleteStudy {
         super::builder::vizier_service::DeleteStudy::new(self.inner.clone())
     }
 
     /// Looks a study up using the user-defined display_name field instead of the
     /// fully qualified resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_study()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_study(&self) -> super::builder::vizier_service::LookupStudy {
         super::builder::vizier_service::LookupStudy::new(self.inner.clone())
     }
@@ -9323,11 +15712,44 @@ impl VizierService {
     }
 
     /// Adds a user provided Trial to a Study.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_trial()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_trial(&self) -> super::builder::vizier_service::CreateTrial {
         super::builder::vizier_service::CreateTrial::new(self.inner.clone())
     }
 
     /// Gets a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_trial()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trial(&self) -> super::builder::vizier_service::GetTrial {
         super::builder::vizier_service::GetTrial::new(self.inner.clone())
     }
@@ -9339,16 +15761,63 @@ impl VizierService {
 
     /// Adds a measurement of the objective metrics to a Trial. This measurement
     /// is assumed to have been taken before the Trial is complete.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_trial_measurement()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_trial_measurement(&self) -> super::builder::vizier_service::AddTrialMeasurement {
         super::builder::vizier_service::AddTrialMeasurement::new(self.inner.clone())
     }
 
     /// Marks a Trial as complete.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .complete_trial()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_trial(&self) -> super::builder::vizier_service::CompleteTrial {
         super::builder::vizier_service::CompleteTrial::new(self.inner.clone())
     }
 
     /// Deletes a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_trial()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_trial(&self) -> super::builder::vizier_service::DeleteTrial {
         super::builder::vizier_service::DeleteTrial::new(self.inner.clone())
     }
@@ -9376,6 +15845,22 @@ impl VizierService {
     }
 
     /// Stops a Trial.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .stop_trial()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_trial(&self) -> super::builder::vizier_service::StopTrial {
         super::builder::vizier_service::StopTrial::new(self.inner.clone())
     }
@@ -9384,6 +15869,22 @@ impl VizierService {
     /// optimal Trials for single-objective Study. The definition of
     /// pareto-optimal can be checked in wiki page.
     /// <https://en.wikipedia.org/wiki/Pareto_efficiency>
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_optimal_trials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_optimal_trials(&self) -> super::builder::vizier_service::ListOptimalTrials {
         super::builder::vizier_service::ListOptimalTrials::new(self.inner.clone())
     }
@@ -9394,6 +15895,22 @@ impl VizierService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vizier_service::GetLocation {
         super::builder::vizier_service::GetLocation::new(self.inner.clone())
     }
@@ -9403,12 +15920,44 @@ impl VizierService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vizier_service::SetIamPolicy {
         super::builder::vizier_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vizier_service::GetIamPolicy {
         super::builder::vizier_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -9420,6 +15969,22 @@ impl VizierService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::vizier_service::TestIamPermissions {
         super::builder::vizier_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -9434,6 +15999,22 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vizier_service::GetOperation {
         super::builder::vizier_service::GetOperation::new(self.inner.clone())
     }
@@ -9441,6 +16022,21 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vizier_service::DeleteOperation {
         super::builder::vizier_service::DeleteOperation::new(self.inner.clone())
     }
@@ -9448,6 +16044,21 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vizier_service::CancelOperation {
         super::builder::vizier_service::CancelOperation::new(self.inner.clone())
     }
@@ -9455,6 +16066,22 @@ impl VizierService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_aiplatform_v1::client::VizierService;
+    /// async fn sample(
+    ///    client: &VizierService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .wait_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn wait_operation(&self) -> super::builder::vizier_service::WaitOperation {
         super::builder::vizier_service::WaitOperation::new(self.inner.clone())
     }

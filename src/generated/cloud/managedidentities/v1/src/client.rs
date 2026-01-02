@@ -172,6 +172,22 @@ impl ManagedIdentitiesService {
     }
 
     /// Resets a domain's administrator password.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reset_admin_password()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reset_admin_password(
         &self,
     ) -> super::builder::managed_identities_service::ResetAdminPassword {
@@ -184,6 +200,23 @@ impl ManagedIdentitiesService {
     }
 
     /// Gets information about a domain.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_domain()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_domain(&self) -> super::builder::managed_identities_service::GetDomain {
         super::builder::managed_identities_service::GetDomain::new(self.inner.clone())
     }
@@ -291,6 +324,22 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::managed_identities_service::GetOperation {
         super::builder::managed_identities_service::GetOperation::new(self.inner.clone())
     }
@@ -298,6 +347,21 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::managed_identities_service::DeleteOperation {
         super::builder::managed_identities_service::DeleteOperation::new(self.inner.clone())
     }
@@ -305,6 +369,21 @@ impl ManagedIdentitiesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
+    /// async fn sample(
+    ///    client: &ManagedIdentitiesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::managed_identities_service::CancelOperation {
         super::builder::managed_identities_service::CancelOperation::new(self.inner.clone())
     }

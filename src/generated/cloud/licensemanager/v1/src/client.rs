@@ -124,6 +124,23 @@ impl LicenseManager {
     }
 
     /// Gets details of a single Configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_configuration()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_configuration(&self) -> super::builder::license_manager::GetConfiguration {
         super::builder::license_manager::GetConfiguration::new(self.inner.clone())
     }
@@ -179,6 +196,23 @@ impl LicenseManager {
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::license_manager::GetInstance {
         super::builder::license_manager::GetInstance::new(self.inner.clone())
     }
@@ -218,6 +252,22 @@ impl LicenseManager {
     }
 
     /// License Usage information for a Configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_configuration_license_usage()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_configuration_license_usage(
         &self,
     ) -> super::builder::license_manager::QueryConfigurationLicenseUsage {
@@ -235,6 +285,23 @@ impl LicenseManager {
     }
 
     /// Gets details of a single Product.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_product()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_product(&self) -> super::builder::license_manager::GetProduct {
         super::builder::license_manager::GetProduct::new(self.inner.clone())
     }
@@ -245,6 +312,22 @@ impl LicenseManager {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::license_manager::GetLocation {
         super::builder::license_manager::GetLocation::new(self.inner.clone())
     }
@@ -259,6 +342,22 @@ impl LicenseManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::license_manager::GetOperation {
         super::builder::license_manager::GetOperation::new(self.inner.clone())
     }
@@ -266,6 +365,21 @@ impl LicenseManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::license_manager::DeleteOperation {
         super::builder::license_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -273,6 +387,21 @@ impl LicenseManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_licensemanager_v1::client::LicenseManager;
+    /// async fn sample(
+    ///    client: &LicenseManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::license_manager::CancelOperation {
         super::builder::license_manager::CancelOperation::new(self.inner.clone())
     }

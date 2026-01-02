@@ -119,6 +119,22 @@ impl Applications {
     }
 
     /// Gets information about an application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_application()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_application(&self) -> super::builder::applications::GetApplication {
         super::builder::applications::GetApplication::new(self.inner.clone())
     }
@@ -198,6 +214,22 @@ impl Applications {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Applications;
+    /// async fn sample(
+    ///    client: &Applications
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::applications::GetOperation {
         super::builder::applications::GetOperation::new(self.inner.clone())
     }
@@ -311,6 +343,22 @@ impl Services {
     }
 
     /// Gets the current configuration of the specified service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::services::GetService {
         super::builder::services::GetService::new(self.inner.clone())
     }
@@ -355,6 +403,22 @@ impl Services {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Services;
+    /// async fn sample(
+    ///    client: &Services
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::services::GetOperation {
         super::builder::services::GetOperation::new(self.inner.clone())
     }
@@ -470,6 +534,22 @@ impl Versions {
     /// Gets the specified Version resource.
     /// By default, only a `BASIC_VIEW` will be returned.
     /// Specify the `FULL_VIEW` parameter to get the full resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_version(&self) -> super::builder::versions::GetVersion {
         super::builder::versions::GetVersion::new(self.inner.clone())
     }
@@ -564,6 +644,22 @@ impl Versions {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Versions;
+    /// async fn sample(
+    ///    client: &Versions
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::versions::GetOperation {
         super::builder::versions::GetOperation::new(self.inner.clone())
     }
@@ -680,6 +776,22 @@ impl Instances {
     }
 
     /// Gets instance information.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::instances::GetInstance {
         super::builder::instances::GetInstance::new(self.inner.clone())
     }
@@ -742,6 +854,22 @@ impl Instances {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Instances;
+    /// async fn sample(
+    ///    client: &Instances
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::instances::GetOperation {
         super::builder::instances::GetOperation::new(self.inner.clone())
     }
@@ -868,26 +996,105 @@ impl Firewall {
     ///
     /// If the final rule does not match traffic with the '*' wildcard IP range,
     /// then an "allow all" rule is explicitly added to the end of the list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_update_ingress_rules()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_ingress_rules(&self) -> super::builder::firewall::BatchUpdateIngressRules {
         super::builder::firewall::BatchUpdateIngressRules::new(self.inner.clone())
     }
 
     /// Creates a firewall rule for the application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_ingress_rule(&self) -> super::builder::firewall::CreateIngressRule {
         super::builder::firewall::CreateIngressRule::new(self.inner.clone())
     }
 
     /// Gets the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_ingress_rule(&self) -> super::builder::firewall::GetIngressRule {
         super::builder::firewall::GetIngressRule::new(self.inner.clone())
     }
 
     /// Updates the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_ingress_rule(&self) -> super::builder::firewall::UpdateIngressRule {
         super::builder::firewall::UpdateIngressRule::new(self.inner.clone())
     }
 
     /// Deletes the specified firewall rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_ingress_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_ingress_rule(&self) -> super::builder::firewall::DeleteIngressRule {
         super::builder::firewall::DeleteIngressRule::new(self.inner.clone())
     }
@@ -902,6 +1109,22 @@ impl Firewall {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::Firewall;
+    /// async fn sample(
+    ///    client: &Firewall
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::firewall::GetOperation {
         super::builder::firewall::GetOperation::new(self.inner.clone())
     }
@@ -1031,6 +1254,22 @@ impl AuthorizedDomains {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
+    /// async fn sample(
+    ///    client: &AuthorizedDomains
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::authorized_domains::GetOperation {
         super::builder::authorized_domains::GetOperation::new(self.inner.clone())
     }
@@ -1150,6 +1389,22 @@ impl AuthorizedCertificates {
     }
 
     /// Gets the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::GetAuthorizedCertificate {
@@ -1157,6 +1412,22 @@ impl AuthorizedCertificates {
     }
 
     /// Uploads the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::CreateAuthorizedCertificate {
@@ -1170,6 +1441,22 @@ impl AuthorizedCertificates {
     /// certificate. The new certificate must be applicable to the same domains as
     /// the original certificate. The certificate `display_name` may also be
     /// updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::UpdateAuthorizedCertificate {
@@ -1179,6 +1466,21 @@ impl AuthorizedCertificates {
     }
 
     /// Deletes the specified SSL certificate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_authorized_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_authorized_certificate(
         &self,
     ) -> super::builder::authorized_certificates::DeleteAuthorizedCertificate {
@@ -1197,6 +1499,22 @@ impl AuthorizedCertificates {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
+    /// async fn sample(
+    ///    client: &AuthorizedCertificates
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::authorized_certificates::GetOperation {
         super::builder::authorized_certificates::GetOperation::new(self.inner.clone())
     }
@@ -1310,6 +1628,22 @@ impl DomainMappings {
     }
 
     /// Gets the specified domain mapping.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_domain_mapping()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_domain_mapping(&self) -> super::builder::domain_mappings::GetDomainMapping {
         super::builder::domain_mappings::GetDomainMapping::new(self.inner.clone())
     }
@@ -1376,6 +1710,22 @@ impl DomainMappings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_appengine_v1::client::DomainMappings;
+    /// async fn sample(
+    ///    client: &DomainMappings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::domain_mappings::GetOperation {
         super::builder::domain_mappings::GetOperation::new(self.inner.clone())
     }

@@ -128,6 +128,22 @@ impl Policies {
     }
 
     /// Gets a policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy(&self) -> super::builder::policies::GetPolicy {
         super::builder::policies::GetPolicy::new(self.inner.clone())
     }
@@ -192,6 +208,22 @@ impl Policies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v2::client::Policies;
+    /// async fn sample(
+    ///    client: &Policies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policies::GetOperation {
         super::builder::policies::GetOperation::new(self.inner.clone())
     }

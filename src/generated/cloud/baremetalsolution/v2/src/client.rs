@@ -134,6 +134,23 @@ impl BareMetalSolution {
     }
 
     /// Get details about a single server.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::bare_metal_solution::GetInstance {
         super::builder::bare_metal_solution::GetInstance::new(self.inner.clone())
     }
@@ -155,6 +172,22 @@ impl BareMetalSolution {
 
     /// RenameInstance sets a new name for an instance.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_instance()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_instance(&self) -> super::builder::bare_metal_solution::RenameInstance {
         super::builder::bare_metal_solution::RenameInstance::new(self.inner.clone())
     }
@@ -264,11 +297,42 @@ impl BareMetalSolution {
 
     /// Register a public SSH key in the specified project for use with the
     /// interactive serial console feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ssh_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_ssh_key(&self) -> super::builder::bare_metal_solution::CreateSSHKey {
         super::builder::bare_metal_solution::CreateSSHKey::new(self.inner.clone())
     }
 
     /// Deletes a public SSH key registered in the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_ssh_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_ssh_key(&self) -> super::builder::bare_metal_solution::DeleteSSHKey {
         super::builder::bare_metal_solution::DeleteSSHKey::new(self.inner.clone())
     }
@@ -279,6 +343,23 @@ impl BareMetalSolution {
     }
 
     /// Get details of a single storage volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_volume()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume(&self) -> super::builder::bare_metal_solution::GetVolume {
         super::builder::bare_metal_solution::GetVolume::new(self.inner.clone())
     }
@@ -300,6 +381,22 @@ impl BareMetalSolution {
 
     /// RenameVolume sets a new name for a volume.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_volume()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_volume(&self) -> super::builder::bare_metal_solution::RenameVolume {
         super::builder::bare_metal_solution::RenameVolume::new(self.inner.clone())
     }
@@ -342,11 +439,44 @@ impl BareMetalSolution {
 
     /// List all Networks (and used IPs for each Network) in the vendor account
     /// associated with the specified project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_network_usage()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_network_usage(&self) -> super::builder::bare_metal_solution::ListNetworkUsage {
         super::builder::bare_metal_solution::ListNetworkUsage::new(self.inner.clone())
     }
 
     /// Get details of a single network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_network()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_network(&self) -> super::builder::bare_metal_solution::GetNetwork {
         super::builder::bare_metal_solution::GetNetwork::new(self.inner.clone())
     }
@@ -368,6 +498,22 @@ impl BareMetalSolution {
 
     /// Takes a snapshot of a boot volume.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_volume_snapshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_volume_snapshot(
         &self,
     ) -> super::builder::bare_metal_solution::CreateVolumeSnapshot {
@@ -394,6 +540,21 @@ impl BareMetalSolution {
 
     /// Deletes a volume snapshot.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_volume_snapshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_volume_snapshot(
         &self,
     ) -> super::builder::bare_metal_solution::DeleteVolumeSnapshot {
@@ -402,6 +563,23 @@ impl BareMetalSolution {
 
     /// Returns the specified snapshot resource.
     /// Returns INVALID_ARGUMENT if called for a non-boot volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_volume_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume_snapshot(&self) -> super::builder::bare_metal_solution::GetVolumeSnapshot {
         super::builder::bare_metal_solution::GetVolumeSnapshot::new(self.inner.clone())
     }
@@ -416,6 +594,23 @@ impl BareMetalSolution {
     }
 
     /// Get details of a single storage logical unit number(LUN).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lun()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lun(&self) -> super::builder::bare_metal_solution::GetLun {
         super::builder::bare_metal_solution::GetLun::new(self.inner.clone())
     }
@@ -442,6 +637,23 @@ impl BareMetalSolution {
     }
 
     /// Get details of a single NFS share.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_nfs_share()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_nfs_share(&self) -> super::builder::bare_metal_solution::GetNfsShare {
         super::builder::bare_metal_solution::GetNfsShare::new(self.inner.clone())
     }
@@ -483,6 +695,22 @@ impl BareMetalSolution {
 
     /// RenameNfsShare sets a new name for an nfsshare.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_nfs_share()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_nfs_share(&self) -> super::builder::bare_metal_solution::RenameNfsShare {
         super::builder::bare_metal_solution::RenameNfsShare::new(self.inner.clone())
     }
@@ -510,6 +738,22 @@ impl BareMetalSolution {
     }
 
     /// Submit a provisiong configuration for a given project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .submit_provisioning_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::SubmitProvisioningConfig {
@@ -517,6 +761,23 @@ impl BareMetalSolution {
     }
 
     /// Get ProvisioningConfig by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_provisioning_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::GetProvisioningConfig {
@@ -524,6 +785,22 @@ impl BareMetalSolution {
     }
 
     /// Create new ProvisioningConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_provisioning_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::CreateProvisioningConfig {
@@ -531,6 +808,22 @@ impl BareMetalSolution {
     }
 
     /// Update existing ProvisioningConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_provisioning_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_provisioning_config(
         &self,
     ) -> super::builder::bare_metal_solution::UpdateProvisioningConfig {
@@ -539,6 +832,22 @@ impl BareMetalSolution {
 
     /// RenameNetwork sets a new name for a network.
     /// Use with caution, previous names become immediately invalidated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_network()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rename_network(&self) -> super::builder::bare_metal_solution::RenameNetwork {
         super::builder::bare_metal_solution::RenameNetwork::new(self.inner.clone())
     }
@@ -554,6 +863,22 @@ impl BareMetalSolution {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::bare_metal_solution::GetLocation {
         super::builder::bare_metal_solution::GetLocation::new(self.inner.clone())
     }
@@ -561,6 +886,22 @@ impl BareMetalSolution {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
+    /// async fn sample(
+    ///    client: &BareMetalSolution
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::bare_metal_solution::GetOperation {
         super::builder::bare_metal_solution::GetOperation::new(self.inner.clone())
     }

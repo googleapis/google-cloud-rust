@@ -127,21 +127,85 @@ impl IAMCredentials {
     }
 
     /// Generates an OAuth 2.0 access token for a service account.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_access_token(&self) -> super::builder::iam_credentials::GenerateAccessToken {
         super::builder::iam_credentials::GenerateAccessToken::new(self.inner.clone())
     }
 
     /// Generates an OpenID Connect ID token for a service account.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_id_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_id_token(&self) -> super::builder::iam_credentials::GenerateIdToken {
         super::builder::iam_credentials::GenerateIdToken::new(self.inner.clone())
     }
 
     /// Signs a blob using a service account's system-managed private key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_blob()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sign_blob(&self) -> super::builder::iam_credentials::SignBlob {
         super::builder::iam_credentials::SignBlob::new(self.inner.clone())
     }
 
     /// Signs a JWT using a service account's system-managed private key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::client::IAMCredentials;
+    /// async fn sample(
+    ///    client: &IAMCredentials
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sign_jwt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sign_jwt(&self) -> super::builder::iam_credentials::SignJwt {
         super::builder::iam_credentials::SignJwt::new(self.inner.clone())
     }

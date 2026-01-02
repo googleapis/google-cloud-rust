@@ -150,6 +150,23 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// async fn sample(
+    ///    client: &ApiKeys,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_key(&self) -> super::builder::api_keys::GetKey {
         super::builder::api_keys::GetKey::new(self.inner.clone())
     }
@@ -158,6 +175,22 @@ impl ApiKeys {
     ///
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_key_string()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_key_string(&self) -> super::builder::api_keys::GetKeyString {
         super::builder::api_keys::GetKeyString::new(self.inner.clone())
     }
@@ -223,6 +256,22 @@ impl ApiKeys {
     /// purged, resource name will not be set.
     /// The service account must have the `apikeys.keys.lookup` permission
     /// on the parent project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_key(&self) -> super::builder::api_keys::LookupKey {
         super::builder::api_keys::LookupKey::new(self.inner.clone())
     }
@@ -230,6 +279,22 @@ impl ApiKeys {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apikeys_v2::client::ApiKeys;
+    /// async fn sample(
+    ///    client: &ApiKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::api_keys::GetOperation {
         super::builder::api_keys::GetOperation::new(self.inner.clone())
     }

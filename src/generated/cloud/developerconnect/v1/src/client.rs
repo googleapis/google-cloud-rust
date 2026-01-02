@@ -127,6 +127,23 @@ impl DeveloperConnect {
     }
 
     /// Gets details of a single Connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection(&self) -> super::builder::developer_connect::GetConnection {
         super::builder::developer_connect::GetConnection::new(self.inner.clone())
     }
@@ -222,6 +239,23 @@ impl DeveloperConnect {
     }
 
     /// Gets details of a single GitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_git_repository_link()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_git_repository_link(
         &self,
     ) -> super::builder::developer_connect::GetGitRepositoryLink {
@@ -229,11 +263,43 @@ impl DeveloperConnect {
     }
 
     /// Fetches read/write token of a given gitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_read_write_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_read_write_token(&self) -> super::builder::developer_connect::FetchReadWriteToken {
         super::builder::developer_connect::FetchReadWriteToken::new(self.inner.clone())
     }
 
     /// Fetches read token of a given gitRepositoryLink.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_read_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_read_token(&self) -> super::builder::developer_connect::FetchReadToken {
         super::builder::developer_connect::FetchReadToken::new(self.inner.clone())
     }
@@ -250,6 +316,22 @@ impl DeveloperConnect {
     /// are available to be added to a Connection.
     /// For github.com, only installations accessible to the authorizer token
     /// are returned. For GitHub Enterprise, all installations are returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_git_hub_installations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_git_hub_installations(
         &self,
     ) -> super::builder::developer_connect::FetchGitHubInstallations {
@@ -257,6 +339,22 @@ impl DeveloperConnect {
     }
 
     /// Fetch the list of branches or tags for a given repository.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_git_refs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_git_refs(&self) -> super::builder::developer_connect::FetchGitRefs {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
     }
@@ -269,6 +367,23 @@ impl DeveloperConnect {
     }
 
     /// Gets details of a single AccountConnector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_account_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_account_connector(&self) -> super::builder::developer_connect::GetAccountConnector {
         super::builder::developer_connect::GetAccountConnector::new(self.inner.clone())
     }
@@ -325,6 +440,22 @@ impl DeveloperConnect {
     }
 
     /// Fetches OAuth access token based on end user credentials.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_access_token()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_access_token(&self) -> super::builder::developer_connect::FetchAccessToken {
         super::builder::developer_connect::FetchAccessToken::new(self.inner.clone())
     }
@@ -350,6 +481,22 @@ impl DeveloperConnect {
     }
 
     /// Fetch the User based on the user credentials.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_self()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_self(&self) -> super::builder::developer_connect::FetchSelf {
         super::builder::developer_connect::FetchSelf::new(self.inner.clone())
     }
@@ -375,6 +522,22 @@ impl DeveloperConnect {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::developer_connect::GetLocation {
         super::builder::developer_connect::GetLocation::new(self.inner.clone())
     }
@@ -389,6 +552,22 @@ impl DeveloperConnect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::developer_connect::GetOperation {
         super::builder::developer_connect::GetOperation::new(self.inner.clone())
     }
@@ -396,6 +575,21 @@ impl DeveloperConnect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::developer_connect::DeleteOperation {
         super::builder::developer_connect::DeleteOperation::new(self.inner.clone())
     }
@@ -403,6 +597,21 @@ impl DeveloperConnect {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
+    /// async fn sample(
+    ///    client: &DeveloperConnect
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::developer_connect::CancelOperation {
         super::builder::developer_connect::CancelOperation::new(self.inner.clone())
     }
@@ -546,6 +755,23 @@ impl InsightsConfigService {
     }
 
     /// Gets details of a single Insight.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_insights_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_insights_config(
         &self,
     ) -> super::builder::insights_config_service::GetInsightsConfig {
@@ -592,6 +818,22 @@ impl InsightsConfigService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::insights_config_service::GetLocation {
         super::builder::insights_config_service::GetLocation::new(self.inner.clone())
     }
@@ -606,6 +848,22 @@ impl InsightsConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::insights_config_service::GetOperation {
         super::builder::insights_config_service::GetOperation::new(self.inner.clone())
     }
@@ -613,6 +871,21 @@ impl InsightsConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::insights_config_service::DeleteOperation {
         super::builder::insights_config_service::DeleteOperation::new(self.inner.clone())
     }
@@ -620,6 +893,21 @@ impl InsightsConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// async fn sample(
+    ///    client: &InsightsConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::insights_config_service::CancelOperation {
         super::builder::insights_config_service::CancelOperation::new(self.inner.clone())
     }

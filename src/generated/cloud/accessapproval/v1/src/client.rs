@@ -160,6 +160,22 @@ impl AccessApproval {
     }
 
     /// Gets an approval request. Returns NOT_FOUND if the request does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_approval_request()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_approval_request(&self) -> super::builder::access_approval::GetApprovalRequest {
         super::builder::access_approval::GetApprovalRequest::new(self.inner.clone())
     }
@@ -168,6 +184,22 @@ impl AccessApproval {
     ///
     /// Returns NOT_FOUND if the request does not exist. Returns
     /// FAILED_PRECONDITION if the request exists but is not in a pending state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .approve_approval_request()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_approval_request(
         &self,
     ) -> super::builder::access_approval::ApproveApprovalRequest {
@@ -184,6 +216,22 @@ impl AccessApproval {
     ///
     /// Returns FAILED_PRECONDITION if the request exists but is not in a pending
     /// state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .dismiss_approval_request()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn dismiss_approval_request(
         &self,
     ) -> super::builder::access_approval::DismissApprovalRequest {
@@ -198,6 +246,22 @@ impl AccessApproval {
     ///
     /// Returns FAILED_PRECONDITION if the request exists but is not in an approved
     /// state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .invalidate_approval_request()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn invalidate_approval_request(
         &self,
     ) -> super::builder::access_approval::InvalidateApprovalRequest {
@@ -205,6 +269,22 @@ impl AccessApproval {
     }
 
     /// Gets the settings associated with a project, folder, or organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_access_approval_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_access_approval_settings(
         &self,
     ) -> super::builder::access_approval::GetAccessApprovalSettings {
@@ -213,6 +293,22 @@ impl AccessApproval {
 
     /// Updates the settings associated with a project, folder, or organization.
     /// Settings to update are determined by the value of field_mask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_access_approval_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_access_approval_settings(
         &self,
     ) -> super::builder::access_approval::UpdateAccessApprovalSettings {
@@ -225,6 +321,21 @@ impl AccessApproval {
     /// Approval disabled. If Access Approval is enabled at a higher level of the
     /// hierarchy, then Access Approval will still be enabled at this level as
     /// the settings are inherited.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_access_approval_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_access_approval_settings(
         &self,
     ) -> super::builder::access_approval::DeleteAccessApprovalSettings {
@@ -233,6 +344,22 @@ impl AccessApproval {
 
     /// Retrieves the service account that is used by Access Approval to access KMS
     /// keys for signing approved approval requests.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_accessapproval_v1::client::AccessApproval;
+    /// async fn sample(
+    ///    client: &AccessApproval
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_access_approval_service_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_access_approval_service_account(
         &self,
     ) -> super::builder::access_approval::GetAccessApprovalServiceAccount {

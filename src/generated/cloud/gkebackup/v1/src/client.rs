@@ -140,6 +140,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single BackupPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan(&self) -> super::builder::backup_for_gke::GetBackupPlan {
         super::builder::backup_for_gke::GetBackupPlan::new(self.inner.clone())
     }
@@ -195,6 +212,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single BackupChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_channel()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_channel(&self) -> super::builder::backup_for_gke::GetBackupChannel {
         super::builder::backup_for_gke::GetBackupChannel::new(self.inner.clone())
     }
@@ -237,6 +271,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single BackupPlanBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan_binding(&self) -> super::builder::backup_for_gke::GetBackupPlanBinding {
         super::builder::backup_for_gke::GetBackupPlanBinding::new(self.inner.clone())
     }
@@ -262,6 +313,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::backup_for_gke::GetBackup {
         super::builder::backup_for_gke::GetBackup::new(self.inner.clone())
     }
@@ -302,6 +370,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single VolumeBackup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_volume_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume_backup(&self) -> super::builder::backup_for_gke::GetVolumeBackup {
         super::builder::backup_for_gke::GetVolumeBackup::new(self.inner.clone())
     }
@@ -327,6 +412,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single RestorePlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_restore_plan()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_restore_plan(&self) -> super::builder::backup_for_gke::GetRestorePlan {
         super::builder::backup_for_gke::GetRestorePlan::new(self.inner.clone())
     }
@@ -382,6 +484,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single RestoreChannel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_restore_channel()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_restore_channel(&self) -> super::builder::backup_for_gke::GetRestoreChannel {
         super::builder::backup_for_gke::GetRestoreChannel::new(self.inner.clone())
     }
@@ -424,6 +543,23 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single RestorePlanBinding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_restore_plan_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_restore_plan_binding(
         &self,
     ) -> super::builder::backup_for_gke::GetRestorePlanBinding {
@@ -451,6 +587,23 @@ impl BackupForGKE {
     }
 
     /// Retrieves the details of a single Restore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_restore()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_restore(&self) -> super::builder::backup_for_gke::GetRestore {
         super::builder::backup_for_gke::GetRestore::new(self.inner.clone())
     }
@@ -491,11 +644,44 @@ impl BackupForGKE {
     }
 
     /// Retrieve the details of a single VolumeRestore.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_volume_restore()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume_restore(&self) -> super::builder::backup_for_gke::GetVolumeRestore {
         super::builder::backup_for_gke::GetVolumeRestore::new(self.inner.clone())
     }
 
     /// Retrieve the link to the backupIndex.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_index_download_url()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_index_download_url(
         &self,
     ) -> super::builder::backup_for_gke::GetBackupIndexDownloadUrl {
@@ -508,6 +694,22 @@ impl BackupForGKE {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::backup_for_gke::GetLocation {
         super::builder::backup_for_gke::GetLocation::new(self.inner.clone())
     }
@@ -517,12 +719,44 @@ impl BackupForGKE {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::backup_for_gke::SetIamPolicy {
         super::builder::backup_for_gke::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::backup_for_gke::GetIamPolicy {
         super::builder::backup_for_gke::GetIamPolicy::new(self.inner.clone())
     }
@@ -534,6 +768,22 @@ impl BackupForGKE {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::backup_for_gke::TestIamPermissions {
         super::builder::backup_for_gke::TestIamPermissions::new(self.inner.clone())
     }
@@ -548,6 +798,22 @@ impl BackupForGKE {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::backup_for_gke::GetOperation {
         super::builder::backup_for_gke::GetOperation::new(self.inner.clone())
     }
@@ -555,6 +821,21 @@ impl BackupForGKE {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::backup_for_gke::DeleteOperation {
         super::builder::backup_for_gke::DeleteOperation::new(self.inner.clone())
     }
@@ -562,6 +843,21 @@ impl BackupForGKE {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
+    /// async fn sample(
+    ///    client: &BackupForGKE
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::backup_for_gke::CancelOperation {
         super::builder::backup_for_gke::CancelOperation::new(self.inner.clone())
     }

@@ -139,6 +139,23 @@ impl NetApp {
     }
 
     /// Returns the description of the specified storage pool by poolId.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_storage_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_storage_pool(&self) -> super::builder::net_app::GetStoragePool {
         super::builder::net_app::GetStoragePool::new(self.inner.clone())
     }
@@ -211,6 +228,23 @@ impl NetApp {
     }
 
     /// Gets details of a single Volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_volume()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_volume(&self) -> super::builder::net_app::GetVolume {
         super::builder::net_app::GetVolume::new(self.inner.clone())
     }
@@ -283,6 +317,23 @@ impl NetApp {
     }
 
     /// Describe a snapshot for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_snapshot()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snapshot(&self) -> super::builder::net_app::GetSnapshot {
         super::builder::net_app::GetSnapshot::new(self.inner.clone())
     }
@@ -338,6 +389,23 @@ impl NetApp {
     }
 
     /// Describes a specified active directory.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_active_directory()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_active_directory(&self) -> super::builder::net_app::GetActiveDirectory {
         super::builder::net_app::GetActiveDirectory::new(self.inner.clone())
     }
@@ -409,6 +477,23 @@ impl NetApp {
     }
 
     /// Returns the description of the specified KMS config by kms_config_id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_kms_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_kms_config(&self) -> super::builder::net_app::GetKmsConfig {
         super::builder::net_app::GetKmsConfig::new(self.inner.clone())
     }
@@ -445,6 +530,22 @@ impl NetApp {
     }
 
     /// Verifies KMS config reachability.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_kms_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_kms_config(&self) -> super::builder::net_app::VerifyKmsConfig {
         super::builder::net_app::VerifyKmsConfig::new(self.inner.clone())
     }
@@ -470,6 +571,23 @@ impl NetApp {
     }
 
     /// Describe a replication for a volume.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_replication()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replication(&self) -> super::builder::net_app::GetReplication {
         super::builder::net_app::GetReplication::new(self.inner.clone())
     }
@@ -614,6 +732,23 @@ impl NetApp {
     }
 
     /// Returns the description of the specified backup vault
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_vault(&self) -> super::builder::net_app::GetBackupVault {
         super::builder::net_app::GetBackupVault::new(self.inner.clone())
     }
@@ -672,6 +807,23 @@ impl NetApp {
     }
 
     /// Returns the description of the specified backup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::net_app::GetBackup {
         super::builder::net_app::GetBackup::new(self.inner.clone())
     }
@@ -727,6 +879,23 @@ impl NetApp {
     }
 
     /// Returns the description of the specified backup policy by backup_policy_id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_policy(&self) -> super::builder::net_app::GetBackupPolicy {
         super::builder::net_app::GetBackupPolicy::new(self.inner.clone())
     }
@@ -772,6 +941,23 @@ impl NetApp {
     }
 
     /// Returns details of the specified quota rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_quota_rule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_quota_rule(&self) -> super::builder::net_app::GetQuotaRule {
         super::builder::net_app::GetQuotaRule::new(self.inner.clone())
     }
@@ -827,6 +1013,22 @@ impl NetApp {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::net_app::GetLocation {
         super::builder::net_app::GetLocation::new(self.inner.clone())
     }
@@ -841,6 +1043,22 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::net_app::GetOperation {
         super::builder::net_app::GetOperation::new(self.inner.clone())
     }
@@ -848,6 +1066,21 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::net_app::DeleteOperation {
         super::builder::net_app::DeleteOperation::new(self.inner.clone())
     }
@@ -855,6 +1088,21 @@ impl NetApp {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_netapp_v1::client::NetApp;
+    /// async fn sample(
+    ///    client: &NetApp
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::net_app::CancelOperation {
         super::builder::net_app::CancelOperation::new(self.inner.clone())
     }

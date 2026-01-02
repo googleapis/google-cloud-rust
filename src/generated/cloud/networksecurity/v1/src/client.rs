@@ -129,6 +129,23 @@ impl AddressGroupService {
     }
 
     /// Gets details of a single address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_address_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_address_group(&self) -> super::builder::address_group_service::GetAddressGroup {
         super::builder::address_group_service::GetAddressGroup::new(self.inner.clone())
     }
@@ -248,6 +265,22 @@ impl AddressGroupService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::address_group_service::GetLocation {
         super::builder::address_group_service::GetLocation::new(self.inner.clone())
     }
@@ -257,12 +290,44 @@ impl AddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::address_group_service::SetIamPolicy {
         super::builder::address_group_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::address_group_service::GetIamPolicy {
         super::builder::address_group_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -274,6 +339,22 @@ impl AddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::address_group_service::TestIamPermissions {
@@ -290,6 +371,22 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::address_group_service::GetOperation {
         super::builder::address_group_service::GetOperation::new(self.inner.clone())
     }
@@ -297,6 +394,21 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::address_group_service::DeleteOperation {
         super::builder::address_group_service::DeleteOperation::new(self.inner.clone())
     }
@@ -304,6 +416,21 @@ impl AddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
+    /// async fn sample(
+    ///    client: &AddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::address_group_service::CancelOperation {
         super::builder::address_group_service::CancelOperation::new(self.inner.clone())
     }
@@ -427,6 +554,23 @@ impl OrganizationAddressGroupService {
     }
 
     /// Gets details of a single address group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_address_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_address_group(
         &self,
     ) -> super::builder::organization_address_group_service::GetAddressGroup {
@@ -564,6 +708,22 @@ impl OrganizationAddressGroupService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::organization_address_group_service::GetLocation {
         super::builder::organization_address_group_service::GetLocation::new(self.inner.clone())
     }
@@ -573,6 +733,22 @@ impl OrganizationAddressGroupService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::organization_address_group_service::SetIamPolicy {
@@ -581,6 +757,22 @@ impl OrganizationAddressGroupService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::organization_address_group_service::GetIamPolicy {
@@ -594,6 +786,22 @@ impl OrganizationAddressGroupService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::organization_address_group_service::TestIamPermissions {
@@ -614,6 +822,22 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::organization_address_group_service::GetOperation {
@@ -623,6 +847,21 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::organization_address_group_service::DeleteOperation {
@@ -632,6 +871,21 @@ impl OrganizationAddressGroupService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
+    /// async fn sample(
+    ///    client: &OrganizationAddressGroupService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::organization_address_group_service::CancelOperation {
@@ -754,6 +1008,23 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single AuthorizationPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_authorization_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_authorization_policy(
         &self,
     ) -> super::builder::network_security::GetAuthorizationPolicy {
@@ -819,6 +1090,23 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single ServerTlsPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_server_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_server_tls_policy(&self) -> super::builder::network_security::GetServerTlsPolicy {
         super::builder::network_security::GetServerTlsPolicy::new(self.inner.clone())
     }
@@ -882,6 +1170,23 @@ impl NetworkSecurity {
     }
 
     /// Gets details of a single ClientTlsPolicy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_client_tls_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_client_tls_policy(&self) -> super::builder::network_security::GetClientTlsPolicy {
         super::builder::network_security::GetClientTlsPolicy::new(self.inner.clone())
     }
@@ -943,6 +1248,22 @@ impl NetworkSecurity {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::network_security::GetLocation {
         super::builder::network_security::GetLocation::new(self.inner.clone())
     }
@@ -952,12 +1273,44 @@ impl NetworkSecurity {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::network_security::SetIamPolicy {
         super::builder::network_security::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::network_security::GetIamPolicy {
         super::builder::network_security::GetIamPolicy::new(self.inner.clone())
     }
@@ -969,6 +1322,22 @@ impl NetworkSecurity {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::network_security::TestIamPermissions {
         super::builder::network_security::TestIamPermissions::new(self.inner.clone())
     }
@@ -983,6 +1352,22 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::network_security::GetOperation {
         super::builder::network_security::GetOperation::new(self.inner.clone())
     }
@@ -990,6 +1375,21 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::network_security::DeleteOperation {
         super::builder::network_security::DeleteOperation::new(self.inner.clone())
     }
@@ -997,6 +1397,21 @@ impl NetworkSecurity {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
+    /// async fn sample(
+    ///    client: &NetworkSecurity
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::network_security::CancelOperation {
         super::builder::network_security::CancelOperation::new(self.inner.clone())
     }

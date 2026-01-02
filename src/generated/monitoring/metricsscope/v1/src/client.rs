@@ -120,6 +120,23 @@ impl MetricsScopes {
     }
 
     /// Returns a specific `Metrics Scope`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// async fn sample(
+    ///    client: &MetricsScopes,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metrics_scope()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metrics_scope(&self) -> super::builder::metrics_scopes::GetMetricsScope {
         super::builder::metrics_scopes::GetMetricsScope::new(self.inner.clone())
     }
@@ -127,6 +144,22 @@ impl MetricsScopes {
     /// Returns a list of every `Metrics Scope` that a specific `MonitoredProject`
     /// has been added to. The metrics scope representing the specified monitored
     /// project will always be the first entry in the response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// async fn sample(
+    ///    client: &MetricsScopes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_metrics_scopes_by_monitored_project()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_metrics_scopes_by_monitored_project(
         &self,
     ) -> super::builder::metrics_scopes::ListMetricsScopesByMonitoredProject {
@@ -171,6 +204,22 @@ impl MetricsScopes {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
+    /// async fn sample(
+    ///    client: &MetricsScopes
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::metrics_scopes::GetOperation {
         super::builder::metrics_scopes::GetOperation::new(self.inner.clone())
     }

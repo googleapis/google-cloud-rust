@@ -142,6 +142,23 @@ impl ClientConnectorServicesService {
     }
 
     /// Gets details of a single ClientConnectorService.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_client_connector_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_client_connector_service(
         &self,
     ) -> super::builder::client_connector_services_service::GetClientConnectorService {
@@ -215,6 +232,22 @@ impl ClientConnectorServicesService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::client_connector_services_service::GetLocation {
         super::builder::client_connector_services_service::GetLocation::new(self.inner.clone())
     }
@@ -224,6 +257,22 @@ impl ClientConnectorServicesService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(
         &self,
     ) -> super::builder::client_connector_services_service::SetIamPolicy {
@@ -232,6 +281,22 @@ impl ClientConnectorServicesService {
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(
         &self,
     ) -> super::builder::client_connector_services_service::GetIamPolicy {
@@ -245,6 +310,22 @@ impl ClientConnectorServicesService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::client_connector_services_service::TestIamPermissions {
@@ -265,6 +346,22 @@ impl ClientConnectorServicesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::client_connector_services_service::GetOperation {
         super::builder::client_connector_services_service::GetOperation::new(self.inner.clone())
     }
@@ -272,6 +369,21 @@ impl ClientConnectorServicesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::client_connector_services_service::DeleteOperation {
@@ -281,6 +393,21 @@ impl ClientConnectorServicesService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::client::ClientConnectorServicesService;
+    /// async fn sample(
+    ///    client: &ClientConnectorServicesService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::client_connector_services_service::CancelOperation {

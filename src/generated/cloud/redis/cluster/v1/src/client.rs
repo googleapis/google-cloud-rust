@@ -151,6 +151,23 @@ impl CloudRedisCluster {
     }
 
     /// Gets the details of a specific Redis cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::cloud_redis_cluster::GetCluster {
         super::builder::cloud_redis_cluster::GetCluster::new(self.inner.clone())
     }
@@ -213,6 +230,22 @@ impl CloudRedisCluster {
     }
 
     /// Gets the details of certificate authority information for Redis cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster_certificate_authority()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster_certificate_authority(
         &self,
     ) -> super::builder::cloud_redis_cluster::GetClusterCertificateAuthority {
@@ -248,6 +281,23 @@ impl CloudRedisCluster {
     }
 
     /// Get a backup collection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_collection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_collection(
         &self,
     ) -> super::builder::cloud_redis_cluster::GetBackupCollection {
@@ -260,6 +310,23 @@ impl CloudRedisCluster {
     }
 
     /// Gets the details of a specific backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::cloud_redis_cluster::GetBackup {
         super::builder::cloud_redis_cluster::GetBackup::new(self.inner.clone())
     }
@@ -326,6 +393,22 @@ impl CloudRedisCluster {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_redis_cluster::GetLocation {
         super::builder::cloud_redis_cluster::GetLocation::new(self.inner.clone())
     }
@@ -340,6 +423,22 @@ impl CloudRedisCluster {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_redis_cluster::GetOperation {
         super::builder::cloud_redis_cluster::GetOperation::new(self.inner.clone())
     }
@@ -347,6 +446,21 @@ impl CloudRedisCluster {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cloud_redis_cluster::DeleteOperation {
         super::builder::cloud_redis_cluster::DeleteOperation::new(self.inner.clone())
     }
@@ -354,6 +468,21 @@ impl CloudRedisCluster {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
+    /// async fn sample(
+    ///    client: &CloudRedisCluster
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cloud_redis_cluster::CancelOperation {
         super::builder::cloud_redis_cluster::CancelOperation::new(self.inner.clone())
     }

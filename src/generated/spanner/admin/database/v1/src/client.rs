@@ -159,6 +159,23 @@ impl DatabaseAdmin {
     }
 
     /// Gets the state of a Cloud Spanner database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_database()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_database(&self) -> super::builder::database_admin::GetDatabase {
         super::builder::database_admin::GetDatabase::new(self.inner.clone())
     }
@@ -252,6 +269,21 @@ impl DatabaseAdmin {
     /// `expire_time`.
     /// Note: Cloud Spanner might continue to accept requests for a few seconds
     /// after the database has been deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .drop_database()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn drop_database(&self) -> super::builder::database_admin::DropDatabase {
         super::builder::database_admin::DropDatabase::new(self.inner.clone())
     }
@@ -261,6 +293,22 @@ impl DatabaseAdmin {
     /// be queried using the [Operations][google.longrunning.Operations] API.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_database_ddl()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_database_ddl(&self) -> super::builder::database_admin::GetDatabaseDdl {
         super::builder::database_admin::GetDatabaseDdl::new(self.inner.clone())
     }
@@ -274,6 +322,22 @@ impl DatabaseAdmin {
     /// permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.SetIamPolicyRequest.resource]: iam_v1::model::SetIamPolicyRequest::resource
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::database_admin::SetIamPolicy {
         super::builder::database_admin::SetIamPolicy::new(self.inner.clone())
     }
@@ -288,6 +352,22 @@ impl DatabaseAdmin {
     /// permission on [resource][google.iam.v1.GetIamPolicyRequest.resource].
     ///
     /// [google.iam.v1.GetIamPolicyRequest.resource]: iam_v1::model::GetIamPolicyRequest::resource
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::database_admin::GetIamPolicy {
         super::builder::database_admin::GetIamPolicy::new(self.inner.clone())
     }
@@ -302,6 +382,22 @@ impl DatabaseAdmin {
     /// Calling this method on a backup that does not exist will
     /// result in a NOT_FOUND error if the user has
     /// `spanner.backups.list` permission on the containing instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::database_admin::TestIamPermissions {
         super::builder::database_admin::TestIamPermissions::new(self.inner.clone())
     }
@@ -375,6 +471,23 @@ impl DatabaseAdmin {
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::database_admin::GetBackup {
         super::builder::database_admin::GetBackup::new(self.inner.clone())
     }
@@ -383,6 +496,22 @@ impl DatabaseAdmin {
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_backup()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup(&self) -> super::builder::database_admin::UpdateBackup {
         super::builder::database_admin::UpdateBackup::new(self.inner.clone())
     }
@@ -391,6 +520,21 @@ impl DatabaseAdmin {
     /// [Backup][google.spanner.admin.database.v1.Backup].
     ///
     /// [google.spanner.admin.database.v1.Backup]: crate::model::Backup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_backup()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup(&self) -> super::builder::database_admin::DeleteBackup {
         super::builder::database_admin::DeleteBackup::new(self.inner.clone())
     }
@@ -479,26 +623,107 @@ impl DatabaseAdmin {
     }
 
     /// Adds split points to specified tables, indexes of a database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_split_points()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_split_points(&self) -> super::builder::database_admin::AddSplitPoints {
         super::builder::database_admin::AddSplitPoints::new(self.inner.clone())
     }
 
     /// Creates a new backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_backup_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_backup_schedule(&self) -> super::builder::database_admin::CreateBackupSchedule {
         super::builder::database_admin::CreateBackupSchedule::new(self.inner.clone())
     }
 
     /// Gets backup schedule for the input schedule name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_schedule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_schedule(&self) -> super::builder::database_admin::GetBackupSchedule {
         super::builder::database_admin::GetBackupSchedule::new(self.inner.clone())
     }
 
     /// Updates a backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_backup_schedule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_backup_schedule(&self) -> super::builder::database_admin::UpdateBackupSchedule {
         super::builder::database_admin::UpdateBackupSchedule::new(self.inner.clone())
     }
 
     /// Deletes a backup schedule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_backup_schedule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_backup_schedule(&self) -> super::builder::database_admin::DeleteBackupSchedule {
         super::builder::database_admin::DeleteBackupSchedule::new(self.inner.clone())
     }
@@ -518,6 +743,22 @@ impl DatabaseAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::database_admin::GetOperation {
         super::builder::database_admin::GetOperation::new(self.inner.clone())
     }
@@ -525,6 +766,21 @@ impl DatabaseAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::database_admin::DeleteOperation {
         super::builder::database_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -532,6 +788,21 @@ impl DatabaseAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
+    /// async fn sample(
+    ///    client: &DatabaseAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::database_admin::CancelOperation {
         super::builder::database_admin::CancelOperation::new(self.inner.clone())
     }

@@ -127,21 +127,86 @@ impl ParameterManager {
     }
 
     /// Gets details of a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_parameter()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_parameter(&self) -> super::builder::parameter_manager::GetParameter {
         super::builder::parameter_manager::GetParameter::new(self.inner.clone())
     }
 
     /// Creates a new Parameter in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_parameter()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_parameter(&self) -> super::builder::parameter_manager::CreateParameter {
         super::builder::parameter_manager::CreateParameter::new(self.inner.clone())
     }
 
     /// Updates a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_parameter()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_parameter(&self) -> super::builder::parameter_manager::UpdateParameter {
         super::builder::parameter_manager::UpdateParameter::new(self.inner.clone())
     }
 
     /// Deletes a single Parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_parameter()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_parameter(&self) -> super::builder::parameter_manager::DeleteParameter {
         super::builder::parameter_manager::DeleteParameter::new(self.inner.clone())
     }
@@ -154,11 +219,44 @@ impl ParameterManager {
     }
 
     /// Gets details of a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_parameter_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_parameter_version(&self) -> super::builder::parameter_manager::GetParameterVersion {
         super::builder::parameter_manager::GetParameterVersion::new(self.inner.clone())
     }
 
     /// Gets rendered version of a ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .render_parameter_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn render_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::RenderParameterVersion {
@@ -166,6 +264,22 @@ impl ParameterManager {
     }
 
     /// Creates a new ParameterVersion in a given project, location, and parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_parameter_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::CreateParameterVersion {
@@ -173,6 +287,22 @@ impl ParameterManager {
     }
 
     /// Updates a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_parameter_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::UpdateParameterVersion {
@@ -180,6 +310,22 @@ impl ParameterManager {
     }
 
     /// Deletes a single ParameterVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_parameter_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_parameter_version(
         &self,
     ) -> super::builder::parameter_manager::DeleteParameterVersion {
@@ -192,6 +338,22 @@ impl ParameterManager {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_parametermanager_v1::client::ParameterManager;
+    /// async fn sample(
+    ///    client: &ParameterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::parameter_manager::GetLocation {
         super::builder::parameter_manager::GetLocation::new(self.inner.clone())
     }

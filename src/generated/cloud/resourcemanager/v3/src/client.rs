@@ -125,6 +125,23 @@ impl Folders {
     /// (for example, `folders/1234`).
     /// The caller must have `resourcemanager.folders.get` permission on the
     /// identified folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// async fn sample(
+    ///    client: &Folders,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_folder()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_folder(&self) -> super::builder::folders::GetFolder {
         super::builder::folders::GetFolder::new(self.inner.clone())
     }
@@ -318,6 +335,22 @@ impl Folders {
     /// be the folder's resource name, for example: "folders/1234".
     /// The caller must have `resourcemanager.folders.getIamPolicy` permission
     /// on the identified folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::folders::GetIamPolicy {
         super::builder::folders::GetIamPolicy::new(self.inner.clone())
     }
@@ -327,6 +360,22 @@ impl Folders {
     /// "folders/1234".
     /// The caller must have `resourcemanager.folders.setIamPolicy` permission
     /// on the identified folder.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::folders::SetIamPolicy {
         super::builder::folders::SetIamPolicy::new(self.inner.clone())
     }
@@ -336,6 +385,22 @@ impl Folders {
     /// for example: "folders/1234".
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::folders::TestIamPermissions {
         super::builder::folders::TestIamPermissions::new(self.inner.clone())
     }
@@ -343,6 +408,22 @@ impl Folders {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Folders;
+    /// async fn sample(
+    ///    client: &Folders
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::folders::GetOperation {
         super::builder::folders::GetOperation::new(self.inner.clone())
     }
@@ -451,6 +532,23 @@ impl Organizations {
     }
 
     /// Fetches an organization resource identified by the specified resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// async fn sample(
+    ///    client: &Organizations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_organization()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_organization(&self) -> super::builder::organizations::GetOrganization {
         super::builder::organizations::GetOrganization::new(self.inner.clone())
     }
@@ -472,6 +570,22 @@ impl Organizations {
     ///
     /// Authorization requires the IAM permission
     /// `resourcemanager.organizations.getIamPolicy` on the specified organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::organizations::GetIamPolicy {
         super::builder::organizations::GetIamPolicy::new(self.inner.clone())
     }
@@ -482,6 +596,22 @@ impl Organizations {
     ///
     /// Authorization requires the IAM permission
     /// `resourcemanager.organizations.setIamPolicy` on the specified organization.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::organizations::SetIamPolicy {
         super::builder::organizations::SetIamPolicy::new(self.inner.clone())
     }
@@ -491,6 +621,22 @@ impl Organizations {
     /// for example: "organizations/123".
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::organizations::TestIamPermissions {
         super::builder::organizations::TestIamPermissions::new(self.inner.clone())
     }
@@ -498,6 +644,22 @@ impl Organizations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Organizations;
+    /// async fn sample(
+    ///    client: &Organizations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::organizations::GetOperation {
         super::builder::organizations::GetOperation::new(self.inner.clone())
     }
@@ -610,6 +772,23 @@ impl Projects {
     ///
     /// The caller must have `resourcemanager.projects.get` permission
     /// for this project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_project()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_project(&self) -> super::builder::projects::GetProject {
         super::builder::projects::GetProject::new(self.inner.clone())
     }
@@ -784,6 +963,22 @@ impl Projects {
     /// Returns the IAM access control policy for the specified project, in the
     /// format `projects/{ProjectIdOrNumber}` e.g. projects/123.
     /// Permission is denied if the policy or the resource do not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::projects::GetIamPolicy {
         super::builder::projects::GetIamPolicy::new(self.inner.clone())
     }
@@ -830,12 +1025,44 @@ impl Projects {
     ///   rectified. If the project is part of an organization, you can remove all
     ///   owners, potentially making the organization inaccessible.
     ///
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::projects::SetIamPolicy {
         super::builder::projects::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns permissions that a caller has on the specified project, in the
     /// format `projects/{ProjectIdOrNumber}` e.g. projects/123..
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::projects::TestIamPermissions {
         super::builder::projects::TestIamPermissions::new(self.inner.clone())
     }
@@ -843,6 +1070,22 @@ impl Projects {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::Projects;
+    /// async fn sample(
+    ///    client: &Projects
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::projects::GetOperation {
         super::builder::projects::GetOperation::new(self.inner.clone())
     }
@@ -999,6 +1242,22 @@ impl TagBindings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagBindings;
+    /// async fn sample(
+    ///    client: &TagBindings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tag_bindings::GetOperation {
         super::builder::tag_bindings::GetOperation::new(self.inner.clone())
     }
@@ -1149,6 +1408,22 @@ impl TagHolds {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagHolds;
+    /// async fn sample(
+    ///    client: &TagHolds
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tag_holds::GetOperation {
         super::builder::tag_holds::GetOperation::new(self.inner.clone())
     }
@@ -1263,6 +1538,23 @@ impl TagKeys {
 
     /// Retrieves a TagKey. This method will return `PERMISSION_DENIED` if the
     /// key does not exist or the user does not have permission to view it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tag_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tag_key(&self) -> super::builder::tag_keys::GetTagKey {
         super::builder::tag_keys::GetTagKey::new(self.inner.clone())
     }
@@ -1270,6 +1562,23 @@ impl TagKeys {
     /// Retrieves a TagKey by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the key does not exist
     /// or the user does not have permission to view it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_namespaced_tag_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_namespaced_tag_key(&self) -> super::builder::tag_keys::GetNamespacedTagKey {
         super::builder::tag_keys::GetNamespacedTagKey::new(self.inner.clone())
     }
@@ -1329,6 +1638,22 @@ impl TagKeys {
     /// The caller must have
     /// `cloudresourcemanager.googleapis.com/tagKeys.getIamPolicy` permission on
     /// the specified TagKey.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::tag_keys::GetIamPolicy {
         super::builder::tag_keys::GetIamPolicy::new(self.inner.clone())
     }
@@ -1338,6 +1663,22 @@ impl TagKeys {
     /// For example, "tagKeys/1234".
     /// The caller must have `resourcemanager.tagKeys.setIamPolicy` permission
     /// on the identified tagValue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::tag_keys::SetIamPolicy {
         super::builder::tag_keys::SetIamPolicy::new(self.inner.clone())
     }
@@ -1347,6 +1688,22 @@ impl TagKeys {
     /// For example, "tagKeys/1234".
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::tag_keys::TestIamPermissions {
         super::builder::tag_keys::TestIamPermissions::new(self.inner.clone())
     }
@@ -1354,6 +1711,22 @@ impl TagKeys {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagKeys;
+    /// async fn sample(
+    ///    client: &TagKeys
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tag_keys::GetOperation {
         super::builder::tag_keys::GetOperation::new(self.inner.clone())
     }
@@ -1468,6 +1841,23 @@ impl TagValues {
 
     /// Retrieves a TagValue. This method will return `PERMISSION_DENIED` if the
     /// value does not exist or the user does not have permission to view it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tag_value()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_tag_value(&self) -> super::builder::tag_values::GetTagValue {
         super::builder::tag_values::GetTagValue::new(self.inner.clone())
     }
@@ -1475,6 +1865,23 @@ impl TagValues {
     /// Retrieves a TagValue by its namespaced name.
     /// This method will return `PERMISSION_DENIED` if the value does not exist
     /// or the user does not have permission to view it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_namespaced_tag_value()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_namespaced_tag_value(&self) -> super::builder::tag_values::GetNamespacedTagValue {
         super::builder::tag_values::GetNamespacedTagValue::new(self.inner.clone())
     }
@@ -1534,6 +1941,22 @@ impl TagValues {
     /// The caller must have the
     /// `cloudresourcemanager.googleapis.com/tagValues.getIamPolicy` permission on
     /// the identified TagValue to get the access control policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::tag_values::GetIamPolicy {
         super::builder::tag_values::GetIamPolicy::new(self.inner.clone())
     }
@@ -1543,6 +1966,22 @@ impl TagValues {
     /// For example: `tagValues/1234`.
     /// The caller must have `resourcemanager.tagValues.setIamPolicy` permission
     /// on the identified tagValue.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::tag_values::SetIamPolicy {
         super::builder::tag_values::SetIamPolicy::new(self.inner.clone())
     }
@@ -1552,6 +1991,22 @@ impl TagValues {
     /// `tagValues/1234`.
     ///
     /// There are no permissions required for making this API call.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::tag_values::TestIamPermissions {
         super::builder::tag_values::TestIamPermissions::new(self.inner.clone())
     }
@@ -1559,6 +2014,22 @@ impl TagValues {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::client::TagValues;
+    /// async fn sample(
+    ///    client: &TagValues
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::tag_values::GetOperation {
         super::builder::tag_values::GetOperation::new(self.inner.clone())
     }

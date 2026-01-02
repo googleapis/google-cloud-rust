@@ -124,6 +124,23 @@ impl VmwareEngine {
     }
 
     /// Retrieves a `PrivateCloud` resource by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_private_cloud()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_private_cloud(&self) -> super::builder::vmware_engine::GetPrivateCloud {
         super::builder::vmware_engine::GetPrivateCloud::new(self.inner.clone())
     }
@@ -224,6 +241,23 @@ impl VmwareEngine {
     }
 
     /// Retrieves a `Cluster` resource by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::vmware_engine::GetCluster {
         super::builder::vmware_engine::GetCluster::new(self.inner.clone())
     }
@@ -291,6 +325,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of a single node.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node(&self) -> super::builder::vmware_engine::GetNode {
         super::builder::vmware_engine::GetNode::new(self.inner.clone())
     }
@@ -310,6 +361,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of a single external IP address.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_external_address()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_external_address(&self) -> super::builder::vmware_engine::GetExternalAddress {
         super::builder::vmware_engine::GetExternalAddress::new(self.inner.clone())
     }
@@ -375,6 +443,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of a single subnet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_subnet()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_subnet(&self) -> super::builder::vmware_engine::GetSubnet {
         super::builder::vmware_engine::GetSubnet::new(self.inner.clone())
     }
@@ -407,6 +492,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of a single external access rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_external_access_rule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_external_access_rule(&self) -> super::builder::vmware_engine::GetExternalAccessRule {
         super::builder::vmware_engine::GetExternalAccessRule::new(self.inner.clone())
     }
@@ -470,6 +572,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of a logging server.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_logging_server()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_logging_server(&self) -> super::builder::vmware_engine::GetLoggingServer {
         super::builder::vmware_engine::GetLoggingServer::new(self.inner.clone())
     }
@@ -526,16 +645,65 @@ impl VmwareEngine {
     }
 
     /// Gets details of a single `NodeType`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node_type(&self) -> super::builder::vmware_engine::GetNodeType {
         super::builder::vmware_engine::GetNodeType::new(self.inner.clone())
     }
 
     /// Gets details of credentials for NSX appliance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .show_nsx_credentials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn show_nsx_credentials(&self) -> super::builder::vmware_engine::ShowNsxCredentials {
         super::builder::vmware_engine::ShowNsxCredentials::new(self.inner.clone())
     }
 
     /// Gets details of credentials for Vcenter appliance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .show_vcenter_credentials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn show_vcenter_credentials(
         &self,
     ) -> super::builder::vmware_engine::ShowVcenterCredentials {
@@ -575,6 +743,23 @@ impl VmwareEngine {
     }
 
     /// Gets details of the `DnsForwarding` config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dns_forwarding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dns_forwarding(&self) -> super::builder::vmware_engine::GetDnsForwarding {
         super::builder::vmware_engine::GetDnsForwarding::new(self.inner.clone())
     }
@@ -599,6 +784,23 @@ impl VmwareEngine {
     /// contains details of the network peering, such as peered
     /// networks, import and export custom route configurations, and peering state.
     /// NetworkPeering is a global resource and location can only be global.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_network_peering()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_network_peering(&self) -> super::builder::vmware_engine::GetNetworkPeering {
         super::builder::vmware_engine::GetNetworkPeering::new(self.inner.clone())
     }
@@ -690,11 +892,45 @@ impl VmwareEngine {
     }
 
     /// Retrieves a `HcxActivationKey` resource by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_hcx_activation_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hcx_activation_key(&self) -> super::builder::vmware_engine::GetHcxActivationKey {
         super::builder::vmware_engine::GetHcxActivationKey::new(self.inner.clone())
     }
 
     /// Retrieves a `NetworkPolicy` resource by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_network_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_network_policy(&self) -> super::builder::vmware_engine::GetNetworkPolicy {
         super::builder::vmware_engine::GetNetworkPolicy::new(self.inner.clone())
     }
@@ -772,6 +1008,23 @@ impl VmwareEngine {
     }
 
     /// Retrieves a 'ManagementDnsZoneBinding' resource by its resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_management_dns_zone_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_management_dns_zone_binding(
         &self,
     ) -> super::builder::vmware_engine::GetManagementDnsZoneBinding {
@@ -916,6 +1169,23 @@ impl VmwareEngine {
     /// resource contains details of the VMware Engine network, such as its VMware
     /// Engine network type, peered networks in a service project, and state
     /// (for example, `CREATING`, `ACTIVE`, `DELETING`).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vmware_engine_network()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vmware_engine_network(
         &self,
     ) -> super::builder::vmware_engine::GetVmwareEngineNetwork {
@@ -950,6 +1220,23 @@ impl VmwareEngine {
     /// Retrieves a `PrivateConnection` resource by its resource name. The resource
     /// contains details of the private connection, such as connected
     /// network, routing mode and state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_private_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_private_connection(&self) -> super::builder::vmware_engine::GetPrivateConnection {
         super::builder::vmware_engine::GetPrivateConnection::new(self.inner.clone())
     }
@@ -1029,6 +1316,23 @@ impl VmwareEngine {
     /// Gets all the principals having bind permission on the intranet VPC
     /// associated with the consumer project granted by the Grant API.
     /// DnsBindPermission is a global resource and location can only be global.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dns_bind_permission()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dns_bind_permission(&self) -> super::builder::vmware_engine::GetDnsBindPermission {
         super::builder::vmware_engine::GetDnsBindPermission::new(self.inner.clone())
     }
@@ -1058,6 +1362,22 @@ impl VmwareEngine {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vmware_engine::GetLocation {
         super::builder::vmware_engine::GetLocation::new(self.inner.clone())
     }
@@ -1067,12 +1387,44 @@ impl VmwareEngine {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::vmware_engine::SetIamPolicy {
         super::builder::vmware_engine::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::vmware_engine::GetIamPolicy {
         super::builder::vmware_engine::GetIamPolicy::new(self.inner.clone())
     }
@@ -1084,6 +1436,22 @@ impl VmwareEngine {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::vmware_engine::TestIamPermissions {
         super::builder::vmware_engine::TestIamPermissions::new(self.inner.clone())
     }
@@ -1098,6 +1466,22 @@ impl VmwareEngine {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vmware_engine::GetOperation {
         super::builder::vmware_engine::GetOperation::new(self.inner.clone())
     }
@@ -1105,6 +1489,21 @@ impl VmwareEngine {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
+    /// async fn sample(
+    ///    client: &VmwareEngine
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vmware_engine::DeleteOperation {
         super::builder::vmware_engine::DeleteOperation::new(self.inner.clone())
     }

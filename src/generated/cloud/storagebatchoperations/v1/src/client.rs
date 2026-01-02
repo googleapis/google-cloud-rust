@@ -130,6 +130,23 @@ impl StorageBatchOperations {
     }
 
     /// Gets a batch job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::storage_batch_operations::GetJob {
         super::builder::storage_batch_operations::GetJob::new(self.inner.clone())
     }
@@ -150,11 +167,43 @@ impl StorageBatchOperations {
     }
 
     /// Deletes a batch job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::storage_batch_operations::DeleteJob {
         super::builder::storage_batch_operations::DeleteJob::new(self.inner.clone())
     }
 
     /// Cancels a batch job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_job(&self) -> super::builder::storage_batch_operations::CancelJob {
         super::builder::storage_batch_operations::CancelJob::new(self.inner.clone())
     }
@@ -165,6 +214,22 @@ impl StorageBatchOperations {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::storage_batch_operations::GetLocation {
         super::builder::storage_batch_operations::GetLocation::new(self.inner.clone())
     }
@@ -179,6 +244,22 @@ impl StorageBatchOperations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::storage_batch_operations::GetOperation {
         super::builder::storage_batch_operations::GetOperation::new(self.inner.clone())
     }
@@ -186,6 +267,21 @@ impl StorageBatchOperations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::storage_batch_operations::DeleteOperation {
         super::builder::storage_batch_operations::DeleteOperation::new(self.inner.clone())
     }
@@ -193,6 +289,21 @@ impl StorageBatchOperations {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::client::StorageBatchOperations;
+    /// async fn sample(
+    ///    client: &StorageBatchOperations
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::storage_batch_operations::CancelOperation {
         super::builder::storage_batch_operations::CancelOperation::new(self.inner.clone())
     }

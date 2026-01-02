@@ -140,11 +140,44 @@ impl AnalyticsHubService {
     }
 
     /// Gets the details of a data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_exchange()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_exchange(&self) -> super::builder::analytics_hub_service::GetDataExchange {
         super::builder::analytics_hub_service::GetDataExchange::new(self.inner.clone())
     }
 
     /// Creates a new data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_exchange()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::CreateDataExchange {
@@ -152,6 +185,22 @@ impl AnalyticsHubService {
     }
 
     /// Updates an existing data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_data_exchange()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::UpdateDataExchange {
@@ -159,6 +208,21 @@ impl AnalyticsHubService {
     }
 
     /// Deletes an existing data exchange.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_data_exchange()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_exchange(
         &self,
     ) -> super::builder::analytics_hub_service::DeleteDataExchange {
@@ -171,21 +235,85 @@ impl AnalyticsHubService {
     }
 
     /// Gets the details of a listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_listing()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_listing(&self) -> super::builder::analytics_hub_service::GetListing {
         super::builder::analytics_hub_service::GetListing::new(self.inner.clone())
     }
 
     /// Creates a new listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_listing()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_listing(&self) -> super::builder::analytics_hub_service::CreateListing {
         super::builder::analytics_hub_service::CreateListing::new(self.inner.clone())
     }
 
     /// Updates an existing listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_listing()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_listing(&self) -> super::builder::analytics_hub_service::UpdateListing {
         super::builder::analytics_hub_service::UpdateListing::new(self.inner.clone())
     }
 
     /// Deletes a listing.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_listing()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_listing(&self) -> super::builder::analytics_hub_service::DeleteListing {
         super::builder::analytics_hub_service::DeleteListing::new(self.inner.clone())
     }
@@ -196,6 +324,22 @@ impl AnalyticsHubService {
     /// reference only BigQuery datasets.
     /// Upon subscription to a listing for a BigQuery dataset, Analytics Hub
     /// creates a linked dataset in the subscriber's project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .subscribe_listing()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn subscribe_listing(&self) -> super::builder::analytics_hub_service::SubscribeListing {
         super::builder::analytics_hub_service::SubscribeListing::new(self.inner.clone())
     }
@@ -240,6 +384,23 @@ impl AnalyticsHubService {
     }
 
     /// Gets the details of a Subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_subscription()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_subscription(&self) -> super::builder::analytics_hub_service::GetSubscription {
         super::builder::analytics_hub_service::GetSubscription::new(self.inner.clone())
     }
@@ -259,6 +420,22 @@ impl AnalyticsHubService {
     }
 
     /// Revokes a given subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .revoke_subscription()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn revoke_subscription(&self) -> super::builder::analytics_hub_service::RevokeSubscription {
         super::builder::analytics_hub_service::RevokeSubscription::new(self.inner.clone())
     }
@@ -279,16 +456,64 @@ impl AnalyticsHubService {
     }
 
     /// Gets the IAM policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::analytics_hub_service::GetIamPolicy {
         super::builder::analytics_hub_service::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::analytics_hub_service::SetIamPolicy {
         super::builder::analytics_hub_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns the permissions that a caller has.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::analytics_hub_service::TestIamPermissions {
@@ -296,6 +521,22 @@ impl AnalyticsHubService {
     }
 
     /// Creates a new QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_query_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::CreateQueryTemplate {
@@ -303,6 +544,23 @@ impl AnalyticsHubService {
     }
 
     /// Gets a QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_query_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_query_template(&self) -> super::builder::analytics_hub_service::GetQueryTemplate {
         super::builder::analytics_hub_service::GetQueryTemplate::new(self.inner.clone())
     }
@@ -315,6 +573,22 @@ impl AnalyticsHubService {
     }
 
     /// Updates an existing QueryTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_query_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::UpdateQueryTemplate {
@@ -322,6 +596,22 @@ impl AnalyticsHubService {
     }
 
     /// Deletes a query template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_query_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::DeleteQueryTemplate {
@@ -329,6 +619,22 @@ impl AnalyticsHubService {
     }
 
     /// Submits a query template for approval.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .submit_query_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::SubmitQueryTemplate {
@@ -336,6 +642,22 @@ impl AnalyticsHubService {
     }
 
     /// Approves a query template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .approve_query_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_query_template(
         &self,
     ) -> super::builder::analytics_hub_service::ApproveQueryTemplate {
@@ -345,6 +667,22 @@ impl AnalyticsHubService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
+    /// async fn sample(
+    ///    client: &AnalyticsHubService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::analytics_hub_service::GetOperation {
         super::builder::analytics_hub_service::GetOperation::new(self.inner.clone())
     }

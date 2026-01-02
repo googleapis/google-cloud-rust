@@ -125,6 +125,23 @@ impl Datastream {
     }
 
     /// Use this method to get details about a connection profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection_profile()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_profile(&self) -> super::builder::datastream::GetConnectionProfile {
         super::builder::datastream::GetConnectionProfile::new(self.inner.clone())
     }
@@ -178,6 +195,22 @@ impl Datastream {
     /// The discover API call exposes the data objects and metadata belonging to
     /// the profile. Typically, a request returns children data objects of a
     /// parent data object that's optionally supplied in the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .discover_connection_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn discover_connection_profile(
         &self,
     ) -> super::builder::datastream::DiscoverConnectionProfile {
@@ -190,6 +223,23 @@ impl Datastream {
     }
 
     /// Use this method to get details about a stream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_stream()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_stream(&self) -> super::builder::datastream::GetStream {
         super::builder::datastream::GetStream::new(self.inner.clone())
     }
@@ -256,11 +306,44 @@ impl Datastream {
     }
 
     /// Use this method to get details about a stream object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_stream_object()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_stream_object(&self) -> super::builder::datastream::GetStreamObject {
         super::builder::datastream::GetStreamObject::new(self.inner.clone())
     }
 
     /// Use this method to look up a stream object by its source object identifier.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_stream_object()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_stream_object(&self) -> super::builder::datastream::LookupStreamObject {
         super::builder::datastream::LookupStreamObject::new(self.inner.clone())
     }
@@ -271,17 +354,65 @@ impl Datastream {
     }
 
     /// Use this method to start a backfill job for the specified stream object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .start_backfill_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_backfill_job(&self) -> super::builder::datastream::StartBackfillJob {
         super::builder::datastream::StartBackfillJob::new(self.inner.clone())
     }
 
     /// Use this method to stop a backfill job for the specified stream object.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .stop_backfill_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn stop_backfill_job(&self) -> super::builder::datastream::StopBackfillJob {
         super::builder::datastream::StopBackfillJob::new(self.inner.clone())
     }
 
     /// The FetchStaticIps API call exposes the static IP addresses used by
     /// Datastream.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_static_ips()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_static_ips(&self) -> super::builder::datastream::FetchStaticIps {
         super::builder::datastream::FetchStaticIps::new(self.inner.clone())
     }
@@ -302,6 +433,23 @@ impl Datastream {
     }
 
     /// Use this method to get details about a private connectivity configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_private_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_private_connection(&self) -> super::builder::datastream::GetPrivateConnection {
         super::builder::datastream::GetPrivateConnection::new(self.inner.clone())
     }
@@ -344,6 +492,23 @@ impl Datastream {
     }
 
     /// Use this method to get details about a route.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_route()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_route(&self) -> super::builder::datastream::GetRoute {
         super::builder::datastream::GetRoute::new(self.inner.clone())
     }
@@ -375,6 +540,22 @@ impl Datastream {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::datastream::GetLocation {
         super::builder::datastream::GetLocation::new(self.inner.clone())
     }
@@ -389,6 +570,22 @@ impl Datastream {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::datastream::GetOperation {
         super::builder::datastream::GetOperation::new(self.inner.clone())
     }
@@ -396,6 +593,21 @@ impl Datastream {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::datastream::DeleteOperation {
         super::builder::datastream::DeleteOperation::new(self.inner.clone())
     }
@@ -403,6 +615,21 @@ impl Datastream {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastream_v1::client::Datastream;
+    /// async fn sample(
+    ///    client: &Datastream
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::datastream::CancelOperation {
         super::builder::datastream::CancelOperation::new(self.inner.clone())
     }

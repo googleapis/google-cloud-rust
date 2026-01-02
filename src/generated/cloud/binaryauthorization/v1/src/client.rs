@@ -141,6 +141,23 @@ impl BinauthzManagementServiceV1 {
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy(&self) -> super::builder::binauthz_management_service_v_1::GetPolicy {
         super::builder::binauthz_management_service_v_1::GetPolicy::new(self.inner.clone())
     }
@@ -152,6 +169,22 @@ impl BinauthzManagementServiceV1 {
     /// if the request is malformed.
     ///
     /// [google.cloud.binaryauthorization.v1.Policy]: crate::model::Policy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy(&self) -> super::builder::binauthz_management_service_v_1::UpdatePolicy {
         super::builder::binauthz_management_service_v_1::UpdatePolicy::new(self.inner.clone())
     }
@@ -162,6 +195,22 @@ impl BinauthzManagementServiceV1 {
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] already exists.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_attestor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::CreateAttestor {
@@ -172,6 +221,23 @@ impl BinauthzManagementServiceV1 {
     /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_attestor()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_attestor(&self) -> super::builder::binauthz_management_service_v_1::GetAttestor {
         super::builder::binauthz_management_service_v_1::GetAttestor::new(self.inner.clone())
     }
@@ -180,6 +246,22 @@ impl BinauthzManagementServiceV1 {
     /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_attestor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::UpdateAttestor {
@@ -198,6 +280,21 @@ impl BinauthzManagementServiceV1 {
     /// [attestor][google.cloud.binaryauthorization.v1.Attestor] does not exist.
     ///
     /// [google.cloud.binaryauthorization.v1.Attestor]: crate::model::Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
+    /// async fn sample(
+    ///    client: &BinauthzManagementServiceV1
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_attestor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_attestor(
         &self,
     ) -> super::builder::binauthz_management_service_v_1::DeleteAttestor {
@@ -310,6 +407,23 @@ impl SystemPolicyV1 {
     }
 
     /// Gets the current system policy in the specified location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
+    /// async fn sample(
+    ///    client: &SystemPolicyV1,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_system_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_system_policy(&self) -> super::builder::system_policy_v_1::GetSystemPolicy {
         super::builder::system_policy_v_1::GetSystemPolicy::new(self.inner.clone())
     }
@@ -422,6 +536,22 @@ impl ValidationHelperV1 {
 
     /// Returns whether the given Attestation for the given image URI
     /// was signed by the given Attestor
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
+    /// async fn sample(
+    ///    client: &ValidationHelperV1
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .validate_attestation_occurrence()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_attestation_occurrence(
         &self,
     ) -> super::builder::validation_helper_v_1::ValidateAttestationOccurrence {

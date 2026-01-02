@@ -140,6 +140,23 @@ impl AppConnectorsService {
     }
 
     /// Gets details of a single AppConnector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_app_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_app_connector(&self) -> super::builder::app_connectors_service::GetAppConnector {
         super::builder::app_connectors_service::GetAppConnector::new(self.inner.clone())
     }
@@ -216,6 +233,22 @@ impl AppConnectorsService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::app_connectors_service::GetLocation {
         super::builder::app_connectors_service::GetLocation::new(self.inner.clone())
     }
@@ -225,12 +258,44 @@ impl AppConnectorsService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::app_connectors_service::SetIamPolicy {
         super::builder::app_connectors_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::app_connectors_service::GetIamPolicy {
         super::builder::app_connectors_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -242,6 +307,22 @@ impl AppConnectorsService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::app_connectors_service::TestIamPermissions {
@@ -258,6 +339,22 @@ impl AppConnectorsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::app_connectors_service::GetOperation {
         super::builder::app_connectors_service::GetOperation::new(self.inner.clone())
     }
@@ -265,6 +362,21 @@ impl AppConnectorsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::app_connectors_service::DeleteOperation {
         super::builder::app_connectors_service::DeleteOperation::new(self.inner.clone())
     }
@@ -272,6 +384,21 @@ impl AppConnectorsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
+    /// async fn sample(
+    ///    client: &AppConnectorsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::app_connectors_service::CancelOperation {
         super::builder::app_connectors_service::CancelOperation::new(self.inner.clone())
     }

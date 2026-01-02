@@ -133,6 +133,22 @@ impl DlpService {
     /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-images>
     /// and
     /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-text>,
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .inspect_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn inspect_content(&self) -> super::builder::dlp_service::InspectContent {
         super::builder::dlp_service::InspectContent::new(self.inner.clone())
     }
@@ -149,6 +165,22 @@ impl DlpService {
     ///
     /// Only the first frame of each multiframe image is redacted. Metadata and
     /// other frames are omitted in the response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .redact_image()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn redact_image(&self) -> super::builder::dlp_service::RedactImage {
         super::builder::dlp_service::RedactImage::new(self.inner.clone())
     }
@@ -162,6 +194,22 @@ impl DlpService {
     /// When no InfoTypes or CustomInfoTypes are specified in this request, the
     /// system will automatically choose what detectors to run. By default this may
     /// be all types, but may change over time as detectors are updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .deidentify_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn deidentify_content(&self) -> super::builder::dlp_service::DeidentifyContent {
         super::builder::dlp_service::DeidentifyContent::new(self.inner.clone())
     }
@@ -170,6 +218,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/pseudonymization#re-identification_in_free_text_code_example>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reidentify_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reidentify_content(&self) -> super::builder::dlp_service::ReidentifyContent {
         super::builder::dlp_service::ReidentifyContent::new(self.inner.clone())
     }
@@ -178,6 +242,22 @@ impl DlpService {
     /// supports. See
     /// <https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_info_types()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_info_types(&self) -> super::builder::dlp_service::ListInfoTypes {
         super::builder::dlp_service::ListInfoTypes::new(self.inner.clone())
     }
@@ -187,6 +267,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_inspect_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_inspect_template(&self) -> super::builder::dlp_service::CreateInspectTemplate {
         super::builder::dlp_service::CreateInspectTemplate::new(self.inner.clone())
     }
@@ -195,6 +291,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_inspect_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_inspect_template(&self) -> super::builder::dlp_service::UpdateInspectTemplate {
         super::builder::dlp_service::UpdateInspectTemplate::new(self.inner.clone())
     }
@@ -203,6 +315,23 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_inspect_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_inspect_template(&self) -> super::builder::dlp_service::GetInspectTemplate {
         super::builder::dlp_service::GetInspectTemplate::new(self.inner.clone())
     }
@@ -219,6 +348,21 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_inspect_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_inspect_template(&self) -> super::builder::dlp_service::DeleteInspectTemplate {
         super::builder::dlp_service::DeleteInspectTemplate::new(self.inner.clone())
     }
@@ -228,6 +372,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_deidentify_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deidentify_template(
         &self,
     ) -> super::builder::dlp_service::CreateDeidentifyTemplate {
@@ -238,6 +398,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_deidentify_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_deidentify_template(
         &self,
     ) -> super::builder::dlp_service::UpdateDeidentifyTemplate {
@@ -248,6 +424,23 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_deidentify_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deidentify_template(&self) -> super::builder::dlp_service::GetDeidentifyTemplate {
         super::builder::dlp_service::GetDeidentifyTemplate::new(self.inner.clone())
     }
@@ -266,6 +459,21 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_deidentify_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_deidentify_template(
         &self,
     ) -> super::builder::dlp_service::DeleteDeidentifyTemplate {
@@ -277,6 +485,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_job_trigger()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_job_trigger(&self) -> super::builder::dlp_service::CreateJobTrigger {
         super::builder::dlp_service::CreateJobTrigger::new(self.inner.clone())
     }
@@ -285,6 +509,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_job_trigger()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_job_trigger(&self) -> super::builder::dlp_service::UpdateJobTrigger {
         super::builder::dlp_service::UpdateJobTrigger::new(self.inner.clone())
     }
@@ -292,6 +532,22 @@ impl DlpService {
     /// Inspect hybrid content and store findings to a trigger. The inspection
     /// will be processed asynchronously. To review the findings monitor the
     /// jobs within the trigger.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .hybrid_inspect_job_trigger()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn hybrid_inspect_job_trigger(
         &self,
     ) -> super::builder::dlp_service::HybridInspectJobTrigger {
@@ -302,6 +558,23 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job_trigger()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job_trigger(&self) -> super::builder::dlp_service::GetJobTrigger {
         super::builder::dlp_service::GetJobTrigger::new(self.inner.clone())
     }
@@ -318,27 +591,107 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job_trigger()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job_trigger(&self) -> super::builder::dlp_service::DeleteJobTrigger {
         super::builder::dlp_service::DeleteJobTrigger::new(self.inner.clone())
     }
 
     /// Activate a job trigger. Causes the immediate execute of a trigger
     /// instead of waiting on the trigger event to occur.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .activate_job_trigger()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn activate_job_trigger(&self) -> super::builder::dlp_service::ActivateJobTrigger {
         super::builder::dlp_service::ActivateJobTrigger::new(self.inner.clone())
     }
 
     /// Creates a config for discovery to scan and profile storage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_discovery_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_discovery_config(&self) -> super::builder::dlp_service::CreateDiscoveryConfig {
         super::builder::dlp_service::CreateDiscoveryConfig::new(self.inner.clone())
     }
 
     /// Updates a discovery configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_discovery_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_discovery_config(&self) -> super::builder::dlp_service::UpdateDiscoveryConfig {
         super::builder::dlp_service::UpdateDiscoveryConfig::new(self.inner.clone())
     }
 
     /// Gets a discovery configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_discovery_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovery_config(&self) -> super::builder::dlp_service::GetDiscoveryConfig {
         super::builder::dlp_service::GetDiscoveryConfig::new(self.inner.clone())
     }
@@ -349,6 +702,21 @@ impl DlpService {
     }
 
     /// Deletes a discovery configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_discovery_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_discovery_config(&self) -> super::builder::dlp_service::DeleteDiscoveryConfig {
         super::builder::dlp_service::DeleteDiscoveryConfig::new(self.inner.clone())
     }
@@ -363,6 +731,22 @@ impl DlpService {
     /// When no InfoTypes or CustomInfoTypes are specified in inspect jobs, the
     /// system will automatically choose what detectors to run. By default this may
     /// be all types, but may change over time as detectors are updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_dlp_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_dlp_job(&self) -> super::builder::dlp_service::CreateDlpJob {
         super::builder::dlp_service::CreateDlpJob::new(self.inner.clone())
     }
@@ -383,6 +767,23 @@ impl DlpService {
     /// and
     /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dlp_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dlp_job(&self) -> super::builder::dlp_service::GetDlpJob {
         super::builder::dlp_service::GetDlpJob::new(self.inner.clone())
     }
@@ -395,6 +796,21 @@ impl DlpService {
     /// and
     /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_dlp_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_dlp_job(&self) -> super::builder::dlp_service::DeleteDlpJob {
         super::builder::dlp_service::DeleteDlpJob::new(self.inner.clone())
     }
@@ -407,6 +823,21 @@ impl DlpService {
     /// and
     /// <https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_dlp_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_dlp_job(&self) -> super::builder::dlp_service::CancelDlpJob {
         super::builder::dlp_service::CancelDlpJob::new(self.inner.clone())
     }
@@ -415,6 +846,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_stored_info_type()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_stored_info_type(&self) -> super::builder::dlp_service::CreateStoredInfoType {
         super::builder::dlp_service::CreateStoredInfoType::new(self.inner.clone())
     }
@@ -424,6 +871,22 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_stored_info_type()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_stored_info_type(&self) -> super::builder::dlp_service::UpdateStoredInfoType {
         super::builder::dlp_service::UpdateStoredInfoType::new(self.inner.clone())
     }
@@ -432,6 +895,23 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_stored_info_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_stored_info_type(&self) -> super::builder::dlp_service::GetStoredInfoType {
         super::builder::dlp_service::GetStoredInfoType::new(self.inner.clone())
     }
@@ -448,6 +928,21 @@ impl DlpService {
     /// See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes>
     /// to learn more.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_stored_info_type()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_stored_info_type(&self) -> super::builder::dlp_service::DeleteStoredInfoType {
         super::builder::dlp_service::DeleteStoredInfoType::new(self.inner.clone())
     }
@@ -470,6 +965,23 @@ impl DlpService {
     }
 
     /// Gets a project data profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_project_data_profile()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_project_data_profile(&self) -> super::builder::dlp_service::GetProjectDataProfile {
         super::builder::dlp_service::GetProjectDataProfile::new(self.inner.clone())
     }
@@ -482,6 +994,22 @@ impl DlpService {
     }
 
     /// Gets a file store data profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_file_store_data_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_file_store_data_profile(
         &self,
     ) -> super::builder::dlp_service::GetFileStoreDataProfile {
@@ -490,6 +1018,21 @@ impl DlpService {
 
     /// Delete a FileStoreDataProfile. Will not prevent the profile from being
     /// regenerated if the resource is still included in a discovery configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_file_store_data_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_file_store_data_profile(
         &self,
     ) -> super::builder::dlp_service::DeleteFileStoreDataProfile {
@@ -497,17 +1040,66 @@ impl DlpService {
     }
 
     /// Gets a table data profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_table_data_profile()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_table_data_profile(&self) -> super::builder::dlp_service::GetTableDataProfile {
         super::builder::dlp_service::GetTableDataProfile::new(self.inner.clone())
     }
 
     /// Gets a column data profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_column_data_profile()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_column_data_profile(&self) -> super::builder::dlp_service::GetColumnDataProfile {
         super::builder::dlp_service::GetColumnDataProfile::new(self.inner.clone())
     }
 
     /// Delete a TableDataProfile. Will not prevent the profile from being
     /// regenerated if the table is still included in a discovery configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_table_data_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_table_data_profile(&self) -> super::builder::dlp_service::DeleteTableDataProfile {
         super::builder::dlp_service::DeleteTableDataProfile::new(self.inner.clone())
     }
@@ -515,22 +1107,86 @@ impl DlpService {
     /// Inspect hybrid content and store findings to a job.
     /// To review the findings, inspect the job. Inspection will occur
     /// asynchronously.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .hybrid_inspect_dlp_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn hybrid_inspect_dlp_job(&self) -> super::builder::dlp_service::HybridInspectDlpJob {
         super::builder::dlp_service::HybridInspectDlpJob::new(self.inner.clone())
     }
 
     /// Finish a running hybrid DlpJob. Triggers the finalization steps and running
     /// of any enabled actions that have not yet run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .finish_dlp_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn finish_dlp_job(&self) -> super::builder::dlp_service::FinishDlpJob {
         super::builder::dlp_service::FinishDlpJob::new(self.inner.clone())
     }
 
     /// Create a Connection to an external data source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_connection(&self) -> super::builder::dlp_service::CreateConnection {
         super::builder::dlp_service::CreateConnection::new(self.inner.clone())
     }
 
     /// Get a Connection by name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection(&self) -> super::builder::dlp_service::GetConnection {
         super::builder::dlp_service::GetConnection::new(self.inner.clone())
     }
@@ -547,11 +1203,42 @@ impl DlpService {
     }
 
     /// Delete a Connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_connection(&self) -> super::builder::dlp_service::DeleteConnection {
         super::builder::dlp_service::DeleteConnection::new(self.inner.clone())
     }
 
     /// Update a Connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::client::DlpService;
+    /// async fn sample(
+    ///    client: &DlpService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_connection()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_connection(&self) -> super::builder::dlp_service::UpdateConnection {
         super::builder::dlp_service::UpdateConnection::new(self.inner.clone())
     }

@@ -123,11 +123,43 @@ impl LicenseManagementService {
     }
 
     /// Gets the license pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_license_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_license_pool(&self) -> super::builder::license_management_service::GetLicensePool {
         super::builder::license_management_service::GetLicensePool::new(self.inner.clone())
     }
 
     /// Updates the license pool if one exists for this Order.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_license_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_license_pool(
         &self,
     ) -> super::builder::license_management_service::UpdateLicensePool {
@@ -135,11 +167,43 @@ impl LicenseManagementService {
     }
 
     /// Assigns a license to a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .assign()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn assign(&self) -> super::builder::license_management_service::Assign {
         super::builder::license_management_service::Assign::new(self.inner.clone())
     }
 
     /// Unassigns a license from a user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .unassign()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn unassign(&self) -> super::builder::license_management_service::Unassign {
         super::builder::license_management_service::Unassign::new(self.inner.clone())
     }
@@ -154,6 +218,22 @@ impl LicenseManagementService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
+    /// async fn sample(
+    ///    client: &LicenseManagementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::license_management_service::GetOperation {
         super::builder::license_management_service::GetOperation::new(self.inner.clone())
     }
@@ -304,6 +384,22 @@ impl ConsumerProcurementService {
     /// [Order][google.cloud.commerce.consumer.procurement.v1.Order] resource.
     ///
     /// [google.cloud.commerce.consumer.procurement.v1.Order]: crate::model::Order
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_order()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_order(&self) -> super::builder::consumer_procurement_service::GetOrder {
         super::builder::consumer_procurement_service::GetOrder::new(self.inner.clone())
     }
@@ -357,6 +453,22 @@ impl ConsumerProcurementService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
+    /// async fn sample(
+    ///    client: &ConsumerProcurementService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::consumer_procurement_service::GetOperation {
         super::builder::consumer_procurement_service::GetOperation::new(self.inner.clone())
     }

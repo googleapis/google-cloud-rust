@@ -126,6 +126,22 @@ impl DocumentProcessorService {
     }
 
     /// Processes a single document.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .process_document()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn process_document(&self) -> super::builder::document_processor_service::ProcessDocument {
         super::builder::document_processor_service::ProcessDocument::new(self.inner.clone())
     }
@@ -153,6 +169,22 @@ impl DocumentProcessorService {
     /// here, because it isn't paginated.
     ///
     /// [google.cloud.documentai.v1.DocumentProcessorService.ListProcessorTypes]: crate::client::DocumentProcessorService::list_processor_types
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_processor_types()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_processor_types(
         &self,
     ) -> super::builder::document_processor_service::FetchProcessorTypes {
@@ -167,6 +199,23 @@ impl DocumentProcessorService {
     }
 
     /// Gets a processor type detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_processor_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor_type(
         &self,
     ) -> super::builder::document_processor_service::GetProcessorType {
@@ -179,6 +228,23 @@ impl DocumentProcessorService {
     }
 
     /// Gets a processor detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_processor()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor(&self) -> super::builder::document_processor_service::GetProcessor {
         super::builder::document_processor_service::GetProcessor::new(self.inner.clone())
     }
@@ -205,6 +271,23 @@ impl DocumentProcessorService {
     }
 
     /// Gets a processor version detail.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_processor_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_processor_version(
         &self,
     ) -> super::builder::document_processor_service::GetProcessorVersion {
@@ -281,6 +364,22 @@ impl DocumentProcessorService {
     /// bucket in your project.
     ///
     /// [google.cloud.documentai.v1.ProcessorType]: crate::model::ProcessorType
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_processor()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_processor(&self) -> super::builder::document_processor_service::CreateProcessor {
         super::builder::document_processor_service::CreateProcessor::new(self.inner.clone())
     }
@@ -397,6 +496,23 @@ impl DocumentProcessorService {
     }
 
     /// Retrieves a specific evaluation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_evaluation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_evaluation(&self) -> super::builder::document_processor_service::GetEvaluation {
         super::builder::document_processor_service::GetEvaluation::new(self.inner.clone())
     }
@@ -412,6 +528,22 @@ impl DocumentProcessorService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::document_processor_service::GetLocation {
         super::builder::document_processor_service::GetLocation::new(self.inner.clone())
     }
@@ -426,6 +558,22 @@ impl DocumentProcessorService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::document_processor_service::GetOperation {
         super::builder::document_processor_service::GetOperation::new(self.inner.clone())
     }
@@ -433,6 +581,21 @@ impl DocumentProcessorService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
+    /// async fn sample(
+    ///    client: &DocumentProcessorService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::document_processor_service::CancelOperation {
         super::builder::document_processor_service::CancelOperation::new(self.inner.clone())
     }

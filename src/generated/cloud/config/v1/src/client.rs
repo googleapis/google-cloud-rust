@@ -130,6 +130,23 @@ impl Config {
     /// Gets details about a [Deployment][google.cloud.config.v1.Deployment].
     ///
     /// [google.cloud.config.v1.Deployment]: crate::model::Deployment
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment(&self) -> super::builder::config::GetDeployment {
         super::builder::config::GetDeployment::new(self.inner.clone())
     }
@@ -195,6 +212,23 @@ impl Config {
     /// Gets details about a [Revision][google.cloud.config.v1.Revision].
     ///
     /// [google.cloud.config.v1.Revision]: crate::model::Revision
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_revision()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_revision(&self) -> super::builder::config::GetRevision {
         super::builder::config::GetRevision::new(self.inner.clone())
     }
@@ -203,6 +237,23 @@ impl Config {
     /// by Infra Manager.
     ///
     /// [google.cloud.config.v1.Resource]: crate::model::Resource
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource(&self) -> super::builder::config::GetResource {
         super::builder::config::GetResource::new(self.inner.clone())
     }
@@ -215,22 +266,85 @@ impl Config {
     }
 
     /// Exports Terraform state file from a given deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_deployment_statefile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_deployment_statefile(&self) -> super::builder::config::ExportDeploymentStatefile {
         super::builder::config::ExportDeploymentStatefile::new(self.inner.clone())
     }
 
     /// Exports Terraform state file from a given revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_revision_statefile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_revision_statefile(&self) -> super::builder::config::ExportRevisionStatefile {
         super::builder::config::ExportRevisionStatefile::new(self.inner.clone())
     }
 
     /// Imports Terraform state file in a given deployment. The state file does not
     /// take effect until the Deployment has been unlocked.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_statefile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_statefile(&self) -> super::builder::config::ImportStatefile {
         super::builder::config::ImportStatefile::new(self.inner.clone())
     }
 
     /// Deletes Terraform state file in a given deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_statefile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_statefile(&self) -> super::builder::config::DeleteStatefile {
         super::builder::config::DeleteStatefile::new(self.inner.clone())
     }
@@ -266,6 +380,22 @@ impl Config {
     }
 
     /// Exports the lock info on a locked deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_lock_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_lock_info(&self) -> super::builder::config::ExportLockInfo {
         super::builder::config::ExportLockInfo::new(self.inner.clone())
     }
@@ -290,6 +420,23 @@ impl Config {
     /// Gets details about a [Preview][google.cloud.config.v1.Preview].
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_preview()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_preview(&self) -> super::builder::config::GetPreview {
         super::builder::config::GetPreview::new(self.inner.clone())
     }
@@ -322,6 +469,22 @@ impl Config {
     /// Export [Preview][google.cloud.config.v1.Preview] results.
     ///
     /// [google.cloud.config.v1.Preview]: crate::model::Preview
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_preview_result()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_preview_result(&self) -> super::builder::config::ExportPreviewResult {
         super::builder::config::ExportPreviewResult::new(self.inner.clone())
     }
@@ -338,6 +501,23 @@ impl Config {
     /// [TerraformVersion][google.cloud.config.v1.TerraformVersion].
     ///
     /// [google.cloud.config.v1.TerraformVersion]: crate::model::TerraformVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_terraform_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_terraform_version(&self) -> super::builder::config::GetTerraformVersion {
         super::builder::config::GetTerraformVersion::new(self.inner.clone())
     }
@@ -348,6 +528,23 @@ impl Config {
     }
 
     /// Get a ResourceChange for a given preview.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_change()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_change(&self) -> super::builder::config::GetResourceChange {
         super::builder::config::GetResourceChange::new(self.inner.clone())
     }
@@ -358,6 +555,23 @@ impl Config {
     }
 
     /// Get a ResourceDrift for a given preview.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_drift()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_drift(&self) -> super::builder::config::GetResourceDrift {
         super::builder::config::GetResourceDrift::new(self.inner.clone())
     }
@@ -368,6 +582,22 @@ impl Config {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::config::GetLocation {
         super::builder::config::GetLocation::new(self.inner.clone())
     }
@@ -377,12 +607,44 @@ impl Config {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::config::SetIamPolicy {
         super::builder::config::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::config::GetIamPolicy {
         super::builder::config::GetIamPolicy::new(self.inner.clone())
     }
@@ -394,6 +656,22 @@ impl Config {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::config::TestIamPermissions {
         super::builder::config::TestIamPermissions::new(self.inner.clone())
     }
@@ -408,6 +686,22 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::config::GetOperation {
         super::builder::config::GetOperation::new(self.inner.clone())
     }
@@ -415,6 +709,21 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::config::DeleteOperation {
         super::builder::config::DeleteOperation::new(self.inner.clone())
     }
@@ -422,6 +731,21 @@ impl Config {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::client::Config;
+    /// async fn sample(
+    ///    client: &Config
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::config::CancelOperation {
         super::builder::config::CancelOperation::new(self.inner.clone())
     }

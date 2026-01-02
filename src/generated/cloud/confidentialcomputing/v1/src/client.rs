@@ -122,18 +122,66 @@ impl ConfidentialComputing {
     }
 
     /// Creates a new Challenge in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_challenge()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_challenge(&self) -> super::builder::confidential_computing::CreateChallenge {
         super::builder::confidential_computing::CreateChallenge::new(self.inner.clone())
     }
 
     /// Verifies the provided attestation info, returning a signed attestation
     /// token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_attestation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_attestation(&self) -> super::builder::confidential_computing::VerifyAttestation {
         super::builder::confidential_computing::VerifyAttestation::new(self.inner.clone())
     }
 
     /// Verifies whether the provided attestation info is valid, returning a signed
     /// attestation token if so.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_confidential_space()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_confidential_space(
         &self,
     ) -> super::builder::confidential_computing::VerifyConfidentialSpace {
@@ -142,6 +190,22 @@ impl ConfidentialComputing {
 
     /// Verifies the provided Confidential GKE attestation info, returning a signed
     /// OIDC token.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .verify_confidential_gke()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn verify_confidential_gke(
         &self,
     ) -> super::builder::confidential_computing::VerifyConfidentialGke {
@@ -154,6 +218,22 @@ impl ConfidentialComputing {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
+    /// async fn sample(
+    ///    client: &ConfidentialComputing
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::confidential_computing::GetLocation {
         super::builder::confidential_computing::GetLocation::new(self.inner.clone())
     }

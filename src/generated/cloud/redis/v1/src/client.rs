@@ -148,6 +148,23 @@ impl CloudRedis {
     }
 
     /// Gets the details of a specific Redis instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::cloud_redis::GetInstance {
         super::builder::cloud_redis::GetInstance::new(self.inner.clone())
     }
@@ -155,6 +172,22 @@ impl CloudRedis {
     /// Gets the AUTH string for a Redis instance. If AUTH is not enabled for the
     /// instance the response will be empty. This information is not included in
     /// the details returned to GetInstance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance_auth_string()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance_auth_string(&self) -> super::builder::cloud_redis::GetInstanceAuthString {
         super::builder::cloud_redis::GetInstanceAuthString::new(self.inner.clone())
     }
@@ -316,6 +349,22 @@ impl CloudRedis {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_redis::GetLocation {
         super::builder::cloud_redis::GetLocation::new(self.inner.clone())
     }
@@ -330,6 +379,22 @@ impl CloudRedis {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cloud_redis::GetOperation {
         super::builder::cloud_redis::GetOperation::new(self.inner.clone())
     }
@@ -337,6 +402,21 @@ impl CloudRedis {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cloud_redis::DeleteOperation {
         super::builder::cloud_redis::DeleteOperation::new(self.inner.clone())
     }
@@ -344,6 +424,21 @@ impl CloudRedis {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_redis_v1::client::CloudRedis;
+    /// async fn sample(
+    ///    client: &CloudRedis
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cloud_redis::CancelOperation {
         super::builder::cloud_redis::CancelOperation::new(self.inner.clone())
     }

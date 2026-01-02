@@ -132,6 +132,22 @@ impl CertificateAuthorityService {
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_certificate(
         &self,
     ) -> super::builder::certificate_authority_service::CreateCertificate {
@@ -141,6 +157,23 @@ impl CertificateAuthorityService {
     /// Returns a [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate(&self) -> super::builder::certificate_authority_service::GetCertificate {
         super::builder::certificate_authority_service::GetCertificate::new(self.inner.clone())
     }
@@ -157,6 +190,22 @@ impl CertificateAuthorityService {
     /// Revoke a [Certificate][google.cloud.security.privateca.v1.Certificate].
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .revoke_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn revoke_certificate(
         &self,
     ) -> super::builder::certificate_authority_service::RevokeCertificate {
@@ -169,6 +218,22 @@ impl CertificateAuthorityService {
     ///
     /// [google.cloud.security.privateca.v1.Certificate]: crate::model::Certificate
     /// [google.cloud.security.privateca.v1.Certificate.labels]: crate::model::Certificate::labels
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_certificate(
         &self,
     ) -> super::builder::certificate_authority_service::UpdateCertificate {
@@ -291,6 +356,22 @@ impl CertificateAuthorityService {
     /// [google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]: crate::model::certificate_authority::State::AwaitingUserActivation
     /// [google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE]: crate::model::certificate_authority::Type::Subordinate
     /// [google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority]: crate::client::CertificateAuthorityService::activate_certificate_authority
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_certificate_authority_csr()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_certificate_authority_csr(
         &self,
     ) -> super::builder::certificate_authority_service::FetchCertificateAuthorityCsr {
@@ -303,6 +384,23 @@ impl CertificateAuthorityService {
     /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
     ///
     /// [google.cloud.security.privateca.v1.CertificateAuthority]: crate::model::CertificateAuthority
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_authority()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_authority(
         &self,
     ) -> super::builder::certificate_authority_service::GetCertificateAuthority {
@@ -427,6 +525,23 @@ impl CertificateAuthorityService {
     /// Returns a [CaPool][google.cloud.security.privateca.v1.CaPool].
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ca_pool()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_ca_pool(&self) -> super::builder::certificate_authority_service::GetCaPool {
         super::builder::certificate_authority_service::GetCaPool::new(self.inner.clone())
     }
@@ -461,6 +576,22 @@ impl CertificateAuthorityService {
     /// DISABLED, or STAGED states.
     ///
     /// [google.cloud.security.privateca.v1.CaPool]: crate::model::CaPool
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_ca_certs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_ca_certs(&self) -> super::builder::certificate_authority_service::FetchCaCerts {
         super::builder::certificate_authority_service::FetchCaCerts::new(self.inner.clone())
     }
@@ -469,6 +600,23 @@ impl CertificateAuthorityService {
     /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList].
     ///
     /// [google.cloud.security.privateca.v1.CertificateRevocationList]: crate::model::CertificateRevocationList
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_revocation_list()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_revocation_list(
         &self,
     ) -> super::builder::certificate_authority_service::GetCertificateRevocationList {
@@ -560,6 +708,23 @@ impl CertificateAuthorityService {
     /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate].
     ///
     /// [google.cloud.security.privateca.v1.CertificateTemplate]: crate::model::CertificateTemplate
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_certificate_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_certificate_template(
         &self,
     ) -> super::builder::certificate_authority_service::GetCertificateTemplate {
@@ -608,6 +773,22 @@ impl CertificateAuthorityService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::certificate_authority_service::GetLocation {
         super::builder::certificate_authority_service::GetLocation::new(self.inner.clone())
     }
@@ -617,12 +798,44 @@ impl CertificateAuthorityService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::certificate_authority_service::SetIamPolicy {
         super::builder::certificate_authority_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::certificate_authority_service::GetIamPolicy {
         super::builder::certificate_authority_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -634,6 +847,22 @@ impl CertificateAuthorityService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::certificate_authority_service::TestIamPermissions {
@@ -650,6 +879,22 @@ impl CertificateAuthorityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::certificate_authority_service::GetOperation {
         super::builder::certificate_authority_service::GetOperation::new(self.inner.clone())
     }
@@ -657,6 +902,21 @@ impl CertificateAuthorityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::certificate_authority_service::DeleteOperation {
@@ -666,6 +926,21 @@ impl CertificateAuthorityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_privateca_v1::client::CertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &CertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::certificate_authority_service::CancelOperation {

@@ -146,6 +146,23 @@ impl VideoStitcherService {
     }
 
     /// Returns the specified CDN key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cdn_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cdn_key(&self) -> super::builder::video_stitcher_service::GetCdnKey {
         super::builder::video_stitcher_service::GetCdnKey::new(self.inner.clone())
     }
@@ -183,12 +200,45 @@ impl VideoStitcherService {
 
     /// Creates a client side playback VOD session and returns the full
     /// tracking and playback metadata of the session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_vod_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_vod_session(&self) -> super::builder::video_stitcher_service::CreateVodSession {
         super::builder::video_stitcher_service::CreateVodSession::new(self.inner.clone())
     }
 
     /// Returns the full tracking, playback metadata, and relevant ad-ops
     /// logs for the specified VOD session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vod_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vod_session(&self) -> super::builder::video_stitcher_service::GetVodSession {
         super::builder::video_stitcher_service::GetVodSession::new(self.inner.clone())
     }
@@ -202,6 +252,23 @@ impl VideoStitcherService {
     }
 
     /// Returns the specified stitching information for the specified VOD session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vod_stitch_detail()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vod_stitch_detail(
         &self,
     ) -> super::builder::video_stitcher_service::GetVodStitchDetail {
@@ -216,6 +283,23 @@ impl VideoStitcherService {
     }
 
     /// Returns the specified ad tag detail for the specified VOD session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vod_ad_tag_detail()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vod_ad_tag_detail(
         &self,
     ) -> super::builder::video_stitcher_service::GetVodAdTagDetail {
@@ -230,6 +314,23 @@ impl VideoStitcherService {
     }
 
     /// Returns the specified ad tag detail for the specified live session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_live_ad_tag_detail()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_live_ad_tag_detail(
         &self,
     ) -> super::builder::video_stitcher_service::GetLiveAdTagDetail {
@@ -257,6 +358,23 @@ impl VideoStitcherService {
     }
 
     /// Returns the specified slate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_slate()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_slate(&self) -> super::builder::video_stitcher_service::GetSlate {
         super::builder::video_stitcher_service::GetSlate::new(self.inner.clone())
     }
@@ -292,11 +410,44 @@ impl VideoStitcherService {
     }
 
     /// Creates a new live session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_live_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_live_session(&self) -> super::builder::video_stitcher_service::CreateLiveSession {
         super::builder::video_stitcher_service::CreateLiveSession::new(self.inner.clone())
     }
 
     /// Returns the details for the specified live session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_live_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_live_session(&self) -> super::builder::video_stitcher_service::GetLiveSession {
         super::builder::video_stitcher_service::GetLiveSession::new(self.inner.clone())
     }
@@ -325,6 +476,23 @@ impl VideoStitcherService {
 
     /// Returns the specified live config managed by the Video
     /// Stitcher service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_live_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_live_config(&self) -> super::builder::video_stitcher_service::GetLiveConfig {
         super::builder::video_stitcher_service::GetLiveConfig::new(self.inner.clone())
     }
@@ -384,6 +552,23 @@ impl VideoStitcherService {
 
     /// Returns the specified VOD config managed by the Video
     /// Stitcher API service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_vod_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_vod_config(&self) -> super::builder::video_stitcher_service::GetVodConfig {
         super::builder::video_stitcher_service::GetVodConfig::new(self.inner.clone())
     }
@@ -429,6 +614,22 @@ impl VideoStitcherService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::video_stitcher_service::GetOperation {
         super::builder::video_stitcher_service::GetOperation::new(self.inner.clone())
     }
@@ -436,6 +637,21 @@ impl VideoStitcherService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::video_stitcher_service::DeleteOperation {
         super::builder::video_stitcher_service::DeleteOperation::new(self.inner.clone())
     }
@@ -443,6 +659,21 @@ impl VideoStitcherService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
+    /// async fn sample(
+    ///    client: &VideoStitcherService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::video_stitcher_service::CancelOperation {
         super::builder::video_stitcher_service::CancelOperation::new(self.inner.clone())
     }

@@ -124,6 +124,22 @@ impl AutoscalingPolicyService {
     }
 
     /// Creates new autoscaling policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_autoscaling_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_autoscaling_policy(
         &self,
     ) -> super::builder::autoscaling_policy_service::CreateAutoscalingPolicy {
@@ -134,6 +150,22 @@ impl AutoscalingPolicyService {
     ///
     /// Disabled check for update_mask, because all updates will be full
     /// replacements.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_autoscaling_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_autoscaling_policy(
         &self,
     ) -> super::builder::autoscaling_policy_service::UpdateAutoscalingPolicy {
@@ -141,6 +173,23 @@ impl AutoscalingPolicyService {
     }
 
     /// Retrieves autoscaling policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_autoscaling_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_autoscaling_policy(
         &self,
     ) -> super::builder::autoscaling_policy_service::GetAutoscalingPolicy {
@@ -156,6 +205,21 @@ impl AutoscalingPolicyService {
 
     /// Deletes an autoscaling policy. It is an error to delete an autoscaling
     /// policy that is in use by one or more clusters.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_autoscaling_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_autoscaling_policy(
         &self,
     ) -> super::builder::autoscaling_policy_service::DeleteAutoscalingPolicy {
@@ -167,12 +231,44 @@ impl AutoscalingPolicyService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::autoscaling_policy_service::SetIamPolicy {
         super::builder::autoscaling_policy_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::autoscaling_policy_service::GetIamPolicy {
         super::builder::autoscaling_policy_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -184,6 +280,22 @@ impl AutoscalingPolicyService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::autoscaling_policy_service::TestIamPermissions {
@@ -200,6 +312,22 @@ impl AutoscalingPolicyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::autoscaling_policy_service::GetOperation {
         super::builder::autoscaling_policy_service::GetOperation::new(self.inner.clone())
     }
@@ -207,6 +335,21 @@ impl AutoscalingPolicyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::autoscaling_policy_service::DeleteOperation {
         super::builder::autoscaling_policy_service::DeleteOperation::new(self.inner.clone())
     }
@@ -214,6 +357,21 @@ impl AutoscalingPolicyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
+    /// async fn sample(
+    ///    client: &AutoscalingPolicyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::autoscaling_policy_service::CancelOperation {
         super::builder::autoscaling_policy_service::CancelOperation::new(self.inner.clone())
     }
@@ -340,6 +498,23 @@ impl BatchController {
     }
 
     /// Gets the batch workload resource representation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_batch()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_batch(&self) -> super::builder::batch_controller::GetBatch {
         super::builder::batch_controller::GetBatch::new(self.inner.clone())
     }
@@ -351,6 +526,21 @@ impl BatchController {
 
     /// Deletes the batch workload resource. If the batch is not in terminal state,
     /// the delete fails and the response returns `FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_batch()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_batch(&self) -> super::builder::batch_controller::DeleteBatch {
         super::builder::batch_controller::DeleteBatch::new(self.inner.clone())
     }
@@ -360,12 +550,44 @@ impl BatchController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::batch_controller::SetIamPolicy {
         super::builder::batch_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::batch_controller::GetIamPolicy {
         super::builder::batch_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -377,6 +599,22 @@ impl BatchController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::batch_controller::TestIamPermissions {
         super::builder::batch_controller::TestIamPermissions::new(self.inner.clone())
     }
@@ -391,6 +629,22 @@ impl BatchController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::batch_controller::GetOperation {
         super::builder::batch_controller::GetOperation::new(self.inner.clone())
     }
@@ -398,6 +652,21 @@ impl BatchController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::batch_controller::DeleteOperation {
         super::builder::batch_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -405,6 +674,21 @@ impl BatchController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::BatchController;
+    /// async fn sample(
+    ///    client: &BatchController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::batch_controller::CancelOperation {
         super::builder::batch_controller::CancelOperation::new(self.inner.clone())
     }
@@ -608,6 +892,22 @@ impl ClusterController {
     }
 
     /// Gets the resource representation for a cluster in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::cluster_controller::GetCluster {
         super::builder::cluster_controller::GetCluster::new(self.inner.clone())
     }
@@ -646,12 +946,44 @@ impl ClusterController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::cluster_controller::SetIamPolicy {
         super::builder::cluster_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::cluster_controller::GetIamPolicy {
         super::builder::cluster_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -663,6 +995,22 @@ impl ClusterController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::cluster_controller::TestIamPermissions {
         super::builder::cluster_controller::TestIamPermissions::new(self.inner.clone())
     }
@@ -677,6 +1025,22 @@ impl ClusterController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cluster_controller::GetOperation {
         super::builder::cluster_controller::GetOperation::new(self.inner.clone())
     }
@@ -684,6 +1048,21 @@ impl ClusterController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cluster_controller::DeleteOperation {
         super::builder::cluster_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -691,6 +1070,21 @@ impl ClusterController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::ClusterController;
+    /// async fn sample(
+    ///    client: &ClusterController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cluster_controller::CancelOperation {
         super::builder::cluster_controller::CancelOperation::new(self.inner.clone())
     }
@@ -799,6 +1193,22 @@ impl JobController {
     }
 
     /// Submits a job to a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .submit_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn submit_job(&self) -> super::builder::job_controller::SubmitJob {
         super::builder::job_controller::SubmitJob::new(self.inner.clone())
     }
@@ -819,6 +1229,22 @@ impl JobController {
     }
 
     /// Gets the resource representation for a job in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::job_controller::GetJob {
         super::builder::job_controller::GetJob::new(self.inner.clone())
     }
@@ -829,6 +1255,22 @@ impl JobController {
     }
 
     /// Updates a job in a project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_job(&self) -> super::builder::job_controller::UpdateJob {
         super::builder::job_controller::UpdateJob::new(self.inner.clone())
     }
@@ -838,12 +1280,43 @@ impl JobController {
     /// [regions/{region}/jobs.list](https://cloud.google.com/dataproc/docs/reference/rest/v1/projects.regions.jobs/list)
     /// or
     /// [regions/{region}/jobs.get](https://cloud.google.com/dataproc/docs/reference/rest/v1/projects.regions.jobs/get).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .cancel_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_job(&self) -> super::builder::job_controller::CancelJob {
         super::builder::job_controller::CancelJob::new(self.inner.clone())
     }
 
     /// Deletes the job from the project. If the job is active, the delete fails,
     /// and the response returns `FAILED_PRECONDITION`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_job(&self) -> super::builder::job_controller::DeleteJob {
         super::builder::job_controller::DeleteJob::new(self.inner.clone())
     }
@@ -853,12 +1326,44 @@ impl JobController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::job_controller::SetIamPolicy {
         super::builder::job_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::job_controller::GetIamPolicy {
         super::builder::job_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -870,6 +1375,22 @@ impl JobController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::job_controller::TestIamPermissions {
         super::builder::job_controller::TestIamPermissions::new(self.inner.clone())
     }
@@ -884,6 +1405,22 @@ impl JobController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::job_controller::GetOperation {
         super::builder::job_controller::GetOperation::new(self.inner.clone())
     }
@@ -891,6 +1428,21 @@ impl JobController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::job_controller::DeleteOperation {
         super::builder::job_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -898,6 +1450,21 @@ impl JobController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::JobController;
+    /// async fn sample(
+    ///    client: &JobController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::job_controller::CancelOperation {
         super::builder::job_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1049,6 +1616,23 @@ impl NodeGroupController {
 
     /// Gets the resource representation for a node group in a
     /// cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node_group(&self) -> super::builder::node_group_controller::GetNodeGroup {
         super::builder::node_group_controller::GetNodeGroup::new(self.inner.clone())
     }
@@ -1058,12 +1642,44 @@ impl NodeGroupController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::node_group_controller::SetIamPolicy {
         super::builder::node_group_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::node_group_controller::GetIamPolicy {
         super::builder::node_group_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -1075,6 +1691,22 @@ impl NodeGroupController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::node_group_controller::TestIamPermissions {
@@ -1091,6 +1723,22 @@ impl NodeGroupController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::node_group_controller::GetOperation {
         super::builder::node_group_controller::GetOperation::new(self.inner.clone())
     }
@@ -1098,6 +1746,21 @@ impl NodeGroupController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::node_group_controller::DeleteOperation {
         super::builder::node_group_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -1105,6 +1768,21 @@ impl NodeGroupController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::NodeGroupController;
+    /// async fn sample(
+    ///    client: &NodeGroupController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::node_group_controller::CancelOperation {
         super::builder::node_group_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1217,6 +1895,22 @@ impl SessionTemplateController {
     }
 
     /// Create a session template synchronously.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_session_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_session_template(
         &self,
     ) -> super::builder::session_template_controller::CreateSessionTemplate {
@@ -1224,6 +1918,22 @@ impl SessionTemplateController {
     }
 
     /// Updates the session template synchronously.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_session_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_session_template(
         &self,
     ) -> super::builder::session_template_controller::UpdateSessionTemplate {
@@ -1231,6 +1941,23 @@ impl SessionTemplateController {
     }
 
     /// Gets the resource representation for a session template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_session_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session_template(
         &self,
     ) -> super::builder::session_template_controller::GetSessionTemplate {
@@ -1245,6 +1972,21 @@ impl SessionTemplateController {
     }
 
     /// Deletes a session template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_session_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_session_template(
         &self,
     ) -> super::builder::session_template_controller::DeleteSessionTemplate {
@@ -1256,12 +1998,44 @@ impl SessionTemplateController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::session_template_controller::SetIamPolicy {
         super::builder::session_template_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::session_template_controller::GetIamPolicy {
         super::builder::session_template_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -1273,6 +2047,22 @@ impl SessionTemplateController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::session_template_controller::TestIamPermissions {
@@ -1289,6 +2079,22 @@ impl SessionTemplateController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::session_template_controller::GetOperation {
         super::builder::session_template_controller::GetOperation::new(self.inner.clone())
     }
@@ -1296,6 +2102,21 @@ impl SessionTemplateController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::session_template_controller::DeleteOperation {
         super::builder::session_template_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -1303,6 +2124,21 @@ impl SessionTemplateController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
+    /// async fn sample(
+    ///    client: &SessionTemplateController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::session_template_controller::CancelOperation {
         super::builder::session_template_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1429,6 +2265,23 @@ impl SessionController {
     }
 
     /// Gets the resource representation for an interactive session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session(&self) -> super::builder::session_controller::GetSession {
         super::builder::session_controller::GetSession::new(self.inner.clone())
     }
@@ -1474,12 +2327,44 @@ impl SessionController {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::session_controller::SetIamPolicy {
         super::builder::session_controller::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::session_controller::GetIamPolicy {
         super::builder::session_controller::GetIamPolicy::new(self.inner.clone())
     }
@@ -1491,6 +2376,22 @@ impl SessionController {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::session_controller::TestIamPermissions {
         super::builder::session_controller::TestIamPermissions::new(self.inner.clone())
     }
@@ -1505,6 +2406,22 @@ impl SessionController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::session_controller::GetOperation {
         super::builder::session_controller::GetOperation::new(self.inner.clone())
     }
@@ -1512,6 +2429,21 @@ impl SessionController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::session_controller::DeleteOperation {
         super::builder::session_controller::DeleteOperation::new(self.inner.clone())
     }
@@ -1519,6 +2451,21 @@ impl SessionController {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::SessionController;
+    /// async fn sample(
+    ///    client: &SessionController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::session_controller::CancelOperation {
         super::builder::session_controller::CancelOperation::new(self.inner.clone())
     }
@@ -1632,6 +2579,22 @@ impl WorkflowTemplateService {
     }
 
     /// Creates new workflow template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_workflow_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_workflow_template(
         &self,
     ) -> super::builder::workflow_template_service::CreateWorkflowTemplate {
@@ -1642,6 +2605,23 @@ impl WorkflowTemplateService {
     ///
     /// Can retrieve previously instantiated template by specifying optional
     /// version parameter.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workflow_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workflow_template(
         &self,
     ) -> super::builder::workflow_template_service::GetWorkflowTemplate {
@@ -1742,6 +2722,22 @@ impl WorkflowTemplateService {
 
     /// Updates (replaces) workflow template. The updated template
     /// must contain version that matches the current server version.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_workflow_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workflow_template(
         &self,
     ) -> super::builder::workflow_template_service::UpdateWorkflowTemplate {
@@ -1756,6 +2752,21 @@ impl WorkflowTemplateService {
     }
 
     /// Deletes a workflow template. It does not cancel in-progress workflows.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_workflow_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workflow_template(
         &self,
     ) -> super::builder::workflow_template_service::DeleteWorkflowTemplate {
@@ -1767,12 +2778,44 @@ impl WorkflowTemplateService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::workflow_template_service::SetIamPolicy {
         super::builder::workflow_template_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::workflow_template_service::GetIamPolicy {
         super::builder::workflow_template_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1784,6 +2827,22 @@ impl WorkflowTemplateService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::workflow_template_service::TestIamPermissions {
@@ -1800,6 +2859,22 @@ impl WorkflowTemplateService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::workflow_template_service::GetOperation {
         super::builder::workflow_template_service::GetOperation::new(self.inner.clone())
     }
@@ -1807,6 +2882,21 @@ impl WorkflowTemplateService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::workflow_template_service::DeleteOperation {
         super::builder::workflow_template_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1814,6 +2904,21 @@ impl WorkflowTemplateService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
+    /// async fn sample(
+    ///    client: &WorkflowTemplateService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::workflow_template_service::CancelOperation {
         super::builder::workflow_template_service::CancelOperation::new(self.inner.clone())
     }

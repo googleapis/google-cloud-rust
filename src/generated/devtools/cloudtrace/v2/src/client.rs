@@ -126,11 +126,42 @@ impl TraceService {
 
     /// Batch writes new spans to new or existing traces. You cannot update
     /// existing spans.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_trace_v2::client::TraceService;
+    /// async fn sample(
+    ///    client: &TraceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .batch_write_spans()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_write_spans(&self) -> super::builder::trace_service::BatchWriteSpans {
         super::builder::trace_service::BatchWriteSpans::new(self.inner.clone())
     }
 
     /// Creates a new span.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_trace_v2::client::TraceService;
+    /// async fn sample(
+    ///    client: &TraceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_span()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_span(&self) -> super::builder::trace_service::CreateSpan {
         super::builder::trace_service::CreateSpan::new(self.inner.clone())
     }

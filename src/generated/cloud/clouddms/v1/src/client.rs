@@ -127,6 +127,23 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single migration job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_migration_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migration_job(&self) -> super::builder::data_migration_service::GetMigrationJob {
         super::builder::data_migration_service::GetMigrationJob::new(self.inner.clone())
     }
@@ -287,12 +304,44 @@ impl DataMigrationService {
 
     /// Generate a SSH configuration script to configure the reverse SSH
     /// connectivity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_ssh_script()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_ssh_script(&self) -> super::builder::data_migration_service::GenerateSshScript {
         super::builder::data_migration_service::GenerateSshScript::new(self.inner.clone())
     }
 
     /// Generate a TCP Proxy configuration script to configure a cloud-hosted VM
     /// running a TCP Proxy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_tcp_proxy_script()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_tcp_proxy_script(
         &self,
     ) -> super::builder::data_migration_service::GenerateTcpProxyScript {
@@ -308,6 +357,23 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single connection profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection_profile()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_profile(
         &self,
     ) -> super::builder::data_migration_service::GetConnectionProfile {
@@ -385,6 +451,23 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single private connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_private_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_private_connection(
         &self,
     ) -> super::builder::data_migration_service::GetPrivateConnection {
@@ -416,6 +499,23 @@ impl DataMigrationService {
     }
 
     /// Gets details of a single conversion workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_conversion_workspace()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversion_workspace(
         &self,
     ) -> super::builder::data_migration_service::GetConversionWorkspace {
@@ -481,11 +581,42 @@ impl DataMigrationService {
     }
 
     /// Creates a new mapping rule for a given conversion workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_mapping_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_mapping_rule(&self) -> super::builder::data_migration_service::CreateMappingRule {
         super::builder::data_migration_service::CreateMappingRule::new(self.inner.clone())
     }
 
     /// Deletes a single mapping rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_mapping_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_mapping_rule(&self) -> super::builder::data_migration_service::DeleteMappingRule {
         super::builder::data_migration_service::DeleteMappingRule::new(self.inner.clone())
     }
@@ -496,6 +627,23 @@ impl DataMigrationService {
     }
 
     /// Gets the details of a mapping rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_mapping_rule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_mapping_rule(&self) -> super::builder::data_migration_service::GetMappingRule {
         super::builder::data_migration_service::GetMappingRule::new(self.inner.clone())
     }
@@ -622,6 +770,22 @@ impl DataMigrationService {
     /// The background jobs are not resources like conversion workspaces or
     /// mapping rules, and they can't be created, updated or deleted.
     /// Instead, they are a way to expose the data plane jobs log.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .search_background_jobs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn search_background_jobs(
         &self,
     ) -> super::builder::data_migration_service::SearchBackgroundJobs {
@@ -630,6 +794,22 @@ impl DataMigrationService {
 
     /// Retrieves a list of committed revisions of a specific conversion
     /// workspace.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .describe_conversion_workspace_revisions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn describe_conversion_workspace_revisions(
         &self,
     ) -> super::builder::data_migration_service::DescribeConversionWorkspaceRevisions {
@@ -640,6 +820,22 @@ impl DataMigrationService {
 
     /// Fetches a set of static IP addresses that need to be allowlisted by the
     /// customer when using the static-IP connectivity method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_static_ips()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_static_ips(&self) -> super::builder::data_migration_service::FetchStaticIps {
         super::builder::data_migration_service::FetchStaticIps::new(self.inner.clone())
     }
@@ -650,6 +846,22 @@ impl DataMigrationService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_migration_service::GetLocation {
         super::builder::data_migration_service::GetLocation::new(self.inner.clone())
     }
@@ -659,12 +871,44 @@ impl DataMigrationService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_migration_service::SetIamPolicy {
         super::builder::data_migration_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_migration_service::GetIamPolicy {
         super::builder::data_migration_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -676,6 +920,22 @@ impl DataMigrationService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::data_migration_service::TestIamPermissions {
@@ -692,6 +952,22 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_migration_service::GetOperation {
         super::builder::data_migration_service::GetOperation::new(self.inner.clone())
     }
@@ -699,6 +975,21 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_migration_service::DeleteOperation {
         super::builder::data_migration_service::DeleteOperation::new(self.inner.clone())
     }
@@ -706,6 +997,21 @@ impl DataMigrationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_clouddms_v1::client::DataMigrationService;
+    /// async fn sample(
+    ///    client: &DataMigrationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_migration_service::CancelOperation {
         super::builder::data_migration_service::CancelOperation::new(self.inner.clone())
     }

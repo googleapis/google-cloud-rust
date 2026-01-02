@@ -124,27 +124,106 @@ impl OsLoginService {
     }
 
     /// Create an SSH public key
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_ssh_public_key(&self) -> super::builder::os_login_service::CreateSshPublicKey {
         super::builder::os_login_service::CreateSshPublicKey::new(self.inner.clone())
     }
 
     /// Deletes a POSIX account.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_posix_account()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_posix_account(&self) -> super::builder::os_login_service::DeletePosixAccount {
         super::builder::os_login_service::DeletePosixAccount::new(self.inner.clone())
     }
 
     /// Deletes an SSH public key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_ssh_public_key(&self) -> super::builder::os_login_service::DeleteSshPublicKey {
         super::builder::os_login_service::DeleteSshPublicKey::new(self.inner.clone())
     }
 
     /// Retrieves the profile information used for logging in to a virtual machine
     /// on Google Compute Engine.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_login_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_login_profile(&self) -> super::builder::os_login_service::GetLoginProfile {
         super::builder::os_login_service::GetLoginProfile::new(self.inner.clone())
     }
 
     /// Retrieves an SSH public key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_ssh_public_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_ssh_public_key(&self) -> super::builder::os_login_service::GetSshPublicKey {
         super::builder::os_login_service::GetSshPublicKey::new(self.inner.clone())
     }
@@ -152,12 +231,44 @@ impl OsLoginService {
     /// Adds an SSH public key and returns the profile information. Default POSIX
     /// account information is set when no username and UID exist as part of the
     /// login profile.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_ssh_public_key(&self) -> super::builder::os_login_service::ImportSshPublicKey {
         super::builder::os_login_service::ImportSshPublicKey::new(self.inner.clone())
     }
 
     /// Updates an SSH public key and returns the profile information. This method
     /// supports patch semantics.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oslogin_v1::client::OsLoginService;
+    /// async fn sample(
+    ///    client: &OsLoginService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_ssh_public_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_ssh_public_key(&self) -> super::builder::os_login_service::UpdateSshPublicKey {
         super::builder::os_login_service::UpdateSshPublicKey::new(self.inner.clone())
     }

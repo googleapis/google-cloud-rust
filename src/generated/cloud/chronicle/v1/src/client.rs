@@ -129,6 +129,22 @@ impl DataAccessControlService {
     /// label can see data with that label. Currently, the data access label
     /// resource only includes custom labels, which are labels that correspond
     /// to UDM queries over event data.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_access_label()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_access_label(
         &self,
     ) -> super::builder::data_access_control_service::CreateDataAccessLabel {
@@ -136,6 +152,23 @@ impl DataAccessControlService {
     }
 
     /// Gets a data access label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_access_label()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_access_label(
         &self,
     ) -> super::builder::data_access_control_service::GetDataAccessLabel {
@@ -150,6 +183,22 @@ impl DataAccessControlService {
     }
 
     /// Updates a data access label.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_data_access_label()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_access_label(
         &self,
     ) -> super::builder::data_access_control_service::UpdateDataAccessLabel {
@@ -159,6 +208,21 @@ impl DataAccessControlService {
     /// Deletes a data access label. When a label is deleted, new
     /// data that enters in the system will not receive the label, but the label
     /// will not be removed from old data that still refers to it.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_data_access_label()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_access_label(
         &self,
     ) -> super::builder::data_access_control_service::DeleteDataAccessLabel {
@@ -171,6 +235,22 @@ impl DataAccessControlService {
     /// labels C and D, then the group of people attached to the scope
     /// will have permissions to see all events labeled with A or B (or both) and
     /// not labeled with either C or D.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_access_scope()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_access_scope(
         &self,
     ) -> super::builder::data_access_control_service::CreateDataAccessScope {
@@ -178,6 +258,23 @@ impl DataAccessControlService {
     }
 
     /// Retrieves an existing data access scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_access_scope()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_access_scope(
         &self,
     ) -> super::builder::data_access_control_service::GetDataAccessScope {
@@ -192,6 +289,22 @@ impl DataAccessControlService {
     }
 
     /// Updates a data access scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_data_access_scope()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_access_scope(
         &self,
     ) -> super::builder::data_access_control_service::UpdateDataAccessScope {
@@ -199,6 +312,21 @@ impl DataAccessControlService {
     }
 
     /// Deletes a data access scope.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_data_access_scope()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_access_scope(
         &self,
     ) -> super::builder::data_access_control_service::DeleteDataAccessScope {
@@ -215,6 +343,22 @@ impl DataAccessControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_access_control_service::GetOperation {
         super::builder::data_access_control_service::GetOperation::new(self.inner.clone())
     }
@@ -222,6 +366,21 @@ impl DataAccessControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_access_control_service::DeleteOperation {
         super::builder::data_access_control_service::DeleteOperation::new(self.inner.clone())
     }
@@ -229,6 +388,21 @@ impl DataAccessControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
+    /// async fn sample(
+    ///    client: &DataAccessControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_access_control_service::CancelOperation {
         super::builder::data_access_control_service::CancelOperation::new(self.inner.clone())
     }
@@ -337,6 +511,23 @@ impl EntityService {
     }
 
     /// Gets watchlist details for the given watchlist ID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_watchlist()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_watchlist(&self) -> super::builder::entity_service::GetWatchlist {
         super::builder::entity_service::GetWatchlist::new(self.inner.clone())
     }
@@ -348,16 +539,64 @@ impl EntityService {
 
     /// Creates a watchlist for the given instance.
     /// Note that there can be at most 200 watchlists per instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_watchlist()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_watchlist(&self) -> super::builder::entity_service::CreateWatchlist {
         super::builder::entity_service::CreateWatchlist::new(self.inner.clone())
     }
 
     /// Updates the watchlist for the given instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_watchlist()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_watchlist(&self) -> super::builder::entity_service::UpdateWatchlist {
         super::builder::entity_service::UpdateWatchlist::new(self.inner.clone())
     }
 
     /// Deletes the watchlist for the given instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_watchlist()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_watchlist(&self) -> super::builder::entity_service::DeleteWatchlist {
         super::builder::entity_service::DeleteWatchlist::new(self.inner.clone())
     }
@@ -372,6 +611,22 @@ impl EntityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::entity_service::GetOperation {
         super::builder::entity_service::GetOperation::new(self.inner.clone())
     }
@@ -379,6 +634,21 @@ impl EntityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::entity_service::DeleteOperation {
         super::builder::entity_service::DeleteOperation::new(self.inner.clone())
     }
@@ -386,6 +656,21 @@ impl EntityService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::EntityService;
+    /// async fn sample(
+    ///    client: &EntityService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::entity_service::CancelOperation {
         super::builder::entity_service::CancelOperation::new(self.inner.clone())
     }
@@ -497,6 +782,23 @@ impl InstanceService {
     }
 
     /// Gets a Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::InstanceService;
+    /// async fn sample(
+    ///    client: &InstanceService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::instance_service::GetInstance {
         super::builder::instance_service::GetInstance::new(self.inner.clone())
     }
@@ -511,6 +813,22 @@ impl InstanceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::InstanceService;
+    /// async fn sample(
+    ///    client: &InstanceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::instance_service::GetOperation {
         super::builder::instance_service::GetOperation::new(self.inner.clone())
     }
@@ -518,6 +836,21 @@ impl InstanceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::InstanceService;
+    /// async fn sample(
+    ///    client: &InstanceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::instance_service::DeleteOperation {
         super::builder::instance_service::DeleteOperation::new(self.inner.clone())
     }
@@ -525,6 +858,21 @@ impl InstanceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::InstanceService;
+    /// async fn sample(
+    ///    client: &InstanceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::instance_service::CancelOperation {
         super::builder::instance_service::CancelOperation::new(self.inner.clone())
     }
@@ -636,6 +984,23 @@ impl ReferenceListService {
     }
 
     /// Gets a single reference list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_reference_list()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_reference_list(&self) -> super::builder::reference_list_service::GetReferenceList {
         super::builder::reference_list_service::GetReferenceList::new(self.inner.clone())
     }
@@ -648,6 +1013,22 @@ impl ReferenceListService {
     }
 
     /// Creates a new reference list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_reference_list()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_reference_list(
         &self,
     ) -> super::builder::reference_list_service::CreateReferenceList {
@@ -655,6 +1036,22 @@ impl ReferenceListService {
     }
 
     /// Updates an existing reference list.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_reference_list()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_reference_list(
         &self,
     ) -> super::builder::reference_list_service::UpdateReferenceList {
@@ -671,6 +1068,22 @@ impl ReferenceListService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::reference_list_service::GetOperation {
         super::builder::reference_list_service::GetOperation::new(self.inner.clone())
     }
@@ -678,6 +1091,21 @@ impl ReferenceListService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::reference_list_service::DeleteOperation {
         super::builder::reference_list_service::DeleteOperation::new(self.inner.clone())
     }
@@ -685,6 +1113,21 @@ impl ReferenceListService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::ReferenceListService;
+    /// async fn sample(
+    ///    client: &ReferenceListService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::reference_list_service::CancelOperation {
         super::builder::reference_list_service::CancelOperation::new(self.inner.clone())
     }
@@ -793,11 +1236,44 @@ impl RuleService {
     }
 
     /// Creates a new Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_rule(&self) -> super::builder::rule_service::CreateRule {
         super::builder::rule_service::CreateRule::new(self.inner.clone())
     }
 
     /// Gets a Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rule(&self) -> super::builder::rule_service::GetRule {
         super::builder::rule_service::GetRule::new(self.inner.clone())
     }
@@ -808,11 +1284,42 @@ impl RuleService {
     }
 
     /// Updates a Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_rule(&self) -> super::builder::rule_service::UpdateRule {
         super::builder::rule_service::UpdateRule::new(self.inner.clone())
     }
 
     /// Deletes a Rule.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_rule()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_rule(&self) -> super::builder::rule_service::DeleteRule {
         super::builder::rule_service::DeleteRule::new(self.inner.clone())
     }
@@ -838,6 +1345,23 @@ impl RuleService {
     }
 
     /// Get a Retrohunt.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_retrohunt()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_retrohunt(&self) -> super::builder::rule_service::GetRetrohunt {
         super::builder::rule_service::GetRetrohunt::new(self.inner.clone())
     }
@@ -848,6 +1372,23 @@ impl RuleService {
     }
 
     /// Gets a RuleDeployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rule_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rule_deployment(&self) -> super::builder::rule_service::GetRuleDeployment {
         super::builder::rule_service::GetRuleDeployment::new(self.inner.clone())
     }
@@ -861,6 +1402,22 @@ impl RuleService {
     /// Failures are not necessarily atomic. If there is a request to update
     /// multiple fields, and any update to a single field fails, an error will be
     /// returned, but other fields may remain successfully updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_rule_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_rule_deployment(&self) -> super::builder::rule_service::UpdateRuleDeployment {
         super::builder::rule_service::UpdateRuleDeployment::new(self.inner.clone())
     }
@@ -875,6 +1432,22 @@ impl RuleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::rule_service::GetOperation {
         super::builder::rule_service::GetOperation::new(self.inner.clone())
     }
@@ -882,6 +1455,21 @@ impl RuleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::rule_service::DeleteOperation {
         super::builder::rule_service::DeleteOperation::new(self.inner.clone())
     }
@@ -889,6 +1477,21 @@ impl RuleService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_chronicle_v1::client::RuleService;
+    /// async fn sample(
+    ///    client: &RuleService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::rule_service::CancelOperation {
         super::builder::rule_service::CancelOperation::new(self.inner.clone())
     }

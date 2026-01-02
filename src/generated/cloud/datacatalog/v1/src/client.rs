@@ -169,12 +169,45 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `parent` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_entry_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn create_entry_group(&self) -> super::builder::data_catalog::CreateEntryGroup {
         super::builder::data_catalog::CreateEntryGroup::new(self.inner.clone())
     }
 
     /// Gets an entry group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_entry_group(&self) -> super::builder::data_catalog::GetEntryGroup {
         super::builder::data_catalog::GetEntryGroup::new(self.inner.clone())
@@ -186,6 +219,22 @@ impl DataCatalog {
     /// the `entry_group.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_entry_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn update_entry_group(&self) -> super::builder::data_catalog::UpdateEntryGroup {
         super::builder::data_catalog::UpdateEntryGroup::new(self.inner.clone())
@@ -197,6 +246,21 @@ impl DataCatalog {
     /// identified by the `name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_entry_group()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn delete_entry_group(&self) -> super::builder::data_catalog::DeleteEntryGroup {
         super::builder::data_catalog::DeleteEntryGroup::new(self.inner.clone())
@@ -219,6 +283,22 @@ impl DataCatalog {
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     ///
     /// An entry group can have a maximum of 100,000 entries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn create_entry(&self) -> super::builder::data_catalog::CreateEntry {
         super::builder::data_catalog::CreateEntry::new(self.inner.clone())
@@ -230,6 +310,22 @@ impl DataCatalog {
     /// the `entry.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn update_entry(&self) -> super::builder::data_catalog::UpdateEntry {
         super::builder::data_catalog::UpdateEntry::new(self.inner.clone())
@@ -247,12 +343,44 @@ impl DataCatalog {
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
     ///
     /// [google.cloud.datacatalog.v1.DataCatalog.CreateEntry]: crate::client::DataCatalog::create_entry
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn delete_entry(&self) -> super::builder::data_catalog::DeleteEntry {
         super::builder::data_catalog::DeleteEntry::new(self.inner.clone())
     }
 
     /// Gets an entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_entry(&self) -> super::builder::data_catalog::GetEntry {
         super::builder::data_catalog::GetEntry::new(self.inner.clone())
@@ -261,6 +389,22 @@ impl DataCatalog {
     /// Gets an entry by its target resource name.
     ///
     /// The resource name comes from the source Google Cloud Platform service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn lookup_entry(&self) -> super::builder::data_catalog::LookupEntry {
         super::builder::data_catalog::LookupEntry::new(self.inner.clone())
@@ -285,6 +429,22 @@ impl DataCatalog {
     /// IAM permission on the corresponding project.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .modify_entry_overview()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn modify_entry_overview(&self) -> super::builder::data_catalog::ModifyEntryOverview {
         super::builder::data_catalog::ModifyEntryOverview::new(self.inner.clone())
@@ -297,6 +457,22 @@ impl DataCatalog {
     /// IAM permission on the corresponding project.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .modify_entry_contacts()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn modify_entry_contacts(&self) -> super::builder::data_catalog::ModifyEntryContacts {
         super::builder::data_catalog::ModifyEntryContacts::new(self.inner.clone())
@@ -308,12 +484,45 @@ impl DataCatalog {
     /// `parent` parameter.
     /// For more information, see [Data Catalog resource project]
     /// (<https://cloud.google.com/data-catalog/docs/concepts/resource-project>).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tag_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn create_tag_template(&self) -> super::builder::data_catalog::CreateTagTemplate {
         super::builder::data_catalog::CreateTagTemplate::new(self.inner.clone())
     }
 
     /// Gets a tag template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_tag_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_tag_template(&self) -> super::builder::data_catalog::GetTagTemplate {
         super::builder::data_catalog::GetTagTemplate::new(self.inner.clone())
@@ -328,6 +537,22 @@ impl DataCatalog {
     /// the `tag_template.name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tag_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn update_tag_template(&self) -> super::builder::data_catalog::UpdateTagTemplate {
         super::builder::data_catalog::UpdateTagTemplate::new(self.inner.clone())
@@ -338,6 +563,21 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `name` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_tag_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn delete_tag_template(&self) -> super::builder::data_catalog::DeleteTagTemplate {
         super::builder::data_catalog::DeleteTagTemplate::new(self.inner.clone())
@@ -348,6 +588,22 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `parent` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tag_template_field()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn create_tag_template_field(
         &self,
@@ -363,6 +619,22 @@ impl DataCatalog {
     /// identified by the `name` parameter. For more information, see [Data Catalog
     /// resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tag_template_field()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn update_tag_template_field(
         &self,
@@ -375,6 +647,22 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by the
     /// `name` parameter. For more information, see [Data Catalog resource project]
     /// (<https://cloud.google.com/data-catalog/docs/concepts/resource-project>).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_tag_template_field()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn rename_tag_template_field(
         &self,
@@ -385,6 +673,22 @@ impl DataCatalog {
     /// Renames an enum value in a tag template.
     ///
     /// Within a single enum field, enum values must be unique.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rename_tag_template_field_enum_value()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn rename_tag_template_field_enum_value(
         &self,
@@ -398,6 +702,21 @@ impl DataCatalog {
     /// You must enable the Data Catalog API in the project identified by
     /// the `name` parameter. For more information, see [Data Catalog resource
     /// project](https://cloud.google.com/data-catalog/docs/concepts/resource-project).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_tag_template_field()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn delete_tag_template_field(
         &self,
@@ -420,18 +739,65 @@ impl DataCatalog {
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
     /// [google.cloud.datacatalog.v1.EntryGroup]: crate::model::EntryGroup
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn create_tag(&self) -> super::builder::data_catalog::CreateTag {
         super::builder::data_catalog::CreateTag::new(self.inner.clone())
     }
 
     /// Updates an existing tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn update_tag(&self) -> super::builder::data_catalog::UpdateTag {
         super::builder::data_catalog::UpdateTag::new(self.inner.clone())
     }
 
     /// Deletes a tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn delete_tag(&self) -> super::builder::data_catalog::DeleteTag {
         super::builder::data_catalog::DeleteTag::new(self.inner.clone())
@@ -482,6 +848,22 @@ impl DataCatalog {
     /// the current user. Starring information is private to each user.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .star_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn star_entry(&self) -> super::builder::data_catalog::StarEntry {
         super::builder::data_catalog::StarEntry::new(self.inner.clone())
@@ -491,6 +873,22 @@ impl DataCatalog {
     /// the current user. Starring information is private to each user.
     ///
     /// [google.cloud.datacatalog.v1.Entry]: crate::model::Entry
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .unstar_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn unstar_entry(&self) -> super::builder::data_catalog::UnstarEntry {
         super::builder::data_catalog::UnstarEntry::new(self.inner.clone())
@@ -513,6 +911,22 @@ impl DataCatalog {
     /// - `datacatalog.tagTemplates.setIamPolicy` to set policies on tag
     ///   templates.
     /// - `datacatalog.entryGroups.setIamPolicy` to set policies on entry groups.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn set_iam_policy(&self) -> super::builder::data_catalog::SetIamPolicy {
         super::builder::data_catalog::SetIamPolicy::new(self.inner.clone())
@@ -539,6 +953,22 @@ impl DataCatalog {
     /// - `datacatalog.tagTemplates.getIamPolicy` to get policies on tag
     ///   templates.
     /// - `datacatalog.entryGroups.getIamPolicy` to get policies on entry groups.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_iam_policy(&self) -> super::builder::data_catalog::GetIamPolicy {
         super::builder::data_catalog::GetIamPolicy::new(self.inner.clone())
@@ -558,6 +988,22 @@ impl DataCatalog {
     /// external Google Cloud Platform resources ingested into Data Catalog.
     ///
     /// No Google IAM permissions are required to call this method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn test_iam_permissions(&self) -> super::builder::data_catalog::TestIamPermissions {
         super::builder::data_catalog::TestIamPermissions::new(self.inner.clone())
@@ -602,6 +1048,22 @@ impl DataCatalog {
 
     /// Sets the configuration related to the migration to Dataplex for an
     /// organization or project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn set_config(&self) -> super::builder::data_catalog::SetConfig {
         super::builder::data_catalog::SetConfig::new(self.inner.clone())
@@ -610,6 +1072,22 @@ impl DataCatalog {
     /// Retrieves the configuration related to the migration from Data Catalog to
     /// Dataplex for a specific organization, including all the projects under it
     /// which have a separate configuration set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn retrieve_config(&self) -> super::builder::data_catalog::RetrieveConfig {
         super::builder::data_catalog::RetrieveConfig::new(self.inner.clone())
@@ -620,6 +1098,22 @@ impl DataCatalog {
     /// specific configuration set for the resource, the setting is checked
     /// hierarchicahlly through the ancestors of the resource, starting from the
     /// resource itself.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_effective_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn retrieve_effective_config(
         &self,
@@ -637,6 +1131,22 @@ impl DataCatalog {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_catalog::GetOperation {
         super::builder::data_catalog::GetOperation::new(self.inner.clone())
     }
@@ -644,6 +1154,21 @@ impl DataCatalog {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_catalog::DeleteOperation {
         super::builder::data_catalog::DeleteOperation::new(self.inner.clone())
     }
@@ -651,6 +1176,21 @@ impl DataCatalog {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::DataCatalog;
+    /// async fn sample(
+    ///    client: &DataCatalog
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_catalog::CancelOperation {
         super::builder::data_catalog::CancelOperation::new(self.inner.clone())
     }
@@ -769,6 +1309,22 @@ impl PolicyTagManager {
     /// Creates a taxonomy in a specified project.
     ///
     /// The taxonomy is initially empty, that is, it doesn't contain policy tags.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_taxonomy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_taxonomy(&self) -> super::builder::policy_tag_manager::CreateTaxonomy {
         super::builder::policy_tag_manager::CreateTaxonomy::new(self.inner.clone())
     }
@@ -776,12 +1332,43 @@ impl PolicyTagManager {
     /// Deletes a taxonomy, including all policy tags in this
     /// taxonomy, their associated policies, and the policy tags references from
     /// BigQuery columns.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_taxonomy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_taxonomy(&self) -> super::builder::policy_tag_manager::DeleteTaxonomy {
         super::builder::policy_tag_manager::DeleteTaxonomy::new(self.inner.clone())
     }
 
     /// Updates a taxonomy, including its display name,
     /// description, and activated policy types.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_taxonomy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_taxonomy(&self) -> super::builder::policy_tag_manager::UpdateTaxonomy {
         super::builder::policy_tag_manager::UpdateTaxonomy::new(self.inner.clone())
     }
@@ -793,11 +1380,44 @@ impl PolicyTagManager {
     }
 
     /// Gets a taxonomy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_taxonomy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_taxonomy(&self) -> super::builder::policy_tag_manager::GetTaxonomy {
         super::builder::policy_tag_manager::GetTaxonomy::new(self.inner.clone())
     }
 
     /// Creates a policy tag in a taxonomy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_policy_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_policy_tag(&self) -> super::builder::policy_tag_manager::CreatePolicyTag {
         super::builder::policy_tag_manager::CreatePolicyTag::new(self.inner.clone())
     }
@@ -808,12 +1428,43 @@ impl PolicyTagManager {
     /// * Policies associated with the policy tag and its descendants
     /// * References from BigQuery table schema of the policy tag and its
     ///   descendants
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_policy_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_policy_tag(&self) -> super::builder::policy_tag_manager::DeletePolicyTag {
         super::builder::policy_tag_manager::DeletePolicyTag::new(self.inner.clone())
     }
 
     /// Updates a policy tag, including its display
     /// name, description, and parent policy tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_policy_tag()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_policy_tag(&self) -> super::builder::policy_tag_manager::UpdatePolicyTag {
         super::builder::policy_tag_manager::UpdatePolicyTag::new(self.inner.clone())
     }
@@ -824,22 +1475,87 @@ impl PolicyTagManager {
     }
 
     /// Gets a policy tag.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_policy_tag()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy_tag(&self) -> super::builder::policy_tag_manager::GetPolicyTag {
         super::builder::policy_tag_manager::GetPolicyTag::new(self.inner.clone())
     }
 
     /// Gets the IAM policy for a policy tag or a taxonomy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::policy_tag_manager::GetIamPolicy {
         super::builder::policy_tag_manager::GetIamPolicy::new(self.inner.clone())
     }
 
     /// Sets the IAM policy for a policy tag or a taxonomy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::policy_tag_manager::SetIamPolicy {
         super::builder::policy_tag_manager::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Returns your permissions on a specified policy tag or
     /// taxonomy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::policy_tag_manager::TestIamPermissions {
         super::builder::policy_tag_manager::TestIamPermissions::new(self.inner.clone())
     }
@@ -854,6 +1570,22 @@ impl PolicyTagManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policy_tag_manager::GetOperation {
         super::builder::policy_tag_manager::GetOperation::new(self.inner.clone())
     }
@@ -861,6 +1593,21 @@ impl PolicyTagManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::policy_tag_manager::DeleteOperation {
         super::builder::policy_tag_manager::DeleteOperation::new(self.inner.clone())
     }
@@ -868,6 +1615,21 @@ impl PolicyTagManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
+    /// async fn sample(
+    ///    client: &PolicyTagManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::policy_tag_manager::CancelOperation {
         super::builder::policy_tag_manager::CancelOperation::new(self.inner.clone())
     }
@@ -995,6 +1757,22 @@ impl PolicyTagManagerSerialization {
     /// - Creates policy tags that don't have resource names. They are considered
     ///   new.
     /// - Updates policy tags with valid resources names accordingly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .replace_taxonomy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn replace_taxonomy(
         &self,
     ) -> super::builder::policy_tag_manager_serialization::ReplaceTaxonomy {
@@ -1009,6 +1787,22 @@ impl PolicyTagManagerSerialization {
     ///
     /// For an inlined source, taxonomies and policy tags are created in bulk using
     /// nested protocol buffer structures.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .import_taxonomies()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn import_taxonomies(
         &self,
     ) -> super::builder::policy_tag_manager_serialization::ImportTaxonomies {
@@ -1021,6 +1815,22 @@ impl PolicyTagManagerSerialization {
     ///
     /// This method generates `SerializedTaxonomy` protocol buffers with nested
     /// policy tags that can be used as input for `ImportTaxonomies` calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .export_taxonomies()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn export_taxonomies(
         &self,
     ) -> super::builder::policy_tag_manager_serialization::ExportTaxonomies {
@@ -1039,6 +1849,22 @@ impl PolicyTagManagerSerialization {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policy_tag_manager_serialization::GetOperation {
         super::builder::policy_tag_manager_serialization::GetOperation::new(self.inner.clone())
     }
@@ -1046,6 +1872,21 @@ impl PolicyTagManagerSerialization {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::policy_tag_manager_serialization::DeleteOperation {
@@ -1055,6 +1896,21 @@ impl PolicyTagManagerSerialization {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
+    /// async fn sample(
+    ///    client: &PolicyTagManagerSerialization
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::policy_tag_manager_serialization::CancelOperation {

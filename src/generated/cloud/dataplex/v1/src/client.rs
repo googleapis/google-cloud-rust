@@ -175,6 +175,23 @@ impl BusinessGlossaryService {
     }
 
     /// Gets a Glossary resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_glossary()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_glossary(&self) -> super::builder::business_glossary_service::GetGlossary {
         super::builder::business_glossary_service::GetGlossary::new(self.inner.clone())
     }
@@ -185,6 +202,22 @@ impl BusinessGlossaryService {
     }
 
     /// Creates a new GlossaryCategory resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_glossary_category()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_glossary_category(
         &self,
     ) -> super::builder::business_glossary_service::CreateGlossaryCategory {
@@ -192,6 +225,22 @@ impl BusinessGlossaryService {
     }
 
     /// Updates a GlossaryCategory resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_glossary_category()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_glossary_category(
         &self,
     ) -> super::builder::business_glossary_service::UpdateGlossaryCategory {
@@ -201,6 +250,21 @@ impl BusinessGlossaryService {
     /// Deletes a GlossaryCategory resource. All the GlossaryCategories and
     /// GlossaryTerms nested directly under the specified GlossaryCategory will be
     /// moved one level up to the parent in the hierarchy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_glossary_category()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_glossary_category(
         &self,
     ) -> super::builder::business_glossary_service::DeleteGlossaryCategory {
@@ -208,6 +272,22 @@ impl BusinessGlossaryService {
     }
 
     /// Gets a GlossaryCategory resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_glossary_category()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_glossary_category(
         &self,
     ) -> super::builder::business_glossary_service::GetGlossaryCategory {
@@ -222,6 +302,22 @@ impl BusinessGlossaryService {
     }
 
     /// Creates a new GlossaryTerm resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_glossary_term()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_glossary_term(
         &self,
     ) -> super::builder::business_glossary_service::CreateGlossaryTerm {
@@ -229,6 +325,22 @@ impl BusinessGlossaryService {
     }
 
     /// Updates a GlossaryTerm resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_glossary_term()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_glossary_term(
         &self,
     ) -> super::builder::business_glossary_service::UpdateGlossaryTerm {
@@ -236,6 +348,21 @@ impl BusinessGlossaryService {
     }
 
     /// Deletes a GlossaryTerm resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_glossary_term()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_glossary_term(
         &self,
     ) -> super::builder::business_glossary_service::DeleteGlossaryTerm {
@@ -243,6 +370,22 @@ impl BusinessGlossaryService {
     }
 
     /// Gets a GlossaryTerm resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_glossary_term()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_glossary_term(&self) -> super::builder::business_glossary_service::GetGlossaryTerm {
         super::builder::business_glossary_service::GetGlossaryTerm::new(self.inner.clone())
     }
@@ -260,6 +403,22 @@ impl BusinessGlossaryService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::business_glossary_service::GetLocation {
         super::builder::business_glossary_service::GetLocation::new(self.inner.clone())
     }
@@ -269,12 +428,44 @@ impl BusinessGlossaryService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::business_glossary_service::SetIamPolicy {
         super::builder::business_glossary_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::business_glossary_service::GetIamPolicy {
         super::builder::business_glossary_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -286,6 +477,22 @@ impl BusinessGlossaryService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::business_glossary_service::TestIamPermissions {
@@ -302,6 +509,22 @@ impl BusinessGlossaryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::business_glossary_service::GetOperation {
         super::builder::business_glossary_service::GetOperation::new(self.inner.clone())
     }
@@ -309,6 +532,21 @@ impl BusinessGlossaryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::business_glossary_service::DeleteOperation {
         super::builder::business_glossary_service::DeleteOperation::new(self.inner.clone())
     }
@@ -316,6 +554,21 @@ impl BusinessGlossaryService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
+    /// async fn sample(
+    ///    client: &BusinessGlossaryService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::business_glossary_service::CancelOperation {
         super::builder::business_glossary_service::CancelOperation::new(self.inner.clone())
     }
@@ -478,6 +731,23 @@ impl CatalogService {
     }
 
     /// Gets an EntryType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entry_type(&self) -> super::builder::catalog_service::GetEntryType {
         super::builder::catalog_service::GetEntryType::new(self.inner.clone())
     }
@@ -533,6 +803,23 @@ impl CatalogService {
     }
 
     /// Gets an AspectType.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_aspect_type()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_aspect_type(&self) -> super::builder::catalog_service::GetAspectType {
         super::builder::catalog_service::GetAspectType::new(self.inner.clone())
     }
@@ -588,21 +875,87 @@ impl CatalogService {
     }
 
     /// Gets an EntryGroup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entry_group(&self) -> super::builder::catalog_service::GetEntryGroup {
         super::builder::catalog_service::GetEntryGroup::new(self.inner.clone())
     }
 
     /// Creates an Entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_entry(&self) -> super::builder::catalog_service::CreateEntry {
         super::builder::catalog_service::CreateEntry::new(self.inner.clone())
     }
 
     /// Updates an Entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_entry(&self) -> super::builder::catalog_service::UpdateEntry {
         super::builder::catalog_service::UpdateEntry::new(self.inner.clone())
     }
 
     /// Deletes an Entry.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_entry()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_entry(&self) -> super::builder::catalog_service::DeleteEntry {
         super::builder::catalog_service::DeleteEntry::new(self.inner.clone())
     }
@@ -623,6 +976,23 @@ impl CatalogService {
     /// changing. For more information, see [Changes to metadata stored in
     /// Dataplex Universal
     /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entry(&self) -> super::builder::catalog_service::GetEntry {
         super::builder::catalog_service::GetEntry::new(self.inner.clone())
     }
@@ -633,6 +1003,22 @@ impl CatalogService {
     /// changing. For more information, see [Changes to metadata stored in
     /// Dataplex Universal
     /// Catalog](https://cloud.google.com/dataplex/docs/metadata-changes).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_entry()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_entry(&self) -> super::builder::catalog_service::LookupEntry {
         super::builder::catalog_service::LookupEntry::new(self.inner.clone())
     }
@@ -659,6 +1045,23 @@ impl CatalogService {
     }
 
     /// Gets a metadata job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metadata_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_job(&self) -> super::builder::catalog_service::GetMetadataJob {
         super::builder::catalog_service::GetMetadataJob::new(self.inner.clone())
     }
@@ -674,21 +1077,86 @@ impl CatalogService {
     /// job might be partially applied. We recommend that you reset the state of
     /// the entry groups in your project by running another metadata job that
     /// reverts the changes from the canceled job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_metadata_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_metadata_job(&self) -> super::builder::catalog_service::CancelMetadataJob {
         super::builder::catalog_service::CancelMetadataJob::new(self.inner.clone())
     }
 
     /// Creates an Entry Link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_entry_link()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_entry_link(&self) -> super::builder::catalog_service::CreateEntryLink {
         super::builder::catalog_service::CreateEntryLink::new(self.inner.clone())
     }
 
     /// Deletes an Entry Link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_entry_link()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_entry_link(&self) -> super::builder::catalog_service::DeleteEntryLink {
         super::builder::catalog_service::DeleteEntryLink::new(self.inner.clone())
     }
 
     /// Gets an Entry Link.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entry_link()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entry_link(&self) -> super::builder::catalog_service::GetEntryLink {
         super::builder::catalog_service::GetEntryLink::new(self.inner.clone())
     }
@@ -699,6 +1167,22 @@ impl CatalogService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::catalog_service::GetLocation {
         super::builder::catalog_service::GetLocation::new(self.inner.clone())
     }
@@ -708,12 +1192,44 @@ impl CatalogService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::catalog_service::SetIamPolicy {
         super::builder::catalog_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::catalog_service::GetIamPolicy {
         super::builder::catalog_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -725,6 +1241,22 @@ impl CatalogService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::catalog_service::TestIamPermissions {
         super::builder::catalog_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -739,6 +1271,22 @@ impl CatalogService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::catalog_service::GetOperation {
         super::builder::catalog_service::GetOperation::new(self.inner.clone())
     }
@@ -746,6 +1294,21 @@ impl CatalogService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::catalog_service::DeleteOperation {
         super::builder::catalog_service::DeleteOperation::new(self.inner.clone())
     }
@@ -753,6 +1316,21 @@ impl CatalogService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CatalogService;
+    /// async fn sample(
+    ///    client: &CatalogService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::catalog_service::CancelOperation {
         super::builder::catalog_service::CancelOperation::new(self.inner.clone())
     }
@@ -911,6 +1489,23 @@ impl CmekService {
     }
 
     /// Get an EncryptionConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_encryption_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_encryption_config(&self) -> super::builder::cmek_service::GetEncryptionConfig {
         super::builder::cmek_service::GetEncryptionConfig::new(self.inner.clone())
     }
@@ -921,6 +1516,22 @@ impl CmekService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cmek_service::GetLocation {
         super::builder::cmek_service::GetLocation::new(self.inner.clone())
     }
@@ -930,12 +1541,44 @@ impl CmekService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::cmek_service::SetIamPolicy {
         super::builder::cmek_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::cmek_service::GetIamPolicy {
         super::builder::cmek_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -947,6 +1590,22 @@ impl CmekService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::cmek_service::TestIamPermissions {
         super::builder::cmek_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -961,6 +1620,22 @@ impl CmekService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cmek_service::GetOperation {
         super::builder::cmek_service::GetOperation::new(self.inner.clone())
     }
@@ -968,6 +1643,21 @@ impl CmekService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::cmek_service::DeleteOperation {
         super::builder::cmek_service::DeleteOperation::new(self.inner.clone())
     }
@@ -975,6 +1665,21 @@ impl CmekService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::CmekService;
+    /// async fn sample(
+    ///    client: &CmekService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cmek_service::CancelOperation {
         super::builder::cmek_service::CancelOperation::new(self.inner.clone())
     }
@@ -1084,21 +1789,85 @@ impl ContentService {
     }
 
     /// Create a content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_content(&self) -> super::builder::content_service::CreateContent {
         super::builder::content_service::CreateContent::new(self.inner.clone())
     }
 
     /// Update a content. Only supports full resource update.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_content(&self) -> super::builder::content_service::UpdateContent {
         super::builder::content_service::UpdateContent::new(self.inner.clone())
     }
 
     /// Delete a content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_content(&self) -> super::builder::content_service::DeleteContent {
         super::builder::content_service::DeleteContent::new(self.inner.clone())
     }
 
     /// Get a content resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_content()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_content(&self) -> super::builder::content_service::GetContent {
         super::builder::content_service::GetContent::new(self.inner.clone())
     }
@@ -1109,6 +1878,22 @@ impl ContentService {
     ///
     /// Caller must have Google IAM `dataplex.content.getIamPolicy` permission
     /// on the resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::content_service::GetIamPolicy {
         super::builder::content_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1118,6 +1903,22 @@ impl ContentService {
     ///
     /// Caller must have Google IAM `dataplex.content.setIamPolicy` permission
     /// on the resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::content_service::SetIamPolicy {
         super::builder::content_service::SetIamPolicy::new(self.inner.clone())
     }
@@ -1132,6 +1933,22 @@ impl ContentService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::content_service::TestIamPermissions {
         super::builder::content_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1147,6 +1964,22 @@ impl ContentService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::content_service::GetLocation {
         super::builder::content_service::GetLocation::new(self.inner.clone())
     }
@@ -1161,6 +1994,22 @@ impl ContentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::content_service::GetOperation {
         super::builder::content_service::GetOperation::new(self.inner.clone())
     }
@@ -1168,6 +2017,21 @@ impl ContentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::content_service::DeleteOperation {
         super::builder::content_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1175,6 +2039,21 @@ impl ContentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::ContentService;
+    /// async fn sample(
+    ///    client: &ContentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::content_service::CancelOperation {
         super::builder::content_service::CancelOperation::new(self.inner.clone())
     }
@@ -1351,6 +2230,23 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a DataTaxonomy resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_taxonomy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_data_taxonomy(&self) -> super::builder::data_taxonomy_service::GetDataTaxonomy {
         super::builder::data_taxonomy_service::GetDataTaxonomy::new(self.inner.clone())
@@ -1421,6 +2317,23 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a DataAttributeBinding resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_attribute_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_data_attribute_binding(
         &self,
@@ -1491,6 +2404,23 @@ impl DataTaxonomyService {
     }
 
     /// Retrieves a Data Attribute resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_attribute()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn get_data_attribute(&self) -> super::builder::data_taxonomy_service::GetDataAttribute {
         super::builder::data_taxonomy_service::GetDataAttribute::new(self.inner.clone())
@@ -1502,6 +2432,22 @@ impl DataTaxonomyService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_taxonomy_service::GetLocation {
         super::builder::data_taxonomy_service::GetLocation::new(self.inner.clone())
     }
@@ -1511,12 +2457,44 @@ impl DataTaxonomyService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_taxonomy_service::SetIamPolicy {
         super::builder::data_taxonomy_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_taxonomy_service::GetIamPolicy {
         super::builder::data_taxonomy_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1528,6 +2506,22 @@ impl DataTaxonomyService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::data_taxonomy_service::TestIamPermissions {
@@ -1544,6 +2538,22 @@ impl DataTaxonomyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_taxonomy_service::GetOperation {
         super::builder::data_taxonomy_service::GetOperation::new(self.inner.clone())
     }
@@ -1551,6 +2561,21 @@ impl DataTaxonomyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_taxonomy_service::DeleteOperation {
         super::builder::data_taxonomy_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1558,6 +2583,21 @@ impl DataTaxonomyService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
+    /// async fn sample(
+    ///    client: &DataTaxonomyService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_taxonomy_service::CancelOperation {
         super::builder::data_taxonomy_service::CancelOperation::new(self.inner.clone())
     }
@@ -1716,6 +2756,23 @@ impl DataScanService {
     }
 
     /// Gets a DataScan resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_scan()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_scan(&self) -> super::builder::data_scan_service::GetDataScan {
         super::builder::data_scan_service::GetDataScan::new(self.inner.clone())
     }
@@ -1726,11 +2783,44 @@ impl DataScanService {
     }
 
     /// Runs an on-demand execution of a DataScan
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .run_data_scan()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_data_scan(&self) -> super::builder::data_scan_service::RunDataScan {
         super::builder::data_scan_service::RunDataScan::new(self.inner.clone())
     }
 
     /// Gets a DataScanJob resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_scan_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_scan_job(&self) -> super::builder::data_scan_service::GetDataScanJob {
         super::builder::data_scan_service::GetDataScanJob::new(self.inner.clone())
     }
@@ -1744,6 +2834,22 @@ impl DataScanService {
     /// profiling scan.
     ///
     /// Use the recommendations to build rules for a data quality scan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_data_quality_rules()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_data_quality_rules(
         &self,
     ) -> super::builder::data_scan_service::GenerateDataQualityRules {
@@ -1756,6 +2862,22 @@ impl DataScanService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_scan_service::GetLocation {
         super::builder::data_scan_service::GetLocation::new(self.inner.clone())
     }
@@ -1765,12 +2887,44 @@ impl DataScanService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::data_scan_service::SetIamPolicy {
         super::builder::data_scan_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::data_scan_service::GetIamPolicy {
         super::builder::data_scan_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1782,6 +2936,22 @@ impl DataScanService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::data_scan_service::TestIamPermissions {
         super::builder::data_scan_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -1796,6 +2966,22 @@ impl DataScanService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_scan_service::GetOperation {
         super::builder::data_scan_service::GetOperation::new(self.inner.clone())
     }
@@ -1803,6 +2989,21 @@ impl DataScanService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_scan_service::DeleteOperation {
         super::builder::data_scan_service::DeleteOperation::new(self.inner.clone())
     }
@@ -1810,6 +3011,21 @@ impl DataScanService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataScanService;
+    /// async fn sample(
+    ///    client: &DataScanService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_scan_service::CancelOperation {
         super::builder::data_scan_service::CancelOperation::new(self.inner.clone())
     }
@@ -1922,21 +3138,85 @@ impl MetadataService {
     }
 
     /// Create a metadata entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_entity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_entity(&self) -> super::builder::metadata_service::CreateEntity {
         super::builder::metadata_service::CreateEntity::new(self.inner.clone())
     }
 
     /// Update a metadata entity. Only supports full resource update.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_entity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_entity(&self) -> super::builder::metadata_service::UpdateEntity {
         super::builder::metadata_service::UpdateEntity::new(self.inner.clone())
     }
 
     /// Delete a metadata entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_entity()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_entity(&self) -> super::builder::metadata_service::DeleteEntity {
         super::builder::metadata_service::DeleteEntity::new(self.inner.clone())
     }
 
     /// Get a metadata entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_entity()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_entity(&self) -> super::builder::metadata_service::GetEntity {
         super::builder::metadata_service::GetEntity::new(self.inner.clone())
     }
@@ -1947,16 +3227,64 @@ impl MetadataService {
     }
 
     /// Create a metadata partition.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_partition()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_partition(&self) -> super::builder::metadata_service::CreatePartition {
         super::builder::metadata_service::CreatePartition::new(self.inner.clone())
     }
 
     /// Delete a metadata partition.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_partition()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_partition(&self) -> super::builder::metadata_service::DeletePartition {
         super::builder::metadata_service::DeletePartition::new(self.inner.clone())
     }
 
     /// Get a metadata partition of an entity.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_partition()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_partition(&self) -> super::builder::metadata_service::GetPartition {
         super::builder::metadata_service::GetPartition::new(self.inner.clone())
     }
@@ -1972,6 +3300,22 @@ impl MetadataService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::metadata_service::GetLocation {
         super::builder::metadata_service::GetLocation::new(self.inner.clone())
     }
@@ -1981,12 +3325,44 @@ impl MetadataService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::metadata_service::SetIamPolicy {
         super::builder::metadata_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::metadata_service::GetIamPolicy {
         super::builder::metadata_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -1998,6 +3374,22 @@ impl MetadataService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::metadata_service::TestIamPermissions {
         super::builder::metadata_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -2012,6 +3404,22 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::metadata_service::GetOperation {
         super::builder::metadata_service::GetOperation::new(self.inner.clone())
     }
@@ -2019,6 +3427,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::metadata_service::DeleteOperation {
         super::builder::metadata_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2026,6 +3449,21 @@ impl MetadataService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::MetadataService;
+    /// async fn sample(
+    ///    client: &MetadataService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::metadata_service::CancelOperation {
         super::builder::metadata_service::CancelOperation::new(self.inner.clone())
     }
@@ -2192,6 +3630,23 @@ impl DataplexService {
     }
 
     /// Retrieves a lake resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_lake()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_lake(&self) -> super::builder::dataplex_service::GetLake {
         super::builder::dataplex_service::GetLake::new(self.inner.clone())
     }
@@ -2253,6 +3708,23 @@ impl DataplexService {
     }
 
     /// Retrieves a zone resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_zone()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_zone(&self) -> super::builder::dataplex_service::GetZone {
         super::builder::dataplex_service::GetZone::new(self.inner.clone())
     }
@@ -2314,6 +3786,23 @@ impl DataplexService {
     }
 
     /// Retrieves an asset resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_asset()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_asset(&self) -> super::builder::dataplex_service::GetAsset {
         super::builder::dataplex_service::GetAsset::new(self.inner.clone())
     }
@@ -2374,6 +3863,23 @@ impl DataplexService {
     }
 
     /// Get task resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_task()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_task(&self) -> super::builder::dataplex_service::GetTask {
         super::builder::dataplex_service::GetTask::new(self.inner.clone())
     }
@@ -2384,16 +3890,64 @@ impl DataplexService {
     }
 
     /// Run an on demand execution of a Task.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .run_task()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn run_task(&self) -> super::builder::dataplex_service::RunTask {
         super::builder::dataplex_service::RunTask::new(self.inner.clone())
     }
 
     /// Get job resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_job(&self) -> super::builder::dataplex_service::GetJob {
         super::builder::dataplex_service::GetJob::new(self.inner.clone())
     }
 
     /// Cancel jobs running for the task resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_job()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_job(&self) -> super::builder::dataplex_service::CancelJob {
         super::builder::dataplex_service::CancelJob::new(self.inner.clone())
     }
@@ -2450,6 +4004,23 @@ impl DataplexService {
     }
 
     /// Get environment resource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_environment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_environment(&self) -> super::builder::dataplex_service::GetEnvironment {
         super::builder::dataplex_service::GetEnvironment::new(self.inner.clone())
     }
@@ -2465,6 +4036,22 @@ impl DataplexService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dataplex_service::GetLocation {
         super::builder::dataplex_service::GetLocation::new(self.inner.clone())
     }
@@ -2474,12 +4061,44 @@ impl DataplexService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dataplex_service::SetIamPolicy {
         super::builder::dataplex_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dataplex_service::GetIamPolicy {
         super::builder::dataplex_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -2491,6 +4110,22 @@ impl DataplexService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::dataplex_service::TestIamPermissions {
         super::builder::dataplex_service::TestIamPermissions::new(self.inner.clone())
     }
@@ -2505,6 +4140,22 @@ impl DataplexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dataplex_service::GetOperation {
         super::builder::dataplex_service::GetOperation::new(self.inner.clone())
     }
@@ -2512,6 +4163,21 @@ impl DataplexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::dataplex_service::DeleteOperation {
         super::builder::dataplex_service::DeleteOperation::new(self.inner.clone())
     }
@@ -2519,6 +4185,21 @@ impl DataplexService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dataplex_v1::client::DataplexService;
+    /// async fn sample(
+    ///    client: &DataplexService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::dataplex_service::CancelOperation {
         super::builder::dataplex_service::CancelOperation::new(self.inner.clone())
     }

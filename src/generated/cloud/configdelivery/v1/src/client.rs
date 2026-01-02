@@ -125,6 +125,23 @@ impl ConfigDelivery {
     }
 
     /// Gets details of a single ResourceBundle.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_bundle()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_bundle(&self) -> super::builder::config_delivery::GetResourceBundle {
         super::builder::config_delivery::GetResourceBundle::new(self.inner.clone())
     }
@@ -180,6 +197,23 @@ impl ConfigDelivery {
     }
 
     /// Gets details of a single FleetPackage.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_fleet_package()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_fleet_package(&self) -> super::builder::config_delivery::GetFleetPackage {
         super::builder::config_delivery::GetFleetPackage::new(self.inner.clone())
     }
@@ -235,6 +269,23 @@ impl ConfigDelivery {
     }
 
     /// Gets details of a single Release.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_release()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_release(&self) -> super::builder::config_delivery::GetRelease {
         super::builder::config_delivery::GetRelease::new(self.inner.clone())
     }
@@ -290,6 +341,23 @@ impl ConfigDelivery {
     }
 
     /// Gets details of a single Variant.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_variant()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_variant(&self) -> super::builder::config_delivery::GetVariant {
         super::builder::config_delivery::GetVariant::new(self.inner.clone())
     }
@@ -346,6 +414,23 @@ impl ConfigDelivery {
     }
 
     /// Gets details of a single Rollout.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_rollout()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_rollout(&self) -> super::builder::config_delivery::GetRollout {
         super::builder::config_delivery::GetRollout::new(self.inner.clone())
     }
@@ -401,6 +486,22 @@ impl ConfigDelivery {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::config_delivery::GetLocation {
         super::builder::config_delivery::GetLocation::new(self.inner.clone())
     }
@@ -415,6 +516,22 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::config_delivery::GetOperation {
         super::builder::config_delivery::GetOperation::new(self.inner.clone())
     }
@@ -422,6 +539,21 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::config_delivery::DeleteOperation {
         super::builder::config_delivery::DeleteOperation::new(self.inner.clone())
     }
@@ -429,6 +561,21 @@ impl ConfigDelivery {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
+    /// async fn sample(
+    ///    client: &ConfigDelivery
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::config_delivery::CancelOperation {
         super::builder::config_delivery::CancelOperation::new(self.inner.clone())
     }

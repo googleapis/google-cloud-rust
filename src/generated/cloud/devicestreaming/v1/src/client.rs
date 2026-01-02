@@ -131,6 +131,22 @@ impl DirectAccessService {
     }
 
     /// Creates a DeviceSession.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// async fn sample(
+    ///    client: &DirectAccessService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_device_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_device_session(
         &self,
     ) -> super::builder::direct_access_service::CreateDeviceSession {
@@ -147,6 +163,23 @@ impl DirectAccessService {
     /// Gets a DeviceSession, which documents the allocation status and
     /// whether the device is allocated. Clients making requests from this API
     /// must poll GetDeviceSession.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// async fn sample(
+    ///    client: &DirectAccessService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_device_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_device_session(&self) -> super::builder::direct_access_service::GetDeviceSession {
         super::builder::direct_access_service::GetDeviceSession::new(self.inner.clone())
     }
@@ -156,6 +189,21 @@ impl DirectAccessService {
     /// connections.
     /// Canceled sessions are not deleted and can be retrieved or
     /// listed by the user until they expire based on the 28 day deletion policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// async fn sample(
+    ///    client: &DirectAccessService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_device_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_device_session(
         &self,
     ) -> super::builder::direct_access_service::CancelDeviceSession {
@@ -164,6 +212,22 @@ impl DirectAccessService {
 
     /// Updates the current DeviceSession to the fields described by the
     /// update_mask.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::client::DirectAccessService;
+    /// async fn sample(
+    ///    client: &DirectAccessService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_device_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_device_session(
         &self,
     ) -> super::builder::direct_access_service::UpdateDeviceSession {

@@ -139,6 +139,23 @@ impl ClientGatewaysService {
     }
 
     /// Gets details of a single ClientGateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_client_gateway()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_client_gateway(&self) -> super::builder::client_gateways_service::GetClientGateway {
         super::builder::client_gateways_service::GetClientGateway::new(self.inner.clone())
     }
@@ -183,6 +200,22 @@ impl ClientGatewaysService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::client_gateways_service::GetLocation {
         super::builder::client_gateways_service::GetLocation::new(self.inner.clone())
     }
@@ -192,12 +225,44 @@ impl ClientGatewaysService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::client_gateways_service::SetIamPolicy {
         super::builder::client_gateways_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::client_gateways_service::GetIamPolicy {
         super::builder::client_gateways_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -209,6 +274,22 @@ impl ClientGatewaysService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::client_gateways_service::TestIamPermissions {
@@ -225,6 +306,22 @@ impl ClientGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::client_gateways_service::GetOperation {
         super::builder::client_gateways_service::GetOperation::new(self.inner.clone())
     }
@@ -232,6 +329,21 @@ impl ClientGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::client_gateways_service::DeleteOperation {
         super::builder::client_gateways_service::DeleteOperation::new(self.inner.clone())
     }
@@ -239,6 +351,21 @@ impl ClientGatewaysService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::client::ClientGatewaysService;
+    /// async fn sample(
+    ///    client: &ClientGatewaysService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::client_gateways_service::CancelOperation {
         super::builder::client_gateways_service::CancelOperation::new(self.inner.clone())
     }

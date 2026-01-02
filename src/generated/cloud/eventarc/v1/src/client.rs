@@ -120,6 +120,23 @@ impl Eventarc {
     }
 
     /// Get a single trigger.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_trigger()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_trigger(&self) -> super::builder::eventarc::GetTrigger {
         super::builder::eventarc::GetTrigger::new(self.inner.clone())
     }
@@ -175,6 +192,23 @@ impl Eventarc {
     }
 
     /// Get a single Channel.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_channel()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel(&self) -> super::builder::eventarc::GetChannel {
         super::builder::eventarc::GetChannel::new(self.inner.clone())
     }
@@ -230,6 +264,23 @@ impl Eventarc {
     }
 
     /// Get a single Provider.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_provider()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_provider(&self) -> super::builder::eventarc::GetProvider {
         super::builder::eventarc::GetProvider::new(self.inner.clone())
     }
@@ -240,6 +291,23 @@ impl Eventarc {
     }
 
     /// Get a single ChannelConnection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_channel_connection()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_channel_connection(&self) -> super::builder::eventarc::GetChannelConnection {
         super::builder::eventarc::GetChannelConnection::new(self.inner.clone())
     }
@@ -282,11 +350,44 @@ impl Eventarc {
     /// Get a GoogleChannelConfig.
     /// The name of the GoogleChannelConfig in the response is ALWAYS coded with
     /// projectID.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_google_channel_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_google_channel_config(&self) -> super::builder::eventarc::GetGoogleChannelConfig {
         super::builder::eventarc::GetGoogleChannelConfig::new(self.inner.clone())
     }
 
     /// Update a single GoogleChannelConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_google_channel_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_google_channel_config(
         &self,
     ) -> super::builder::eventarc::UpdateGoogleChannelConfig {
@@ -294,6 +395,23 @@ impl Eventarc {
     }
 
     /// Get a single MessageBus.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_message_bus()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_message_bus(&self) -> super::builder::eventarc::GetMessageBus {
         super::builder::eventarc::GetMessageBus::new(self.inner.clone())
     }
@@ -304,6 +422,22 @@ impl Eventarc {
     }
 
     /// List message bus enrollments.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_message_bus_enrollments()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_message_bus_enrollments(
         &self,
     ) -> super::builder::eventarc::ListMessageBusEnrollments {
@@ -356,6 +490,23 @@ impl Eventarc {
     }
 
     /// Get a single Enrollment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_enrollment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_enrollment(&self) -> super::builder::eventarc::GetEnrollment {
         super::builder::eventarc::GetEnrollment::new(self.inner.clone())
     }
@@ -411,6 +562,23 @@ impl Eventarc {
     }
 
     /// Get a single Pipeline.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pipeline()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pipeline(&self) -> super::builder::eventarc::GetPipeline {
         super::builder::eventarc::GetPipeline::new(self.inner.clone())
     }
@@ -466,6 +634,23 @@ impl Eventarc {
     }
 
     /// Get a single GoogleApiSource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_google_api_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_google_api_source(&self) -> super::builder::eventarc::GetGoogleApiSource {
         super::builder::eventarc::GetGoogleApiSource::new(self.inner.clone())
     }
@@ -526,6 +711,22 @@ impl Eventarc {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::eventarc::GetLocation {
         super::builder::eventarc::GetLocation::new(self.inner.clone())
     }
@@ -535,12 +736,44 @@ impl Eventarc {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::eventarc::SetIamPolicy {
         super::builder::eventarc::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::eventarc::GetIamPolicy {
         super::builder::eventarc::GetIamPolicy::new(self.inner.clone())
     }
@@ -552,6 +785,22 @@ impl Eventarc {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::eventarc::TestIamPermissions {
         super::builder::eventarc::TestIamPermissions::new(self.inner.clone())
     }
@@ -566,6 +815,22 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::eventarc::GetOperation {
         super::builder::eventarc::GetOperation::new(self.inner.clone())
     }
@@ -573,6 +838,21 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::eventarc::DeleteOperation {
         super::builder::eventarc::DeleteOperation::new(self.inner.clone())
     }
@@ -580,6 +860,21 @@ impl Eventarc {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_eventarc_v1::client::Eventarc;
+    /// async fn sample(
+    ///    client: &Eventarc
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::eventarc::CancelOperation {
         super::builder::eventarc::CancelOperation::new(self.inner.clone())
     }

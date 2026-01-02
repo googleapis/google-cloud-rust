@@ -124,6 +124,23 @@ impl Ids {
     }
 
     /// Gets details of a single Endpoint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_endpoint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_endpoint(&self) -> super::builder::ids::GetEndpoint {
         super::builder::ids::GetEndpoint::new(self.inner.clone())
     }
@@ -168,6 +185,22 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::ids::GetOperation {
         super::builder::ids::GetOperation::new(self.inner.clone())
     }
@@ -175,6 +208,21 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::ids::DeleteOperation {
         super::builder::ids::DeleteOperation::new(self.inner.clone())
     }
@@ -182,6 +230,21 @@ impl Ids {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_ids_v1::client::Ids;
+    /// async fn sample(
+    ///    client: &Ids
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::ids::CancelOperation {
         super::builder::ids::CancelOperation::new(self.inner.clone())
     }

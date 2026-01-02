@@ -242,6 +242,23 @@ impl KeyTrackingService {
     /// succeed.
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
+    /// async fn sample(
+    ///    client: &KeyTrackingService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_protected_resources_summary()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_protected_resources_summary(
         &self,
     ) -> super::builder::key_tracking_service::GetProtectedResourcesSummary {

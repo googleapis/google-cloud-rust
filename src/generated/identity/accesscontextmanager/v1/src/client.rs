@@ -142,6 +142,23 @@ impl AccessContextManager {
 
     /// Returns an [access policy]
     /// [google.identity.accesscontextmanager.v1.AccessPolicy] based on the name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_access_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_access_policy(&self) -> super::builder::access_context_manager::GetAccessPolicy {
         super::builder::access_context_manager::GetAccessPolicy::new(self.inner.clone())
     }
@@ -220,6 +237,23 @@ impl AccessContextManager {
     /// Gets an [access level]
     /// [google.identity.accesscontextmanager.v1.AccessLevel] based on the resource
     /// name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_access_level()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_access_level(&self) -> super::builder::access_context_manager::GetAccessLevel {
         super::builder::access_context_manager::GetAccessLevel::new(self.inner.clone())
     }
@@ -332,6 +366,23 @@ impl AccessContextManager {
     /// Gets a [service perimeter]
     /// [google.identity.accesscontextmanager.v1.ServicePerimeter] based on the
     /// resource name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_perimeter()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_perimeter(
         &self,
     ) -> super::builder::access_context_manager::GetServicePerimeter {
@@ -482,6 +533,23 @@ impl AccessContextManager {
     /// Gets the [GcpUserAccessBinding]
     /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding] with
     /// the given name.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_gcp_user_access_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_gcp_user_access_binding(
         &self,
     ) -> super::builder::access_context_manager::GetGcpUserAccessBinding {
@@ -564,6 +632,22 @@ impl AccessContextManager {
     /// policy][google.identity.accesscontextmanager.v1.AccessPolicy].
     ///
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::access_context_manager::SetIamPolicy {
         super::builder::access_context_manager::SetIamPolicy::new(self.inner.clone())
     }
@@ -572,6 +656,22 @@ impl AccessContextManager {
     /// [access policy][google.identity.accesscontextmanager.v1.AccessPolicy].
     ///
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::access_context_manager::GetIamPolicy {
         super::builder::access_context_manager::GetIamPolicy::new(self.inner.clone())
     }
@@ -585,6 +685,22 @@ impl AccessContextManager {
     ///
     /// [google.identity.accesscontextmanager.v1.AccessLevel]: crate::model::AccessLevel
     /// [google.identity.accesscontextmanager.v1.AccessPolicy]: crate::model::AccessPolicy
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::access_context_manager::TestIamPermissions {
@@ -594,6 +710,22 @@ impl AccessContextManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
+    /// async fn sample(
+    ///    client: &AccessContextManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::access_context_manager::GetOperation {
         super::builder::access_context_manager::GetOperation::new(self.inner.clone())
     }

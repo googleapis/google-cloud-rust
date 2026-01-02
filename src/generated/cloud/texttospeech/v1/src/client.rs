@@ -119,12 +119,44 @@ impl TextToSpeech {
     }
 
     /// Returns a list of Voice supported for synthesis.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_voices()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_voices(&self) -> super::builder::text_to_speech::ListVoices {
         super::builder::text_to_speech::ListVoices::new(self.inner.clone())
     }
 
     /// Synthesizes speech synchronously: receive results after all text input
     /// has been processed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .synthesize_speech()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn synthesize_speech(&self) -> super::builder::text_to_speech::SynthesizeSpeech {
         super::builder::text_to_speech::SynthesizeSpeech::new(self.inner.clone())
     }
@@ -139,6 +171,22 @@ impl TextToSpeech {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
+    /// async fn sample(
+    ///    client: &TextToSpeech
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::text_to_speech::GetOperation {
         super::builder::text_to_speech::GetOperation::new(self.inner.clone())
     }
@@ -283,6 +331,22 @@ impl TextToSpeechLongAudioSynthesize {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
+    /// async fn sample(
+    ///    client: &TextToSpeechLongAudioSynthesize
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::text_to_speech_long_audio_synthesize::GetOperation {

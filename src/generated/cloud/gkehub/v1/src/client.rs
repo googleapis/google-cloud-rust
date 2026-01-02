@@ -148,11 +148,45 @@ impl GkeHub {
     }
 
     /// Gets the details of a Membership.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_membership()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_membership(&self) -> super::builder::gke_hub::GetMembership {
         super::builder::gke_hub::GetMembership::new(self.inner.clone())
     }
 
     /// Gets details of a single Feature.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_feature()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_feature(&self) -> super::builder::gke_hub::GetFeature {
         super::builder::gke_hub::GetFeature::new(self.inner.clone())
     }
@@ -259,6 +293,22 @@ impl GkeHub {
     ///
     /// **This method is used internally by Google-provided libraries.**
     /// Most clients should not need to call this method directly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_connect_manifest()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_connect_manifest(&self) -> super::builder::gke_hub::GenerateConnectManifest {
         super::builder::gke_hub::GenerateConnectManifest::new(self.inner.clone())
     }
@@ -273,6 +323,22 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::gke_hub::GetOperation {
         super::builder::gke_hub::GetOperation::new(self.inner.clone())
     }
@@ -280,6 +346,21 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::gke_hub::DeleteOperation {
         super::builder::gke_hub::DeleteOperation::new(self.inner.clone())
     }
@@ -287,6 +368,21 @@ impl GkeHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkehub_v1::client::GkeHub;
+    /// async fn sample(
+    ///    client: &GkeHub
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::gke_hub::CancelOperation {
         super::builder::gke_hub::CancelOperation::new(self.inner.clone())
     }

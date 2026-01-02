@@ -129,6 +129,23 @@ impl CloudLocationFinder {
     }
 
     /// Retrieves a resource containing information about a cloud location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cloud_location()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_location(&self) -> super::builder::cloud_location_finder::GetCloudLocation {
         super::builder::cloud_location_finder::GetCloudLocation::new(self.inner.clone())
     }
@@ -146,6 +163,22 @@ impl CloudLocationFinder {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
+    /// async fn sample(
+    ///    client: &CloudLocationFinder
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::cloud_location_finder::GetLocation {
         super::builder::cloud_location_finder::GetLocation::new(self.inner.clone())
     }

@@ -150,6 +150,22 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::video_intelligence_service::GetOperation {
         super::builder::video_intelligence_service::GetOperation::new(self.inner.clone())
     }
@@ -157,6 +173,21 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::video_intelligence_service::DeleteOperation {
         super::builder::video_intelligence_service::DeleteOperation::new(self.inner.clone())
     }
@@ -164,6 +195,21 @@ impl VideoIntelligenceService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
+    /// async fn sample(
+    ///    client: &VideoIntelligenceService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::video_intelligence_service::CancelOperation {
         super::builder::video_intelligence_service::CancelOperation::new(self.inner.clone())
     }

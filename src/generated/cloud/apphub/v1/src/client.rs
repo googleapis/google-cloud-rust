@@ -120,6 +120,22 @@ impl AppHub {
 
     /// Lists a service project attachment for a given service project. You can
     /// call this API from any project to find if it is attached to a host project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_service_project_attachment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::LookupServiceProjectAttachment {
@@ -151,6 +167,23 @@ impl AppHub {
     }
 
     /// Gets a service project attachment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_project_attachment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::GetServiceProjectAttachment {
@@ -177,6 +210,22 @@ impl AppHub {
     /// Detaches a service project from a host project.
     /// You can call this API from any service project without needing access to
     /// the host project that it is attached to.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .detach_service_project_attachment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detach_service_project_attachment(
         &self,
     ) -> super::builder::app_hub::DetachServiceProjectAttachment {
@@ -190,12 +239,45 @@ impl AppHub {
     }
 
     /// Gets a Discovered Service in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_discovered_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_service(&self) -> super::builder::app_hub::GetDiscoveredService {
         super::builder::app_hub::GetDiscoveredService::new(self.inner.clone())
     }
 
     /// Lists a Discovered Service in a host project and location, with a
     /// given resource URI.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_discovered_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_discovered_service(&self) -> super::builder::app_hub::LookupDiscoveredService {
         super::builder::app_hub::LookupDiscoveredService::new(self.inner.clone())
     }
@@ -221,6 +303,23 @@ impl AppHub {
     }
 
     /// Gets a Service in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::app_hub::GetService {
         super::builder::app_hub::GetService::new(self.inner.clone())
     }
@@ -262,12 +361,45 @@ impl AppHub {
     }
 
     /// Gets a Discovered Workload in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_discovered_workload()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_discovered_workload(&self) -> super::builder::app_hub::GetDiscoveredWorkload {
         super::builder::app_hub::GetDiscoveredWorkload::new(self.inner.clone())
     }
 
     /// Lists a Discovered Workload in a host project and location, with a
     /// given resource URI.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .lookup_discovered_workload()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn lookup_discovered_workload(&self) -> super::builder::app_hub::LookupDiscoveredWorkload {
         super::builder::app_hub::LookupDiscoveredWorkload::new(self.inner.clone())
     }
@@ -293,6 +425,23 @@ impl AppHub {
     }
 
     /// Gets a Workload in an Application.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workload()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workload(&self) -> super::builder::app_hub::GetWorkload {
         super::builder::app_hub::GetWorkload::new(self.inner.clone())
     }
@@ -348,6 +497,23 @@ impl AppHub {
     }
 
     /// Gets an Application in a host project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_application()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_application(&self) -> super::builder::app_hub::GetApplication {
         super::builder::app_hub::GetApplication::new(self.inner.clone())
     }
@@ -388,6 +554,22 @@ impl AppHub {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::app_hub::GetLocation {
         super::builder::app_hub::GetLocation::new(self.inner.clone())
     }
@@ -397,12 +579,44 @@ impl AppHub {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::app_hub::SetIamPolicy {
         super::builder::app_hub::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::app_hub::GetIamPolicy {
         super::builder::app_hub::GetIamPolicy::new(self.inner.clone())
     }
@@ -414,6 +628,22 @@ impl AppHub {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::app_hub::TestIamPermissions {
         super::builder::app_hub::TestIamPermissions::new(self.inner.clone())
     }
@@ -428,6 +658,22 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::app_hub::GetOperation {
         super::builder::app_hub::GetOperation::new(self.inner.clone())
     }
@@ -435,6 +681,21 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::app_hub::DeleteOperation {
         super::builder::app_hub::DeleteOperation::new(self.inner.clone())
     }
@@ -442,6 +703,21 @@ impl AppHub {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_apphub_v1::client::AppHub;
+    /// async fn sample(
+    ///    client: &AppHub
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::app_hub::CancelOperation {
         super::builder::app_hub::CancelOperation::new(self.inner.clone())
     }

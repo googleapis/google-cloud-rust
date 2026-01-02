@@ -127,36 +127,147 @@ impl MigrationCenter {
     }
 
     /// Gets the details of an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_asset()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_asset(&self) -> super::builder::migration_center::GetAsset {
         super::builder::migration_center::GetAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_asset()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_asset(&self) -> super::builder::migration_center::UpdateAsset {
         super::builder::migration_center::UpdateAsset::new(self.inner.clone())
     }
 
     /// Updates the parameters of a list of assets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_update_assets()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_update_assets(&self) -> super::builder::migration_center::BatchUpdateAssets {
         super::builder::migration_center::BatchUpdateAssets::new(self.inner.clone())
     }
 
     /// Deletes an asset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_asset()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_asset(&self) -> super::builder::migration_center::DeleteAsset {
         super::builder::migration_center::DeleteAsset::new(self.inner.clone())
     }
 
     /// Deletes list of Assets.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .batch_delete_assets()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_delete_assets(&self) -> super::builder::migration_center::BatchDeleteAssets {
         super::builder::migration_center::BatchDeleteAssets::new(self.inner.clone())
     }
 
     /// Reports a set of frames.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .report_asset_frames()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn report_asset_frames(&self) -> super::builder::migration_center::ReportAssetFrames {
         super::builder::migration_center::ReportAssetFrames::new(self.inner.clone())
     }
 
     /// Aggregates the requested fields based on provided function.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .aggregate_assets_values()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn aggregate_assets_values(
         &self,
     ) -> super::builder::migration_center::AggregateAssetsValues {
@@ -184,6 +295,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of an import job.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_import_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_import_job(&self) -> super::builder::migration_center::GetImportJob {
         super::builder::migration_center::GetImportJob::new(self.inner.clone())
     }
@@ -249,6 +377,23 @@ impl MigrationCenter {
     }
 
     /// Gets an import data file.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_import_data_file()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_import_data_file(&self) -> super::builder::migration_center::GetImportDataFile {
         super::builder::migration_center::GetImportDataFile::new(self.inner.clone())
     }
@@ -298,6 +443,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of a group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::migration_center::GetGroup {
         super::builder::migration_center::GetGroup::new(self.inner.clone())
     }
@@ -385,6 +547,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of an error frame.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_error_frame()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_error_frame(&self) -> super::builder::migration_center::GetErrorFrame {
         super::builder::migration_center::GetErrorFrame::new(self.inner.clone())
     }
@@ -395,6 +574,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of a source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_source(&self) -> super::builder::migration_center::GetSource {
         super::builder::migration_center::GetSource::new(self.inner.clone())
     }
@@ -450,6 +646,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of a preference set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_preference_set()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_preference_set(&self) -> super::builder::migration_center::GetPreferenceSet {
         super::builder::migration_center::GetPreferenceSet::new(self.inner.clone())
     }
@@ -500,6 +713,23 @@ impl MigrationCenter {
     }
 
     /// Gets the details of regional settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_settings()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_settings(&self) -> super::builder::migration_center::GetSettings {
         super::builder::migration_center::GetSettings::new(self.inner.clone())
     }
@@ -535,6 +765,23 @@ impl MigrationCenter {
     }
 
     /// Gets details of a single ReportConfig.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_report_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_report_config(&self) -> super::builder::migration_center::GetReportConfig {
         super::builder::migration_center::GetReportConfig::new(self.inner.clone())
     }
@@ -575,6 +822,23 @@ impl MigrationCenter {
     }
 
     /// Gets details of a single Report.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_report()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_report(&self) -> super::builder::migration_center::GetReport {
         super::builder::migration_center::GetReport::new(self.inner.clone())
     }
@@ -605,6 +869,22 @@ impl MigrationCenter {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::migration_center::GetLocation {
         super::builder::migration_center::GetLocation::new(self.inner.clone())
     }
@@ -619,6 +899,22 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::migration_center::GetOperation {
         super::builder::migration_center::GetOperation::new(self.inner.clone())
     }
@@ -626,6 +922,21 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::migration_center::DeleteOperation {
         super::builder::migration_center::DeleteOperation::new(self.inner.clone())
     }
@@ -633,6 +944,21 @@ impl MigrationCenter {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
+    /// async fn sample(
+    ///    client: &MigrationCenter
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::migration_center::CancelOperation {
         super::builder::migration_center::CancelOperation::new(self.inner.clone())
     }

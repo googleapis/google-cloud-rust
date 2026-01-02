@@ -137,6 +137,23 @@ impl PolicyBindings {
     }
 
     /// Gets a policy binding.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// async fn sample(
+    ///    client: &PolicyBindings,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_policy_binding()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_policy_binding(&self) -> super::builder::policy_bindings::GetPolicyBinding {
         super::builder::policy_bindings::GetPolicyBinding::new(self.inner.clone())
     }
@@ -193,6 +210,22 @@ impl PolicyBindings {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PolicyBindings;
+    /// async fn sample(
+    ///    client: &PolicyBindings
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::policy_bindings::GetOperation {
         super::builder::policy_bindings::GetOperation::new(self.inner.clone())
     }
@@ -327,6 +360,23 @@ impl PrincipalAccessBoundaryPolicies {
     }
 
     /// Gets a principal access boundary policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_principal_access_boundary_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_principal_access_boundary_policy(
         &self,
     ) -> super::builder::principal_access_boundary_policies::GetPrincipalAccessBoundaryPolicy {
@@ -395,6 +445,22 @@ impl PrincipalAccessBoundaryPolicies {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
+    /// async fn sample(
+    ///    client: &PrincipalAccessBoundaryPolicies
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(
         &self,
     ) -> super::builder::principal_access_boundary_policies::GetOperation {

@@ -120,17 +120,66 @@ impl TopicAdmin {
 
     /// Creates the given topic with the given name. See the [resource name rules]
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_topic()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_topic(&self) -> super::builder::topic_admin::CreateTopic {
         super::builder::topic_admin::CreateTopic::new(self.inner.clone())
     }
 
     /// Updates an existing topic by updating the fields specified in the update
     /// mask. Note that certain properties of a topic are not modifiable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_topic()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_topic(&self) -> super::builder::topic_admin::UpdateTopic {
         super::builder::topic_admin::UpdateTopic::new(self.inner.clone())
     }
 
     /// Gets the configuration of a topic.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_topic()
+    ///         .set_topic(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_topic(&self) -> super::builder::topic_admin::GetTopic {
         super::builder::topic_admin::GetTopic::new(self.inner.clone())
     }
@@ -141,6 +190,22 @@ impl TopicAdmin {
     }
 
     /// Lists the names of the attached subscriptions on this topic.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_topic_subscriptions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_topic_subscriptions(&self) -> super::builder::topic_admin::ListTopicSubscriptions {
         super::builder::topic_admin::ListTopicSubscriptions::new(self.inner.clone())
     }
@@ -150,6 +215,22 @@ impl TopicAdmin {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_topic_snapshots()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_topic_snapshots(&self) -> super::builder::topic_admin::ListTopicSnapshots {
         super::builder::topic_admin::ListTopicSnapshots::new(self.inner.clone())
     }
@@ -159,6 +240,22 @@ impl TopicAdmin {
     /// the same name; this is an entirely new topic with none of the old
     /// configuration or subscriptions. Existing subscriptions to this topic are
     /// not deleted, but their `topic` field is set to `_deleted-topic_`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_topic()
+    ///         .set_topic(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_topic(&self) -> super::builder::topic_admin::DeleteTopic {
         super::builder::topic_admin::DeleteTopic::new(self.inner.clone())
     }
@@ -167,6 +264,22 @@ impl TopicAdmin {
     /// subscription are dropped. Subsequent `Pull` and `StreamingPull` requests
     /// will return FAILED_PRECONDITION. If the subscription is a push
     /// subscription, pushes to the endpoint will stop.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::TopicAdmin;
+    /// async fn sample(
+    ///    client: &TopicAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .detach_subscription()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn detach_subscription(&self) -> super::builder::topic_admin::DetachSubscription {
         super::builder::topic_admin::DetachSubscription::new(self.inner.clone())
     }
@@ -288,11 +401,44 @@ impl SubscriptionAdmin {
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>). The
     /// generated name is populated in the returned Subscription object. Note that
     /// for REST API requests, you must specify a name in the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_subscription()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_subscription(&self) -> super::builder::subscription_admin::CreateSubscription {
         super::builder::subscription_admin::CreateSubscription::new(self.inner.clone())
     }
 
     /// Gets the configuration details of a subscription.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_subscription()
+    ///         .set_subscription(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_subscription(&self) -> super::builder::subscription_admin::GetSubscription {
         super::builder::subscription_admin::GetSubscription::new(self.inner.clone())
     }
@@ -300,6 +446,22 @@ impl SubscriptionAdmin {
     /// Updates an existing subscription by updating the fields specified in the
     /// update mask. Note that certain properties of a subscription, such as its
     /// topic, are not modifiable.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_subscription()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_subscription(&self) -> super::builder::subscription_admin::UpdateSubscription {
         super::builder::subscription_admin::UpdateSubscription::new(self.inner.clone())
     }
@@ -314,6 +476,22 @@ impl SubscriptionAdmin {
     /// `NOT_FOUND`. After a subscription is deleted, a new one may be created with
     /// the same name, but the new one has no association with the old
     /// subscription or its topic unless the same topic is specified.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_subscription()
+    ///         .set_subscription(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_subscription(&self) -> super::builder::subscription_admin::DeleteSubscription {
         super::builder::subscription_admin::DeleteSubscription::new(self.inner.clone())
     }
@@ -324,6 +502,21 @@ impl SubscriptionAdmin {
     /// an empty `PushConfig`) or vice versa, or change the endpoint URL and other
     /// attributes of a push subscription. Messages will accumulate for delivery
     /// continuously through the call regardless of changes to the `PushConfig`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .modify_push_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn modify_push_config(&self) -> super::builder::subscription_admin::ModifyPushConfig {
         super::builder::subscription_admin::ModifyPushConfig::new(self.inner.clone())
     }
@@ -333,6 +526,23 @@ impl SubscriptionAdmin {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_snapshot()
+    ///         .set_snapshot(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_snapshot(&self) -> super::builder::subscription_admin::GetSnapshot {
         super::builder::subscription_admin::GetSnapshot::new(self.inner.clone())
     }
@@ -362,6 +572,22 @@ impl SubscriptionAdmin {
     /// (<https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names>). The
     /// generated name is populated in the returned Snapshot object. Note that for
     /// REST API requests, you must specify a name in the request.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_snapshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_snapshot(&self) -> super::builder::subscription_admin::CreateSnapshot {
         super::builder::subscription_admin::CreateSnapshot::new(self.inner.clone())
     }
@@ -372,6 +598,22 @@ impl SubscriptionAdmin {
     /// which allow you to manage message acknowledgments in bulk. That is, you can
     /// set the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_snapshot()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_snapshot(&self) -> super::builder::subscription_admin::UpdateSnapshot {
         super::builder::subscription_admin::UpdateSnapshot::new(self.inner.clone())
     }
@@ -385,6 +627,22 @@ impl SubscriptionAdmin {
     /// are immediately dropped. After a snapshot is deleted, a new one may be
     /// created with the same name, but the new one has no association with the old
     /// snapshot or its subscription, unless the same subscription is specified.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_snapshot()
+    ///         .set_snapshot(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_snapshot(&self) -> super::builder::subscription_admin::DeleteSnapshot {
         super::builder::subscription_admin::DeleteSnapshot::new(self.inner.clone())
     }
@@ -396,6 +654,22 @@ impl SubscriptionAdmin {
     /// the acknowledgment state of messages in an existing subscription to the
     /// state captured by a snapshot. Note that both the subscription and the
     /// snapshot must be on the same topic.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SubscriptionAdmin;
+    /// async fn sample(
+    ///    client: &SubscriptionAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .seek()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn seek(&self) -> super::builder::subscription_admin::Seek {
         super::builder::subscription_admin::Seek::new(self.inner.clone())
     }
@@ -504,11 +778,44 @@ impl SchemaService {
     }
 
     /// Creates a schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_schema(&self) -> super::builder::schema_service::CreateSchema {
         super::builder::schema_service::CreateSchema::new(self.inner.clone())
     }
 
     /// Gets a schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_schema(&self) -> super::builder::schema_service::GetSchema {
         super::builder::schema_service::GetSchema::new(self.inner.clone())
     }
@@ -524,31 +831,126 @@ impl SchemaService {
     }
 
     /// Commits a new schema revision to an existing schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .commit_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn commit_schema(&self) -> super::builder::schema_service::CommitSchema {
         super::builder::schema_service::CommitSchema::new(self.inner.clone())
     }
 
     /// Creates a new schema revision that is a copy of the provided revision_id.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rollback_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback_schema(&self) -> super::builder::schema_service::RollbackSchema {
         super::builder::schema_service::RollbackSchema::new(self.inner.clone())
     }
 
     /// Deletes a specific schema revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_schema_revision()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_schema_revision(&self) -> super::builder::schema_service::DeleteSchemaRevision {
         super::builder::schema_service::DeleteSchemaRevision::new(self.inner.clone())
     }
 
     /// Deletes a schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_schema(&self) -> super::builder::schema_service::DeleteSchema {
         super::builder::schema_service::DeleteSchema::new(self.inner.clone())
     }
 
     /// Validates a schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .validate_schema()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_schema(&self) -> super::builder::schema_service::ValidateSchema {
         super::builder::schema_service::ValidateSchema::new(self.inner.clone())
     }
 
     /// Validates a message against a schema.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .validate_message()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn validate_message(&self) -> super::builder::schema_service::ValidateMessage {
         super::builder::schema_service::ValidateMessage::new(self.inner.clone())
     }
@@ -558,12 +960,44 @@ impl SchemaService {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::schema_service::SetIamPolicy {
         super::builder::schema_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::schema_service::GetIamPolicy {
         super::builder::schema_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -575,6 +1009,22 @@ impl SchemaService {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::schema_service::TestIamPermissions {
         super::builder::schema_service::TestIamPermissions::new(self.inner.clone())
     }

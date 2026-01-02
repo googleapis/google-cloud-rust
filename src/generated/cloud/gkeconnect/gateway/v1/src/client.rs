@@ -120,6 +120,22 @@ impl GatewayControl {
 
     /// GenerateCredentials provides connection information that allows a user to
     /// access the specified membership using Connect Gateway.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::client::GatewayControl;
+    /// async fn sample(
+    ///    client: &GatewayControl
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_credentials()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_credentials(&self) -> super::builder::gateway_control::GenerateCredentials {
         super::builder::gateway_control::GenerateCredentials::new(self.inner.clone())
     }

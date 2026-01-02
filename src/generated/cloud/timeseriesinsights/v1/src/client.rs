@@ -140,6 +140,22 @@ impl TimeseriesInsightsController {
     /// might result.  For more information, see [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_data_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_data_set(&self) -> super::builder::timeseries_insights_controller::CreateDataSet {
         super::builder::timeseries_insights_controller::CreateDataSet::new(self.inner.clone())
     }
@@ -150,6 +166,21 @@ impl TimeseriesInsightsController {
     /// processed, it will be aborted and deleted.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_data_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_data_set(&self) -> super::builder::timeseries_insights_controller::DeleteDataSet {
         super::builder::timeseries_insights_controller::DeleteDataSet::new(self.inner.clone())
     }
@@ -157,6 +188,22 @@ impl TimeseriesInsightsController {
     /// Append events to a `LOADED` [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .append_events()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn append_events(&self) -> super::builder::timeseries_insights_controller::AppendEvents {
         super::builder::timeseries_insights_controller::AppendEvents::new(self.inner.clone())
     }
@@ -165,6 +212,22 @@ impl TimeseriesInsightsController {
     /// [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .query_data_set()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn query_data_set(&self) -> super::builder::timeseries_insights_controller::QueryDataSet {
         super::builder::timeseries_insights_controller::QueryDataSet::new(self.inner.clone())
     }
@@ -172,11 +235,43 @@ impl TimeseriesInsightsController {
     /// Evaluate an explicit slice from a loaded [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .evaluate_slice()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evaluate_slice(&self) -> super::builder::timeseries_insights_controller::EvaluateSlice {
         super::builder::timeseries_insights_controller::EvaluateSlice::new(self.inner.clone())
     }
 
     /// Evaluate an explicit timeseries.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::client::TimeseriesInsightsController;
+    /// async fn sample(
+    ///    client: &TimeseriesInsightsController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .evaluate_timeseries()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn evaluate_timeseries(
         &self,
     ) -> super::builder::timeseries_insights_controller::EvaluateTimeseries {

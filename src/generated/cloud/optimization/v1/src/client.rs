@@ -148,6 +148,22 @@ impl FleetRouting {
     /// The goal is to provide an assignment of `ShipmentRoute`s to `Vehicle`s that
     /// minimizes the total cost where cost has many components defined in the
     /// `ShipmentModel`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// async fn sample(
+    ///    client: &FleetRouting
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .optimize_tours()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn optimize_tours(&self) -> super::builder::fleet_routing::OptimizeTours {
         super::builder::fleet_routing::OptimizeTours::new(self.inner.clone())
     }
@@ -179,6 +195,22 @@ impl FleetRouting {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_optimization_v1::client::FleetRouting;
+    /// async fn sample(
+    ///    client: &FleetRouting
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::fleet_routing::GetOperation {
         super::builder::fleet_routing::GetOperation::new(self.inner.clone())
     }

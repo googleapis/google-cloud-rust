@@ -147,6 +147,23 @@ impl DataprocMetastore {
     }
 
     /// Gets the details of a single service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::dataproc_metastore::GetService {
         super::builder::dataproc_metastore::GetService::new(self.inner.clone())
     }
@@ -202,6 +219,23 @@ impl DataprocMetastore {
     }
 
     /// Gets details of a single import.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metadata_import()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metadata_import(&self) -> super::builder::dataproc_metastore::GetMetadataImport {
         super::builder::dataproc_metastore::GetMetadataImport::new(self.inner.clone())
     }
@@ -277,6 +311,23 @@ impl DataprocMetastore {
     }
 
     /// Gets details of a single backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::dataproc_metastore::GetBackup {
         super::builder::dataproc_metastore::GetBackup::new(self.inner.clone())
     }
@@ -369,6 +420,22 @@ impl DataprocMetastore {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dataproc_metastore::GetLocation {
         super::builder::dataproc_metastore::GetLocation::new(self.inner.clone())
     }
@@ -378,12 +445,44 @@ impl DataprocMetastore {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dataproc_metastore::SetIamPolicy {
         super::builder::dataproc_metastore::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dataproc_metastore::GetIamPolicy {
         super::builder::dataproc_metastore::GetIamPolicy::new(self.inner.clone())
     }
@@ -395,6 +494,22 @@ impl DataprocMetastore {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::dataproc_metastore::TestIamPermissions {
         super::builder::dataproc_metastore::TestIamPermissions::new(self.inner.clone())
     }
@@ -409,6 +524,22 @@ impl DataprocMetastore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dataproc_metastore::GetOperation {
         super::builder::dataproc_metastore::GetOperation::new(self.inner.clone())
     }
@@ -416,6 +547,21 @@ impl DataprocMetastore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::dataproc_metastore::DeleteOperation {
         super::builder::dataproc_metastore::DeleteOperation::new(self.inner.clone())
     }
@@ -423,6 +569,21 @@ impl DataprocMetastore {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastore;
+    /// async fn sample(
+    ///    client: &DataprocMetastore
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::dataproc_metastore::CancelOperation {
         super::builder::dataproc_metastore::CancelOperation::new(self.inner.clone())
     }
@@ -555,6 +716,23 @@ impl DataprocMetastoreFederation {
     }
 
     /// Gets the details of a single federation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_federation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_federation(&self) -> super::builder::dataproc_metastore_federation::GetFederation {
         super::builder::dataproc_metastore_federation::GetFederation::new(self.inner.clone())
     }
@@ -616,6 +794,22 @@ impl DataprocMetastoreFederation {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::dataproc_metastore_federation::GetLocation {
         super::builder::dataproc_metastore_federation::GetLocation::new(self.inner.clone())
     }
@@ -625,12 +819,44 @@ impl DataprocMetastoreFederation {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::dataproc_metastore_federation::SetIamPolicy {
         super::builder::dataproc_metastore_federation::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::dataproc_metastore_federation::GetIamPolicy {
         super::builder::dataproc_metastore_federation::GetIamPolicy::new(self.inner.clone())
     }
@@ -642,6 +868,22 @@ impl DataprocMetastoreFederation {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::dataproc_metastore_federation::TestIamPermissions {
@@ -658,6 +900,22 @@ impl DataprocMetastoreFederation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::dataproc_metastore_federation::GetOperation {
         super::builder::dataproc_metastore_federation::GetOperation::new(self.inner.clone())
     }
@@ -665,6 +923,21 @@ impl DataprocMetastoreFederation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(
         &self,
     ) -> super::builder::dataproc_metastore_federation::DeleteOperation {
@@ -674,6 +947,21 @@ impl DataprocMetastoreFederation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
+    /// async fn sample(
+    ///    client: &DataprocMetastoreFederation
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::dataproc_metastore_federation::CancelOperation {

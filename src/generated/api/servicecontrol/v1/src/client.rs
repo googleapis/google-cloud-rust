@@ -135,6 +135,22 @@ impl QuotaController {
     /// `UNKNOWN`, `DEADLINE_EXCEEDED`, and `UNAVAILABLE`. To ensure system
     /// reliability, the server may inject these errors to prohibit any hard
     /// dependency on the quota functionality.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::client::QuotaController;
+    /// async fn sample(
+    ///    client: &QuotaController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .allocate_quota()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn allocate_quota(&self) -> super::builder::quota_controller::AllocateQuota {
         super::builder::quota_controller::AllocateQuota::new(self.inner.clone())
     }
@@ -267,6 +283,22 @@ impl ServiceController {
     /// [Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.CheckRequest]: crate::model::CheckRequest
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
+    /// async fn sample(
+    ///    client: &ServiceController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check(&self) -> super::builder::service_controller::Check {
         super::builder::service_controller::Check::new(self.inner.clone())
     }
@@ -288,6 +320,22 @@ impl ServiceController {
     /// [Google Cloud IAM](https://cloud.google.com/iam).
     ///
     /// [google.api.servicecontrol.v1.ReportRequest]: crate::model::ReportRequest
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::client::ServiceController;
+    /// async fn sample(
+    ///    client: &ServiceController
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .report()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn report(&self) -> super::builder::service_controller::Report {
         super::builder::service_controller::Report::new(self.inner.clone())
     }

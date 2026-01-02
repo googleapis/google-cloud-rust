@@ -129,6 +129,22 @@ impl PublicCertificateAuthorityService {
     /// bound to the project.
     ///
     /// [google.cloud.security.publicca.v1.ExternalAccountKey]: crate::model::ExternalAccountKey
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
+    /// async fn sample(
+    ///    client: &PublicCertificateAuthorityService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_external_account_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_external_account_key(
         &self,
     ) -> super::builder::public_certificate_authority_service::CreateExternalAccountKey {

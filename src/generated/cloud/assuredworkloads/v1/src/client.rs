@@ -141,6 +141,22 @@ impl AssuredWorkloadsService {
     /// Currently allows updating of workload display_name and labels.
     /// For force updates don't set etag field in the Workload.
     /// Only one update operation per workload can be in progress.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_workload()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_workload(&self) -> super::builder::assured_workloads_service::UpdateWorkload {
         super::builder::assured_workloads_service::UpdateWorkload::new(self.inner.clone())
     }
@@ -151,6 +167,22 @@ impl AssuredWorkloadsService {
     /// In addition to assuredworkloads.workload.update permission, the user should
     /// also have orgpolicy.policy.set permission on the folder resource
     /// to use this functionality.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .restrict_allowed_resources()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn restrict_allowed_resources(
         &self,
     ) -> super::builder::assured_workloads_service::RestrictAllowedResources {
@@ -160,11 +192,43 @@ impl AssuredWorkloadsService {
     /// Deletes the workload. Make sure that workload's direct children are already
     /// in a deleted state, otherwise the request will fail with a
     /// FAILED_PRECONDITION error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_workload()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_workload(&self) -> super::builder::assured_workloads_service::DeleteWorkload {
         super::builder::assured_workloads_service::DeleteWorkload::new(self.inner.clone())
     }
 
     /// Gets Assured Workload associated with a CRM Node
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workload()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workload(&self) -> super::builder::assured_workloads_service::GetWorkload {
         super::builder::assured_workloads_service::GetWorkload::new(self.inner.clone())
     }
@@ -184,6 +248,22 @@ impl AssuredWorkloadsService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
+    /// async fn sample(
+    ///    client: &AssuredWorkloadsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::assured_workloads_service::GetOperation {
         super::builder::assured_workloads_service::GetOperation::new(self.inner.clone())
     }

@@ -124,6 +124,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single Source.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_source(&self) -> super::builder::vm_migration::GetSource {
         super::builder::vm_migration::GetSource::new(self.inner.clone())
     }
@@ -178,6 +195,22 @@ impl VmMigration {
     /// Compute Engine). The inventory describes the list of existing VMs in that
     /// source. Note that this operation lists the VMs on the remote source, as
     /// opposed to listing the MigratingVms resources in the vmmigration service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_inventory()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_inventory(&self) -> super::builder::vm_migration::FetchInventory {
         super::builder::vm_migration::FetchInventory::new(self.inner.clone())
     }
@@ -198,6 +231,23 @@ impl VmMigration {
     }
 
     /// Gets a single Utilization Report.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_utilization_report()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_utilization_report(&self) -> super::builder::vm_migration::GetUtilizationReport {
         super::builder::vm_migration::GetUtilizationReport::new(self.inner.clone())
     }
@@ -244,6 +294,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single DatacenterConnector.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_datacenter_connector()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_datacenter_connector(&self) -> super::builder::vm_migration::GetDatacenterConnector {
         super::builder::vm_migration::GetDatacenterConnector::new(self.inner.clone())
     }
@@ -319,6 +386,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single MigratingVm.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_migrating_vm()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_migrating_vm(&self) -> super::builder::vm_migration::GetMigratingVm {
         super::builder::vm_migration::GetMigratingVm::new(self.inner.clone())
     }
@@ -472,6 +556,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single CloneJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_clone_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_clone_job(&self) -> super::builder::vm_migration::GetCloneJob {
         super::builder::vm_migration::GetCloneJob::new(self.inner.clone())
     }
@@ -515,6 +616,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single CutoverJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cutover_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cutover_job(&self) -> super::builder::vm_migration::GetCutoverJob {
         super::builder::vm_migration::GetCutoverJob::new(self.inner.clone())
     }
@@ -525,6 +643,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single Group.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_group()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_group(&self) -> super::builder::vm_migration::GetGroup {
         super::builder::vm_migration::GetGroup::new(self.inner.clone())
     }
@@ -616,6 +751,23 @@ impl VmMigration {
     ///
     /// NOTE: TargetProject is a global resource; hence the only supported value
     /// for location is `global`.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_target_project()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_target_project(&self) -> super::builder::vm_migration::GetTargetProject {
         super::builder::vm_migration::GetTargetProject::new(self.inner.clone())
     }
@@ -680,6 +832,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single ReplicationCycle.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_replication_cycle()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_replication_cycle(&self) -> super::builder::vm_migration::GetReplicationCycle {
         super::builder::vm_migration::GetReplicationCycle::new(self.inner.clone())
     }
@@ -690,6 +859,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single ImageImport.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_image_import()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_image_import(&self) -> super::builder::vm_migration::GetImageImport {
         super::builder::vm_migration::GetImageImport::new(self.inner.clone())
     }
@@ -730,6 +916,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single ImageImportJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_image_import_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_image_import_job(&self) -> super::builder::vm_migration::GetImageImportJob {
         super::builder::vm_migration::GetImageImportJob::new(self.inner.clone())
     }
@@ -772,6 +975,23 @@ impl VmMigration {
     }
 
     /// Gets details of a single DiskMigrationJob.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_disk_migration_job()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_disk_migration_job(&self) -> super::builder::vm_migration::GetDiskMigrationJob {
         super::builder::vm_migration::GetDiskMigrationJob::new(self.inner.clone())
     }
@@ -848,6 +1068,22 @@ impl VmMigration {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::vm_migration::GetLocation {
         super::builder::vm_migration::GetLocation::new(self.inner.clone())
     }
@@ -862,6 +1098,22 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::vm_migration::GetOperation {
         super::builder::vm_migration::GetOperation::new(self.inner.clone())
     }
@@ -869,6 +1121,21 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::vm_migration::DeleteOperation {
         super::builder::vm_migration::DeleteOperation::new(self.inner.clone())
     }
@@ -876,6 +1143,21 @@ impl VmMigration {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_vmmigration_v1::client::VmMigration;
+    /// async fn sample(
+    ///    client: &VmMigration
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::vm_migration::CancelOperation {
         super::builder::vm_migration::CancelOperation::new(self.inner.clone())
     }

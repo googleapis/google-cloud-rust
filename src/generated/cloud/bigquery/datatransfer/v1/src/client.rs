@@ -122,6 +122,23 @@ impl DataTransferService {
     }
 
     /// Retrieves a supported data source and returns its settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_source(&self) -> super::builder::data_transfer_service::GetDataSource {
         super::builder::data_transfer_service::GetDataSource::new(self.inner.clone())
     }
@@ -132,6 +149,22 @@ impl DataTransferService {
     }
 
     /// Creates a new data transfer configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_transfer_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::CreateTransferConfig {
@@ -140,6 +173,22 @@ impl DataTransferService {
 
     /// Updates a data transfer configuration.
     /// All fields must be set, even if they are not updated.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_transfer_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::UpdateTransferConfig {
@@ -148,6 +197,21 @@ impl DataTransferService {
 
     /// Deletes a data transfer configuration, including any associated transfer
     /// runs and logs.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_transfer_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_transfer_config(
         &self,
     ) -> super::builder::data_transfer_service::DeleteTransferConfig {
@@ -155,6 +219,23 @@ impl DataTransferService {
     }
 
     /// Returns information about a data transfer config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_transfer_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_transfer_config(&self) -> super::builder::data_transfer_service::GetTransferConfig {
         super::builder::data_transfer_service::GetTransferConfig::new(self.inner.clone())
     }
@@ -172,6 +253,22 @@ impl DataTransferService {
     /// range, one transfer run is created.
     /// Note that runs are created per UTC time in the time range.
     /// DEPRECATED: use StartManualTransferRuns instead.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .schedule_transfer_runs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn schedule_transfer_runs(
         &self,
@@ -183,6 +280,22 @@ impl DataTransferService {
     /// current time. The transfer runs can be created for a time range where the
     /// run_time is between start_time (inclusive) and end_time (exclusive), or for
     /// a specific run_time.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .start_manual_transfer_runs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_manual_transfer_runs(
         &self,
     ) -> super::builder::data_transfer_service::StartManualTransferRuns {
@@ -190,11 +303,43 @@ impl DataTransferService {
     }
 
     /// Returns information about the particular transfer run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_transfer_run()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_transfer_run(&self) -> super::builder::data_transfer_service::GetTransferRun {
         super::builder::data_transfer_service::GetTransferRun::new(self.inner.clone())
     }
 
     /// Deletes the specified transfer run.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_transfer_run()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_transfer_run(&self) -> super::builder::data_transfer_service::DeleteTransferRun {
         super::builder::data_transfer_service::DeleteTransferRun::new(self.inner.clone())
     }
@@ -211,6 +356,22 @@ impl DataTransferService {
 
     /// Returns true if valid credentials exist for the given data source and
     /// requesting user.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_valid_creds()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_valid_creds(&self) -> super::builder::data_transfer_service::CheckValidCreds {
         super::builder::data_transfer_service::CheckValidCreds::new(self.inner.clone())
     }
@@ -223,6 +384,21 @@ impl DataTransferService {
     /// [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
     /// [Data Transfer
     /// Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .enroll_data_sources()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enroll_data_sources(&self) -> super::builder::data_transfer_service::EnrollDataSources {
         super::builder::data_transfer_service::EnrollDataSources::new(self.inner.clone())
     }
@@ -232,6 +408,21 @@ impl DataTransferService {
     /// in the ListDataSources RPC and will also no longer appear in the [BigQuery
     /// UI](https://console.cloud.google.com/bigquery). Data transfers
     /// configurations of unenrolled data sources will not be scheduled.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .unenroll_data_sources()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn unenroll_data_sources(
         &self,
     ) -> super::builder::data_transfer_service::UnenrollDataSources {
@@ -244,6 +435,22 @@ impl DataTransferService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_bigquery_datatransfer_v1::client::DataTransferService;
+    /// async fn sample(
+    ///    client: &DataTransferService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::data_transfer_service::GetLocation {
         super::builder::data_transfer_service::GetLocation::new(self.inner.clone())
     }

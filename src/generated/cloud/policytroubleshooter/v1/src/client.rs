@@ -123,6 +123,22 @@ impl IamChecker {
     /// Checks whether a principal has a specific permission for a specific
     /// resource, and explains why the principal does or does not have that
     /// permission.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
+    /// async fn sample(
+    ///    client: &IamChecker
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .troubleshoot_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn troubleshoot_iam_policy(&self) -> super::builder::iam_checker::TroubleshootIamPolicy {
         super::builder::iam_checker::TroubleshootIamPolicy::new(self.inner.clone())
     }

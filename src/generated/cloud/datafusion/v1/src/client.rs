@@ -132,6 +132,23 @@ impl DataFusion {
     }
 
     /// Gets details of a single Data Fusion instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// async fn sample(
+    ///    client: &DataFusion,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::data_fusion::GetInstance {
         super::builder::data_fusion::GetInstance::new(self.inner.clone())
     }
@@ -207,6 +224,22 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_fusion::GetOperation {
         super::builder::data_fusion::GetOperation::new(self.inner.clone())
     }
@@ -214,6 +247,21 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::data_fusion::DeleteOperation {
         super::builder::data_fusion::DeleteOperation::new(self.inner.clone())
     }
@@ -221,6 +269,21 @@ impl DataFusion {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datafusion_v1::client::DataFusion;
+    /// async fn sample(
+    ///    client: &DataFusion
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_fusion::CancelOperation {
         super::builder::data_fusion::CancelOperation::new(self.inner.clone())
     }

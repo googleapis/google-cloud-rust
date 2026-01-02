@@ -130,6 +130,22 @@ impl ServiceManager {
 
     /// Gets a managed service. Authentication is required unless the service is
     /// public.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service(&self) -> super::builder::service_manager::GetService {
         super::builder::service_manager::GetService::new(self.inner.clone())
     }
@@ -210,6 +226,22 @@ impl ServiceManager {
     }
 
     /// Gets a service configuration (version) for a managed service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_config(&self) -> super::builder::service_manager::GetServiceConfig {
         super::builder::service_manager::GetServiceConfig::new(self.inner.clone())
     }
@@ -224,6 +256,22 @@ impl ServiceManager {
     /// eventually.
     ///
     /// [google.api.servicemanagement.v1.ServiceManager.CreateServiceRollout]: crate::client::ServiceManager::create_service_rollout
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_service_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_service_config(&self) -> super::builder::service_manager::CreateServiceConfig {
         super::builder::service_manager::CreateServiceConfig::new(self.inner.clone())
     }
@@ -268,6 +316,22 @@ impl ServiceManager {
     /// [rollout][google.api.servicemanagement.v1.Rollout].
     ///
     /// [google.api.servicemanagement.v1.Rollout]: crate::model::Rollout
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_service_rollout()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_service_rollout(&self) -> super::builder::service_manager::GetServiceRollout {
         super::builder::service_manager::GetServiceRollout::new(self.inner.clone())
     }
@@ -311,6 +375,22 @@ impl ServiceManager {
     /// If GenerateConfigReportRequest.old_value is not specified, this method
     /// will compare GenerateConfigReportRequest.new_value with the last pushed
     /// service configuration.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_config_report()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_config_report(&self) -> super::builder::service_manager::GenerateConfigReport {
         super::builder::service_manager::GenerateConfigReport::new(self.inner.clone())
     }
@@ -320,12 +400,44 @@ impl ServiceManager {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::service_manager::SetIamPolicy {
         super::builder::service_manager::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::service_manager::GetIamPolicy {
         super::builder::service_manager::GetIamPolicy::new(self.inner.clone())
     }
@@ -337,6 +449,22 @@ impl ServiceManager {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::service_manager::TestIamPermissions {
         super::builder::service_manager::TestIamPermissions::new(self.inner.clone())
     }
@@ -349,6 +477,22 @@ impl ServiceManager {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
+    /// async fn sample(
+    ///    client: &ServiceManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::service_manager::GetOperation {
         super::builder::service_manager::GetOperation::new(self.inner.clone())
     }

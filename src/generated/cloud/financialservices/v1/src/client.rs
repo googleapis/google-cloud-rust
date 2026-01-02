@@ -125,6 +125,23 @@ impl Aml {
     }
 
     /// Gets an instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::aml::GetInstance {
         super::builder::aml::GetInstance::new(self.inner.clone())
     }
@@ -216,6 +233,23 @@ impl Aml {
     }
 
     /// Gets a dataset.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_dataset()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_dataset(&self) -> super::builder::aml::GetDataset {
         super::builder::aml::GetDataset::new(self.inner.clone())
     }
@@ -271,6 +305,23 @@ impl Aml {
     }
 
     /// Gets a model.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_model()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_model(&self) -> super::builder::aml::GetModel {
         super::builder::aml::GetModel::new(self.inner.clone())
     }
@@ -344,6 +395,23 @@ impl Aml {
     }
 
     /// Gets an engine config.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_engine_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_engine_config(&self) -> super::builder::aml::GetEngineConfig {
         super::builder::aml::GetEngineConfig::new(self.inner.clone())
     }
@@ -412,6 +480,23 @@ impl Aml {
     }
 
     /// Gets a single EngineVersion.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_engine_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_engine_version(&self) -> super::builder::aml::GetEngineVersion {
         super::builder::aml::GetEngineVersion::new(self.inner.clone())
     }
@@ -427,6 +512,23 @@ impl Aml {
     }
 
     /// Gets a PredictionResult.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_prediction_result()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_prediction_result(&self) -> super::builder::aml::GetPredictionResult {
         super::builder::aml::GetPredictionResult::new(self.inner.clone())
     }
@@ -502,6 +604,23 @@ impl Aml {
     }
 
     /// Gets a BacktestResult.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backtest_result()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backtest_result(&self) -> super::builder::aml::GetBacktestResult {
         super::builder::aml::GetBacktestResult::new(self.inner.clone())
     }
@@ -577,6 +696,22 @@ impl Aml {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::aml::GetLocation {
         super::builder::aml::GetLocation::new(self.inner.clone())
     }
@@ -591,6 +726,22 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::aml::GetOperation {
         super::builder::aml::GetOperation::new(self.inner.clone())
     }
@@ -598,6 +749,21 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::aml::DeleteOperation {
         super::builder::aml::DeleteOperation::new(self.inner.clone())
     }
@@ -605,6 +771,21 @@ impl Aml {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_financialservices_v1::client::Aml;
+    /// async fn sample(
+    ///    client: &Aml
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::aml::CancelOperation {
         super::builder::aml::CancelOperation::new(self.inner.clone())
     }

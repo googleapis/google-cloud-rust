@@ -68,6 +68,22 @@ impl Publisher {
 
     /// Adds one or more messages to the topic. Returns `NOT_FOUND` if the topic
     /// does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// async fn sample(
+    ///    client: &Publisher
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .publish()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn publish(&self) -> super::builder::publisher::Publish {
         super::builder::publisher::Publish::new(self.inner.clone())
     }
@@ -128,6 +144,21 @@ impl Subscriber {
     /// subscriber, or to make the message available for redelivery if the
     /// processing was interrupted. Note that this does not modify the
     /// subscription-level `ackDeadlineSeconds` used for subsequent messages.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// async fn sample(
+    ///    client: &Subscriber
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .modify_ack_deadline()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn modify_ack_deadline(&self) -> super::builder::subscriber::ModifyAckDeadline {
         super::builder::subscriber::ModifyAckDeadline::new(self.inner.clone())
     }
@@ -139,6 +170,21 @@ impl Subscriber {
     /// Acknowledging a message whose ack deadline has expired may succeed,
     /// but such a message may be redelivered later. Acknowledging a message more
     /// than once will not result in an error.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// async fn sample(
+    ///    client: &Subscriber
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .acknowledge()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn acknowledge(&self) -> super::builder::subscriber::Acknowledge {
         super::builder::subscriber::Acknowledge::new(self.inner.clone())
     }

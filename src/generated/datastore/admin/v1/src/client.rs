@@ -266,6 +266,22 @@ impl DatastoreAdmin {
     }
 
     /// Gets an index.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_index()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_index(&self) -> super::builder::datastore_admin::GetIndex {
         super::builder::datastore_admin::GetIndex::new(self.inner.clone())
     }
@@ -287,6 +303,22 @@ impl DatastoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::datastore_admin::GetOperation {
         super::builder::datastore_admin::GetOperation::new(self.inner.clone())
     }
@@ -294,6 +326,21 @@ impl DatastoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::datastore_admin::DeleteOperation {
         super::builder::datastore_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -301,6 +348,21 @@ impl DatastoreAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_datastore_admin_v1::client::DatastoreAdmin;
+    /// async fn sample(
+    ///    client: &DatastoreAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::datastore_admin::CancelOperation {
         super::builder::datastore_admin::CancelOperation::new(self.inner.clone())
     }

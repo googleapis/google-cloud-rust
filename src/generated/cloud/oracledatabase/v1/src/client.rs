@@ -126,6 +126,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single Exadata Infrastructure.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cloud_exadata_infrastructure()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_exadata_infrastructure(
         &self,
     ) -> super::builder::oracle_database::GetCloudExadataInfrastructure {
@@ -172,6 +189,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single VM Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cloud_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cloud_vm_cluster(&self) -> super::builder::oracle_database::GetCloudVmCluster {
         super::builder::oracle_database::GetCloudVmCluster::new(self.inner.clone())
     }
@@ -246,6 +280,23 @@ impl OracleDatabase {
     }
 
     /// Gets the details of a single Autonomous Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_autonomous_database()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_autonomous_database(
         &self,
     ) -> super::builder::oracle_database::GetAutonomousDatabase {
@@ -321,6 +372,22 @@ impl OracleDatabase {
     }
 
     /// Generates a wallet for an Autonomous Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_autonomous_database_wallet()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_autonomous_database_wallet(
         &self,
     ) -> super::builder::oracle_database::GenerateAutonomousDatabaseWallet {
@@ -444,6 +511,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single ODB Network.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_odb_network()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_odb_network(&self) -> super::builder::oracle_database::GetOdbNetwork {
         super::builder::oracle_database::GetOdbNetwork::new(self.inner.clone())
     }
@@ -484,6 +568,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single ODB Subnet.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_odb_subnet()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_odb_subnet(&self) -> super::builder::oracle_database::GetOdbSubnet {
         super::builder::oracle_database::GetOdbSubnet::new(self.inner.clone())
     }
@@ -525,6 +626,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single Exadb (Exascale) VM Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_exadb_vm_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_exadb_vm_cluster(&self) -> super::builder::oracle_database::GetExadbVmCluster {
         super::builder::oracle_database::GetExadbVmCluster::new(self.inner.clone())
     }
@@ -601,6 +719,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single ExascaleDB Storage Vault.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_exascale_db_storage_vault()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_exascale_db_storage_vault(
         &self,
     ) -> super::builder::oracle_database::GetExascaleDbStorageVault {
@@ -655,6 +790,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single Database.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_database()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_database(&self) -> super::builder::oracle_database::GetDatabase {
         super::builder::oracle_database::GetDatabase::new(self.inner.clone())
     }
@@ -668,6 +820,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single PluggableDatabase.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_pluggable_database()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_pluggable_database(&self) -> super::builder::oracle_database::GetPluggableDatabase {
         super::builder::oracle_database::GetPluggableDatabase::new(self.inner.clone())
     }
@@ -678,6 +847,23 @@ impl OracleDatabase {
     }
 
     /// Gets details of a single DbSystem.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_db_system()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_db_system(&self) -> super::builder::oracle_database::GetDbSystem {
         super::builder::oracle_database::GetDbSystem::new(self.inner.clone())
     }
@@ -730,6 +916,22 @@ impl OracleDatabase {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::oracle_database::GetLocation {
         super::builder::oracle_database::GetLocation::new(self.inner.clone())
     }
@@ -744,6 +946,22 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::oracle_database::GetOperation {
         super::builder::oracle_database::GetOperation::new(self.inner.clone())
     }
@@ -751,6 +969,21 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::oracle_database::DeleteOperation {
         super::builder::oracle_database::DeleteOperation::new(self.inner.clone())
     }
@@ -758,6 +991,21 @@ impl OracleDatabase {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
+    /// async fn sample(
+    ///    client: &OracleDatabase
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::oracle_database::CancelOperation {
         super::builder::oracle_database::CancelOperation::new(self.inner.clone())
     }

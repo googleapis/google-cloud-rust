@@ -124,6 +124,23 @@ impl ServiceHealth {
     }
 
     /// Retrieves a resource containing information about an event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
+    /// async fn sample(
+    ///    client: &ServiceHealth,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_event()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_event(&self) -> super::builder::service_health::GetEvent {
         super::builder::service_health::GetEvent::new(self.inner.clone())
     }
@@ -137,6 +154,23 @@ impl ServiceHealth {
 
     /// Retrieves a resource containing information about an event affecting an
     /// organization .
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
+    /// async fn sample(
+    ///    client: &ServiceHealth,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_organization_event()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_organization_event(&self) -> super::builder::service_health::GetOrganizationEvent {
         super::builder::service_health::GetOrganizationEvent::new(self.inner.clone())
     }
@@ -151,6 +185,23 @@ impl ServiceHealth {
 
     /// Retrieves a resource containing information about impact to an asset under
     /// an organization affected by a service health event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
+    /// async fn sample(
+    ///    client: &ServiceHealth,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_organization_impact()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_organization_impact(&self) -> super::builder::service_health::GetOrganizationImpact {
         super::builder::service_health::GetOrganizationImpact::new(self.inner.clone())
     }
@@ -161,6 +212,22 @@ impl ServiceHealth {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_servicehealth_v1::client::ServiceHealth;
+    /// async fn sample(
+    ///    client: &ServiceHealth
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::service_health::GetLocation {
         super::builder::service_health::GetLocation::new(self.inner.clone())
     }

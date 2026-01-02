@@ -124,41 +124,171 @@ impl ModelArmor {
     }
 
     /// Gets details of a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_template(&self) -> super::builder::model_armor::GetTemplate {
         super::builder::model_armor::GetTemplate::new(self.inner.clone())
     }
 
     /// Creates a new Template in a given project and location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_template(&self) -> super::builder::model_armor::CreateTemplate {
         super::builder::model_armor::CreateTemplate::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_template()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_template(&self) -> super::builder::model_armor::UpdateTemplate {
         super::builder::model_armor::UpdateTemplate::new(self.inner.clone())
     }
 
     /// Deletes a single Template.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_template()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_template(&self) -> super::builder::model_armor::DeleteTemplate {
         super::builder::model_armor::DeleteTemplate::new(self.inner.clone())
     }
 
     /// Gets details of a single floor setting of a project
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_floor_setting()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_floor_setting(&self) -> super::builder::model_armor::GetFloorSetting {
         super::builder::model_armor::GetFloorSetting::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single floor setting of a project
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_floor_setting()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_floor_setting(&self) -> super::builder::model_armor::UpdateFloorSetting {
         super::builder::model_armor::UpdateFloorSetting::new(self.inner.clone())
     }
 
     /// Sanitizes User Prompt.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sanitize_user_prompt()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sanitize_user_prompt(&self) -> super::builder::model_armor::SanitizeUserPrompt {
         super::builder::model_armor::SanitizeUserPrompt::new(self.inner.clone())
     }
 
     /// Sanitizes Model Response.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .sanitize_model_response()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn sanitize_model_response(&self) -> super::builder::model_armor::SanitizeModelResponse {
         super::builder::model_armor::SanitizeModelResponse::new(self.inner.clone())
     }
@@ -169,6 +299,22 @@ impl ModelArmor {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_modelarmor_v1::client::ModelArmor;
+    /// async fn sample(
+    ///    client: &ModelArmor
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::model_armor::GetLocation {
         super::builder::model_armor::GetLocation::new(self.inner.clone())
     }

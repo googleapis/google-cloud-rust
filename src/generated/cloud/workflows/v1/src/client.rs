@@ -129,6 +129,23 @@ impl Workflows {
     }
 
     /// Gets details of a single workflow.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// async fn sample(
+    ///    client: &Workflows,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_workflow()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_workflow(&self) -> super::builder::workflows::GetWorkflow {
         super::builder::workflows::GetWorkflow::new(self.inner.clone())
     }
@@ -197,6 +214,22 @@ impl Workflows {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::workflows::GetLocation {
         super::builder::workflows::GetLocation::new(self.inner.clone())
     }
@@ -211,6 +244,22 @@ impl Workflows {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::workflows::GetOperation {
         super::builder::workflows::GetOperation::new(self.inner.clone())
     }
@@ -218,6 +267,21 @@ impl Workflows {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_workflows_v1::client::Workflows;
+    /// async fn sample(
+    ///    client: &Workflows
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::workflows::DeleteOperation {
         super::builder::workflows::DeleteOperation::new(self.inner.clone())
     }

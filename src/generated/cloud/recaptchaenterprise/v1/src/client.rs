@@ -123,6 +123,22 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Creates an Assessment of the likelihood an event is legitimate.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_assessment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_assessment(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::CreateAssessment {
@@ -131,6 +147,22 @@ impl RecaptchaEnterpriseService {
 
     /// Annotates a previously created Assessment to provide additional information
     /// on whether the event turned out to be authentic or fraudulent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .annotate_assessment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn annotate_assessment(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::AnnotateAssessment {
@@ -138,6 +170,22 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Creates a new reCAPTCHA Enterprise key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_key(&self) -> super::builder::recaptcha_enterprise_service::CreateKey {
         super::builder::recaptcha_enterprise_service::CreateKey::new(self.inner.clone())
     }
@@ -150,6 +198,22 @@ impl RecaptchaEnterpriseService {
     /// Returns the secret key related to the specified public key.
     /// You must use the legacy secret key only in a 3rd party integration with
     /// legacy reCAPTCHA.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .retrieve_legacy_secret_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn retrieve_legacy_secret_key(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey {
@@ -159,16 +223,65 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Returns the specified key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_key(&self) -> super::builder::recaptcha_enterprise_service::GetKey {
         super::builder::recaptcha_enterprise_service::GetKey::new(self.inner.clone())
     }
 
     /// Updates the specified key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_key(&self) -> super::builder::recaptcha_enterprise_service::UpdateKey {
         super::builder::recaptcha_enterprise_service::UpdateKey::new(self.inner.clone())
     }
 
     /// Deletes the specified key.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_key()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_key(&self) -> super::builder::recaptcha_enterprise_service::DeleteKey {
         super::builder::recaptcha_enterprise_service::DeleteKey::new(self.inner.clone())
     }
@@ -179,6 +292,22 @@ impl RecaptchaEnterpriseService {
     /// authenticated as one of the current owners of the reCAPTCHA Key, and
     /// your user must have the reCAPTCHA Enterprise Admin IAM role in the
     /// destination project.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .migrate_key()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn migrate_key(&self) -> super::builder::recaptcha_enterprise_service::MigrateKey {
         super::builder::recaptcha_enterprise_service::MigrateKey::new(self.inner.clone())
     }
@@ -188,6 +317,22 @@ impl RecaptchaEnterpriseService {
     /// * The maximum number of IP overrides per key is 1000.
     /// * For any conflict (such as IP already exists or IP part of an existing
     ///   IP range), an error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .add_ip_override()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_ip_override(&self) -> super::builder::recaptcha_enterprise_service::AddIpOverride {
         super::builder::recaptcha_enterprise_service::AddIpOverride::new(self.inner.clone())
     }
@@ -198,6 +343,22 @@ impl RecaptchaEnterpriseService {
     ///   is returned.
     /// * If the IP is found in an existing IP override, but the
     ///   override type does not match, a `NOT_FOUND` error is returned.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .remove_ip_override()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_ip_override(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::RemoveIpOverride {
@@ -213,6 +374,23 @@ impl RecaptchaEnterpriseService {
 
     /// Get some aggregated metrics for a Key. This data can be used to build
     /// dashboards.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_metrics()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_metrics(&self) -> super::builder::recaptcha_enterprise_service::GetMetrics {
         super::builder::recaptcha_enterprise_service::GetMetrics::new(self.inner.clone())
     }
@@ -220,6 +398,22 @@ impl RecaptchaEnterpriseService {
     /// Creates a new FirewallPolicy, specifying conditions at which reCAPTCHA
     /// Enterprise actions can be executed.
     /// A project may have a maximum of 1000 policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_firewall_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_firewall_policy(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::CreateFirewallPolicy {
@@ -234,6 +428,23 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Returns the specified firewall policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_firewall_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_firewall_policy(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::GetFirewallPolicy {
@@ -241,6 +452,22 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Updates the specified firewall policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_firewall_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_firewall_policy(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::UpdateFirewallPolicy {
@@ -248,6 +475,22 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Deletes the specified firewall policy.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_firewall_policy()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_firewall_policy(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::DeleteFirewallPolicy {
@@ -255,6 +498,22 @@ impl RecaptchaEnterpriseService {
     }
 
     /// Reorders all firewall policies.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
+    /// async fn sample(
+    ///    client: &RecaptchaEnterpriseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reorder_firewall_policies()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reorder_firewall_policies(
         &self,
     ) -> super::builder::recaptcha_enterprise_service::ReorderFirewallPolicies {

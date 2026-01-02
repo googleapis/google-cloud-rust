@@ -133,6 +133,23 @@ impl TelcoAutomation {
     }
 
     /// Gets details of a single OrchestrationCluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_orchestration_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_orchestration_cluster(
         &self,
     ) -> super::builder::telco_automation::GetOrchestrationCluster {
@@ -179,6 +196,23 @@ impl TelcoAutomation {
     }
 
     /// Gets details of a single EdgeSlm.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_edge_slm()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_edge_slm(&self) -> super::builder::telco_automation::GetEdgeSlm {
         super::builder::telco_automation::GetEdgeSlm::new(self.inner.clone())
     }
@@ -214,21 +248,86 @@ impl TelcoAutomation {
     }
 
     /// Creates a blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_blueprint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_blueprint(&self) -> super::builder::telco_automation::CreateBlueprint {
         super::builder::telco_automation::CreateBlueprint::new(self.inner.clone())
     }
 
     /// Updates a blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_blueprint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_blueprint(&self) -> super::builder::telco_automation::UpdateBlueprint {
         super::builder::telco_automation::UpdateBlueprint::new(self.inner.clone())
     }
 
     /// Returns the requested blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_blueprint(&self) -> super::builder::telco_automation::GetBlueprint {
         super::builder::telco_automation::GetBlueprint::new(self.inner.clone())
     }
 
     /// Deletes a blueprint and all its revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_blueprint(&self) -> super::builder::telco_automation::DeleteBlueprint {
         super::builder::telco_automation::DeleteBlueprint::new(self.inner.clone())
     }
@@ -239,16 +338,64 @@ impl TelcoAutomation {
     }
 
     /// Approves a blueprint and commits a new revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .approve_blueprint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn approve_blueprint(&self) -> super::builder::telco_automation::ApproveBlueprint {
         super::builder::telco_automation::ApproveBlueprint::new(self.inner.clone())
     }
 
     /// Proposes a blueprint for approval of changes.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .propose_blueprint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn propose_blueprint(&self) -> super::builder::telco_automation::ProposeBlueprint {
         super::builder::telco_automation::ProposeBlueprint::new(self.inner.clone())
     }
 
     /// Rejects a blueprint revision proposal and flips it back to Draft state.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .reject_blueprint()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn reject_blueprint(&self) -> super::builder::telco_automation::RejectBlueprint {
         super::builder::telco_automation::RejectBlueprint::new(self.inner.clone())
     }
@@ -277,6 +424,22 @@ impl TelcoAutomation {
     /// Discards the changes in a blueprint and reverts the blueprint to the last
     /// approved blueprint revision. No changes take place if a blueprint does not
     /// have revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .discard_blueprint_changes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn discard_blueprint_changes(
         &self,
     ) -> super::builder::telco_automation::DiscardBlueprintChanges {
@@ -290,27 +453,108 @@ impl TelcoAutomation {
     }
 
     /// Returns the requested public blueprint.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_public_blueprint()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_public_blueprint(&self) -> super::builder::telco_automation::GetPublicBlueprint {
         super::builder::telco_automation::GetPublicBlueprint::new(self.inner.clone())
     }
 
     /// Creates a deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_deployment(&self) -> super::builder::telco_automation::CreateDeployment {
         super::builder::telco_automation::CreateDeployment::new(self.inner.clone())
     }
 
     /// Updates a deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_deployment(&self) -> super::builder::telco_automation::UpdateDeployment {
         super::builder::telco_automation::UpdateDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_deployment(&self) -> super::builder::telco_automation::GetDeployment {
         super::builder::telco_automation::GetDeployment::new(self.inner.clone())
     }
 
     /// Removes the deployment by marking it as DELETING. Post which deployment and
     /// it's revisions gets deleted.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .remove_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn remove_deployment(&self) -> super::builder::telco_automation::RemoveDeployment {
         super::builder::telco_automation::RemoveDeployment::new(self.inner.clone())
     }
@@ -330,6 +574,22 @@ impl TelcoAutomation {
     /// Discards the changes in a deployment and reverts the deployment to the last
     /// approved deployment revision. No changes take place if a deployment does
     /// not have revisions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .discard_deployment_changes()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn discard_deployment_changes(
         &self,
     ) -> super::builder::telco_automation::DiscardDeploymentChanges {
@@ -337,11 +597,43 @@ impl TelcoAutomation {
     }
 
     /// Applies the deployment's YAML files to the parent orchestration cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .apply_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_deployment(&self) -> super::builder::telco_automation::ApplyDeployment {
         super::builder::telco_automation::ApplyDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested deployment status.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .compute_deployment_status()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn compute_deployment_status(
         &self,
     ) -> super::builder::telco_automation::ComputeDeploymentStatus {
@@ -350,11 +642,44 @@ impl TelcoAutomation {
 
     /// Rollback the active deployment to the given past approved deployment
     /// revision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rollback_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback_deployment(&self) -> super::builder::telco_automation::RollbackDeployment {
         super::builder::telco_automation::RollbackDeployment::new(self.inner.clone())
     }
 
     /// Returns the requested hydrated deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_hydrated_deployment()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::GetHydratedDeployment {
@@ -369,6 +694,22 @@ impl TelcoAutomation {
     }
 
     /// Updates a hydrated deployment.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_hydrated_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::UpdateHydratedDeployment {
@@ -376,6 +717,22 @@ impl TelcoAutomation {
     }
 
     /// Applies a hydrated deployment to a workload cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .apply_hydrated_deployment()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn apply_hydrated_deployment(
         &self,
     ) -> super::builder::telco_automation::ApplyHydratedDeployment {
@@ -388,6 +745,22 @@ impl TelcoAutomation {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::telco_automation::GetLocation {
         super::builder::telco_automation::GetLocation::new(self.inner.clone())
     }
@@ -402,6 +775,22 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::telco_automation::GetOperation {
         super::builder::telco_automation::GetOperation::new(self.inner.clone())
     }
@@ -409,6 +798,21 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::telco_automation::DeleteOperation {
         super::builder::telco_automation::DeleteOperation::new(self.inner.clone())
     }
@@ -416,6 +820,21 @@ impl TelcoAutomation {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
+    /// async fn sample(
+    ///    client: &TelcoAutomation
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::telco_automation::CancelOperation {
         super::builder::telco_automation::CancelOperation::new(self.inner.clone())
     }

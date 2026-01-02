@@ -120,11 +120,43 @@ impl ClusterManager {
 
     /// Lists all clusters owned by a project in either the specified zone or all
     /// zones.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_clusters()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_clusters(&self) -> super::builder::cluster_manager::ListClusters {
         super::builder::cluster_manager::ListClusters::new(self.inner.clone())
     }
 
     /// Gets the details of a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::cluster_manager::GetCluster {
         super::builder::cluster_manager::GetCluster::new(self.inner.clone())
     }
@@ -143,21 +175,85 @@ impl ClusterManager {
     ///
     /// Finally, an entry is added to the project's global metadata indicating
     /// which CIDR range the cluster is using.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_cluster()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_cluster(&self) -> super::builder::cluster_manager::CreateCluster {
         super::builder::cluster_manager::CreateCluster::new(self.inner.clone())
     }
 
     /// Updates the settings of a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_cluster()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_cluster(&self) -> super::builder::cluster_manager::UpdateCluster {
         super::builder::cluster_manager::UpdateCluster::new(self.inner.clone())
     }
 
     /// Updates the version and/or image type for the specified node pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_node_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_node_pool(&self) -> super::builder::cluster_manager::UpdateNodePool {
         super::builder::cluster_manager::UpdateNodePool::new(self.inner.clone())
     }
 
     /// Sets the autoscaling settings for the specified node pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_node_pool_autoscaling()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_node_pool_autoscaling(
         &self,
     ) -> super::builder::cluster_manager::SetNodePoolAutoscaling {
@@ -165,16 +261,64 @@ impl ClusterManager {
     }
 
     /// Sets the logging service for a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_logging_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_logging_service(&self) -> super::builder::cluster_manager::SetLoggingService {
         super::builder::cluster_manager::SetLoggingService::new(self.inner.clone())
     }
 
     /// Sets the monitoring service for a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_monitoring_service()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_monitoring_service(&self) -> super::builder::cluster_manager::SetMonitoringService {
         super::builder::cluster_manager::SetMonitoringService::new(self.inner.clone())
     }
 
     /// Sets the addons for a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_addons_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_addons_config(&self) -> super::builder::cluster_manager::SetAddonsConfig {
         super::builder::cluster_manager::SetAddonsConfig::new(self.inner.clone())
     }
@@ -183,12 +327,44 @@ impl ClusterManager {
     /// Deprecated. Use
     /// [projects.locations.clusters.update](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1/projects.locations.clusters/update)
     /// instead.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_locations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     #[deprecated]
     pub fn set_locations(&self) -> super::builder::cluster_manager::SetLocations {
         super::builder::cluster_manager::SetLocations::new(self.inner.clone())
     }
 
     /// Updates the master for a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_master()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_master(&self) -> super::builder::cluster_manager::UpdateMaster {
         super::builder::cluster_manager::UpdateMaster::new(self.inner.clone())
     }
@@ -196,6 +372,22 @@ impl ClusterManager {
     /// Sets master auth materials. Currently supports changing the admin password
     /// or a specific cluster, either via password generation or explicitly setting
     /// the password.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_master_auth()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_master_auth(&self) -> super::builder::cluster_manager::SetMasterAuth {
         super::builder::cluster_manager::SetMasterAuth::new(self.inner.clone())
     }
@@ -209,58 +401,232 @@ impl ClusterManager {
     /// Other Google Compute Engine resources that might be in use by the cluster,
     /// such as load balancer resources, are not deleted if they weren't present
     /// when the cluster was initially created.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_cluster()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_cluster(&self) -> super::builder::cluster_manager::DeleteCluster {
         super::builder::cluster_manager::DeleteCluster::new(self.inner.clone())
     }
 
     /// Lists all operations in a project in a specific zone or all zones.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_operations()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_operations(&self) -> super::builder::cluster_manager::ListOperations {
         super::builder::cluster_manager::ListOperations::new(self.inner.clone())
     }
 
     /// Gets the specified operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cluster_manager::GetOperation {
         super::builder::cluster_manager::GetOperation::new(self.inner.clone())
     }
 
     /// Cancels the specified operation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cluster_manager::CancelOperation {
         super::builder::cluster_manager::CancelOperation::new(self.inner.clone())
     }
 
     /// Returns configuration info about the Google Kubernetes Engine service.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_server_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_server_config(&self) -> super::builder::cluster_manager::GetServerConfig {
         super::builder::cluster_manager::GetServerConfig::new(self.inner.clone())
     }
 
     /// Gets the public component of the cluster signing keys in
     /// JSON Web Key format.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_json_web_keys()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_json_web_keys(&self) -> super::builder::cluster_manager::GetJSONWebKeys {
         super::builder::cluster_manager::GetJSONWebKeys::new(self.inner.clone())
     }
 
     /// Lists the node pools for a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_node_pools()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_node_pools(&self) -> super::builder::cluster_manager::ListNodePools {
         super::builder::cluster_manager::ListNodePools::new(self.inner.clone())
     }
 
     /// Retrieves the requested node pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_node_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_node_pool(&self) -> super::builder::cluster_manager::GetNodePool {
         super::builder::cluster_manager::GetNodePool::new(self.inner.clone())
     }
 
     /// Creates a node pool for a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_node_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_node_pool(&self) -> super::builder::cluster_manager::CreateNodePool {
         super::builder::cluster_manager::CreateNodePool::new(self.inner.clone())
     }
 
     /// Deletes a node pool from a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .delete_node_pool()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_node_pool(&self) -> super::builder::cluster_manager::DeleteNodePool {
         super::builder::cluster_manager::DeleteNodePool::new(self.inner.clone())
     }
 
     /// CompleteNodePoolUpgrade will signal an on-going node pool upgrade to
     /// complete.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .complete_node_pool_upgrade()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_node_pool_upgrade(
         &self,
     ) -> super::builder::cluster_manager::CompleteNodePoolUpgrade {
@@ -269,6 +635,22 @@ impl ClusterManager {
 
     /// Rolls back a previously Aborted or Failed NodePool upgrade.
     /// This makes no changes if the last upgrade successfully completed.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rollback_node_pool_upgrade()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rollback_node_pool_upgrade(
         &self,
     ) -> super::builder::cluster_manager::RollbackNodePoolUpgrade {
@@ -276,6 +658,22 @@ impl ClusterManager {
     }
 
     /// Sets the NodeManagement options for a node pool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_node_pool_management()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_node_pool_management(
         &self,
     ) -> super::builder::cluster_manager::SetNodePoolManagement {
@@ -283,21 +681,85 @@ impl ClusterManager {
     }
 
     /// Sets labels on a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_labels()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_labels(&self) -> super::builder::cluster_manager::SetLabels {
         super::builder::cluster_manager::SetLabels::new(self.inner.clone())
     }
 
     /// Enables or disables the ABAC authorization mechanism on a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_legacy_abac()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_legacy_abac(&self) -> super::builder::cluster_manager::SetLegacyAbac {
         super::builder::cluster_manager::SetLegacyAbac::new(self.inner.clone())
     }
 
     /// Starts master IP rotation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .start_ip_rotation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn start_ip_rotation(&self) -> super::builder::cluster_manager::StartIPRotation {
         super::builder::cluster_manager::StartIPRotation::new(self.inner.clone())
     }
 
     /// Completes master IP rotation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .complete_ip_rotation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_ip_rotation(&self) -> super::builder::cluster_manager::CompleteIPRotation {
         super::builder::cluster_manager::CompleteIPRotation::new(self.inner.clone())
     }
@@ -307,16 +769,64 @@ impl ClusterManager {
     /// [NodePool.locations][google.container.v1.NodePool.locations].
     ///
     /// [google.container.v1.NodePool.locations]: crate::model::NodePool::locations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_node_pool_size()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_node_pool_size(&self) -> super::builder::cluster_manager::SetNodePoolSize {
         super::builder::cluster_manager::SetNodePoolSize::new(self.inner.clone())
     }
 
     /// Enables or disables Network Policy for a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_network_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_network_policy(&self) -> super::builder::cluster_manager::SetNetworkPolicy {
         super::builder::cluster_manager::SetNetworkPolicy::new(self.inner.clone())
     }
 
     /// Sets the maintenance policy for a cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_maintenance_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_maintenance_policy(&self) -> super::builder::cluster_manager::SetMaintenancePolicy {
         super::builder::cluster_manager::SetMaintenancePolicy::new(self.inner.clone())
     }
@@ -330,6 +840,22 @@ impl ClusterManager {
 
     /// Checks the cluster compatibility with Autopilot mode, and returns a list of
     /// compatibility issues.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_autopilot_compatibility()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_autopilot_compatibility(
         &self,
     ) -> super::builder::cluster_manager::CheckAutopilotCompatibility {
@@ -337,6 +863,22 @@ impl ClusterManager {
     }
 
     /// Fetch upgrade information of a specific cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_cluster_upgrade_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_cluster_upgrade_info(
         &self,
     ) -> super::builder::cluster_manager::FetchClusterUpgradeInfo {
@@ -344,6 +886,22 @@ impl ClusterManager {
     }
 
     /// Fetch upgrade information of a specific nodepool.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_container_v1::client::ClusterManager;
+    /// async fn sample(
+    ///    client: &ClusterManager
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_node_pool_upgrade_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_node_pool_upgrade_info(
         &self,
     ) -> super::builder::cluster_manager::FetchNodePoolUpgradeInfo {

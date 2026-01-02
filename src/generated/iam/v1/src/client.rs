@@ -146,6 +146,22 @@ impl IAMPolicy {
     /// existing policy.
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED` errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::client::IAMPolicy;
+    /// async fn sample(
+    ///    client: &IAMPolicy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::iam_policy::SetIamPolicy {
         super::builder::iam_policy::SetIamPolicy::new(self.inner.clone())
     }
@@ -153,6 +169,22 @@ impl IAMPolicy {
     /// Gets the access control policy for a resource.
     /// Returns an empty policy if the resource exists and does not have a policy
     /// set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::client::IAMPolicy;
+    /// async fn sample(
+    ///    client: &IAMPolicy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::iam_policy::GetIamPolicy {
         super::builder::iam_policy::GetIamPolicy::new(self.inner.clone())
     }
@@ -164,6 +196,22 @@ impl IAMPolicy {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_iam_v1::client::IAMPolicy;
+    /// async fn sample(
+    ///    client: &IAMPolicy
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::iam_policy::TestIamPermissions {
         super::builder::iam_policy::TestIamPermissions::new(self.inner.clone())
     }

@@ -124,6 +124,23 @@ impl Lustre {
     }
 
     /// Gets details of a single instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// async fn sample(
+    ///    client: &Lustre,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::lustre::GetInstance {
         super::builder::lustre::GetInstance::new(self.inner.clone())
     }
@@ -209,6 +226,22 @@ impl Lustre {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::lustre::GetLocation {
         super::builder::lustre::GetLocation::new(self.inner.clone())
     }
@@ -223,6 +256,22 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::lustre::GetOperation {
         super::builder::lustre::GetOperation::new(self.inner.clone())
     }
@@ -230,6 +279,21 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::lustre::DeleteOperation {
         super::builder::lustre::DeleteOperation::new(self.inner.clone())
     }
@@ -237,6 +301,21 @@ impl Lustre {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_lustre_v1::client::Lustre;
+    /// async fn sample(
+    ///    client: &Lustre
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::lustre::CancelOperation {
         super::builder::lustre::CancelOperation::new(self.inner.clone())
     }

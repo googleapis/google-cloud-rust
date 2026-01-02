@@ -143,6 +143,22 @@ impl ProfilerService {
     /// status. To a gRPC client, the extension will be return as a
     /// binary-serialized proto in the trailing metadata item named
     /// "google.rpc.retryinfo-bin".
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// async fn sample(
+    ///    client: &ProfilerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_profile(&self) -> super::builder::profiler_service::CreateProfile {
         super::builder::profiler_service::CreateProfile::new(self.inner.clone())
     }
@@ -155,6 +171,22 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// async fn sample(
+    ///    client: &ProfilerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_offline_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_offline_profile(&self) -> super::builder::profiler_service::CreateOfflineProfile {
         super::builder::profiler_service::CreateOfflineProfile::new(self.inner.clone())
     }
@@ -168,6 +200,22 @@ impl ProfilerService {
     /// profiler
     /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
     /// instead for profile collection._
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_profiler_v2::client::ProfilerService;
+    /// async fn sample(
+    ///    client: &ProfilerService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_profile()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_profile(&self) -> super::builder::profiler_service::UpdateProfile {
         super::builder::profiler_service::UpdateProfile::new(self.inner.clone())
     }

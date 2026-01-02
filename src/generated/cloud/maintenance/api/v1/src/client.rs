@@ -131,6 +131,23 @@ impl Maintenance {
     }
 
     /// Retrieve a single resource maintenance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// async fn sample(
+    ///    client: &Maintenance,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_resource_maintenance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_resource_maintenance(&self) -> super::builder::maintenance::GetResourceMaintenance {
         super::builder::maintenance::GetResourceMaintenance::new(self.inner.clone())
     }
@@ -141,6 +158,22 @@ impl Maintenance {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::client::Maintenance;
+    /// async fn sample(
+    ///    client: &Maintenance
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::maintenance::GetLocation {
         super::builder::maintenance::GetLocation::new(self.inner.clone())
     }

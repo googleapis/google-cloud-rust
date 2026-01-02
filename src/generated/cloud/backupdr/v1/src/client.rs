@@ -124,6 +124,23 @@ impl BackupDR {
     }
 
     /// Gets details of a single ManagementServer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_management_server()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_management_server(&self) -> super::builder::backup_dr::GetManagementServer {
         super::builder::backup_dr::GetManagementServer::new(self.inner.clone())
     }
@@ -186,6 +203,23 @@ impl BackupDR {
     }
 
     /// Gets details of a BackupVault.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_vault()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_vault(&self) -> super::builder::backup_dr::GetBackupVault {
         super::builder::backup_dr::GetBackupVault::new(self.inner.clone())
     }
@@ -226,6 +260,23 @@ impl BackupDR {
     }
 
     /// Gets details of a DataSource.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_source()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_source(&self) -> super::builder::backup_dr::GetDataSource {
         super::builder::backup_dr::GetDataSource::new(self.inner.clone())
     }
@@ -258,6 +309,23 @@ impl BackupDR {
     }
 
     /// Gets details of a Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::backup_dr::GetBackup {
         super::builder::backup_dr::GetBackup::new(self.inner.clone())
     }
@@ -338,6 +406,23 @@ impl BackupDR {
     }
 
     /// Gets details of a single BackupPlan.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan(&self) -> super::builder::backup_dr::GetBackupPlan {
         super::builder::backup_dr::GetBackupPlan::new(self.inner.clone())
     }
@@ -363,6 +448,23 @@ impl BackupDR {
     }
 
     /// Gets details of a single BackupPlanRevision.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan_revision()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan_revision(&self) -> super::builder::backup_dr::GetBackupPlanRevision {
         super::builder::backup_dr::GetBackupPlanRevision::new(self.inner.clone())
     }
@@ -407,6 +509,23 @@ impl BackupDR {
     }
 
     /// Gets details of a single BackupPlanAssociation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup_plan_association()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup_plan_association(
         &self,
     ) -> super::builder::backup_dr::GetBackupPlanAssociation {
@@ -462,6 +581,23 @@ impl BackupDR {
     }
 
     /// Gets details of a single DataSourceReference.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_source_reference()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_source_reference(&self) -> super::builder::backup_dr::GetDataSourceReference {
         super::builder::backup_dr::GetDataSourceReference::new(self.inner.clone())
     }
@@ -501,6 +637,22 @@ impl BackupDR {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::backup_dr::GetLocation {
         super::builder::backup_dr::GetLocation::new(self.inner.clone())
     }
@@ -510,12 +662,44 @@ impl BackupDR {
     ///
     /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
     /// errors.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::backup_dr::SetIamPolicy {
         super::builder::backup_dr::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a resource. Returns an empty policy
     /// if the resource exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::backup_dr::GetIamPolicy {
         super::builder::backup_dr::GetIamPolicy::new(self.inner.clone())
     }
@@ -527,6 +711,22 @@ impl BackupDR {
     /// Note: This operation is designed to be used for building
     /// permission-aware UIs and command-line tools, not for authorization
     /// checking. This operation may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(&self) -> super::builder::backup_dr::TestIamPermissions {
         super::builder::backup_dr::TestIamPermissions::new(self.inner.clone())
     }
@@ -541,6 +741,22 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::backup_dr::GetOperation {
         super::builder::backup_dr::GetOperation::new(self.inner.clone())
     }
@@ -548,6 +764,21 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::backup_dr::DeleteOperation {
         super::builder::backup_dr::DeleteOperation::new(self.inner.clone())
     }
@@ -555,6 +786,21 @@ impl BackupDR {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_backupdr_v1::client::BackupDR;
+    /// async fn sample(
+    ///    client: &BackupDR
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::backup_dr::CancelOperation {
         super::builder::backup_dr::CancelOperation::new(self.inner.clone())
     }

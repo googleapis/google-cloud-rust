@@ -134,6 +134,22 @@ impl AssistantService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// async fn sample(
+    ///    client: &AssistantService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::assistant_service::GetOperation {
         super::builder::assistant_service::GetOperation::new(self.inner.clone())
     }
@@ -141,6 +157,21 @@ impl AssistantService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::AssistantService;
+    /// async fn sample(
+    ///    client: &AssistantService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::assistant_service::CancelOperation {
         super::builder::assistant_service::CancelOperation::new(self.inner.clone())
     }
@@ -275,6 +306,23 @@ impl CmekConfigService {
     /// Gets the [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig].
     ///
     /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+    /// async fn sample(
+    ///    client: &CmekConfigService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cmek_config()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cmek_config(&self) -> super::builder::cmek_config_service::GetCmekConfig {
         super::builder::cmek_config_service::GetCmekConfig::new(self.inner.clone())
     }
@@ -283,6 +331,22 @@ impl CmekConfigService {
     /// with the project.
     ///
     /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+    /// async fn sample(
+    ///    client: &CmekConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_cmek_configs()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_cmek_configs(&self) -> super::builder::cmek_config_service::ListCmekConfigs {
         super::builder::cmek_config_service::ListCmekConfigs::new(self.inner.clone())
     }
@@ -312,6 +376,22 @@ impl CmekConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+    /// async fn sample(
+    ///    client: &CmekConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::cmek_config_service::GetOperation {
         super::builder::cmek_config_service::GetOperation::new(self.inner.clone())
     }
@@ -319,6 +399,21 @@ impl CmekConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+    /// async fn sample(
+    ///    client: &CmekConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::cmek_config_service::CancelOperation {
         super::builder::cmek_config_service::CancelOperation::new(self.inner.clone())
     }
@@ -433,6 +528,22 @@ impl CompletionService {
     }
 
     /// Completes the specified user input with keyword suggestions.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CompletionService;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .complete_query()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn complete_query(&self) -> super::builder::completion_service::CompleteQuery {
         super::builder::completion_service::CompleteQuery::new(self.inner.clone())
     }
@@ -531,6 +642,22 @@ impl CompletionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CompletionService;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::completion_service::GetOperation {
         super::builder::completion_service::GetOperation::new(self.inner.clone())
     }
@@ -538,6 +665,21 @@ impl CompletionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::CompletionService;
+    /// async fn sample(
+    ///    client: &CompletionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::completion_service::CancelOperation {
         super::builder::completion_service::CancelOperation::new(self.inner.clone())
     }
@@ -659,6 +801,22 @@ impl ControlService {
     /// exists, an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_control(&self) -> super::builder::control_service::CreateControl {
         super::builder::control_service::CreateControl::new(self.inner.clone())
     }
@@ -669,6 +827,21 @@ impl ControlService {
     /// not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_control(&self) -> super::builder::control_service::DeleteControl {
         super::builder::control_service::DeleteControl::new(self.inner.clone())
     }
@@ -680,11 +853,44 @@ impl ControlService {
     /// update does not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Control]: crate::model::Control
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_control()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_control(&self) -> super::builder::control_service::UpdateControl {
         super::builder::control_service::UpdateControl::new(self.inner.clone())
     }
 
     /// Gets a Control.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_control()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_control(&self) -> super::builder::control_service::GetControl {
         super::builder::control_service::GetControl::new(self.inner.clone())
     }
@@ -707,6 +913,22 @@ impl ControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::control_service::GetOperation {
         super::builder::control_service::GetOperation::new(self.inner.clone())
     }
@@ -714,6 +936,21 @@ impl ControlService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ControlService;
+    /// async fn sample(
+    ///    client: &ControlService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::control_service::CancelOperation {
         super::builder::control_service::CancelOperation::new(self.inner.clone())
     }
@@ -829,6 +1066,22 @@ impl ConversationalSearchService {
     }
 
     /// Converses a conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .converse_conversation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn converse_conversation(
         &self,
     ) -> super::builder::conversational_search_service::ConverseConversation {
@@ -841,6 +1094,22 @@ impl ConversationalSearchService {
     /// create already exists, an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Conversation]: crate::model::Conversation
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_conversation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_conversation(
         &self,
     ) -> super::builder::conversational_search_service::CreateConversation {
@@ -853,6 +1122,21 @@ impl ConversationalSearchService {
     /// delete does not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Conversation]: crate::model::Conversation
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_conversation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_conversation(
         &self,
     ) -> super::builder::conversational_search_service::DeleteConversation {
@@ -867,6 +1151,22 @@ impl ConversationalSearchService {
     /// not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Conversation]: crate::model::Conversation
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_conversation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_conversation(
         &self,
     ) -> super::builder::conversational_search_service::UpdateConversation {
@@ -874,6 +1174,23 @@ impl ConversationalSearchService {
     }
 
     /// Gets a Conversation.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_conversation()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_conversation(
         &self,
     ) -> super::builder::conversational_search_service::GetConversation {
@@ -891,11 +1208,44 @@ impl ConversationalSearchService {
     }
 
     /// Answer query method.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .answer_query()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn answer_query(&self) -> super::builder::conversational_search_service::AnswerQuery {
         super::builder::conversational_search_service::AnswerQuery::new(self.inner.clone())
     }
 
     /// Gets a Answer.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_answer()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_answer(&self) -> super::builder::conversational_search_service::GetAnswer {
         super::builder::conversational_search_service::GetAnswer::new(self.inner.clone())
     }
@@ -906,6 +1256,22 @@ impl ConversationalSearchService {
     /// exists, an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_session(&self) -> super::builder::conversational_search_service::CreateSession {
         super::builder::conversational_search_service::CreateSession::new(self.inner.clone())
     }
@@ -916,6 +1282,22 @@ impl ConversationalSearchService {
     /// not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_session(&self) -> super::builder::conversational_search_service::DeleteSession {
         super::builder::conversational_search_service::DeleteSession::new(self.inner.clone())
     }
@@ -927,11 +1309,44 @@ impl ConversationalSearchService {
     /// update does not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_session(&self) -> super::builder::conversational_search_service::UpdateSession {
         super::builder::conversational_search_service::UpdateSession::new(self.inner.clone())
     }
 
     /// Gets a Session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session(&self) -> super::builder::conversational_search_service::GetSession {
         super::builder::conversational_search_service::GetSession::new(self.inner.clone())
     }
@@ -954,6 +1369,22 @@ impl ConversationalSearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::conversational_search_service::GetOperation {
         super::builder::conversational_search_service::GetOperation::new(self.inner.clone())
     }
@@ -961,6 +1392,21 @@ impl ConversationalSearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
+    /// async fn sample(
+    ///    client: &ConversationalSearchService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::conversational_search_service::CancelOperation {
@@ -1107,6 +1553,23 @@ impl DataStoreService {
     /// Gets a [DataStore][google.cloud.discoveryengine.v1.DataStore].
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// async fn sample(
+    ///    client: &DataStoreService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_data_store()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_data_store(&self) -> super::builder::data_store_service::GetDataStore {
         super::builder::data_store_service::GetDataStore::new(self.inner.clone())
     }
@@ -1139,6 +1602,22 @@ impl DataStoreService {
     /// Updates a [DataStore][google.cloud.discoveryengine.v1.DataStore]
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// async fn sample(
+    ///    client: &DataStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_data_store()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_data_store(&self) -> super::builder::data_store_service::UpdateDataStore {
         super::builder::data_store_service::UpdateDataStore::new(self.inner.clone())
     }
@@ -1153,6 +1632,22 @@ impl DataStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// async fn sample(
+    ///    client: &DataStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::data_store_service::GetOperation {
         super::builder::data_store_service::GetOperation::new(self.inner.clone())
     }
@@ -1160,6 +1655,21 @@ impl DataStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
+    /// async fn sample(
+    ///    client: &DataStoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::data_store_service::CancelOperation {
         super::builder::data_store_service::CancelOperation::new(self.inner.clone())
     }
@@ -1279,6 +1789,23 @@ impl DocumentService {
     /// Gets a [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_document()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_document(&self) -> super::builder::document_service::GetDocument {
         super::builder::document_service::GetDocument::new(self.inner.clone())
     }
@@ -1293,6 +1820,22 @@ impl DocumentService {
     /// Creates a [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_document()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_document(&self) -> super::builder::document_service::CreateDocument {
         super::builder::document_service::CreateDocument::new(self.inner.clone())
     }
@@ -1300,6 +1843,22 @@ impl DocumentService {
     /// Updates a [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_document()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_document(&self) -> super::builder::document_service::UpdateDocument {
         super::builder::document_service::UpdateDocument::new(self.inner.clone())
     }
@@ -1307,6 +1866,21 @@ impl DocumentService {
     /// Deletes a [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_document()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_document(&self) -> super::builder::document_service::DeleteDocument {
         super::builder::document_service::DeleteDocument::new(self.inner.clone())
     }
@@ -1374,6 +1948,22 @@ impl DocumentService {
     /// website search only.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .batch_get_documents_metadata()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn batch_get_documents_metadata(
         &self,
     ) -> super::builder::document_service::BatchGetDocumentsMetadata {
@@ -1390,6 +1980,22 @@ impl DocumentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::document_service::GetOperation {
         super::builder::document_service::GetOperation::new(self.inner.clone())
     }
@@ -1397,6 +2003,21 @@ impl DocumentService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::DocumentService;
+    /// async fn sample(
+    ///    client: &DocumentService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::document_service::CancelOperation {
         super::builder::document_service::CancelOperation::new(self.inner.clone())
     }
@@ -1547,6 +2168,22 @@ impl EngineService {
     /// Updates an [Engine][google.cloud.discoveryengine.v1.Engine]
     ///
     /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// async fn sample(
+    ///    client: &EngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_engine()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_engine(&self) -> super::builder::engine_service::UpdateEngine {
         super::builder::engine_service::UpdateEngine::new(self.inner.clone())
     }
@@ -1554,6 +2191,23 @@ impl EngineService {
     /// Gets a [Engine][google.cloud.discoveryengine.v1.Engine].
     ///
     /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// async fn sample(
+    ///    client: &EngineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_engine()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_engine(&self) -> super::builder::engine_service::GetEngine {
         super::builder::engine_service::GetEngine::new(self.inner.clone())
     }
@@ -1576,6 +2230,22 @@ impl EngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// async fn sample(
+    ///    client: &EngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::engine_service::GetOperation {
         super::builder::engine_service::GetOperation::new(self.inner.clone())
     }
@@ -1583,6 +2253,21 @@ impl EngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::EngineService;
+    /// async fn sample(
+    ///    client: &EngineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::engine_service::CancelOperation {
         super::builder::engine_service::CancelOperation::new(self.inner.clone())
     }
@@ -1698,6 +2383,22 @@ impl GroundedGenerationService {
     }
 
     /// Generates grounded content.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
+    /// async fn sample(
+    ///    client: &GroundedGenerationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_grounded_content()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_grounded_content(
         &self,
     ) -> super::builder::grounded_generation_service::GenerateGroundedContent {
@@ -1707,6 +2408,22 @@ impl GroundedGenerationService {
     }
 
     /// Performs a grounding check.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
+    /// async fn sample(
+    ///    client: &GroundedGenerationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .check_grounding()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn check_grounding(&self) -> super::builder::grounded_generation_service::CheckGrounding {
         super::builder::grounded_generation_service::CheckGrounding::new(self.inner.clone())
     }
@@ -1721,6 +2438,22 @@ impl GroundedGenerationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
+    /// async fn sample(
+    ///    client: &GroundedGenerationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::grounded_generation_service::GetOperation {
         super::builder::grounded_generation_service::GetOperation::new(self.inner.clone())
     }
@@ -1728,6 +2461,21 @@ impl GroundedGenerationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
+    /// async fn sample(
+    ///    client: &GroundedGenerationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::grounded_generation_service::CancelOperation {
         super::builder::grounded_generation_service::CancelOperation::new(self.inner.clone())
     }
@@ -1843,6 +2591,22 @@ impl IdentityMappingStoreService {
     }
 
     /// Creates a new Identity Mapping Store.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+    /// async fn sample(
+    ///    client: &IdentityMappingStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_identity_mapping_store()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_identity_mapping_store(
         &self,
     ) -> super::builder::identity_mapping_store_service::CreateIdentityMappingStore {
@@ -1852,6 +2616,23 @@ impl IdentityMappingStoreService {
     }
 
     /// Gets the Identity Mapping Store.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+    /// async fn sample(
+    ///    client: &IdentityMappingStoreService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_identity_mapping_store()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_identity_mapping_store(
         &self,
     ) -> super::builder::identity_mapping_store_service::GetIdentityMappingStore {
@@ -1948,6 +2729,22 @@ impl IdentityMappingStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+    /// async fn sample(
+    ///    client: &IdentityMappingStoreService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::identity_mapping_store_service::GetOperation {
         super::builder::identity_mapping_store_service::GetOperation::new(self.inner.clone())
     }
@@ -1955,6 +2752,21 @@ impl IdentityMappingStoreService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+    /// async fn sample(
+    ///    client: &IdentityMappingStoreService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(
         &self,
     ) -> super::builder::identity_mapping_store_service::CancelOperation {
@@ -2100,6 +2912,22 @@ impl ProjectService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ProjectService;
+    /// async fn sample(
+    ///    client: &ProjectService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::project_service::GetOperation {
         super::builder::project_service::GetOperation::new(self.inner.clone())
     }
@@ -2107,6 +2935,21 @@ impl ProjectService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ProjectService;
+    /// async fn sample(
+    ///    client: &ProjectService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::project_service::CancelOperation {
         super::builder::project_service::CancelOperation::new(self.inner.clone())
     }
@@ -2218,6 +3061,22 @@ impl RankService {
     }
 
     /// Ranks a list of text records based on the given input query.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RankService;
+    /// async fn sample(
+    ///    client: &RankService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .rank()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn rank(&self) -> super::builder::rank_service::Rank {
         super::builder::rank_service::Rank::new(self.inner.clone())
     }
@@ -2232,6 +3091,22 @@ impl RankService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RankService;
+    /// async fn sample(
+    ///    client: &RankService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::rank_service::GetOperation {
         super::builder::rank_service::GetOperation::new(self.inner.clone())
     }
@@ -2239,6 +3114,21 @@ impl RankService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RankService;
+    /// async fn sample(
+    ///    client: &RankService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::rank_service::CancelOperation {
         super::builder::rank_service::CancelOperation::new(self.inner.clone())
     }
@@ -2353,6 +3243,22 @@ impl RecommendationService {
     }
 
     /// Makes a recommendation, which requires a contextual user event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
+    /// async fn sample(
+    ///    client: &RecommendationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .recommend()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn recommend(&self) -> super::builder::recommendation_service::Recommend {
         super::builder::recommendation_service::Recommend::new(self.inner.clone())
     }
@@ -2367,6 +3273,22 @@ impl RecommendationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
+    /// async fn sample(
+    ///    client: &RecommendationService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::recommendation_service::GetOperation {
         super::builder::recommendation_service::GetOperation::new(self.inner.clone())
     }
@@ -2374,6 +3296,21 @@ impl RecommendationService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
+    /// async fn sample(
+    ///    client: &RecommendationService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::recommendation_service::CancelOperation {
         super::builder::recommendation_service::CancelOperation::new(self.inner.clone())
     }
@@ -2489,6 +3426,23 @@ impl SchemaService {
     /// Gets a [Schema][google.cloud.discoveryengine.v1.Schema].
     ///
     /// [google.cloud.discoveryengine.v1.Schema]: crate::model::Schema
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_schema()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_schema(&self) -> super::builder::schema_service::GetSchema {
         super::builder::schema_service::GetSchema::new(self.inner.clone())
     }
@@ -2561,6 +3515,22 @@ impl SchemaService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::schema_service::GetOperation {
         super::builder::schema_service::GetOperation::new(self.inner.clone())
     }
@@ -2568,6 +3538,21 @@ impl SchemaService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SchemaService;
+    /// async fn sample(
+    ///    client: &SchemaService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::schema_service::CancelOperation {
         super::builder::schema_service::CancelOperation::new(self.inner.clone())
     }
@@ -2712,6 +3697,22 @@ impl SearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SearchService;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::search_service::GetOperation {
         super::builder::search_service::GetOperation::new(self.inner.clone())
     }
@@ -2719,6 +3720,21 @@ impl SearchService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SearchService;
+    /// async fn sample(
+    ///    client: &SearchService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::search_service::CancelOperation {
         super::builder::search_service::CancelOperation::new(self.inner.clone())
     }
@@ -2848,6 +3864,22 @@ impl SearchTuningService {
     }
 
     /// Gets a list of all the custom models.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
+    /// async fn sample(
+    ///    client: &SearchTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .list_custom_models()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn list_custom_models(&self) -> super::builder::search_tuning_service::ListCustomModels {
         super::builder::search_tuning_service::ListCustomModels::new(self.inner.clone())
     }
@@ -2862,6 +3894,22 @@ impl SearchTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
+    /// async fn sample(
+    ///    client: &SearchTuningService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::search_tuning_service::GetOperation {
         super::builder::search_tuning_service::GetOperation::new(self.inner.clone())
     }
@@ -2869,6 +3917,21 @@ impl SearchTuningService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
+    /// async fn sample(
+    ///    client: &SearchTuningService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::search_tuning_service::CancelOperation {
         super::builder::search_tuning_service::CancelOperation::new(self.inner.clone())
     }
@@ -2988,6 +4051,22 @@ impl ServingConfigService {
     /// Updates a ServingConfig.
     ///
     /// Returns a NOT_FOUND error if the ServingConfig does not exist.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_serving_config()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_serving_config(
         &self,
     ) -> super::builder::serving_config_service::UpdateServingConfig {
@@ -3004,6 +4083,22 @@ impl ServingConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::serving_config_service::GetOperation {
         super::builder::serving_config_service::GetOperation::new(self.inner.clone())
     }
@@ -3011,6 +4106,21 @@ impl ServingConfigService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
+    /// async fn sample(
+    ///    client: &ServingConfigService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::serving_config_service::CancelOperation {
         super::builder::serving_config_service::CancelOperation::new(self.inner.clone())
     }
@@ -3127,6 +4237,22 @@ impl SessionService {
     /// exists, an ALREADY_EXISTS error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_session(&self) -> super::builder::session_service::CreateSession {
         super::builder::session_service::CreateSession::new(self.inner.clone())
     }
@@ -3137,6 +4263,22 @@ impl SessionService {
     /// not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_session(&self) -> super::builder::session_service::DeleteSession {
         super::builder::session_service::DeleteSession::new(self.inner.clone())
     }
@@ -3148,11 +4290,44 @@ impl SessionService {
     /// update does not exist, a NOT_FOUND error is returned.
     ///
     /// [google.cloud.discoveryengine.v1.Session]: crate::model::Session
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_session()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_session(&self) -> super::builder::session_service::UpdateSession {
         super::builder::session_service::UpdateSession::new(self.inner.clone())
     }
 
     /// Gets a Session.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_session()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_session(&self) -> super::builder::session_service::GetSession {
         super::builder::session_service::GetSession::new(self.inner.clone())
     }
@@ -3175,6 +4350,22 @@ impl SessionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::session_service::GetOperation {
         super::builder::session_service::GetOperation::new(self.inner.clone())
     }
@@ -3182,6 +4373,21 @@ impl SessionService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SessionService;
+    /// async fn sample(
+    ///    client: &SessionService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::session_service::CancelOperation {
         super::builder::session_service::CancelOperation::new(self.inner.clone())
     }
@@ -3300,6 +4506,23 @@ impl SiteSearchEngineService {
     /// [SiteSearchEngine][google.cloud.discoveryengine.v1.SiteSearchEngine].
     ///
     /// [google.cloud.discoveryengine.v1.SiteSearchEngine]: crate::model::SiteSearchEngine
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
+    /// async fn sample(
+    ///    client: &SiteSearchEngineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_site_search_engine()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_site_search_engine(
         &self,
     ) -> super::builder::site_search_engine_service::GetSiteSearchEngine {
@@ -3348,6 +4571,23 @@ impl SiteSearchEngineService {
     /// Gets a [TargetSite][google.cloud.discoveryengine.v1.TargetSite].
     ///
     /// [google.cloud.discoveryengine.v1.TargetSite]: crate::model::TargetSite
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
+    /// async fn sample(
+    ///    client: &SiteSearchEngineService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_target_site()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_target_site(&self) -> super::builder::site_search_engine_service::GetTargetSite {
         super::builder::site_search_engine_service::GetTargetSite::new(self.inner.clone())
     }
@@ -3436,6 +4676,22 @@ impl SiteSearchEngineService {
     ///
     /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
     /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
+    /// async fn sample(
+    ///    client: &SiteSearchEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .fetch_sitemaps()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn fetch_sitemaps(&self) -> super::builder::site_search_engine_service::FetchSitemaps {
         super::builder::site_search_engine_service::FetchSitemaps::new(self.inner.clone())
     }
@@ -3533,6 +4789,22 @@ impl SiteSearchEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
+    /// async fn sample(
+    ///    client: &SiteSearchEngineService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::site_search_engine_service::GetOperation {
         super::builder::site_search_engine_service::GetOperation::new(self.inner.clone())
     }
@@ -3540,6 +4812,21 @@ impl SiteSearchEngineService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
+    /// async fn sample(
+    ///    client: &SiteSearchEngineService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::site_search_engine_service::CancelOperation {
         super::builder::site_search_engine_service::CancelOperation::new(self.inner.clone())
     }
@@ -3654,6 +4941,22 @@ impl UserEventService {
     }
 
     /// Writes a single user event.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .write_user_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn write_user_event(&self) -> super::builder::user_event_service::WriteUserEvent {
         super::builder::user_event_service::WriteUserEvent::new(self.inner.clone())
     }
@@ -3663,6 +4966,22 @@ impl UserEventService {
     ///
     /// This method is used only by the Discovery Engine API JavaScript pixel and
     /// Google Tag Manager. Users should not call this method directly.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .collect_user_event()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn collect_user_event(&self) -> super::builder::user_event_service::CollectUserEvent {
         super::builder::user_event_service::CollectUserEvent::new(self.inner.clone())
     }
@@ -3716,6 +5035,22 @@ impl UserEventService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::user_event_service::GetOperation {
         super::builder::user_event_service::GetOperation::new(self.inner.clone())
     }
@@ -3723,6 +5058,21 @@ impl UserEventService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserEventService;
+    /// async fn sample(
+    ///    client: &UserEventService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::user_event_service::CancelOperation {
         super::builder::user_event_service::CancelOperation::new(self.inner.clone())
     }
@@ -3869,6 +5219,22 @@ impl UserLicenseService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
+    /// async fn sample(
+    ///    client: &UserLicenseService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::user_license_service::GetOperation {
         super::builder::user_license_service::GetOperation::new(self.inner.clone())
     }
@@ -3876,6 +5242,21 @@ impl UserLicenseService {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
+    /// async fn sample(
+    ///    client: &UserLicenseService
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::user_license_service::CancelOperation {
         super::builder::user_license_service::CancelOperation::new(self.inner.clone())
     }

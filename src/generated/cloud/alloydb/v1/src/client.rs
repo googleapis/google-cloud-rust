@@ -144,6 +144,22 @@ impl AlloyDBCSQLAdmin {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::alloy_dbcsql_admin::GetLocation {
         super::builder::alloy_dbcsql_admin::GetLocation::new(self.inner.clone())
     }
@@ -158,6 +174,22 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::alloy_dbcsql_admin::GetOperation {
         super::builder::alloy_dbcsql_admin::GetOperation::new(self.inner.clone())
     }
@@ -165,6 +197,21 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::alloy_dbcsql_admin::DeleteOperation {
         super::builder::alloy_dbcsql_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -172,6 +219,21 @@ impl AlloyDBCSQLAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBCSQLAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::alloy_dbcsql_admin::CancelOperation {
         super::builder::alloy_dbcsql_admin::CancelOperation::new(self.inner.clone())
     }
@@ -285,6 +347,23 @@ impl AlloyDBAdmin {
     }
 
     /// Gets details of a single Cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_cluster()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_cluster(&self) -> super::builder::alloy_db_admin::GetCluster {
         super::builder::alloy_db_admin::GetCluster::new(self.inner.clone())
     }
@@ -458,6 +537,23 @@ impl AlloyDBAdmin {
     }
 
     /// Gets details of a single Instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_instance()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_instance(&self) -> super::builder::alloy_db_admin::GetInstance {
         super::builder::alloy_db_admin::GetInstance::new(self.inner.clone())
     }
@@ -598,6 +694,22 @@ impl AlloyDBAdmin {
     }
 
     /// Executes a SQL statement in a database inside an AlloyDB instance.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .execute_sql()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn execute_sql(&self) -> super::builder::alloy_db_admin::ExecuteSql {
         super::builder::alloy_db_admin::ExecuteSql::new(self.inner.clone())
     }
@@ -608,6 +720,23 @@ impl AlloyDBAdmin {
     }
 
     /// Gets details of a single Backup.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_backup()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_backup(&self) -> super::builder::alloy_db_admin::GetBackup {
         super::builder::alloy_db_admin::GetBackup::new(self.inner.clone())
     }
@@ -669,6 +798,22 @@ impl AlloyDBAdmin {
     /// Auth Proxy client. The endpoint's behavior is subject to change without
     /// notice, so do not rely on its behavior remaining constant. Future changes
     /// will not break AlloyDB connectors or the Auth Proxy client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .generate_client_certificate()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn generate_client_certificate(
         &self,
     ) -> super::builder::alloy_db_admin::GenerateClientCertificate {
@@ -676,6 +821,22 @@ impl AlloyDBAdmin {
     }
 
     /// Get instance metadata used for a connection.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_connection_info()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_connection_info(&self) -> super::builder::alloy_db_admin::GetConnectionInfo {
         super::builder::alloy_db_admin::GetConnectionInfo::new(self.inner.clone())
     }
@@ -686,21 +847,86 @@ impl AlloyDBAdmin {
     }
 
     /// Gets details of a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_user()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_user(&self) -> super::builder::alloy_db_admin::GetUser {
         super::builder::alloy_db_admin::GetUser::new(self.inner.clone())
     }
 
     /// Creates a new User in a given project, location, and cluster.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .create_user()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_user(&self) -> super::builder::alloy_db_admin::CreateUser {
         super::builder::alloy_db_admin::CreateUser::new(self.inner.clone())
     }
 
     /// Updates the parameters of a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_user()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_user(&self) -> super::builder::alloy_db_admin::UpdateUser {
         super::builder::alloy_db_admin::UpdateUser::new(self.inner.clone())
     }
 
     /// Deletes a single User.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_user()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_user(&self) -> super::builder::alloy_db_admin::DeleteUser {
         super::builder::alloy_db_admin::DeleteUser::new(self.inner.clone())
     }
@@ -716,6 +942,22 @@ impl AlloyDBAdmin {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::alloy_db_admin::GetLocation {
         super::builder::alloy_db_admin::GetLocation::new(self.inner.clone())
     }
@@ -730,6 +972,22 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_operation(&self) -> super::builder::alloy_db_admin::GetOperation {
         super::builder::alloy_db_admin::GetOperation::new(self.inner.clone())
     }
@@ -737,6 +995,21 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .delete_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_operation(&self) -> super::builder::alloy_db_admin::DeleteOperation {
         super::builder::alloy_db_admin::DeleteOperation::new(self.inner.clone())
     }
@@ -744,6 +1017,21 @@ impl AlloyDBAdmin {
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
+    /// async fn sample(
+    ///    client: &AlloyDBAdmin
+    /// ) -> gax::Result<()> {
+    ///     client
+    ///         .cancel_operation()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn cancel_operation(&self) -> super::builder::alloy_db_admin::CancelOperation {
         super::builder::alloy_db_admin::CancelOperation::new(self.inner.clone())
     }

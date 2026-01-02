@@ -130,6 +130,23 @@ impl AdvisoryNotificationsService {
     }
 
     /// Gets a notification.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_notification()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_notification(
         &self,
     ) -> super::builder::advisory_notifications_service::GetNotification {
@@ -137,11 +154,44 @@ impl AdvisoryNotificationsService {
     }
 
     /// Get notification settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService,
+    ///    resource_name: &str
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .get_settings()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_settings(&self) -> super::builder::advisory_notifications_service::GetSettings {
         super::builder::advisory_notifications_service::GetSettings::new(self.inner.clone())
     }
 
     /// Update notification settings.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
+    /// async fn sample(
+    ///    client: &AdvisoryNotificationsService
+    /// ) -> gax::Result<()> {
+    ///     let response = client
+    ///         .update_settings()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_settings(
         &self,
     ) -> super::builder::advisory_notifications_service::UpdateSettings {
