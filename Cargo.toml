@@ -133,6 +133,7 @@ members = [
   "src/generated/cloud/edgecontainer/v1",
   "src/generated/cloud/edgenetwork/v1",
   "src/generated/cloud/essentialcontacts/v1",
+  "src/generated/cloud/eventarc/publishing/v1",
   "src/generated/cloud/eventarc/v1",
   "src/generated/cloud/filestore/v1",
   "src/generated/cloud/financialservices/v1",
