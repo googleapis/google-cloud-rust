@@ -27,20 +27,20 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-api.workspace        = true
+api.workspace         = true
 async-trait.workspace = true
-bytes.workspace      = true
-gax.workspace        = true
-gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+bytes.workspace       = true
+gax.workspace         = true
+gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
 longrunning.workspace = true
-lro.workspace        = true
-reqwest.workspace    = true
-serde.workspace      = true
-serde_json.workspace = true
-serde_with.workspace = true
-tracing.workspace    = true
-wkt.workspace        = true
+lro.workspace         = true
+reqwest.workspace     = true
+serde.workspace       = true
+serde_json.workspace  = true
+serde_with.workspace  = true
+tracing.workspace     = true
+wkt.workspace         = true
 
 [dev-dependencies]
 tokio-test.workspace = true
