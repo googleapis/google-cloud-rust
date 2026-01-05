@@ -325,6 +325,9 @@ impl SignedUrlBuilder {
     }
 
     /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
+    /// 
+    /// Settings an endpoint takes precedence over using `with_universe_domain` and 
+    /// setting an emulator host via STORAGE_EMULATOR_HOST environment variable. 
     ///
     /// # Example
     ///
@@ -589,7 +592,7 @@ mod tests {
             .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
-        let res = SignedUrlBuilder::for_object("test-bucket", "test-object")
+        let _ = SignedUrlBuilder::for_object("test-bucket", "test-object")
             .with_method(http::Method::PUT)
             .with_expiration(Duration::from_secs(3600))
             .with_header("x-goog-meta-test", "value")
@@ -599,9 +602,7 @@ mod tests {
             .with_client_email("test@example.com")
             .with_url_style(UrlStyle::PathStyle)
             .sign_with(&signer)
-            .await;
-
-        assert!(res.is_ok());
+            .await?;
 
         Ok(())
     }
@@ -856,9 +857,8 @@ mod tests {
         println!("{}/{} tests passed", total_passed, total_tests);
 
         if failed {
-            Err(anyhow::anyhow!("Some tests failed"))
-        } else {
-            Ok(())
+            anyhow::bail!("Some tests failed")
         }
+        Ok(())
     }
 }
