@@ -299,7 +299,7 @@ impl SignedUrlBuilder {
     /// # }
     /// ```
     pub fn with_header<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
-        self.headers.insert(key.into(), value.into());
+        self.headers.insert(key.into().to_lowercase(), value.into());
         self
     }
 
@@ -461,13 +461,8 @@ impl SignedUrlBuilder {
         let mut headers = self.headers;
         headers.insert("host".to_string(), endpoint_host.to_string());
 
-        let mut sorted_headers = headers.keys().collect::<Vec<_>>();
-        sorted_headers.sort_by_key(|k| k.to_lowercase());
-
-        let signed_headers = sorted_headers.iter().fold("".to_string(), |acc, k| {
-            format!("{acc}{};", k.to_lowercase())
-        });
-        let signed_headers = signed_headers.trim_end_matches(';').to_string();
+        let header_keys = headers.keys().cloned().collect::<Vec<_>>();
+        let signed_headers = header_keys.join(";");
 
         let mut query_parameters = self.query_parameters;
         query_parameters.insert(
@@ -483,39 +478,26 @@ impl SignedUrlBuilder {
         query_parameters.insert("X-Goog-SignedHeaders".to_string(), signed_headers.clone());
 
         let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
-        let mut sorted_query_parameters_keys = query_parameters.keys().collect::<Vec<_>>();
-        sorted_query_parameters_keys.sort_by_key(|k| k.to_string());
-        sorted_query_parameters_keys.iter().for_each(|k| {
-            let value = query_parameters.get(k.as_str());
-            if value.is_none() {
-                return;
-            }
-            let value = value.unwrap();
-            canonical_query.append_pair(k, value);
-        });
+        for (k, v) in &query_parameters {
+            canonical_query.append_pair(k, v);
+        }
+
         let canonical_query = canonical_query.finish();
         let canonical_query = canonical_query
             .replace("%7E", "~") // rollback to ~
             .replace("+", "%20"); // missing %20 in +
 
-        let canonical_headers = sorted_headers.iter().fold("".to_string(), |acc, k| {
-            let header_value = headers.get(k.as_str());
-            if header_value.is_none() {
-                return acc;
-            }
-            let header_value = Self::canonicalize_header_value(header_value.unwrap());
-            format!("{acc}{}:{}\n", k.to_lowercase(), header_value)
+        let canonical_headers = headers.iter().fold("".to_string(), |acc, (k, v)| {
+            let header_value = Self::canonicalize_header_value(v);
+            format!("{acc}{}:{}\n", k, header_value)
         });
 
         // If the user provides a value for X-Goog-Content-SHA256, we must use
         // that value in the request string. If not, we use UNSIGNED-PAYLOAD.
-        let signature = "UNSIGNED-PAYLOAD".to_string();
-        let signature = headers.iter().fold(signature, |acc, (k, v)| {
-            if k.to_lowercase().eq("x-goog-content-sha256") {
-                return v.clone();
-            }
-            acc
-        });
+        let signature = headers
+            .get("x-goog-content-sha256")
+            .cloned()
+            .unwrap_or_else(|| "UNSIGNED-PAYLOAD".to_string());
 
         let canonical_uri = self.scope.canonical_uri(self.url_style);
         let canonical_request = [
