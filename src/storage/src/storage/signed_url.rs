@@ -81,11 +81,10 @@ impl SigningScope {
     }
 
     fn bucket_host(&self, host: &str, url_style: UrlStyle) -> String {
-        let bucket_name = self.bucket_name();
         match url_style {
             UrlStyle::PathStyle => host.to_string(),
             UrlStyle::BucketBoundHostname => host.to_string(),
-            UrlStyle::VirtualHostedStyle => format!("{bucket_name}.{host}"),
+            UrlStyle::VirtualHostedStyle => format!("{}.{host}", self.bucket_name()),
         }
     }
 
@@ -325,7 +324,7 @@ impl SignedUrlBuilder {
 
     /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
     ///
-    /// Settings an endpoint takes precedence over using `with_universe_domain`.
+    /// Setting an endpoint takes precedence over using `with_universe_domain`.
     ///
     /// # Example
     ///
