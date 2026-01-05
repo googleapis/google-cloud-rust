@@ -41,10 +41,16 @@ where
     ) -> google_cloud_gax::retry_result::RetryResult {
         let result = self.inner.on_error(status, error);
         match &result {
-            RetryResult::Continue(e) => tracing::info!("read resume policy continues: {e:?}"),
-            RetryResult::Exhausted(e) => tracing::info!("read resume policy exhausted: {e:?}"),
+            RetryResult::Continue(e) => {
+                tracing::info!("read resume policy continues, status: {status:?}, error: {e:?}")
+            }
+            RetryResult::Exhausted(e) => {
+                tracing::info!("read resume policy exhausted, status: {status:?}, error: {e:?}")
+            }
             RetryResult::Permanent(e) => {
-                tracing::info!("read resume policy permanent error: {e:?}")
+                tracing::info!(
+                    "read resume policy permanent error, status: {status:?}, error: {e:?}"
+                )
             }
         }
         result
