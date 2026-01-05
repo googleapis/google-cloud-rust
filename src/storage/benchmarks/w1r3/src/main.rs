@@ -62,7 +62,7 @@ async fn main() -> anyhow::Result<()> {
     if args.reqwest_logs {
         tracing_log::LogTracer::init()?;
     }
-    let _guard = enable_tracing(&args);
+    enable_tracing(&args);
     tracing::info!("{args:?}");
 
     let handle = tokio::runtime::Handle::current();
@@ -144,7 +144,6 @@ async fn runner(
     tx: Sender<Sample>,
     args: Args,
 ) -> anyhow::Result<()> {
-    let _guard = enable_tracing(&args);
     tokio::time::sleep(args.rampup_period * id as u32).await;
     let task = Task { id, start, tx };
     if task.id % 128 == 0 {
@@ -611,7 +610,7 @@ fn counters() -> impl Iterator<Item = (&'static str, u64)> {
     .into_iter()
 }
 
-fn enable_tracing(args: &Args) -> tracing::dispatcher::DefaultGuard {
+fn enable_tracing(args: &Args) {
     use tracing_subscriber::fmt::format::{self, FmtSpan};
     use tracing_subscriber::prelude::*;
 
@@ -657,7 +656,8 @@ fn enable_tracing(args: &Args) -> tracing::dispatcher::DefaultGuard {
     };
     let subscriber = subscriber.finish();
 
-    tracing::subscriber::set_default(subscriber)
+    tracing::subscriber::set_global_default(subscriber)
+        .expect("setting global subscriber succeeds");
 }
 
 /// Runs the W1R3 benchmark for the Rust client library.
