@@ -362,6 +362,7 @@ mod tests {
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
     use auth::credentials::anonymous::Builder as Anonymous;
+    use gax::retry_policy::NeverRetry;
     use http::HeaderValue;
     use static_assertions::assert_impl_all;
     use storage_grpc_mock::google::storage::v2::{BidiReadObjectResponse, Object as ProtoObject};
@@ -578,6 +579,48 @@ mod tests {
             "headers={:?}",
             descriptor.headers()
         );
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn timeout() -> anyhow::Result<()> {
+        use storage_grpc_mock::google::storage::v2::BidiReadObjectResponse;
+        use storage_grpc_mock::{MockStorage, start};
+
+        let (_tx, rx) = tokio::sync::mpsc::channel::<tonic::Result<BidiReadObjectResponse>>(1);
+
+        let mut mock = MockStorage::new();
+        mock.expect_bidi_read_object()
+            .return_once(|_| Ok(tonic::Response::from(rx)));
+        let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+
+        let client = Storage::builder()
+            .with_credentials(Anonymous::new().build())
+            .with_endpoint(endpoint.clone())
+            .with_retry_policy(NeverRetry)
+            .build()
+            .await?;
+
+        // This will timeout because we never send the initial message over `_tx`.
+        let response = client
+            .open_object("projects/_/buckets/test-bucket", "test-object")
+            .send();
+
+        let mut interval = tokio::time::interval(Duration::from_secs(120));
+        tokio::pin!(response);
+        let mut server = Box::pin(server);
+        loop {
+            tokio::select! {
+                _ = &mut server => {},
+                _ = interval.tick() => {},
+                r = &mut response => {
+                    let err = r.unwrap_err();
+                    assert!(err.is_timeout(), "{err:?}");
+                    break;
+                },
+            }
+        }
+
         Ok(())
     }
 
