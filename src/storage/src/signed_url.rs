@@ -23,7 +23,7 @@ pub mod http {
 /// There are several equivalent formats for signed URLs, see the [resource path] docs for more information.
 ///
 /// [resource path]: https://docs.cloud.google.com/storage/docs/authentication/canonical-requests#about-resource-path
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Copy, Default)]
 #[allow(dead_code)]
 pub enum UrlStyle {
     /// Path style URL: `https://storage.googleapis.com/bucket/object`.

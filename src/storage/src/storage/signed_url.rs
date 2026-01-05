@@ -123,8 +123,8 @@ impl SigningScope {
     }
 
     fn canonical_url(&self, scheme: &str, host: &str, url_style: UrlStyle) -> String {
-        let bucket_endpoint = self.bucket_endpoint(scheme, host, url_style.clone());
-        let uri = self.canonical_uri(url_style.clone());
+        let bucket_endpoint = self.bucket_endpoint(scheme, host, url_style);
+        let uri = self.canonical_uri(url_style);
         format!("{bucket_endpoint}{uri}")
     }
 }
@@ -451,9 +451,7 @@ impl SignedUrlBuilder {
 
         let (endpoint_url, host) = self.resolve_endpoint_url()?;
         let scheme = endpoint_url.scheme();
-        let canonical_url = self
-            .scope
-            .canonical_url(scheme, &host, self.url_style.clone());
+        let canonical_url = self.scope.canonical_url(scheme, &host, self.url_style);
 
         let endpoint_url = url::Url::parse(&canonical_url)
             .map_err(|e| SigningError::invalid_parameter("endpoint", e))?;
