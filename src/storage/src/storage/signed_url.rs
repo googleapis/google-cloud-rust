@@ -408,13 +408,11 @@ impl SignedUrlBuilder {
 
     fn resolve_endpoint(&self) -> String {
         match self.endpoint.as_ref() {
-            Some(e) if e.starts_with("http://") => return e.clone(),
-            Some(e) if e.starts_with("https://") => return e.clone(),
-            Some(e) => return format!("https://{}", e),
-            None => {}
+            Some(e) if e.starts_with("http://") => e.clone(),
+            Some(e) if e.starts_with("https://") => e.clone(),
+            Some(e) => format!("https://{}", e),
+            None => format!("https://storage.{}", self.universe_domain),
         }
-
-        format!("https://storage.{}", self.universe_domain)
     }
 
     fn canonicalize_header_value(value: &str) -> String {
