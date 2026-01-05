@@ -26,6 +26,7 @@ use crate::{Error, Result};
 use gaxi::grpc::Client as GrpcClient;
 use http::HeaderMap;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
 use tokio::sync::mpsc::Sender;
 
 #[derive(Debug)]
@@ -91,10 +92,16 @@ where
         let options = self.options.clone();
         let spec = self.spec.clone();
         let sleep = async |backoff| tokio::time::sleep(backoff).await;
-
+        let default_timeout = self.options.bidi_attempt_timeout;
         // Move the copies and invoke the retry loop to call `connect_attempt()`.
-        let inner = async move |_| {
-            Self::connect_attempt(client.clone(), spec.clone(), ranges.clone(), &options).await
+        let inner = async move |d: Option<Duration>| {
+            let attempt_timeout = std::cmp::min(default_timeout, d.unwrap_or(default_timeout));
+            let attempt =
+                Self::connect_attempt(client.clone(), spec.clone(), ranges.clone(), &options);
+            match tokio::time::timeout(attempt_timeout, attempt).await {
+                Ok(r) => r,
+                Err(e) => Err(Error::timeout(e)),
+            }
         };
         gax::retry_loop_internal::retry_loop(inner, sleep, true, throttler, retry, backoff).await
     }

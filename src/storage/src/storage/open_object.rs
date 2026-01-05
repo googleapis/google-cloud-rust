@@ -18,6 +18,7 @@ use crate::object_descriptor::ObjectDescriptor;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::request_options::RequestOptions;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// A request builder for [Storage::open_object][crate::client::Storage::open_object].
 ///
@@ -326,6 +327,31 @@ impl<S> OpenObject<S> {
         self.options.set_read_resume_policy(std::sync::Arc::new(v));
         self
     }
+
+    /// Configure per-attempt timeout.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use std::time::Duration;
+    /// let response = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_attempt_timeout(Duration::from_secs(120))
+    ///     .send()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// The Cloud Storage client library times out `open_object()` attempts by
+    /// default (with a 60s timeout). Applications may want to set a different
+    /// value depending on how they are deployed.
+    ///
+    /// Note that the per-attempt timeout is subject to the overall
+    pub fn with_attempt_timeout(mut self, v: Duration) -> Self {
+        self.options.set_bidi_attempt_timeout(v);
+        self
+    }
 }
 
 #[cfg(test)]
@@ -478,7 +504,8 @@ mod tests {
         )
         .with_retry_policy(Aip194Strict)
         .with_retry_throttler(CircuitBreaker::default())
-        .with_read_resume_policy(NeverResume);
+        .with_read_resume_policy(NeverResume)
+        .with_attempt_timeout(Duration::from_secs(120));
 
         let got = builder.options;
         assert!(
@@ -495,6 +522,11 @@ mod tests {
         );
         assert!(
             format!("{:?}", got.read_resume_policy()).contains("NeverResume"),
+            "{got:?}"
+        );
+        assert_eq!(
+            got.bidi_attempt_timeout,
+            Duration::from_secs(120),
             "{got:?}"
         );
 
