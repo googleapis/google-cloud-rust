@@ -12,29 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::stub::Stub;
+use super::transport::Transport;
 use std::sync::Arc;
 
 const MIB: i64 = 1024 * 1024;
 
 /// Builder for the `client::Subscriber::streaming_pull` method.
-pub struct StreamingPull<S>
-where
-    S: Stub,
-{
-    // TODO(#4061) - Use a dynamic stub to remove the generic.
-    pub(crate) inner: Arc<S>,
+pub struct StreamingPull {
+    pub(crate) inner: Arc<Transport>,
     pub(crate) subscription: String,
     pub(crate) ack_deadline_seconds: i32,
     pub(crate) max_outstanding_messages: i64,
     pub(crate) max_outstanding_bytes: i64,
 }
 
-impl<S> StreamingPull<S>
-where
-    S: Stub,
-{
-    pub(crate) fn new(inner: Arc<S>, subscription: String) -> Self {
+impl StreamingPull {
+    pub(crate) fn new(inner: Arc<Transport>, subscription: String) -> Self {
         Self {
             inner,
             subscription,
@@ -135,16 +128,23 @@ where
 
 #[cfg(test)]
 mod tests {
-    use super::super::stub::tests::MockStub;
     use super::*;
+    use auth::credentials::anonymous::Builder as Anonymous;
+    use gaxi::options::ClientConfig;
 
     const KIB: i64 = 1024;
 
-    #[test]
-    fn reasonable_defaults() {
-        let mock = MockStub::new();
+    async fn test_inner() -> anyhow::Result<Arc<Transport>> {
+        let mut config = ClientConfig::default();
+        config.cred = Some(Anonymous::new().build());
+        let transport = Transport::new(config).await?;
+        Ok(Arc::new(transport))
+    }
+
+    #[tokio::test]
+    async fn reasonable_defaults() -> anyhow::Result<()> {
         let builder = StreamingPull::new(
-            Arc::new(mock),
+            test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
         );
         assert_eq!(
@@ -162,13 +162,14 @@ mod tests {
             "max_outstanding_bytes={}",
             builder.max_outstanding_bytes
         );
+
+        Ok(())
     }
 
-    #[test]
-    fn options() {
-        let mock = MockStub::new();
+    #[tokio::test]
+    async fn options() -> anyhow::Result<()> {
         let builder = StreamingPull::new(
-            Arc::new(mock),
+            test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
         )
         .set_ack_deadline_seconds(20)
@@ -181,5 +182,7 @@ mod tests {
         assert_eq!(builder.ack_deadline_seconds, 20);
         assert_eq!(builder.max_outstanding_messages, 12345);
         assert_eq!(builder.max_outstanding_bytes, 6789 * KIB);
+
+        Ok(())
     }
 }
