@@ -27,12 +27,12 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-bytes.workspace      = true
+bytes.workspace       = true
 recommender.workspace = true
-serde.workspace      = true
-serde_json.workspace = true
-serde_with.workspace = true
-wkt.workspace        = true
+serde.workspace       = true
+serde_json.workspace  = true
+serde_with.workspace  = true
+wkt.workspace         = true
 
 [dev-dependencies]
 tokio-test.workspace = true
