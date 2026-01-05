@@ -175,7 +175,7 @@ impl Worker {
     }
 }
 
-/// A background worker that continuously handle Publisher commands for a specific ordering key.
+/// A background worker that continuously handles Publisher commands for a specific ordering key.
 #[derive(Debug)]
 pub(crate) struct BatchWorker {
     topic: String,
@@ -260,10 +260,7 @@ impl BatchWorker {
                             if !inflight.is_empty() {
                                 inflight.join_next().await;
                             }
-                            loop {
-                                if self.pending_batch.is_empty() && self.pending_msges.is_empty() {
-                                    break;
-                                }
+                            while !self.pending_batch.is_empty() || !self.pending_msges.is_empty() {
                                 self.move_to_batch();
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                                 inflight.join_next().await;
