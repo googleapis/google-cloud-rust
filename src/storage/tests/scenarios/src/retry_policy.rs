@@ -69,6 +69,9 @@ where
 
     fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         let result = self.inner.remaining_time(state);
+        // This function is called on every retry attempt, reduce the noise by
+        // just printing something if most (more than 75%) of the retry time
+        // limit has been used.
         if result.is_some_and(|d| d < state.start.elapsed() / 4) {
             tracing::info!("retry policy remaining time: {result:?}");
         }
