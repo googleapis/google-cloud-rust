@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-version     = "0.32.0-preview"
+version                = "0.32.1-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
