@@ -41,10 +41,14 @@ where
     fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
         let result = self.inner.on_error(state, error);
         match &result {
-            RetryResult::Continue(e) => tracing::info!("retry policy continues: {e:?}"),
-            RetryResult::Exhausted(e) => tracing::info!("retry policy exhausted: {e:?}"),
+            RetryResult::Continue(e) => {
+                tracing::info!("retry policy continues, state: {state:?}, error: {e:?}")
+            }
+            RetryResult::Exhausted(e) => {
+                tracing::info!("retry policy exhausted, state: {state:?}, error: {e:?}")
+            }
             RetryResult::Permanent(e) => {
-                tracing::info!("retry policy permanent error: {e:?}")
+                tracing::info!("retry policy permanent error, state: {state:?}, error: {e:?}")
             }
         }
         result
@@ -54,10 +58,10 @@ where
         let result = self.inner.on_throttle(state, error);
         match &result {
             ThrottleResult::Continue(e) => {
-                tracing::info!("retry policy continues on throttle: {e:?}")
+                tracing::info!("retry policy continues on throttle, state: {state:?}, error: {e:?}")
             }
             ThrottleResult::Exhausted(e) => {
-                tracing::info!("retry policy exhausted on throttle: {e:?}")
+                tracing::info!("retry policy exhausted on throttle, state: {state:?}, error: {e:?}")
             }
         }
         result
@@ -65,7 +69,7 @@ where
 
     fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         let result = self.inner.remaining_time(state);
-        if result.is_some_and(|d| d < Duration::from_secs(150)) {
+        if result.is_some_and(|d| d < state.start.elapsed() / 4) {
             tracing::info!("retry policy remaining time: {result:?}");
         }
         result
