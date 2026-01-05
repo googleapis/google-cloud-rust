@@ -22,6 +22,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-maintenance-api-v1/1.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-maintenance-api-v1/1.1.0)
 
-[Maintenance]: https://docs.rs/google-cloud-maintenance-api-v1/1.0.0/google_cloud_maintenance_api_v1/client/struct.Maintenance.html
+[Maintenance]: https://docs.rs/google-cloud-maintenance-api-v1/1.1.0/google_cloud_maintenance_api_v1/client/struct.Maintenance.html

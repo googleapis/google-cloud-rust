@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-artifactregistry-v1/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-artifactregistry-v1/1.3.0)
 
-[ArtifactRegistry]: https://docs.rs/google-cloud-artifactregistry-v1/1.2.0/google_cloud_artifactregistry_v1/client/struct.ArtifactRegistry.html
+[ArtifactRegistry]: https://docs.rs/google-cloud-artifactregistry-v1/1.3.0/google_cloud_artifactregistry_v1/client/struct.ArtifactRegistry.html

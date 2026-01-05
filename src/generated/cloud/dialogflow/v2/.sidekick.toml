@@ -17,6 +17,6 @@ specification-source = 'google/cloud/dialogflow/v2'
 service-config       = 'google/cloud/dialogflow/v2/dialogflow_v2.yaml'
 
 [codec]
-version        = '1.4.0'
+version        = '1.5.0'
 copyright-year       = '2025'
 per-service-features = 'true'

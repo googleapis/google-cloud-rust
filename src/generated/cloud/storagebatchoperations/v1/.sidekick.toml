@@ -17,5 +17,5 @@ specification-source = 'google/cloud/storagebatchoperations/v1'
 service-config       = 'google/cloud/storagebatchoperations/v1/storagebatchoperations_v1.yaml'
 
 [codec]
-version        = '1.3.0'
+version        = '1.4.0'
 copyright-year = '2025'
