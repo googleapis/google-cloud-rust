@@ -176,7 +176,6 @@ pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attem
     }
 }
 
-#[cfg(google_cloud_unstable_storage_bidi)]
 pub async fn open_concurrent_reads(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())
