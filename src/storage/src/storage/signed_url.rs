@@ -325,9 +325,9 @@ impl SignedUrlBuilder {
     }
 
     /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
-    /// 
-    /// Settings an endpoint takes precedence over using `with_universe_domain` and 
-    /// setting an emulator host via STORAGE_EMULATOR_HOST environment variable. 
+    ///
+    /// Settings an endpoint takes precedence over using `with_universe_domain` and
+    /// setting an emulator host via STORAGE_EMULATOR_HOST environment variable.
     ///
     /// # Example
     ///
