@@ -414,15 +414,6 @@ impl SignedUrlBuilder {
             None => {}
         }
 
-        let emulator_host = std::env::var("STORAGE_EMULATOR_HOST").ok();
-        match emulator_host {
-            Some(host) if host.starts_with("http://") => return host.clone(),
-            Some(host) if host.starts_with("https://") => return host.clone(),
-            Some(host) if !host.is_empty() => return format!("http://{}", host),
-            Some(_) => {}
-            None => {}
-        }
-
         format!("https://storage.{}", self.universe_domain)
     }
 
@@ -564,7 +555,6 @@ mod tests {
     use auth::credentials::service_account::Builder as ServiceAccount;
     use auth::signer::{Signer, SigningProvider};
     use chrono::DateTime;
-    use scoped_env::ScopedEnv;
     use serde::Deserialize;
     use std::collections::HashMap;
     use tokio::time::Duration;
@@ -742,6 +732,7 @@ mod tests {
             serde_json::from_slice(include_bytes!("conformance/v4_signatures.json"))?;
 
         let mut failed_tests = Vec::new();
+        let mut skipped_tests = Vec::new();
         let mut passed_tests = Vec::new();
         let total_tests = suite.signing_v4_tests.len();
         for test in suite.signing_v4_tests {
@@ -762,8 +753,10 @@ mod tests {
                 None => SignedUrlBuilder::for_bucket(test.bucket),
             };
 
-            let emulator_hostname = test.emulator_hostname.unwrap_or_default();
-            let _e = ScopedEnv::set("STORAGE_EMULATOR_HOST", emulator_hostname.as_str());
+            if test.emulator_hostname.is_some() {
+                skipped_tests.push(test.description);
+                continue;
+            }
 
             let builder = builder
                 .with_method(method)
@@ -848,6 +841,9 @@ mod tests {
         let total_passed = passed_tests.len();
         for test in passed_tests {
             println!("✅ Passed test: {}", test);
+        }
+        for test in skipped_tests {
+            println!("🟡 Skipped test: {}", test);
         }
         for test in failed_tests {
             println!("❌ Failed test: {}", test);
