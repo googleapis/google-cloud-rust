@@ -94,6 +94,7 @@ impl Worker {
         let mut batch_workers: HashMap<String, mpsc::UnboundedSender<ToBatchWorker>> =
             HashMap::new();
         let delay = self.batching_options.delay_threshold;
+        let batch_worker_error_msg = "Batch worker should not close the channel";
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
@@ -108,7 +109,7 @@ impl Worker {
                         let (tx, _) = oneshot::channel();
                         batch_worker
                             .send(ToBatchWorker::Flush(tx))
-                            .expect("Batch worker should not close the channel");
+                            .expect(batch_worker_error_msg);
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -133,7 +134,7 @@ impl Worker {
                                 });
                             batch_worker
                                 .send(ToBatchWorker::Publish(msg))
-                                .expect("Batch worker should not close the channel");
+                                .expect(batch_worker_error_msg);
                         },
                         Some(ToWorker::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
@@ -141,7 +142,7 @@ impl Worker {
                                 let (tx, rx) = oneshot::channel();
                                 batch_worker
                                     .send(ToBatchWorker::Flush(tx))
-                                    .expect("Batch worker should not close the channel");
+                                    .expect(batch_worker_error_msg);
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
@@ -161,7 +162,7 @@ impl Worker {
                                 let (tx, rx) = oneshot::channel();
                                 batch_worker
                                     .send(ToBatchWorker::Flush(tx))
-                                    .expect("Batch worker should not close the channel");
+                                    .expect(batch_worker_error_msg);
                                 flush_set.spawn(rx);
                             }
                             flush_set.join_all().await;
@@ -183,7 +184,7 @@ pub(crate) struct BatchWorker {
     batching_options: BatchingOptions,
     rx: mpsc::UnboundedReceiver<ToBatchWorker>,
     pending_batch: Batch,
-    pending_msges: VecDeque<BundledMessage>,
+    pending_msgs: VecDeque<BundledMessage>,
 }
 
 impl BatchWorker {
@@ -199,7 +200,7 @@ impl BatchWorker {
             client,
             batching_options,
             rx,
-            pending_msges: VecDeque::new(),
+            pending_msgs: VecDeque::new(),
         }
     }
 
@@ -210,9 +211,9 @@ impl BatchWorker {
             || self.pending_batch.size() >= self.batching_options.byte_threshold
     }
 
-    // Move pending publishes to the pending batch respecting batch thresholds.
+    // Move pending messages to the pending batch respecting batch thresholds.
     pub(crate) fn move_to_batch(&mut self) {
-        while let Some(publish) = self.pending_msges.pop_front() {
+        while let Some(publish) = self.pending_msgs.pop_front() {
             self.pending_batch.push(publish);
             if self.at_batch_threshold() {
                 break;
@@ -238,6 +239,8 @@ impl BatchWorker {
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
+        // TODO(#4012): There is no inflight restriction when the ordering key is "".
+        // Add handling of this special case.
         let mut inflight = JoinSet::new();
         loop {
             tokio::select! {
@@ -250,7 +253,7 @@ impl BatchWorker {
                 msg = self.rx.recv() => {
                     match msg {
                         Some(ToBatchWorker::Publish(msg)) => {
-                            self.pending_msges.push_back(msg);
+                            self.pending_msgs.push_back(msg);
                             self.move_to_batch();
                             if self.at_batch_threshold() && inflight.is_empty() {
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -260,7 +263,7 @@ impl BatchWorker {
                             if !inflight.is_empty() {
                                 inflight.join_next().await;
                             }
-                            while !self.pending_batch.is_empty() || !self.pending_msges.is_empty() {
+                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
                                 self.move_to_batch();
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                                 inflight.join_next().await;
