@@ -63,7 +63,7 @@ async fn main() -> anyhow::Result<()> {
             Scenario::OpenReadAfterDrop,
         ];
     }
-    let _guard = enable_tracing(&args);
+    enable_tracing(&args);
     tracing::info!("Configuration: {args:?}");
 
     let credentials = CredentialsBuilder::default().build()?;
@@ -133,7 +133,6 @@ async fn runner(
     args: Args,
     objects: Vec<Object>,
 ) -> anyhow::Result<()> {
-    let _guard = enable_tracing(&args);
     if task % 128 == 0 {
         tracing::info!("Task::run({})", task);
     }
@@ -168,7 +167,7 @@ async fn runner(
     Ok(())
 }
 
-fn enable_tracing(_args: &Args) -> tracing::dispatcher::DefaultGuard {
+fn enable_tracing(_args: &Args) {
     use tracing_subscriber::fmt::format::FmtSpan;
 
     let subscriber = tracing_subscriber::fmt()
@@ -179,7 +178,8 @@ fn enable_tracing(_args: &Args) -> tracing::dispatcher::DefaultGuard {
         .with_max_level(tracing::Level::INFO)
         .finish();
 
-    tracing::subscriber::set_default(subscriber)
+    tracing::subscriber::set_global_default(subscriber)
+        .expect("setting global subscriber succeeds");
 }
 
 async fn remove(control: &StorageControl, object: Object) {
