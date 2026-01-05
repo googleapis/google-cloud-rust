@@ -68,6 +68,7 @@ pub enum Scenario {
     OpenRead,
     OpenReadDiscard,
     OpenReadAfterDrop,
+    OpenConcurrentReads,
 }
 
 impl Scenario {
@@ -78,6 +79,7 @@ impl Scenario {
             Self::OpenRead => "open_read",
             Self::OpenReadDiscard => "open_read_discard",
             Self::OpenReadAfterDrop => "open_read_after_drop",
+            Self::OpenConcurrentReads => "open_concurrent_reads",
         }
     }
 
@@ -88,6 +90,7 @@ impl Scenario {
             Self::OpenRead => run::open_read(client, objects).await,
             Self::OpenReadDiscard => run::open_read_discard(client, objects).await,
             Self::OpenReadAfterDrop => run::open_read_after_drop(client, objects).await,
+            Self::OpenConcurrentReads => run::open_concurrent_reads(client, objects).await,
         }
     }
 }

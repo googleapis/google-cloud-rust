@@ -15,7 +15,8 @@
 use crate::sample::Attempt;
 use crate::{KIB, MIB};
 use google_cloud_storage::{
-    client::Storage, model::Object, model_ext::ReadRange, read_object::ReadObjectResponse,
+    client::Storage, model::Object, model_ext::ReadRange, object_descriptor::ObjectDescriptor,
+    read_object::ReadObjectResponse,
 };
 use rand::prelude::IndexedRandom;
 use std::time::Instant;
@@ -173,6 +174,60 @@ pub async fn open_read_after_drop(client: &Storage, objects: &[Object]) -> Attem
             result: Err(e.into()),
         },
     }
+}
+
+#[cfg(google_cloud_unstable_storage_bidi)]
+pub async fn open_concurrent_reads(client: &Storage, objects: &[Object]) -> Attempt {
+    let object = objects
+        .choose(&mut rand::rng())
+        .expect("at least one object");
+    let start = Instant::now();
+    let result = client
+        .open_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .send()
+        .await;
+    let descriptor = match result {
+        Ok(d) => d,
+        Err(e) => {
+            return Attempt {
+                open_latency: start.elapsed(),
+                object: object.name.clone(),
+                uploadid: uploadid(e.http_headers()).unwrap_or_default(),
+                result: Err(e.into()),
+            };
+        }
+    };
+    let open_latency = start.elapsed();
+    let uploadid = uploadid(Some(&descriptor.headers())).unwrap_or_default();
+    let count = concurrent_read_all(descriptor).await;
+    Attempt {
+        open_latency,
+        object: object.name.clone(),
+        uploadid,
+        result: count.map(|_| ()),
+    }
+}
+
+async fn concurrent_read_all(descriptor: ObjectDescriptor) -> anyhow::Result<usize> {
+    let tasks = futures::future::join_all((0..4).map(move |i| {
+        let d = descriptor.clone();
+        tokio::spawn(async move {
+            let reader = d
+                .read_range(ReadRange::segment(i * KIB as u64, 4 * MIB as u64))
+                .await;
+            read_all(reader).await
+        })
+    }))
+    .await;
+    // Unwrap the JoinHandle and the read_all results.
+    let tasks = tasks
+        .into_iter()
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    let tasks = tasks
+        .into_iter()
+        .collect::<std::result::Result<Vec<_>, _>>()?;
+    Ok(tasks.into_iter().sum::<usize>())
 }
 
 fn uploadid(headers: Option<&http::HeaderMap>) -> Option<String> {
