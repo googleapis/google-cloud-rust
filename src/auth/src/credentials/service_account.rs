@@ -373,7 +373,23 @@ impl ServiceAccountKey {
     pub(crate) fn signer(&self) -> Result<Box<dyn Signer>> {
         let private_key = self.private_key.clone();
         let key_provider = CryptoProvider::get_default().map_or_else(
-            || rustls::crypto::ring::default_provider().key_provider,
+            || {
+                let dp = {
+                    #[cfg(feature = "rustls-ring")]
+                    {
+                        rustls::crypto::ring::default_provider().key_provider
+                    }
+                    #[cfg(feature = "rustls-aws-lc-rs")]
+                    {
+                        rustls::crypto::aws_lc_rs::default_provider().key_provider
+                    }
+                    #[cfg(not(any(feature = "rustls-ring", feature = "rustls-aws-lc-rs")))]
+                    {
+                        rustls::crypto::ring::default_provider().key_provider
+                    }
+                };
+                dp
+            },
             |p| p.key_provider,
         );
 
