@@ -16,13 +16,14 @@ use super::stub::Stub;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::{Error, Result};
 use gax::options::RequestOptions;
+use std::sync::Arc;
 use tokio::sync::mpsc;
 
 /// Open a stream for the `StreamingPull` RPC.
 ///
 /// This returns the stream and a Sender for feeding the stream writes.
 pub(crate) async fn open_stream<T>(
-    inner: T,
+    inner: Arc<T>,
     initial_req: StreamingPullRequest,
 ) -> Result<(<T as Stub>::Stream, mpsc::Sender<StreamingPullRequest>)>
 where
@@ -100,7 +101,7 @@ mod tests {
                 Ok(tonic::Response::from(response_rx))
             });
 
-        let (mut stream, request_tx) = open_stream(mock, initial_request()).await?;
+        let (mut stream, request_tx) = open_stream(Arc::new(mock), initial_request()).await?;
 
         // Verify the stream is seeded with the initial request.
         assert_eq!(recover_writes_rx.recv().await, Some(initial_request()));
@@ -133,7 +134,7 @@ mod tests {
             .times(1)
             .return_once(|_, _| Err(Error::io("fail")));
 
-        let err = open_stream(mock, initial_request())
+        let err = open_stream(Arc::new(mock), initial_request())
             .await
             .expect_err("open_stream should fail");
         assert!(err.is_io(), "{err:?}");
