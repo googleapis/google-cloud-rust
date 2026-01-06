@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::stub::Stub;
+use super::stub::{Stub, TonicStreaming};
 use crate::Result;
 use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
 pub(crate) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
@@ -32,6 +32,12 @@ mod info {
             };
             ac.grpc_header_value()
         };
+    }
+}
+
+impl TonicStreaming for tonic::Streaming<StreamingPullResponse> {
+    async fn next_message(&mut self) -> tonic::Result<Option<StreamingPullResponse>> {
+        self.message().await
     }
 }
 
@@ -135,11 +141,10 @@ mod tests {
         .await?
         .into_inner();
 
-        use futures::StreamExt;
-        assert_eq!(stream.next().await.transpose()?, Some(expected));
+        assert_eq!(stream.next_message().await?, Some(expected));
 
         drop(response_tx);
-        assert_eq!(stream.next().await.transpose()?, None);
+        assert_eq!(stream.next_message().await?, None);
 
         Ok(())
     }
