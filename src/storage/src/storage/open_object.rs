@@ -614,11 +614,7 @@ mod tests {
             .await
             .unwrap_err();
         assert!(err.is_timeout(), "{err:?}");
-        let elapsed = start.elapsed();
-        assert!(
-            elapsed >= target && elapsed < target + Duration::from_secs(5),
-            "elapsed={elapsed:?}"
-        );
+        assert_eq!(start.elapsed(), target);
 
         Ok(())
     }
