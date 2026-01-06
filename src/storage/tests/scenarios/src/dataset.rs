@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::time::Duration;
-
 use super::args::Args;
 use super::names::random_object_name;
 use google_cloud_auth::credentials::Credentials;
@@ -79,7 +77,7 @@ async fn create(
     args: &Args,
     client: &Storage,
 ) -> anyhow::Result<Object> {
-    tokio::time::sleep(Duration::from_millis(10) * task as u32).await;
+    tokio::time::sleep(args.dataset_rampup_period * (task as u32)).await;
     if task % 128 == 0 {
         tracing::info!("create({})", task);
     }

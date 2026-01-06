@@ -45,6 +45,10 @@ pub struct Args {
     #[arg(long, value_parser = parse_duration, default_value = "500ms")]
     pub rampup_period: Duration,
 
+    /// The rampup period between new tasks to write data.
+    #[arg(long, value_parser = parse_duration, default_value = "10ms")]
+    pub dataset_rampup_period: Duration,
+
     /// The number of iterations for the test.
     #[arg(long, default_value_t = 1)]
     pub iterations: u64,
