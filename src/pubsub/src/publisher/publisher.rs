@@ -867,6 +867,84 @@ mod tests {
         assert_eq!(msg1_handle.await.expect("expected message id"), "hello 1");
     }
 
+    #[tokio::test(start_paused = true)]
+    #[allow(clippy::get_first)]
+    async fn test_empty_ordering_key_concurrent_batches() {
+        // Verify that for empty ordering key, the Publisher will send multiple batches without
+        // awaiting for the results.
+        // This is done by adding a delay in the first Publish reply and validating that
+        // the second batch does not await for the first batch.
+        let mut seq = Sequence::new();
+        let mut mock = MockGapicPublisherWithFuture::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning({
+                |r, _| {
+                    Box::pin(async move {
+                        tokio::time::sleep(Duration::from_millis(10)).await;
+                        assert_eq!(r.topic, "my-topic");
+                        assert_eq!(r.messages.len(), 1);
+                        let ids = r
+                            .messages
+                            .iter()
+                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                        Ok(gax::response::Response::from(
+                            PublishResponse::new().set_message_ids(ids),
+                        ))
+                    })
+                }
+            });
+
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning({
+                |r, _| {
+                    Box::pin(async move {
+                        assert_eq!(r.topic, "my-topic");
+                        assert_eq!(r.messages.len(), 1);
+                        let ids = r
+                            .messages
+                            .iter()
+                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                        Ok(gax::response::Response::from(
+                            PublishResponse::new().set_message_ids(ids),
+                        ))
+                    })
+                }
+            });
+
+        let client = GapicPublisher::from_stub(mock);
+        // Use a low message count to trigger batch sends.
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(1_u32)
+            .set_byte_threshold(MAX_BYTES)
+            .set_delay_threshold(std::time::Duration::MAX)
+            .build();
+
+        let messages = [
+            PubsubMessage::new()
+                .set_data("hello 1".to_string())
+                .set_ordering_key(""),
+            PubsubMessage::new()
+                .set_data("hello 2".to_string())
+                .set_ordering_key(""),
+        ];
+
+        let start = tokio::time::Instant::now();
+        let msg1_handle = publisher.publish(messages.get(0).unwrap().clone());
+        let msg2_handle = publisher.publish(messages.get(1).unwrap().clone());
+        assert_eq!(msg2_handle.await.expect("expected message id"), "hello 2");
+        assert_eq!(
+            start.elapsed(),
+            Duration::from_millis(0),
+            "the second batch of messages should have sent without any delay"
+        );
+        // Also validate the content of the first publish.
+        assert_eq!(msg1_handle.await.expect("expected message id"), "hello 1");
+    }
+
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
         let client = Client::builder().build().await?;
