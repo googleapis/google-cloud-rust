@@ -38,7 +38,7 @@ async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
 http.workspace        = true
-reqwest               = { workspace = true, features = ["json", "rustls", "form", "query"] }
+reqwest               = { workspace = true, features = ["form", "json", "query", "rustls"] }
 rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
