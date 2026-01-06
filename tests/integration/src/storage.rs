@@ -115,9 +115,11 @@ pub async fn signed_urls(
 
     // Download the contents of the object using the signed URL.
     let client = reqwest::Client::new();
-    let res = client.get(signed_url)
+    let res = client
+        .get(signed_url)
         .header("Content-Type", "text/plain")
-        .send().await?;
+        .send()
+        .await?;
     let out = res.text().await?;
     assert_eq!(out, CONTENTS);
     tracing::info!("signed url works and can read contents={out:?}");
