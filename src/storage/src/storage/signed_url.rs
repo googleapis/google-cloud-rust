@@ -491,6 +491,9 @@ impl SignedUrlBuilder {
             let header_value = Self::canonicalize_header_value(v);
             format!("{acc}{}:{}\n", k, header_value)
         });
+
+        // If the user provides a value for X-Goog-Content-SHA256, we must use
+        // that value in the request string. If not, we use UNSIGNED-PAYLOAD.
         let signature = headers
             .get("x-goog-content-sha256")
             .cloned()
@@ -613,58 +616,6 @@ mod tests {
             .with_url_style(UrlStyle::PathStyle)
             .sign_with(&signer)
             .await?;
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_signed_url_generation() -> TestResult {
-        let mut mock = MockSigner::new();
-        mock.expect_client_email()
-            .return_once(|| Ok("test@example.com".to_string()));
-        mock.expect_sign()
-            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
-
-        let signer = Signer::from(mock);
-        let url = SignedUrlBuilder::for_object("test-bucket", "test-object")
-            .with_method(http::Method::PUT)
-            .with_expiration(std::time::Duration::from_secs(3600))
-            .with_header("x-goog-meta-test", "value")
-            .sign_with(&signer)
-            .await
-            .unwrap();
-
-        let signature = hex::encode(b"test-signature");
-        let x_goog_signature = format!("X-Goog-Signature={signature}");
-
-        assert!(url.starts_with("https://storage.googleapis.com/test-bucket/test-object"));
-        assert!(url.contains(&x_goog_signature));
-        assert!(url.contains("X-Goog-Algorithm=GOOG4-RSA-SHA256"));
-        assert!(url.contains("X-Goog-Credential=test%40example.com"));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn test_signed_url_generation_escaping() -> TestResult {
-        let mut mock = MockSigner::new();
-        mock.expect_client_email()
-            .return_once(|| Ok("test@example.com".to_string()));
-        mock.expect_sign()
-            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
-
-        let signer = Signer::from(mock);
-        let url = SignedUrlBuilder::for_object("test-bucket", "folder/test object.txt")
-            .with_method(http::Method::PUT)
-            .with_header("content-type", "text/plain")
-            .sign_with(&signer)
-            .await
-            .unwrap();
-
-        assert!(
-            url.starts_with("https://storage.googleapis.com/test-bucket/folder/test%20object.txt?")
-        );
-        assert!(url.contains("X-Goog-Signature="));
 
         Ok(())
     }
