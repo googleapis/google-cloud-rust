@@ -347,7 +347,10 @@ impl<S> OpenObject<S> {
     /// default (with a 60s timeout). Applications may want to set a different
     /// value depending on how they are deployed.
     ///
-    /// Note that the per-attempt timeout is subject to the overall
+    /// Note that the per-attempt timeout is subject to the overall retry loop
+    /// time limits (if any). The effective timeout for each attempt is the
+    /// smallest of (a) the per-attempt timeout, and (b) the remaining time in
+    /// the retry loop.
     pub fn with_attempt_timeout(mut self, v: Duration) -> Self {
         self.options.set_bidi_attempt_timeout(v);
         self
@@ -602,11 +605,14 @@ mod tests {
             .await?;
 
         // This will timeout because we never send the initial message over `_tx`.
+        let target = Duration::from_secs(120);
         let response = client
             .open_object("projects/_/buckets/test-bucket", "test-object")
+            .with_attempt_timeout(target)
             .send();
 
-        let mut interval = tokio::time::interval(Duration::from_secs(120));
+        let start = tokio::time::Instant::now();
+        let mut interval = tokio::time::interval(2 * target);
         tokio::pin!(response);
         let mut server = Box::pin(server);
         loop {
@@ -620,6 +626,11 @@ mod tests {
                 },
             }
         }
+        let elapsed = start.elapsed();
+        assert!(
+            elapsed >= target && elapsed < target + Duration::from_secs(5),
+            "elapsed={elapsed:?}"
+        );
 
         Ok(())
     }
