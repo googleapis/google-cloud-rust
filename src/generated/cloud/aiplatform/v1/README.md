@@ -58,38 +58,38 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1/1.5.0)
 
-[DataFoundryService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.DataFoundryService.html
-[DatasetService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.DatasetService.html
-[DeploymentResourcePoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.DeploymentResourcePoolService.html
-[EndpointService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.EndpointService.html
-[EvaluationService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.EvaluationService.html
-[FeatureOnlineStoreAdminService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.FeatureOnlineStoreAdminService.html
-[FeatureOnlineStoreService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.FeatureOnlineStoreService.html
-[FeatureRegistryService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.FeatureRegistryService.html
-[FeaturestoreOnlineServingService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.FeaturestoreOnlineServingService.html
-[FeaturestoreService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.FeaturestoreService.html
-[GenAiCacheService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.GenAiCacheService.html
-[GenAiTuningService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.GenAiTuningService.html
-[IndexEndpointService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.IndexEndpointService.html
-[IndexService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.IndexService.html
-[JobService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.JobService.html
-[LlmUtilityService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.LlmUtilityService.html
-[MatchService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.MatchService.html
-[MetadataService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.MetadataService.html
-[MigrationService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.MigrationService.html
-[ModelGardenService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.ModelGardenService.html
-[ModelService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.ModelService.html
-[NotebookService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.NotebookService.html
-[PersistentResourceService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.PersistentResourceService.html
-[PipelineService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.PipelineService.html
-[PredictionService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.PredictionService.html
-[ReasoningEngineExecutionService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineExecutionService.html
-[ReasoningEngineService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineService.html
-[ScheduleService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.ScheduleService.html
-[SpecialistPoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.SpecialistPoolService.html
-[TensorboardService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.TensorboardService.html
-[VertexRagDataService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.VertexRagDataService.html
-[VertexRagService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.VertexRagService.html
-[VizierService]: https://docs.rs/google-cloud-aiplatform-v1/1.4.0/google_cloud_aiplatform_v1/client/struct.VizierService.html
+[DataFoundryService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DataFoundryService.html
+[DatasetService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DatasetService.html
+[DeploymentResourcePoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DeploymentResourcePoolService.html
+[EndpointService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.EndpointService.html
+[EvaluationService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.EvaluationService.html
+[FeatureOnlineStoreAdminService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.FeatureOnlineStoreAdminService.html
+[FeatureOnlineStoreService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.FeatureOnlineStoreService.html
+[FeatureRegistryService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.FeatureRegistryService.html
+[FeaturestoreOnlineServingService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.FeaturestoreOnlineServingService.html
+[FeaturestoreService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.FeaturestoreService.html
+[GenAiCacheService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.GenAiCacheService.html
+[GenAiTuningService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.GenAiTuningService.html
+[IndexEndpointService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.IndexEndpointService.html
+[IndexService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.IndexService.html
+[JobService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.JobService.html
+[LlmUtilityService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.LlmUtilityService.html
+[MatchService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.MatchService.html
+[MetadataService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.MetadataService.html
+[MigrationService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.MigrationService.html
+[ModelGardenService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.ModelGardenService.html
+[ModelService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.ModelService.html
+[NotebookService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.NotebookService.html
+[PersistentResourceService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.PersistentResourceService.html
+[PipelineService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.PipelineService.html
+[PredictionService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.PredictionService.html
+[ReasoningEngineExecutionService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineExecutionService.html
+[ReasoningEngineService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.ReasoningEngineService.html
+[ScheduleService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.ScheduleService.html
+[SpecialistPoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.SpecialistPoolService.html
+[TensorboardService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.TensorboardService.html
+[VertexRagDataService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VertexRagDataService.html
+[VertexRagService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VertexRagService.html
+[VizierService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VizierService.html

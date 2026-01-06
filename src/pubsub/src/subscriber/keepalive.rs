@@ -29,18 +29,14 @@ const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
 /// `CancellationToken` and `await`ing the returned handle.
 ///
 /// Callers can also just drop the returned handle to shutdown.
-fn spawn(
-    request: StreamingPullRequest,
-    request_tx: Sender<StreamingPullRequest>,
-    shutdown: CancellationToken,
-) -> JoinHandle<()> {
+fn spawn(request_tx: Sender<StreamingPullRequest>, shutdown: CancellationToken) -> JoinHandle<()> {
     tokio::spawn(async move {
         let mut keepalive = interval_at(Instant::now() + KEEPALIVE_PERIOD, KEEPALIVE_PERIOD);
         loop {
             tokio::select! {
                 _ = shutdown.cancelled() => break,
                 _ = keepalive.tick() => {
-                    let _ = request_tx.send(request.clone()).await;
+                    let _ = request_tx.send(StreamingPullRequest::default()).await;
                 }
             }
         }
@@ -55,46 +51,32 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn keepalive_interval() {
         let start = Instant::now();
-        let request = StreamingPullRequest {
-            subscription: "projects/my-project/subscriptions/my-subscription".to_string(),
-            ..Default::default()
-        };
         let (request_tx, mut request_rx) = channel(1);
         let shutdown = CancellationToken::new();
-        let _handle = spawn(request, request_tx, shutdown);
+        let _handle = spawn(request_tx, shutdown);
 
         // Wait for the first keepalive
         let r = request_rx.recv().await.unwrap();
-        assert_eq!(
-            r.subscription,
-            "projects/my-project/subscriptions/my-subscription"
-        );
+        assert_eq!(r, StreamingPullRequest::default());
         assert_eq!(start.elapsed(), KEEPALIVE_PERIOD);
 
         // Wait for the second keepalive
         let r = request_rx.recv().await.unwrap();
-        assert_eq!(
-            r.subscription,
-            "projects/my-project/subscriptions/my-subscription"
-        );
+        assert_eq!(r, StreamingPullRequest::default());
         assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 2);
 
         // Wait for the third keepalive
         let r = request_rx.recv().await.unwrap();
-        assert_eq!(
-            r.subscription,
-            "projects/my-project/subscriptions/my-subscription"
-        );
+        assert_eq!(r, StreamingPullRequest::default());
         assert_eq!(start.elapsed(), KEEPALIVE_PERIOD * 3);
     }
 
     #[tokio::test(start_paused = true)]
     async fn shutdown_immediately() -> anyhow::Result<()> {
         let start = Instant::now();
-        let request = StreamingPullRequest::default();
         let (request_tx, mut request_rx) = channel(1);
         let shutdown = CancellationToken::new();
-        let handle = spawn(request, request_tx, shutdown.clone());
+        let handle = spawn(request_tx, shutdown.clone());
 
         // Wait for the first keepalive
         let _ = request_rx.recv().await.unwrap();

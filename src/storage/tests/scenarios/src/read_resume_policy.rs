@@ -12,8 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_gax::error::Error;
 use google_cloud_gax::retry_result::RetryResult;
-use google_cloud_storage::read_resume_policy::ReadResumePolicy;
+use google_cloud_storage::read_resume_policy::{ReadResumePolicy, ResumeQuery};
 
 /// Instrument a [ReadResumePolicy] to log when the client needs to resume.
 #[derive(Debug)]
@@ -28,24 +29,25 @@ where
     pub fn new(inner: T) -> Self {
         Self { inner }
     }
+
+    fn log(&self, msg: &str, query: &ResumeQuery, error: &Error) {
+        let bt = std::backtrace::Backtrace::force_capture();
+        tracing::info!(
+            "read resume policy {msg}, query: {query:?}, error: {error:?}, backtrace: {bt:#?}"
+        );
+    }
 }
 
 impl<T> ReadResumePolicy for Instrumented<T>
 where
     T: ReadResumePolicy,
 {
-    fn on_error(
-        &self,
-        status: &google_cloud_storage::read_resume_policy::ResumeQuery,
-        error: google_cloud_storage::Error,
-    ) -> google_cloud_gax::retry_result::RetryResult {
+    fn on_error(&self, status: &ResumeQuery, error: Error) -> RetryResult {
         let result = self.inner.on_error(status, error);
         match &result {
-            RetryResult::Continue(e) => tracing::info!("read resume policy continues: {e:?}"),
-            RetryResult::Exhausted(e) => tracing::info!("read resume policy exhausted: {e:?}"),
-            RetryResult::Permanent(e) => {
-                tracing::info!("read resume policy permanent error: {e:?}")
-            }
+            RetryResult::Continue(e) => self.log("continues", status, e),
+            RetryResult::Exhausted(e) => self.log("exhausted", status, e),
+            RetryResult::Permanent(e) => self.log("permanent", status, e),
         }
         result
     }

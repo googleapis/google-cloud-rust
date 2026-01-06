@@ -15,13 +15,22 @@
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::batch::Batch;
-use futures::StreamExt as _;
-use futures::stream::FuturesUnordered;
-use std::collections::HashMap;
+use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
+use tokio::task::JoinSet;
 
 /// A command sent from the `Publisher` to the background `Worker`.
 pub(crate) enum ToWorker {
+    /// A request to publish a single message.
+    Publish(BundledMessage),
+    /// A request to flush all outstanding messages.
+    Flush(oneshot::Sender<()>),
+    // TODO(#4015): Add a resume function to allow resume Publishing on a ordering key after a
+    // failure.
+}
+
+/// A command sent from the `Worker` to the background `batch` worker.
+pub(crate) enum ToBatchWorker {
     /// A request to publish a single message.
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
@@ -69,13 +78,11 @@ impl Worker {
     ///
     /// This method concurrently handles four main events:
     ///
-    /// 1. Messages from the `Publisher` are received from the `rx` channel
-    ///    and added to the message's ordering key OutstandingPublishes.
-    /// 2. A timer is continuously fired to flush all pending batches.
-    /// 3. A `Flush` command from the `Publisher` causes pending batches to
-    ///    be sent immediately.
-    /// 4. The `inflight` set is continuously polled to remove `JoinHandle`s for
-    ///    send tasks that have completed, preventing the set from growing indefinitely.
+    /// 1. Publish command from the `Publisher` is demultiplexed to the batch worker
+    ///    for its ordering key.
+    /// 2. A Flush command from the `Publisher` causes all batch workers to flush
+    ///    all pending messages.
+    /// 2. A timer fire causes the Worker to flush all pending batches.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
@@ -83,24 +90,26 @@ impl Worker {
         // A dictionary of ordering key to outstanding publish operations.
         // We batch publish operations on the same ordering key together.
         // Publish without ordering keys are treated as having the key "".
-        // TODO(#4012): Remove pending_batches entries when there are no outstanding publish.
-        let mut pending_batches: HashMap<String, OutstandingPublishes> = HashMap::new();
+        // TODO(#4012): Remove batch workers when there are no outstanding operations on the ordering key.
+        let mut batch_workers: HashMap<String, mpsc::UnboundedSender<ToBatchWorker>> =
+            HashMap::new();
         let delay = self.batching_options.delay_threshold;
-        let message_limit = self.batching_options.message_count_threshold;
-        let byte_threshold = self.batching_options.byte_threshold;
-        let mut inflight = FuturesUnordered::new();
+        let batch_worker_error_msg = "Batch worker should not close the channel";
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
-                // Remove finished futures from the inflight messages.
-                _ = inflight.next(), if !inflight.is_empty() => {},
-                // Handle timer events.
+                // Currently, the batch worker periodically flush on a shared timer. If needed,
+                // this can be moved into the batch worker such that each are running on a
+                // separate timer.
                 _ = &mut timer => {
-                    for (_, outstanding) in pending_batches.iter_mut() {
-                        outstanding.flush(&mut inflight);
+                    for (_, batch_worker) in batch_workers.iter_mut() {
+                        let (tx, _) = oneshot::channel();
+                        batch_worker
+                            .send(ToBatchWorker::Flush(tx))
+                            .expect(batch_worker_error_msg);
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
@@ -109,39 +118,54 @@ impl Worker {
                     match msg {
                         Some(ToWorker::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let outstanding_publishes =
-                                pending_batches
+                            let batch_worker =
+                                batch_workers
                                     .entry(ordering_key)
-                                    .or_insert(OutstandingPublishes::new(
-                                        self.topic_name.clone(),
-                                        self.client.clone(),
-                                        message_limit,
-                                        byte_threshold,
-                                    ));
-                            outstanding_publishes.push(msg, &mut inflight);
+                                    .or_insert({
+                                        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+                                        let batch_worker = BatchWorker::new(
+                                                        self.topic_name.clone(),
+                                                        self.client.clone(),
+                                                        self.batching_options.clone(),
+                                                        rx,
+                                                );
+                                        tokio::spawn(batch_worker.run());
+                                        tx
+                                });
+                            batch_worker
+                                .send(ToBatchWorker::Publish(msg))
+                                .expect(batch_worker_error_msg);
                         },
                         Some(ToWorker::Flush(tx)) => {
-                            // TODO(#4012): To guarantee ordering, we should wait for the
-                            // inflight batch to complete so that messages are publish in order.
-                            for (_, outstanding) in pending_batches.iter_mut() {
-                                outstanding.flush(&mut inflight);
+                            let mut flush_set = JoinSet::new();
+                            for (_, batch_worker) in batch_workers.iter_mut() {
+                                let (tx, rx) = oneshot::channel();
+                                batch_worker
+                                    .send(ToBatchWorker::Flush(tx))
+                                    .expect(batch_worker_error_msg);
+                                flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
                             // We could instead tokio::spawn this as well so the publisher
                             // can keep working on additional messages. The worker would
                             // also need to keep track of any pending flushes, and make sure
                             // all of those resolve as well.
-                            let mut flushing = std::mem::take(&mut inflight);
-                            while flushing.next().await.is_some() {}
+                            flush_set.join_all().await;
                             let _ = tx.send(());
                         },
                         None => {
                             // The sender has been dropped send batch and stop running.
                             // This isn't guaranteed to execute if a user does not .await on the
                             // corresponding PublishHandles for the batch and the program ends.
-                            for (_, outstanding) in pending_batches.iter_mut() {
-                                outstanding.flush(&mut inflight);
+                            let mut flush_set = JoinSet::new();
+                            for (_, batch_worker) in batch_workers.iter_mut() {
+                                let (tx, rx) = oneshot::channel();
+                                batch_worker
+                                    .send(ToBatchWorker::Flush(tx))
+                                    .expect(batch_worker_error_msg);
+                                flush_set.spawn(rx);
                             }
+                            flush_set.join_all().await;
                             break;
                         }
                     }
@@ -152,57 +176,106 @@ impl Worker {
     }
 }
 
+/// A background worker that continuously handles Publisher commands for a specific ordering key.
 #[derive(Debug)]
-pub(crate) struct OutstandingPublishes {
+pub(crate) struct BatchWorker {
     topic: String,
     client: GapicPublisher,
-    message_limit: u32,
-    byte_threshold: u32,
+    batching_options: BatchingOptions,
+    rx: mpsc::UnboundedReceiver<ToBatchWorker>,
     pending_batch: Batch,
-    // TODO(#4012): Track pending messages as within key message ordering is
-    // not currently respected during a failure.
+    pending_msgs: VecDeque<BundledMessage>,
 }
 
-impl OutstandingPublishes {
+impl BatchWorker {
     pub(crate) fn new(
         topic: String,
         client: GapicPublisher,
-        message_limit: u32,
-        byte_threshold: u32,
+        batching_options: BatchingOptions,
+        rx: mpsc::UnboundedReceiver<ToBatchWorker>,
     ) -> Self {
-        OutstandingPublishes {
+        BatchWorker {
             pending_batch: Batch::new(topic.len() as u32),
             topic,
             client,
-            message_limit,
-            byte_threshold,
+            batching_options,
+            rx,
+            pending_msgs: VecDeque::new(),
         }
     }
 
-    pub(crate) fn push(
-        &mut self,
-        msg: BundledMessage,
-        inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>,
-    ) {
+    fn at_batch_threshold(&mut self) -> bool {
         // TODO(#4012): When the message increases the batch size beyond pubsub server acceptable
         // message size (10MB), we should flush existing batch first.
-        self.pending_batch.push(msg);
-        if self.pending_batch.len() as u32 >= self.message_limit
-            || self.pending_batch.size() >= self.byte_threshold
-        {
-            inflight.push(
-                self.pending_batch
-                    .flush(self.client.clone(), self.topic.clone()),
-            );
+        self.pending_batch.len() as u32 >= self.batching_options.message_count_threshold
+            || self.pending_batch.size() >= self.batching_options.byte_threshold
+    }
+
+    // Move pending messages to the pending batch respecting batch thresholds.
+    pub(crate) fn move_to_batch(&mut self) {
+        while let Some(publish) = self.pending_msgs.pop_front() {
+            self.pending_batch.push(publish);
+            if self.at_batch_threshold() {
+                break;
+            }
         }
     }
 
-    pub(crate) fn flush(&mut self, inflight: &mut FuturesUnordered<tokio::task::JoinHandle<()>>) {
-        if !self.pending_batch.is_empty() {
-            inflight.push(
-                self.pending_batch
-                    .flush(self.client.clone(), self.topic.clone()),
-            );
+    /// The main loop of the batch worker.
+    ///
+    /// This method concurrently handles the following events:
+    ///
+    /// 1. A Publish command from the `Worker` causes the new message to be
+    ///    added a pending message queue. If there is enough message to create
+    ///    a full batch, then also flush the batch.
+    /// 2. A `Flush` command from the `Publisher` causes all the pending messages
+    ///    to be flushed respecting the configured batch size and message ordering.
+    /// 4. A `inflight` batch completion causes the next batch to send if it satisfies
+    ///    the configured batch threshold.
+    ///
+    /// The loop terminates when the `rx` channel is closed, which happens when the
+    /// `Worker` drops the Sender.
+    pub(crate) async fn run(mut self) {
+        // While it is possible to use Some(JoinHandle) here as there is at max
+        // a single inflight task at any given time, the use of JoinSet
+        // simplify the managing the inflight JoinHandle.
+        // TODO(#4012): There is no inflight restriction when the ordering key is "".
+        // Add handling of this special case.
+        let mut inflight = JoinSet::new();
+        loop {
+            tokio::select! {
+                _ = inflight.join_next(), if !inflight.is_empty() => {
+                    self.move_to_batch();
+                    if self.at_batch_threshold() {
+                        self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                    }
+                }
+                msg = self.rx.recv() => {
+                    match msg {
+                        Some(ToBatchWorker::Publish(msg)) => {
+                            self.pending_msgs.push_back(msg);
+                            self.move_to_batch();
+                            if self.at_batch_threshold() && inflight.is_empty() {
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            }
+                        },
+                        Some(ToBatchWorker::Flush(tx)) => {
+                            if !inflight.is_empty() {
+                                inflight.join_next().await;
+                            }
+                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+                                self.move_to_batch();
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                inflight.join_next().await;
+                            }
+                            let _ = tx.send(());
+                        },
+                        None => {
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
