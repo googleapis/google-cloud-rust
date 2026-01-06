@@ -595,7 +595,7 @@ mod tests {
         let mut mock = MockStorage::new();
         mock.expect_bidi_read_object()
             .return_once(|_| Ok(tonic::Response::from(rx)));
-        let (endpoint, server) = start("0.0.0.0:0", mock).await?;
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
 
         let client = Storage::builder()
             .with_credentials(Anonymous::new().build())
@@ -606,26 +606,14 @@ mod tests {
 
         // This will timeout because we never send the initial message over `_tx`.
         let target = Duration::from_secs(120);
-        let response = client
+        let start = tokio::time::Instant::now();
+        let err = client
             .open_object("projects/_/buckets/test-bucket", "test-object")
             .with_attempt_timeout(target)
-            .send();
-
-        let start = tokio::time::Instant::now();
-        let mut interval = tokio::time::interval(2 * target);
-        tokio::pin!(response);
-        let mut server = Box::pin(server);
-        loop {
-            tokio::select! {
-                _ = &mut server => {},
-                _ = interval.tick() => {},
-                r = &mut response => {
-                    let err = r.unwrap_err();
-                    assert!(err.is_timeout(), "{err:?}");
-                    break;
-                },
-            }
-        }
+            .send()
+            .await
+            .unwrap_err();
+        assert!(err.is_timeout(), "{err:?}");
         let elapsed = start.elapsed();
         assert!(
             elapsed >= target && elapsed < target + Duration::from_secs(5),
