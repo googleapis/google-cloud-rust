@@ -52,7 +52,7 @@ pub struct OpenObjectRequest {
 
     /// The list of ranges to read as part of the initial request.
     ///
-    /// Applications can open an object and simulatenously issue a read request
+    /// Applications can open an object and issue a read request in the same RPC
     /// using [OpenObject::send_and_read][crate::builder::storage::OpenObject::send_and_read].
     ///
     /// In the future, we may offer methods to issue more than one read request.

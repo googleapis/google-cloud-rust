@@ -84,8 +84,8 @@ where
     /// # Ok(()) }
     /// ```
     ///
-    /// This method allows applications to open an object and simulatenously
-    /// issue an initial read request. This may be useful when opening objects
+    /// This method allows applications to open an object and issue a read
+    /// request in the same RPC. This may be useful when opening objects
     /// that have metadata information in a footer or header.
     pub async fn send_and_read(
         mut self,
