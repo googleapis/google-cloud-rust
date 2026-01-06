@@ -42,10 +42,14 @@ pub async fn populate(args: &Args, credentials: Credentials) -> anyhow::Result<V
         .with_credentials(credentials.clone())
         .build()
         .await?;
-    let objects = futures::future::join_all((0..args.task_count).map(|_| create(args, &client)))
-        .await
-        .into_iter()
-        .collect::<anyhow::Result<Vec<_>>>()?;
+    let data = bytes::Bytes::from_owner((32..128_u8).cycle().take(SIZE).collect::<Vec<_>>());
+    let objects = futures::future::join_all(
+        (0..args.task_count).map(|task| create(task, data.clone(), args, &client)),
+    )
+    .await
+    .into_iter()
+    .collect::<anyhow::Result<Vec<_>>>()?;
+    tracing::info!("create(DONE)");
     Ok(objects)
 }
 
@@ -67,8 +71,16 @@ async fn existing(args: &Args, control: StorageControl) -> anyhow::Result<Vec<Ob
     Ok(objects)
 }
 
-async fn create(args: &Args, client: &Storage) -> anyhow::Result<Object> {
-    let data = bytes::Bytes::from_owner((32..128_u8).cycle().take(SIZE).collect::<Vec<_>>());
+async fn create(
+    task: usize,
+    data: bytes::Bytes,
+    args: &Args,
+    client: &Storage,
+) -> anyhow::Result<Object> {
+    tokio::time::sleep(args.dataset_rampup_period * (task as u32)).await;
+    if task % 128 == 0 {
+        tracing::info!("create({})", task);
+    }
     let name = random_object_name();
     let object = client
         .write_object(args.full_bucket_name(), name, data)
