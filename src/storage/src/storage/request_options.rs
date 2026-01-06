@@ -24,6 +24,10 @@ use gax::{
 };
 use gaxi::options::ClientConfig;
 use std::sync::{Arc, Mutex};
+use std::time::Duration;
+
+/// The default timeout for bidi (re)connection attempts.
+const DEFAULT_BIDI_ATTEMPT_TIMEOUT: Duration = Duration::from_secs(60);
 
 /// The per-request options for a client call.
 ///
@@ -38,6 +42,7 @@ pub struct RequestOptions {
     pub(crate) checksum: Checksum,
     pub(crate) automatic_decompression: bool,
     pub(crate) common_options: CommonOptions,
+    pub(crate) bidi_attempt_timeout: Duration,
 }
 
 impl RequestOptions {
@@ -94,6 +99,10 @@ impl RequestOptions {
         self.common_options.resumable_upload_buffer_size = v;
     }
 
+    pub fn set_bidi_attempt_timeout(&mut self, v: Duration) {
+        self.bidi_attempt_timeout = v;
+    }
+
     pub fn resumable_upload_buffer_size(&self) -> usize {
         self.common_options.resumable_upload_buffer_size
     }
@@ -115,6 +124,7 @@ impl RequestOptions {
                 md5_hash: None,
             },
             automatic_decompression: false,
+            bidi_attempt_timeout: DEFAULT_BIDI_ATTEMPT_TIMEOUT,
         }
     }
 

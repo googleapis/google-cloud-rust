@@ -146,6 +146,7 @@ fn is_transient(error: &Error) -> bool {
         e if e.is_io() => true,
         // When using gRPC the errors may include more information.
         e if e.is_transport() => true,
+        e if e.is_timeout() => true,
         e => e.status().is_some_and(|s| is_transient_code(s.code)),
     }
 }
@@ -270,6 +271,8 @@ mod tests {
         let policy = Recommended;
         let r = policy.on_error(&ResumeQuery::new(0), common_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
+        let r = policy.on_error(&ResumeQuery::new(0), common_timeout());
+        assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
         let r = policy.on_error(&ResumeQuery::new(0), http_transient());
         assert!(matches!(r, ResumeResult::Continue(_)), "{r:?}");
         let r = policy.on_error(&ResumeQuery::new(0), grpc_deadline_exceeded());
@@ -340,6 +343,10 @@ mod tests {
 
     fn common_transient() -> Error {
         Error::transport(http::HeaderMap::new(), "test-only")
+    }
+
+    fn common_timeout() -> Error {
+        Error::timeout("simulated timeout")
     }
 
     fn grpc_deadline_exceeded() -> Error {
