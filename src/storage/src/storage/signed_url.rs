@@ -40,11 +40,11 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// This is the recommended way for most applications. It automatically finds credentials from the environment.
 ///
 /// ```rust,no_run
-/// use google_cloud_auth::credentials::Builder;
-/// use google_cloud_auth::signer::Signer;
+/// use auth::credentials::Builder;
+/// use auth::signer::Signer;
 ///
-/// # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
-/// let signer = Builder::default().build_signer().await?;
+/// # fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+/// let signer = Builder::default().build_signer()?;
 /// # Ok(signer)
 /// # }
 /// ```
@@ -56,8 +56,8 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// useful in environments where network access is restricted and performance is critical.
 ///
 /// ```rust,no_run
-/// use google_cloud_auth::credentials::service_account::Builder;
-/// use google_cloud_auth::signer::Signer;
+/// use auth::credentials::service_account::Builder;
+/// use auth::signer::Signer;
 ///
 /// # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
 /// let service_account_key = serde_json::json!({ /* add details here */ });

@@ -30,8 +30,8 @@
 //! use google_cloud_auth::credentials::Builder;
 //! use google_cloud_auth::signer::Signer;
 //!
-//! # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
-//! let signer = Builder::default().build_signer().await?;
+//! # fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+//! let signer = Builder::default().build_signer()?;
 //! # Ok(signer)
 //! # }
 //! ```
@@ -87,10 +87,8 @@ pub type Result<T> = std::result::Result<T, SigningError>;
 /// use google_cloud_auth::credentials::Builder;
 /// use google_cloud_auth::signer::Signer;
 ///
-/// # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
-/// let signer = Builder::default()
-///     .build_signer()
-///     .await?;
+/// # fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+/// let signer = Builder::default().build_signer()?;
 /// # Ok(signer)
 /// # }
 /// ```
