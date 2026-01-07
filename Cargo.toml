@@ -272,6 +272,7 @@ members = [
   "src/storage/examples",
   "src/storage/tests/scenarios",
   "src/wkt",
+  "tests/crypto-providers/auth-with-default",
   "tests/endurance",
   "tests/integration",
   "tests/integration-auth",
