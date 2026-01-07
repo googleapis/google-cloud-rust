@@ -12,6 +12,62 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Abstraction for signing arbitrary bytes using Google Cloud [Credentials][crate::credentials::Credentials].
+//!
+//! A [`Signer`] is used to sign data, typically for authentication or authorization purposes.
+//! One primary use case in the Google Cloud ecosystem is generating [Signed URLs] for Google Cloud Storage.
+//!
+//! The main type in this module is [Signer]. This is an opaque type
+//! that implements the [SigningProvider] trait and can be used to
+//! sign content. Use [crate::credentials::Builder::build_signer]
+//! to create a `Signer` from loaded credentials.
+//!
+//! ## Example: Creating a Signer using Application Default Credentials (ADC)
+//!
+//! This is the recommended way for most applications. It automatically finds credentials from the environment.
+//!
+//! ```rust,no_run
+//! use google_cloud_auth::credentials::Builder;
+//! use google_cloud_auth::signer::Signer;
+//!
+//! # fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+//! let signer = Builder::default().build_signer()?;
+//! # Ok(signer)
+//! # }
+//! ```
+//!
+//! ## Example: Creating a Signer using a Service Account Key File
+//!
+//! This is useful when you have a specific service account key file (JSON) and want to use it directly.
+//! Service account based signers work by local signing and do not make network requests, which can be
+//! useful in environments where network access is restricted and performance is critical.
+//!
+//! ```rust,no_run
+//! use google_cloud_auth::credentials::service_account::Builder;
+//! use google_cloud_auth::signer::Signer;
+//!
+//! # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+//! // In a real application, you would read this from a file.
+//! let service_account_key = serde_json::json!({
+//!     "type": "service_account",
+//!     "project_id": "my-project",
+//!     "private_key_id": "...",
+//!     "private_key": "-----BEGIN PRIVATE KEY-----\n...",
+//!     "client_email": "my-service-account@my-project.iam.gserviceaccount.com",
+//!     "client_id": "...",
+//!     "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+//!     "token_uri": "https://oauth2.googleapis.com/token",
+//!     "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+//!     "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/my-service-account%40my-project.iam.gserviceaccount.com"
+//! });
+//!
+//! let signer = Builder::new(service_account_key).build_signer()?;
+//! # Ok(signer)
+//! # }
+//! ```
+//!
+//! [Signed URLs]: https://cloud.google.com/storage/docs/access-control/signed-urls
+
 use std::sync::Arc;
 
 pub(crate) mod iam;
@@ -22,8 +78,20 @@ pub type Result<T> = std::result::Result<T, SigningError>;
 
 /// An implementation of [crate::signer::SigningProvider] that wraps a dynamic provider.
 ///
-/// This struct is the primary entry point for signing operations. It can be created
-/// from any type that implements [SigningProvider].
+/// This struct is the primary entry point for signing operations. The most common way to create
+/// an instance of `Signer` is via [crate::credentials::Builder::build_signer].
+///
+/// # Example
+///
+/// ```rust,no_run
+/// use google_cloud_auth::credentials::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+/// let signer = Builder::default().build_signer()?;
+/// # Ok(signer)
+/// # }
+/// ```
 #[derive(Clone, Debug)]
 pub struct Signer {
     pub(crate) inner: Arc<dyn dynamic::SigningProvider>,
