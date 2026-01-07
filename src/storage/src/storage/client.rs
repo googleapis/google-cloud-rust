@@ -253,6 +253,11 @@ where
     /// # Ok(()) }
     /// ```
     ///
+    /// <div class="warning">
+    /// The APIs used by this method are only enabled for some projects and
+    /// buckets. Contact your account team to enable this API.
+    /// </div>
+    ///
     /// # Parameters
     /// * `bucket` - the bucket name containing the object. In
     ///   `projects/_/buckets/{bucket_id}` format.
