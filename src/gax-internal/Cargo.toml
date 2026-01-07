@@ -35,47 +35,66 @@ features = []
 workspace = true
 
 [features]
+
+client-ring = ["_internal-http-client","_internal-grpc-client"]
+client-aws-lc-rs = ["_internal-http-client-aws","_internal-grpc-client-aws"]
+
 _internal-http-client = [
   "_internal-common",
-  "dep:auth",
-  "dep:bytes",
-  "dep:futures",
-  "dep:gax",
-  "dep:http",
-  "dep:http-body-util",
-  "dep:hyper",
-  "dep:opentelemetry-semantic-conventions",
-  "dep:reqwest",
-  "dep:rpc",
-  "dep:serde",
-  "dep:serde_json",
-  "dep:tokio",
-  "dep:tracing",
+  "_internal-http-client-base",
 ]
+
+_internal-http-client-aws = [
+  "_internal-common-aws",
+  "_internal-http-client-base",
+]
+
+_internal-http-client-base = [
+  "dep:hyper",
+  "dep:reqwest",
+  "dep:serde",
+  "_internal-common-client",
+]
+
 _internal-grpc-client = [
   "_internal-common",
-  "dep:auth",
-  "dep:bytes",
-  "dep:futures",
-  "dep:gax",
-  "dep:http",
+  "_internal-grpc-client-base",
+]
+
+_internal-grpc-client-aws = [
+  "_internal-common-aws",
+  "_internal-grpc-client-base",
+]
+
+_internal-grpc-client-base = [
   "dep:http-body",
-  "dep:http-body-util",
-  "dep:opentelemetry-semantic-conventions",
   "dep:pin-project",
   "dep:prost",
   "dep:prost-types",
-  "dep:rpc",
-  "dep:serde_json",
-  "dep:tokio",
   "dep:tokio-stream",
   "dep:tonic",
   "dep:tonic-prost",
   "dep:tower",
-  "dep:tracing",
   "dep:wkt",
+  "_internal-common-client",
 ]
-_internal-common = ["dep:auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+
+_internal-common-client =[
+    "dep:bytes",
+    "dep:futures",
+    "dep:http",
+    "dep:http-body-util",
+    "dep:opentelemetry-semantic-conventions",
+    "dep:rpc",
+    "dep:serde_json",
+    "dep:tokio",
+    "dep:tracing",
+]
+
+_internal-common = ["_rustfs-ring", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+_internal-common-aws = ["_rustfs-aws-lc-rs", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+_rustfs-aws-lc-rs = ["dep:auth","auth?/rustls-aws-lc-rs"]
+_rustfs-ring = ["dep:auth","auth?/rustls-ring"]
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }

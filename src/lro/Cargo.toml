@@ -63,6 +63,6 @@ serde_json.workspace = true
 tokio                = { workspace = true, features = ["test-util"] }
 tokio-test.workspace = true
 # Local dependencies
-auth.workspace = true
+auth           = { workspace = true, features = ["rustfs-ring"] }
 gaxi.workspace = true
 lro            = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
