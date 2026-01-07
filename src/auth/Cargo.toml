@@ -38,8 +38,8 @@ async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
 http.workspace        = true
-reqwest               = { workspace = true, features = ["form", "json", "query", "rustls"] }
-rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
+reqwest               = { workspace = true, features = ["form", "json", "query", "rustls-no-provider"] }
+rustls                = { workspace = true, features = ["logging", "std", "tls12"] }
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
 serde_json.workspace  = true
@@ -67,8 +67,9 @@ url.workspace         = true
 mutants.workspace     = true
 
 [features]
-default = []
-idtoken = ["jsonwebtoken"]
+default                 = ["default-crypto-provider"]
+idtoken                 = ["jsonwebtoken"]
+default-crypto-provider = ["reqwest/rustls", "rustls/aws-lc-rs"]
 
 [lints]
 workspace = true

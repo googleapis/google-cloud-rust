@@ -75,7 +75,7 @@ mod tests {
 
         // It is easier to grab some `CryptoProvider` and replace its
         // `key_provider` than construct a fake `CryptoProvider` from scratch.
-        let mut cp = rustls::crypto::ring::default_provider();
+        let mut cp = rustls::crypto::aws_lc_rs::default_provider();
         cp.key_provider = &FAKE_KEY_PROVIDER;
 
         // Install our custom `CryptoProvider`.
