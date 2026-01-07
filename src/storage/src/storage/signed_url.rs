@@ -29,7 +29,47 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// [Signed URLs] provide a way to give time-limited read or write access to specific resources
 /// without sharing your credentials.
 ///
-/// # Example
+/// This implementation uses the [V4 signing process].
+///
+/// # Example: Creating a Signer
+///
+/// You can use `google-cloud-auth` to create a `Signer`.
+///
+/// ## Using Application Default Credentials (ADC)
+///
+/// This is the recommended way for most applications. It automatically finds credentials from the environment.
+///
+/// ```rust,no_run
+/// use google_cloud_auth::credentials::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+/// let signer = Builder::default().build_signer().await?;
+/// # Ok(signer)
+/// # }
+/// ```
+///
+/// ## Using a Service Account Key File
+///
+/// This is useful when you have a specific service account key file (JSON) and want to use it directly.
+/// Service account based signers work by local signing and do not make network requests, which can be
+/// useful in environments where network access is restricted and performance is critical.
+///
+/// ```rust,no_run
+/// use google_cloud_auth::credentials::service_account::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # async fn build_signer() -> Result<Signer, Box<dyn std::error::Error>> {
+/// let service_account_key = serde_json::json!({ /* add details here */ });
+///
+/// let signer = Builder::new(service_account_key).build_signer()?;
+/// # Ok(signer)
+/// # }
+/// ```
+///
+/// # Example: Generating a Signed URL
+///
+/// ## Generating a Signed URL for Downloading an Object (GET)
 ///
 /// ```no_run
 /// use google_cloud_storage::builder::storage::SignedUrlBuilder;
@@ -47,7 +87,29 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// # Ok(())
 /// # }
 /// ```
+///
+/// ## Generating a Signed URL for Uploading an Object (PUT)
+///
+/// ```no_run
+/// use google_cloud_storage::builder::storage::SignedUrlBuilder;
+/// use std::time::Duration;
+/// # use auth::signer::Signer;
+///
+/// # async fn run(signer: &Signer) -> Result<(), Box<dyn std::error::Error>> {
+/// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+///     .with_method(http::Method::PUT)
+///     .with_expiration(Duration::from_secs(3600)) // 1 hour
+///     .with_header("content-type", "application/json") // Optional: Enforce content type
+///     .sign_with(signer)
+///     .await?;
+///
+/// println!("Upload URL: {}", url);
+/// # Ok(())
+/// # }
+/// ```
+///
 /// [signed urls]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
+/// [V4 signing process]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 #[derive(Debug)]
 #[allow(dead_code)]
 pub struct SignedUrlBuilder {
@@ -166,12 +228,7 @@ impl SignedUrlBuilder {
     ///     .await?;
     /// # Ok(())
     /// # }
-    ///```
-    ///
-    /// # Arguments
-    ///
-    /// * `bucket` - The name of the bucket containing the object.
-    /// * `object` - The name of the object.    
+    ///```  
     pub fn for_object<B, O>(bucket: B, object: O) -> Self
     where
         B: Into<String>,
@@ -195,10 +252,6 @@ impl SignedUrlBuilder {
     /// # Ok(())
     /// # }
     /// ```
-    ///
-    /// # Arguments
-    ///
-    /// * `bucket` - The name of the bucket.
     pub fn for_bucket<B>(bucket: B) -> Self
     where
         B: Into<String>,
@@ -235,6 +288,8 @@ impl SignedUrlBuilder {
     }
 
     /// Sets the expiration time for the signed URL. The default is 7 days.
+    ///
+    /// The maximum expiration time for V4 signed URLs is 7 days.
     ///
     /// # Example
     ///
@@ -323,6 +378,8 @@ impl SignedUrlBuilder {
     }
 
     /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
+    ///
+    /// This is useful for testing (e.g. using the emulator) or when using a custom domain.
     ///
     /// Setting an endpoint takes precedence over using `with_universe_domain`.
     ///
@@ -532,10 +589,6 @@ impl SignedUrlBuilder {
     }
 
     /// Generates the signed URL using the provided signer.
-    ///
-    /// # Arguments
-    ///
-    /// * `signer` - The signer to use for signing the URL.
     ///
     /// # Returns
     ///
