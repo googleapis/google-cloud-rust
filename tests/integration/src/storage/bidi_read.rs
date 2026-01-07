@@ -79,14 +79,11 @@ pub async fn send_and_read(client: &Storage, bucket_name: &str) -> anyhow::Resul
     want.finalize_time = got.finalize_time;
     assert_eq!(got, want);
 
-    let mut count = 0_usize;
     let mut data = Vec::new();
     while let Some(r) = reader.next().await.transpose()? {
         tracing::info!("received {} bytes", r.len());
-        count += r.len();
         data.extend_from_slice(&r);
     }
-    assert_eq!(count, 100_usize);
     assert_eq!(data, &payload.as_bytes()[(payload.len() - 100)..]);
 
     Ok(())

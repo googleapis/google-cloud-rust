@@ -85,8 +85,9 @@ where
     /// ```
     ///
     /// This method allows applications to open an object and issue a read
-    /// request in the same RPC. This may be useful when opening objects
-    /// that have metadata information in a footer or header.
+    /// request in the same RPC, which is typically faster than opening an
+    /// object and then issuing a `read_range()` cal. This may be useful when
+    /// opening objects that have metadata information in a footer or header.
     pub async fn send_and_read(
         mut self,
         range: ReadRange,
