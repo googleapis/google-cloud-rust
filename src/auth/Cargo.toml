@@ -38,8 +38,8 @@ async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
 http.workspace        = true
-reqwest               = { workspace = true, features = ["json", "rustls-tls"] }
-rustls                = { workspace = true, features = ["logging", "std", "tls12"], default-features = false ,optional = true }
+reqwest               = { workspace = true, features = ["json"], optional = true }
+rustls                = { workspace = true, features = ["logging", "std", "tls12"], optional = true }
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
 serde_json.workspace  = true
@@ -68,8 +68,8 @@ mutants.workspace     = true
 
 [features]
 default = ["rustls-ring"]
-rustls-ring = ["rustls?/ring", "dep:rustls"]
-rustls-aws-lc-rs = ["rustls?/aws-lc-rs", "dep:rustls"]
+rustls-ring = ["rustls?/ring", "dep:rustls", "dep:reqwest", "reqwest?/rustls-no-provider"]
+rustls-aws-lc-rs = ["rustls?/aws-lc-rs", "dep:rustls", "dep:reqwest", "reqwest?/rustls"]
 idtoken = ["jsonwebtoken"]
 
 [lints]

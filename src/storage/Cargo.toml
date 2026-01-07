@@ -44,7 +44,7 @@ percent-encoding.workspace = true
 pin-project.workspace      = true
 prost.workspace            = true
 prost-types.workspace      = true
-reqwest                    = { workspace = true, features = ["multipart", "stream"] }
+reqwest                    = { workspace = true, features = ["multipart", "stream"], optional = true }
 serde.workspace            = true
 serde_json.workspace       = true
 serde_with.workspace       = true
@@ -60,7 +60,7 @@ hex                        = { workspace = true, features = ["std"] }
 # Transitive dependencies. Used for minimal version selection.
 mime.workspace = true
 # Local crates
-auth.workspace        = true
+google-cloud-auth     = { workspace = true, optional = true }
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 gtype.workspace       = true
@@ -71,6 +71,9 @@ rpc.workspace         = true
 wkt.workspace         = true
 
 [features]
+default = ["rustls-ring"]
+rustls-aws-lc-rs = ["dep:google-cloud-auth","google-cloud-auth?/rustls-aws-lc-rs", "dep:reqwest", "reqwest?/rustls"]
+rustls-ring = ["dep:google-cloud-auth","google-cloud-auth?/rustls-ring", "dep:reqwest", "reqwest?/rustls-no-provider"]
 unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
