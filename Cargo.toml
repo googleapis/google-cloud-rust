@@ -272,7 +272,6 @@ members = [
   "src/storage/examples",
   "src/storage/tests/scenarios",
   "src/wkt",
-  "tests/crypto-providers/auth-with-default",
   "tests/endurance",
   "tests/integration",
   "tests/integration-auth",
@@ -280,6 +279,7 @@ members = [
   "tools/check-copyright",
   "tools/minimal-version-helper",
 ]
+exclude = ["tests/crypto-providers/*"]
 
 [workspace.package]
 edition      = "2024"

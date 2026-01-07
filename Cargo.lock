@@ -79,15 +79,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "auth-with-default-crypto-provider"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "cargo_metadata",
- "google-cloud-auth",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
