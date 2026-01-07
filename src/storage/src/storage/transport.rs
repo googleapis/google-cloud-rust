@@ -22,9 +22,8 @@ use crate::storage::read_object::Reader;
 use crate::storage::request_options::RequestOptions;
 use crate::storage::streaming_source::{Seek, StreamingSource};
 use crate::{
-    google::storage::v2::BidiReadObjectSpec, model_ext::OpenObjectRequest,
-    object_descriptor::ObjectDescriptor, storage::bidi::connector::Connector,
-    storage::bidi::transport::ObjectDescriptorTransport,
+    model_ext::OpenObjectRequest, object_descriptor::ObjectDescriptor,
+    storage::bidi::connector::Connector, storage::bidi::transport::ObjectDescriptorTransport,
 };
 use std::sync::Arc;
 
@@ -104,10 +103,10 @@ impl super::stub::Storage for Storage {
         request: OpenObjectRequest,
         options: RequestOptions,
     ) -> Result<(ObjectDescriptor, Vec<ReadObjectResponse>)> {
-        let spec = BidiReadObjectSpec::from(request);
+        let (spec, ranges) = request.into_parts();
         let connector = Connector::new(spec, options, self.inner.grpc.clone());
-        let transport = ObjectDescriptorTransport::new(connector).await?;
+        let (transport, readers) = ObjectDescriptorTransport::new(connector, ranges).await?;
 
-        Ok((ObjectDescriptor::new(transport), Vec::new()))
+        Ok((ObjectDescriptor::new(transport), readers))
     }
 }

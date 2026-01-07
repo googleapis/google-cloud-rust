@@ -111,6 +111,36 @@ pub async fn open_read(client: &Storage, objects: &[Object]) -> Attempt {
     }
 }
 
+pub async fn open_read_atomic(client: &Storage, objects: &[Object]) -> Attempt {
+    let object = objects
+        .choose(&mut rand::rng())
+        .expect("at least one object");
+    let start = Instant::now();
+    let result = client
+        .open_object(&object.bucket, &object.name)
+        .set_generation(object.generation)
+        .send_and_read(ReadRange::head(4 * MIB as u64))
+        .await;
+    match result {
+        Ok((d, reader)) => {
+            let open_latency = start.elapsed();
+            let count = read_all(reader).await;
+            Attempt {
+                open_latency,
+                object: object.name.clone(),
+                uploadid: uploadid(Some(&d.headers())).unwrap_or_default(),
+                result: count.map(|_| ()),
+            }
+        }
+        Err(e) => Attempt {
+            open_latency: start.elapsed(),
+            object: object.name.clone(),
+            uploadid: uploadid(e.http_headers()).unwrap_or_default(),
+            result: Err(e.into()),
+        },
+    }
+}
+
 pub async fn open_read_discard(client: &Storage, objects: &[Object]) -> Attempt {
     let object = objects
         .choose(&mut rand::rng())

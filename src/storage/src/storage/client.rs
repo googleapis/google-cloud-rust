@@ -253,6 +253,19 @@ where
     /// # Ok(()) }
     /// ```
     ///
+    /// # Example: open and read in a single RPC
+    /// ```
+    /// # use google_cloud_storage::client::Storage;
+    /// # async fn sample(client: &Storage) -> anyhow::Result<()> {
+    /// use google_cloud_storage::model_ext::ReadRange;
+    /// let (descriptor, mut reader) = client
+    ///     .open_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send_and_read(ReadRange::segment(1000, 2000))
+    ///     .await?;
+    /// // `descriptor` can be used to read more ranges.
+    /// # Ok(()) }
+    /// ```
+    ///
     /// <div class="warning">
     /// The APIs used by this method are only enabled for some projects and
     /// buckets. Contact your account team to enable this API.

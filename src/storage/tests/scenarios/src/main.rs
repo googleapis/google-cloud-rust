@@ -59,6 +59,7 @@ async fn main() -> anyhow::Result<()> {
             Scenario::Json,
             Scenario::Open,
             Scenario::OpenRead,
+            Scenario::OpenReadAtomic,
             Scenario::OpenReadDiscard,
             Scenario::OpenReadAfterDrop,
         ];

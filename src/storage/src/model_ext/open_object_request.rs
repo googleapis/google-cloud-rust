@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{google::storage::v2::BidiReadObjectSpec, model::CommonObjectRequestParams};
+use crate::{
+    google::storage::v2::BidiReadObjectSpec, model::CommonObjectRequestParams, model_ext::ReadRange,
+};
 use gaxi::prost::ToProto;
 
 /// The request type for a bidi read object streaming RPC.
@@ -47,6 +49,14 @@ pub struct OpenObjectRequest {
     ///
     /// [Customer-Supplied Encryption Keys]: https://docs.cloud.google.com/storage/docs/encryption/customer-supplied-keys
     pub common_object_request_params: Option<CommonObjectRequestParams>,
+
+    /// The list of ranges to read as part of the initial request.
+    ///
+    /// Applications can open an object and issue a read request in the same RPC
+    /// using [OpenObject::send_and_read][crate::builder::storage::OpenObject::send_and_read].
+    ///
+    /// In the future, we may offer methods to issue more than one read request.
+    pub ranges: Vec<ReadRange>,
 }
 
 impl OpenObjectRequest {
@@ -135,6 +145,11 @@ impl OpenObjectRequest {
     ) -> Self {
         self.common_object_request_params = v;
         self
+    }
+
+    pub(crate) fn into_parts(mut self) -> (BidiReadObjectSpec, Vec<ReadRange>) {
+        let ranges = std::mem::take(&mut self.ranges);
+        (BidiReadObjectSpec::from(self), ranges)
     }
 }
 
