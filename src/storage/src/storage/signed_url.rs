@@ -39,7 +39,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 ///
 /// This is the recommended way for most applications. It automatically finds credentials from the environment.
 ///
-/// ```rust,no_run
+/// ```
 /// use auth::credentials::Builder;
 /// use auth::signer::Signer;
 ///
@@ -55,7 +55,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// Service account based signers work by local signing and do not make network requests, which can be
 /// useful in environments where network access is restricted and performance is critical.
 ///
-/// ```rust,no_run
+/// ```
 /// use auth::credentials::service_account::Builder;
 /// use auth::signer::Signer;
 ///
