@@ -62,7 +62,7 @@ mime.workspace = true
 # Local crates
 google-cloud-auth     = { workspace = true, optional = true }
 gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+gaxi                  = { workspace = true, optional = true }
 gtype.workspace       = true
 iam_v1.workspace      = true
 longrunning.workspace = true
@@ -72,8 +72,8 @@ wkt.workspace         = true
 
 [features]
 default = ["rustls-ring"]
-rustls-aws-lc-rs = ["dep:google-cloud-auth","google-cloud-auth?/rustls-aws-lc-rs", "dep:reqwest", "reqwest?/rustls"]
-rustls-ring = ["dep:google-cloud-auth","google-cloud-auth?/rustls-ring", "dep:reqwest", "reqwest?/rustls-no-provider"]
+rustls-aws-lc-rs = ["dep:google-cloud-auth","google-cloud-auth?/rustls-aws-lc-rs", "dep:reqwest", "reqwest?/rustls", "dep:gaxi","gaxi?/_internal-grpc-client-aws"]
+rustls-ring = ["dep:google-cloud-auth","google-cloud-auth?/rustls-ring", "dep:reqwest", "reqwest?/rustls-no-provider", "dep:gaxi","gaxi?/_internal-grpc-client"]
 unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
