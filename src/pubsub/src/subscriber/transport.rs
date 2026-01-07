@@ -90,14 +90,14 @@ impl Stub for Transport {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use crate::google::pubsub::v1::ReceivedMessage;
     use auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
 
-    async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
+    pub(crate) async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
         let mut config = gaxi::options::ClientConfig::default();
         config.cred = Some(Anonymous::new().build());
         config.endpoint = Some(endpoint);

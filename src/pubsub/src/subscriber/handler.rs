@@ -23,6 +23,7 @@ pub(crate) enum AckResult {
 }
 
 /// A handler for acknowledging or rejecting messages.
+#[derive(Debug)]
 #[non_exhaustive]
 pub enum Handler {
     AtLeastOnce(AtLeastOnce),
@@ -52,6 +53,7 @@ impl Handler {
 }
 
 /// A handler for at-least-once delivery.
+#[derive(Debug)]
 pub struct AtLeastOnce {
     pub(crate) ack_id: String,
     pub(crate) ack_tx: UnboundedSender<AckResult>,
