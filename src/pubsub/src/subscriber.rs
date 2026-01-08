@@ -20,6 +20,7 @@ pub(crate) mod keepalive;
 pub(crate) mod lease_loop;
 pub(crate) mod lease_state;
 pub(crate) mod leaser;
+pub(crate) mod session;
 pub(crate) mod stream;
 pub(crate) mod stub;
 pub(crate) mod transport;
