@@ -82,7 +82,10 @@ steps:
       #!/usr/bin/env bash
       set -euv
       go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
-      git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' | \
+      git ls-files -z -- '*.yaml' '*.yml' \
+        ':!:testdata/**' \
+        ':!:**/generated/**' \
+        ':!:**/librarian.yaml' | \
         xargs -0 yamlfmt
     waitFor: ['-']
   - name: 'ubuntu:24.04'
