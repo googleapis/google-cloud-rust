@@ -27,6 +27,9 @@ sha256sum -c <(echo 9fa5ffeda4170de60f67f3aa0f824e426421ba724c21e133c1e35d6159ca
 tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=${PATH}:/usr/local/go/bin
 
+echo "==== Install taplo ===="
+cargo install taplo-cli --locked
+
 cargo version
 rustup component add rustfmt
 rustup show active-toolchain -v
