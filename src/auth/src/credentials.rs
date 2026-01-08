@@ -556,6 +556,24 @@ impl Builder {
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 
+    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    ///
+    /// This method automatically loads Application Default Credentials (ADC)
+    /// from the environment and uses them to create a signer.
+    ///
+    /// The returned [crate::signer::Signer] might perform signing locally (e.g. if a service
+    /// account key is found) or via a remote API (e.g. if running on GCE).
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::Builder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// # tokio_test::block_on(async {
+    /// let signer: Signer = Builder::default().build_signer()?;
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
     #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let json_data = match load_adc()? {

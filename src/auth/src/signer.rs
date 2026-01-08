@@ -12,6 +12,54 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Abstraction for signing arbitrary bytes using Google Cloud [Credentials][crate::credentials::Credentials].
+//!
+//! A [`Signer`] is used to sign data, typically for authentication or
+//! authorization purposes. One primary use case in the Google Cloud
+//! ecosystem is generating [Signed URLs] for Google Cloud Storage.
+//!
+//! The main type in this module is [Signer]. This is an opaque type
+//! that implements the [SigningProvider] trait and can be used to
+//! sign content. Use [crate::credentials::Builder::build_signer]
+//! to create a `Signer` from loaded credentials.
+//!
+//! ## Example: Creating a Signer using Application Default Credentials (ADC)
+//!
+//! This is the recommended way for most applications. It automatically finds
+//! credentials from the environment.
+//!
+//! ```
+//! use google_cloud_auth::credentials::Builder;
+//! use google_cloud_auth::signer::Signer;
+//!
+//! # tokio_test::block_on(async {
+//! let signer: Signer = Builder::default().build_signer()?;
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+//! ```
+//!
+//! ## Example: Creating a Signer using a Service Account Key File
+//!
+//! This is useful when you have a specific service account key file (JSON)
+//! and want to use it directly. Service account based signers work by local
+//! signing and do not make network requests, which can be useful in
+//! environments where network access is restricted and performance is
+//! critical.
+//!
+//! ```
+//! use google_cloud_auth::credentials::service_account::Builder;
+//! use google_cloud_auth::signer::Signer;
+//!
+//! # tokio_test::block_on(async {
+//! let service_account_key = serde_json::json!({ /* add details here */ });
+//!
+//! let signer: Signer = Builder::new(service_account_key).build_signer()?;
+//! # Ok::<(), anyhow::Error>(())
+//! # });
+//! ```
+//!
+//! [Signed URLs]: https://cloud.google.com/storage/docs/access-control/signed-urls
+
 use std::sync::Arc;
 
 pub(crate) mod iam;
@@ -20,10 +68,24 @@ pub(crate) mod service_account;
 
 pub type Result<T> = std::result::Result<T, SigningError>;
 
-/// An implementation of [crate::signer::SigningProvider] that wraps a dynamic provider.
+/// An implementation of [crate::signer::SigningProvider] that wraps a
+/// dynamic provider.
 ///
-/// This struct is the primary entry point for signing operations. It can be created
-/// from any type that implements [SigningProvider].
+/// This struct is the primary entry point for signing operations.
+/// The most common way to create an instance of `Signer`
+/// is via [crate::credentials::Builder::build_signer].
+///
+/// # Example
+///
+/// ```
+/// use google_cloud_auth::credentials::Builder;
+/// use google_cloud_auth::signer::Signer;
+///
+/// # tokio_test::block_on(async {
+/// let signer: Signer = Builder::default().build_signer()?;
+/// # Ok::<(), anyhow::Error>(())
+/// # });
+/// ```
 #[derive(Clone, Debug)]
 pub struct Signer {
     pub(crate) inner: Arc<dyn dynamic::SigningProvider>,
@@ -102,27 +164,62 @@ pub(crate) mod dynamic {
 
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
+/// Represents an error occurred during a signing operation.
+///
+/// This error can occur when using a [Signer] to sign content. It may represent
+/// a transport error when using a remote API (like the IAM signBlob API) or a
+/// parsing/signing error when performing local signing with a service account key.
+///
+/// Applications rarely need to create instances of this error type. The
+/// exception might be when testing application code, where the application is
+/// mocking a [Signer] behavior.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_auth::signer::{SigningError, Signer};
+/// # async fn handle_signer(signer: Signer) {
+/// let content = b"content to sign";
+/// match signer.sign(content).await {
+///     Ok(signature) => println!("Signature: {:?}", signature),
+///     Err(e) if e.is_transport() => println!("Transport error: {}", e),
+///     Err(e) => println!("Other error: {}", e),
+/// }
+/// # }
+/// ```
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
 pub struct SigningError(SigningErrorKind);
 
 impl SigningError {
-    /// A problem using API to sign blob.
+    /// Returns true if the error was caused by a transport problem.
+    ///
+    /// This typically happens when using a remote signer (like the IAM signBlob API)
+    /// and the network request fails or the service returns a transient error.
     pub fn is_transport(&self) -> bool {
         matches!(self.0, SigningErrorKind::Transport(_))
     }
 
-    /// A problem parsing a private key for local signing.
+    /// Returns true if the error was caused by a parsing problem.
+    ///
+    /// This typically happens when the signer is using a private key that
+    /// cannot be parsed or is invalid.
     pub fn is_parsing(&self) -> bool {
         matches!(self.0, SigningErrorKind::Parsing(_))
     }
 
-    /// A problem signing content.
+    /// Returns true if the error was caused by a problem during the signing operation.
+    ///
+    /// This can happen during local signing if the cryptographic operation fails,
+    /// or if the remote API returns an error that is not a transport error.
     pub fn is_sign(&self) -> bool {
         matches!(self.0, SigningErrorKind::Sign(_))
     }
 
-    /// A problem parsing a private key for local signing.
+    /// Creates a [SigningError] representing a parsing error.
+    ///
+    /// This function is primarily intended for use in the client libraries
+    /// implementation or in testing mocks.
     pub(crate) fn parsing<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -130,7 +227,10 @@ impl SigningError {
         SigningError(SigningErrorKind::Parsing(source.into()))
     }
 
-    /// A problem using API to sign blob.
+    /// Creates a [SigningError] representing a transport error.
+    ///
+    /// This function is primarily intended for use in the client libraries
+    /// implementation or in testing mocks.
     pub(crate) fn transport<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -138,7 +238,10 @@ impl SigningError {
         SigningError(SigningErrorKind::Transport(source.into()))
     }
 
-    /// A problem signing content.
+    /// Creates a [SigningError] representing a signing error.
+    ///
+    /// This function is primarily intended for use in the client libraries
+    /// implementation or in testing mocks.
     pub(crate) fn sign<T>(source: T) -> SigningError
     where
         T: Into<BoxError>,
@@ -146,7 +249,7 @@ impl SigningError {
         SigningError(SigningErrorKind::Sign(source.into()))
     }
 
-    /// Creates a new `SigningError`.
+    /// Creates a new `SigningError` from a message.
     ///
     /// This function is only intended for use in the client libraries
     /// implementation. Application may use this in mocks, though we do not

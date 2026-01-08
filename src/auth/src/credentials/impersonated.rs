@@ -477,6 +477,39 @@ impl Builder {
         })
     }
 
+    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    ///
+    /// The returned [crate::signer::Signer] uses the [IAM signBlob API] to sign content. This API
+    /// requires a network request for each signing operation.
+    ///
+    /// Note that if the source credentials are a service account, the signer
+    /// might perform signing locally. For more details on local signing, see
+    /// [crate::credentials::service_account::Builder::build_signer].
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::impersonated::Builder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let impersonated_credential = json!({
+    ///     "type": "impersonated_service_account",
+    ///     "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+    ///     "source_credentials": {
+    ///         "type": "authorized_user",
+    ///         "client_id": "test-client-id",
+    ///         "client_secret": "test-client-secret",
+    ///         "refresh_token": "test-refresh-token"
+    ///     }
+    /// });
+    ///
+    /// let signer: Signer = Builder::new(impersonated_credential).build_signer()?;
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         self.build_signer_with_iam_endpoint_override(None)
