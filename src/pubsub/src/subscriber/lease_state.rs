@@ -92,8 +92,13 @@ where
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
     pub(crate) async fn next_event(&mut self) -> LeaseEvent {
-        // TODO(#3972) - flush on size if an `Acknowledge` or
-        // `ModifyAckDeadline` RPC is full.
+        if self.to_ack.len() >= 2500 || self.to_nack.len() >= 2500 {
+            // An ack ID is less than 200 bytes. The limit for a request is
+            // 512kB. It should be safe to flush when we get to ~500kB.
+            //
+            // https://docs.cloud.google.com/pubsub/quotas
+            return LeaseEvent::Flush;
+        }
 
         tokio::select! {
             _ = self.flush_interval.tick() => LeaseEvent::Flush,
@@ -139,6 +144,7 @@ where
     pub(crate) async fn extend(&mut self) {
         // TODO(#3957) - drop expired messages
         let under_lease: Vec<String> = self.under_lease.iter().cloned().collect();
+        // TODO(#3972) - respect `ModifyAckDeadline` RPC size quota
         self.leaser.extend(under_lease).await;
     }
 
@@ -193,7 +199,7 @@ pub(crate) mod tests {
     }
 
     pub(crate) fn test_id(v: i32) -> String {
-        format!("{v:03}")
+        format!("{v:05}")
     }
 
     pub(crate) fn test_ids(range: std::ops::Range<i32>) -> Vec<String> {
@@ -379,7 +385,7 @@ pub(crate) mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn lease_events() {
+    async fn lease_events_timing() {
         let start = Instant::now();
 
         // We expect flushes at time t=[1, 3, 5, 7, ...]
@@ -416,5 +422,87 @@ pub(crate) mod tests {
 
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::from_secs(7));
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn limit_size_of_ack_batch() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mut mock = MockLeaser::new();
+        mock.expect_ack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..2500))
+            .returning(|_| ());
+        mock.expect_nack()
+            .times(1)
+            .withf(|v| v.is_empty())
+            .returning(|_| ());
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+        };
+        let mut state = LeaseState::new(mock, options);
+
+        for i in 0..2500 {
+            state.ack(test_id(i));
+        }
+        // With 2500 pending acks, the batch is full. We should flush it now.
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), Duration::ZERO);
+        state.flush().await;
+
+        // With 1000 pending acks, the batch is not full. The next event should
+        // occur on the interval timer.
+        for i in 2500..3500 {
+            state.add(test_id(i));
+            state.ack(test_id(i));
+        }
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn limit_size_of_nack_batch() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mut mock = MockLeaser::new();
+        mock.expect_ack()
+            .times(1)
+            .withf(|v| v.is_empty())
+            .returning(|_| ());
+        mock.expect_nack()
+            .times(1)
+            .withf(|v| sorted(v) == test_ids(0..2500))
+            .returning(|_| ());
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+        };
+        let mut state = LeaseState::new(mock, options);
+
+        for i in 0..2500 {
+            state.add(test_id(i));
+            state.nack(test_id(i));
+        }
+        // With 2500 pending nacks, the batch is full. We should flush it now.
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), Duration::ZERO);
+        state.flush().await;
+
+        // With 1000 pending acks, the batch is not full. The next event should
+        // occur on the interval timer.
+        for i in 2500..3500 {
+            state.nack(test_id(i));
+        }
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
     }
 }
