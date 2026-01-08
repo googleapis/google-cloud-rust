@@ -30,9 +30,9 @@ rust-version = "1.85.0"
 [workspace]
 
 [dependencies]
-anyhow = { default-features = false, version = "1", features = ["std"] }
+anyhow        = { default-features = false, version = "1", features = ["std"] }
 test-metadata = { path = "../test-metadata" }
 
 [dependencies.google-cloud-gax-internal]
 default-features = false
-path = "../../../src/gax-internal"
+path             = "../../../src/gax-internal"
