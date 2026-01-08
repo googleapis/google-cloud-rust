@@ -37,10 +37,8 @@ workspace = true
 [features]
 _internal-http-client = [
   "_internal-common",
-  "dep:auth",
   "dep:bytes",
   "dep:futures",
-  "dep:gax",
   "dep:http",
   "dep:http-body-util",
   "dep:hyper",
@@ -54,10 +52,8 @@ _internal-http-client = [
 ]
 _internal-grpc-client = [
   "_internal-common",
-  "dep:auth",
   "dep:bytes",
   "dep:futures",
-  "dep:gax",
   "dep:http",
   "dep:http-body",
   "dep:http-body-util",
