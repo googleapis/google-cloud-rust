@@ -71,7 +71,7 @@ _internal-grpc-client = [
   "dep:tracing",
   "dep:wkt",
 ]
-_internal-common = ["dep:google-cloud-auth", "dep:gax", "dep:percent-encoding", "dep:thiserror"]
+_internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
@@ -97,9 +97,9 @@ tower                              = { workspace = true, optional = true }
 tracing                            = { workspace = true, optional = true }
 # Local crates
 google-cloud-auth = { workspace = true, optional = true }
-gax  = { workspace = true, optional = true }
-rpc  = { workspace = true, optional = true }
-wkt  = { workspace = true, optional = true }
+gax               = { workspace = true, optional = true }
+rpc               = { workspace = true, optional = true }
+wkt               = { workspace = true, optional = true }
 
 [dev-dependencies]
 anyhow.workspace                  = true
