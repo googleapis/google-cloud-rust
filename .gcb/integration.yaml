@@ -37,7 +37,8 @@ steps:
     env:
       - _SCCACHE_VERSION=${_SCCACHE_VERSION}
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
-  - name: 'rust:${_RUST_VERSION}-bookworm'
+  - id: Run integration tests
+    name: 'rust:${_RUST_VERSION}-bookworm'
     script: |
       #!/usr/bin/env bash
       set -e
@@ -48,6 +49,12 @@ steps:
         --package pubsub-samples
       cargo build --package storage-samples --profile=test --all-features
       cargo build --package pubsub-samples --profile=test --all-features
+  - id: Validate default crypto provider behavior
+    name: 'rust:${_RUST_VERSION}-bookworm'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      rustup component add clippy
       echo "Verify crypto providers behavior"
       directories=(
         tests/crypto-providers/auth-with-default
@@ -56,9 +63,10 @@ steps:
         tests/crypto-providers/gaxi-without-default
       )
       for dir in "${directories[@]}"; do
-        # Handle problems updating the `Cargo.lock` files
-        env -C ${dir} cargo clippy || env -C ${dir} cargo clippy
         echo "Running test in ${dir}"
+        # Handle problems updating the `Cargo.lock` files
+        env -C ${dir} cargo check || env -C ${dir} cargo check
+        cargo clippy --all-targets --profile=test -- --deny warnings
         env -C ${dir} cargo run
       done
 
