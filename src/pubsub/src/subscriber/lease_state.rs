@@ -99,6 +99,8 @@ where
     /// statement.
     pub(crate) async fn next_event(&mut self) -> LeaseEvent {
         if self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC {
+            // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
+            // separate RPCs, with separate limits.
             return LeaseEvent::Flush;
         }
 
@@ -509,6 +511,37 @@ pub(crate) mod tests {
             state.add(test_id(i));
             state.nack(test_id(i));
         }
+        assert_eq!(state.next_event().await, LeaseEvent::Flush);
+        assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn ack_and_nack_batches_are_independent() {
+        let start = Instant::now();
+
+        const FLUSH_START: Duration = Duration::from_secs(1);
+
+        let mock = MockLeaser::new();
+        let options = LeaseOptions {
+            flush_start: FLUSH_START,
+            flush_period: Duration::from_secs(100),
+            extend_start: Duration::from_secs(100),
+            extend_period: Duration::from_secs(100),
+        };
+        let mut state = LeaseState::new(mock, options);
+
+        let over_half_full = ACK_IDS_PER_RPC / 2 + 100;
+        for i in 0..over_half_full {
+            state.add(test_id(i));
+            state.ack(test_id(i));
+
+            state.add(test_id(over_half_full + i));
+            state.nack(test_id(over_half_full + i));
+        }
+
+        // While there are more than `ACK_IDS_PER_RPC` total messages under
+        // lease management, neither the ack batch nor the nack batch are full.
+        // The next event should occur on the interval timer.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), FLUSH_START);
     }
