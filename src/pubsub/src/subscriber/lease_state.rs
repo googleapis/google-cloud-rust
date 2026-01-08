@@ -16,6 +16,12 @@ use super::leaser::Leaser;
 use std::collections::HashSet;
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
+// An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
+// be safe to fit 2500 Ack IDs in a single RPC.
+//
+// https://docs.cloud.google.com/pubsub/quotas
+const ACK_IDS_PER_RPC: usize = 2500;
+
 pub(crate) struct LeaseOptions {
     /// How often we flush acks/nacks
     pub(crate) flush_period: Duration,
@@ -92,11 +98,7 @@ where
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
     pub(crate) async fn next_event(&mut self) -> LeaseEvent {
-        if self.to_ack.len() >= 2500 || self.to_nack.len() >= 2500 {
-            // An ack ID is less than 200 bytes. The limit for a request is
-            // 512kB. It should be safe to flush when we get to ~500kB.
-            //
-            // https://docs.cloud.google.com/pubsub/quotas
+        if self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC {
             return LeaseEvent::Flush;
         }
 
@@ -176,6 +178,9 @@ pub(crate) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use tokio::time::interval;
+
+    // Cover the constant, converting it to an integer for convenience.
+    const ACK_IDS_PER_RPC: i32 = super::ACK_IDS_PER_RPC as i32;
 
     // Any valid `Interval` will do.
     fn test_interval() -> Interval {
@@ -433,7 +438,7 @@ pub(crate) mod tests {
         let mut mock = MockLeaser::new();
         mock.expect_ack()
             .times(1)
-            .withf(|v| sorted(v) == test_ids(0..2500))
+            .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
             .returning(|_| ());
         mock.expect_nack()
             .times(1)
@@ -447,7 +452,8 @@ pub(crate) mod tests {
         };
         let mut state = LeaseState::new(mock, options);
 
-        for i in 0..2500 {
+        for i in 0..ACK_IDS_PER_RPC {
+            state.add(test_id(i));
             state.ack(test_id(i));
         }
         // With 2500 pending acks, the batch is full. We should flush it now.
@@ -457,7 +463,7 @@ pub(crate) mod tests {
 
         // With 1000 pending acks, the batch is not full. The next event should
         // occur on the interval timer.
-        for i in 2500..3500 {
+        for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
             state.add(test_id(i));
             state.ack(test_id(i));
         }
@@ -478,7 +484,7 @@ pub(crate) mod tests {
             .returning(|_| ());
         mock.expect_nack()
             .times(1)
-            .withf(|v| sorted(v) == test_ids(0..2500))
+            .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
             .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
@@ -488,7 +494,7 @@ pub(crate) mod tests {
         };
         let mut state = LeaseState::new(mock, options);
 
-        for i in 0..2500 {
+        for i in 0..ACK_IDS_PER_RPC {
             state.add(test_id(i));
             state.nack(test_id(i));
         }
@@ -497,9 +503,10 @@ pub(crate) mod tests {
         assert_eq!(start.elapsed(), Duration::ZERO);
         state.flush().await;
 
-        // With 1000 pending acks, the batch is not full. The next event should
+        // With 1000 pending nacks, the batch is not full. The next event should
         // occur on the interval timer.
-        for i in 2500..3500 {
+        for i in ACK_IDS_PER_RPC..ACK_IDS_PER_RPC + 1000 {
+            state.add(test_id(i));
             state.nack(test_id(i));
         }
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
