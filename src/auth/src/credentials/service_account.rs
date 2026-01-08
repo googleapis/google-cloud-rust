@@ -336,6 +336,34 @@ impl Builder {
         })
     }
 
+    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    ///
+    /// The returned [crate::signer::Signer] uses the service account's private key to sign blobs locally.
+    /// It does not make any network requests to perform signing operations.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::service_account::Builder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// # use serde_json::json;
+    /// # tokio_test::block_on(async {
+    /// let service_account_key = json!({
+    ///     "client_email": "test-client-email",
+    ///     "private_key_id": "test-private-key-id",
+    ///     "private_key": "-----BEGIN PRIVATE KEY-----\nBLAHBLAHBLAH\n-----END PRIVATE KEY-----\n",
+    ///     "project_id": "test-project-id",
+    /// });
+    ///
+    /// let signer: Signer = Builder::new(service_account_key).build_signer()?;
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// # Errors
+    ///
+    /// Returns an error if the `service_account_key` provided to [`Builder::new`]
+    /// cannot be successfully deserialized or doesn't contain a valid private key.
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let service_account_key =
             serde_json::from_value::<ServiceAccountKey>(self.service_account_key.clone())

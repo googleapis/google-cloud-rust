@@ -322,6 +322,23 @@ impl Builder {
         })
     }
 
+    /// Returns a [crate::signer::Signer] instance with the configured settings.
+    ///
+    /// The returned [crate::signer::Signer] uses the [IAM signBlob API] to sign content. This API
+    /// requires a network request for each signing operation.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::mds::Builder;
+    /// # use google_cloud_auth::signer::Signer;
+    /// # tokio_test::block_on(async {
+    /// let signer: Signer = Builder::default().build_signer()?;
+    /// # Ok::<(), anyhow::Error>(())
+    /// # });
+    /// ```
+    ///
+    /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         self.build_signer_with_iam_endpoint_override(None)
     }

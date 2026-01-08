@@ -23,8 +23,10 @@ use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use std::sync::Arc;
 
-// Implements Signer using IAM signBlob API and reusing using existing [Credentials] to
+// Implements Signer using [IAM signBlob API] and reusing using existing [Credentials] to
 // authenticate to it.
+//
+// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
 #[derive(Debug)]
 pub(crate) struct IamSigner {
     client_email: String,
