@@ -48,6 +48,20 @@ steps:
         --package pubsub-samples
       cargo build --package storage-samples --profile=test --all-features
       cargo build --package pubsub-samples --profile=test --all-features
+      echo "Verify crypto providers behavior"
+      directories=(
+        tests/crypto-providers/auth-with-default
+        tests/crypto-providers/auth-without-default
+        tests/crypto-providers/gaxi-with-default
+        tests/crypto-providers/gaxi-without-default
+      )
+      for dir in "${directories[@]}"; do
+        # Handle problems updating the `Cargo.lock` files
+        env -C ${dir} cargo clippy || env -C ${dir} cargo clippy
+        echo "Running test in ${dir}"
+        env -C ${dir} cargo run
+      done
+
 substitutions:
   _RUST_VERSION: '1.92'
   _SCCACHE_VERSION: 'v0.12.0'
