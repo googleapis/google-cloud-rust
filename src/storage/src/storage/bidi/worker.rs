@@ -33,10 +33,17 @@ pub struct Worker<C> {
 }
 
 impl<C> Worker<C> {
-    pub fn new(connector: Connector<C>) -> Self {
-        let ranges = Arc::new(Mutex::new(HashMap::new()));
+    pub fn new(connector: Connector<C>, request_ranges: Vec<ActiveRead>) -> Self {
+        let hash = HashMap::from_iter(
+            request_ranges
+                .into_iter()
+                .enumerate()
+                .map(|(id, r)| (id as i64, r)),
+        );
+        let next_range_id = hash.len() as i64;
+        let ranges = Arc::new(Mutex::new(hash));
         Self {
-            next_range_id: 0_i64,
+            next_range_id,
             ranges,
             connector,
         }
@@ -99,7 +106,7 @@ where
         Err(e)
     }
 
-    async fn handle_response(
+    pub async fn handle_response(
         &mut self,
         message: tonic::Result<Option<BidiReadObjectResponse>>,
     ) -> Option<LoopResult<Option<Connection<C::Stream>>>> {
@@ -107,14 +114,23 @@ where
             Ok(r) => r,
             Err(status) => return self.reconnect(status).await,
         };
+        match self.handle_response_success(response).await {
+            Err(e) => Some(Err(e)),
+            Ok(_) => Some(Ok(None)),
+        }
+    }
 
+    pub async fn handle_response_success(
+        &mut self,
+        response: BidiReadObjectResponse,
+    ) -> LoopResult<()> {
         if let Err(e) = self.handle_ranges(response.object_data_ranges).await {
             // An error in the response. These are not recoverable.
             let error = Arc::new(e);
             self.close_readers(error.clone()).await;
-            return Some(Err(error));
+            return Err(error);
         }
-        Some(Ok(None))
+        Ok(())
     }
 
     async fn handle_ranges(&self, data: Vec<ObjectRangeData>) -> crate::Result<()> {
@@ -250,7 +266,7 @@ mod tests {
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let handle = tokio::spawn(worker.run(connection, rx));
         // Closing the stream without an error should not attempt a reconnect.
         drop(response_tx);
@@ -283,7 +299,7 @@ mod tests {
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let handle = tokio::spawn(worker.run(connection, rx));
         // Wait until the response_tx/response_rx pair is closed, then close the
         // request queue to terminate the worker thread.
@@ -318,7 +334,7 @@ mod tests {
         });
 
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let handle = tokio::spawn(worker.run(connection, rx));
         // Wait until the reconnect call is made, then close the
         // request queue to terminate the worker thread.
@@ -340,7 +356,7 @@ mod tests {
         mock.expect_start().never();
 
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         drop(tx);
         worker.run(connection, rx).await?;
         Ok(())
@@ -567,7 +583,7 @@ mod tests {
         let mut mock = MockTestClient::new();
         mock.expect_start().never();
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let join = tokio::spawn(async move { worker.run(connection, rx).await });
 
         MockSetup {
@@ -597,7 +613,7 @@ mod tests {
         });
         // Launch the worker.
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let worker = tokio::spawn(async move { worker.run(connection, rx).await });
 
         // Populate a reader.
@@ -712,7 +728,7 @@ mod tests {
         });
         // Launch the worker.
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let worker = tokio::spawn(async move { worker.run(connection, rx).await });
 
         // Populate a reader.
@@ -825,7 +841,7 @@ mod tests {
         });
         // Launch the worker.
         let connector = mock_connector(mock);
-        let worker = Worker::new(connector);
+        let worker = Worker::new(connector, Vec::new());
         let worker = tokio::spawn(async move { worker.run(connection, rx).await });
 
         // Populate a reader.
