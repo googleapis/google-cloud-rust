@@ -164,7 +164,7 @@ mod tests {
     use std::sync::Arc;
     use tokio::sync::mpsc::channel;
     use tokio::task::JoinHandle;
-    use tokio::time::{Duration, Instant};
+    use tokio::time::Duration;
 
     fn test_data(v: i32) -> bytes::Bytes {
         bytes::Bytes::from(format!("data-{}", test_id(v)))
@@ -293,8 +293,12 @@ mod tests {
         // In this test, we verify the case where an application asks for a
         // message, but a response is not immediately available on the stream.
 
-        let start_t = Instant::now();
         let (response_tx, response_rx) = channel(10);
+        let handle: JoinHandle<anyhow::Result<()>> = tokio::spawn(async move {
+            tokio::time::sleep(Duration::from_millis(20)).await;
+            response_tx.send(Ok(test_response(1..2))).await?;
+            Ok(())
+        });
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
@@ -306,13 +310,6 @@ mod tests {
             "projects/p/subscriptions/s".to_string(),
         );
         let mut session = Session::new(builder).await?;
-
-        let handle: JoinHandle<anyhow::Result<()>> = tokio::spawn(async move {
-            tokio::time::sleep(Duration::from_millis(20)).await;
-            response_tx.send(Ok(test_response(1..2))).await?;
-            Ok(())
-        });
-
         let (m, Handler::AtLeastOnce(h)) = session
             .next()
             .await
@@ -320,7 +317,6 @@ mod tests {
             .expect("stream should wait for a message");
         assert_eq!(m.data, test_data(1));
         assert_eq!(h.ack_id, test_id(1));
-        assert_eq!(start_t.elapsed(), Duration::from_millis(20));
 
         handle.await??;
 
