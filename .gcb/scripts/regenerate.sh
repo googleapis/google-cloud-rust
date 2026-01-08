@@ -32,11 +32,8 @@ rustup component add rustfmt
 rustup show active-toolchain -v
 
 echo "Regenerate all the code"
-version=$(cat /workspace/.sidekick-version.txt)
-go run github.com/googleapis/librarian/cmd/sidekick@${version} refreshall
+go run github.com/googleapis/librarian/cmd/librarian@main generate --all
 
-echo "Reformat the generated code"
-cargo fmt
 
 # If there is any difference between the generated code and the
 # committed code that is an error. All the inputs should be pinned,
