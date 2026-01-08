@@ -110,7 +110,7 @@ Then run the unit tests and send a PR with whatever changed.
 ### Single library
 
 When iterating, it can be useful to regenerate the code of a single library.
-Get the library name from librarian.yaml
+Get the library name from librarian.yaml.
 
 Run:
 
@@ -184,23 +184,21 @@ directory.
 1. Update the librarian.yaml with the correct configuration.  
 
 ```
-output: custom directory to generate code i
+output: custom directory to generate code in
 ```
 
 ```
-channels > path: custom path to read protos from 
+channels > path: custom path to read protos from in googleapis
 ```
 
 example:
 ```
- - name: google-cloud-apps-script-type
+  - name: google-cloud-api
     version: 1.2.0
     channels:
-      - path: google/apps/script/type
+      - path: google/api
     copyright_year: "2025"
-    output: src/generated/apps/script/gtype
-    rust:
-      title_override: Google Apps Script Types
+    output: src/generated/api/types
 ```
 
 2. run generate
