@@ -275,9 +275,8 @@ impl BatchWorker {
                                     self.move_to_batch();
                                     self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                                 }
-                                while !inflight.is_empty() {
-                                    inflight.join_next().await;
-                                }
+                                inflight.join_all().await;
+                                inflight = JoinSet::new();
                             } else {
                                 // Send batches sequentially.
                                 if !inflight.is_empty() {
