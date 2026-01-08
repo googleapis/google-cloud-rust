@@ -257,8 +257,9 @@ impl SigningError {
 
     /// Creates a new `SigningError` from a message.
     ///
-    /// This function is primarily intended for use in the client libraries
-    /// implementation or in testing mocks.
+    /// This function is only intended for use in the client libraries
+    /// implementation. Application may use this in mocks, though we do not
+    /// recommend that you write tests for specific error cases.
     ///
     /// # Parameters
     /// * `message` - The underlying error that caused the signing failure.
