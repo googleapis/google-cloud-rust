@@ -377,7 +377,7 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the endpoint for the signed URL. The default is "https://storage.googleapis.com".
+    /// Sets the endpoint for the signed URL. The default is "<https://storage.googleapis.com>".
     ///
     /// This is useful when using a custom domain, or when testing with some Cloud Storage emulators.
     ///
