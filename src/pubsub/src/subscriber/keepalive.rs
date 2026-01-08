@@ -18,7 +18,7 @@ use tokio::task::JoinHandle;
 use tokio::time::{Duration, Instant, interval_at};
 use tokio_util::sync::CancellationToken;
 
-const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
+pub(crate) const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
 
 /// Spawns a task to keepalive a stream
 ///
@@ -29,7 +29,10 @@ const KEEPALIVE_PERIOD: Duration = Duration::from_secs(30);
 /// `CancellationToken` and `await`ing the returned handle.
 ///
 /// Callers can also just drop the returned handle to shutdown.
-fn spawn(request_tx: Sender<StreamingPullRequest>, shutdown: CancellationToken) -> JoinHandle<()> {
+pub(crate) fn spawn(
+    request_tx: Sender<StreamingPullRequest>,
+    shutdown: CancellationToken,
+) -> JoinHandle<()> {
     tokio::spawn(async move {
         let mut keepalive = interval_at(Instant::now() + KEEPALIVE_PERIOD, KEEPALIVE_PERIOD);
         loop {
