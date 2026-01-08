@@ -17,7 +17,6 @@
 pub mod from_status;
 pub mod status;
 
-use auth::credentials::{CacheableResource, Credentials};
 use from_status::to_gax_error;
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
@@ -28,6 +27,9 @@ use gax::polling_backoff_policy::PollingBackoffPolicy;
 use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErrorPolicy};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
+use google_cloud_auth::credentials::{
+    Builder as CredentialsBuilder, CacheableResource, Credentials,
+};
 use http::HeaderMap;
 use std::sync::Arc;
 use std::time::Duration;
@@ -377,11 +379,11 @@ impl Client {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> gax::client_builder::Result<auth::credentials::Credentials> {
+    ) -> gax::client_builder::Result<Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::Builder::default()
+        CredentialsBuilder::default()
             .build()
             .map_err(BuilderError::cred)
     }

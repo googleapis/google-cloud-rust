@@ -19,7 +19,7 @@ mod tests {
 
     #[cfg(feature = "_internal-grpc-client")]
     mod grpc {
-        use auth::credentials::Credentials;
+        use google_cloud_auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
@@ -69,7 +69,7 @@ mod tests {
 
     #[cfg(feature = "_internal-http-client")]
     mod http {
-        use auth::credentials::Credentials;
+        use google_cloud_auth::credentials::Credentials;
         use google_cloud_gax_internal as gaxi;
 
         #[tokio::test]
