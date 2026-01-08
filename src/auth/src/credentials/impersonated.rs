@@ -477,12 +477,10 @@ impl Builder {
         })
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         self.build_signer_with_iam_endpoint_override(None)
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     // only used for testing
     fn build_signer_with_iam_endpoint_override(
         self,
@@ -594,7 +592,6 @@ pub(crate) fn build_components_from_json(
     })
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 // Check if the source credentials is a service account and if so, build a signer from it.
 // Service account signers can do signing locally, which is more efficient than using the
 // remote/API based signer.
@@ -623,7 +620,6 @@ fn build_signer_from_json(json: Value) -> BuildResult<Option<crate::signer::Sign
     Ok(None)
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 fn extract_client_email(service_account_impersonation_url: &str) -> BuildResult<String> {
     let mut parts = service_account_impersonation_url.split("/serviceAccounts/");
     match (parts.nth(1), parts.next()) {
@@ -2065,7 +2061,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     #[tokio::test]
     async fn test_impersonated_remote_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
@@ -2151,7 +2146,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     #[tokio::test]
     async fn test_impersonated_sa_signer() -> TestResult {
         use crate::credentials::service_account::ServiceAccountKey;
@@ -2186,7 +2180,6 @@ mod tests {
         Ok(())
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     #[tokio::test]
     async fn test_impersonated_signer_with_invalid_email() -> TestResult {
         let impersonated_credential = json!({

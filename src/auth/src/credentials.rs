@@ -556,7 +556,6 @@ impl Builder {
         build_credentials(json_data, quota_project_id, self.scopes)
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         let json_data = match load_adc()? {
             AdcContents::Contents(contents) => {
@@ -611,7 +610,6 @@ macro_rules! config_builder {
 
 /// Applies common optional configurations (quota project ID, scopes) to a
 /// specific credential builder instance and then return a signer for it.
-#[cfg(google_cloud_unstable_signed_url)]
 macro_rules! config_signer {
     ($builder_instance:expr, $quota_project_id_option:expr, $scopes_option:expr, $apply_scopes_closure:expr) => {{
         let builder = config_common_builder!(
@@ -689,7 +687,6 @@ fn build_credentials(
     }
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 fn build_signer(
     json: Option<Value>,
     quota_project_id: Option<String>,
