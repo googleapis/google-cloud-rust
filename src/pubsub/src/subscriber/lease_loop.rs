@@ -371,12 +371,7 @@ mod tests {
 
             // Confirm that no messages are under lease management.
             {
-                mock.lock()
-                    .await
-                    .expect_extend()
-                    .times(1)
-                    .withf(|v| v.is_empty())
-                    .returning(|_| ());
+                mock.lock().await.expect_extend().times(0);
                 tokio::time::advance(Duration::from_millis(100)).await;
 
                 // Yield the current task, so tokio can execute the flush().
