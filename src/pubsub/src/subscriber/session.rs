@@ -14,6 +14,7 @@
 
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
+use super::keepalive;
 use super::stream::open_stream;
 use super::stub::{Stub, TonicStreaming};
 use super::transport::Transport;
@@ -23,7 +24,8 @@ use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
-use tokio::sync::mpsc::{Sender, UnboundedSender, unbounded_channel};
+use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe session.
 ///
@@ -58,12 +60,14 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
-    // TODO(#3957) - add keepalives
-    request_tx: Sender<StreamingPullRequest>,
+    /// A cancellation token to shutdown the task sending keepalive pings to the
+    /// stream.
+    shutdown: CancellationToken,
 }
 
 impl Session {
     pub(crate) async fn new(builder: StreamingPull) -> Result<Self> {
+        let shutdown = CancellationToken::new();
         let inner = builder.inner;
 
         // TODO(#3957) - set up lease management instead of sending acks into
@@ -78,13 +82,13 @@ impl Session {
             ..Default::default()
         };
         let (stream, request_tx) = open_stream(inner, initial_req).await?;
-        // TODO(#3957) - send keepalives to `request_tx`
+        keepalive::spawn(request_tx, shutdown.clone());
 
         Ok(Self {
             stream,
             pool: VecDeque::new(),
             ack_tx,
-            request_tx,
+            shutdown,
         })
     }
 
@@ -154,8 +158,15 @@ impl Session {
     }
 }
 
+impl Drop for Session {
+    fn drop(&mut self) {
+        self.shutdown.cancel();
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::test_id;
     use super::super::transport::tests::test_transport;
     use super::*;
@@ -468,6 +479,63 @@ mod tests {
         let status = err.status().unwrap();
         assert_eq!(status.code, gax::error::rpc::Code::Internal);
         assert_eq!(status.message, "fail");
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn keepalives() -> anyhow::Result<()> {
+        // We use this channel to surface writes (requests) from outside our
+        // mock expectation.
+        let (recover_writes_tx, mut recover_writes_rx) = channel(1);
+        let (_response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull().return_once(move |request| {
+            tokio::spawn(async move {
+                // Note that this task stays alive as long as we hold
+                // `recover_writes_rx`.
+                let mut request_rx = request.into_inner();
+                while let Some(request) = request_rx.recv().await {
+                    recover_writes_tx
+                        .send(request)
+                        .await
+                        .expect("forwarding writes always succeeds");
+                }
+            });
+            Ok(tonic::Response::from(response_rx))
+        });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let builder = StreamingPull::new(
+            Arc::new(transport),
+            "projects/p/subscriptions/s".to_string(),
+        );
+        let session = Session::new(builder).await;
+
+        let initial_req = recover_writes_rx
+            .recv()
+            .await
+            .expect("should receive an initial request")?;
+        assert_eq!(initial_req.subscription, "projects/p/subscriptions/s");
+
+        // Verify that we receive at least one keepalive request on the stream.
+        tokio::time::advance(KEEPALIVE_PERIOD).await;
+        let keepalive_req = recover_writes_rx
+            .recv()
+            .await
+            .expect("should receive a keepalive request")?;
+        assert_eq!(keepalive_req, v1::StreamingPullRequest::default());
+
+        // Drop the session, which should signal a shutdown of the keepalive
+        // task.
+        drop(session);
+
+        // Advance the time far enough to expect a keepalive ping, if the
+        // keepalive task was still running.
+        tokio::time::advance(4 * KEEPALIVE_PERIOD).await;
+        assert!(recover_writes_rx.is_empty());
 
         Ok(())
     }
