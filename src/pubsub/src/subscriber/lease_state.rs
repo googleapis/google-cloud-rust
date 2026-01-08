@@ -147,9 +147,12 @@ where
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(crate) async fn extend(&mut self) {
         // TODO(#3957) - drop expired messages
-        let under_lease: Vec<String> = self.under_lease.iter().cloned().collect();
-        // TODO(#3972) - respect `ModifyAckDeadline` RPC size quota
-        self.leaser.extend(under_lease).await;
+        let all_ack_ids: Vec<&String> = self.under_lease.iter().collect();
+        for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
+            // TODO(#3975) - await these concurrently.
+            let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
+            self.leaser.extend(ack_ids).await;
+        }
     }
 
     /// Shutdown the leaser
@@ -179,6 +182,7 @@ where
 pub(crate) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use tokio::sync::mpsc::unbounded_channel;
     use tokio::time::interval;
 
     // Cover the constant, converting it to an integer for convenience.
@@ -544,5 +548,51 @@ pub(crate) mod tests {
         // The next event should occur on the interval timer.
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), FLUSH_START);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn limit_size_of_extends() -> anyhow::Result<()> {
+        const NUM_BATCHES: i32 = 5;
+
+        // We use this channel to surface ack_ids from the mock expectation.
+        let (ack_id_tx, mut ack_id_rx) = unbounded_channel();
+
+        let mut mock = MockLeaser::new();
+        mock.expect_extend()
+            .times(NUM_BATCHES as usize)
+            .returning(move |ack_ids| {
+                ack_id_tx
+                    .send(ack_ids)
+                    .expect("sending on channel always succeeds");
+            });
+        let mut state = LeaseState::new(mock, LeaseOptions::default());
+
+        let mut want = HashSet::new();
+        for i in 0..NUM_BATCHES * ACK_IDS_PER_RPC {
+            state.add(test_id(i));
+
+            // All ack IDs should be extended.
+            want.insert(test_id(i));
+        }
+        state.extend().await;
+
+        let mut got = HashSet::new();
+        for i in 0..NUM_BATCHES {
+            let Some(ack_ids) = ack_id_rx.recv().await else {
+                anyhow::bail!("expected batch {i}/{NUM_BATCHES}");
+            };
+            assert_eq!(ack_ids.len(), ACK_IDS_PER_RPC as usize);
+            for ack_id in ack_ids {
+                got.insert(ack_id);
+            }
+        }
+        assert!(
+            ack_id_rx.is_empty(),
+            "There should be exactly {NUM_BATCHES} batches"
+        );
+
+        // Make sure all ack IDs were extended.
+        assert_eq!(got, want);
+        Ok(())
     }
 }
