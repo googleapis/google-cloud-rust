@@ -24,16 +24,38 @@ use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
 use tokio::sync::mpsc::{Sender, UnboundedSender, unbounded_channel};
-use tokio_util::sync::CancellationToken;
 
 /// Represents an open subscribe session.
 ///
 /// This is a stream-like struct for serving messages to an application.
+///
+/// # Example
+/// ```no_rust
+/// # use google_cloud_pubsub::client::Subscriber;
+/// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
+/// let mut session = client
+///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+///     .start()?;
+/// while let Some((m, h)) = session.next().await.transpose()? {
+///     println!("Received message m={m}");
+///     h.ack();
+/// }
+/// # Ok(()) }
+/// ```
 #[derive(Debug)]
 pub struct Session {
+    /// The bidirectional stream.
     stream: <Transport as Stub>::Stream,
+
+    /// Applications ask for messages one at a time. Individual stream responses
+    /// can contain multiple messages. We use `pool` to hold the extra messages
+    /// while we wait to serve them to applications.
+    ///
+    /// A FIFO queue is necessary to preserve ordering.
     pool: VecDeque<(PubsubMessage, Handler)>,
-    shutdown: CancellationToken,
+
+    /// A sender for forwarding acks/nacks from the application to the lease
+    /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
     // TODO(#3957) - add keepalives
@@ -42,7 +64,6 @@ pub struct Session {
 
 impl Session {
     pub(crate) async fn new(builder: StreamingPull) -> Result<Self> {
-        let shutdown = CancellationToken::new();
         let inner = builder.inner;
 
         // TODO(#3957) - set up lease management instead of sending acks into
@@ -62,7 +83,6 @@ impl Session {
         Ok(Self {
             stream,
             pool: VecDeque::new(),
-            shutdown,
             ack_tx,
             request_tx,
         })
@@ -76,16 +96,13 @@ impl Session {
     /// If the underlying stream encounters a permanent error, an `Error` is
     /// returned instead.
     ///
-    /// `None` represents the end of a stream, typically triggered by a
-    /// `close()`, or an unrecoverable internal error.
+    /// `None` represents the end of a stream, but in practice, the stream stays
+    /// open until it is cancelled or encounters a permanent error.
     ///
     /// # Example
     /// ```no_rust
-    /// # use google_cloud_pubsub::client::Subscriber;
-    /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
-    /// let mut session = client
-    ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start()?;
+    /// # use google_cloud_pubsub::subscriber::session::Session;
+    /// # async fn sample(mut session: Session) -> anyhow::Result<()> {
     /// while let Some((m, h)) = session.next().await.transpose()? {
     ///     println!("Received message m={m}");
     ///     h.ack();
@@ -112,14 +129,18 @@ impl Session {
         };
         for rm in resp.received_messages {
             // TODO(#3957) - add message to lease management
-            let pb = match rm
-                .message
-                .expect("The message field is always present.")
-                .cnv()
-                .map_err(Error::deser)
-            {
-                Ok(pb) => pb,
-                Err(e) => return Some(Err(e)),
+            let pb = match rm.message.map(|m| m.cnv().map_err(Error::deser)) {
+                None => {
+                    // The message field should always be present. If not, the
+                    // proto message was corrupted while in transit, or there is
+                    // a bug in the service.
+                    //
+                    // The client can just ignore an ack ID without an
+                    // associated message.
+                    continue;
+                }
+                Some(Ok(pb)) => pb,
+                Some(Err(e)) => return Some(Err(e)),
             };
             self.pool.push_back((
                 pb,
@@ -131,8 +152,6 @@ impl Session {
         }
         Some(Ok(()))
     }
-
-    // TODO(#3957) - add explicit `async fn close()`
 }
 
 #[cfg(test)]
@@ -145,7 +164,7 @@ mod tests {
     use std::sync::Arc;
     use tokio::sync::mpsc::channel;
     use tokio::task::JoinHandle;
-    use tokio::time::Duration;
+    use tokio::time::{Duration, Instant};
 
     fn test_data(v: i32) -> bytes::Bytes {
         bytes::Bytes::from(format!("data-{}", test_id(v)))
@@ -269,8 +288,12 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn delayed_responses() -> anyhow::Result<()> {
+        // In this test, we verify the case where an application asks for a
+        // message, but a response is not immediately available on the stream.
+
+        let start_t = Instant::now();
         let (response_tx, response_rx) = channel(10);
 
         let mut mock = MockSubscriber::new();
@@ -287,24 +310,53 @@ mod tests {
         let handle: JoinHandle<anyhow::Result<()>> = tokio::spawn(async move {
             tokio::time::sleep(Duration::from_millis(20)).await;
             response_tx.send(Ok(test_response(1..2))).await?;
-            tokio::time::sleep(Duration::from_millis(20)).await;
-            response_tx.send(Ok(test_response(2..4))).await?;
-            tokio::time::sleep(Duration::from_millis(20)).await;
-            response_tx.send(Ok(test_response(4..7))).await?;
-            tokio::time::sleep(Duration::from_millis(20)).await;
             Ok(())
         });
 
+        let (m, Handler::AtLeastOnce(h)) = session
+            .next()
+            .await
+            .transpose()?
+            .expect("stream should wait for a message");
+        assert_eq!(m.data, test_data(1));
+        assert_eq!(h.ack_id, test_id(1));
+        assert_eq!(start_t.elapsed(), Duration::from_millis(20));
+
+        handle.await??;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn serves_messages_immediately() -> anyhow::Result<()> {
+        // This test verifies we do not do something crazy like draining the
+        // stream (which would never end) before serving messages to the
+        // application.
+
+        let (response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let builder = StreamingPull::new(
+            Arc::new(transport),
+            "projects/p/subscriptions/s".to_string(),
+        );
+        let mut session = Session::new(builder).await?;
+
         for i in 1..7 {
+            response_tx.send(Ok(test_response(i..i + 1))).await?;
+
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id, test_id(i));
         }
+        drop(response_tx);
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
-
-        handle.await??;
 
         Ok(())
     }
@@ -331,6 +383,48 @@ mod tests {
         drop(response_tx);
 
         for i in 1..3 {
+            let (m, Handler::AtLeastOnce(h)) =
+                session.next().await.transpose()?.expect("message {i}/2");
+            assert_eq!(m.data, test_data(i));
+            assert_eq!(h.ack_id, test_id(i));
+        }
+        let end = session.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn handles_missing_message_field() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+
+        let bad = v1::StreamingPullResponse {
+            received_messages: vec![v1::ReceivedMessage {
+                ack_id: "ignored-ack-id".to_string(),
+                message: None,
+                ..Default::default()
+            }],
+            ..Default::default()
+        };
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let builder = StreamingPull::new(
+            Arc::new(transport),
+            "projects/p/subscriptions/s".to_string(),
+        );
+        let mut session = Session::new(builder).await?;
+
+        response_tx.send(Ok(test_response(1..4))).await?;
+        // See if we can handle an empty range
+        response_tx.send(Ok(bad)).await?;
+        response_tx.send(Ok(test_response(4..7))).await?;
+        drop(response_tx);
+
+        for i in 1..7 {
             let (m, Handler::AtLeastOnce(h)) =
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
@@ -365,7 +459,7 @@ mod tests {
 
         for i in 1..4 {
             let (m, Handler::AtLeastOnce(h)) =
-                session.next().await.transpose()?.expect("message {i}/6");
+                session.next().await.transpose()?.expect("message {i}/3");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id, test_id(i));
         }
