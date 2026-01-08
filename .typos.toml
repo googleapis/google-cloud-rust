@@ -22,6 +22,8 @@ extend-exclude = [
   "/go.work.sum",
   "src/*/src/generated/**",
   "src/generated/**",
+  # This file contains fixes for typos and therefore has the original typo in it.
+  "librarian.yaml",
 ]
 
 [type.mustache]
