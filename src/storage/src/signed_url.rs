@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Types related to the signed URL feature. See [Storage::builder::storage::SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
+
 /// Re-export types from the `http` crate used in this module.
 pub mod http {
     /// HTTP method for the signed URL.
