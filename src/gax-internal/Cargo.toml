@@ -35,6 +35,7 @@ features = []
 workspace = true
 
 [features]
+default = ["_internal-default-crypto-provider"]
 _internal-http-client = [
   "_internal-common",
   "dep:bytes",
@@ -72,7 +73,7 @@ _internal-grpc-client = [
   "dep:wkt",
 ]
 _internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
-_internal-default-crypto-provider = ["google-cloud-auth/default-crypto-provider"]
+_internal-default-crypto-provider = ["google-cloud-auth?/default-crypto-provider"]
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
