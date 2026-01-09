@@ -25,7 +25,7 @@ use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
-use tokio_util::sync::CancellationToken;
+use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe session.
 ///
@@ -60,9 +60,9 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
-    /// A cancellation token to shutdown the task sending keepalive pings to the
-    /// stream.
-    shutdown: CancellationToken,
+    /// A guard which signals a shutdown to the task sending keepalive pings
+    /// when it is dropped.
+    _keepalive_guard: DropGuard,
 }
 
 impl Session {
@@ -88,7 +88,7 @@ impl Session {
             stream,
             pool: VecDeque::new(),
             ack_tx,
-            shutdown,
+            _keepalive_guard: shutdown.drop_guard(),
         })
     }
 
@@ -155,12 +155,6 @@ impl Session {
             ));
         }
         Some(Ok(()))
-    }
-}
-
-impl Drop for Session {
-    fn drop(&mut self) {
-        self.shutdown.cancel();
     }
 }
 
