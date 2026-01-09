@@ -149,8 +149,8 @@ git -C .. clone git@github.com:googleapis/librarian
 git -C ../librarian checkout -b fancy-rust-feature
 ```
 
-Naturally you can choose to clone `librarian` into a different directory. Just change
-the commands that follow.
+Naturally you can choose to clone `librarian` into a different directory. Just
+change the commands that follow.
 
 You can make changes in the `librarian` directory as usual. To test them change
 the normal commands to use the directory where your librarian changes live. For
