@@ -692,6 +692,7 @@ mod tests {
             .unwrap_err();
 
         assert!(err.is_invalid_parameter());
+        assert!(err.to_string().contains("invalid `endpoint` parameter"));
 
         Ok(())
     }
@@ -705,13 +706,13 @@ mod tests {
             .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
-        let err = SignedUrlBuilder::for_object("b", "o")
-            .with_endpoint("invalid url")
+        let err = SignedUrlBuilder::for_object("invalid-bucket-name", "o")
             .sign_with(&signer)
             .await
             .unwrap_err();
 
         assert!(err.is_invalid_parameter());
+        assert!(err.to_string().contains("malformed bucket name"));
 
         Ok(())
     }
