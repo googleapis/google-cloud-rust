@@ -71,7 +71,8 @@ go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
 git commit -m "chore: update discovery SHA circa $(date +%Y-%m-%d)" .
 ```
 
-Alternatively you can run `librarian update --all` to update all sources at once.
+Alternatively you can run `librarian update --all` to update all sources at
+once.
 
 ## Bump all version numbers
 
@@ -149,8 +150,9 @@ git -C ../librarian checkout -b fancy-rust-feature
 ```
 
 You can make changes in the `librarian` directory as usual. To test them change
-the normal commands to use the directory where your librarian changes live. For example:
-(Replace ../librarian/cmd/librarian path with the path to the directory that contains your changes.)
+the normal commands to use the directory where your librarian changes live. For
+example: (Replace ../librarian/cmd/librarian path with the path to the directory
+that contains your changes.)
 
 ```bash
 go -C ../librarian/cmd/librarian build && ../librarian/cmd/librarian/librarian generate --all
