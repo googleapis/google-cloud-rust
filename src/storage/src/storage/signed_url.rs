@@ -76,7 +76,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 ///
 /// You can use `google-cloud-auth` to create a `Signer`.
 ///
-/// ## Using Application Default Credentials (ADC)
+/// ## Using [Application Default Credentials] (ADC)
 ///
 /// This is the recommended way for most applications. It automatically finds credentials from the environment.
 ///
@@ -114,6 +114,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// # }
 /// ```
 ///
+/// [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
 /// [signed urls]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 /// [V4 signing process]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 #[derive(Debug)]
