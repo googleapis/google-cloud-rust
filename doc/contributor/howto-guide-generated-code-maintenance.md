@@ -86,7 +86,7 @@ Run:
 ```bash
 git fetch upstream
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
-V=$(cat .librarian.txt)
+V=$(cat .librarian-version.txt)
 go run github.com/googleapis/librarian/cmd/librarian@${V} release --all
 git add Cargo.lock '*Cargo.toml' '*README.md'
 git restore . # Effectively a `cargo fmt`, but much faster.
