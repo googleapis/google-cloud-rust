@@ -15,6 +15,9 @@
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::keepalive;
+use super::lease_loop::LeaseLoop;
+use super::lease_state::LeaseOptions;
+use super::leaser::DefaultLeaser;
 use super::stream::open_stream;
 use super::stub::{Stub, TonicStreaming};
 use super::transport::Transport;
@@ -24,7 +27,7 @@ use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
-use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio::sync::mpsc::UnboundedSender;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe session.
@@ -56,6 +59,10 @@ pub struct Session {
     /// A FIFO queue is necessary to preserve ordering.
     pool: VecDeque<(PubsubMessage, Handler)>,
 
+    /// A sender for sending new messages from the stream into the lease
+    /// management task.
+    message_tx: UnboundedSender<String>,
+
     /// A sender for forwarding acks/nacks from the application to the lease
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
@@ -63,19 +70,35 @@ pub struct Session {
     /// A guard which signals a shutdown to the task sending keepalive pings
     /// when it is dropped.
     _keepalive_guard: DropGuard,
+
+    #[cfg(test)]
+    /// A handle on the lease loop task.
+    ///
+    /// We hold onto this handle so we can await pending lease operations. While awaiting pending
+    /// lease operations is useful for setting expectations in our unit tests, it is not that
+    /// helpful to applications in practice.
+    lease_loop: tokio::task::JoinHandle<()>,
 }
 
 impl Session {
     pub(crate) async fn new(builder: StreamingPull) -> Result<Self> {
         let shutdown = CancellationToken::new();
         let inner = builder.inner;
+        let subscription = builder.subscription;
 
-        // TODO(#3957) - set up lease management instead of sending acks into
-        // the abyss.
-        let (ack_tx, _ack_rx) = unbounded_channel();
+        let leaser = DefaultLeaser::new(
+            inner.clone(),
+            subscription.clone(),
+            builder.ack_deadline_seconds,
+        );
+        let LeaseLoop {
+            handle: _lease_loop,
+            message_tx,
+            ack_tx,
+        } = LeaseLoop::new(leaser, LeaseOptions::default());
 
         let initial_req = StreamingPullRequest {
-            subscription: builder.subscription.clone(),
+            subscription,
             stream_ack_deadline_seconds: builder.ack_deadline_seconds,
             max_outstanding_messages: builder.max_outstanding_messages,
             max_outstanding_bytes: builder.max_outstanding_bytes,
@@ -87,8 +110,11 @@ impl Session {
         Ok(Self {
             stream,
             pool: VecDeque::new(),
+            message_tx,
             ack_tx,
             _keepalive_guard: shutdown.drop_guard(),
+            #[cfg(test)]
+            lease_loop: _lease_loop,
         })
     }
 
@@ -141,7 +167,7 @@ impl Session {
                 // message.
                 continue;
             };
-            // TODO(#3957) - add message to lease management
+            let _ = self.message_tx.send(rm.ack_id.clone());
             let message = match message.cnv().map_err(Error::deser) {
                 Ok(message) => message,
                 Err(e) => return Some(Err(e)),
@@ -156,20 +182,42 @@ impl Session {
         }
         Some(Ok(()))
     }
+
+    #[cfg(test)]
+    /// Close the session, awaiting all pending acks and nacks.
+    ///
+    /// This is a useful method for setting clean test expectations.
+    async fn close(self) -> anyhow::Result<()> {
+        // Signal a shutdown to the keepalive task.
+        drop(self._keepalive_guard);
+
+        // Signal a shutdown to the lease management background task.
+        drop(self.message_tx);
+
+        // Wait for the lease management task to complete.
+        self.lease_loop.await?;
+
+        Ok(())
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::super::keepalive::KEEPALIVE_PERIOD;
-    use super::super::lease_state::tests::test_id;
+    use super::super::lease_state::tests::{test_id, test_ids};
     use super::super::transport::tests::test_transport;
     use super::*;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
     use std::sync::Arc;
-    use tokio::sync::mpsc::channel;
+    use tokio::sync::mpsc::{channel, unbounded_channel};
     use tokio::task::JoinHandle;
     use tokio::time::Duration;
+
+    fn sorted(mut v: Vec<String>) -> Vec<String> {
+        v.sort();
+        v
+    }
 
     fn test_data(v: i32) -> bytes::Bytes {
         bytes::Bytes::from(format!("data-{}", test_id(v)))
@@ -261,13 +309,20 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn basic_success() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(tonic::Response::from(()))
+        });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let builder = StreamingPull::new(
@@ -286,9 +341,114 @@ mod tests {
                 session.next().await.transpose()?.expect("message {i}/6");
             assert_eq!(m.data, test_data(i));
             assert_eq!(h.ack_id, test_id(i));
+            h.ack();
         }
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the session to join its background tasks.
+        session.close().await?;
+
+        // Verify the acks went through.
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(1..7));
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn basic_lease_management() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+        let (nack_tx, mut nack_rx) = unbounded_channel();
+        let (extend_tx, mut extend_rx) = unbounded_channel();
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        mock.expect_acknowledge().returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(tonic::Response::from(()))
+        });
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            let r = r.into_inner();
+            if r.ack_deadline_seconds == 0 {
+                nack_tx.send(r).expect("sending on channel always succeeds");
+            } else {
+                extend_tx
+                    .send(r)
+                    .expect("sending on channel always succeeds");
+            }
+            Ok(tonic::Response::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let transport = test_transport(endpoint).await?;
+        let builder = StreamingPull::new(
+            Arc::new(transport),
+            "projects/p/subscriptions/s".to_string(),
+        );
+        let mut session = Session::new(builder).await?;
+
+        response_tx.send(Ok(test_response(0..30))).await?;
+        drop(response_tx);
+
+        // Ack some messages
+        for i in 0..10 {
+            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            h.ack();
+        }
+        // Nack some messages
+        for i in 10..20 {
+            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            h.nack();
+        }
+        // Take a long time to process some messages
+        let mut hold = Vec::new();
+        for i in 20..30 {
+            let Some((_, Handler::AtLeastOnce(h))) = session.next().await.transpose()? else {
+                anyhow::bail!("expected message {i}")
+            };
+            hold.push(h);
+        }
+
+        // Advance the clock 10s, which is the default stream ack deadline. In
+        // this time, we should attempt at least one lease extension RPC.
+        tokio::time::advance(Duration::from_secs(10)).await;
+
+        // Close the session, to make sure pending operations complete.
+        session.close().await?;
+
+        // Verify the acks went through.
+        let ack_req = ack_rx.try_recv()?;
+        assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(sorted(ack_req.ack_ids), test_ids(0..10));
+        assert!(ack_rx.is_empty());
+
+        // Verify the initial nacks went through.
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(10..20));
+
+        // Verify that we nack the leftover messages when the stream shuts down.
+        let nack_req = nack_rx.try_recv()?;
+        assert_eq!(nack_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(nack_req.ack_deadline_seconds, 0);
+        assert_eq!(sorted(nack_req.ack_ids), test_ids(20..30));
+        assert!(nack_rx.is_empty());
+
+        // Verify at least one lease extension attempt was made.
+        let extend_req = extend_rx.try_recv()?;
+        assert_eq!(extend_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(extend_req.ack_deadline_seconds, 10);
+        assert_eq!(sorted(extend_req.ack_ids), test_ids(20..30));
 
         Ok(())
     }
@@ -395,9 +555,10 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn handles_missing_message_field() -> anyhow::Result<()> {
         let (response_tx, response_rx) = channel(10);
+        let (extend_tx, mut extend_rx) = unbounded_channel();
 
         let bad = v1::StreamingPullResponse {
             received_messages: vec![v1::ReceivedMessage {
@@ -411,6 +572,14 @@ mod tests {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        mock.expect_acknowledge()
+            .returning(|_| Ok(tonic::Response::from(())));
+        mock.expect_modify_ack_deadline().returning(move |r| {
+            extend_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(tonic::Response::from(()))
+        });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let transport = test_transport(endpoint).await?;
         let builder = StreamingPull::new(
@@ -433,6 +602,20 @@ mod tests {
         }
         let end = session.next().await.transpose()?;
         assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Advance the clock 10s, which is the default stream ack deadline. In
+        // this time, we should attempt at least one lease extension RPC.
+        tokio::time::advance(Duration::from_secs(10)).await;
+
+        // Close the session, to make sure pending operations complete.
+        session.close().await?;
+
+        // Verify at least one lease extension attempt was made.
+        let extend_req = extend_rx.try_recv()?;
+        assert_eq!(extend_req.subscription, "projects/p/subscriptions/s");
+        assert_eq!(extend_req.ack_deadline_seconds, 10);
+        // Note that we do not expect to see "ignored-ack-id".
+        assert_eq!(sorted(extend_req.ack_ids), test_ids(1..7));
 
         Ok(())
     }

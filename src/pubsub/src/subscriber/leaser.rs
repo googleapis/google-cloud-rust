@@ -31,7 +31,7 @@ pub(crate) trait Leaser {
     async fn extend(&self, ack_ids: Vec<String>);
 }
 
-struct DefaultLeaser<T>
+pub(crate) struct DefaultLeaser<T>
 where
     T: Stub,
 {
@@ -44,7 +44,7 @@ impl<T> DefaultLeaser<T>
 where
     T: Stub,
 {
-    fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
+    pub(crate) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
         DefaultLeaser {
             inner,
             subscription,
