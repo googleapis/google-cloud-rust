@@ -77,7 +77,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// # use auth::signer::Signer;
 ///
 /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-/// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+/// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
 ///     .with_method(http::Method::GET)
 ///     .with_expiration(Duration::from_secs(3600)) // 1 hour
 ///     .sign_with(signer)
@@ -96,7 +96,7 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// # use auth::signer::Signer;
 ///
 /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-/// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+/// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
 ///     .with_method(http::Method::PUT)
 ///     .with_expiration(Duration::from_secs(3600)) // 1 hour
 ///     .with_header("content-type", "application/json") // Optional: Enforce content type
@@ -133,6 +133,24 @@ enum SigningScope {
 }
 
 impl SigningScope {
+    fn check_bucket_name(&self) -> Result<(), SigningError> {
+        let bucket = match self {
+            SigningScope::Bucket(bucket) => bucket,
+            SigningScope::Object(bucket, _) => bucket,
+        };
+
+        bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
+            SigningError::invalid_parameter(
+                "bucket",
+                format!(
+                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+                ),
+            )
+        })?;
+
+        Ok(())
+    }
+
     fn bucket_name(&self) -> String {
         let bucket = match self {
             SigningScope::Bucket(bucket) => bucket,
@@ -223,7 +241,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .sign_with(signer)
     ///     .await?;
     /// # Ok(())
@@ -246,7 +264,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_bucket("my-bucket")
+    /// let url = SignedUrlBuilder::for_bucket("projects/_/buckets/my-bucket")
     ///     .sign_with(signer)
     ///     .await?;
     /// # Ok(())
@@ -275,7 +293,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_method(http::Method::PUT)
     ///     .sign_with(signer)
     ///     .await?;
@@ -299,7 +317,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_expiration(Duration::from_secs(3600))
     ///     .sign_with(signer)
     ///     .await?;
@@ -321,7 +339,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_url_style(UrlStyle::VirtualHostedStyle)
     ///     .sign_with(signer)
     ///     .await?;
@@ -344,7 +362,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_header("content-type", "text/plain")
     ///     .sign_with(signer)
     ///     .await?;
@@ -365,7 +383,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_query_param("generation", "1234567890")
     ///     .sign_with(signer)
     ///     .await?;
@@ -390,7 +408,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_endpoint("https://private.googleapis.com")
     ///     .sign_with(signer)
     ///     .await?;
@@ -411,7 +429,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_universe_domain("my-universe.com")
     ///     .sign_with(signer)
     ///     .await?;
@@ -434,7 +452,7 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    /// let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
     ///     .with_client_email("my-service-account@my-project.iam.gserviceaccount.com")
     ///     .sign_with(signer)
     ///     .await?;
@@ -489,6 +507,9 @@ impl SignedUrlBuilder {
         self,
         signer: &Signer,
     ) -> std::result::Result<SigningComponents, SigningError> {
+        // Validate the bucket name.
+        self.scope.check_bucket_name()?;
+
         let now = self.timestamp;
         let request_timestamp = now.format("%Y%m%dT%H%M%SZ").to_string();
         let datestamp = now.format("%Y%m%d");
@@ -647,7 +668,7 @@ mod tests {
             .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
 
         let signer = Signer::from(mock);
-        let _ = SignedUrlBuilder::for_object("test-bucket", "test-object")
+        let _ = SignedUrlBuilder::for_object("projects/_/buckets/test-bucket", "test-object")
             .with_method(http::Method::PUT)
             .with_expiration(Duration::from_secs(3600))
             .with_header("x-goog-meta-test", "value")
@@ -671,7 +692,7 @@ mod tests {
             .return_once(|_content| Err(auth::signer::SigningError::from_msg("test".to_string())));
 
         let signer = Signer::from(mock);
-        let err = SignedUrlBuilder::for_object("b", "o")
+        let err = SignedUrlBuilder::for_object("projects/_/buckets/b", "o")
             .sign_with(&signer)
             .await
             .unwrap_err();
@@ -683,6 +704,26 @@ mod tests {
 
     #[tokio::test]
     async fn test_signed_url_error_endpoint() -> TestResult {
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Ok(bytes::Bytes::from("test-signature")));
+
+        let signer = Signer::from(mock);
+        let err = SignedUrlBuilder::for_object("projects/_/buckets/b", "o")
+            .with_endpoint("invalid url")
+            .sign_with(&signer)
+            .await
+            .unwrap_err();
+
+        assert!(err.is_invalid_parameter());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_signed_url_error_bucket() -> TestResult {
         let mut mock = MockSigner::new();
         mock.expect_client_email()
             .return_once(|| Ok("test@example.com".to_string()));
@@ -738,9 +779,9 @@ mod tests {
         expected_url: &str,
     ) -> TestResult {
         let builder = if let Some(object) = object {
-            SignedUrlBuilder::for_object("test-bucket", object)
+            SignedUrlBuilder::for_object("projects/_/buckets/test-bucket", object)
         } else {
-            SignedUrlBuilder::for_bucket("test-bucket")
+            SignedUrlBuilder::for_bucket("projects/_/buckets/test-bucket")
         };
         let builder = builder.with_url_style(url_style);
         let builder = endpoint.iter().fold(builder, |builder, endpoint| {
@@ -813,9 +854,11 @@ mod tests {
                 },
                 None => UrlStyle::PathStyle,
             };
+
+            let bucket = format!("projects/_/buckets/{}", test.bucket);
             let builder = match test.object {
-                Some(object) => SignedUrlBuilder::for_object(test.bucket, object),
-                None => SignedUrlBuilder::for_bucket(test.bucket),
+                Some(object) => SignedUrlBuilder::for_object(bucket, object),
+                None => SignedUrlBuilder::for_bucket(bucket),
             };
 
             if test.emulator_hostname.is_some() {
