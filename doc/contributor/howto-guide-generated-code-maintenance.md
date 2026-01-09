@@ -23,7 +23,7 @@ instructions in [Set Up Development Environment].
 ## Generate new library
 
 First define the library's name. Note this should match the directory path where
-the code lives delimited by "-" e.g. google-cloud-gax-internal:
+the code lives delimited by "-" e.g. google-cloud-kms-v1:
 
 ```bash
 library=... 
@@ -153,9 +153,7 @@ You can make changes in the `librarian` directory as usual. To test them change
 the normal commands to use that directory. For example:
 
 ```bash
-go install ./cmd/librarian
-cd {project root or use another terminal)
-librarian generate --all
+go -C ../librarian run ./cmd/librarian generate --all
 ```
 
 Once the changes work then send a PR in the librarian repo to make your changes.
