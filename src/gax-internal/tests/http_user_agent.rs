@@ -15,12 +15,13 @@
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
     use gax::options::*;
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use serde_json::json;
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]

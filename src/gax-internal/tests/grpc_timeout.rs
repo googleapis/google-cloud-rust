@@ -19,13 +19,14 @@ mod tests {
     use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
     use gax::retry_state::RetryState;
     use gax::retry_throttler::{CircuitBreaker, RetryThrottlerArg};
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
     use std::sync::{Arc, Mutex};
     use std::time::Duration;
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test(start_paused = true)]

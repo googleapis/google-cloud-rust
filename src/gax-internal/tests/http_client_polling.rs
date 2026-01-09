@@ -15,11 +15,12 @@
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
     use gax::polling_state::PollingState;
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
 
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     /// A test policy, the only interesting bit is the name, which is included

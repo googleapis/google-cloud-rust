@@ -16,6 +16,7 @@
 mod tests {
     use gax::options::RequestOptions;
     use gax::response::Response;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_gax_internal::http::{NoBody, ReqwestClient};
     use google_cloud_gax_internal::observability::attributes::keys::*;
     use google_cloud_gax_internal::options::{ClientConfig, InstrumentationClientInfo};
@@ -54,7 +55,7 @@ mod tests {
         let mut config = ClientConfig::default();
         config.tracing = tracing_enabled;
         config.endpoint = Some(endpoint.clone());
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config, &endpoint).await.unwrap();
         if tracing_enabled {
             client.with_instrumentation(&TEST_INSTRUMENTATION_INFO)
