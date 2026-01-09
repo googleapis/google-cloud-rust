@@ -14,12 +14,6 @@
 
 //! Types related to the signed URL feature. See [Storage::builder::storage::SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
 
-/// Re-export types from the `http` crate used in this module.
-pub mod http {
-    /// HTTP method for the signed URL.
-    pub use http::Method;
-}
-
 /// Formatting style for signed URLs.
 ///
 /// There are several equivalent formats for signed URLs, see the [resource path] docs for more information.

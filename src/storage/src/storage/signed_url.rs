@@ -285,7 +285,7 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the HTTP method for the signed URL. The default is [GET][crate::signed_url::http::Method::GET].
+    /// Sets the HTTP method for the signed URL. The default is [GET][crate::http::Method::GET].
     ///
     /// # Example
     ///
