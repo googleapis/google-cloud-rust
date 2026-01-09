@@ -55,9 +55,9 @@ use crate::{
         MockBackoffPolicy, MockReadResumePolicy, MockRetryPolicy, MockRetryThrottler, test_builder,
     },
 };
-use auth::credentials::anonymous::Builder as Anonymous;
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use std::time::Duration;
 

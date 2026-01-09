@@ -1091,7 +1091,7 @@ mod tests {
     };
     use crate::storage::checksum::details::{Crc32c, Md5};
     use crate::streaming_source::tests::MockSeekSource;
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use std::error::Error as _;
     use std::io::{Error as IoError, ErrorKind};
 

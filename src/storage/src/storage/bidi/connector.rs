@@ -238,6 +238,7 @@ mod tests {
     use anyhow::Result;
     use gax::error::binding::{BindingError, SubstitutionFail};
     use gax::retry_policy::NeverRetry;
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use static_assertions::assert_impl_all;
     use std::error::Error as _;
     use std::sync::Arc;
@@ -809,7 +810,7 @@ mod tests {
         Ok(())
     }
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 }

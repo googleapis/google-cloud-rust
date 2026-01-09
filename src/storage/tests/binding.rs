@@ -14,8 +14,8 @@
 
 #[cfg(test)]
 mod tests {
-    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::error::binding::*;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_storage as gcs;
     use std::error::Error as _;
 

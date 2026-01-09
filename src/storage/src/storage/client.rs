@@ -20,12 +20,11 @@ use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::bidi::OpenObject;
 use crate::storage::common_options::CommonOptions;
 use crate::streaming_source::Payload;
-use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use gax::client_builder::{Error as BuilderError, Result as BuilderResult};
-use gaxi::options::ClientConfig;
-use gaxi::options::Credentials;
+use gaxi::options::{ClientConfig, Credentials};
+use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use http::Extensions;
 use std::sync::Arc;
 
@@ -102,7 +101,7 @@ where
 #[derive(Clone, Debug)]
 pub(crate) struct StorageInner {
     pub client: reqwest::Client,
-    pub cred: auth::credentials::Credentials,
+    pub cred: Credentials,
     pub endpoint: String,
     pub options: RequestOptions,
     pub grpc: gaxi::grpc::Client,
@@ -450,7 +449,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_storage::client::Storage;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use auth::credentials::mds;
+    /// use google_cloud_auth::credentials::mds;
     /// let client = Storage::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
@@ -462,7 +461,7 @@ impl ClientBuilder {
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
-    pub fn with_credentials<V: Into<auth::credentials::Credentials>>(mut self, v: V) -> Self {
+    pub fn with_credentials<V: Into<Credentials>>(mut self, v: V) -> Self {
         self.config.cred = Some(v.into());
         self
     }
@@ -681,7 +680,7 @@ impl ClientBuilder {
         if self.config.cred.is_some() {
             return Ok(());
         };
-        let default = auth::credentials::Builder::default()
+        let default = CredentialsBuilder::default()
             .build()
             .map_err(BuilderError::cred)?;
         self.config.cred = Some(default);
@@ -767,9 +766,9 @@ pub(crate) fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::retry_result::RetryResult;
     use gax::retry_state::RetryState;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use std::{sync::Arc, time::Duration};
 
     #[test]
