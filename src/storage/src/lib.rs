@@ -20,6 +20,7 @@
 //!
 //! * [Storage][client::Storage]
 //! * [StorageControl][client::StorageControl]
+//! * [SignedUrlBuilder][builder::storage::SignedUrlBuilder]
 //!
 //! **NOTE:** This crate used to contain a different implementation, with a
 //! different surface. [@yoshidan](https://github.com/yoshidan) generously
