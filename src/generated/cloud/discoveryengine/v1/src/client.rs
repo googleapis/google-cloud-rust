@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::AssistantService;
 /// let client = AssistantService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -69,10 +69,10 @@ impl AssistantService {
     /// Returns a builder for [AssistantService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::AssistantService;
     /// let client = AssistantService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::assistant_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -150,11 +150,11 @@ impl AssistantService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
 /// let client = CmekConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -199,10 +199,10 @@ impl CmekConfigService {
     /// Returns a builder for [CmekConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
     /// let client = CmekConfigService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cmek_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -328,11 +328,11 @@ impl CmekConfigService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -377,10 +377,10 @@ impl CompletionService {
     /// Returns a builder for [CompletionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::completion_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -547,11 +547,11 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -599,10 +599,10 @@ impl ControlService {
     /// Returns a builder for [ControlService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ControlService;
     /// let client = ControlService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::control_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::control_service::client::Factory)
@@ -723,11 +723,11 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -772,10 +772,10 @@ impl ConversationalSearchService {
     /// Returns a builder for [ConversationalSearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -972,11 +972,11 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
 /// let client = DataStoreService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1024,10 +1024,10 @@ impl DataStoreService {
     /// Returns a builder for [DataStoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::DataStoreService;
     /// let client = DataStoreService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_store_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1169,11 +1169,11 @@ impl DataStoreService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::DocumentService;
 /// let client = DocumentService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1221,10 +1221,10 @@ impl DocumentService {
     /// Returns a builder for [DocumentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::DocumentService;
     /// let client = DocumentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::document_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1406,11 +1406,11 @@ impl DocumentService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::EngineService;
 /// let client = EngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1458,10 +1458,10 @@ impl EngineService {
     /// Returns a builder for [EngineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::EngineService;
     /// let client = EngineService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::engine_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::engine_service::client::Factory)
@@ -1592,11 +1592,11 @@ impl EngineService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
 /// let client = GroundedGenerationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1641,10 +1641,10 @@ impl GroundedGenerationService {
     /// Returns a builder for [GroundedGenerationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::GroundedGenerationService;
     /// let client = GroundedGenerationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::grounded_generation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1737,11 +1737,11 @@ impl GroundedGenerationService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
 /// let client = IdentityMappingStoreService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1786,10 +1786,10 @@ impl IdentityMappingStoreService {
     /// Returns a builder for [IdentityMappingStoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
     /// let client = IdentityMappingStoreService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity_mapping_store_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1966,11 +1966,11 @@ impl IdentityMappingStoreService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ProjectService;
 /// let client = ProjectService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2018,10 +2018,10 @@ impl ProjectService {
     /// Returns a builder for [ProjectService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ProjectService;
     /// let client = ProjectService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::project_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::project_service::client::Factory)
@@ -2116,11 +2116,11 @@ impl ProjectService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RankService;
 /// let client = RankService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2165,10 +2165,10 @@ impl RankService {
     /// Returns a builder for [RankService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::RankService;
     /// let client = RankService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::rank_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::rank_service::client::Factory)
@@ -2248,11 +2248,11 @@ impl RankService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
 /// let client = RecommendationService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2297,10 +2297,10 @@ impl RecommendationService {
     /// Returns a builder for [RecommendationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::RecommendationService;
     /// let client = RecommendationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::recommendation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2383,11 +2383,11 @@ impl RecommendationService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2434,10 +2434,10 @@ impl SchemaService {
     /// Returns a builder for [SchemaService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SchemaService;
     /// let client = SchemaService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::schema_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::schema_service::client::Factory)
@@ -2577,11 +2577,11 @@ impl SchemaService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2626,10 +2626,10 @@ impl SearchService {
     /// Returns a builder for [SearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SearchService;
     /// let client = SearchService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::search_service::client::Factory)
@@ -2728,11 +2728,11 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
 /// let client = SearchTuningService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2777,10 +2777,10 @@ impl SearchTuningService {
     /// Returns a builder for [SearchTuningService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SearchTuningService;
     /// let client = SearchTuningService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::search_tuning_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2878,11 +2878,11 @@ impl SearchTuningService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2930,10 +2930,10 @@ impl ServingConfigService {
     /// Returns a builder for [ServingConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3020,11 +3020,11 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SessionService;
 /// let client = SessionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3069,10 +3069,10 @@ impl SessionService {
     /// Returns a builder for [SessionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SessionService;
     /// let client = SessionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::session_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::session_service::client::Factory)
@@ -3191,11 +3191,11 @@ impl SessionService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
 /// let client = SiteSearchEngineService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3240,10 +3240,10 @@ impl SiteSearchEngineService {
     /// Returns a builder for [SiteSearchEngineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::SiteSearchEngineService;
     /// let client = SiteSearchEngineService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::site_search_engine_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3549,11 +3549,11 @@ impl SiteSearchEngineService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3598,10 +3598,10 @@ impl UserEventService {
     /// Returns a builder for [UserEventService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::user_event_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3732,11 +3732,11 @@ impl UserEventService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
 /// let client = UserLicenseService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3781,10 +3781,10 @@ impl UserLicenseService {
     /// Returns a builder for [UserLicenseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
     /// let client = UserLicenseService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::user_license_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

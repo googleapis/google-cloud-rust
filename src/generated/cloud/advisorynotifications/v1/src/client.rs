@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
 /// let client = AdvisoryNotificationsService::builder().build().await?;
 /// // use `client` to make requests to the Advisory Notifications API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl AdvisoryNotificationsService {
     /// Returns a builder for [AdvisoryNotificationsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_advisorynotifications_v1::client::AdvisoryNotificationsService;
     /// let client = AdvisoryNotificationsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::advisory_notifications_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

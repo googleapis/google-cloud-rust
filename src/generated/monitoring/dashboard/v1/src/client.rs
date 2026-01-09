@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
 /// let client = DashboardsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl DashboardsService {
     /// Returns a builder for [DashboardsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_dashboard_v1::client::DashboardsService;
     /// let client = DashboardsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dashboards_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

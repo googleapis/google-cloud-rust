@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
 /// let client = MetricsScopes::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl MetricsScopes {
     /// Returns a builder for [MetricsScopes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_metricsscope_v1::client::MetricsScopes;
     /// let client = MetricsScopes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::metrics_scopes::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::metrics_scopes::client::Factory)

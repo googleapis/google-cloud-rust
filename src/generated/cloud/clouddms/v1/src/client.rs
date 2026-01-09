@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_clouddms_v1::client::DataMigrationService;
 /// let client = DataMigrationService::builder().build().await?;
 /// // use `client` to make requests to the Database Migration API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl DataMigrationService {
     /// Returns a builder for [DataMigrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_clouddms_v1::client::DataMigrationService;
     /// let client = DataMigrationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_migration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

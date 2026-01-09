@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datastream_v1::client::Datastream;
 /// let client = Datastream::builder().build().await?;
 /// // use `client` to make requests to the Datastream API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Datastream {
     /// Returns a builder for [Datastream].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datastream_v1::client::Datastream;
     /// let client = Datastream::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::datastream::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::datastream::client::Factory)

@@ -20,7 +20,7 @@ pub mod client_gateways_service {
     /// A builder for [ClientGatewaysService][crate::client::ClientGatewaysService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_clientgateways_v1::*;
     /// # use builder::client_gateways_service::ClientBuilder;
     /// # use client::ClientGatewaysService;
@@ -28,7 +28,7 @@ pub mod client_gateways_service {
     /// let client = builder
     ///     .with_endpoint("https://beyondcorp.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::list_client_gateways][crate::client::ClientGatewaysService::list_client_gateways] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::ListClientGateways;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListClientGateways;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod client_gateways_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClientGateways {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::get_client_gateway][crate::client::ClientGatewaysService::get_client_gateway] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::GetClientGateway;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetClientGateway;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetClientGateway {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::create_client_gateway][crate::client::ClientGatewaysService::create_client_gateway] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::CreateClientGateway;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::CreateClientGateway;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateClientGateway {
     ///   # panic!();
@@ -408,15 +405,14 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::delete_client_gateway][crate::client::ClientGatewaysService::delete_client_gateway] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::DeleteClientGateway;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::DeleteClientGateway;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteClientGateway {
     ///   # panic!();
@@ -528,10 +524,9 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::list_locations][crate::client::ClientGatewaysService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -539,7 +534,7 @@ pub mod client_gateways_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -638,14 +633,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::get_location][crate::client::ClientGatewaysService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -699,14 +693,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::set_iam_policy][crate::client::ClientGatewaysService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -802,14 +795,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::get_iam_policy][crate::client::ClientGatewaysService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -883,14 +875,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::test_iam_permissions][crate::client::ClientGatewaysService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -962,10 +953,9 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::list_operations][crate::client::ClientGatewaysService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -973,7 +963,7 @@ pub mod client_gateways_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1080,14 +1070,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::get_operation][crate::client::ClientGatewaysService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1144,14 +1133,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::delete_operation][crate::client::ClientGatewaysService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1208,14 +1196,13 @@ pub mod client_gateways_service {
     /// The request builder for [ClientGatewaysService::cancel_operation][crate::client::ClientGatewaysService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientgateways_v1::builder;
-    /// use builder::client_gateways_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientgateways_v1::builder::client_gateways_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

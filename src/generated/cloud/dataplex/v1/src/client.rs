@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
 /// let client = BusinessGlossaryService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -72,10 +72,10 @@ impl BusinessGlossaryService {
     /// Returns a builder for [BusinessGlossaryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::BusinessGlossaryService;
     /// let client = BusinessGlossaryService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::business_glossary_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -325,11 +325,11 @@ impl BusinessGlossaryService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -375,10 +375,10 @@ impl CatalogService {
     /// Returns a builder for [CatalogService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::catalog_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::catalog_service::client::Factory)
@@ -762,11 +762,11 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::CmekService;
 /// let client = CmekService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -808,10 +808,10 @@ impl CmekService {
     /// Returns a builder for [CmekService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::CmekService;
     /// let client = CmekService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cmek_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cmek_service::client::Factory)
@@ -984,11 +984,11 @@ impl CmekService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::ContentService;
 /// let client = ContentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1031,10 +1031,10 @@ impl ContentService {
     /// Returns a builder for [ContentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::ContentService;
     /// let client = ContentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::content_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::content_service::client::Factory)
@@ -1184,11 +1184,11 @@ impl ContentService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
 /// let client = DataTaxonomyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1232,10 +1232,10 @@ impl DataTaxonomyService {
     /// Returns a builder for [DataTaxonomyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataTaxonomyService;
     /// let client = DataTaxonomyService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_taxonomy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1567,11 +1567,11 @@ impl DataTaxonomyService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataScanService;
 /// let client = DataScanService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1615,10 +1615,10 @@ impl DataScanService {
     /// Returns a builder for [DataScanService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataScanService;
     /// let client = DataScanService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_scan_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1819,11 +1819,11 @@ impl DataScanService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::MetadataService;
 /// let client = MetadataService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1866,10 +1866,10 @@ impl MetadataService {
     /// Returns a builder for [MetadataService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::MetadataService;
     /// let client = MetadataService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::metadata_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2035,11 +2035,11 @@ impl MetadataService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataplex_v1::client::DataplexService;
 /// let client = DataplexService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataplex API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2085,10 +2085,10 @@ impl DataplexService {
     /// Returns a builder for [DataplexService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::client::DataplexService;
     /// let client = DataplexService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dataplex_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

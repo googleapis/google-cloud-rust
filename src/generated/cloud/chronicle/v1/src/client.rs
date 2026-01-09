@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
 /// let client = DataAccessControlService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl DataAccessControlService {
     /// Returns a builder for [DataAccessControlService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::client::DataAccessControlService;
     /// let client = DataAccessControlService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_access_control_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -238,11 +238,11 @@ impl DataAccessControlService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::EntityService;
 /// let client = EntityService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -284,10 +284,10 @@ impl EntityService {
     /// Returns a builder for [EntityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::client::EntityService;
     /// let client = EntityService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::entity_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::entity_service::client::Factory)
@@ -395,11 +395,11 @@ impl EntityService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::InstanceService;
 /// let client = InstanceService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -441,10 +441,10 @@ impl InstanceService {
     /// Returns a builder for [InstanceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::client::InstanceService;
     /// let client = InstanceService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -534,11 +534,11 @@ impl InstanceService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::ReferenceListService;
 /// let client = ReferenceListService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -580,10 +580,10 @@ impl ReferenceListService {
     /// Returns a builder for [ReferenceListService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::client::ReferenceListService;
     /// let client = ReferenceListService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reference_list_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -694,11 +694,11 @@ impl ReferenceListService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_chronicle_v1::client::RuleService;
 /// let client = RuleService::builder().build().await?;
 /// // use `client` to make requests to the Chronicle API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -740,10 +740,10 @@ impl RuleService {
     /// Returns a builder for [RuleService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_chronicle_v1::client::RuleService;
     /// let client = RuleService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::rule_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::rule_service::client::Factory)

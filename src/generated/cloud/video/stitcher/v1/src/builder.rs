@@ -20,7 +20,7 @@ pub mod video_stitcher_service {
     /// A builder for [VideoStitcherService][crate::client::VideoStitcherService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_video_stitcher_v1::*;
     /// # use builder::video_stitcher_service::ClientBuilder;
     /// # use client::VideoStitcherService;
@@ -28,7 +28,7 @@ pub mod video_stitcher_service {
     /// let client = builder
     ///     .with_endpoint("https://videostitcher.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_cdn_key][crate::client::VideoStitcherService::create_cdn_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateCdnKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateCdnKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCdnKey {
     ///   # panic!();
@@ -206,10 +205,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_cdn_keys][crate::client::VideoStitcherService::list_cdn_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListCdnKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListCdnKeys;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -217,7 +215,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCdnKeys {
     ///   # panic!();
@@ -321,14 +319,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_cdn_key][crate::client::VideoStitcherService::get_cdn_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetCdnKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetCdnKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCdnKey {
     ///   # panic!();
@@ -384,15 +381,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::delete_cdn_key][crate::client::VideoStitcherService::delete_cdn_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::DeleteCdnKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteCdnKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCdnKey {
     ///   # panic!();
@@ -488,15 +484,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::update_cdn_key][crate::client::VideoStitcherService::update_cdn_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::UpdateCdnKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateCdnKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCdnKey {
     ///   # panic!();
@@ -626,14 +621,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_vod_session][crate::client::VideoStitcherService::create_vod_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateVodSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateVodSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVodSession {
     ///   # panic!();
@@ -714,14 +708,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_vod_session][crate::client::VideoStitcherService::get_vod_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetVodSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVodSession {
     ///   # panic!();
@@ -777,10 +770,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_vod_stitch_details][crate::client::VideoStitcherService::list_vod_stitch_details] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListVodStitchDetails;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodStitchDetails;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -788,7 +780,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVodStitchDetails {
     ///   # panic!();
@@ -885,14 +877,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_vod_stitch_detail][crate::client::VideoStitcherService::get_vod_stitch_detail] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetVodStitchDetail;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodStitchDetail;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVodStitchDetail {
     ///   # panic!();
@@ -951,10 +942,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_vod_ad_tag_details][crate::client::VideoStitcherService::list_vod_ad_tag_details] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListVodAdTagDetails;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodAdTagDetails;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -962,7 +952,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVodAdTagDetails {
     ///   # panic!();
@@ -1059,14 +1049,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_vod_ad_tag_detail][crate::client::VideoStitcherService::get_vod_ad_tag_detail] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetVodAdTagDetail;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodAdTagDetail;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVodAdTagDetail {
     ///   # panic!();
@@ -1125,10 +1114,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_live_ad_tag_details][crate::client::VideoStitcherService::list_live_ad_tag_details] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListLiveAdTagDetails;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListLiveAdTagDetails;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1136,7 +1124,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLiveAdTagDetails {
     ///   # panic!();
@@ -1233,14 +1221,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_live_ad_tag_detail][crate::client::VideoStitcherService::get_live_ad_tag_detail] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetLiveAdTagDetail;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveAdTagDetail;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLiveAdTagDetail {
     ///   # panic!();
@@ -1299,15 +1286,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_slate][crate::client::VideoStitcherService::create_slate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateSlate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateSlate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSlate {
     ///   # panic!();
@@ -1437,10 +1423,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_slates][crate::client::VideoStitcherService::list_slates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListSlates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListSlates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1448,7 +1433,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSlates {
     ///   # panic!();
@@ -1552,14 +1537,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_slate][crate::client::VideoStitcherService::get_slate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetSlate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetSlate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSlate {
     ///   # panic!();
@@ -1615,15 +1599,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::update_slate][crate::client::VideoStitcherService::update_slate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::UpdateSlate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateSlate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSlate {
     ///   # panic!();
@@ -1753,15 +1736,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::delete_slate][crate::client::VideoStitcherService::delete_slate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::DeleteSlate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteSlate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSlate {
     ///   # panic!();
@@ -1857,14 +1839,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_live_session][crate::client::VideoStitcherService::create_live_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateLiveSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateLiveSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLiveSession {
     ///   # panic!();
@@ -1945,14 +1926,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_live_session][crate::client::VideoStitcherService::get_live_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetLiveSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLiveSession {
     ///   # panic!();
@@ -2008,15 +1988,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_live_config][crate::client::VideoStitcherService::create_live_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateLiveConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateLiveConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLiveConfig {
     ///   # panic!();
@@ -2149,10 +2128,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_live_configs][crate::client::VideoStitcherService::list_live_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListLiveConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListLiveConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2160,7 +2138,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLiveConfigs {
     ///   # panic!();
@@ -2264,14 +2242,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_live_config][crate::client::VideoStitcherService::get_live_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetLiveConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetLiveConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLiveConfig {
     ///   # panic!();
@@ -2327,15 +2304,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::delete_live_config][crate::client::VideoStitcherService::delete_live_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::DeleteLiveConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteLiveConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLiveConfig {
     ///   # panic!();
@@ -2434,15 +2410,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::update_live_config][crate::client::VideoStitcherService::update_live_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::UpdateLiveConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateLiveConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateLiveConfig {
     ///   # panic!();
@@ -2575,15 +2550,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::create_vod_config][crate::client::VideoStitcherService::create_vod_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CreateVodConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CreateVodConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVodConfig {
     ///   # panic!();
@@ -2713,10 +2687,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_vod_configs][crate::client::VideoStitcherService::list_vod_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListVodConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListVodConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2724,7 +2697,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVodConfigs {
     ///   # panic!();
@@ -2828,14 +2801,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_vod_config][crate::client::VideoStitcherService::get_vod_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetVodConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetVodConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVodConfig {
     ///   # panic!();
@@ -2891,15 +2863,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::delete_vod_config][crate::client::VideoStitcherService::delete_vod_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::DeleteVodConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteVodConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVodConfig {
     ///   # panic!();
@@ -2995,15 +2966,14 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::update_vod_config][crate::client::VideoStitcherService::update_vod_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::UpdateVodConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::UpdateVodConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVodConfig {
     ///   # panic!();
@@ -3133,10 +3103,9 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::list_operations][crate::client::VideoStitcherService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3144,7 +3113,7 @@ pub mod video_stitcher_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3251,14 +3220,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::get_operation][crate::client::VideoStitcherService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3315,14 +3283,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::delete_operation][crate::client::VideoStitcherService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3379,14 +3346,13 @@ pub mod video_stitcher_service {
     /// The request builder for [VideoStitcherService::cancel_operation][crate::client::VideoStitcherService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_stitcher_v1::builder;
-    /// use builder::video_stitcher_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_stitcher_v1::builder::video_stitcher_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

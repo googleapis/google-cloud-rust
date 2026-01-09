@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datafusion_v1::client::DataFusion;
 /// let client = DataFusion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Data Fusion API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl DataFusion {
     /// Returns a builder for [DataFusion].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datafusion_v1::client::DataFusion;
     /// let client = DataFusion::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_fusion::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::data_fusion::client::Factory)

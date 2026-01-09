@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
 /// let client = CertificateManager::builder().build().await?;
 /// // use `client` to make requests to the Certificate Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -92,10 +92,10 @@ impl CertificateManager {
     /// Returns a builder for [CertificateManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_certificatemanager_v1::client::CertificateManager;
     /// let client = CertificateManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::certificate_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

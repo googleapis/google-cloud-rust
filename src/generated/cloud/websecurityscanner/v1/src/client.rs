@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
 /// let client = WebSecurityScanner::builder().build().await?;
 /// // use `client` to make requests to the Web Security Scanner API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl WebSecurityScanner {
     /// Returns a builder for [WebSecurityScanner].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_websecurityscanner_v1::client::WebSecurityScanner;
     /// let client = WebSecurityScanner::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::web_security_scanner::ClientBuilder {
         gax::client_builder::internal::new_builder(

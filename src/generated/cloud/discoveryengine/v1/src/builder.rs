@@ -22,7 +22,7 @@ pub mod assistant_service {
     /// A builder for [AssistantService][crate::client::AssistantService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::assistant_service::ClientBuilder;
     /// # use client::AssistantService;
@@ -30,7 +30,7 @@ pub mod assistant_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -76,10 +76,9 @@ pub mod assistant_service {
     /// The request builder for [AssistantService::list_operations][crate::client::AssistantService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::assistant_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::assistant_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -87,7 +86,7 @@ pub mod assistant_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod assistant_service {
     /// The request builder for [AssistantService::get_operation][crate::client::AssistantService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::assistant_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::assistant_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -258,14 +256,13 @@ pub mod assistant_service {
     /// The request builder for [AssistantService::cancel_operation][crate::client::AssistantService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::assistant_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::assistant_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -328,7 +325,7 @@ pub mod cmek_config_service {
     /// A builder for [CmekConfigService][crate::client::CmekConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::cmek_config_service::ClientBuilder;
     /// # use client::CmekConfigService;
@@ -336,7 +333,7 @@ pub mod cmek_config_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -382,15 +379,14 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::update_cmek_config][crate::client::CmekConfigService::update_cmek_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::UpdateCmekConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::UpdateCmekConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCmekConfig {
     ///   # panic!();
@@ -510,14 +506,13 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::get_cmek_config][crate::client::CmekConfigService::get_cmek_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::GetCmekConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::GetCmekConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCmekConfig {
     ///   # panic!();
@@ -573,14 +568,13 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::list_cmek_configs][crate::client::CmekConfigService::list_cmek_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::ListCmekConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::ListCmekConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCmekConfigs {
     ///   # panic!();
@@ -636,15 +630,14 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::delete_cmek_config][crate::client::CmekConfigService::delete_cmek_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::DeleteCmekConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::DeleteCmekConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCmekConfig {
     ///   # panic!();
@@ -744,10 +737,9 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::list_operations][crate::client::CmekConfigService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -755,7 +747,7 @@ pub mod cmek_config_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -862,14 +854,13 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::get_operation][crate::client::CmekConfigService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -926,14 +917,13 @@ pub mod cmek_config_service {
     /// The request builder for [CmekConfigService::cancel_operation][crate::client::CmekConfigService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::cmek_config_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::cmek_config_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -996,7 +986,7 @@ pub mod completion_service {
     /// A builder for [CompletionService][crate::client::CompletionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::completion_service::ClientBuilder;
     /// # use client::CompletionService;
@@ -1004,7 +994,7 @@ pub mod completion_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1050,14 +1040,13 @@ pub mod completion_service {
     /// The request builder for [CompletionService::complete_query][crate::client::CompletionService::complete_query] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::CompleteQuery;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::CompleteQuery;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteQuery {
     ///   # panic!();
@@ -1139,15 +1128,14 @@ pub mod completion_service {
     /// The request builder for [CompletionService::import_suggestion_deny_list_entries][crate::client::CompletionService::import_suggestion_deny_list_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::ImportSuggestionDenyListEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::ImportSuggestionDenyListEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportSuggestionDenyListEntries {
     ///   # panic!();
@@ -1297,15 +1285,14 @@ pub mod completion_service {
     /// The request builder for [CompletionService::purge_suggestion_deny_list_entries][crate::client::CompletionService::purge_suggestion_deny_list_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::PurgeSuggestionDenyListEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::PurgeSuggestionDenyListEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeSuggestionDenyListEntries {
     ///   # panic!();
@@ -1409,15 +1396,14 @@ pub mod completion_service {
     /// The request builder for [CompletionService::import_completion_suggestions][crate::client::CompletionService::import_completion_suggestions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::ImportCompletionSuggestions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::ImportCompletionSuggestions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportCompletionSuggestions {
     ///   # panic!();
@@ -1600,15 +1586,14 @@ pub mod completion_service {
     /// The request builder for [CompletionService::purge_completion_suggestions][crate::client::CompletionService::purge_completion_suggestions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::PurgeCompletionSuggestions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::PurgeCompletionSuggestions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeCompletionSuggestions {
     ///   # panic!();
@@ -1712,10 +1697,9 @@ pub mod completion_service {
     /// The request builder for [CompletionService::list_operations][crate::client::CompletionService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1723,7 +1707,7 @@ pub mod completion_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1830,14 +1814,13 @@ pub mod completion_service {
     /// The request builder for [CompletionService::get_operation][crate::client::CompletionService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1894,14 +1877,13 @@ pub mod completion_service {
     /// The request builder for [CompletionService::cancel_operation][crate::client::CompletionService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::completion_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::completion_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1964,7 +1946,7 @@ pub mod control_service {
     /// A builder for [ControlService][crate::client::ControlService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::control_service::ClientBuilder;
     /// # use client::ControlService;
@@ -1972,7 +1954,7 @@ pub mod control_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2018,14 +2000,13 @@ pub mod control_service {
     /// The request builder for [ControlService::create_control][crate::client::ControlService::create_control] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::CreateControl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::CreateControl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateControl {
     ///   # panic!();
@@ -2111,14 +2092,13 @@ pub mod control_service {
     /// The request builder for [ControlService::delete_control][crate::client::ControlService::delete_control] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::DeleteControl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::DeleteControl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteControl {
     ///   # panic!();
@@ -2174,14 +2154,13 @@ pub mod control_service {
     /// The request builder for [ControlService::update_control][crate::client::ControlService::update_control] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::UpdateControl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::UpdateControl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateControl {
     ///   # panic!();
@@ -2269,14 +2248,13 @@ pub mod control_service {
     /// The request builder for [ControlService::get_control][crate::client::ControlService::get_control] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::GetControl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::GetControl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetControl {
     ///   # panic!();
@@ -2332,10 +2310,9 @@ pub mod control_service {
     /// The request builder for [ControlService::list_controls][crate::client::ControlService::list_controls] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::ListControls;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::ListControls;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2343,7 +2320,7 @@ pub mod control_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListControls {
     ///   # panic!();
@@ -2441,10 +2418,9 @@ pub mod control_service {
     /// The request builder for [ControlService::list_operations][crate::client::ControlService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2452,7 +2428,7 @@ pub mod control_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2559,14 +2535,13 @@ pub mod control_service {
     /// The request builder for [ControlService::get_operation][crate::client::ControlService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2623,14 +2598,13 @@ pub mod control_service {
     /// The request builder for [ControlService::cancel_operation][crate::client::ControlService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::control_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::control_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2693,7 +2667,7 @@ pub mod conversational_search_service {
     /// A builder for [ConversationalSearchService][crate::client::ConversationalSearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::conversational_search_service::ClientBuilder;
     /// # use client::ConversationalSearchService;
@@ -2701,7 +2675,7 @@ pub mod conversational_search_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2747,14 +2721,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::converse_conversation][crate::client::ConversationalSearchService::converse_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::ConverseConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::ConverseConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ConverseConversation {
     ///   # panic!();
@@ -2918,14 +2891,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::create_conversation][crate::client::ConversationalSearchService::create_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::CreateConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::CreateConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversation {
     ///   # panic!();
@@ -3006,14 +2978,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::delete_conversation][crate::client::ConversationalSearchService::delete_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::DeleteConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::DeleteConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConversation {
     ///   # panic!();
@@ -3072,14 +3043,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::update_conversation][crate::client::ConversationalSearchService::update_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::UpdateConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::UpdateConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConversation {
     ///   # panic!();
@@ -3170,14 +3140,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::get_conversation][crate::client::ConversationalSearchService::get_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::GetConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::GetConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversation {
     ///   # panic!();
@@ -3233,10 +3202,9 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::list_conversations][crate::client::ConversationalSearchService::list_conversations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::ListConversations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::ListConversations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3244,7 +3212,7 @@ pub mod conversational_search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversations {
     ///   # panic!();
@@ -3351,14 +3319,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::answer_query][crate::client::ConversationalSearchService::answer_query] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::AnswerQuery;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::AnswerQuery;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnswerQuery {
     ///   # panic!();
@@ -3592,14 +3559,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::get_answer][crate::client::ConversationalSearchService::get_answer] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::GetAnswer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::GetAnswer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAnswer {
     ///   # panic!();
@@ -3655,14 +3621,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::create_session][crate::client::ConversationalSearchService::create_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::CreateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::CreateSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSession {
     ///   # panic!();
@@ -3740,14 +3705,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::delete_session][crate::client::ConversationalSearchService::delete_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::DeleteSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::DeleteSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSession {
     ///   # panic!();
@@ -3803,14 +3767,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::update_session][crate::client::ConversationalSearchService::update_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::UpdateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::UpdateSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSession {
     ///   # panic!();
@@ -3898,14 +3861,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::get_session][crate::client::ConversationalSearchService::get_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::GetSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::GetSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSession {
     ///   # panic!();
@@ -3967,10 +3929,9 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::list_sessions][crate::client::ConversationalSearchService::list_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::ListSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::ListSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3978,7 +3939,7 @@ pub mod conversational_search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessions {
     ///   # panic!();
@@ -4082,10 +4043,9 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::list_operations][crate::client::ConversationalSearchService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4093,7 +4053,7 @@ pub mod conversational_search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4200,14 +4160,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::get_operation][crate::client::ConversationalSearchService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4264,14 +4223,13 @@ pub mod conversational_search_service {
     /// The request builder for [ConversationalSearchService::cancel_operation][crate::client::ConversationalSearchService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::conversational_search_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::conversational_search_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -4334,7 +4292,7 @@ pub mod data_store_service {
     /// A builder for [DataStoreService][crate::client::DataStoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::data_store_service::ClientBuilder;
     /// # use client::DataStoreService;
@@ -4342,7 +4300,7 @@ pub mod data_store_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4388,15 +4346,14 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::create_data_store][crate::client::DataStoreService::create_data_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::CreateDataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::CreateDataStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataStore {
     ///   # panic!();
@@ -4572,14 +4529,13 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::get_data_store][crate::client::DataStoreService::get_data_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::GetDataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::GetDataStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataStore {
     ///   # panic!();
@@ -4635,10 +4591,9 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::list_data_stores][crate::client::DataStoreService::list_data_stores] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::ListDataStores;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::ListDataStores;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4646,7 +4601,7 @@ pub mod data_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataStores {
     ///   # panic!();
@@ -4744,15 +4699,14 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::delete_data_store][crate::client::DataStoreService::delete_data_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::DeleteDataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::DeleteDataStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataStore {
     ///   # panic!();
@@ -4849,14 +4803,13 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::update_data_store][crate::client::DataStoreService::update_data_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::UpdateDataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::UpdateDataStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataStore {
     ///   # panic!();
@@ -4944,10 +4897,9 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::list_operations][crate::client::DataStoreService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4955,7 +4907,7 @@ pub mod data_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5062,14 +5014,13 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::get_operation][crate::client::DataStoreService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5126,14 +5077,13 @@ pub mod data_store_service {
     /// The request builder for [DataStoreService::cancel_operation][crate::client::DataStoreService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::data_store_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::data_store_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -5196,7 +5146,7 @@ pub mod document_service {
     /// A builder for [DocumentService][crate::client::DocumentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::document_service::ClientBuilder;
     /// # use client::DocumentService;
@@ -5204,7 +5154,7 @@ pub mod document_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5250,14 +5200,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::get_document][crate::client::DocumentService::get_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::GetDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::GetDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDocument {
     ///   # panic!();
@@ -5313,10 +5262,9 @@ pub mod document_service {
     /// The request builder for [DocumentService::list_documents][crate::client::DocumentService::list_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::ListDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::ListDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5324,7 +5272,7 @@ pub mod document_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDocuments {
     ///   # panic!();
@@ -5416,14 +5364,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::create_document][crate::client::DocumentService::create_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::CreateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::CreateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDocument {
     ///   # panic!();
@@ -5509,14 +5456,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::update_document][crate::client::DocumentService::update_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::UpdateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::UpdateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDocument {
     ///   # panic!();
@@ -5610,14 +5556,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::delete_document][crate::client::DocumentService::delete_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::DeleteDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::DeleteDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDocument {
     ///   # panic!();
@@ -5673,15 +5618,14 @@ pub mod document_service {
     /// The request builder for [DocumentService::import_documents][crate::client::DocumentService::import_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::ImportDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::ImportDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportDocuments {
     ///   # panic!();
@@ -5990,15 +5934,14 @@ pub mod document_service {
     /// The request builder for [DocumentService::purge_documents][crate::client::DocumentService::purge_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::PurgeDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::PurgeDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeDocuments {
     ///   # panic!();
@@ -6169,14 +6112,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::batch_get_documents_metadata][crate::client::DocumentService::batch_get_documents_metadata] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::BatchGetDocumentsMetadata;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::BatchGetDocumentsMetadata;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchGetDocumentsMetadata {
     ///   # panic!();
@@ -6259,10 +6201,9 @@ pub mod document_service {
     /// The request builder for [DocumentService::list_operations][crate::client::DocumentService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6270,7 +6211,7 @@ pub mod document_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6377,14 +6318,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::get_operation][crate::client::DocumentService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6441,14 +6381,13 @@ pub mod document_service {
     /// The request builder for [DocumentService::cancel_operation][crate::client::DocumentService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::document_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::document_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -6511,7 +6450,7 @@ pub mod engine_service {
     /// A builder for [EngineService][crate::client::EngineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::engine_service::ClientBuilder;
     /// # use client::EngineService;
@@ -6519,7 +6458,7 @@ pub mod engine_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6565,15 +6504,14 @@ pub mod engine_service {
     /// The request builder for [EngineService::create_engine][crate::client::EngineService::create_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::CreateEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::CreateEngine;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEngine {
     ///   # panic!();
@@ -6697,15 +6635,14 @@ pub mod engine_service {
     /// The request builder for [EngineService::delete_engine][crate::client::EngineService::delete_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::DeleteEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::DeleteEngine;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEngine {
     ///   # panic!();
@@ -6802,14 +6739,13 @@ pub mod engine_service {
     /// The request builder for [EngineService::update_engine][crate::client::EngineService::update_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::UpdateEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::UpdateEngine;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEngine {
     ///   # panic!();
@@ -6897,14 +6833,13 @@ pub mod engine_service {
     /// The request builder for [EngineService::get_engine][crate::client::EngineService::get_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::GetEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::GetEngine;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEngine {
     ///   # panic!();
@@ -6960,10 +6895,9 @@ pub mod engine_service {
     /// The request builder for [EngineService::list_engines][crate::client::EngineService::list_engines] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::ListEngines;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::ListEngines;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6971,7 +6905,7 @@ pub mod engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEngines {
     ///   # panic!();
@@ -7069,10 +7003,9 @@ pub mod engine_service {
     /// The request builder for [EngineService::list_operations][crate::client::EngineService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7080,7 +7013,7 @@ pub mod engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7187,14 +7120,13 @@ pub mod engine_service {
     /// The request builder for [EngineService::get_operation][crate::client::EngineService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7251,14 +7183,13 @@ pub mod engine_service {
     /// The request builder for [EngineService::cancel_operation][crate::client::EngineService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::engine_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::engine_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7321,7 +7252,7 @@ pub mod grounded_generation_service {
     /// A builder for [GroundedGenerationService][crate::client::GroundedGenerationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::grounded_generation_service::ClientBuilder;
     /// # use client::GroundedGenerationService;
@@ -7329,7 +7260,7 @@ pub mod grounded_generation_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7375,14 +7306,13 @@ pub mod grounded_generation_service {
     /// The request builder for [GroundedGenerationService::generate_grounded_content][crate::client::GroundedGenerationService::generate_grounded_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::grounded_generation_service::GenerateGroundedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::GenerateGroundedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateGroundedContent {
     ///   # panic!();
@@ -7519,14 +7449,13 @@ pub mod grounded_generation_service {
     /// The request builder for [GroundedGenerationService::check_grounding][crate::client::GroundedGenerationService::check_grounding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::grounded_generation_service::CheckGrounding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::CheckGrounding;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckGrounding {
     ///   # panic!();
@@ -7628,10 +7557,9 @@ pub mod grounded_generation_service {
     /// The request builder for [GroundedGenerationService::list_operations][crate::client::GroundedGenerationService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::grounded_generation_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7639,7 +7567,7 @@ pub mod grounded_generation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7746,14 +7674,13 @@ pub mod grounded_generation_service {
     /// The request builder for [GroundedGenerationService::get_operation][crate::client::GroundedGenerationService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::grounded_generation_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7810,14 +7737,13 @@ pub mod grounded_generation_service {
     /// The request builder for [GroundedGenerationService::cancel_operation][crate::client::GroundedGenerationService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::grounded_generation_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::grounded_generation_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7880,7 +7806,7 @@ pub mod identity_mapping_store_service {
     /// A builder for [IdentityMappingStoreService][crate::client::IdentityMappingStoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::identity_mapping_store_service::ClientBuilder;
     /// # use client::IdentityMappingStoreService;
@@ -7888,7 +7814,7 @@ pub mod identity_mapping_store_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7934,14 +7860,13 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::create_identity_mapping_store][crate::client::IdentityMappingStoreService::create_identity_mapping_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::CreateIdentityMappingStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::CreateIdentityMappingStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIdentityMappingStore {
     ///   # panic!();
@@ -8069,14 +7994,13 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::get_identity_mapping_store][crate::client::IdentityMappingStoreService::get_identity_mapping_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::GetIdentityMappingStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::GetIdentityMappingStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIdentityMappingStore {
     ///   # panic!();
@@ -8137,15 +8061,14 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::delete_identity_mapping_store][crate::client::IdentityMappingStoreService::delete_identity_mapping_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::DeleteIdentityMappingStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::DeleteIdentityMappingStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIdentityMappingStore {
     ///   # panic!();
@@ -8251,15 +8174,14 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::import_identity_mappings][crate::client::IdentityMappingStoreService::import_identity_mappings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::ImportIdentityMappings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::ImportIdentityMappings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportIdentityMappings {
     ///   # panic!();
@@ -8392,15 +8314,14 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::purge_identity_mappings][crate::client::IdentityMappingStoreService::purge_identity_mappings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::PurgeIdentityMappings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::PurgeIdentityMappings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeIdentityMappings {
     ///   # panic!();
@@ -8559,10 +8480,9 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::list_identity_mappings][crate::client::IdentityMappingStoreService::list_identity_mappings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::ListIdentityMappings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::ListIdentityMappings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8570,7 +8490,7 @@ pub mod identity_mapping_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIdentityMappings {
     ///   # panic!();
@@ -8667,10 +8587,9 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::list_identity_mapping_stores][crate::client::IdentityMappingStoreService::list_identity_mapping_stores] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::ListIdentityMappingStores;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::ListIdentityMappingStores;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8678,7 +8597,7 @@ pub mod identity_mapping_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIdentityMappingStores {
     ///   # panic!();
@@ -8779,10 +8698,9 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::list_operations][crate::client::IdentityMappingStoreService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8790,7 +8708,7 @@ pub mod identity_mapping_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -8897,14 +8815,13 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::get_operation][crate::client::IdentityMappingStoreService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -8961,14 +8878,13 @@ pub mod identity_mapping_store_service {
     /// The request builder for [IdentityMappingStoreService::cancel_operation][crate::client::IdentityMappingStoreService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::identity_mapping_store_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::identity_mapping_store_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -9031,7 +8947,7 @@ pub mod project_service {
     /// A builder for [ProjectService][crate::client::ProjectService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::project_service::ClientBuilder;
     /// # use client::ProjectService;
@@ -9039,7 +8955,7 @@ pub mod project_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9085,15 +9001,14 @@ pub mod project_service {
     /// The request builder for [ProjectService::provision_project][crate::client::ProjectService::provision_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::project_service::ProvisionProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::project_service::ProvisionProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ProvisionProject {
     ///   # panic!();
@@ -9209,10 +9124,9 @@ pub mod project_service {
     /// The request builder for [ProjectService::list_operations][crate::client::ProjectService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::project_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::project_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9220,7 +9134,7 @@ pub mod project_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -9327,14 +9241,13 @@ pub mod project_service {
     /// The request builder for [ProjectService::get_operation][crate::client::ProjectService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::project_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::project_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -9391,14 +9304,13 @@ pub mod project_service {
     /// The request builder for [ProjectService::cancel_operation][crate::client::ProjectService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::project_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::project_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -9461,7 +9373,7 @@ pub mod rank_service {
     /// A builder for [RankService][crate::client::RankService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::rank_service::ClientBuilder;
     /// # use client::RankService;
@@ -9469,7 +9381,7 @@ pub mod rank_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9515,14 +9427,13 @@ pub mod rank_service {
     /// The request builder for [RankService::rank][crate::client::RankService::rank] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::rank_service::Rank;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::rank_service::Rank;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Rank {
     ///   # panic!();
@@ -9626,10 +9537,9 @@ pub mod rank_service {
     /// The request builder for [RankService::list_operations][crate::client::RankService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::rank_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::rank_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9637,7 +9547,7 @@ pub mod rank_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -9744,14 +9654,13 @@ pub mod rank_service {
     /// The request builder for [RankService::get_operation][crate::client::RankService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::rank_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::rank_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -9808,14 +9717,13 @@ pub mod rank_service {
     /// The request builder for [RankService::cancel_operation][crate::client::RankService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::rank_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::rank_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -9878,7 +9786,7 @@ pub mod recommendation_service {
     /// A builder for [RecommendationService][crate::client::RecommendationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::recommendation_service::ClientBuilder;
     /// # use client::RecommendationService;
@@ -9886,7 +9794,7 @@ pub mod recommendation_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9932,14 +9840,13 @@ pub mod recommendation_service {
     /// The request builder for [RecommendationService::recommend][crate::client::RecommendationService::recommend] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::recommendation_service::Recommend;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::recommendation_service::Recommend;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Recommend {
     ///   # panic!();
@@ -10057,10 +9964,9 @@ pub mod recommendation_service {
     /// The request builder for [RecommendationService::list_operations][crate::client::RecommendationService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::recommendation_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::recommendation_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10068,7 +9974,7 @@ pub mod recommendation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -10175,14 +10081,13 @@ pub mod recommendation_service {
     /// The request builder for [RecommendationService::get_operation][crate::client::RecommendationService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::recommendation_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::recommendation_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -10239,14 +10144,13 @@ pub mod recommendation_service {
     /// The request builder for [RecommendationService::cancel_operation][crate::client::RecommendationService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::recommendation_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::recommendation_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -10309,7 +10213,7 @@ pub mod schema_service {
     /// A builder for [SchemaService][crate::client::SchemaService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::schema_service::ClientBuilder;
     /// # use client::SchemaService;
@@ -10317,7 +10221,7 @@ pub mod schema_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -10363,14 +10267,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::get_schema][crate::client::SchemaService::get_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::GetSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::GetSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchema {
     ///   # panic!();
@@ -10426,10 +10329,9 @@ pub mod schema_service {
     /// The request builder for [SchemaService::list_schemas][crate::client::SchemaService::list_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::ListSchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::ListSchemas;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10437,7 +10339,7 @@ pub mod schema_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemas {
     ///   # panic!();
@@ -10529,15 +10431,14 @@ pub mod schema_service {
     /// The request builder for [SchemaService::create_schema][crate::client::SchemaService::create_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::CreateSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::CreateSchema;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSchema {
     ///   # panic!();
@@ -10661,15 +10562,14 @@ pub mod schema_service {
     /// The request builder for [SchemaService::update_schema][crate::client::SchemaService::update_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::UpdateSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::UpdateSchema;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSchema {
     ///   # panic!();
@@ -10783,15 +10683,14 @@ pub mod schema_service {
     /// The request builder for [SchemaService::delete_schema][crate::client::SchemaService::delete_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::DeleteSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::DeleteSchema;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchema {
     ///   # panic!();
@@ -10888,10 +10787,9 @@ pub mod schema_service {
     /// The request builder for [SchemaService::list_operations][crate::client::SchemaService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10899,7 +10797,7 @@ pub mod schema_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -11006,14 +10904,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::get_operation][crate::client::SchemaService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -11070,14 +10967,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::cancel_operation][crate::client::SchemaService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::schema_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::schema_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -11140,7 +11036,7 @@ pub mod search_service {
     /// A builder for [SearchService][crate::client::SearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::search_service::ClientBuilder;
     /// # use client::SearchService;
@@ -11148,7 +11044,7 @@ pub mod search_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -11194,10 +11090,9 @@ pub mod search_service {
     /// The request builder for [SearchService::search][crate::client::SearchService::search] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_service::Search;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_service::Search;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11205,7 +11100,7 @@ pub mod search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Search {
     ///   # panic!();
@@ -11615,10 +11510,9 @@ pub mod search_service {
     /// The request builder for [SearchService::search_lite][crate::client::SearchService::search_lite] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_service::SearchLite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_service::SearchLite;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11626,7 +11520,7 @@ pub mod search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchLite {
     ///   # panic!();
@@ -12036,10 +11930,9 @@ pub mod search_service {
     /// The request builder for [SearchService::list_operations][crate::client::SearchService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12047,7 +11940,7 @@ pub mod search_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -12154,14 +12047,13 @@ pub mod search_service {
     /// The request builder for [SearchService::get_operation][crate::client::SearchService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -12218,14 +12110,13 @@ pub mod search_service {
     /// The request builder for [SearchService::cancel_operation][crate::client::SearchService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -12288,7 +12179,7 @@ pub mod search_tuning_service {
     /// A builder for [SearchTuningService][crate::client::SearchTuningService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::search_tuning_service::ClientBuilder;
     /// # use client::SearchTuningService;
@@ -12296,7 +12187,7 @@ pub mod search_tuning_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -12342,15 +12233,14 @@ pub mod search_tuning_service {
     /// The request builder for [SearchTuningService::train_custom_model][crate::client::SearchTuningService::train_custom_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_tuning_service::TrainCustomModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_tuning_service::TrainCustomModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TrainCustomModel {
     ///   # panic!();
@@ -12513,14 +12403,13 @@ pub mod search_tuning_service {
     /// The request builder for [SearchTuningService::list_custom_models][crate::client::SearchTuningService::list_custom_models] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_tuning_service::ListCustomModels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_tuning_service::ListCustomModels;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCustomModels {
     ///   # panic!();
@@ -12579,10 +12468,9 @@ pub mod search_tuning_service {
     /// The request builder for [SearchTuningService::list_operations][crate::client::SearchTuningService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_tuning_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_tuning_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12590,7 +12478,7 @@ pub mod search_tuning_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -12697,14 +12585,13 @@ pub mod search_tuning_service {
     /// The request builder for [SearchTuningService::get_operation][crate::client::SearchTuningService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_tuning_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_tuning_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -12761,14 +12648,13 @@ pub mod search_tuning_service {
     /// The request builder for [SearchTuningService::cancel_operation][crate::client::SearchTuningService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::search_tuning_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::search_tuning_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -12831,7 +12717,7 @@ pub mod serving_config_service {
     /// A builder for [ServingConfigService][crate::client::ServingConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::serving_config_service::ClientBuilder;
     /// # use client::ServingConfigService;
@@ -12839,7 +12725,7 @@ pub mod serving_config_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -12885,14 +12771,13 @@ pub mod serving_config_service {
     /// The request builder for [ServingConfigService::update_serving_config][crate::client::ServingConfigService::update_serving_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::serving_config_service::UpdateServingConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::serving_config_service::UpdateServingConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateServingConfig {
     ///   # panic!();
@@ -12983,10 +12868,9 @@ pub mod serving_config_service {
     /// The request builder for [ServingConfigService::list_operations][crate::client::ServingConfigService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::serving_config_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::serving_config_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12994,7 +12878,7 @@ pub mod serving_config_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -13101,14 +12985,13 @@ pub mod serving_config_service {
     /// The request builder for [ServingConfigService::get_operation][crate::client::ServingConfigService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::serving_config_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::serving_config_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -13165,14 +13048,13 @@ pub mod serving_config_service {
     /// The request builder for [ServingConfigService::cancel_operation][crate::client::ServingConfigService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::serving_config_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::serving_config_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -13235,7 +13117,7 @@ pub mod session_service {
     /// A builder for [SessionService][crate::client::SessionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::session_service::ClientBuilder;
     /// # use client::SessionService;
@@ -13243,7 +13125,7 @@ pub mod session_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -13289,14 +13171,13 @@ pub mod session_service {
     /// The request builder for [SessionService::create_session][crate::client::SessionService::create_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::CreateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::CreateSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSession {
     ///   # panic!();
@@ -13374,14 +13255,13 @@ pub mod session_service {
     /// The request builder for [SessionService::delete_session][crate::client::SessionService::delete_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::DeleteSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::DeleteSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSession {
     ///   # panic!();
@@ -13437,14 +13317,13 @@ pub mod session_service {
     /// The request builder for [SessionService::update_session][crate::client::SessionService::update_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::UpdateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::UpdateSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSession {
     ///   # panic!();
@@ -13532,14 +13411,13 @@ pub mod session_service {
     /// The request builder for [SessionService::get_session][crate::client::SessionService::get_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::GetSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::GetSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSession {
     ///   # panic!();
@@ -13601,10 +13479,9 @@ pub mod session_service {
     /// The request builder for [SessionService::list_sessions][crate::client::SessionService::list_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::ListSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::ListSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13612,7 +13489,7 @@ pub mod session_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessions {
     ///   # panic!();
@@ -13716,10 +13593,9 @@ pub mod session_service {
     /// The request builder for [SessionService::list_operations][crate::client::SessionService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13727,7 +13603,7 @@ pub mod session_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -13834,14 +13710,13 @@ pub mod session_service {
     /// The request builder for [SessionService::get_operation][crate::client::SessionService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -13898,14 +13773,13 @@ pub mod session_service {
     /// The request builder for [SessionService::cancel_operation][crate::client::SessionService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::session_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::session_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -13968,7 +13842,7 @@ pub mod site_search_engine_service {
     /// A builder for [SiteSearchEngineService][crate::client::SiteSearchEngineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::site_search_engine_service::ClientBuilder;
     /// # use client::SiteSearchEngineService;
@@ -13976,7 +13850,7 @@ pub mod site_search_engine_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -14022,14 +13896,13 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::get_site_search_engine][crate::client::SiteSearchEngineService::get_site_search_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::GetSiteSearchEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::GetSiteSearchEngine;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSiteSearchEngine {
     ///   # panic!();
@@ -14088,15 +13961,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::create_target_site][crate::client::SiteSearchEngineService::create_target_site] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::CreateTargetSite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::CreateTargetSite;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTargetSite {
     ///   # panic!();
@@ -14218,15 +14090,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::batch_create_target_sites][crate::client::SiteSearchEngineService::batch_create_target_sites] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::BatchCreateTargetSites;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::BatchCreateTargetSites;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateTargetSites {
     ///   # panic!();
@@ -14341,14 +14212,13 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::get_target_site][crate::client::SiteSearchEngineService::get_target_site] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::GetTargetSite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::GetTargetSite;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTargetSite {
     ///   # panic!();
@@ -14404,15 +14274,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::update_target_site][crate::client::SiteSearchEngineService::update_target_site] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::UpdateTargetSite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::UpdateTargetSite;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTargetSite {
     ///   # panic!();
@@ -14526,15 +14395,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::delete_target_site][crate::client::SiteSearchEngineService::delete_target_site] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::DeleteTargetSite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::DeleteTargetSite;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTargetSite {
     ///   # panic!();
@@ -14634,10 +14502,9 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::list_target_sites][crate::client::SiteSearchEngineService::list_target_sites] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::ListTargetSites;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::ListTargetSites;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14645,7 +14512,7 @@ pub mod site_search_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTargetSites {
     ///   # panic!();
@@ -14737,15 +14604,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::create_sitemap][crate::client::SiteSearchEngineService::create_sitemap] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::CreateSitemap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::CreateSitemap;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSitemap {
     ///   # panic!();
@@ -14863,15 +14729,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::delete_sitemap][crate::client::SiteSearchEngineService::delete_sitemap] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::DeleteSitemap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::DeleteSitemap;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSitemap {
     ///   # panic!();
@@ -14968,14 +14833,13 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::fetch_sitemaps][crate::client::SiteSearchEngineService::fetch_sitemaps] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::FetchSitemaps;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::FetchSitemaps;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchSitemaps {
     ///   # panic!();
@@ -15049,15 +14913,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::enable_advanced_site_search][crate::client::SiteSearchEngineService::enable_advanced_site_search] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::EnableAdvancedSiteSearch;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::EnableAdvancedSiteSearch;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EnableAdvancedSiteSearch {
     ///   # panic!();
@@ -15161,15 +15024,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::disable_advanced_site_search][crate::client::SiteSearchEngineService::disable_advanced_site_search] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::DisableAdvancedSiteSearch;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::DisableAdvancedSiteSearch;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DisableAdvancedSiteSearch {
     ///   # panic!();
@@ -15273,15 +15135,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::recrawl_uris][crate::client::SiteSearchEngineService::recrawl_uris] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::RecrawlUris;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::RecrawlUris;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RecrawlUris {
     ///   # panic!();
@@ -15397,15 +15258,14 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::batch_verify_target_sites][crate::client::SiteSearchEngineService::batch_verify_target_sites] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::BatchVerifyTargetSites;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::BatchVerifyTargetSites;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchVerifyTargetSites {
     ///   # panic!();
@@ -15507,10 +15367,9 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::fetch_domain_verification_status][crate::client::SiteSearchEngineService::fetch_domain_verification_status] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::FetchDomainVerificationStatus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::FetchDomainVerificationStatus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15518,7 +15377,7 @@ pub mod site_search_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchDomainVerificationStatus {
     ///   # panic!();
@@ -15619,10 +15478,9 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::list_operations][crate::client::SiteSearchEngineService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15630,7 +15488,7 @@ pub mod site_search_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -15737,14 +15595,13 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::get_operation][crate::client::SiteSearchEngineService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -15801,14 +15658,13 @@ pub mod site_search_engine_service {
     /// The request builder for [SiteSearchEngineService::cancel_operation][crate::client::SiteSearchEngineService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::site_search_engine_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::site_search_engine_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -15871,7 +15727,7 @@ pub mod user_event_service {
     /// A builder for [UserEventService][crate::client::UserEventService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::user_event_service::ClientBuilder;
     /// # use client::UserEventService;
@@ -15879,7 +15735,7 @@ pub mod user_event_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -15925,14 +15781,13 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::write_user_event][crate::client::UserEventService::write_user_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::WriteUserEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::WriteUserEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteUserEvent {
     ///   # panic!();
@@ -16016,14 +15871,13 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::collect_user_event][crate::client::UserEventService::collect_user_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::CollectUserEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::CollectUserEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CollectUserEvent {
     ///   # panic!();
@@ -16126,15 +15980,14 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::purge_user_events][crate::client::UserEventService::purge_user_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::PurgeUserEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::PurgeUserEvents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeUserEvents {
     ///   # panic!();
@@ -16245,15 +16098,14 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::import_user_events][crate::client::UserEventService::import_user_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::ImportUserEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::ImportUserEvents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportUserEvents {
     ///   # panic!();
@@ -16430,10 +16282,9 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::list_operations][crate::client::UserEventService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16441,7 +16292,7 @@ pub mod user_event_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -16548,14 +16399,13 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::get_operation][crate::client::UserEventService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -16612,14 +16462,13 @@ pub mod user_event_service {
     /// The request builder for [UserEventService::cancel_operation][crate::client::UserEventService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_event_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_event_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -16682,7 +16531,7 @@ pub mod user_license_service {
     /// A builder for [UserLicenseService][crate::client::UserLicenseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_discoveryengine_v1::*;
     /// # use builder::user_license_service::ClientBuilder;
     /// # use client::UserLicenseService;
@@ -16690,7 +16539,7 @@ pub mod user_license_service {
     /// let client = builder
     ///     .with_endpoint("https://discoveryengine.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -16736,10 +16585,9 @@ pub mod user_license_service {
     /// The request builder for [UserLicenseService::list_user_licenses][crate::client::UserLicenseService::list_user_licenses] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_license_service::ListUserLicenses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_license_service::ListUserLicenses;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16747,7 +16595,7 @@ pub mod user_license_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUserLicenses {
     ///   # panic!();
@@ -16848,15 +16696,14 @@ pub mod user_license_service {
     /// The request builder for [UserLicenseService::batch_update_user_licenses][crate::client::UserLicenseService::batch_update_user_licenses] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_license_service::BatchUpdateUserLicenses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_license_service::BatchUpdateUserLicenses;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchUpdateUserLicenses {
     ///   # panic!();
@@ -16997,10 +16844,9 @@ pub mod user_license_service {
     /// The request builder for [UserLicenseService::list_operations][crate::client::UserLicenseService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_license_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_license_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17008,7 +16854,7 @@ pub mod user_license_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -17115,14 +16961,13 @@ pub mod user_license_service {
     /// The request builder for [UserLicenseService::get_operation][crate::client::UserLicenseService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_license_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_license_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -17179,14 +17024,13 @@ pub mod user_license_service {
     /// The request builder for [UserLicenseService::cancel_operation][crate::client::UserLicenseService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_discoveryengine_v1::builder;
-    /// use builder::user_license_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_discoveryengine_v1::builder::user_license_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

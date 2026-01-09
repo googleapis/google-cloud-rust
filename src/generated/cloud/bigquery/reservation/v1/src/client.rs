@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
 /// let client = ReservationService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Reservation API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -80,10 +80,10 @@ impl ReservationService {
     /// Returns a builder for [ReservationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_reservation_v1::client::ReservationService;
     /// let client = ReservationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reservation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

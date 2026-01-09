@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_trace_v2::client::TraceService;
 /// let client = TraceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Trace API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -72,10 +72,10 @@ impl TraceService {
     /// Returns a builder for [TraceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v2::client::TraceService;
     /// let client = TraceService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::trace_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::trace_service::client::Factory)

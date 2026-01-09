@@ -20,7 +20,7 @@ pub mod environments {
     /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::environments::ClientBuilder;
     /// # use client::Environments;
@@ -28,7 +28,7 @@ pub mod environments {
     /// let client = builder
     ///     .with_endpoint("https://composer.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod environments {
     /// The request builder for [Environments::create_environment][crate::client::Environments::create_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::CreateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEnvironment {
     ///   # panic!();
@@ -197,14 +196,13 @@ pub mod environments {
     /// The request builder for [Environments::get_environment][crate::client::Environments::get_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::GetEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnvironment {
     ///   # panic!();
@@ -258,10 +256,9 @@ pub mod environments {
     /// The request builder for [Environments::list_environments][crate::client::Environments::list_environments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ListEnvironments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListEnvironments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -269,7 +266,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEnvironments {
     ///   # panic!();
@@ -362,15 +359,14 @@ pub mod environments {
     /// The request builder for [Environments::update_environment][crate::client::Environments::update_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::UpdateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEnvironment {
     ///   # panic!();
@@ -503,15 +499,14 @@ pub mod environments {
     /// The request builder for [Environments::delete_environment][crate::client::Environments::delete_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::DeleteEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEnvironment {
     ///   # panic!();
@@ -608,14 +603,13 @@ pub mod environments {
     /// The request builder for [Environments::execute_airflow_command][crate::client::Environments::execute_airflow_command] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ExecuteAirflowCommand;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ExecuteAirflowCommand;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExecuteAirflowCommand {
     ///   # panic!();
@@ -695,14 +689,13 @@ pub mod environments {
     /// The request builder for [Environments::stop_airflow_command][crate::client::Environments::stop_airflow_command] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::StopAirflowCommand;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::StopAirflowCommand;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopAirflowCommand {
     ///   # panic!();
@@ -783,14 +776,13 @@ pub mod environments {
     /// The request builder for [Environments::poll_airflow_command][crate::client::Environments::poll_airflow_command] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::PollAirflowCommand;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::PollAirflowCommand;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PollAirflowCommand {
     ///   # panic!();
@@ -871,10 +863,9 @@ pub mod environments {
     /// The request builder for [Environments::list_workloads][crate::client::Environments::list_workloads] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ListWorkloads;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListWorkloads;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -882,7 +873,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkloads {
     ///   # panic!();
@@ -980,15 +971,14 @@ pub mod environments {
     /// The request builder for [Environments::check_upgrade][crate::client::Environments::check_upgrade] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::CheckUpgrade;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CheckUpgrade;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckUpgrade {
     ///   # panic!();
@@ -1091,14 +1081,13 @@ pub mod environments {
     /// The request builder for [Environments::create_user_workloads_secret][crate::client::Environments::create_user_workloads_secret] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::CreateUserWorkloadsSecret;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsSecret;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUserWorkloadsSecret {
     ///   # panic!();
@@ -1181,14 +1170,13 @@ pub mod environments {
     /// The request builder for [Environments::get_user_workloads_secret][crate::client::Environments::get_user_workloads_secret] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::GetUserWorkloadsSecret;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsSecret;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUserWorkloadsSecret {
     ///   # panic!();
@@ -1247,10 +1235,9 @@ pub mod environments {
     /// The request builder for [Environments::list_user_workloads_secrets][crate::client::Environments::list_user_workloads_secrets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ListUserWorkloadsSecrets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsSecrets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1258,7 +1245,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUserWorkloadsSecrets {
     ///   # panic!();
@@ -1359,14 +1346,13 @@ pub mod environments {
     /// The request builder for [Environments::update_user_workloads_secret][crate::client::Environments::update_user_workloads_secret] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::UpdateUserWorkloadsSecret;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsSecret;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateUserWorkloadsSecret {
     ///   # panic!();
@@ -1437,14 +1423,13 @@ pub mod environments {
     /// The request builder for [Environments::delete_user_workloads_secret][crate::client::Environments::delete_user_workloads_secret] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::DeleteUserWorkloadsSecret;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsSecret;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUserWorkloadsSecret {
     ///   # panic!();
@@ -1505,14 +1490,13 @@ pub mod environments {
     /// The request builder for [Environments::create_user_workloads_config_map][crate::client::Environments::create_user_workloads_config_map] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::CreateUserWorkloadsConfigMap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::CreateUserWorkloadsConfigMap;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUserWorkloadsConfigMap {
     ///   # panic!();
@@ -1598,14 +1582,13 @@ pub mod environments {
     /// The request builder for [Environments::get_user_workloads_config_map][crate::client::Environments::get_user_workloads_config_map] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::GetUserWorkloadsConfigMap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetUserWorkloadsConfigMap;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUserWorkloadsConfigMap {
     ///   # panic!();
@@ -1666,10 +1649,9 @@ pub mod environments {
     /// The request builder for [Environments::list_user_workloads_config_maps][crate::client::Environments::list_user_workloads_config_maps] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ListUserWorkloadsConfigMaps;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListUserWorkloadsConfigMaps;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1677,7 +1659,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUserWorkloadsConfigMaps {
     ///   # panic!();
@@ -1778,14 +1760,13 @@ pub mod environments {
     /// The request builder for [Environments::update_user_workloads_config_map][crate::client::Environments::update_user_workloads_config_map] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::UpdateUserWorkloadsConfigMap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::UpdateUserWorkloadsConfigMap;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateUserWorkloadsConfigMap {
     ///   # panic!();
@@ -1859,14 +1840,13 @@ pub mod environments {
     /// The request builder for [Environments::delete_user_workloads_config_map][crate::client::Environments::delete_user_workloads_config_map] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::DeleteUserWorkloadsConfigMap;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteUserWorkloadsConfigMap;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUserWorkloadsConfigMap {
     ///   # panic!();
@@ -1927,15 +1907,14 @@ pub mod environments {
     /// The request builder for [Environments::save_snapshot][crate::client::Environments::save_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::SaveSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::SaveSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SaveSnapshot {
     ///   # panic!();
@@ -2036,15 +2015,14 @@ pub mod environments {
     /// The request builder for [Environments::load_snapshot][crate::client::Environments::load_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::LoadSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::LoadSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LoadSnapshot {
     ///   # panic!();
@@ -2169,15 +2147,14 @@ pub mod environments {
     /// The request builder for [Environments::database_failover][crate::client::Environments::database_failover] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::DatabaseFailover;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DatabaseFailover;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DatabaseFailover {
     ///   # panic!();
@@ -2275,14 +2252,13 @@ pub mod environments {
     /// The request builder for [Environments::fetch_database_properties][crate::client::Environments::fetch_database_properties] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::FetchDatabaseProperties;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::FetchDatabaseProperties;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchDatabaseProperties {
     ///   # panic!();
@@ -2343,10 +2319,9 @@ pub mod environments {
     /// The request builder for [Environments::list_operations][crate::client::Environments::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2354,7 +2329,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2461,14 +2436,13 @@ pub mod environments {
     /// The request builder for [Environments::get_operation][crate::client::Environments::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2525,14 +2499,13 @@ pub mod environments {
     /// The request builder for [Environments::delete_operation][crate::client::Environments::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::environments::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::environments::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2593,7 +2566,7 @@ pub mod image_versions {
     /// A builder for [ImageVersions][crate::client::ImageVersions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_orchestration_airflow_service_v1::*;
     /// # use builder::image_versions::ClientBuilder;
     /// # use client::ImageVersions;
@@ -2601,7 +2574,7 @@ pub mod image_versions {
     /// let client = builder
     ///     .with_endpoint("https://composer.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2647,10 +2620,9 @@ pub mod image_versions {
     /// The request builder for [ImageVersions::list_image_versions][crate::client::ImageVersions::list_image_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::image_versions::ListImageVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListImageVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2658,7 +2630,7 @@ pub mod image_versions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListImageVersions {
     ///   # panic!();
@@ -2757,10 +2729,9 @@ pub mod image_versions {
     /// The request builder for [ImageVersions::list_operations][crate::client::ImageVersions::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::image_versions::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2768,7 +2739,7 @@ pub mod image_versions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2875,14 +2846,13 @@ pub mod image_versions {
     /// The request builder for [ImageVersions::get_operation][crate::client::ImageVersions::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::image_versions::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2939,14 +2909,13 @@ pub mod image_versions {
     /// The request builder for [ImageVersions::delete_operation][crate::client::ImageVersions::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_orchestration_airflow_service_v1::builder;
-    /// use builder::image_versions::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_orchestration_airflow_service_v1::builder::image_versions::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();

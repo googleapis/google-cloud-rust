@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_maintenance_api_v1::client::Maintenance;
 /// let client = Maintenance::builder().build().await?;
 /// // use `client` to make requests to the Maintenance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Maintenance {
     /// Returns a builder for [Maintenance].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_maintenance_api_v1::client::Maintenance;
     /// let client = Maintenance::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::maintenance::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::maintenance::client::Factory)

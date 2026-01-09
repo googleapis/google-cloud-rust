@@ -20,7 +20,7 @@ pub mod client_connector_services_service {
     /// A builder for [ClientConnectorServicesService][crate::client::ClientConnectorServicesService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_clientconnectorservices_v1::*;
     /// # use builder::client_connector_services_service::ClientBuilder;
     /// # use client::ClientConnectorServicesService;
@@ -28,7 +28,7 @@ pub mod client_connector_services_service {
     /// let client = builder
     ///     .with_endpoint("https://beyondcorp.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::list_client_connector_services][crate::client::ClientConnectorServicesService::list_client_connector_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::ListClientConnectorServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListClientConnectorServices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod client_connector_services_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClientConnectorServices {
     ///   # panic!();
@@ -198,14 +197,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::get_client_connector_service][crate::client::ClientConnectorServicesService::get_client_connector_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::GetClientConnectorService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetClientConnectorService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetClientConnectorService {
     ///   # panic!();
@@ -266,15 +264,14 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::create_client_connector_service][crate::client::ClientConnectorServicesService::create_client_connector_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::CreateClientConnectorService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::CreateClientConnectorService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateClientConnectorService {
     ///   # panic!();
@@ -421,15 +418,14 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::update_client_connector_service][crate::client::ClientConnectorServicesService::update_client_connector_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::UpdateClientConnectorService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::UpdateClientConnectorService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateClientConnectorService {
     ///   # panic!();
@@ -587,15 +583,14 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::delete_client_connector_service][crate::client::ClientConnectorServicesService::delete_client_connector_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::DeleteClientConnectorService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::DeleteClientConnectorService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteClientConnectorService {
     ///   # panic!();
@@ -713,10 +708,9 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::list_locations][crate::client::ClientConnectorServicesService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -724,7 +718,7 @@ pub mod client_connector_services_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -823,14 +817,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::get_location][crate::client::ClientConnectorServicesService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -884,14 +877,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::set_iam_policy][crate::client::ClientConnectorServicesService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -987,14 +979,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::get_iam_policy][crate::client::ClientConnectorServicesService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1068,14 +1059,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::test_iam_permissions][crate::client::ClientConnectorServicesService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1147,10 +1137,9 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::list_operations][crate::client::ClientConnectorServicesService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1158,7 +1147,7 @@ pub mod client_connector_services_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1265,14 +1254,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::get_operation][crate::client::ClientConnectorServicesService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1329,14 +1317,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::delete_operation][crate::client::ClientConnectorServicesService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1393,14 +1380,13 @@ pub mod client_connector_services_service {
     /// The request builder for [ClientConnectorServicesService::cancel_operation][crate::client::ClientConnectorServicesService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder;
-    /// use builder::client_connector_services_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_clientconnectorservices_v1::builder::client_connector_services_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

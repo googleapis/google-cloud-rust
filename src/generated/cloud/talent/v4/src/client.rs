@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::CompanyService;
 /// let client = CompanyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl CompanyService {
     /// Returns a builder for [CompanyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::CompanyService;
     /// let client = CompanyService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::company_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::company_service::client::Factory)
@@ -156,11 +156,11 @@ impl CompanyService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::Completion;
 /// let client = Completion::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -202,10 +202,10 @@ impl Completion {
     /// Returns a builder for [Completion].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::Completion;
     /// let client = Completion::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::completion::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::completion::client::Factory)
@@ -272,11 +272,11 @@ impl Completion {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::EventService;
 /// let client = EventService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -318,10 +318,10 @@ impl EventService {
     /// Returns a builder for [EventService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::EventService;
     /// let client = EventService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::event_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::event_service::client::Factory)
@@ -393,11 +393,11 @@ impl EventService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::JobService;
 /// let client = JobService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -439,10 +439,10 @@ impl JobService {
     /// Returns a builder for [JobService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::JobService;
     /// let client = JobService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::job_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::job_service::client::Factory)
@@ -616,11 +616,11 @@ impl JobService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_talent_v4::client::TenantService;
 /// let client = TenantService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Talent Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -662,10 +662,10 @@ impl TenantService {
     /// Returns a builder for [TenantService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::client::TenantService;
     /// let client = TenantService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tenant_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tenant_service::client::Factory)

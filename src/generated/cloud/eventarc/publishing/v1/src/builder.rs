@@ -20,7 +20,7 @@ pub mod publisher {
     /// A builder for [Publisher][crate::client::Publisher].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_publishing_v1::*;
     /// # use builder::publisher::ClientBuilder;
     /// # use client::Publisher;
@@ -28,7 +28,7 @@ pub mod publisher {
     /// let client = builder
     ///     .with_endpoint("https://eventarcpublishing.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod publisher {
     /// The request builder for [Publisher::publish_channel_connection_events][crate::client::Publisher::publish_channel_connection_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_publishing_v1::builder;
-    /// use builder::publisher::PublishChannelConnectionEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishChannelConnectionEvents;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PublishChannelConnectionEvents {
     ///   # panic!();
@@ -162,14 +161,13 @@ pub mod publisher {
     /// The request builder for [Publisher::publish_events][crate::client::Publisher::publish_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_publishing_v1::builder;
-    /// use builder::publisher::PublishEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::builder::publisher::PublishEvents;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PublishEvents {
     ///   # panic!();
@@ -245,14 +243,13 @@ pub mod publisher {
     /// The request builder for [Publisher::publish][crate::client::Publisher::publish] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_publishing_v1::builder;
-    /// use builder::publisher::Publish;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_publishing_v1::builder::publisher::Publish;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Publish {
     ///   # panic!();

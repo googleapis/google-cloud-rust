@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
 /// let client = ConfigDelivery::builder().build().await?;
 /// // use `client` to make requests to the Config Delivery API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl ConfigDelivery {
     /// Returns a builder for [ConfigDelivery].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_configdelivery_v1::client::ConfigDelivery;
     /// let client = ConfigDelivery::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::config_delivery::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::config_delivery::client::Factory)

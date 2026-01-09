@@ -20,7 +20,7 @@ pub mod address_group_service {
     /// A builder for [AddressGroupService][crate::client::AddressGroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::address_group_service::ClientBuilder;
     /// # use client::AddressGroupService;
@@ -28,7 +28,7 @@ pub mod address_group_service {
     /// let client = builder
     ///     .with_endpoint("https://networksecurity.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::list_address_groups][crate::client::AddressGroupService::list_address_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::ListAddressGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListAddressGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAddressGroups {
     ///   # panic!();
@@ -186,14 +185,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::get_address_group][crate::client::AddressGroupService::get_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::GetAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAddressGroup {
     ///   # panic!();
@@ -249,15 +247,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::create_address_group][crate::client::AddressGroupService::create_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::CreateAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::CreateAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAddressGroup {
     ///   # panic!();
@@ -392,15 +389,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::update_address_group][crate::client::AddressGroupService::update_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::UpdateAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::UpdateAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAddressGroup {
     ///   # panic!();
@@ -537,15 +533,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::add_address_group_items][crate::client::AddressGroupService::add_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::AddAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::AddAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddAddressGroupItems {
     ///   # panic!();
@@ -663,15 +658,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::remove_address_group_items][crate::client::AddressGroupService::remove_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::RemoveAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::RemoveAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveAddressGroupItems {
     ///   # panic!();
@@ -791,15 +785,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::clone_address_group_items][crate::client::AddressGroupService::clone_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::CloneAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::CloneAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CloneAddressGroupItems {
     ///   # panic!();
@@ -912,15 +905,14 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::delete_address_group][crate::client::AddressGroupService::delete_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::DeleteAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::DeleteAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAddressGroup {
     ///   # panic!();
@@ -1025,10 +1017,9 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::list_address_group_references][crate::client::AddressGroupService::list_address_group_references] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::ListAddressGroupReferences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListAddressGroupReferences;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1036,7 +1027,7 @@ pub mod address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAddressGroupReferences {
     ///   # panic!();
@@ -1137,10 +1128,9 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::list_locations][crate::client::AddressGroupService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1148,7 +1138,7 @@ pub mod address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1247,14 +1237,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::get_location][crate::client::AddressGroupService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1308,14 +1297,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::set_iam_policy][crate::client::AddressGroupService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1411,14 +1399,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::get_iam_policy][crate::client::AddressGroupService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1492,14 +1479,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::test_iam_permissions][crate::client::AddressGroupService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1571,10 +1557,9 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::list_operations][crate::client::AddressGroupService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1582,7 +1567,7 @@ pub mod address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1689,14 +1674,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::get_operation][crate::client::AddressGroupService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1753,14 +1737,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::delete_operation][crate::client::AddressGroupService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1817,14 +1800,13 @@ pub mod address_group_service {
     /// The request builder for [AddressGroupService::cancel_operation][crate::client::AddressGroupService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::address_group_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::address_group_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1885,7 +1867,7 @@ pub mod organization_address_group_service {
     /// A builder for [OrganizationAddressGroupService][crate::client::OrganizationAddressGroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::organization_address_group_service::ClientBuilder;
     /// # use client::OrganizationAddressGroupService;
@@ -1893,7 +1875,7 @@ pub mod organization_address_group_service {
     /// let client = builder
     ///     .with_endpoint("https://networksecurity.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1939,10 +1921,9 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::list_address_groups][crate::client::OrganizationAddressGroupService::list_address_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::ListAddressGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListAddressGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1950,7 +1931,7 @@ pub mod organization_address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAddressGroups {
     ///   # panic!();
@@ -2051,14 +2032,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::get_address_group][crate::client::OrganizationAddressGroupService::get_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::GetAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAddressGroup {
     ///   # panic!();
@@ -2114,15 +2094,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::create_address_group][crate::client::OrganizationAddressGroupService::create_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::CreateAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CreateAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAddressGroup {
     ///   # panic!();
@@ -2257,15 +2236,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::update_address_group][crate::client::OrganizationAddressGroupService::update_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::UpdateAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::UpdateAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAddressGroup {
     ///   # panic!();
@@ -2402,15 +2380,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::add_address_group_items][crate::client::OrganizationAddressGroupService::add_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::AddAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::AddAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddAddressGroupItems {
     ///   # panic!();
@@ -2528,15 +2505,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::remove_address_group_items][crate::client::OrganizationAddressGroupService::remove_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::RemoveAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::RemoveAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveAddressGroupItems {
     ///   # panic!();
@@ -2656,15 +2632,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::clone_address_group_items][crate::client::OrganizationAddressGroupService::clone_address_group_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::CloneAddressGroupItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CloneAddressGroupItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CloneAddressGroupItems {
     ///   # panic!();
@@ -2777,15 +2752,14 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::delete_address_group][crate::client::OrganizationAddressGroupService::delete_address_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::DeleteAddressGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::DeleteAddressGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAddressGroup {
     ///   # panic!();
@@ -2890,10 +2864,9 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::list_address_group_references][crate::client::OrganizationAddressGroupService::list_address_group_references] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::ListAddressGroupReferences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListAddressGroupReferences;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2901,7 +2874,7 @@ pub mod organization_address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAddressGroupReferences {
     ///   # panic!();
@@ -3002,10 +2975,9 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::list_locations][crate::client::OrganizationAddressGroupService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3013,7 +2985,7 @@ pub mod organization_address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3112,14 +3084,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::get_location][crate::client::OrganizationAddressGroupService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3173,14 +3144,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::set_iam_policy][crate::client::OrganizationAddressGroupService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3276,14 +3246,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::get_iam_policy][crate::client::OrganizationAddressGroupService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3357,14 +3326,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::test_iam_permissions][crate::client::OrganizationAddressGroupService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -3436,10 +3404,9 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::list_operations][crate::client::OrganizationAddressGroupService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3447,7 +3414,7 @@ pub mod organization_address_group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3554,14 +3521,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::get_operation][crate::client::OrganizationAddressGroupService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3618,14 +3584,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::delete_operation][crate::client::OrganizationAddressGroupService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3682,14 +3647,13 @@ pub mod organization_address_group_service {
     /// The request builder for [OrganizationAddressGroupService::cancel_operation][crate::client::OrganizationAddressGroupService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::organization_address_group_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::organization_address_group_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3750,7 +3714,7 @@ pub mod network_security {
     /// A builder for [NetworkSecurity][crate::client::NetworkSecurity].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::*;
     /// # use builder::network_security::ClientBuilder;
     /// # use client::NetworkSecurity;
@@ -3758,7 +3722,7 @@ pub mod network_security {
     /// let client = builder
     ///     .with_endpoint("https://networksecurity.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3804,10 +3768,9 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::list_authorization_policies][crate::client::NetworkSecurity::list_authorization_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::ListAuthorizationPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListAuthorizationPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3815,7 +3778,7 @@ pub mod network_security {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAuthorizationPolicies {
     ///   # panic!();
@@ -3916,14 +3879,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_authorization_policy][crate::client::NetworkSecurity::get_authorization_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetAuthorizationPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetAuthorizationPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAuthorizationPolicy {
     ///   # panic!();
@@ -3982,15 +3944,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::create_authorization_policy][crate::client::NetworkSecurity::create_authorization_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::CreateAuthorizationPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateAuthorizationPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAuthorizationPolicy {
     ///   # panic!();
@@ -4122,15 +4083,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::update_authorization_policy][crate::client::NetworkSecurity::update_authorization_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::UpdateAuthorizationPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateAuthorizationPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAuthorizationPolicy {
     ///   # panic!();
@@ -4264,15 +4224,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::delete_authorization_policy][crate::client::NetworkSecurity::delete_authorization_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::DeleteAuthorizationPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteAuthorizationPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAuthorizationPolicy {
     ///   # panic!();
@@ -4373,10 +4332,9 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::list_server_tls_policies][crate::client::NetworkSecurity::list_server_tls_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::ListServerTlsPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListServerTlsPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4384,7 +4342,7 @@ pub mod network_security {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServerTlsPolicies {
     ///   # panic!();
@@ -4481,14 +4439,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_server_tls_policy][crate::client::NetworkSecurity::get_server_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetServerTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetServerTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServerTlsPolicy {
     ///   # panic!();
@@ -4547,15 +4504,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::create_server_tls_policy][crate::client::NetworkSecurity::create_server_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::CreateServerTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateServerTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServerTlsPolicy {
     ///   # panic!();
@@ -4685,15 +4641,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::update_server_tls_policy][crate::client::NetworkSecurity::update_server_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::UpdateServerTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateServerTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateServerTlsPolicy {
     ///   # panic!();
@@ -4825,15 +4780,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::delete_server_tls_policy][crate::client::NetworkSecurity::delete_server_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::DeleteServerTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteServerTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteServerTlsPolicy {
     ///   # panic!();
@@ -4932,10 +4886,9 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::list_client_tls_policies][crate::client::NetworkSecurity::list_client_tls_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::ListClientTlsPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListClientTlsPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4943,7 +4896,7 @@ pub mod network_security {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClientTlsPolicies {
     ///   # panic!();
@@ -5040,14 +4993,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_client_tls_policy][crate::client::NetworkSecurity::get_client_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetClientTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetClientTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetClientTlsPolicy {
     ///   # panic!();
@@ -5106,15 +5058,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::create_client_tls_policy][crate::client::NetworkSecurity::create_client_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::CreateClientTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CreateClientTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateClientTlsPolicy {
     ///   # panic!();
@@ -5244,15 +5195,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::update_client_tls_policy][crate::client::NetworkSecurity::update_client_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::UpdateClientTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::UpdateClientTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateClientTlsPolicy {
     ///   # panic!();
@@ -5384,15 +5334,14 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::delete_client_tls_policy][crate::client::NetworkSecurity::delete_client_tls_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::DeleteClientTlsPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteClientTlsPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteClientTlsPolicy {
     ///   # panic!();
@@ -5491,10 +5440,9 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::list_locations][crate::client::NetworkSecurity::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5502,7 +5450,7 @@ pub mod network_security {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5601,14 +5549,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_location][crate::client::NetworkSecurity::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5662,14 +5609,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::set_iam_policy][crate::client::NetworkSecurity::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5765,14 +5711,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_iam_policy][crate::client::NetworkSecurity::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5846,14 +5791,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::test_iam_permissions][crate::client::NetworkSecurity::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5925,10 +5869,9 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::list_operations][crate::client::NetworkSecurity::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5936,7 +5879,7 @@ pub mod network_security {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6043,14 +5986,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::get_operation][crate::client::NetworkSecurity::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6107,14 +6049,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::delete_operation][crate::client::NetworkSecurity::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -6171,14 +6112,13 @@ pub mod network_security {
     /// The request builder for [NetworkSecurity::cancel_operation][crate::client::NetworkSecurity::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networksecurity_v1::builder;
-    /// use builder::network_security::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networksecurity_v1::builder::network_security::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

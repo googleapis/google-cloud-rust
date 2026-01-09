@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
 /// let client = AutoscalingPolicyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl AutoscalingPolicyService {
     /// Returns a builder for [AutoscalingPolicyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::AutoscalingPolicyService;
     /// let client = AutoscalingPolicyService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autoscaling_policy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -223,11 +223,11 @@ impl AutoscalingPolicyService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::BatchController;
 /// let client = BatchController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -269,10 +269,10 @@ impl BatchController {
     /// Returns a builder for [BatchController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::BatchController;
     /// let client = BatchController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::batch_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -414,11 +414,11 @@ impl BatchController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::ClusterController;
 /// let client = ClusterController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -461,10 +461,10 @@ impl ClusterController {
     /// Returns a builder for [ClusterController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::ClusterController;
     /// let client = ClusterController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cluster_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -700,11 +700,11 @@ impl ClusterController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::JobController;
 /// let client = JobController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -746,10 +746,10 @@ impl JobController {
     /// Returns a builder for [JobController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::JobController;
     /// let client = JobController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::job_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::job_controller::client::Factory)
@@ -907,11 +907,11 @@ impl JobController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::NodeGroupController;
 /// let client = NodeGroupController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -954,10 +954,10 @@ impl NodeGroupController {
     /// Returns a builder for [NodeGroupController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::NodeGroupController;
     /// let client = NodeGroupController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::node_group_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1114,11 +1114,11 @@ impl NodeGroupController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
 /// let client = SessionTemplateController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1160,10 +1160,10 @@ impl SessionTemplateController {
     /// Returns a builder for [SessionTemplateController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::SessionTemplateController;
     /// let client = SessionTemplateController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::session_template_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1312,11 +1312,11 @@ impl SessionTemplateController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::SessionController;
 /// let client = SessionController::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1358,10 +1358,10 @@ impl SessionController {
     /// Returns a builder for [SessionController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::SessionController;
     /// let client = SessionController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::session_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1528,11 +1528,11 @@ impl SessionController {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
 /// let client = WorkflowTemplateService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Dataproc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1575,10 +1575,10 @@ impl WorkflowTemplateService {
     /// Returns a builder for [WorkflowTemplateService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::client::WorkflowTemplateService;
     /// let client = WorkflowTemplateService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::workflow_template_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

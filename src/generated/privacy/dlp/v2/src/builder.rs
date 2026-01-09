@@ -20,7 +20,7 @@ pub mod dlp_service {
     /// A builder for [DlpService][crate::client::DlpService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_privacy_dlp_v2::*;
     /// # use builder::dlp_service::ClientBuilder;
     /// # use client::DlpService;
@@ -28,7 +28,7 @@ pub mod dlp_service {
     /// let client = builder
     ///     .with_endpoint("https://dlp.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::inspect_content][crate::client::DlpService::inspect_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::InspectContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::InspectContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InspectContent {
     ///   # panic!();
@@ -183,14 +182,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::redact_image][crate::client::DlpService::redact_image] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::RedactImage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::RedactImage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RedactImage {
     ///   # panic!();
@@ -315,14 +313,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::deidentify_content][crate::client::DlpService::deidentify_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeidentifyContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeidentifyContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeidentifyContent {
     ///   # panic!();
@@ -451,14 +448,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::reidentify_content][crate::client::DlpService::reidentify_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ReidentifyContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ReidentifyContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReidentifyContent {
     ///   # panic!();
@@ -589,14 +585,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_info_types][crate::client::DlpService::list_info_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListInfoTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListInfoTypes;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInfoTypes {
     ///   # panic!();
@@ -668,14 +663,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_inspect_template][crate::client::DlpService::create_inspect_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateInspectTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateInspectTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInspectTemplate {
     ///   # panic!();
@@ -768,14 +762,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_inspect_template][crate::client::DlpService::update_inspect_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateInspectTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateInspectTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInspectTemplate {
     ///   # panic!();
@@ -870,14 +863,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_inspect_template][crate::client::DlpService::get_inspect_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetInspectTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetInspectTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInspectTemplate {
     ///   # panic!();
@@ -936,10 +928,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_inspect_templates][crate::client::DlpService::list_inspect_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListInspectTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListInspectTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -947,7 +938,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInspectTemplates {
     ///   # panic!();
@@ -1056,14 +1047,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_inspect_template][crate::client::DlpService::delete_inspect_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteInspectTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteInspectTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInspectTemplate {
     ///   # panic!();
@@ -1122,14 +1112,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_deidentify_template][crate::client::DlpService::create_deidentify_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateDeidentifyTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateDeidentifyTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDeidentifyTemplate {
     ///   # panic!();
@@ -1224,14 +1213,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_deidentify_template][crate::client::DlpService::update_deidentify_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateDeidentifyTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateDeidentifyTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDeidentifyTemplate {
     ///   # panic!();
@@ -1328,14 +1316,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_deidentify_template][crate::client::DlpService::get_deidentify_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetDeidentifyTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetDeidentifyTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDeidentifyTemplate {
     ///   # panic!();
@@ -1394,10 +1381,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_deidentify_templates][crate::client::DlpService::list_deidentify_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListDeidentifyTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListDeidentifyTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1405,7 +1391,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDeidentifyTemplates {
     ///   # panic!();
@@ -1518,14 +1504,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_deidentify_template][crate::client::DlpService::delete_deidentify_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteDeidentifyTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteDeidentifyTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDeidentifyTemplate {
     ///   # panic!();
@@ -1586,14 +1571,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_job_trigger][crate::client::DlpService::create_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateJobTrigger {
     ///   # panic!();
@@ -1686,14 +1670,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_job_trigger][crate::client::DlpService::update_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateJobTrigger {
     ///   # panic!();
@@ -1788,14 +1771,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::hybrid_inspect_job_trigger][crate::client::DlpService::hybrid_inspect_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::HybridInspectJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::HybridInspectJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> HybridInspectJobTrigger {
     ///   # panic!();
@@ -1874,14 +1856,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_job_trigger][crate::client::DlpService::get_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJobTrigger {
     ///   # panic!();
@@ -1937,10 +1918,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_job_triggers][crate::client::DlpService::list_job_triggers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListJobTriggers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListJobTriggers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1948,7 +1928,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobTriggers {
     ///   # panic!();
@@ -2064,14 +2044,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_job_trigger][crate::client::DlpService::delete_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteJobTrigger {
     ///   # panic!();
@@ -2130,14 +2109,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::activate_job_trigger][crate::client::DlpService::activate_job_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ActivateJobTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ActivateJobTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ActivateJobTrigger {
     ///   # panic!();
@@ -2196,14 +2174,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_discovery_config][crate::client::DlpService::create_discovery_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateDiscoveryConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateDiscoveryConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDiscoveryConfig {
     ///   # panic!();
@@ -2290,14 +2267,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_discovery_config][crate::client::DlpService::update_discovery_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateDiscoveryConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateDiscoveryConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDiscoveryConfig {
     ///   # panic!();
@@ -2396,14 +2372,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_discovery_config][crate::client::DlpService::get_discovery_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetDiscoveryConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetDiscoveryConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDiscoveryConfig {
     ///   # panic!();
@@ -2462,10 +2437,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_discovery_configs][crate::client::DlpService::list_discovery_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListDiscoveryConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListDiscoveryConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2473,7 +2447,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDiscoveryConfigs {
     ///   # panic!();
@@ -2576,14 +2550,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_discovery_config][crate::client::DlpService::delete_discovery_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteDiscoveryConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteDiscoveryConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDiscoveryConfig {
     ///   # panic!();
@@ -2642,14 +2615,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_dlp_job][crate::client::DlpService::create_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDlpJob {
     ///   # panic!();
@@ -2759,10 +2731,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_dlp_jobs][crate::client::DlpService::list_dlp_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListDlpJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListDlpJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2770,7 +2741,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDlpJobs {
     ///   # panic!();
@@ -2886,14 +2857,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_dlp_job][crate::client::DlpService::get_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDlpJob {
     ///   # panic!();
@@ -2949,14 +2919,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_dlp_job][crate::client::DlpService::delete_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDlpJob {
     ///   # panic!();
@@ -3012,14 +2981,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::cancel_dlp_job][crate::client::DlpService::cancel_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CancelDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CancelDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelDlpJob {
     ///   # panic!();
@@ -3075,14 +3043,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_stored_info_type][crate::client::DlpService::create_stored_info_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateStoredInfoType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateStoredInfoType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateStoredInfoType {
     ///   # panic!();
@@ -3175,14 +3142,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_stored_info_type][crate::client::DlpService::update_stored_info_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateStoredInfoType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateStoredInfoType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateStoredInfoType {
     ///   # panic!();
@@ -3277,14 +3243,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_stored_info_type][crate::client::DlpService::get_stored_info_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetStoredInfoType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetStoredInfoType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetStoredInfoType {
     ///   # panic!();
@@ -3343,10 +3308,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_stored_info_types][crate::client::DlpService::list_stored_info_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListStoredInfoTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListStoredInfoTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3354,7 +3318,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListStoredInfoTypes {
     ///   # panic!();
@@ -3463,14 +3427,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_stored_info_type][crate::client::DlpService::delete_stored_info_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteStoredInfoType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteStoredInfoType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteStoredInfoType {
     ///   # panic!();
@@ -3529,10 +3492,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_project_data_profiles][crate::client::DlpService::list_project_data_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListProjectDataProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListProjectDataProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3540,7 +3502,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProjectDataProfiles {
     ///   # panic!();
@@ -3653,10 +3615,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_table_data_profiles][crate::client::DlpService::list_table_data_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListTableDataProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListTableDataProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3664,7 +3625,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTableDataProfiles {
     ///   # panic!();
@@ -3773,10 +3734,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_column_data_profiles][crate::client::DlpService::list_column_data_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListColumnDataProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListColumnDataProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3784,7 +3744,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListColumnDataProfiles {
     ///   # panic!();
@@ -3895,14 +3855,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_project_data_profile][crate::client::DlpService::get_project_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetProjectDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetProjectDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProjectDataProfile {
     ///   # panic!();
@@ -3961,10 +3920,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_file_store_data_profiles][crate::client::DlpService::list_file_store_data_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListFileStoreDataProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListFileStoreDataProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3972,7 +3930,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFileStoreDataProfiles {
     ///   # panic!();
@@ -4085,14 +4043,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_file_store_data_profile][crate::client::DlpService::get_file_store_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetFileStoreDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetFileStoreDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFileStoreDataProfile {
     ///   # panic!();
@@ -4153,14 +4110,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_file_store_data_profile][crate::client::DlpService::delete_file_store_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteFileStoreDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteFileStoreDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFileStoreDataProfile {
     ///   # panic!();
@@ -4221,14 +4177,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_table_data_profile][crate::client::DlpService::get_table_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetTableDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetTableDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTableDataProfile {
     ///   # panic!();
@@ -4287,14 +4242,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_column_data_profile][crate::client::DlpService::get_column_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetColumnDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetColumnDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetColumnDataProfile {
     ///   # panic!();
@@ -4353,14 +4307,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_table_data_profile][crate::client::DlpService::delete_table_data_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteTableDataProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteTableDataProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTableDataProfile {
     ///   # panic!();
@@ -4419,14 +4372,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::hybrid_inspect_dlp_job][crate::client::DlpService::hybrid_inspect_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::HybridInspectDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::HybridInspectDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> HybridInspectDlpJob {
     ///   # panic!();
@@ -4503,14 +4455,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::finish_dlp_job][crate::client::DlpService::finish_dlp_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::FinishDlpJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::FinishDlpJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FinishDlpJob {
     ///   # panic!();
@@ -4566,14 +4517,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::create_connection][crate::client::DlpService::create_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::CreateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::CreateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnection {
     ///   # panic!();
@@ -4654,14 +4604,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::get_connection][crate::client::DlpService::get_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::GetConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::GetConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnection {
     ///   # panic!();
@@ -4717,10 +4666,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::list_connections][crate::client::DlpService::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4728,7 +4676,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();
@@ -4826,10 +4774,9 @@ pub mod dlp_service {
     /// The request builder for [DlpService::search_connections][crate::client::DlpService::search_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::SearchConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::SearchConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4837,7 +4784,7 @@ pub mod dlp_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchConnections {
     ///   # panic!();
@@ -4938,14 +4885,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::delete_connection][crate::client::DlpService::delete_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::DeleteConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::DeleteConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
     ///   # panic!();
@@ -5004,14 +4950,13 @@ pub mod dlp_service {
     /// The request builder for [DlpService::update_connection][crate::client::DlpService::update_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_privacy_dlp_v2::builder;
-    /// use builder::dlp_service::UpdateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_privacy_dlp_v2::builder::dlp_service::UpdateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
     ///   # panic!();

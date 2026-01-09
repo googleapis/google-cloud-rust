@@ -20,7 +20,7 @@ pub mod gke_hub {
     /// A builder for [GkeHub][crate::client::GkeHub].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkehub_v1::*;
     /// # use builder::gke_hub::ClientBuilder;
     /// # use client::GkeHub;
@@ -28,7 +28,7 @@ pub mod gke_hub {
     /// let client = builder
     ///     .with_endpoint("https://gkehub.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::list_memberships][crate::client::GkeHub::list_memberships] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::ListMemberships;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListMemberships;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod gke_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMemberships {
     ///   # panic!();
@@ -185,10 +184,9 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::list_features][crate::client::GkeHub::list_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::ListFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -196,7 +194,7 @@ pub mod gke_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatures {
     ///   # panic!();
@@ -296,14 +294,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::get_membership][crate::client::GkeHub::get_membership] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::GetMembership;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetMembership;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMembership {
     ///   # panic!();
@@ -357,14 +354,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::get_feature][crate::client::GkeHub::get_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::GetFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetFeature;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeature {
     ///   # panic!();
@@ -416,15 +412,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::create_membership][crate::client::GkeHub::create_membership] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::CreateMembership;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateMembership;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMembership {
     ///   # panic!();
@@ -555,15 +550,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::create_feature][crate::client::GkeHub::create_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::CreateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CreateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeature {
     ///   # panic!();
@@ -683,15 +677,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::delete_membership][crate::client::GkeHub::delete_membership] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::DeleteMembership;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteMembership;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMembership {
     ///   # panic!();
@@ -800,15 +793,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::delete_feature][crate::client::GkeHub::delete_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::DeleteFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeature {
     ///   # panic!();
@@ -912,15 +904,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::update_membership][crate::client::GkeHub::update_membership] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::UpdateMembership;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateMembership;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateMembership {
     ///   # panic!();
@@ -1065,15 +1056,14 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::update_feature][crate::client::GkeHub::update_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::UpdateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::UpdateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeature {
     ///   # panic!();
@@ -1205,14 +1195,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::generate_connect_manifest][crate::client::GkeHub::generate_connect_manifest] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::GenerateConnectManifest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GenerateConnectManifest;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateConnectManifest {
     ///   # panic!();
@@ -1307,10 +1296,9 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::list_operations][crate::client::GkeHub::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1318,7 +1306,7 @@ pub mod gke_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1423,14 +1411,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::get_operation][crate::client::GkeHub::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1485,14 +1472,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::delete_operation][crate::client::GkeHub::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1547,14 +1533,13 @@ pub mod gke_hub {
     /// The request builder for [GkeHub::cancel_operation][crate::client::GkeHub::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkehub_v1::builder;
-    /// use builder::gke_hub::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkehub_v1::builder::gke_hub::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

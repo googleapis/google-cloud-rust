@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
 /// let client = AlertPolicyService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -74,10 +74,10 @@ impl AlertPolicyService {
     /// Returns a builder for [AlertPolicyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::AlertPolicyService;
     /// let client = AlertPolicyService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::alert_policy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -174,11 +174,11 @@ impl AlertPolicyService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::GroupService;
 /// let client = GroupService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -231,10 +231,10 @@ impl GroupService {
     /// Returns a builder for [GroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::GroupService;
     /// let client = GroupService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::group_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::group_service::client::Factory)
@@ -319,11 +319,11 @@ impl GroupService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::MetricService;
 /// let client = MetricService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -366,10 +366,10 @@ impl MetricService {
     /// Returns a builder for [MetricService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::MetricService;
     /// let client = MetricService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::metric_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::metric_service::client::Factory)
@@ -501,11 +501,11 @@ impl MetricService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
 /// let client = NotificationChannelService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -548,10 +548,10 @@ impl NotificationChannelService {
     /// Returns a builder for [NotificationChannelService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::NotificationChannelService;
     /// let client = NotificationChannelService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::notification_channel_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -747,11 +747,11 @@ impl NotificationChannelService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::QueryService;
 /// let client = QueryService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -795,10 +795,10 @@ impl QueryService {
     /// Returns a builder for [QueryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::QueryService;
     /// let client = QueryService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::query_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::query_service::client::Factory)
@@ -861,11 +861,11 @@ impl QueryService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
 /// let client = ServiceMonitoringService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -910,10 +910,10 @@ impl ServiceMonitoringService {
     /// Returns a builder for [ServiceMonitoringService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::ServiceMonitoringService;
     /// let client = ServiceMonitoringService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_monitoring_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1041,11 +1041,11 @@ impl ServiceMonitoringService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::SnoozeService;
 /// let client = SnoozeService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1089,10 +1089,10 @@ impl SnoozeService {
     /// Returns a builder for [SnoozeService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::SnoozeService;
     /// let client = SnoozeService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::snooze_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::snooze_service::client::Factory)
@@ -1170,11 +1170,11 @@ impl SnoozeService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
 /// let client = UptimeCheckService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Monitoring API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1223,10 +1223,10 @@ impl UptimeCheckService {
     /// Returns a builder for [UptimeCheckService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::client::UptimeCheckService;
     /// let client = UptimeCheckService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::uptime_check_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

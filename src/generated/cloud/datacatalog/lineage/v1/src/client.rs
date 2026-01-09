@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
 /// let client = Lineage::builder().build().await?;
 /// // use `client` to make requests to the Data Lineage API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl Lineage {
     /// Returns a builder for [Lineage].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_lineage_v1::client::Lineage;
     /// let client = Lineage::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::lineage::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::lineage::client::Factory)

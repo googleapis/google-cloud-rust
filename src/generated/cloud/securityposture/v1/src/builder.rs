@@ -20,7 +20,7 @@ pub mod security_posture {
     /// A builder for [SecurityPosture][crate::client::SecurityPosture].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_securityposture_v1::*;
     /// # use builder::security_posture::ClientBuilder;
     /// # use client::SecurityPosture;
@@ -28,7 +28,7 @@ pub mod security_posture {
     /// let client = builder
     ///     .with_endpoint("https://securityposture.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_postures][crate::client::SecurityPosture::list_postures] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListPostures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPostures {
     ///   # panic!();
@@ -177,10 +176,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_posture_revisions][crate::client::SecurityPosture::list_posture_revisions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListPostureRevisions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureRevisions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -188,7 +186,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPostureRevisions {
     ///   # panic!();
@@ -285,14 +283,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::get_posture][crate::client::SecurityPosture::get_posture] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::GetPosture;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::GetPosture;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPosture {
     ///   # panic!();
@@ -354,15 +351,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::create_posture][crate::client::SecurityPosture::create_posture] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::CreatePosture;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePosture;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePosture {
     ///   # panic!();
@@ -486,15 +482,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::update_posture][crate::client::SecurityPosture::update_posture] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::UpdatePosture;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePosture;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePosture {
     ///   # panic!();
@@ -632,15 +627,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::delete_posture][crate::client::SecurityPosture::delete_posture] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::DeletePosture;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePosture;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePosture {
     ///   # panic!();
@@ -742,15 +736,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::extract_posture][crate::client::SecurityPosture::extract_posture] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ExtractPosture;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ExtractPosture;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExtractPosture {
     ///   # panic!();
@@ -860,10 +853,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_posture_deployments][crate::client::SecurityPosture::list_posture_deployments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListPostureDeployments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureDeployments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -871,7 +863,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPostureDeployments {
     ///   # panic!();
@@ -976,14 +968,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::get_posture_deployment][crate::client::SecurityPosture::get_posture_deployment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::GetPostureDeployment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::GetPostureDeployment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPostureDeployment {
     ///   # panic!();
@@ -1042,15 +1033,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::create_posture_deployment][crate::client::SecurityPosture::create_posture_deployment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::CreatePostureDeployment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::CreatePostureDeployment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePostureDeployment {
     ///   # panic!();
@@ -1182,15 +1172,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::update_posture_deployment][crate::client::SecurityPosture::update_posture_deployment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::UpdatePostureDeployment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::UpdatePostureDeployment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePostureDeployment {
     ///   # panic!();
@@ -1328,15 +1317,14 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::delete_posture_deployment][crate::client::SecurityPosture::delete_posture_deployment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::DeletePostureDeployment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::DeletePostureDeployment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePostureDeployment {
     ///   # panic!();
@@ -1443,10 +1431,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_posture_templates][crate::client::SecurityPosture::list_posture_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListPostureTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListPostureTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1454,7 +1441,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPostureTemplates {
     ///   # panic!();
@@ -1557,14 +1544,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::get_posture_template][crate::client::SecurityPosture::get_posture_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::GetPostureTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::GetPostureTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPostureTemplate {
     ///   # panic!();
@@ -1629,10 +1615,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_locations][crate::client::SecurityPosture::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1640,7 +1625,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1739,14 +1724,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::get_location][crate::client::SecurityPosture::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1800,10 +1784,9 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::list_operations][crate::client::SecurityPosture::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1811,7 +1794,7 @@ pub mod security_posture {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1918,14 +1901,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::get_operation][crate::client::SecurityPosture::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1982,14 +1964,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::delete_operation][crate::client::SecurityPosture::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2046,14 +2027,13 @@ pub mod security_posture {
     /// The request builder for [SecurityPosture::cancel_operation][crate::client::SecurityPosture::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securityposture_v1::builder;
-    /// use builder::security_posture::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securityposture_v1::builder::security_posture::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

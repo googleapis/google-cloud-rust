@@ -20,7 +20,7 @@ pub mod gateway_control {
     /// A builder for [GatewayControl][crate::client::GatewayControl].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkeconnect_gateway_v1::*;
     /// # use builder::gateway_control::ClientBuilder;
     /// # use client::GatewayControl;
@@ -28,7 +28,7 @@ pub mod gateway_control {
     /// let client = builder
     ///     .with_endpoint("https://connectgateway.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod gateway_control {
     /// The request builder for [GatewayControl::generate_credentials][crate::client::GatewayControl::generate_credentials] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkeconnect_gateway_v1::builder;
-    /// use builder::gateway_control::GenerateCredentials;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkeconnect_gateway_v1::builder::gateway_control::GenerateCredentials;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateCredentials {
     ///   # panic!();

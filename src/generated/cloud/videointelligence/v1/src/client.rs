@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
 /// let client = VideoIntelligenceService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Video Intelligence API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl VideoIntelligenceService {
     /// Returns a builder for [VideoIntelligenceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_videointelligence_v1::client::VideoIntelligenceService;
     /// let client = VideoIntelligenceService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::video_intelligence_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

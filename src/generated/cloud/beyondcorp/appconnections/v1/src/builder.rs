@@ -20,7 +20,7 @@ pub mod app_connections_service {
     /// A builder for [AppConnectionsService][crate::client::AppConnectionsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_appconnections_v1::*;
     /// # use builder::app_connections_service::ClientBuilder;
     /// # use client::AppConnectionsService;
@@ -28,7 +28,7 @@ pub mod app_connections_service {
     /// let client = builder
     ///     .with_endpoint("https://beyondcorp.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::list_app_connections][crate::client::AppConnectionsService::list_app_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::ListAppConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::ListAppConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod app_connections_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAppConnections {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::get_app_connection][crate::client::AppConnectionsService::get_app_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::GetAppConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::GetAppConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAppConnection {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::create_app_connection][crate::client::AppConnectionsService::create_app_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::CreateAppConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::CreateAppConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAppConnection {
     ///   # panic!();
@@ -408,15 +405,14 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::update_app_connection][crate::client::AppConnectionsService::update_app_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::UpdateAppConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::UpdateAppConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAppConnection {
     ///   # panic!();
@@ -570,15 +566,14 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::delete_app_connection][crate::client::AppConnectionsService::delete_app_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::DeleteAppConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::DeleteAppConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAppConnection {
     ///   # panic!();
@@ -690,10 +685,9 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::resolve_app_connections][crate::client::AppConnectionsService::resolve_app_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::ResolveAppConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::ResolveAppConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -701,7 +695,7 @@ pub mod app_connections_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResolveAppConnections {
     ///   # panic!();
@@ -806,10 +800,9 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::list_locations][crate::client::AppConnectionsService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -817,7 +810,7 @@ pub mod app_connections_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -916,14 +909,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::get_location][crate::client::AppConnectionsService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -977,14 +969,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::set_iam_policy][crate::client::AppConnectionsService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1080,14 +1071,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::get_iam_policy][crate::client::AppConnectionsService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1161,14 +1151,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::test_iam_permissions][crate::client::AppConnectionsService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1240,10 +1229,9 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::list_operations][crate::client::AppConnectionsService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1251,7 +1239,7 @@ pub mod app_connections_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1358,14 +1346,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::get_operation][crate::client::AppConnectionsService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1422,14 +1409,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::delete_operation][crate::client::AppConnectionsService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1486,14 +1472,13 @@ pub mod app_connections_service {
     /// The request builder for [AppConnectionsService::cancel_operation][crate::client::AppConnectionsService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_beyondcorp_appconnections_v1::builder;
-    /// use builder::app_connections_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_beyondcorp_appconnections_v1::builder::app_connections_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
 /// let client = ManagedKafka::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl ManagedKafka {
     /// Returns a builder for [ManagedKafka].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafka;
     /// let client = ManagedKafka::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_kafka::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::managed_kafka::client::Factory)
@@ -300,11 +300,11 @@ impl ManagedKafka {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
 /// let client = ManagedKafkaConnect::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -347,10 +347,10 @@ impl ManagedKafkaConnect {
     /// Returns a builder for [ManagedKafkaConnect].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::client::ManagedKafkaConnect;
     /// let client = ManagedKafkaConnect::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_kafka_connect::ClientBuilder {
         gax::client_builder::internal::new_builder(

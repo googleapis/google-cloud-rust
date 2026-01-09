@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_webrisk_v1::client::WebRiskService;
 /// let client = WebRiskService::builder().build().await?;
 /// // use `client` to make requests to the Web Risk API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl WebRiskService {
     /// Returns a builder for [WebRiskService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_webrisk_v1::client::WebRiskService;
     /// let client = WebRiskService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::web_risk_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

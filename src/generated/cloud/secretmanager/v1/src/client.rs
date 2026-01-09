@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
 /// let client = SecretManagerService::builder().build().await?;
 /// // use `client` to make requests to the Secret Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -75,10 +75,10 @@ impl SecretManagerService {
     /// Returns a builder for [SecretManagerService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
     /// let client = SecretManagerService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::secret_manager_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

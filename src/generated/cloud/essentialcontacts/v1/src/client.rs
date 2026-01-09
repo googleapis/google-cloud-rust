@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
 /// let client = EssentialContactsService::builder().build().await?;
 /// // use `client` to make requests to the Essential Contacts API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl EssentialContactsService {
     /// Returns a builder for [EssentialContactsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_essentialcontacts_v1::client::EssentialContactsService;
     /// let client = EssentialContactsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::essential_contacts_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

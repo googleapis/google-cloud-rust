@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
 /// let client = AttachedClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl AttachedClusters {
     /// Returns a builder for [AttachedClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AttachedClusters;
     /// let client = AttachedClusters::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::attached_clusters::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -300,11 +300,11 @@ impl AttachedClusters {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
 /// let client = AwsClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -348,10 +348,10 @@ impl AwsClusters {
     /// Returns a builder for [AwsClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AwsClusters;
     /// let client = AwsClusters::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::aws_clusters::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::aws_clusters::client::Factory)
@@ -676,11 +676,11 @@ impl AwsClusters {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
 /// let client = AzureClusters::builder().build().await?;
 /// // use `client` to make requests to the GKE Multi-Cloud API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -724,10 +724,10 @@ impl AzureClusters {
     /// Returns a builder for [AzureClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::client::AzureClusters;
     /// let client = AzureClusters::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::azure_clusters::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::azure_clusters::client::Factory)

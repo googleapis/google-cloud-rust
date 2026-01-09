@@ -20,7 +20,7 @@ pub mod firestore {
     /// A builder for [Firestore][crate::client::Firestore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_firestore::*;
     /// # use builder::firestore::ClientBuilder;
     /// # use client::Firestore;
@@ -28,7 +28,7 @@ pub mod firestore {
     /// let client = builder
     ///     .with_endpoint("https://firestore.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod firestore {
     /// The request builder for [Firestore::get_document][crate::client::Firestore::get_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::GetDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::GetDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDocument {
     ///   # panic!();
@@ -192,10 +191,9 @@ pub mod firestore {
     /// The request builder for [Firestore::list_documents][crate::client::Firestore::list_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::ListDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::ListDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -203,7 +201,7 @@ pub mod firestore {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDocuments {
     ///   # panic!();
@@ -368,14 +366,13 @@ pub mod firestore {
     /// The request builder for [Firestore::update_document][crate::client::Firestore::update_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::UpdateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::UpdateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDocument {
     ///   # panic!();
@@ -499,14 +496,13 @@ pub mod firestore {
     /// The request builder for [Firestore::delete_document][crate::client::Firestore::delete_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::DeleteDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::DeleteDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDocument {
     ///   # panic!();
@@ -580,14 +576,13 @@ pub mod firestore {
     /// The request builder for [Firestore::begin_transaction][crate::client::Firestore::begin_transaction] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::BeginTransaction;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::BeginTransaction;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BeginTransaction {
     ///   # panic!();
@@ -664,14 +659,13 @@ pub mod firestore {
     /// The request builder for [Firestore::commit][crate::client::Firestore::commit] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::Commit;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::Commit;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Commit {
     ///   # panic!();
@@ -744,14 +738,13 @@ pub mod firestore {
     /// The request builder for [Firestore::rollback][crate::client::Firestore::rollback] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::Rollback;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::Rollback;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Rollback {
     ///   # panic!();
@@ -815,10 +808,9 @@ pub mod firestore {
     /// The request builder for [Firestore::partition_query][crate::client::Firestore::partition_query] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::PartitionQuery;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::PartitionQuery;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -826,7 +818,7 @@ pub mod firestore {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PartitionQuery {
     ///   # panic!();
@@ -978,14 +970,13 @@ pub mod firestore {
     /// The request builder for [Firestore::list_collection_ids][crate::client::Firestore::list_collection_ids] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::ListCollectionIds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::ListCollectionIds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCollectionIds {
     ///   # panic!();
@@ -1083,14 +1074,13 @@ pub mod firestore {
     /// The request builder for [Firestore::batch_write][crate::client::Firestore::batch_write] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::BatchWrite;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::BatchWrite;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchWrite {
     ///   # panic!();
@@ -1168,14 +1158,13 @@ pub mod firestore {
     /// The request builder for [Firestore::create_document][crate::client::Firestore::create_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore::builder;
-    /// use builder::firestore::CreateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore::builder::firestore::CreateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDocument {
     ///   # panic!();

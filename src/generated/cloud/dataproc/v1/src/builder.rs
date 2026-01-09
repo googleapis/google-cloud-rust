@@ -20,7 +20,7 @@ pub mod autoscaling_policy_service {
     /// A builder for [AutoscalingPolicyService][crate::client::AutoscalingPolicyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::autoscaling_policy_service::ClientBuilder;
     /// # use client::AutoscalingPolicyService;
@@ -28,7 +28,7 @@ pub mod autoscaling_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::create_autoscaling_policy][crate::client::AutoscalingPolicyService::create_autoscaling_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::CreateAutoscalingPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::CreateAutoscalingPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAutoscalingPolicy {
     ///   # panic!();
@@ -164,14 +163,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::update_autoscaling_policy][crate::client::AutoscalingPolicyService::update_autoscaling_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::UpdateAutoscalingPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAutoscalingPolicy {
     ///   # panic!();
@@ -246,14 +244,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::get_autoscaling_policy][crate::client::AutoscalingPolicyService::get_autoscaling_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::GetAutoscalingPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetAutoscalingPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAutoscalingPolicy {
     ///   # panic!();
@@ -312,10 +309,9 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::list_autoscaling_policies][crate::client::AutoscalingPolicyService::list_autoscaling_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::ListAutoscalingPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::ListAutoscalingPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -323,7 +319,7 @@ pub mod autoscaling_policy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutoscalingPolicies {
     ///   # panic!();
@@ -424,14 +420,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::delete_autoscaling_policy][crate::client::AutoscalingPolicyService::delete_autoscaling_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::DeleteAutoscalingPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAutoscalingPolicy {
     ///   # panic!();
@@ -492,14 +487,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::set_iam_policy][crate::client::AutoscalingPolicyService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -595,14 +589,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::get_iam_policy][crate::client::AutoscalingPolicyService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -676,14 +669,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::test_iam_permissions][crate::client::AutoscalingPolicyService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -755,10 +747,9 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::list_operations][crate::client::AutoscalingPolicyService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -766,7 +757,7 @@ pub mod autoscaling_policy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -873,14 +864,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::get_operation][crate::client::AutoscalingPolicyService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -937,14 +927,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::delete_operation][crate::client::AutoscalingPolicyService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1001,14 +990,13 @@ pub mod autoscaling_policy_service {
     /// The request builder for [AutoscalingPolicyService::cancel_operation][crate::client::AutoscalingPolicyService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::autoscaling_policy_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::autoscaling_policy_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1069,7 +1057,7 @@ pub mod batch_controller {
     /// A builder for [BatchController][crate::client::BatchController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::batch_controller::ClientBuilder;
     /// # use client::BatchController;
@@ -1077,7 +1065,7 @@ pub mod batch_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1123,15 +1111,14 @@ pub mod batch_controller {
     /// The request builder for [BatchController::create_batch][crate::client::BatchController::create_batch] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::CreateBatch;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::CreateBatch;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBatch {
     ///   # panic!();
@@ -1259,14 +1246,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::get_batch][crate::client::BatchController::get_batch] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::GetBatch;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::GetBatch;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBatch {
     ///   # panic!();
@@ -1322,10 +1308,9 @@ pub mod batch_controller {
     /// The request builder for [BatchController::list_batches][crate::client::BatchController::list_batches] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::ListBatches;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::ListBatches;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1333,7 +1318,7 @@ pub mod batch_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBatches {
     ///   # panic!();
@@ -1437,14 +1422,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::delete_batch][crate::client::BatchController::delete_batch] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::DeleteBatch;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::DeleteBatch;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBatch {
     ///   # panic!();
@@ -1500,14 +1484,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::set_iam_policy][crate::client::BatchController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1603,14 +1586,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::get_iam_policy][crate::client::BatchController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1684,14 +1666,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::test_iam_permissions][crate::client::BatchController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1763,10 +1744,9 @@ pub mod batch_controller {
     /// The request builder for [BatchController::list_operations][crate::client::BatchController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1774,7 +1754,7 @@ pub mod batch_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1881,14 +1861,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::get_operation][crate::client::BatchController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1945,14 +1924,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::delete_operation][crate::client::BatchController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2009,14 +1987,13 @@ pub mod batch_controller {
     /// The request builder for [BatchController::cancel_operation][crate::client::BatchController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::batch_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::batch_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2077,7 +2054,7 @@ pub mod cluster_controller {
     /// A builder for [ClusterController][crate::client::ClusterController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::cluster_controller::ClientBuilder;
     /// # use client::ClusterController;
@@ -2085,7 +2062,7 @@ pub mod cluster_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2131,15 +2108,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::create_cluster][crate::client::ClusterController::create_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::CreateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::CreateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCluster {
     ///   # panic!();
@@ -2281,15 +2257,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::update_cluster][crate::client::ClusterController::update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::UpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::UpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
     ///   # panic!();
@@ -2473,15 +2448,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::stop_cluster][crate::client::ClusterController::stop_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::StopCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::StopCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopCluster {
     ///   # panic!();
@@ -2606,15 +2580,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::start_cluster][crate::client::ClusterController::start_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::StartCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::StartCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartCluster {
     ///   # panic!();
@@ -2739,15 +2712,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::delete_cluster][crate::client::ClusterController::delete_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::DeleteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::DeleteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
     ///   # panic!();
@@ -2872,14 +2844,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::get_cluster][crate::client::ClusterController::get_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::GetCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCluster {
     ///   # panic!();
@@ -2951,10 +2922,9 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::list_clusters][crate::client::ClusterController::list_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::ListClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::ListClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2962,7 +2932,7 @@ pub mod cluster_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClusters {
     ///   # panic!();
@@ -3068,15 +3038,14 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::diagnose_cluster][crate::client::ClusterController::diagnose_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::DiagnoseCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::DiagnoseCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DiagnoseCluster {
     ///   # panic!();
@@ -3246,14 +3215,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::set_iam_policy][crate::client::ClusterController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3349,14 +3317,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::get_iam_policy][crate::client::ClusterController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3430,14 +3397,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::test_iam_permissions][crate::client::ClusterController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -3509,10 +3475,9 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::list_operations][crate::client::ClusterController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3520,7 +3485,7 @@ pub mod cluster_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3627,14 +3592,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::get_operation][crate::client::ClusterController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3691,14 +3655,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::delete_operation][crate::client::ClusterController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3755,14 +3718,13 @@ pub mod cluster_controller {
     /// The request builder for [ClusterController::cancel_operation][crate::client::ClusterController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::cluster_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::cluster_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3823,7 +3785,7 @@ pub mod job_controller {
     /// A builder for [JobController][crate::client::JobController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::job_controller::ClientBuilder;
     /// # use client::JobController;
@@ -3831,7 +3793,7 @@ pub mod job_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3877,14 +3839,13 @@ pub mod job_controller {
     /// The request builder for [JobController::submit_job][crate::client::JobController::submit_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::SubmitJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::SubmitJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SubmitJob {
     ///   # panic!();
@@ -3976,15 +3937,14 @@ pub mod job_controller {
     /// The request builder for [JobController::submit_job_as_operation][crate::client::JobController::submit_job_as_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::SubmitJobAsOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::SubmitJobAsOperation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SubmitJobAsOperation {
     ///   # panic!();
@@ -4111,14 +4071,13 @@ pub mod job_controller {
     /// The request builder for [JobController::get_job][crate::client::JobController::get_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::GetJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::GetJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJob {
     ///   # panic!();
@@ -4190,10 +4149,9 @@ pub mod job_controller {
     /// The request builder for [JobController::list_jobs][crate::client::JobController::list_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::ListJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::ListJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4201,7 +4159,7 @@ pub mod job_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobs {
     ///   # panic!();
@@ -4322,14 +4280,13 @@ pub mod job_controller {
     /// The request builder for [JobController::update_job][crate::client::JobController::update_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::UpdateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::UpdateJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateJob {
     ///   # panic!();
@@ -4445,14 +4402,13 @@ pub mod job_controller {
     /// The request builder for [JobController::cancel_job][crate::client::JobController::cancel_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::CancelJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::CancelJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelJob {
     ///   # panic!();
@@ -4524,14 +4480,13 @@ pub mod job_controller {
     /// The request builder for [JobController::delete_job][crate::client::JobController::delete_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::DeleteJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::DeleteJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteJob {
     ///   # panic!();
@@ -4603,14 +4558,13 @@ pub mod job_controller {
     /// The request builder for [JobController::set_iam_policy][crate::client::JobController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4706,14 +4660,13 @@ pub mod job_controller {
     /// The request builder for [JobController::get_iam_policy][crate::client::JobController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4787,14 +4740,13 @@ pub mod job_controller {
     /// The request builder for [JobController::test_iam_permissions][crate::client::JobController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -4866,10 +4818,9 @@ pub mod job_controller {
     /// The request builder for [JobController::list_operations][crate::client::JobController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4877,7 +4828,7 @@ pub mod job_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4984,14 +4935,13 @@ pub mod job_controller {
     /// The request builder for [JobController::get_operation][crate::client::JobController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5048,14 +4998,13 @@ pub mod job_controller {
     /// The request builder for [JobController::delete_operation][crate::client::JobController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5112,14 +5061,13 @@ pub mod job_controller {
     /// The request builder for [JobController::cancel_operation][crate::client::JobController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::job_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::job_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -5180,7 +5128,7 @@ pub mod node_group_controller {
     /// A builder for [NodeGroupController][crate::client::NodeGroupController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::node_group_controller::ClientBuilder;
     /// # use client::NodeGroupController;
@@ -5188,7 +5136,7 @@ pub mod node_group_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5234,15 +5182,14 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::create_node_group][crate::client::NodeGroupController::create_node_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::CreateNodeGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::CreateNodeGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNodeGroup {
     ///   # panic!();
@@ -5373,15 +5320,14 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::resize_node_group][crate::client::NodeGroupController::resize_node_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::ResizeNodeGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::ResizeNodeGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResizeNodeGroup {
     ///   # panic!();
@@ -5513,14 +5459,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::get_node_group][crate::client::NodeGroupController::get_node_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::GetNodeGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetNodeGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNodeGroup {
     ///   # panic!();
@@ -5576,14 +5521,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::set_iam_policy][crate::client::NodeGroupController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5679,14 +5623,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::get_iam_policy][crate::client::NodeGroupController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5760,14 +5703,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::test_iam_permissions][crate::client::NodeGroupController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5839,10 +5781,9 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::list_operations][crate::client::NodeGroupController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5850,7 +5791,7 @@ pub mod node_group_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5957,14 +5898,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::get_operation][crate::client::NodeGroupController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6021,14 +5961,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::delete_operation][crate::client::NodeGroupController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -6085,14 +6024,13 @@ pub mod node_group_controller {
     /// The request builder for [NodeGroupController::cancel_operation][crate::client::NodeGroupController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::node_group_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::node_group_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -6153,7 +6091,7 @@ pub mod session_template_controller {
     /// A builder for [SessionTemplateController][crate::client::SessionTemplateController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::session_template_controller::ClientBuilder;
     /// # use client::SessionTemplateController;
@@ -6161,7 +6099,7 @@ pub mod session_template_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6207,14 +6145,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::create_session_template][crate::client::SessionTemplateController::create_session_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::CreateSessionTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::CreateSessionTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSessionTemplate {
     ///   # panic!();
@@ -6295,14 +6232,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::update_session_template][crate::client::SessionTemplateController::update_session_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::UpdateSessionTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::UpdateSessionTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSessionTemplate {
     ///   # panic!();
@@ -6375,14 +6311,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::get_session_template][crate::client::SessionTemplateController::get_session_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::GetSessionTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetSessionTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSessionTemplate {
     ///   # panic!();
@@ -6441,10 +6376,9 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::list_session_templates][crate::client::SessionTemplateController::list_session_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::ListSessionTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::ListSessionTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6452,7 +6386,7 @@ pub mod session_template_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessionTemplates {
     ///   # panic!();
@@ -6555,14 +6489,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::delete_session_template][crate::client::SessionTemplateController::delete_session_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::DeleteSessionTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::DeleteSessionTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSessionTemplate {
     ///   # panic!();
@@ -6621,14 +6554,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::set_iam_policy][crate::client::SessionTemplateController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -6724,14 +6656,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::get_iam_policy][crate::client::SessionTemplateController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -6805,14 +6736,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::test_iam_permissions][crate::client::SessionTemplateController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -6884,10 +6814,9 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::list_operations][crate::client::SessionTemplateController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6895,7 +6824,7 @@ pub mod session_template_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7002,14 +6931,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::get_operation][crate::client::SessionTemplateController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7066,14 +6994,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::delete_operation][crate::client::SessionTemplateController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7130,14 +7057,13 @@ pub mod session_template_controller {
     /// The request builder for [SessionTemplateController::cancel_operation][crate::client::SessionTemplateController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_template_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_template_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7198,7 +7124,7 @@ pub mod session_controller {
     /// A builder for [SessionController][crate::client::SessionController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::session_controller::ClientBuilder;
     /// # use client::SessionController;
@@ -7206,7 +7132,7 @@ pub mod session_controller {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7252,15 +7178,14 @@ pub mod session_controller {
     /// The request builder for [SessionController::create_session][crate::client::SessionController::create_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::CreateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::CreateSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSession {
     ///   # panic!();
@@ -7393,14 +7318,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::get_session][crate::client::SessionController::get_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::GetSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::GetSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSession {
     ///   # panic!();
@@ -7456,10 +7380,9 @@ pub mod session_controller {
     /// The request builder for [SessionController::list_sessions][crate::client::SessionController::list_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::ListSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::ListSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7467,7 +7390,7 @@ pub mod session_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessions {
     ///   # panic!();
@@ -7565,15 +7488,14 @@ pub mod session_controller {
     /// The request builder for [SessionController::terminate_session][crate::client::SessionController::terminate_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::TerminateSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::TerminateSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TerminateSession {
     ///   # panic!();
@@ -7679,15 +7601,14 @@ pub mod session_controller {
     /// The request builder for [SessionController::delete_session][crate::client::SessionController::delete_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::DeleteSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::DeleteSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSession {
     ///   # panic!();
@@ -7790,14 +7711,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::set_iam_policy][crate::client::SessionController::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -7893,14 +7813,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::get_iam_policy][crate::client::SessionController::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -7974,14 +7893,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::test_iam_permissions][crate::client::SessionController::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -8053,10 +7971,9 @@ pub mod session_controller {
     /// The request builder for [SessionController::list_operations][crate::client::SessionController::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8064,7 +7981,7 @@ pub mod session_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -8171,14 +8088,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::get_operation][crate::client::SessionController::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -8235,14 +8151,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::delete_operation][crate::client::SessionController::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -8299,14 +8214,13 @@ pub mod session_controller {
     /// The request builder for [SessionController::cancel_operation][crate::client::SessionController::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::session_controller::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::session_controller::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -8367,7 +8281,7 @@ pub mod workflow_template_service {
     /// A builder for [WorkflowTemplateService][crate::client::WorkflowTemplateService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataproc_v1::*;
     /// # use builder::workflow_template_service::ClientBuilder;
     /// # use client::WorkflowTemplateService;
@@ -8375,7 +8289,7 @@ pub mod workflow_template_service {
     /// let client = builder
     ///     .with_endpoint("https://dataproc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8421,14 +8335,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::create_workflow_template][crate::client::WorkflowTemplateService::create_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::CreateWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::CreateWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkflowTemplate {
     ///   # panic!();
@@ -8509,14 +8422,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::get_workflow_template][crate::client::WorkflowTemplateService::get_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::GetWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkflowTemplate {
     ///   # panic!();
@@ -8581,15 +8493,14 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::instantiate_workflow_template][crate::client::WorkflowTemplateService::instantiate_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::InstantiateWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::InstantiateWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InstantiateWorkflowTemplate {
     ///   # panic!();
@@ -8713,15 +8624,14 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::instantiate_inline_workflow_template][crate::client::WorkflowTemplateService::instantiate_inline_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::InstantiateInlineWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InstantiateInlineWorkflowTemplate {
     ///   # panic!();
@@ -8850,14 +8760,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::update_workflow_template][crate::client::WorkflowTemplateService::update_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::UpdateWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::UpdateWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkflowTemplate {
     ///   # panic!();
@@ -8930,10 +8839,9 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::list_workflow_templates][crate::client::WorkflowTemplateService::list_workflow_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::ListWorkflowTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::ListWorkflowTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8941,7 +8849,7 @@ pub mod workflow_template_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkflowTemplates {
     ///   # panic!();
@@ -9038,14 +8946,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::delete_workflow_template][crate::client::WorkflowTemplateService::delete_workflow_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::DeleteWorkflowTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::DeleteWorkflowTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkflowTemplate {
     ///   # panic!();
@@ -9110,14 +9017,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::set_iam_policy][crate::client::WorkflowTemplateService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -9213,14 +9119,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::get_iam_policy][crate::client::WorkflowTemplateService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -9294,14 +9199,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::test_iam_permissions][crate::client::WorkflowTemplateService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -9373,10 +9277,9 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::list_operations][crate::client::WorkflowTemplateService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9384,7 +9287,7 @@ pub mod workflow_template_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -9491,14 +9394,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::get_operation][crate::client::WorkflowTemplateService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -9555,14 +9457,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::delete_operation][crate::client::WorkflowTemplateService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -9619,14 +9520,13 @@ pub mod workflow_template_service {
     /// The request builder for [WorkflowTemplateService::cancel_operation][crate::client::WorkflowTemplateService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataproc_v1::builder;
-    /// use builder::workflow_template_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataproc_v1::builder::workflow_template_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

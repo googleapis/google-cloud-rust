@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
 /// let client = TranscoderService::builder().build().await?;
 /// // use `client` to make requests to the Transcoder API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl TranscoderService {
     /// Returns a builder for [TranscoderService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_video_transcoder_v1::client::TranscoderService;
     /// let client = TranscoderService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::transcoder_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

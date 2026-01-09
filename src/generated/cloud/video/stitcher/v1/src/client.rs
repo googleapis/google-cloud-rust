@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
 /// let client = VideoStitcherService::builder().build().await?;
 /// // use `client` to make requests to the Video Stitcher API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl VideoStitcherService {
     /// Returns a builder for [VideoStitcherService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_video_stitcher_v1::client::VideoStitcherService;
     /// let client = VideoStitcherService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::video_stitcher_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

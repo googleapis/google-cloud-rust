@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
 /// let client = RapidMigrationAssessment::builder().build().await?;
 /// // use `client` to make requests to the Rapid Migration Assessment API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl RapidMigrationAssessment {
     /// Returns a builder for [RapidMigrationAssessment].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_rapidmigrationassessment_v1::client::RapidMigrationAssessment;
     /// let client = RapidMigrationAssessment::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::rapid_migration_assessment::ClientBuilder {
         gax::client_builder::internal::new_builder(

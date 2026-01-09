@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_optimization_v1::client::FleetRouting;
 /// let client = FleetRouting::builder().build().await?;
 /// // use `client` to make requests to the Cloud Optimization API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -82,10 +82,10 @@ impl FleetRouting {
     /// Returns a builder for [FleetRouting].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_optimization_v1::client::FleetRouting;
     /// let client = FleetRouting::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::fleet_routing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::fleet_routing::client::Factory)

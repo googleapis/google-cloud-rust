@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
 /// let client = IamChecker::builder().build().await?;
 /// // use `client` to make requests to the Policy Troubleshooter API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl IamChecker {
     /// Returns a builder for [IamChecker].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_v1::client::IamChecker;
     /// let client = IamChecker::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::iam_checker::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::iam_checker::client::Factory)

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_language_v2::client::LanguageService;
 /// let client = LanguageService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Natural Language API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl LanguageService {
     /// Returns a builder for [LanguageService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_language_v2::client::LanguageService;
     /// let client = LanguageService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::language_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

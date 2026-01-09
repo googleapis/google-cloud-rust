@@ -20,7 +20,7 @@ pub mod notebook_service {
     /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_notebooks_v2::*;
     /// # use builder::notebook_service::ClientBuilder;
     /// # use client::NotebookService;
@@ -28,7 +28,7 @@ pub mod notebook_service {
     /// let client = builder
     ///     .with_endpoint("https://notebooks.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_instances][crate::client::NotebookService::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_instance][crate::client::NotebookService::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::create_instance][crate::client::NotebookService::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::update_instance][crate::client::NotebookService::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -534,15 +530,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_instance][crate::client::NotebookService::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -644,15 +639,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::start_instance][crate::client::NotebookService::start_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::StartInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::StartInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartInstance {
     ///   # panic!();
@@ -746,15 +740,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::stop_instance][crate::client::NotebookService::stop_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::StopInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::StopInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopInstance {
     ///   # panic!();
@@ -848,15 +841,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::reset_instance][crate::client::NotebookService::reset_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::ResetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::ResetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResetInstance {
     ///   # panic!();
@@ -950,14 +942,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::check_instance_upgradability][crate::client::NotebookService::check_instance_upgradability] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::CheckInstanceUpgradability;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::CheckInstanceUpgradability;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckInstanceUpgradability {
     ///   # panic!();
@@ -1018,15 +1009,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::upgrade_instance][crate::client::NotebookService::upgrade_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::UpgradeInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::UpgradeInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpgradeInstance {
     ///   # panic!();
@@ -1120,15 +1110,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::rollback_instance][crate::client::NotebookService::rollback_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::RollbackInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::RollbackInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RollbackInstance {
     ///   # panic!();
@@ -1241,15 +1230,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::diagnose_instance][crate::client::NotebookService::diagnose_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::DiagnoseInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::DiagnoseInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DiagnoseInstance {
     ///   # panic!();
@@ -1374,10 +1362,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_locations][crate::client::NotebookService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1385,7 +1372,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1484,14 +1471,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_location][crate::client::NotebookService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1545,14 +1531,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::set_iam_policy][crate::client::NotebookService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1648,14 +1633,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_iam_policy][crate::client::NotebookService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1729,14 +1713,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::test_iam_permissions][crate::client::NotebookService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1808,10 +1791,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_operations][crate::client::NotebookService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1819,7 +1801,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1926,14 +1908,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_operation][crate::client::NotebookService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1990,14 +1971,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_operation][crate::client::NotebookService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2054,14 +2034,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::cancel_operation][crate::client::NotebookService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_notebooks_v2::builder;
-    /// use builder::notebook_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_notebooks_v2::builder::notebook_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

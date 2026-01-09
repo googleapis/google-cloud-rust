@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
 /// let client = RecaptchaEnterpriseService::builder().build().await?;
 /// // use `client` to make requests to the reCAPTCHA Enterprise API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl RecaptchaEnterpriseService {
     /// Returns a builder for [RecaptchaEnterpriseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_recaptchaenterprise_v1::client::RecaptchaEnterpriseService;
     /// let client = RecaptchaEnterpriseService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::recaptcha_enterprise_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

@@ -22,7 +22,7 @@ pub mod data_foundry_service {
     /// A builder for [DataFoundryService][crate::client::DataFoundryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::data_foundry_service::ClientBuilder;
     /// # use client::DataFoundryService;
@@ -30,7 +30,7 @@ pub mod data_foundry_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -76,14 +76,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::generate_synthetic_data][crate::client::DataFoundryService::generate_synthetic_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::GenerateSyntheticData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GenerateSyntheticData;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateSyntheticData {
     ///   # panic!();
@@ -203,10 +202,9 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::list_locations][crate::client::DataFoundryService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -214,7 +212,7 @@ pub mod data_foundry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -313,14 +311,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::get_location][crate::client::DataFoundryService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -374,14 +371,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::set_iam_policy][crate::client::DataFoundryService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -477,14 +473,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::get_iam_policy][crate::client::DataFoundryService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -558,14 +553,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::test_iam_permissions][crate::client::DataFoundryService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -637,10 +631,9 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::list_operations][crate::client::DataFoundryService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -648,7 +641,7 @@ pub mod data_foundry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -755,14 +748,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::get_operation][crate::client::DataFoundryService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -819,14 +811,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::delete_operation][crate::client::DataFoundryService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -883,14 +874,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::cancel_operation][crate::client::DataFoundryService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -947,14 +937,13 @@ pub mod data_foundry_service {
     /// The request builder for [DataFoundryService::wait_operation][crate::client::DataFoundryService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::data_foundry_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::data_foundry_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -1035,7 +1024,7 @@ pub mod dataset_service {
     /// A builder for [DatasetService][crate::client::DatasetService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::dataset_service::ClientBuilder;
     /// # use client::DatasetService;
@@ -1043,7 +1032,7 @@ pub mod dataset_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1089,15 +1078,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::create_dataset][crate::client::DatasetService::create_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::CreateDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataset {
     ///   # panic!();
@@ -1216,14 +1204,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_dataset][crate::client::DatasetService::get_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataset {
     ///   # panic!();
@@ -1297,14 +1284,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::update_dataset][crate::client::DatasetService::update_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::UpdateDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::UpdateDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataset {
     ///   # panic!();
@@ -1396,10 +1382,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_datasets][crate::client::DatasetService::list_datasets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListDatasets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDatasets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1407,7 +1392,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatasets {
     ///   # panic!();
@@ -1529,15 +1514,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::delete_dataset][crate::client::DatasetService::delete_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::DeleteDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataset {
     ///   # panic!();
@@ -1634,15 +1618,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::import_data][crate::client::DatasetService::import_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ImportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ImportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportData {
     ///   # panic!();
@@ -1752,15 +1735,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::export_data][crate::client::DatasetService::export_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ExportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ExportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportData {
     ///   # panic!();
@@ -1879,15 +1861,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::create_dataset_version][crate::client::DatasetService::create_dataset_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::CreateDatasetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::CreateDatasetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDatasetVersion {
     ///   # panic!();
@@ -2011,14 +1992,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::update_dataset_version][crate::client::DatasetService::update_dataset_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::UpdateDatasetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::UpdateDatasetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDatasetVersion {
     ///   # panic!();
@@ -2113,15 +2093,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::delete_dataset_version][crate::client::DatasetService::delete_dataset_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::DeleteDatasetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteDatasetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDatasetVersion {
     ///   # panic!();
@@ -2221,14 +2200,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_dataset_version][crate::client::DatasetService::get_dataset_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetDatasetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetDatasetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatasetVersion {
     ///   # panic!();
@@ -2305,10 +2283,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_dataset_versions][crate::client::DatasetService::list_dataset_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListDatasetVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDatasetVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2316,7 +2293,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatasetVersions {
     ///   # panic!();
@@ -2443,15 +2420,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::restore_dataset_version][crate::client::DatasetService::restore_dataset_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::RestoreDatasetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::RestoreDatasetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreDatasetVersion {
     ///   # panic!();
@@ -2553,10 +2529,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_data_items][crate::client::DatasetService::list_data_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListDataItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListDataItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2564,7 +2539,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataItems {
     ///   # panic!();
@@ -2686,10 +2661,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::search_data_items][crate::client::DatasetService::search_data_items] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::SearchDataItems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::SearchDataItems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2697,7 +2671,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchDataItems {
     ///   # panic!();
@@ -2899,10 +2873,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_saved_queries][crate::client::DatasetService::list_saved_queries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListSavedQueries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListSavedQueries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2910,7 +2883,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSavedQueries {
     ///   # panic!();
@@ -3035,15 +3008,14 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::delete_saved_query][crate::client::DatasetService::delete_saved_query] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::DeleteSavedQuery;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteSavedQuery;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSavedQuery {
     ///   # panic!();
@@ -3143,14 +3115,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_annotation_spec][crate::client::DatasetService::get_annotation_spec] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetAnnotationSpec;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetAnnotationSpec;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAnnotationSpec {
     ///   # panic!();
@@ -3227,10 +3198,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_annotations][crate::client::DatasetService::list_annotations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListAnnotations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListAnnotations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3238,7 +3208,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAnnotations {
     ///   # panic!();
@@ -3360,10 +3330,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_locations][crate::client::DatasetService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3371,7 +3340,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3470,14 +3439,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_location][crate::client::DatasetService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3531,14 +3499,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::set_iam_policy][crate::client::DatasetService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3634,14 +3601,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_iam_policy][crate::client::DatasetService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3715,14 +3681,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::test_iam_permissions][crate::client::DatasetService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -3794,10 +3759,9 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::list_operations][crate::client::DatasetService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3805,7 +3769,7 @@ pub mod dataset_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3912,14 +3876,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::get_operation][crate::client::DatasetService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3976,14 +3939,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::delete_operation][crate::client::DatasetService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4040,14 +4002,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::cancel_operation][crate::client::DatasetService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -4104,14 +4065,13 @@ pub mod dataset_service {
     /// The request builder for [DatasetService::wait_operation][crate::client::DatasetService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::dataset_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::dataset_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -4192,7 +4152,7 @@ pub mod deployment_resource_pool_service {
     /// A builder for [DeploymentResourcePoolService][crate::client::DeploymentResourcePoolService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::deployment_resource_pool_service::ClientBuilder;
     /// # use client::DeploymentResourcePoolService;
@@ -4200,7 +4160,7 @@ pub mod deployment_resource_pool_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4246,15 +4206,14 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::create_deployment_resource_pool][crate::client::DeploymentResourcePoolService::create_deployment_resource_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::CreateDeploymentResourcePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::CreateDeploymentResourcePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDeploymentResourcePool {
     ///   # panic!();
@@ -4391,14 +4350,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::get_deployment_resource_pool][crate::client::DeploymentResourcePoolService::get_deployment_resource_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::GetDeploymentResourcePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetDeploymentResourcePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDeploymentResourcePool {
     ///   # panic!();
@@ -4459,10 +4417,9 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::list_deployment_resource_pools][crate::client::DeploymentResourcePoolService::list_deployment_resource_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::ListDeploymentResourcePools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListDeploymentResourcePools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4470,7 +4427,7 @@ pub mod deployment_resource_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDeploymentResourcePools {
     ///   # panic!();
@@ -4571,15 +4528,14 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::update_deployment_resource_pool][crate::client::DeploymentResourcePoolService::update_deployment_resource_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::UpdateDeploymentResourcePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::UpdateDeploymentResourcePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDeploymentResourcePool {
     ///   # panic!();
@@ -4719,15 +4675,14 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::delete_deployment_resource_pool][crate::client::DeploymentResourcePoolService::delete_deployment_resource_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::DeleteDeploymentResourcePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::DeleteDeploymentResourcePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDeploymentResourcePool {
     ///   # panic!();
@@ -4829,10 +4784,9 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::query_deployed_models][crate::client::DeploymentResourcePoolService::query_deployed_models] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::QueryDeployedModels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::QueryDeployedModels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4840,7 +4794,7 @@ pub mod deployment_resource_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryDeployedModels {
     ///   # panic!();
@@ -4937,10 +4891,9 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::list_locations][crate::client::DeploymentResourcePoolService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4948,7 +4901,7 @@ pub mod deployment_resource_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5047,14 +5000,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::get_location][crate::client::DeploymentResourcePoolService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5108,14 +5060,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::set_iam_policy][crate::client::DeploymentResourcePoolService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5211,14 +5162,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::get_iam_policy][crate::client::DeploymentResourcePoolService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5292,14 +5242,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::test_iam_permissions][crate::client::DeploymentResourcePoolService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5371,10 +5320,9 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::list_operations][crate::client::DeploymentResourcePoolService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5382,7 +5330,7 @@ pub mod deployment_resource_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5489,14 +5437,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::get_operation][crate::client::DeploymentResourcePoolService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5553,14 +5500,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::delete_operation][crate::client::DeploymentResourcePoolService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5617,14 +5563,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::cancel_operation][crate::client::DeploymentResourcePoolService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -5681,14 +5626,13 @@ pub mod deployment_resource_pool_service {
     /// The request builder for [DeploymentResourcePoolService::wait_operation][crate::client::DeploymentResourcePoolService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::deployment_resource_pool_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::deployment_resource_pool_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -5769,7 +5713,7 @@ pub mod endpoint_service {
     /// A builder for [EndpointService][crate::client::EndpointService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::endpoint_service::ClientBuilder;
     /// # use client::EndpointService;
@@ -5777,7 +5721,7 @@ pub mod endpoint_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5823,15 +5767,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::create_endpoint][crate::client::EndpointService::create_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::CreateEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::CreateEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEndpoint {
     ///   # panic!();
@@ -5956,14 +5899,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::get_endpoint][crate::client::EndpointService::get_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::GetEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEndpoint {
     ///   # panic!();
@@ -6019,10 +5961,9 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::list_endpoints][crate::client::EndpointService::list_endpoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::ListEndpoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListEndpoints;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6030,7 +5971,7 @@ pub mod endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEndpoints {
     ///   # panic!();
@@ -6152,14 +6093,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::update_endpoint][crate::client::EndpointService::update_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::UpdateEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UpdateEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEndpoint {
     ///   # panic!();
@@ -6251,15 +6191,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::update_endpoint_long_running][crate::client::EndpointService::update_endpoint_long_running] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::UpdateEndpointLongRunning;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UpdateEndpointLongRunning;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEndpointLongRunning {
     ///   # panic!();
@@ -6375,15 +6314,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::delete_endpoint][crate::client::EndpointService::delete_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::DeleteEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeleteEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEndpoint {
     ///   # panic!();
@@ -6480,15 +6418,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::deploy_model][crate::client::EndpointService::deploy_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::DeployModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeployModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeployModel {
     ///   # panic!();
@@ -6621,15 +6558,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::undeploy_model][crate::client::EndpointService::undeploy_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::UndeployModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::UndeployModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeployModel {
     ///   # panic!();
@@ -6748,15 +6684,14 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::mutate_deployed_model][crate::client::EndpointService::mutate_deployed_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::MutateDeployedModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::MutateDeployedModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MutateDeployedModel {
     ///   # panic!();
@@ -6902,10 +6837,9 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::list_locations][crate::client::EndpointService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6913,7 +6847,7 @@ pub mod endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -7012,14 +6946,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::get_location][crate::client::EndpointService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -7073,14 +7006,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::set_iam_policy][crate::client::EndpointService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -7176,14 +7108,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::get_iam_policy][crate::client::EndpointService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -7257,14 +7188,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::test_iam_permissions][crate::client::EndpointService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -7336,10 +7266,9 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::list_operations][crate::client::EndpointService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7347,7 +7276,7 @@ pub mod endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7454,14 +7383,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::get_operation][crate::client::EndpointService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7518,14 +7446,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::delete_operation][crate::client::EndpointService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7582,14 +7509,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::cancel_operation][crate::client::EndpointService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7646,14 +7572,13 @@ pub mod endpoint_service {
     /// The request builder for [EndpointService::wait_operation][crate::client::EndpointService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::endpoint_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::endpoint_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -7734,7 +7659,7 @@ pub mod evaluation_service {
     /// A builder for [EvaluationService][crate::client::EvaluationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::evaluation_service::ClientBuilder;
     /// # use client::EvaluationService;
@@ -7742,7 +7667,7 @@ pub mod evaluation_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7788,14 +7713,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::evaluate_instances][crate::client::EvaluationService::evaluate_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::EvaluateInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::EvaluateInstances;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EvaluateInstances {
     ///   # panic!();
@@ -8242,10 +8166,9 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::list_locations][crate::client::EvaluationService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8253,7 +8176,7 @@ pub mod evaluation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -8352,14 +8275,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::get_location][crate::client::EvaluationService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -8413,14 +8335,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::set_iam_policy][crate::client::EvaluationService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -8516,14 +8437,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::get_iam_policy][crate::client::EvaluationService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -8597,14 +8517,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::test_iam_permissions][crate::client::EvaluationService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -8676,10 +8595,9 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::list_operations][crate::client::EvaluationService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8687,7 +8605,7 @@ pub mod evaluation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -8794,14 +8712,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::get_operation][crate::client::EvaluationService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -8858,14 +8775,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::delete_operation][crate::client::EvaluationService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -8922,14 +8838,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::cancel_operation][crate::client::EvaluationService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -8986,14 +8901,13 @@ pub mod evaluation_service {
     /// The request builder for [EvaluationService::wait_operation][crate::client::EvaluationService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::evaluation_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::evaluation_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -9074,7 +8988,7 @@ pub mod feature_online_store_admin_service {
     /// A builder for [FeatureOnlineStoreAdminService][crate::client::FeatureOnlineStoreAdminService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_online_store_admin_service::ClientBuilder;
     /// # use client::FeatureOnlineStoreAdminService;
@@ -9082,7 +8996,7 @@ pub mod feature_online_store_admin_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9128,15 +9042,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::create_feature_online_store][crate::client::FeatureOnlineStoreAdminService::create_feature_online_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::CreateFeatureOnlineStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureOnlineStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeatureOnlineStore {
     ///   # panic!();
@@ -9270,14 +9183,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_feature_online_store][crate::client::FeatureOnlineStoreAdminService::get_feature_online_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetFeatureOnlineStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureOnlineStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeatureOnlineStore {
     ///   # panic!();
@@ -9336,10 +9248,9 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::list_feature_online_stores][crate::client::FeatureOnlineStoreAdminService::list_feature_online_stores] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::ListFeatureOnlineStores;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureOnlineStores;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9347,7 +9258,7 @@ pub mod feature_online_store_admin_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatureOnlineStores {
     ///   # panic!();
@@ -9460,15 +9371,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::update_feature_online_store][crate::client::FeatureOnlineStoreAdminService::update_feature_online_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::UpdateFeatureOnlineStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureOnlineStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeatureOnlineStore {
     ///   # panic!();
@@ -9604,15 +9514,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::delete_feature_online_store][crate::client::FeatureOnlineStoreAdminService::delete_feature_online_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::DeleteFeatureOnlineStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureOnlineStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeatureOnlineStore {
     ///   # panic!();
@@ -9720,15 +9629,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::create_feature_view][crate::client::FeatureOnlineStoreAdminService::create_feature_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::CreateFeatureView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CreateFeatureView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeatureView {
     ///   # panic!();
@@ -9864,14 +9772,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_feature_view][crate::client::FeatureOnlineStoreAdminService::get_feature_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetFeatureView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeatureView {
     ///   # panic!();
@@ -9927,10 +9834,9 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::list_feature_views][crate::client::FeatureOnlineStoreAdminService::list_feature_views] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::ListFeatureViews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureViews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9938,7 +9844,7 @@ pub mod feature_online_store_admin_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatureViews {
     ///   # panic!();
@@ -10045,15 +9951,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::update_feature_view][crate::client::FeatureOnlineStoreAdminService::update_feature_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::UpdateFeatureView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::UpdateFeatureView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeatureView {
     ///   # panic!();
@@ -10185,15 +10090,14 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::delete_feature_view][crate::client::FeatureOnlineStoreAdminService::delete_feature_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::DeleteFeatureView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteFeatureView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeatureView {
     ///   # panic!();
@@ -10293,14 +10197,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::sync_feature_view][crate::client::FeatureOnlineStoreAdminService::sync_feature_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::SyncFeatureView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::SyncFeatureView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SyncFeatureView {
     ///   # panic!();
@@ -10356,14 +10259,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_feature_view_sync][crate::client::FeatureOnlineStoreAdminService::get_feature_view_sync] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetFeatureViewSync;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetFeatureViewSync;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeatureViewSync {
     ///   # panic!();
@@ -10422,10 +10324,9 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::list_feature_view_syncs][crate::client::FeatureOnlineStoreAdminService::list_feature_view_syncs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::ListFeatureViewSyncs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListFeatureViewSyncs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10433,7 +10334,7 @@ pub mod feature_online_store_admin_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatureViewSyncs {
     ///   # panic!();
@@ -10542,10 +10443,9 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::list_locations][crate::client::FeatureOnlineStoreAdminService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10553,7 +10453,7 @@ pub mod feature_online_store_admin_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -10652,14 +10552,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_location][crate::client::FeatureOnlineStoreAdminService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -10713,14 +10612,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::set_iam_policy][crate::client::FeatureOnlineStoreAdminService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -10816,14 +10714,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_iam_policy][crate::client::FeatureOnlineStoreAdminService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -10897,14 +10794,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::test_iam_permissions][crate::client::FeatureOnlineStoreAdminService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -10976,10 +10872,9 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::list_operations][crate::client::FeatureOnlineStoreAdminService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10987,7 +10882,7 @@ pub mod feature_online_store_admin_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -11094,14 +10989,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::get_operation][crate::client::FeatureOnlineStoreAdminService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -11158,14 +11052,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::delete_operation][crate::client::FeatureOnlineStoreAdminService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -11222,14 +11115,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::cancel_operation][crate::client::FeatureOnlineStoreAdminService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -11286,14 +11178,13 @@ pub mod feature_online_store_admin_service {
     /// The request builder for [FeatureOnlineStoreAdminService::wait_operation][crate::client::FeatureOnlineStoreAdminService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_admin_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_admin_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -11374,7 +11265,7 @@ pub mod feature_online_store_service {
     /// A builder for [FeatureOnlineStoreService][crate::client::FeatureOnlineStoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_online_store_service::ClientBuilder;
     /// # use client::FeatureOnlineStoreService;
@@ -11382,7 +11273,7 @@ pub mod feature_online_store_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -11428,14 +11319,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::fetch_feature_values][crate::client::FeatureOnlineStoreService::fetch_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::FetchFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::FetchFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchFeatureValues {
     ///   # panic!();
@@ -11521,14 +11411,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::search_nearest_entities][crate::client::FeatureOnlineStoreService::search_nearest_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::SearchNearestEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::SearchNearestEntities;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchNearestEntities {
     ///   # panic!();
@@ -11615,14 +11504,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::generate_fetch_access_token][crate::client::FeatureOnlineStoreService::generate_fetch_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::GenerateFetchAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GenerateFetchAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateFetchAccessToken {
     ///   # panic!();
@@ -11681,10 +11569,9 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::list_locations][crate::client::FeatureOnlineStoreService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11692,7 +11579,7 @@ pub mod feature_online_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -11791,14 +11678,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::get_location][crate::client::FeatureOnlineStoreService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -11852,14 +11738,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::set_iam_policy][crate::client::FeatureOnlineStoreService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -11955,14 +11840,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::get_iam_policy][crate::client::FeatureOnlineStoreService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -12036,14 +11920,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::test_iam_permissions][crate::client::FeatureOnlineStoreService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -12115,10 +11998,9 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::list_operations][crate::client::FeatureOnlineStoreService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12126,7 +12008,7 @@ pub mod feature_online_store_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -12233,14 +12115,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::get_operation][crate::client::FeatureOnlineStoreService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -12297,14 +12178,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::delete_operation][crate::client::FeatureOnlineStoreService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -12361,14 +12241,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::cancel_operation][crate::client::FeatureOnlineStoreService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -12425,14 +12304,13 @@ pub mod feature_online_store_service {
     /// The request builder for [FeatureOnlineStoreService::wait_operation][crate::client::FeatureOnlineStoreService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_online_store_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_online_store_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -12513,7 +12391,7 @@ pub mod feature_registry_service {
     /// A builder for [FeatureRegistryService][crate::client::FeatureRegistryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::feature_registry_service::ClientBuilder;
     /// # use client::FeatureRegistryService;
@@ -12521,7 +12399,7 @@ pub mod feature_registry_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -12567,15 +12445,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::create_feature_group][crate::client::FeatureRegistryService::create_feature_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::CreateFeatureGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeatureGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeatureGroup {
     ///   # panic!();
@@ -12707,14 +12584,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::get_feature_group][crate::client::FeatureRegistryService::get_feature_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::GetFeatureGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetFeatureGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeatureGroup {
     ///   # panic!();
@@ -12770,10 +12646,9 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::list_feature_groups][crate::client::FeatureRegistryService::list_feature_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::ListFeatureGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListFeatureGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12781,7 +12656,7 @@ pub mod feature_registry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatureGroups {
     ///   # panic!();
@@ -12888,15 +12763,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::update_feature_group][crate::client::FeatureRegistryService::update_feature_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::UpdateFeatureGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeatureGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeatureGroup {
     ///   # panic!();
@@ -13030,15 +12904,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::delete_feature_group][crate::client::FeatureRegistryService::delete_feature_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::DeleteFeatureGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeatureGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeatureGroup {
     ///   # panic!();
@@ -13144,15 +13017,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::create_feature][crate::client::FeatureRegistryService::create_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::CreateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CreateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeature {
     ///   # panic!();
@@ -13279,15 +13151,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::batch_create_features][crate::client::FeatureRegistryService::batch_create_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::BatchCreateFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::BatchCreateFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateFeatures {
     ///   # panic!();
@@ -13402,14 +13273,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::get_feature][crate::client::FeatureRegistryService::get_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::GetFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetFeature;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeature {
     ///   # panic!();
@@ -13465,10 +13335,9 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::list_features][crate::client::FeatureRegistryService::list_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::ListFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13476,7 +13345,7 @@ pub mod feature_registry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatures {
     ///   # panic!();
@@ -13604,15 +13473,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::update_feature][crate::client::FeatureRegistryService::update_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::UpdateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::UpdateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeature {
     ///   # panic!();
@@ -13741,15 +13609,14 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::delete_feature][crate::client::FeatureRegistryService::delete_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::DeleteFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeature {
     ///   # panic!();
@@ -13846,10 +13713,9 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::list_locations][crate::client::FeatureRegistryService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13857,7 +13723,7 @@ pub mod feature_registry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -13956,14 +13822,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::get_location][crate::client::FeatureRegistryService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -14017,14 +13882,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::set_iam_policy][crate::client::FeatureRegistryService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -14120,14 +13984,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::get_iam_policy][crate::client::FeatureRegistryService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -14201,14 +14064,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::test_iam_permissions][crate::client::FeatureRegistryService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -14280,10 +14142,9 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::list_operations][crate::client::FeatureRegistryService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14291,7 +14152,7 @@ pub mod feature_registry_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -14398,14 +14259,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::get_operation][crate::client::FeatureRegistryService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -14462,14 +14322,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::delete_operation][crate::client::FeatureRegistryService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -14526,14 +14385,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::cancel_operation][crate::client::FeatureRegistryService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -14590,14 +14448,13 @@ pub mod feature_registry_service {
     /// The request builder for [FeatureRegistryService::wait_operation][crate::client::FeatureRegistryService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::feature_registry_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::feature_registry_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -14678,7 +14535,7 @@ pub mod featurestore_online_serving_service {
     /// A builder for [FeaturestoreOnlineServingService][crate::client::FeaturestoreOnlineServingService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::featurestore_online_serving_service::ClientBuilder;
     /// # use client::FeaturestoreOnlineServingService;
@@ -14686,7 +14543,7 @@ pub mod featurestore_online_serving_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -14732,14 +14589,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::read_feature_values][crate::client::FeaturestoreOnlineServingService::read_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::ReadFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ReadFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadFeatureValues {
     ///   # panic!();
@@ -14828,14 +14684,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::write_feature_values][crate::client::FeaturestoreOnlineServingService::write_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::WriteFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::WriteFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteFeatureValues {
     ///   # panic!();
@@ -14907,10 +14762,9 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::list_locations][crate::client::FeaturestoreOnlineServingService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14918,7 +14772,7 @@ pub mod featurestore_online_serving_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -15017,14 +14871,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::get_location][crate::client::FeaturestoreOnlineServingService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -15078,14 +14931,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::set_iam_policy][crate::client::FeaturestoreOnlineServingService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -15181,14 +15033,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::get_iam_policy][crate::client::FeaturestoreOnlineServingService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -15262,14 +15113,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::test_iam_permissions][crate::client::FeaturestoreOnlineServingService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -15341,10 +15191,9 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::list_operations][crate::client::FeaturestoreOnlineServingService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15352,7 +15201,7 @@ pub mod featurestore_online_serving_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -15459,14 +15308,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::get_operation][crate::client::FeaturestoreOnlineServingService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -15523,14 +15371,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::delete_operation][crate::client::FeaturestoreOnlineServingService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -15587,14 +15434,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::cancel_operation][crate::client::FeaturestoreOnlineServingService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -15651,14 +15497,13 @@ pub mod featurestore_online_serving_service {
     /// The request builder for [FeaturestoreOnlineServingService::wait_operation][crate::client::FeaturestoreOnlineServingService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_online_serving_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_online_serving_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -15739,7 +15584,7 @@ pub mod featurestore_service {
     /// A builder for [FeaturestoreService][crate::client::FeaturestoreService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::featurestore_service::ClientBuilder;
     /// # use client::FeaturestoreService;
@@ -15747,7 +15592,7 @@ pub mod featurestore_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -15793,15 +15638,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::create_featurestore][crate::client::FeaturestoreService::create_featurestore] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::CreateFeaturestore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeaturestore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeaturestore {
     ///   # panic!();
@@ -15933,14 +15777,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_featurestore][crate::client::FeaturestoreService::get_featurestore] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetFeaturestore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetFeaturestore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeaturestore {
     ///   # panic!();
@@ -15996,10 +15839,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::list_featurestores][crate::client::FeaturestoreService::list_featurestores] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ListFeaturestores;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListFeaturestores;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16007,7 +15849,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeaturestores {
     ///   # panic!();
@@ -16132,15 +15974,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::update_featurestore][crate::client::FeaturestoreService::update_featurestore] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::UpdateFeaturestore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateFeaturestore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeaturestore {
     ///   # panic!();
@@ -16274,15 +16115,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::delete_featurestore][crate::client::FeaturestoreService::delete_featurestore] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::DeleteFeaturestore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeaturestore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeaturestore {
     ///   # panic!();
@@ -16388,15 +16228,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::create_entity_type][crate::client::FeaturestoreService::create_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::CreateEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntityType {
     ///   # panic!();
@@ -16522,14 +16361,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_entity_type][crate::client::FeaturestoreService::get_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntityType {
     ///   # panic!();
@@ -16585,10 +16423,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::list_entity_types][crate::client::FeaturestoreService::list_entity_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ListEntityTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListEntityTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16596,7 +16433,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntityTypes {
     ///   # panic!();
@@ -16718,14 +16555,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::update_entity_type][crate::client::FeaturestoreService::update_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::UpdateEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntityType {
     ///   # panic!();
@@ -16816,15 +16652,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::delete_entity_type][crate::client::FeaturestoreService::delete_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::DeleteEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntityType {
     ///   # panic!();
@@ -16930,15 +16765,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::create_feature][crate::client::FeaturestoreService::create_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::CreateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CreateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFeature {
     ///   # panic!();
@@ -17065,15 +16899,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::batch_create_features][crate::client::FeaturestoreService::batch_create_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::BatchCreateFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchCreateFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateFeatures {
     ///   # panic!();
@@ -17188,14 +17021,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_feature][crate::client::FeaturestoreService::get_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetFeature;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFeature {
     ///   # panic!();
@@ -17251,10 +17083,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::list_features][crate::client::FeaturestoreService::list_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ListFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17262,7 +17093,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFeatures {
     ///   # panic!();
@@ -17390,14 +17221,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::update_feature][crate::client::FeaturestoreService::update_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::UpdateFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::UpdateFeature;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFeature {
     ///   # panic!();
@@ -17485,15 +17315,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::delete_feature][crate::client::FeaturestoreService::delete_feature] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::DeleteFeature;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeature;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeature {
     ///   # panic!();
@@ -17590,15 +17419,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::import_feature_values][crate::client::FeaturestoreService::import_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ImportFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ImportFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportFeatureValues {
     ///   # panic!();
@@ -17830,15 +17658,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::batch_read_feature_values][crate::client::FeaturestoreService::batch_read_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::BatchReadFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::BatchReadFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchReadFeatureValues {
     ///   # panic!();
@@ -18050,15 +17877,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::export_feature_values][crate::client::FeaturestoreService::export_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ExportFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ExportFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportFeatureValues {
     ///   # panic!();
@@ -18261,15 +18087,14 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::delete_feature_values][crate::client::FeaturestoreService::delete_feature_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::DeleteFeatureValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteFeatureValues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFeatureValues {
     ///   # panic!();
@@ -18421,10 +18246,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::search_features][crate::client::FeaturestoreService::search_features] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::SearchFeatures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::SearchFeatures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18432,7 +18256,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchFeatures {
     ///   # panic!();
@@ -18530,10 +18354,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::list_locations][crate::client::FeaturestoreService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18541,7 +18364,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -18640,14 +18463,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_location][crate::client::FeaturestoreService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -18701,14 +18523,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::set_iam_policy][crate::client::FeaturestoreService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -18804,14 +18625,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_iam_policy][crate::client::FeaturestoreService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -18885,14 +18705,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::test_iam_permissions][crate::client::FeaturestoreService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -18964,10 +18783,9 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::list_operations][crate::client::FeaturestoreService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18975,7 +18793,7 @@ pub mod featurestore_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -19082,14 +18900,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::get_operation][crate::client::FeaturestoreService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -19146,14 +18963,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::delete_operation][crate::client::FeaturestoreService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -19210,14 +19026,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::cancel_operation][crate::client::FeaturestoreService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -19274,14 +19089,13 @@ pub mod featurestore_service {
     /// The request builder for [FeaturestoreService::wait_operation][crate::client::FeaturestoreService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::featurestore_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::featurestore_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -19362,7 +19176,7 @@ pub mod gen_ai_cache_service {
     /// A builder for [GenAiCacheService][crate::client::GenAiCacheService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::gen_ai_cache_service::ClientBuilder;
     /// # use client::GenAiCacheService;
@@ -19370,7 +19184,7 @@ pub mod gen_ai_cache_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -19416,14 +19230,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::create_cached_content][crate::client::GenAiCacheService::create_cached_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::CreateCachedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::CreateCachedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCachedContent {
     ///   # panic!();
@@ -19504,14 +19317,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::get_cached_content][crate::client::GenAiCacheService::get_cached_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::GetCachedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetCachedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCachedContent {
     ///   # panic!();
@@ -19570,14 +19382,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::update_cached_content][crate::client::GenAiCacheService::update_cached_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::UpdateCachedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::UpdateCachedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCachedContent {
     ///   # panic!();
@@ -19672,14 +19483,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::delete_cached_content][crate::client::GenAiCacheService::delete_cached_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::DeleteCachedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::DeleteCachedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCachedContent {
     ///   # panic!();
@@ -19738,10 +19548,9 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::list_cached_contents][crate::client::GenAiCacheService::list_cached_contents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::ListCachedContents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListCachedContents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19749,7 +19558,7 @@ pub mod gen_ai_cache_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCachedContents {
     ///   # panic!();
@@ -19846,10 +19655,9 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::list_locations][crate::client::GenAiCacheService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19857,7 +19665,7 @@ pub mod gen_ai_cache_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -19956,14 +19764,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::get_location][crate::client::GenAiCacheService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -20017,14 +19824,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::set_iam_policy][crate::client::GenAiCacheService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -20120,14 +19926,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::get_iam_policy][crate::client::GenAiCacheService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -20201,14 +20006,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::test_iam_permissions][crate::client::GenAiCacheService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -20280,10 +20084,9 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::list_operations][crate::client::GenAiCacheService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20291,7 +20094,7 @@ pub mod gen_ai_cache_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -20398,14 +20201,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::get_operation][crate::client::GenAiCacheService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -20462,14 +20264,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::delete_operation][crate::client::GenAiCacheService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -20526,14 +20327,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::cancel_operation][crate::client::GenAiCacheService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -20590,14 +20390,13 @@ pub mod gen_ai_cache_service {
     /// The request builder for [GenAiCacheService::wait_operation][crate::client::GenAiCacheService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_cache_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_cache_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -20678,7 +20477,7 @@ pub mod gen_ai_tuning_service {
     /// A builder for [GenAiTuningService][crate::client::GenAiTuningService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::gen_ai_tuning_service::ClientBuilder;
     /// # use client::GenAiTuningService;
@@ -20686,7 +20485,7 @@ pub mod gen_ai_tuning_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -20732,14 +20531,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::create_tuning_job][crate::client::GenAiTuningService::create_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::CreateTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CreateTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTuningJob {
     ///   # panic!();
@@ -20817,14 +20615,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::get_tuning_job][crate::client::GenAiTuningService::get_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::GetTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTuningJob {
     ///   # panic!();
@@ -20880,10 +20677,9 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::list_tuning_jobs][crate::client::GenAiTuningService::list_tuning_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::ListTuningJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListTuningJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20891,7 +20687,7 @@ pub mod gen_ai_tuning_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTuningJobs {
     ///   # panic!();
@@ -20989,14 +20785,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::cancel_tuning_job][crate::client::GenAiTuningService::cancel_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::CancelTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CancelTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelTuningJob {
     ///   # panic!();
@@ -21052,15 +20847,14 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::rebase_tuned_model][crate::client::GenAiTuningService::rebase_tuned_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::RebaseTunedModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::RebaseTunedModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RebaseTunedModel {
     ///   # panic!();
@@ -21224,10 +21018,9 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::list_locations][crate::client::GenAiTuningService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21235,7 +21028,7 @@ pub mod gen_ai_tuning_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -21334,14 +21127,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::get_location][crate::client::GenAiTuningService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -21395,14 +21187,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::set_iam_policy][crate::client::GenAiTuningService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -21498,14 +21289,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::get_iam_policy][crate::client::GenAiTuningService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -21579,14 +21369,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::test_iam_permissions][crate::client::GenAiTuningService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -21658,10 +21447,9 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::list_operations][crate::client::GenAiTuningService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21669,7 +21457,7 @@ pub mod gen_ai_tuning_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -21776,14 +21564,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::get_operation][crate::client::GenAiTuningService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -21840,14 +21627,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::delete_operation][crate::client::GenAiTuningService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -21904,14 +21690,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::cancel_operation][crate::client::GenAiTuningService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -21968,14 +21753,13 @@ pub mod gen_ai_tuning_service {
     /// The request builder for [GenAiTuningService::wait_operation][crate::client::GenAiTuningService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::gen_ai_tuning_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::gen_ai_tuning_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -22056,7 +21840,7 @@ pub mod index_endpoint_service {
     /// A builder for [IndexEndpointService][crate::client::IndexEndpointService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::index_endpoint_service::ClientBuilder;
     /// # use client::IndexEndpointService;
@@ -22064,7 +21848,7 @@ pub mod index_endpoint_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -22110,15 +21894,14 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::create_index_endpoint][crate::client::IndexEndpointService::create_index_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::CreateIndexEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::CreateIndexEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIndexEndpoint {
     ///   # panic!();
@@ -22242,14 +22025,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::get_index_endpoint][crate::client::IndexEndpointService::get_index_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::GetIndexEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetIndexEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIndexEndpoint {
     ///   # panic!();
@@ -22308,10 +22090,9 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::list_index_endpoints][crate::client::IndexEndpointService::list_index_endpoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::ListIndexEndpoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListIndexEndpoints;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22319,7 +22100,7 @@ pub mod index_endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIndexEndpoints {
     ///   # panic!();
@@ -22440,14 +22221,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::update_index_endpoint][crate::client::IndexEndpointService::update_index_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::UpdateIndexEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::UpdateIndexEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIndexEndpoint {
     ///   # panic!();
@@ -22542,15 +22322,14 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::delete_index_endpoint][crate::client::IndexEndpointService::delete_index_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::DeleteIndexEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeleteIndexEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIndexEndpoint {
     ///   # panic!();
@@ -22650,15 +22429,14 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::deploy_index][crate::client::IndexEndpointService::deploy_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::DeployIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeployIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeployIndex {
     ///   # panic!();
@@ -22779,15 +22557,14 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::undeploy_index][crate::client::IndexEndpointService::undeploy_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::UndeployIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::UndeployIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeployIndex {
     ///   # panic!();
@@ -22894,15 +22671,14 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::mutate_deployed_index][crate::client::IndexEndpointService::mutate_deployed_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::MutateDeployedIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::MutateDeployedIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MutateDeployedIndex {
     ///   # panic!();
@@ -23026,10 +22802,9 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::list_locations][crate::client::IndexEndpointService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -23037,7 +22812,7 @@ pub mod index_endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -23136,14 +22911,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::get_location][crate::client::IndexEndpointService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -23197,14 +22971,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::set_iam_policy][crate::client::IndexEndpointService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -23300,14 +23073,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::get_iam_policy][crate::client::IndexEndpointService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -23381,14 +23153,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::test_iam_permissions][crate::client::IndexEndpointService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -23460,10 +23231,9 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::list_operations][crate::client::IndexEndpointService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -23471,7 +23241,7 @@ pub mod index_endpoint_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -23578,14 +23348,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::get_operation][crate::client::IndexEndpointService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -23642,14 +23411,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::delete_operation][crate::client::IndexEndpointService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -23706,14 +23474,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::cancel_operation][crate::client::IndexEndpointService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -23770,14 +23537,13 @@ pub mod index_endpoint_service {
     /// The request builder for [IndexEndpointService::wait_operation][crate::client::IndexEndpointService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_endpoint_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_endpoint_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -23858,7 +23624,7 @@ pub mod index_service {
     /// A builder for [IndexService][crate::client::IndexService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::index_service::ClientBuilder;
     /// # use client::IndexService;
@@ -23866,7 +23632,7 @@ pub mod index_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -23912,15 +23678,14 @@ pub mod index_service {
     /// The request builder for [IndexService::create_index][crate::client::IndexService::create_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::CreateIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::CreateIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIndex {
     ///   # panic!();
@@ -24039,14 +23804,13 @@ pub mod index_service {
     /// The request builder for [IndexService::get_index][crate::client::IndexService::get_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::GetIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::GetIndex;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIndex {
     ///   # panic!();
@@ -24102,10 +23866,9 @@ pub mod index_service {
     /// The request builder for [IndexService::list_indexes][crate::client::IndexService::list_indexes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::ListIndexes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::ListIndexes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -24113,7 +23876,7 @@ pub mod index_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIndexes {
     ///   # panic!();
@@ -24229,15 +23992,14 @@ pub mod index_service {
     /// The request builder for [IndexService::update_index][crate::client::IndexService::update_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::UpdateIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::UpdateIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIndex {
     ///   # panic!();
@@ -24366,15 +24128,14 @@ pub mod index_service {
     /// The request builder for [IndexService::delete_index][crate::client::IndexService::delete_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::DeleteIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::DeleteIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIndex {
     ///   # panic!();
@@ -24471,14 +24232,13 @@ pub mod index_service {
     /// The request builder for [IndexService::upsert_datapoints][crate::client::IndexService::upsert_datapoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::UpsertDatapoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::UpsertDatapoints;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpsertDatapoints {
     ///   # panic!();
@@ -24566,14 +24326,13 @@ pub mod index_service {
     /// The request builder for [IndexService::remove_datapoints][crate::client::IndexService::remove_datapoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::RemoveDatapoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::RemoveDatapoints;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveDatapoints {
     ///   # panic!();
@@ -24643,10 +24402,9 @@ pub mod index_service {
     /// The request builder for [IndexService::list_locations][crate::client::IndexService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -24654,7 +24412,7 @@ pub mod index_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -24753,14 +24511,13 @@ pub mod index_service {
     /// The request builder for [IndexService::get_location][crate::client::IndexService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -24814,14 +24571,13 @@ pub mod index_service {
     /// The request builder for [IndexService::set_iam_policy][crate::client::IndexService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -24917,14 +24673,13 @@ pub mod index_service {
     /// The request builder for [IndexService::get_iam_policy][crate::client::IndexService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -24998,14 +24753,13 @@ pub mod index_service {
     /// The request builder for [IndexService::test_iam_permissions][crate::client::IndexService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -25077,10 +24831,9 @@ pub mod index_service {
     /// The request builder for [IndexService::list_operations][crate::client::IndexService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -25088,7 +24841,7 @@ pub mod index_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -25195,14 +24948,13 @@ pub mod index_service {
     /// The request builder for [IndexService::get_operation][crate::client::IndexService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -25259,14 +25011,13 @@ pub mod index_service {
     /// The request builder for [IndexService::delete_operation][crate::client::IndexService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -25323,14 +25074,13 @@ pub mod index_service {
     /// The request builder for [IndexService::cancel_operation][crate::client::IndexService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -25387,14 +25137,13 @@ pub mod index_service {
     /// The request builder for [IndexService::wait_operation][crate::client::IndexService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::index_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::index_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -25475,7 +25224,7 @@ pub mod job_service {
     /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::job_service::ClientBuilder;
     /// # use client::JobService;
@@ -25483,7 +25232,7 @@ pub mod job_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -25529,14 +25278,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_custom_job][crate::client::JobService::create_custom_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateCustomJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateCustomJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCustomJob {
     ///   # panic!();
@@ -25614,14 +25362,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_custom_job][crate::client::JobService::get_custom_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetCustomJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetCustomJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCustomJob {
     ///   # panic!();
@@ -25677,10 +25424,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_custom_jobs][crate::client::JobService::list_custom_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListCustomJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListCustomJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -25688,7 +25434,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCustomJobs {
     ///   # panic!();
@@ -25804,15 +25550,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_custom_job][crate::client::JobService::delete_custom_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteCustomJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteCustomJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCustomJob {
     ///   # panic!();
@@ -25909,14 +25654,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_custom_job][crate::client::JobService::cancel_custom_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelCustomJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelCustomJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelCustomJob {
     ///   # panic!();
@@ -25972,14 +25716,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_data_labeling_job][crate::client::JobService::create_data_labeling_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateDataLabelingJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateDataLabelingJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataLabelingJob {
     ///   # panic!();
@@ -26060,14 +25803,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_data_labeling_job][crate::client::JobService::get_data_labeling_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetDataLabelingJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetDataLabelingJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataLabelingJob {
     ///   # panic!();
@@ -26126,10 +25868,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_data_labeling_jobs][crate::client::JobService::list_data_labeling_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListDataLabelingJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListDataLabelingJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -26137,7 +25878,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataLabelingJobs {
     ///   # panic!();
@@ -26264,15 +26005,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_data_labeling_job][crate::client::JobService::delete_data_labeling_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteDataLabelingJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteDataLabelingJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataLabelingJob {
     ///   # panic!();
@@ -26372,14 +26112,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_data_labeling_job][crate::client::JobService::cancel_data_labeling_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelDataLabelingJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelDataLabelingJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelDataLabelingJob {
     ///   # panic!();
@@ -26438,14 +26177,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_hyperparameter_tuning_job][crate::client::JobService::create_hyperparameter_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateHyperparameterTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateHyperparameterTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateHyperparameterTuningJob {
     ///   # panic!();
@@ -26531,14 +26269,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_hyperparameter_tuning_job][crate::client::JobService::get_hyperparameter_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetHyperparameterTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetHyperparameterTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetHyperparameterTuningJob {
     ///   # panic!();
@@ -26599,10 +26336,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_hyperparameter_tuning_jobs][crate::client::JobService::list_hyperparameter_tuning_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListHyperparameterTuningJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListHyperparameterTuningJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -26610,7 +26346,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListHyperparameterTuningJobs {
     ///   # panic!();
@@ -26735,15 +26471,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_hyperparameter_tuning_job][crate::client::JobService::delete_hyperparameter_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteHyperparameterTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteHyperparameterTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteHyperparameterTuningJob {
     ///   # panic!();
@@ -26845,14 +26580,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_hyperparameter_tuning_job][crate::client::JobService::cancel_hyperparameter_tuning_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelHyperparameterTuningJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelHyperparameterTuningJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelHyperparameterTuningJob {
     ///   # panic!();
@@ -26913,14 +26647,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_nas_job][crate::client::JobService::create_nas_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateNasJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateNasJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNasJob {
     ///   # panic!();
@@ -26998,14 +26731,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_nas_job][crate::client::JobService::get_nas_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetNasJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetNasJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNasJob {
     ///   # panic!();
@@ -27061,10 +26793,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_nas_jobs][crate::client::JobService::list_nas_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListNasJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListNasJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27072,7 +26803,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNasJobs {
     ///   # panic!();
@@ -27188,15 +26919,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_nas_job][crate::client::JobService::delete_nas_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteNasJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteNasJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNasJob {
     ///   # panic!();
@@ -27293,14 +27023,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_nas_job][crate::client::JobService::cancel_nas_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelNasJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelNasJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelNasJob {
     ///   # panic!();
@@ -27356,14 +27085,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_nas_trial_detail][crate::client::JobService::get_nas_trial_detail] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetNasTrialDetail;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetNasTrialDetail;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNasTrialDetail {
     ///   # panic!();
@@ -27422,10 +27150,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_nas_trial_details][crate::client::JobService::list_nas_trial_details] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListNasTrialDetails;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListNasTrialDetails;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27433,7 +27160,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNasTrialDetails {
     ///   # panic!();
@@ -27530,14 +27257,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_batch_prediction_job][crate::client::JobService::create_batch_prediction_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateBatchPredictionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateBatchPredictionJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBatchPredictionJob {
     ///   # panic!();
@@ -27620,14 +27346,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_batch_prediction_job][crate::client::JobService::get_batch_prediction_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetBatchPredictionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetBatchPredictionJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBatchPredictionJob {
     ///   # panic!();
@@ -27686,10 +27411,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_batch_prediction_jobs][crate::client::JobService::list_batch_prediction_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListBatchPredictionJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListBatchPredictionJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -27697,7 +27421,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBatchPredictionJobs {
     ///   # panic!();
@@ -27822,15 +27546,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_batch_prediction_job][crate::client::JobService::delete_batch_prediction_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteBatchPredictionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteBatchPredictionJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBatchPredictionJob {
     ///   # panic!();
@@ -27932,14 +27655,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_batch_prediction_job][crate::client::JobService::cancel_batch_prediction_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelBatchPredictionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelBatchPredictionJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelBatchPredictionJob {
     ///   # panic!();
@@ -28000,14 +27722,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_model_deployment_monitoring_job][crate::client::JobService::create_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CreateModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CreateModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28093,10 +27814,9 @@ pub mod job_service {
     /// The request builder for [JobService::search_model_deployment_monitoring_stats_anomalies][crate::client::JobService::search_model_deployment_monitoring_stats_anomalies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::SearchModelDeploymentMonitoringStatsAnomalies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28104,7 +27824,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchModelDeploymentMonitoringStatsAnomalies {
     ///   # panic!();
@@ -28275,14 +27995,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_model_deployment_monitoring_job][crate::client::JobService::get_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28343,10 +28062,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_model_deployment_monitoring_jobs][crate::client::JobService::list_model_deployment_monitoring_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListModelDeploymentMonitoringJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListModelDeploymentMonitoringJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28354,7 +28072,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModelDeploymentMonitoringJobs {
     ///   # panic!();
@@ -28479,15 +28197,14 @@ pub mod job_service {
     /// The request builder for [JobService::update_model_deployment_monitoring_job][crate::client::JobService::update_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::UpdateModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::UpdateModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28630,15 +28347,14 @@ pub mod job_service {
     /// The request builder for [JobService::delete_model_deployment_monitoring_job][crate::client::JobService::delete_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28740,14 +28456,13 @@ pub mod job_service {
     /// The request builder for [JobService::pause_model_deployment_monitoring_job][crate::client::JobService::pause_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::PauseModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::PauseModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28808,14 +28523,13 @@ pub mod job_service {
     /// The request builder for [JobService::resume_model_deployment_monitoring_job][crate::client::JobService::resume_model_deployment_monitoring_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ResumeModelDeploymentMonitoringJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ResumeModelDeploymentMonitoringJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeModelDeploymentMonitoringJob {
     ///   # panic!();
@@ -28876,10 +28590,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_locations][crate::client::JobService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -28887,7 +28600,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -28986,14 +28699,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_location][crate::client::JobService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -29047,14 +28759,13 @@ pub mod job_service {
     /// The request builder for [JobService::set_iam_policy][crate::client::JobService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -29150,14 +28861,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_iam_policy][crate::client::JobService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -29231,14 +28941,13 @@ pub mod job_service {
     /// The request builder for [JobService::test_iam_permissions][crate::client::JobService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -29310,10 +29019,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_operations][crate::client::JobService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -29321,7 +29029,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -29428,14 +29136,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_operation][crate::client::JobService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -29492,14 +29199,13 @@ pub mod job_service {
     /// The request builder for [JobService::delete_operation][crate::client::JobService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -29556,14 +29262,13 @@ pub mod job_service {
     /// The request builder for [JobService::cancel_operation][crate::client::JobService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -29620,14 +29325,13 @@ pub mod job_service {
     /// The request builder for [JobService::wait_operation][crate::client::JobService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::job_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::job_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -29708,7 +29412,7 @@ pub mod llm_utility_service {
     /// A builder for [LlmUtilityService][crate::client::LlmUtilityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::llm_utility_service::ClientBuilder;
     /// # use client::LlmUtilityService;
@@ -29716,7 +29420,7 @@ pub mod llm_utility_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -29762,14 +29466,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::count_tokens][crate::client::LlmUtilityService::count_tokens] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::CountTokens;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::CountTokens;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CountTokens {
     ///   # panic!();
@@ -29900,14 +29603,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::compute_tokens][crate::client::LlmUtilityService::compute_tokens] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::ComputeTokens;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ComputeTokens;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ComputeTokens {
     ///   # panic!();
@@ -29991,10 +29693,9 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::list_locations][crate::client::LlmUtilityService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -30002,7 +29703,7 @@ pub mod llm_utility_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -30101,14 +29802,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::get_location][crate::client::LlmUtilityService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -30162,14 +29862,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::set_iam_policy][crate::client::LlmUtilityService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -30265,14 +29964,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::get_iam_policy][crate::client::LlmUtilityService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -30346,14 +30044,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::test_iam_permissions][crate::client::LlmUtilityService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -30425,10 +30122,9 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::list_operations][crate::client::LlmUtilityService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -30436,7 +30132,7 @@ pub mod llm_utility_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -30543,14 +30239,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::get_operation][crate::client::LlmUtilityService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -30607,14 +30302,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::delete_operation][crate::client::LlmUtilityService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -30671,14 +30365,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::cancel_operation][crate::client::LlmUtilityService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -30735,14 +30428,13 @@ pub mod llm_utility_service {
     /// The request builder for [LlmUtilityService::wait_operation][crate::client::LlmUtilityService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::llm_utility_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::llm_utility_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -30823,7 +30515,7 @@ pub mod match_service {
     /// A builder for [MatchService][crate::client::MatchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::match_service::ClientBuilder;
     /// # use client::MatchService;
@@ -30831,7 +30523,7 @@ pub mod match_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -30877,14 +30569,13 @@ pub mod match_service {
     /// The request builder for [MatchService::find_neighbors][crate::client::MatchService::find_neighbors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::FindNeighbors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::FindNeighbors;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FindNeighbors {
     ///   # panic!();
@@ -30963,14 +30654,13 @@ pub mod match_service {
     /// The request builder for [MatchService::read_index_datapoints][crate::client::MatchService::read_index_datapoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::ReadIndexDatapoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::ReadIndexDatapoints;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadIndexDatapoints {
     ///   # panic!();
@@ -31046,10 +30736,9 @@ pub mod match_service {
     /// The request builder for [MatchService::list_locations][crate::client::MatchService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -31057,7 +30746,7 @@ pub mod match_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -31156,14 +30845,13 @@ pub mod match_service {
     /// The request builder for [MatchService::get_location][crate::client::MatchService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -31217,14 +30905,13 @@ pub mod match_service {
     /// The request builder for [MatchService::set_iam_policy][crate::client::MatchService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -31320,14 +31007,13 @@ pub mod match_service {
     /// The request builder for [MatchService::get_iam_policy][crate::client::MatchService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -31401,14 +31087,13 @@ pub mod match_service {
     /// The request builder for [MatchService::test_iam_permissions][crate::client::MatchService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -31480,10 +31165,9 @@ pub mod match_service {
     /// The request builder for [MatchService::list_operations][crate::client::MatchService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -31491,7 +31175,7 @@ pub mod match_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -31598,14 +31282,13 @@ pub mod match_service {
     /// The request builder for [MatchService::get_operation][crate::client::MatchService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -31662,14 +31345,13 @@ pub mod match_service {
     /// The request builder for [MatchService::delete_operation][crate::client::MatchService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -31726,14 +31408,13 @@ pub mod match_service {
     /// The request builder for [MatchService::cancel_operation][crate::client::MatchService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -31790,14 +31471,13 @@ pub mod match_service {
     /// The request builder for [MatchService::wait_operation][crate::client::MatchService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::match_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::match_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -31878,7 +31558,7 @@ pub mod metadata_service {
     /// A builder for [MetadataService][crate::client::MetadataService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::metadata_service::ClientBuilder;
     /// # use client::MetadataService;
@@ -31886,7 +31566,7 @@ pub mod metadata_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -31932,15 +31612,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_metadata_store][crate::client::MetadataService::create_metadata_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CreateMetadataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateMetadataStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMetadataStore {
     ///   # panic!();
@@ -32070,14 +31749,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_metadata_store][crate::client::MetadataService::get_metadata_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetMetadataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetMetadataStore;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetadataStore {
     ///   # panic!();
@@ -32136,10 +31814,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_metadata_stores][crate::client::MetadataService::list_metadata_stores] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListMetadataStores;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListMetadataStores;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -32147,7 +31824,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMetadataStores {
     ///   # panic!();
@@ -32244,15 +31921,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_metadata_store][crate::client::MetadataService::delete_metadata_store] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::DeleteMetadataStore;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteMetadataStore;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMetadataStore {
     ///   # panic!();
@@ -32363,14 +32039,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_artifact][crate::client::MetadataService::create_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CreateArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateArtifact {
     ///   # panic!();
@@ -32454,14 +32129,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_artifact][crate::client::MetadataService::get_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetArtifact {
     ///   # panic!();
@@ -32517,10 +32191,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_artifacts][crate::client::MetadataService::list_artifacts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListArtifacts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListArtifacts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -32528,7 +32201,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListArtifacts {
     ///   # panic!();
@@ -32632,14 +32305,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::update_artifact][crate::client::MetadataService::update_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::UpdateArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateArtifact {
     ///   # panic!();
@@ -32733,15 +32405,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_artifact][crate::client::MetadataService::delete_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::DeleteArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteArtifact {
     ///   # panic!();
@@ -32844,15 +32515,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::purge_artifacts][crate::client::MetadataService::purge_artifacts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::PurgeArtifacts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeArtifacts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeArtifacts {
     ///   # panic!();
@@ -32963,14 +32633,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_context][crate::client::MetadataService::create_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CreateContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateContext {
     ///   # panic!();
@@ -33054,14 +32723,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_context][crate::client::MetadataService::get_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetContext {
     ///   # panic!();
@@ -33117,10 +32785,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_contexts][crate::client::MetadataService::list_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListContexts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -33128,7 +32795,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListContexts {
     ///   # panic!();
@@ -33232,14 +32899,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::update_context][crate::client::MetadataService::update_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::UpdateContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateContext {
     ///   # panic!();
@@ -33333,15 +32999,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_context][crate::client::MetadataService::delete_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::DeleteContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteContext;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteContext {
     ///   # panic!();
@@ -33450,15 +33115,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::purge_contexts][crate::client::MetadataService::purge_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::PurgeContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeContexts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeContexts {
     ///   # panic!();
@@ -33569,14 +33233,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::add_context_artifacts_and_executions][crate::client::MetadataService::add_context_artifacts_and_executions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::AddContextArtifactsAndExecutions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddContextArtifactsAndExecutions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddContextArtifactsAndExecutions {
     ///   # panic!();
@@ -33659,14 +33322,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::add_context_children][crate::client::MetadataService::add_context_children] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::AddContextChildren;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddContextChildren;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddContextChildren {
     ///   # panic!();
@@ -33736,14 +33398,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::remove_context_children][crate::client::MetadataService::remove_context_children] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::RemoveContextChildren;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::RemoveContextChildren;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveContextChildren {
     ///   # panic!();
@@ -33813,14 +33474,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::query_context_lineage_subgraph][crate::client::MetadataService::query_context_lineage_subgraph] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::QueryContextLineageSubgraph;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryContextLineageSubgraph;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryContextLineageSubgraph {
     ///   # panic!();
@@ -33881,14 +33541,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_execution][crate::client::MetadataService::create_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CreateExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExecution {
     ///   # panic!();
@@ -33972,14 +33631,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_execution][crate::client::MetadataService::get_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetExecution {
     ///   # panic!();
@@ -34035,10 +33693,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_executions][crate::client::MetadataService::list_executions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListExecutions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListExecutions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -34046,7 +33703,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExecutions {
     ///   # panic!();
@@ -34150,14 +33807,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::update_execution][crate::client::MetadataService::update_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::UpdateExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::UpdateExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateExecution {
     ///   # panic!();
@@ -34251,15 +33907,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_execution][crate::client::MetadataService::delete_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::DeleteExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteExecution;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteExecution {
     ///   # panic!();
@@ -34362,15 +34017,14 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::purge_executions][crate::client::MetadataService::purge_executions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::PurgeExecutions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::PurgeExecutions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeExecutions {
     ///   # panic!();
@@ -34481,14 +34135,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::add_execution_events][crate::client::MetadataService::add_execution_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::AddExecutionEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::AddExecutionEvents;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddExecutionEvents {
     ///   # panic!();
@@ -34558,14 +34211,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::query_execution_inputs_and_outputs][crate::client::MetadataService::query_execution_inputs_and_outputs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::QueryExecutionInputsAndOutputs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryExecutionInputsAndOutputs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryExecutionInputsAndOutputs {
     ///   # panic!();
@@ -34626,14 +34278,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_metadata_schema][crate::client::MetadataService::create_metadata_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CreateMetadataSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CreateMetadataSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMetadataSchema {
     ///   # panic!();
@@ -34720,14 +34371,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_metadata_schema][crate::client::MetadataService::get_metadata_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetMetadataSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetMetadataSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetadataSchema {
     ///   # panic!();
@@ -34786,10 +34436,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_metadata_schemas][crate::client::MetadataService::list_metadata_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListMetadataSchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListMetadataSchemas;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -34797,7 +34446,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMetadataSchemas {
     ///   # panic!();
@@ -34900,14 +34549,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::query_artifact_lineage_subgraph][crate::client::MetadataService::query_artifact_lineage_subgraph] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::QueryArtifactLineageSubgraph;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::QueryArtifactLineageSubgraph;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryArtifactLineageSubgraph {
     ///   # panic!();
@@ -34980,10 +34628,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_locations][crate::client::MetadataService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -34991,7 +34638,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -35090,14 +34737,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_location][crate::client::MetadataService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -35151,14 +34797,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::set_iam_policy][crate::client::MetadataService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -35254,14 +34899,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_iam_policy][crate::client::MetadataService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -35335,14 +34979,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::test_iam_permissions][crate::client::MetadataService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -35414,10 +35057,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_operations][crate::client::MetadataService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -35425,7 +35067,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -35532,14 +35174,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_operation][crate::client::MetadataService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -35596,14 +35237,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_operation][crate::client::MetadataService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -35660,14 +35300,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::cancel_operation][crate::client::MetadataService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -35724,14 +35363,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::wait_operation][crate::client::MetadataService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::metadata_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::metadata_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -35812,7 +35450,7 @@ pub mod migration_service {
     /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::migration_service::ClientBuilder;
     /// # use client::MigrationService;
@@ -35820,7 +35458,7 @@ pub mod migration_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -35866,10 +35504,9 @@ pub mod migration_service {
     /// The request builder for [MigrationService::search_migratable_resources][crate::client::MigrationService::search_migratable_resources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::SearchMigratableResources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::SearchMigratableResources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -35877,7 +35514,7 @@ pub mod migration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchMigratableResources {
     ///   # panic!();
@@ -35984,15 +35621,14 @@ pub mod migration_service {
     /// The request builder for [MigrationService::batch_migrate_resources][crate::client::MigrationService::batch_migrate_resources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::BatchMigrateResources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::BatchMigrateResources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchMigrateResources {
     ///   # panic!();
@@ -36107,10 +35743,9 @@ pub mod migration_service {
     /// The request builder for [MigrationService::list_locations][crate::client::MigrationService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -36118,7 +35753,7 @@ pub mod migration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -36217,14 +35852,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::get_location][crate::client::MigrationService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -36278,14 +35912,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::set_iam_policy][crate::client::MigrationService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -36381,14 +36014,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::get_iam_policy][crate::client::MigrationService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -36462,14 +36094,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::test_iam_permissions][crate::client::MigrationService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -36541,10 +36172,9 @@ pub mod migration_service {
     /// The request builder for [MigrationService::list_operations][crate::client::MigrationService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -36552,7 +36182,7 @@ pub mod migration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -36659,14 +36289,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::get_operation][crate::client::MigrationService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -36723,14 +36352,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::delete_operation][crate::client::MigrationService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -36787,14 +36415,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::cancel_operation][crate::client::MigrationService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -36851,14 +36478,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::wait_operation][crate::client::MigrationService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::migration_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::migration_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -36939,7 +36565,7 @@ pub mod model_garden_service {
     /// A builder for [ModelGardenService][crate::client::ModelGardenService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::model_garden_service::ClientBuilder;
     /// # use client::ModelGardenService;
@@ -36947,7 +36573,7 @@ pub mod model_garden_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -36993,14 +36619,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::get_publisher_model][crate::client::ModelGardenService::get_publisher_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::GetPublisherModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetPublisherModel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPublisherModel {
     ///   # panic!();
@@ -37083,15 +36708,14 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::deploy][crate::client::ModelGardenService::deploy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::Deploy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::Deploy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Deploy {
     ///   # panic!();
@@ -37280,10 +36904,9 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::list_locations][crate::client::ModelGardenService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -37291,7 +36914,7 @@ pub mod model_garden_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -37390,14 +37013,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::get_location][crate::client::ModelGardenService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -37451,14 +37073,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::set_iam_policy][crate::client::ModelGardenService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -37554,14 +37175,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::get_iam_policy][crate::client::ModelGardenService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -37635,14 +37255,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::test_iam_permissions][crate::client::ModelGardenService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -37714,10 +37333,9 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::list_operations][crate::client::ModelGardenService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -37725,7 +37343,7 @@ pub mod model_garden_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -37832,14 +37450,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::get_operation][crate::client::ModelGardenService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -37896,14 +37513,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::delete_operation][crate::client::ModelGardenService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -37960,14 +37576,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::cancel_operation][crate::client::ModelGardenService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -38024,14 +37639,13 @@ pub mod model_garden_service {
     /// The request builder for [ModelGardenService::wait_operation][crate::client::ModelGardenService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_garden_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_garden_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -38112,7 +37726,7 @@ pub mod model_service {
     /// A builder for [ModelService][crate::client::ModelService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::model_service::ClientBuilder;
     /// # use client::ModelService;
@@ -38120,7 +37734,7 @@ pub mod model_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -38166,15 +37780,14 @@ pub mod model_service {
     /// The request builder for [ModelService::upload_model][crate::client::ModelService::upload_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::UploadModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::UploadModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UploadModel {
     ///   # panic!();
@@ -38313,14 +37926,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_model][crate::client::ModelService::get_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetModel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetModel {
     ///   # panic!();
@@ -38376,10 +37988,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_models][crate::client::ModelService::list_models] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListModels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListModels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -38387,7 +37998,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModels {
     ///   # panic!();
@@ -38509,10 +38120,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_model_versions][crate::client::ModelService::list_model_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListModelVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -38520,7 +38130,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModelVersions {
     ///   # panic!();
@@ -38645,10 +38255,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_model_version_checkpoints][crate::client::ModelService::list_model_version_checkpoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListModelVersionCheckpoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelVersionCheckpoints;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -38656,7 +38265,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModelVersionCheckpoints {
     ///   # panic!();
@@ -38757,14 +38366,13 @@ pub mod model_service {
     /// The request builder for [ModelService::update_model][crate::client::ModelService::update_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::UpdateModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::UpdateModel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateModel {
     ///   # panic!();
@@ -38856,15 +38464,14 @@ pub mod model_service {
     /// The request builder for [ModelService::update_explanation_dataset][crate::client::ModelService::update_explanation_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::UpdateExplanationDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::UpdateExplanationDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateExplanationDataset {
     ///   # panic!();
@@ -38986,15 +38593,14 @@ pub mod model_service {
     /// The request builder for [ModelService::delete_model][crate::client::ModelService::delete_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::DeleteModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteModel {
     ///   # panic!();
@@ -39091,15 +38697,14 @@ pub mod model_service {
     /// The request builder for [ModelService::delete_model_version][crate::client::ModelService::delete_model_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::DeleteModelVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteModelVersion;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteModelVersion {
     ///   # panic!();
@@ -39199,14 +38804,13 @@ pub mod model_service {
     /// The request builder for [ModelService::merge_version_aliases][crate::client::ModelService::merge_version_aliases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::MergeVersionAliases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::MergeVersionAliases;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MergeVersionAliases {
     ///   # panic!();
@@ -39278,15 +38882,14 @@ pub mod model_service {
     /// The request builder for [ModelService::export_model][crate::client::ModelService::export_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ExportModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ExportModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportModel {
     ///   # panic!();
@@ -39407,15 +39010,14 @@ pub mod model_service {
     /// The request builder for [ModelService::copy_model][crate::client::ModelService::copy_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::CopyModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::CopyModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CopyModel {
     ///   # panic!();
@@ -39575,14 +39177,13 @@ pub mod model_service {
     /// The request builder for [ModelService::import_model_evaluation][crate::client::ModelService::import_model_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ImportModelEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ImportModelEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportModelEvaluation {
     ///   # panic!();
@@ -39663,14 +39264,13 @@ pub mod model_service {
     /// The request builder for [ModelService::batch_import_model_evaluation_slices][crate::client::ModelService::batch_import_model_evaluation_slices] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::BatchImportModelEvaluationSlices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::BatchImportModelEvaluationSlices;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchImportModelEvaluationSlices {
     ///   # panic!();
@@ -39744,14 +39344,13 @@ pub mod model_service {
     /// The request builder for [ModelService::batch_import_evaluated_annotations][crate::client::ModelService::batch_import_evaluated_annotations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::BatchImportEvaluatedAnnotations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::BatchImportEvaluatedAnnotations;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchImportEvaluatedAnnotations {
     ///   # panic!();
@@ -39825,14 +39424,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_model_evaluation][crate::client::ModelService::get_model_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetModelEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetModelEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetModelEvaluation {
     ///   # panic!();
@@ -39891,10 +39489,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_model_evaluations][crate::client::ModelService::list_model_evaluations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListModelEvaluations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelEvaluations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -39902,7 +39499,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModelEvaluations {
     ///   # panic!();
@@ -40023,14 +39620,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_model_evaluation_slice][crate::client::ModelService::get_model_evaluation_slice] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetModelEvaluationSlice;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetModelEvaluationSlice;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetModelEvaluationSlice {
     ///   # panic!();
@@ -40091,10 +39687,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_model_evaluation_slices][crate::client::ModelService::list_model_evaluation_slices] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListModelEvaluationSlices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListModelEvaluationSlices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40102,7 +39697,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModelEvaluationSlices {
     ///   # panic!();
@@ -40227,10 +39822,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_locations][crate::client::ModelService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40238,7 +39832,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -40337,14 +39931,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_location][crate::client::ModelService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -40398,14 +39991,13 @@ pub mod model_service {
     /// The request builder for [ModelService::set_iam_policy][crate::client::ModelService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -40501,14 +40093,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_iam_policy][crate::client::ModelService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -40582,14 +40173,13 @@ pub mod model_service {
     /// The request builder for [ModelService::test_iam_permissions][crate::client::ModelService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -40661,10 +40251,9 @@ pub mod model_service {
     /// The request builder for [ModelService::list_operations][crate::client::ModelService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -40672,7 +40261,7 @@ pub mod model_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -40779,14 +40368,13 @@ pub mod model_service {
     /// The request builder for [ModelService::get_operation][crate::client::ModelService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -40843,14 +40431,13 @@ pub mod model_service {
     /// The request builder for [ModelService::delete_operation][crate::client::ModelService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -40907,14 +40494,13 @@ pub mod model_service {
     /// The request builder for [ModelService::cancel_operation][crate::client::ModelService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -40971,14 +40557,13 @@ pub mod model_service {
     /// The request builder for [ModelService::wait_operation][crate::client::ModelService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::model_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::model_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -41059,7 +40644,7 @@ pub mod notebook_service {
     /// A builder for [NotebookService][crate::client::NotebookService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::notebook_service::ClientBuilder;
     /// # use client::NotebookService;
@@ -41067,7 +40652,7 @@ pub mod notebook_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -41113,15 +40698,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::create_notebook_runtime_template][crate::client::NotebookService::create_notebook_runtime_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::CreateNotebookRuntimeTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookRuntimeTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNotebookRuntimeTemplate {
     ///   # panic!();
@@ -41259,14 +40843,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_notebook_runtime_template][crate::client::NotebookService::get_notebook_runtime_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetNotebookRuntimeTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookRuntimeTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotebookRuntimeTemplate {
     ///   # panic!();
@@ -41327,10 +40910,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_notebook_runtime_templates][crate::client::NotebookService::list_notebook_runtime_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::ListNotebookRuntimeTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookRuntimeTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -41338,7 +40920,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotebookRuntimeTemplates {
     ///   # panic!();
@@ -41469,15 +41051,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_notebook_runtime_template][crate::client::NotebookService::delete_notebook_runtime_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::DeleteNotebookRuntimeTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntimeTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNotebookRuntimeTemplate {
     ///   # panic!();
@@ -41579,14 +41160,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::update_notebook_runtime_template][crate::client::NotebookService::update_notebook_runtime_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::UpdateNotebookRuntimeTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::UpdateNotebookRuntimeTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateNotebookRuntimeTemplate {
     ///   # panic!();
@@ -41686,15 +41266,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::assign_notebook_runtime][crate::client::NotebookService::assign_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::AssignNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::AssignNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AssignNotebookRuntime {
     ///   # panic!();
@@ -41832,14 +41411,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_notebook_runtime][crate::client::NotebookService::get_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotebookRuntime {
     ///   # panic!();
@@ -41898,10 +41476,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_notebook_runtimes][crate::client::NotebookService::list_notebook_runtimes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::ListNotebookRuntimes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookRuntimes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -41909,7 +41486,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotebookRuntimes {
     ///   # panic!();
@@ -42036,15 +41613,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_notebook_runtime][crate::client::NotebookService::delete_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::DeleteNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNotebookRuntime {
     ///   # panic!();
@@ -42144,15 +41720,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::upgrade_notebook_runtime][crate::client::NotebookService::upgrade_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::UpgradeNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::UpgradeNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpgradeNotebookRuntime {
     ///   # panic!();
@@ -42254,15 +41829,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::start_notebook_runtime][crate::client::NotebookService::start_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::StartNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::StartNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartNotebookRuntime {
     ///   # panic!();
@@ -42364,15 +41938,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::stop_notebook_runtime][crate::client::NotebookService::stop_notebook_runtime] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::StopNotebookRuntime;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::StopNotebookRuntime;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopNotebookRuntime {
     ///   # panic!();
@@ -42474,15 +42047,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::create_notebook_execution_job][crate::client::NotebookService::create_notebook_execution_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::CreateNotebookExecutionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::CreateNotebookExecutionJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNotebookExecutionJob {
     ///   # panic!();
@@ -42614,14 +42186,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_notebook_execution_job][crate::client::NotebookService::get_notebook_execution_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetNotebookExecutionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetNotebookExecutionJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotebookExecutionJob {
     ///   # panic!();
@@ -42688,10 +42259,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_notebook_execution_jobs][crate::client::NotebookService::list_notebook_execution_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::ListNotebookExecutionJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListNotebookExecutionJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -42699,7 +42269,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotebookExecutionJobs {
     ///   # panic!();
@@ -42818,15 +42388,14 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_notebook_execution_job][crate::client::NotebookService::delete_notebook_execution_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::DeleteNotebookExecutionJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteNotebookExecutionJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNotebookExecutionJob {
     ///   # panic!();
@@ -42928,10 +42497,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_locations][crate::client::NotebookService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -42939,7 +42507,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -43038,14 +42606,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_location][crate::client::NotebookService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -43099,14 +42666,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::set_iam_policy][crate::client::NotebookService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -43202,14 +42768,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_iam_policy][crate::client::NotebookService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -43283,14 +42848,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::test_iam_permissions][crate::client::NotebookService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -43362,10 +42926,9 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::list_operations][crate::client::NotebookService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -43373,7 +42936,7 @@ pub mod notebook_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -43480,14 +43043,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::get_operation][crate::client::NotebookService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -43544,14 +43106,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::delete_operation][crate::client::NotebookService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -43608,14 +43169,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::cancel_operation][crate::client::NotebookService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -43672,14 +43232,13 @@ pub mod notebook_service {
     /// The request builder for [NotebookService::wait_operation][crate::client::NotebookService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::notebook_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::notebook_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -43760,7 +43319,7 @@ pub mod persistent_resource_service {
     /// A builder for [PersistentResourceService][crate::client::PersistentResourceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::persistent_resource_service::ClientBuilder;
     /// # use client::PersistentResourceService;
@@ -43768,7 +43327,7 @@ pub mod persistent_resource_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -43814,15 +43373,14 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::create_persistent_resource][crate::client::PersistentResourceService::create_persistent_resource] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::CreatePersistentResource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::CreatePersistentResource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePersistentResource {
     ///   # panic!();
@@ -43956,14 +43514,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::get_persistent_resource][crate::client::PersistentResourceService::get_persistent_resource] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::GetPersistentResource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetPersistentResource;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPersistentResource {
     ///   # panic!();
@@ -44022,10 +43579,9 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::list_persistent_resources][crate::client::PersistentResourceService::list_persistent_resources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::ListPersistentResources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListPersistentResources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -44033,7 +43589,7 @@ pub mod persistent_resource_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPersistentResources {
     ///   # panic!();
@@ -44134,15 +43690,14 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::delete_persistent_resource][crate::client::PersistentResourceService::delete_persistent_resource] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::DeletePersistentResource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::DeletePersistentResource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePersistentResource {
     ///   # panic!();
@@ -44244,15 +43799,14 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::update_persistent_resource][crate::client::PersistentResourceService::update_persistent_resource] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::UpdatePersistentResource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::UpdatePersistentResource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePersistentResource {
     ///   # panic!();
@@ -44392,15 +43946,14 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::reboot_persistent_resource][crate::client::PersistentResourceService::reboot_persistent_resource] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::RebootPersistentResource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::RebootPersistentResource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RebootPersistentResource {
     ///   # panic!();
@@ -44504,10 +44057,9 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::list_locations][crate::client::PersistentResourceService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -44515,7 +44067,7 @@ pub mod persistent_resource_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -44614,14 +44166,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::get_location][crate::client::PersistentResourceService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -44675,14 +44226,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::set_iam_policy][crate::client::PersistentResourceService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -44778,14 +44328,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::get_iam_policy][crate::client::PersistentResourceService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -44859,14 +44408,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::test_iam_permissions][crate::client::PersistentResourceService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -44938,10 +44486,9 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::list_operations][crate::client::PersistentResourceService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -44949,7 +44496,7 @@ pub mod persistent_resource_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -45056,14 +44603,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::get_operation][crate::client::PersistentResourceService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -45120,14 +44666,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::delete_operation][crate::client::PersistentResourceService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -45184,14 +44729,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::cancel_operation][crate::client::PersistentResourceService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -45248,14 +44792,13 @@ pub mod persistent_resource_service {
     /// The request builder for [PersistentResourceService::wait_operation][crate::client::PersistentResourceService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::persistent_resource_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::persistent_resource_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -45336,7 +44879,7 @@ pub mod pipeline_service {
     /// A builder for [PipelineService][crate::client::PipelineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::pipeline_service::ClientBuilder;
     /// # use client::PipelineService;
@@ -45344,7 +44887,7 @@ pub mod pipeline_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -45390,14 +44933,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::create_training_pipeline][crate::client::PipelineService::create_training_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::CreateTrainingPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CreateTrainingPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTrainingPipeline {
     ///   # panic!();
@@ -45478,14 +45020,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::get_training_pipeline][crate::client::PipelineService::get_training_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::GetTrainingPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetTrainingPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTrainingPipeline {
     ///   # panic!();
@@ -45544,10 +45085,9 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::list_training_pipelines][crate::client::PipelineService::list_training_pipelines] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::ListTrainingPipelines;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListTrainingPipelines;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -45555,7 +45095,7 @@ pub mod pipeline_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTrainingPipelines {
     ///   # panic!();
@@ -45676,15 +45216,14 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::delete_training_pipeline][crate::client::PipelineService::delete_training_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::DeleteTrainingPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeleteTrainingPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTrainingPipeline {
     ///   # panic!();
@@ -45784,14 +45323,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::cancel_training_pipeline][crate::client::PipelineService::cancel_training_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::CancelTrainingPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelTrainingPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelTrainingPipeline {
     ///   # panic!();
@@ -45850,14 +45388,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::create_pipeline_job][crate::client::PipelineService::create_pipeline_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::CreatePipelineJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CreatePipelineJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePipelineJob {
     ///   # panic!();
@@ -45944,14 +45481,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::get_pipeline_job][crate::client::PipelineService::get_pipeline_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::GetPipelineJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetPipelineJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPipelineJob {
     ///   # panic!();
@@ -46007,10 +45543,9 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::list_pipeline_jobs][crate::client::PipelineService::list_pipeline_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::ListPipelineJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListPipelineJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -46018,7 +45553,7 @@ pub mod pipeline_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPipelineJobs {
     ///   # panic!();
@@ -46143,15 +45678,14 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::delete_pipeline_job][crate::client::PipelineService::delete_pipeline_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::DeletePipelineJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeletePipelineJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePipelineJob {
     ///   # panic!();
@@ -46251,15 +45785,14 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::batch_delete_pipeline_jobs][crate::client::PipelineService::batch_delete_pipeline_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::BatchDeletePipelineJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchDeletePipelineJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeletePipelineJobs {
     ///   # panic!();
@@ -46376,14 +45909,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::cancel_pipeline_job][crate::client::PipelineService::cancel_pipeline_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::CancelPipelineJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelPipelineJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelPipelineJob {
     ///   # panic!();
@@ -46442,15 +45974,14 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::batch_cancel_pipeline_jobs][crate::client::PipelineService::batch_cancel_pipeline_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::BatchCancelPipelineJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::BatchCancelPipelineJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCancelPipelineJobs {
     ///   # panic!();
@@ -46567,10 +46098,9 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::list_locations][crate::client::PipelineService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -46578,7 +46108,7 @@ pub mod pipeline_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -46677,14 +46207,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::get_location][crate::client::PipelineService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -46738,14 +46267,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::set_iam_policy][crate::client::PipelineService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -46841,14 +46369,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::get_iam_policy][crate::client::PipelineService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -46922,14 +46449,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::test_iam_permissions][crate::client::PipelineService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -47001,10 +46527,9 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::list_operations][crate::client::PipelineService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -47012,7 +46537,7 @@ pub mod pipeline_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -47119,14 +46644,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::get_operation][crate::client::PipelineService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -47183,14 +46707,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::delete_operation][crate::client::PipelineService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -47247,14 +46770,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::cancel_operation][crate::client::PipelineService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -47311,14 +46833,13 @@ pub mod pipeline_service {
     /// The request builder for [PipelineService::wait_operation][crate::client::PipelineService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::pipeline_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::pipeline_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -47399,7 +46920,7 @@ pub mod prediction_service {
     /// A builder for [PredictionService][crate::client::PredictionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::prediction_service::ClientBuilder;
     /// # use client::PredictionService;
@@ -47407,7 +46928,7 @@ pub mod prediction_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -47453,14 +46974,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::predict][crate::client::PredictionService::predict] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::Predict;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::Predict;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Predict {
     ///   # panic!();
@@ -47558,14 +47078,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::raw_predict][crate::client::PredictionService::raw_predict] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::RawPredict;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::RawPredict;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RawPredict {
     ///   # panic!();
@@ -47639,14 +47158,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::direct_predict][crate::client::PredictionService::direct_predict] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::DirectPredict;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::DirectPredict;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DirectPredict {
     ///   # panic!();
@@ -47731,14 +47249,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::direct_raw_predict][crate::client::PredictionService::direct_raw_predict] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::DirectRawPredict;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::DirectRawPredict;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DirectRawPredict {
     ///   # panic!();
@@ -47809,14 +47326,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::explain][crate::client::PredictionService::explain] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::Explain;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::Explain;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Explain {
     ///   # panic!();
@@ -47930,14 +47446,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::generate_content][crate::client::PredictionService::generate_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::GenerateContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::GenerateContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateContent {
     ///   # panic!();
@@ -48117,14 +47632,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::embed_content][crate::client::PredictionService::embed_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::EmbedContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::EmbedContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EmbedContent {
     ///   # panic!();
@@ -48280,10 +47794,9 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::list_locations][crate::client::PredictionService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -48291,7 +47804,7 @@ pub mod prediction_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -48390,14 +47903,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::get_location][crate::client::PredictionService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -48451,14 +47963,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::set_iam_policy][crate::client::PredictionService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -48554,14 +48065,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::get_iam_policy][crate::client::PredictionService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -48635,14 +48145,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::test_iam_permissions][crate::client::PredictionService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -48714,10 +48223,9 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::list_operations][crate::client::PredictionService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -48725,7 +48233,7 @@ pub mod prediction_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -48832,14 +48340,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::get_operation][crate::client::PredictionService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -48896,14 +48403,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::delete_operation][crate::client::PredictionService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -48960,14 +48466,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::cancel_operation][crate::client::PredictionService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -49024,14 +48529,13 @@ pub mod prediction_service {
     /// The request builder for [PredictionService::wait_operation][crate::client::PredictionService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::prediction_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::prediction_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -49112,7 +48616,7 @@ pub mod reasoning_engine_execution_service {
     /// A builder for [ReasoningEngineExecutionService][crate::client::ReasoningEngineExecutionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::reasoning_engine_execution_service::ClientBuilder;
     /// # use client::ReasoningEngineExecutionService;
@@ -49120,7 +48624,7 @@ pub mod reasoning_engine_execution_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -49166,14 +48670,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::query_reasoning_engine][crate::client::ReasoningEngineExecutionService::query_reasoning_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::QueryReasoningEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::QueryReasoningEngine;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryReasoningEngine {
     ///   # panic!();
@@ -49256,10 +48759,9 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::list_locations][crate::client::ReasoningEngineExecutionService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -49267,7 +48769,7 @@ pub mod reasoning_engine_execution_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -49366,14 +48868,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::get_location][crate::client::ReasoningEngineExecutionService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -49427,14 +48928,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::set_iam_policy][crate::client::ReasoningEngineExecutionService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -49530,14 +49030,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::get_iam_policy][crate::client::ReasoningEngineExecutionService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -49611,14 +49110,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::test_iam_permissions][crate::client::ReasoningEngineExecutionService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -49690,10 +49188,9 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::list_operations][crate::client::ReasoningEngineExecutionService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -49701,7 +49198,7 @@ pub mod reasoning_engine_execution_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -49808,14 +49305,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::get_operation][crate::client::ReasoningEngineExecutionService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -49872,14 +49368,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::delete_operation][crate::client::ReasoningEngineExecutionService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -49936,14 +49431,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::cancel_operation][crate::client::ReasoningEngineExecutionService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -50000,14 +49494,13 @@ pub mod reasoning_engine_execution_service {
     /// The request builder for [ReasoningEngineExecutionService::wait_operation][crate::client::ReasoningEngineExecutionService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_execution_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_execution_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -50088,7 +49581,7 @@ pub mod reasoning_engine_service {
     /// A builder for [ReasoningEngineService][crate::client::ReasoningEngineService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::reasoning_engine_service::ClientBuilder;
     /// # use client::ReasoningEngineService;
@@ -50096,7 +49589,7 @@ pub mod reasoning_engine_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -50142,15 +49635,14 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::create_reasoning_engine][crate::client::ReasoningEngineService::create_reasoning_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::CreateReasoningEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::CreateReasoningEngine;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateReasoningEngine {
     ///   # panic!();
@@ -50274,14 +49766,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::get_reasoning_engine][crate::client::ReasoningEngineService::get_reasoning_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::GetReasoningEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetReasoningEngine;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReasoningEngine {
     ///   # panic!();
@@ -50340,10 +49831,9 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::list_reasoning_engines][crate::client::ReasoningEngineService::list_reasoning_engines] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::ListReasoningEngines;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListReasoningEngines;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -50351,7 +49841,7 @@ pub mod reasoning_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReasoningEngines {
     ///   # panic!();
@@ -50454,15 +49944,14 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::update_reasoning_engine][crate::client::ReasoningEngineService::update_reasoning_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::UpdateReasoningEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::UpdateReasoningEngine;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateReasoningEngine {
     ///   # panic!();
@@ -50596,15 +50085,14 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::delete_reasoning_engine][crate::client::ReasoningEngineService::delete_reasoning_engine] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::DeleteReasoningEngine;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::DeleteReasoningEngine;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteReasoningEngine {
     ///   # panic!();
@@ -50710,10 +50198,9 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::list_locations][crate::client::ReasoningEngineService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -50721,7 +50208,7 @@ pub mod reasoning_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -50820,14 +50307,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::get_location][crate::client::ReasoningEngineService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -50881,14 +50367,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::set_iam_policy][crate::client::ReasoningEngineService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -50984,14 +50469,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::get_iam_policy][crate::client::ReasoningEngineService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -51065,14 +50549,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::test_iam_permissions][crate::client::ReasoningEngineService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -51144,10 +50627,9 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::list_operations][crate::client::ReasoningEngineService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -51155,7 +50637,7 @@ pub mod reasoning_engine_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -51262,14 +50744,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::get_operation][crate::client::ReasoningEngineService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -51326,14 +50807,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::delete_operation][crate::client::ReasoningEngineService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -51390,14 +50870,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::cancel_operation][crate::client::ReasoningEngineService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -51454,14 +50933,13 @@ pub mod reasoning_engine_service {
     /// The request builder for [ReasoningEngineService::wait_operation][crate::client::ReasoningEngineService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::reasoning_engine_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::reasoning_engine_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -51542,7 +51020,7 @@ pub mod schedule_service {
     /// A builder for [ScheduleService][crate::client::ScheduleService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::schedule_service::ClientBuilder;
     /// # use client::ScheduleService;
@@ -51550,7 +51028,7 @@ pub mod schedule_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -51596,14 +51074,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::create_schedule][crate::client::ScheduleService::create_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::CreateSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::CreateSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSchedule {
     ///   # panic!();
@@ -51681,15 +51158,14 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::delete_schedule][crate::client::ScheduleService::delete_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::DeleteSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::DeleteSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchedule {
     ///   # panic!();
@@ -51786,14 +51262,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::get_schedule][crate::client::ScheduleService::get_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::GetSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchedule {
     ///   # panic!();
@@ -51849,10 +51324,9 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::list_schedules][crate::client::ScheduleService::list_schedules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::ListSchedules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListSchedules;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -51860,7 +51334,7 @@ pub mod schedule_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchedules {
     ///   # panic!();
@@ -51964,14 +51438,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::pause_schedule][crate::client::ScheduleService::pause_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::PauseSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::PauseSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseSchedule {
     ///   # panic!();
@@ -52027,14 +51500,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::resume_schedule][crate::client::ScheduleService::resume_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::ResumeSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::ResumeSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeSchedule {
     ///   # panic!();
@@ -52096,14 +51568,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::update_schedule][crate::client::ScheduleService::update_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::UpdateSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::UpdateSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSchedule {
     ///   # panic!();
@@ -52195,10 +51666,9 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::list_locations][crate::client::ScheduleService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -52206,7 +51676,7 @@ pub mod schedule_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -52305,14 +51775,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::get_location][crate::client::ScheduleService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -52366,14 +51835,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::set_iam_policy][crate::client::ScheduleService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -52469,14 +51937,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::get_iam_policy][crate::client::ScheduleService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -52550,14 +52017,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::test_iam_permissions][crate::client::ScheduleService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -52629,10 +52095,9 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::list_operations][crate::client::ScheduleService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -52640,7 +52105,7 @@ pub mod schedule_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -52747,14 +52212,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::get_operation][crate::client::ScheduleService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -52811,14 +52275,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::delete_operation][crate::client::ScheduleService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -52875,14 +52338,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::cancel_operation][crate::client::ScheduleService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -52939,14 +52401,13 @@ pub mod schedule_service {
     /// The request builder for [ScheduleService::wait_operation][crate::client::ScheduleService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::schedule_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::schedule_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -53027,7 +52488,7 @@ pub mod specialist_pool_service {
     /// A builder for [SpecialistPoolService][crate::client::SpecialistPoolService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::specialist_pool_service::ClientBuilder;
     /// # use client::SpecialistPoolService;
@@ -53035,7 +52496,7 @@ pub mod specialist_pool_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -53081,15 +52542,14 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::create_specialist_pool][crate::client::SpecialistPoolService::create_specialist_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::CreateSpecialistPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::CreateSpecialistPool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSpecialistPool {
     ///   # panic!();
@@ -53213,14 +52673,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::get_specialist_pool][crate::client::SpecialistPoolService::get_specialist_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::GetSpecialistPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetSpecialistPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSpecialistPool {
     ///   # panic!();
@@ -53279,10 +52738,9 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::list_specialist_pools][crate::client::SpecialistPoolService::list_specialist_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::ListSpecialistPools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListSpecialistPools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -53290,7 +52748,7 @@ pub mod specialist_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSpecialistPools {
     ///   # panic!();
@@ -53405,15 +52863,14 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::delete_specialist_pool][crate::client::SpecialistPoolService::delete_specialist_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::DeleteSpecialistPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::DeleteSpecialistPool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSpecialistPool {
     ///   # panic!();
@@ -53519,15 +52976,14 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::update_specialist_pool][crate::client::SpecialistPoolService::update_specialist_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::UpdateSpecialistPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::UpdateSpecialistPool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSpecialistPool {
     ///   # panic!();
@@ -53665,10 +53121,9 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::list_locations][crate::client::SpecialistPoolService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -53676,7 +53131,7 @@ pub mod specialist_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -53775,14 +53230,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::get_location][crate::client::SpecialistPoolService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -53836,14 +53290,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::set_iam_policy][crate::client::SpecialistPoolService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -53939,14 +53392,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::get_iam_policy][crate::client::SpecialistPoolService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -54020,14 +53472,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::test_iam_permissions][crate::client::SpecialistPoolService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -54099,10 +53550,9 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::list_operations][crate::client::SpecialistPoolService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -54110,7 +53560,7 @@ pub mod specialist_pool_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -54217,14 +53667,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::get_operation][crate::client::SpecialistPoolService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -54281,14 +53730,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::delete_operation][crate::client::SpecialistPoolService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -54345,14 +53793,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::cancel_operation][crate::client::SpecialistPoolService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -54409,14 +53856,13 @@ pub mod specialist_pool_service {
     /// The request builder for [SpecialistPoolService::wait_operation][crate::client::SpecialistPoolService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::specialist_pool_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::specialist_pool_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -54497,7 +53943,7 @@ pub mod tensorboard_service {
     /// A builder for [TensorboardService][crate::client::TensorboardService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::tensorboard_service::ClientBuilder;
     /// # use client::TensorboardService;
@@ -54505,7 +53951,7 @@ pub mod tensorboard_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -54551,15 +53997,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::create_tensorboard][crate::client::TensorboardService::create_tensorboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::CreateTensorboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboard;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTensorboard {
     ///   # panic!();
@@ -54681,14 +54126,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_tensorboard][crate::client::TensorboardService::get_tensorboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetTensorboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboard;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTensorboard {
     ///   # panic!();
@@ -54744,15 +54188,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::update_tensorboard][crate::client::TensorboardService::update_tensorboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::UpdateTensorboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboard;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTensorboard {
     ///   # panic!();
@@ -54888,10 +54331,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_tensorboards][crate::client::TensorboardService::list_tensorboards] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListTensorboards;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboards;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -54899,7 +54341,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTensorboards {
     ///   # panic!();
@@ -55024,15 +54466,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::delete_tensorboard][crate::client::TensorboardService::delete_tensorboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::DeleteTensorboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboard;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTensorboard {
     ///   # panic!();
@@ -55132,14 +54573,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::read_tensorboard_usage][crate::client::TensorboardService::read_tensorboard_usage] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ReadTensorboardUsage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardUsage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadTensorboardUsage {
     ///   # panic!();
@@ -55198,14 +54638,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::read_tensorboard_size][crate::client::TensorboardService::read_tensorboard_size] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ReadTensorboardSize;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardSize;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadTensorboardSize {
     ///   # panic!();
@@ -55264,14 +54703,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::create_tensorboard_experiment][crate::client::TensorboardService::create_tensorboard_experiment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::CreateTensorboardExperiment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardExperiment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTensorboardExperiment {
     ///   # panic!();
@@ -55358,14 +54796,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_tensorboard_experiment][crate::client::TensorboardService::get_tensorboard_experiment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetTensorboardExperiment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardExperiment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTensorboardExperiment {
     ///   # panic!();
@@ -55426,14 +54863,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::update_tensorboard_experiment][crate::client::TensorboardService::update_tensorboard_experiment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::UpdateTensorboardExperiment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardExperiment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTensorboardExperiment {
     ///   # panic!();
@@ -55530,10 +54966,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_tensorboard_experiments][crate::client::TensorboardService::list_tensorboard_experiments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListTensorboardExperiments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardExperiments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -55541,7 +54976,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTensorboardExperiments {
     ///   # panic!();
@@ -55672,15 +55107,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::delete_tensorboard_experiment][crate::client::TensorboardService::delete_tensorboard_experiment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::DeleteTensorboardExperiment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardExperiment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTensorboardExperiment {
     ///   # panic!();
@@ -55782,14 +55216,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::create_tensorboard_run][crate::client::TensorboardService::create_tensorboard_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::CreateTensorboardRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTensorboardRun {
     ///   # panic!();
@@ -55878,14 +55311,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::batch_create_tensorboard_runs][crate::client::TensorboardService::batch_create_tensorboard_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::BatchCreateTensorboardRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchCreateTensorboardRuns;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateTensorboardRuns {
     ///   # panic!();
@@ -55959,14 +55391,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_tensorboard_run][crate::client::TensorboardService::get_tensorboard_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetTensorboardRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTensorboardRun {
     ///   # panic!();
@@ -56025,14 +55456,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::update_tensorboard_run][crate::client::TensorboardService::update_tensorboard_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::UpdateTensorboardRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTensorboardRun {
     ///   # panic!();
@@ -56127,10 +55557,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_tensorboard_runs][crate::client::TensorboardService::list_tensorboard_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListTensorboardRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardRuns;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -56138,7 +55567,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTensorboardRuns {
     ///   # panic!();
@@ -56265,15 +55694,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::delete_tensorboard_run][crate::client::TensorboardService::delete_tensorboard_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::DeleteTensorboardRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardRun;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTensorboardRun {
     ///   # panic!();
@@ -56373,14 +55801,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::batch_create_tensorboard_time_series][crate::client::TensorboardService::batch_create_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::BatchCreateTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchCreateTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateTensorboardTimeSeries {
     ///   # panic!();
@@ -56454,14 +55881,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::create_tensorboard_time_series][crate::client::TensorboardService::create_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::CreateTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CreateTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTensorboardTimeSeries {
     ///   # panic!();
@@ -56553,14 +55979,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_tensorboard_time_series][crate::client::TensorboardService::get_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTensorboardTimeSeries {
     ///   # panic!();
@@ -56621,14 +56046,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::update_tensorboard_time_series][crate::client::TensorboardService::update_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::UpdateTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::UpdateTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTensorboardTimeSeries {
     ///   # panic!();
@@ -56725,10 +56149,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_tensorboard_time_series][crate::client::TensorboardService::list_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -56736,7 +56159,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTensorboardTimeSeries {
     ///   # panic!();
@@ -56867,15 +56290,14 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::delete_tensorboard_time_series][crate::client::TensorboardService::delete_tensorboard_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::DeleteTensorboardTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteTensorboardTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTensorboardTimeSeries {
     ///   # panic!();
@@ -56977,14 +56399,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::batch_read_tensorboard_time_series_data][crate::client::TensorboardService::batch_read_tensorboard_time_series_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::BatchReadTensorboardTimeSeriesData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::BatchReadTensorboardTimeSeriesData;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchReadTensorboardTimeSeriesData {
     ///   # panic!();
@@ -57060,14 +56481,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::read_tensorboard_time_series_data][crate::client::TensorboardService::read_tensorboard_time_series_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ReadTensorboardTimeSeriesData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ReadTensorboardTimeSeriesData;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadTensorboardTimeSeriesData {
     ///   # panic!();
@@ -57140,14 +56560,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::write_tensorboard_experiment_data][crate::client::TensorboardService::write_tensorboard_experiment_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::WriteTensorboardExperimentData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WriteTensorboardExperimentData;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteTensorboardExperimentData {
     ///   # panic!();
@@ -57221,14 +56640,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::write_tensorboard_run_data][crate::client::TensorboardService::write_tensorboard_run_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::WriteTensorboardRunData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WriteTensorboardRunData;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteTensorboardRunData {
     ///   # panic!();
@@ -57302,10 +56720,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::export_tensorboard_time_series_data][crate::client::TensorboardService::export_tensorboard_time_series_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ExportTensorboardTimeSeriesData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ExportTensorboardTimeSeriesData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -57313,7 +56730,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportTensorboardTimeSeriesData {
     ///   # panic!();
@@ -57426,10 +56843,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_locations][crate::client::TensorboardService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -57437,7 +56853,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -57536,14 +56952,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_location][crate::client::TensorboardService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -57597,14 +57012,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::set_iam_policy][crate::client::TensorboardService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -57700,14 +57114,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_iam_policy][crate::client::TensorboardService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -57781,14 +57194,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::test_iam_permissions][crate::client::TensorboardService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -57860,10 +57272,9 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::list_operations][crate::client::TensorboardService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -57871,7 +57282,7 @@ pub mod tensorboard_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -57978,14 +57389,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::get_operation][crate::client::TensorboardService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -58042,14 +57452,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::delete_operation][crate::client::TensorboardService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -58106,14 +57515,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::cancel_operation][crate::client::TensorboardService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -58170,14 +57578,13 @@ pub mod tensorboard_service {
     /// The request builder for [TensorboardService::wait_operation][crate::client::TensorboardService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::tensorboard_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::tensorboard_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -58258,7 +57665,7 @@ pub mod vertex_rag_data_service {
     /// A builder for [VertexRagDataService][crate::client::VertexRagDataService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vertex_rag_data_service::ClientBuilder;
     /// # use client::VertexRagDataService;
@@ -58266,7 +57673,7 @@ pub mod vertex_rag_data_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -58312,15 +57719,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::create_rag_corpus][crate::client::VertexRagDataService::create_rag_corpus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::CreateRagCorpus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::CreateRagCorpus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRagCorpus {
     ///   # panic!();
@@ -58439,15 +57845,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::update_rag_corpus][crate::client::VertexRagDataService::update_rag_corpus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::UpdateRagCorpus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagCorpus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRagCorpus {
     ///   # panic!();
@@ -58558,14 +57963,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_rag_corpus][crate::client::VertexRagDataService::get_rag_corpus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetRagCorpus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagCorpus;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRagCorpus {
     ///   # panic!();
@@ -58621,10 +58025,9 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::list_rag_corpora][crate::client::VertexRagDataService::list_rag_corpora] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::ListRagCorpora;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListRagCorpora;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -58632,7 +58035,7 @@ pub mod vertex_rag_data_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRagCorpora {
     ///   # panic!();
@@ -58724,15 +58127,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::delete_rag_corpus][crate::client::VertexRagDataService::delete_rag_corpus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::DeleteRagCorpus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagCorpus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRagCorpus {
     ///   # panic!();
@@ -58835,14 +58237,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::upload_rag_file][crate::client::VertexRagDataService::upload_rag_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::UploadRagFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UploadRagFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UploadRagFile {
     ///   # panic!();
@@ -58942,15 +58343,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::import_rag_files][crate::client::VertexRagDataService::import_rag_files] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::ImportRagFiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ImportRagFiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportRagFiles {
     ///   # panic!();
@@ -59071,14 +58471,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_rag_file][crate::client::VertexRagDataService::get_rag_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetRagFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRagFile {
     ///   # panic!();
@@ -59134,10 +58533,9 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::list_rag_files][crate::client::VertexRagDataService::list_rag_files] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::ListRagFiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListRagFiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -59145,7 +58543,7 @@ pub mod vertex_rag_data_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRagFiles {
     ///   # panic!();
@@ -59237,15 +58635,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::delete_rag_file][crate::client::VertexRagDataService::delete_rag_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::DeleteRagFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteRagFile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRagFile {
     ///   # panic!();
@@ -59342,15 +58739,14 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::update_rag_engine_config][crate::client::VertexRagDataService::update_rag_engine_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::UpdateRagEngineConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::UpdateRagEngineConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRagEngineConfig {
     ///   # panic!();
@@ -59466,14 +58862,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_rag_engine_config][crate::client::VertexRagDataService::get_rag_engine_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetRagEngineConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetRagEngineConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRagEngineConfig {
     ///   # panic!();
@@ -59532,10 +58927,9 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::list_locations][crate::client::VertexRagDataService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -59543,7 +58937,7 @@ pub mod vertex_rag_data_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -59642,14 +59036,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_location][crate::client::VertexRagDataService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -59703,14 +59096,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::set_iam_policy][crate::client::VertexRagDataService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -59806,14 +59198,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_iam_policy][crate::client::VertexRagDataService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -59887,14 +59278,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::test_iam_permissions][crate::client::VertexRagDataService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -59966,10 +59356,9 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::list_operations][crate::client::VertexRagDataService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -59977,7 +59366,7 @@ pub mod vertex_rag_data_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -60084,14 +59473,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::get_operation][crate::client::VertexRagDataService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -60148,14 +59536,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::delete_operation][crate::client::VertexRagDataService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -60212,14 +59599,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::cancel_operation][crate::client::VertexRagDataService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -60276,14 +59662,13 @@ pub mod vertex_rag_data_service {
     /// The request builder for [VertexRagDataService::wait_operation][crate::client::VertexRagDataService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_data_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_data_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -60364,7 +59749,7 @@ pub mod vertex_rag_service {
     /// A builder for [VertexRagService][crate::client::VertexRagService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vertex_rag_service::ClientBuilder;
     /// # use client::VertexRagService;
@@ -60372,7 +59757,7 @@ pub mod vertex_rag_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -60418,14 +59803,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::retrieve_contexts][crate::client::VertexRagService::retrieve_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::RetrieveContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::RetrieveContexts;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RetrieveContexts {
     ///   # panic!();
@@ -60537,14 +59921,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::augment_prompt][crate::client::VertexRagService::augment_prompt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::AugmentPrompt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::AugmentPrompt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AugmentPrompt {
     ///   # panic!();
@@ -60658,14 +60041,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::corroborate_content][crate::client::VertexRagService::corroborate_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::CorroborateContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::CorroborateContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CorroborateContent {
     ///   # panic!();
@@ -60771,10 +60153,9 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::list_locations][crate::client::VertexRagService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -60782,7 +60163,7 @@ pub mod vertex_rag_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -60881,14 +60262,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::get_location][crate::client::VertexRagService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -60942,14 +60322,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::set_iam_policy][crate::client::VertexRagService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -61045,14 +60424,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::get_iam_policy][crate::client::VertexRagService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -61126,14 +60504,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::test_iam_permissions][crate::client::VertexRagService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -61205,10 +60582,9 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::list_operations][crate::client::VertexRagService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -61216,7 +60592,7 @@ pub mod vertex_rag_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -61323,14 +60699,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::get_operation][crate::client::VertexRagService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -61387,14 +60762,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::delete_operation][crate::client::VertexRagService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -61451,14 +60825,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::cancel_operation][crate::client::VertexRagService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -61515,14 +60888,13 @@ pub mod vertex_rag_service {
     /// The request builder for [VertexRagService::wait_operation][crate::client::VertexRagService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vertex_rag_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vertex_rag_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();
@@ -61603,7 +60975,7 @@ pub mod vizier_service {
     /// A builder for [VizierService][crate::client::VizierService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_aiplatform_v1::*;
     /// # use builder::vizier_service::ClientBuilder;
     /// # use client::VizierService;
@@ -61611,7 +60983,7 @@ pub mod vizier_service {
     /// let client = builder
     ///     .with_endpoint("https://aiplatform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -61657,14 +61029,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::create_study][crate::client::VizierService::create_study] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::CreateStudy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::CreateStudy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateStudy {
     ///   # panic!();
@@ -61742,14 +61113,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::get_study][crate::client::VizierService::get_study] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::GetStudy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetStudy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetStudy {
     ///   # panic!();
@@ -61805,10 +61175,9 @@ pub mod vizier_service {
     /// The request builder for [VizierService::list_studies][crate::client::VizierService::list_studies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::ListStudies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListStudies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -61816,7 +61185,7 @@ pub mod vizier_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListStudies {
     ///   # panic!();
@@ -61908,14 +61277,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::delete_study][crate::client::VizierService::delete_study] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::DeleteStudy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteStudy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteStudy {
     ///   # panic!();
@@ -61971,14 +61339,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::lookup_study][crate::client::VizierService::lookup_study] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::LookupStudy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::LookupStudy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupStudy {
     ///   # panic!();
@@ -62042,15 +61409,14 @@ pub mod vizier_service {
     /// The request builder for [VizierService::suggest_trials][crate::client::VizierService::suggest_trials] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::SuggestTrials;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::SuggestTrials;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestTrials {
     ///   # panic!();
@@ -62174,14 +61540,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::create_trial][crate::client::VizierService::create_trial] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::CreateTrial;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::CreateTrial;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTrial {
     ///   # panic!();
@@ -62259,14 +61624,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::get_trial][crate::client::VizierService::get_trial] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::GetTrial;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetTrial;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTrial {
     ///   # panic!();
@@ -62322,10 +61686,9 @@ pub mod vizier_service {
     /// The request builder for [VizierService::list_trials][crate::client::VizierService::list_trials] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::ListTrials;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListTrials;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -62333,7 +61696,7 @@ pub mod vizier_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTrials {
     ///   # panic!();
@@ -62425,14 +61788,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::add_trial_measurement][crate::client::VizierService::add_trial_measurement] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::AddTrialMeasurement;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::AddTrialMeasurement;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddTrialMeasurement {
     ///   # panic!();
@@ -62513,14 +61875,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::complete_trial][crate::client::VizierService::complete_trial] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::CompleteTrial;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::CompleteTrial;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteTrial {
     ///   # panic!();
@@ -62606,14 +61967,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::delete_trial][crate::client::VizierService::delete_trial] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::DeleteTrial;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteTrial;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTrial {
     ///   # panic!();
@@ -62669,15 +62029,14 @@ pub mod vizier_service {
     /// The request builder for [VizierService::check_trial_early_stopping_state][crate::client::VizierService::check_trial_early_stopping_state] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::CheckTrialEarlyStoppingState;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::CheckTrialEarlyStoppingState;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckTrialEarlyStoppingState {
     ///   # panic!();
@@ -62781,14 +62140,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::stop_trial][crate::client::VizierService::stop_trial] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::StopTrial;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::StopTrial;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopTrial {
     ///   # panic!();
@@ -62844,14 +62202,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::list_optimal_trials][crate::client::VizierService::list_optimal_trials] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::ListOptimalTrials;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListOptimalTrials;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOptimalTrials {
     ///   # panic!();
@@ -62910,10 +62267,9 @@ pub mod vizier_service {
     /// The request builder for [VizierService::list_locations][crate::client::VizierService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -62921,7 +62277,7 @@ pub mod vizier_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -63020,14 +62376,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::get_location][crate::client::VizierService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -63081,14 +62436,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::set_iam_policy][crate::client::VizierService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -63184,14 +62538,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::get_iam_policy][crate::client::VizierService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -63265,14 +62618,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::test_iam_permissions][crate::client::VizierService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -63344,10 +62696,9 @@ pub mod vizier_service {
     /// The request builder for [VizierService::list_operations][crate::client::VizierService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -63355,7 +62706,7 @@ pub mod vizier_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -63462,14 +62813,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::get_operation][crate::client::VizierService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -63526,14 +62876,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::delete_operation][crate::client::VizierService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -63590,14 +62939,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::cancel_operation][crate::client::VizierService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -63654,14 +63002,13 @@ pub mod vizier_service {
     /// The request builder for [VizierService::wait_operation][crate::client::VizierService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_aiplatform_v1::builder;
-    /// use builder::vizier_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_aiplatform_v1::builder::vizier_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();

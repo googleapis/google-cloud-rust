@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
 /// let client = ApiGatewayService::builder().build().await?;
 /// // use `client` to make requests to the API Gateway API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ApiGatewayService {
     /// Returns a builder for [ApiGatewayService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apigateway_v1::client::ApiGatewayService;
     /// let client = ApiGatewayService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_gateway_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

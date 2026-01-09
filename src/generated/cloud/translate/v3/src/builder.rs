@@ -20,7 +20,7 @@ pub mod translation_service {
     /// A builder for [TranslationService][crate::client::TranslationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_translation_v3::*;
     /// # use builder::translation_service::ClientBuilder;
     /// # use client::TranslationService;
@@ -28,7 +28,7 @@ pub mod translation_service {
     /// let client = builder
     ///     .with_endpoint("https://translate.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::translate_text][crate::client::TranslationService::translate_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::TranslateText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::TranslateText;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TranslateText {
     ///   # panic!();
@@ -223,14 +222,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::romanize_text][crate::client::TranslationService::romanize_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::RomanizeText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::RomanizeText;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RomanizeText {
     ///   # panic!();
@@ -305,14 +303,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::detect_language][crate::client::TranslationService::detect_language] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DetectLanguage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DetectLanguage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DetectLanguage {
     ///   # panic!();
@@ -413,14 +410,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_supported_languages][crate::client::TranslationService::get_supported_languages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetSupportedLanguages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetSupportedLanguages;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSupportedLanguages {
     ///   # panic!();
@@ -491,14 +487,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::translate_document][crate::client::TranslationService::translate_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::TranslateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::TranslateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TranslateDocument {
     ///   # panic!();
@@ -670,15 +665,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::batch_translate_text][crate::client::TranslationService::batch_translate_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::BatchTranslateText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateText;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchTranslateText {
     ///   # panic!();
@@ -867,15 +861,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::batch_translate_document][crate::client::TranslationService::batch_translate_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::BatchTranslateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::BatchTranslateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchTranslateDocument {
     ///   # panic!();
@@ -1085,15 +1078,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::create_glossary][crate::client::TranslationService::create_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CreateGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CreateGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGlossary {
     ///   # panic!();
@@ -1212,15 +1204,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::update_glossary][crate::client::TranslationService::update_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::UpdateGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::UpdateGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGlossary {
     ///   # panic!();
@@ -1349,10 +1340,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_glossaries][crate::client::TranslationService::list_glossaries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListGlossaries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListGlossaries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1360,7 +1350,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGlossaries {
     ///   # panic!();
@@ -1458,14 +1448,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_glossary][crate::client::TranslationService::get_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlossary {
     ///   # panic!();
@@ -1521,15 +1510,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_glossary][crate::client::TranslationService::delete_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGlossary {
     ///   # panic!();
@@ -1626,14 +1614,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_glossary_entry][crate::client::TranslationService::get_glossary_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetGlossaryEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetGlossaryEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlossaryEntry {
     ///   # panic!();
@@ -1692,10 +1679,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_glossary_entries][crate::client::TranslationService::list_glossary_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListGlossaryEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListGlossaryEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1703,7 +1689,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGlossaryEntries {
     ///   # panic!();
@@ -1800,14 +1786,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::create_glossary_entry][crate::client::TranslationService::create_glossary_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CreateGlossaryEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CreateGlossaryEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGlossaryEntry {
     ///   # panic!();
@@ -1888,14 +1873,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::update_glossary_entry][crate::client::TranslationService::update_glossary_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::UpdateGlossaryEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::UpdateGlossaryEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGlossaryEntry {
     ///   # panic!();
@@ -1968,14 +1952,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_glossary_entry][crate::client::TranslationService::delete_glossary_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteGlossaryEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteGlossaryEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGlossaryEntry {
     ///   # panic!();
@@ -2034,15 +2017,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::create_dataset][crate::client::TranslationService::create_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CreateDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CreateDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataset {
     ///   # panic!();
@@ -2160,14 +2142,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_dataset][crate::client::TranslationService::get_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataset {
     ///   # panic!();
@@ -2223,10 +2204,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_datasets][crate::client::TranslationService::list_datasets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListDatasets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListDatasets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2234,7 +2214,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatasets {
     ///   # panic!();
@@ -2326,15 +2306,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_dataset][crate::client::TranslationService::delete_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataset {
     ///   # panic!();
@@ -2431,14 +2410,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::create_adaptive_mt_dataset][crate::client::TranslationService::create_adaptive_mt_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CreateAdaptiveMtDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CreateAdaptiveMtDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAdaptiveMtDataset {
     ///   # panic!();
@@ -2521,14 +2499,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_adaptive_mt_dataset][crate::client::TranslationService::delete_adaptive_mt_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteAdaptiveMtDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteAdaptiveMtDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAdaptiveMtDataset {
     ///   # panic!();
@@ -2589,14 +2566,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_adaptive_mt_dataset][crate::client::TranslationService::get_adaptive_mt_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetAdaptiveMtDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetAdaptiveMtDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAdaptiveMtDataset {
     ///   # panic!();
@@ -2655,10 +2631,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_adaptive_mt_datasets][crate::client::TranslationService::list_adaptive_mt_datasets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListAdaptiveMtDatasets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtDatasets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2666,7 +2641,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAdaptiveMtDatasets {
     ///   # panic!();
@@ -2771,14 +2746,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::adaptive_mt_translate][crate::client::TranslationService::adaptive_mt_translate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::AdaptiveMtTranslate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::AdaptiveMtTranslate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AdaptiveMtTranslate {
     ///   # panic!();
@@ -2901,14 +2875,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_adaptive_mt_file][crate::client::TranslationService::get_adaptive_mt_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetAdaptiveMtFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetAdaptiveMtFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAdaptiveMtFile {
     ///   # panic!();
@@ -2967,14 +2940,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_adaptive_mt_file][crate::client::TranslationService::delete_adaptive_mt_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteAdaptiveMtFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteAdaptiveMtFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAdaptiveMtFile {
     ///   # panic!();
@@ -3033,14 +3005,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::import_adaptive_mt_file][crate::client::TranslationService::import_adaptive_mt_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ImportAdaptiveMtFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ImportAdaptiveMtFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportAdaptiveMtFile {
     ///   # panic!();
@@ -3143,10 +3114,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_adaptive_mt_files][crate::client::TranslationService::list_adaptive_mt_files] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListAdaptiveMtFiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtFiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3154,7 +3124,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAdaptiveMtFiles {
     ///   # panic!();
@@ -3251,10 +3221,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_adaptive_mt_sentences][crate::client::TranslationService::list_adaptive_mt_sentences] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListAdaptiveMtSentences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListAdaptiveMtSentences;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3262,7 +3231,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAdaptiveMtSentences {
     ///   # panic!();
@@ -3363,15 +3332,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::import_data][crate::client::TranslationService::import_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ImportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ImportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportData {
     ///   # panic!();
@@ -3489,15 +3457,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::export_data][crate::client::TranslationService::export_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ExportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ExportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportData {
     ///   # panic!();
@@ -3615,10 +3582,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_examples][crate::client::TranslationService::list_examples] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListExamples;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListExamples;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3626,7 +3592,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExamples {
     ///   # panic!();
@@ -3724,15 +3690,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::create_model][crate::client::TranslationService::create_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CreateModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CreateModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateModel {
     ///   # panic!();
@@ -3848,10 +3813,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_models][crate::client::TranslationService::list_models] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListModels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListModels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3859,7 +3823,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListModels {
     ///   # panic!();
@@ -3957,14 +3921,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_model][crate::client::TranslationService::get_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetModel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetModel {
     ///   # panic!();
@@ -4020,15 +3983,14 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_model][crate::client::TranslationService::delete_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteModel {
     ///   # panic!();
@@ -4125,10 +4087,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_locations][crate::client::TranslationService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4136,7 +4097,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4235,14 +4196,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_location][crate::client::TranslationService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4296,10 +4256,9 @@ pub mod translation_service {
     /// The request builder for [TranslationService::list_operations][crate::client::TranslationService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4307,7 +4266,7 @@ pub mod translation_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4414,14 +4373,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::get_operation][crate::client::TranslationService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4478,14 +4436,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::delete_operation][crate::client::TranslationService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4542,14 +4499,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::cancel_operation][crate::client::TranslationService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -4606,14 +4562,13 @@ pub mod translation_service {
     /// The request builder for [TranslationService::wait_operation][crate::client::TranslationService::wait_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_translation_v3::builder;
-    /// use builder::translation_service::WaitOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_translation_v3::builder::translation_service::WaitOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WaitOperation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod folders {
     /// A builder for [Folders][crate::client::Folders].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::folders::ClientBuilder;
     /// # use client::Folders;
@@ -28,7 +28,7 @@ pub mod folders {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,14 +72,13 @@ pub mod folders {
     /// The request builder for [Folders::get_folder][crate::client::Folders::get_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::GetFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::GetFolder;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFolder {
     ///   # panic!();
@@ -133,10 +132,9 @@ pub mod folders {
     /// The request builder for [Folders::list_folders][crate::client::Folders::list_folders] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::ListFolders;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::ListFolders;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -144,7 +142,7 @@ pub mod folders {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFolders {
     ///   # panic!();
@@ -240,10 +238,9 @@ pub mod folders {
     /// The request builder for [Folders::search_folders][crate::client::Folders::search_folders] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::SearchFolders;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::SearchFolders;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -251,7 +248,7 @@ pub mod folders {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchFolders {
     ///   # panic!();
@@ -339,15 +336,14 @@ pub mod folders {
     /// The request builder for [Folders::create_folder][crate::client::Folders::create_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::CreateFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::CreateFolder;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFolder {
     ///   # panic!();
@@ -453,15 +449,14 @@ pub mod folders {
     /// The request builder for [Folders::update_folder][crate::client::Folders::update_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::UpdateFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::UpdateFolder;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFolder {
     ///   # panic!();
@@ -589,15 +584,14 @@ pub mod folders {
     /// The request builder for [Folders::move_folder][crate::client::Folders::move_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::MoveFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::MoveFolder;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveFolder {
     ///   # panic!();
@@ -697,15 +691,14 @@ pub mod folders {
     /// The request builder for [Folders::delete_folder][crate::client::Folders::delete_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::DeleteFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::DeleteFolder;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFolder {
     ///   # panic!();
@@ -797,15 +790,14 @@ pub mod folders {
     /// The request builder for [Folders::undelete_folder][crate::client::Folders::undelete_folder] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::UndeleteFolder;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::UndeleteFolder;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteFolder {
     ///   # panic!();
@@ -899,14 +891,13 @@ pub mod folders {
     /// The request builder for [Folders::get_iam_policy][crate::client::Folders::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -978,14 +969,13 @@ pub mod folders {
     /// The request builder for [Folders::set_iam_policy][crate::client::Folders::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1079,14 +1069,13 @@ pub mod folders {
     /// The request builder for [Folders::test_iam_permissions][crate::client::Folders::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1156,14 +1145,13 @@ pub mod folders {
     /// The request builder for [Folders::get_operation][crate::client::Folders::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::folders::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::folders::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1222,7 +1210,7 @@ pub mod organizations {
     /// A builder for [Organizations][crate::client::Organizations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::organizations::ClientBuilder;
     /// # use client::Organizations;
@@ -1230,7 +1218,7 @@ pub mod organizations {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1276,14 +1264,13 @@ pub mod organizations {
     /// The request builder for [Organizations::get_organization][crate::client::Organizations::get_organization] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::GetOrganization;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::GetOrganization;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOrganization {
     ///   # panic!();
@@ -1339,10 +1326,9 @@ pub mod organizations {
     /// The request builder for [Organizations::search_organizations][crate::client::Organizations::search_organizations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::SearchOrganizations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::SearchOrganizations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1350,7 +1336,7 @@ pub mod organizations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchOrganizations {
     ///   # panic!();
@@ -1445,14 +1431,13 @@ pub mod organizations {
     /// The request builder for [Organizations::get_iam_policy][crate::client::Organizations::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1526,14 +1511,13 @@ pub mod organizations {
     /// The request builder for [Organizations::set_iam_policy][crate::client::Organizations::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1629,14 +1613,13 @@ pub mod organizations {
     /// The request builder for [Organizations::test_iam_permissions][crate::client::Organizations::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1708,14 +1691,13 @@ pub mod organizations {
     /// The request builder for [Organizations::get_operation][crate::client::Organizations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::organizations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::organizations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1776,7 +1758,7 @@ pub mod projects {
     /// A builder for [Projects][crate::client::Projects].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::projects::ClientBuilder;
     /// # use client::Projects;
@@ -1784,7 +1766,7 @@ pub mod projects {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1828,14 +1810,13 @@ pub mod projects {
     /// The request builder for [Projects::get_project][crate::client::Projects::get_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::GetProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::GetProject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProject {
     ///   # panic!();
@@ -1889,10 +1870,9 @@ pub mod projects {
     /// The request builder for [Projects::list_projects][crate::client::Projects::list_projects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::ListProjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::ListProjects;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1900,7 +1880,7 @@ pub mod projects {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProjects {
     ///   # panic!();
@@ -1996,10 +1976,9 @@ pub mod projects {
     /// The request builder for [Projects::search_projects][crate::client::Projects::search_projects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::SearchProjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::SearchProjects;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2007,7 +1986,7 @@ pub mod projects {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchProjects {
     ///   # panic!();
@@ -2095,15 +2074,14 @@ pub mod projects {
     /// The request builder for [Projects::create_project][crate::client::Projects::create_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::CreateProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::CreateProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateProject {
     ///   # panic!();
@@ -2211,15 +2189,14 @@ pub mod projects {
     /// The request builder for [Projects::update_project][crate::client::Projects::update_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::UpdateProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::UpdateProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateProject {
     ///   # panic!();
@@ -2345,15 +2322,14 @@ pub mod projects {
     /// The request builder for [Projects::move_project][crate::client::Projects::move_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::MoveProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::MoveProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveProject {
     ///   # panic!();
@@ -2453,15 +2429,14 @@ pub mod projects {
     /// The request builder for [Projects::delete_project][crate::client::Projects::delete_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::DeleteProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::DeleteProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteProject {
     ///   # panic!();
@@ -2555,15 +2530,14 @@ pub mod projects {
     /// The request builder for [Projects::undelete_project][crate::client::Projects::undelete_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::UndeleteProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::UndeleteProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteProject {
     ///   # panic!();
@@ -2658,14 +2632,13 @@ pub mod projects {
     /// The request builder for [Projects::get_iam_policy][crate::client::Projects::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -2737,14 +2710,13 @@ pub mod projects {
     /// The request builder for [Projects::set_iam_policy][crate::client::Projects::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -2838,14 +2810,13 @@ pub mod projects {
     /// The request builder for [Projects::test_iam_permissions][crate::client::Projects::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2915,14 +2886,13 @@ pub mod projects {
     /// The request builder for [Projects::get_operation][crate::client::Projects::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::projects::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::projects::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2981,7 +2951,7 @@ pub mod tag_bindings {
     /// A builder for [TagBindings][crate::client::TagBindings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_bindings::ClientBuilder;
     /// # use client::TagBindings;
@@ -2989,7 +2959,7 @@ pub mod tag_bindings {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3035,10 +3005,9 @@ pub mod tag_bindings {
     /// The request builder for [TagBindings::list_tag_bindings][crate::client::TagBindings::list_tag_bindings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_bindings::ListTagBindings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::ListTagBindings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3046,7 +3015,7 @@ pub mod tag_bindings {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTagBindings {
     ///   # panic!();
@@ -3138,15 +3107,14 @@ pub mod tag_bindings {
     /// The request builder for [TagBindings::create_tag_binding][crate::client::TagBindings::create_tag_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_bindings::CreateTagBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::CreateTagBinding;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTagBinding {
     ///   # panic!();
@@ -3266,15 +3234,14 @@ pub mod tag_bindings {
     /// The request builder for [TagBindings::delete_tag_binding][crate::client::TagBindings::delete_tag_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_bindings::DeleteTagBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::DeleteTagBinding;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTagBinding {
     ///   # panic!();
@@ -3374,10 +3341,9 @@ pub mod tag_bindings {
     /// The request builder for [TagBindings::list_effective_tags][crate::client::TagBindings::list_effective_tags] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_bindings::ListEffectiveTags;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::ListEffectiveTags;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3385,7 +3351,7 @@ pub mod tag_bindings {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEffectiveTags {
     ///   # panic!();
@@ -3480,14 +3446,13 @@ pub mod tag_bindings {
     /// The request builder for [TagBindings::get_operation][crate::client::TagBindings::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_bindings::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_bindings::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3548,7 +3513,7 @@ pub mod tag_holds {
     /// A builder for [TagHolds][crate::client::TagHolds].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_holds::ClientBuilder;
     /// # use client::TagHolds;
@@ -3556,7 +3521,7 @@ pub mod tag_holds {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3600,15 +3565,14 @@ pub mod tag_holds {
     /// The request builder for [TagHolds::create_tag_hold][crate::client::TagHolds::create_tag_hold] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_holds::CreateTagHold;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_holds::CreateTagHold;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTagHold {
     ///   # panic!();
@@ -3730,15 +3694,14 @@ pub mod tag_holds {
     /// The request builder for [TagHolds::delete_tag_hold][crate::client::TagHolds::delete_tag_hold] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_holds::DeleteTagHold;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_holds::DeleteTagHold;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTagHold {
     ///   # panic!();
@@ -3839,10 +3802,9 @@ pub mod tag_holds {
     /// The request builder for [TagHolds::list_tag_holds][crate::client::TagHolds::list_tag_holds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_holds::ListTagHolds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_holds::ListTagHolds;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3850,7 +3812,7 @@ pub mod tag_holds {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTagHolds {
     ///   # panic!();
@@ -3946,14 +3908,13 @@ pub mod tag_holds {
     /// The request builder for [TagHolds::get_operation][crate::client::TagHolds::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_holds::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_holds::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4012,7 +3973,7 @@ pub mod tag_keys {
     /// A builder for [TagKeys][crate::client::TagKeys].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_keys::ClientBuilder;
     /// # use client::TagKeys;
@@ -4020,7 +3981,7 @@ pub mod tag_keys {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4064,10 +4025,9 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::list_tag_keys][crate::client::TagKeys::list_tag_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::ListTagKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::ListTagKeys;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4075,7 +4035,7 @@ pub mod tag_keys {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTagKeys {
     ///   # panic!();
@@ -4165,14 +4125,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::get_tag_key][crate::client::TagKeys::get_tag_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::GetTagKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetTagKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTagKey {
     ///   # panic!();
@@ -4226,14 +4185,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::get_namespaced_tag_key][crate::client::TagKeys::get_namespaced_tag_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::GetNamespacedTagKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetNamespacedTagKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNamespacedTagKey {
     ///   # panic!();
@@ -4290,15 +4248,14 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::create_tag_key][crate::client::TagKeys::create_tag_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::CreateTagKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::CreateTagKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTagKey {
     ///   # panic!();
@@ -4410,15 +4367,14 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::update_tag_key][crate::client::TagKeys::update_tag_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::UpdateTagKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::UpdateTagKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTagKey {
     ///   # panic!();
@@ -4548,15 +4504,14 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::delete_tag_key][crate::client::TagKeys::delete_tag_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::DeleteTagKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::DeleteTagKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTagKey {
     ///   # panic!();
@@ -4660,14 +4615,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::get_iam_policy][crate::client::TagKeys::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4739,14 +4693,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::set_iam_policy][crate::client::TagKeys::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4840,14 +4793,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::test_iam_permissions][crate::client::TagKeys::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -4917,14 +4869,13 @@ pub mod tag_keys {
     /// The request builder for [TagKeys::get_operation][crate::client::TagKeys::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_keys::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_keys::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4983,7 +4934,7 @@ pub mod tag_values {
     /// A builder for [TagValues][crate::client::TagValues].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::*;
     /// # use builder::tag_values::ClientBuilder;
     /// # use client::TagValues;
@@ -4991,7 +4942,7 @@ pub mod tag_values {
     /// let client = builder
     ///     .with_endpoint("https://cloudresourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5037,10 +4988,9 @@ pub mod tag_values {
     /// The request builder for [TagValues::list_tag_values][crate::client::TagValues::list_tag_values] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::ListTagValues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::ListTagValues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5048,7 +4998,7 @@ pub mod tag_values {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTagValues {
     ///   # panic!();
@@ -5140,14 +5090,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::get_tag_value][crate::client::TagValues::get_tag_value] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::GetTagValue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetTagValue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTagValue {
     ///   # panic!();
@@ -5203,14 +5152,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::get_namespaced_tag_value][crate::client::TagValues::get_namespaced_tag_value] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::GetNamespacedTagValue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetNamespacedTagValue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNamespacedTagValue {
     ///   # panic!();
@@ -5269,15 +5217,14 @@ pub mod tag_values {
     /// The request builder for [TagValues::create_tag_value][crate::client::TagValues::create_tag_value] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::CreateTagValue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::CreateTagValue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTagValue {
     ///   # panic!();
@@ -5394,15 +5341,14 @@ pub mod tag_values {
     /// The request builder for [TagValues::update_tag_value][crate::client::TagValues::update_tag_value] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::UpdateTagValue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::UpdateTagValue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTagValue {
     ///   # panic!();
@@ -5537,15 +5483,14 @@ pub mod tag_values {
     /// The request builder for [TagValues::delete_tag_value][crate::client::TagValues::delete_tag_value] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::DeleteTagValue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::DeleteTagValue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTagValue {
     ///   # panic!();
@@ -5654,14 +5599,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::get_iam_policy][crate::client::TagValues::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5735,14 +5679,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::set_iam_policy][crate::client::TagValues::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5838,14 +5781,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::test_iam_permissions][crate::client::TagValues::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5917,14 +5859,13 @@ pub mod tag_values {
     /// The request builder for [TagValues::get_operation][crate::client::TagValues::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_resourcemanager_v3::builder;
-    /// use builder::tag_values::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_resourcemanager_v3::builder::tag_values::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

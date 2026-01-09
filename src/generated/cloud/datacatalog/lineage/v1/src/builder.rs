@@ -20,7 +20,7 @@ pub mod lineage {
     /// A builder for [Lineage][crate::client::Lineage].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_lineage_v1::*;
     /// # use builder::lineage::ClientBuilder;
     /// # use client::Lineage;
@@ -28,7 +28,7 @@ pub mod lineage {
     /// let client = builder
     ///     .with_endpoint("https://datalineage.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,14 +72,13 @@ pub mod lineage {
     /// The request builder for [Lineage::process_open_lineage_run_event][crate::client::Lineage::process_open_lineage_run_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::ProcessOpenLineageRunEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ProcessOpenLineageRunEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ProcessOpenLineageRunEvent {
     ///   # panic!();
@@ -166,14 +165,13 @@ pub mod lineage {
     /// The request builder for [Lineage::create_process][crate::client::Lineage::create_process] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::CreateProcess;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateProcess;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateProcess {
     ///   # panic!();
@@ -255,14 +253,13 @@ pub mod lineage {
     /// The request builder for [Lineage::update_process][crate::client::Lineage::update_process] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::UpdateProcess;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::UpdateProcess;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateProcess {
     ///   # panic!();
@@ -354,14 +351,13 @@ pub mod lineage {
     /// The request builder for [Lineage::get_process][crate::client::Lineage::get_process] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::GetProcess;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetProcess;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProcess {
     ///   # panic!();
@@ -415,10 +411,9 @@ pub mod lineage {
     /// The request builder for [Lineage::list_processes][crate::client::Lineage::list_processes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::ListProcesses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListProcesses;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -426,7 +421,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProcesses {
     ///   # panic!();
@@ -516,15 +511,14 @@ pub mod lineage {
     /// The request builder for [Lineage::delete_process][crate::client::Lineage::delete_process] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::DeleteProcess;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteProcess;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteProcess {
     ///   # panic!();
@@ -624,14 +618,13 @@ pub mod lineage {
     /// The request builder for [Lineage::create_run][crate::client::Lineage::create_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::CreateRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRun {
     ///   # panic!();
@@ -713,14 +706,13 @@ pub mod lineage {
     /// The request builder for [Lineage::update_run][crate::client::Lineage::update_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::UpdateRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::UpdateRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRun {
     ///   # panic!();
@@ -812,14 +804,13 @@ pub mod lineage {
     /// The request builder for [Lineage::get_run][crate::client::Lineage::get_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::GetRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRun {
     ///   # panic!();
@@ -873,10 +864,9 @@ pub mod lineage {
     /// The request builder for [Lineage::list_runs][crate::client::Lineage::list_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::ListRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListRuns;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -884,7 +874,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRuns {
     ///   # panic!();
@@ -974,15 +964,14 @@ pub mod lineage {
     /// The request builder for [Lineage::delete_run][crate::client::Lineage::delete_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::DeleteRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteRun;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRun {
     ///   # panic!();
@@ -1082,14 +1071,13 @@ pub mod lineage {
     /// The request builder for [Lineage::create_lineage_event][crate::client::Lineage::create_lineage_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::CreateLineageEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CreateLineageEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLineageEvent {
     ///   # panic!();
@@ -1174,14 +1162,13 @@ pub mod lineage {
     /// The request builder for [Lineage::get_lineage_event][crate::client::Lineage::get_lineage_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::GetLineageEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetLineageEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLineageEvent {
     ///   # panic!();
@@ -1235,10 +1222,9 @@ pub mod lineage {
     /// The request builder for [Lineage::list_lineage_events][crate::client::Lineage::list_lineage_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::ListLineageEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListLineageEvents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1246,7 +1232,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLineageEvents {
     ///   # panic!();
@@ -1339,14 +1325,13 @@ pub mod lineage {
     /// The request builder for [Lineage::delete_lineage_event][crate::client::Lineage::delete_lineage_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::DeleteLineageEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteLineageEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLineageEvent {
     ///   # panic!();
@@ -1409,10 +1394,9 @@ pub mod lineage {
     /// The request builder for [Lineage::search_links][crate::client::Lineage::search_links] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::SearchLinks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::SearchLinks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1420,7 +1404,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchLinks {
     ///   # panic!();
@@ -1548,10 +1532,9 @@ pub mod lineage {
     /// The request builder for [Lineage::batch_search_link_processes][crate::client::Lineage::batch_search_link_processes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::BatchSearchLinkProcesses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::BatchSearchLinkProcesses;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1559,7 +1542,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchSearchLinkProcesses {
     ///   # panic!();
@@ -1671,10 +1654,9 @@ pub mod lineage {
     /// The request builder for [Lineage::list_operations][crate::client::Lineage::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1682,7 +1664,7 @@ pub mod lineage {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1787,14 +1769,13 @@ pub mod lineage {
     /// The request builder for [Lineage::get_operation][crate::client::Lineage::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1849,14 +1830,13 @@ pub mod lineage {
     /// The request builder for [Lineage::delete_operation][crate::client::Lineage::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1911,14 +1891,13 @@ pub mod lineage {
     /// The request builder for [Lineage::cancel_operation][crate::client::Lineage::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datacatalog_lineage_v1::builder;
-    /// use builder::lineage::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datacatalog_lineage_v1::builder::lineage::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

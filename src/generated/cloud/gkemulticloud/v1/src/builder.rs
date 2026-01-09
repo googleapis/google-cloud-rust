@@ -20,7 +20,7 @@ pub mod attached_clusters {
     /// A builder for [AttachedClusters][crate::client::AttachedClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::attached_clusters::ClientBuilder;
     /// # use client::AttachedClusters;
@@ -28,7 +28,7 @@ pub mod attached_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::create_attached_cluster][crate::client::AttachedClusters::create_attached_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::CreateAttachedCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::CreateAttachedCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAttachedCluster {
     ///   # panic!();
@@ -218,15 +217,14 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::update_attached_cluster][crate::client::AttachedClusters::update_attached_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::UpdateAttachedCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::UpdateAttachedCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAttachedCluster {
     ///   # panic!();
@@ -368,15 +366,14 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::import_attached_cluster][crate::client::AttachedClusters::import_attached_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::ImportAttachedCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ImportAttachedCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportAttachedCluster {
     ///   # panic!();
@@ -524,14 +521,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::get_attached_cluster][crate::client::AttachedClusters::get_attached_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::GetAttachedCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetAttachedCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAttachedCluster {
     ///   # panic!();
@@ -590,10 +586,9 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::list_attached_clusters][crate::client::AttachedClusters::list_attached_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::ListAttachedClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ListAttachedClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -601,7 +596,7 @@ pub mod attached_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAttachedClusters {
     ///   # panic!();
@@ -698,15 +693,14 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::delete_attached_cluster][crate::client::AttachedClusters::delete_attached_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::DeleteAttachedCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::DeleteAttachedCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAttachedCluster {
     ///   # panic!();
@@ -829,14 +823,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::get_attached_server_config][crate::client::AttachedClusters::get_attached_server_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::GetAttachedServerConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetAttachedServerConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAttachedServerConfig {
     ///   # panic!();
@@ -897,14 +890,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::generate_attached_cluster_install_manifest][crate::client::AttachedClusters::generate_attached_cluster_install_manifest] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::GenerateAttachedClusterInstallManifest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GenerateAttachedClusterInstallManifest;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAttachedClusterInstallManifest {
     ///   # panic!();
@@ -1003,14 +995,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::generate_attached_cluster_agent_token][crate::client::AttachedClusters::generate_attached_cluster_agent_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::GenerateAttachedClusterAgentToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GenerateAttachedClusterAgentToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAttachedClusterAgentToken {
     ///   # panic!();
@@ -1125,10 +1116,9 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::list_operations][crate::client::AttachedClusters::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1136,7 +1126,7 @@ pub mod attached_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1243,14 +1233,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::get_operation][crate::client::AttachedClusters::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1307,14 +1296,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::delete_operation][crate::client::AttachedClusters::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1371,14 +1359,13 @@ pub mod attached_clusters {
     /// The request builder for [AttachedClusters::cancel_operation][crate::client::AttachedClusters::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::attached_clusters::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::attached_clusters::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1439,7 +1426,7 @@ pub mod aws_clusters {
     /// A builder for [AwsClusters][crate::client::AwsClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::aws_clusters::ClientBuilder;
     /// # use client::AwsClusters;
@@ -1447,7 +1434,7 @@ pub mod aws_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1493,15 +1480,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::create_aws_cluster][crate::client::AwsClusters::create_aws_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::CreateAwsCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAwsCluster {
     ///   # panic!();
@@ -1634,15 +1620,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::update_aws_cluster][crate::client::AwsClusters::update_aws_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::UpdateAwsCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAwsCluster {
     ///   # panic!();
@@ -1781,14 +1766,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_aws_cluster][crate::client::AwsClusters::get_aws_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetAwsCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAwsCluster {
     ///   # panic!();
@@ -1844,10 +1828,9 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::list_aws_clusters][crate::client::AwsClusters::list_aws_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::ListAwsClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListAwsClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1855,7 +1838,7 @@ pub mod aws_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAwsClusters {
     ///   # panic!();
@@ -1947,15 +1930,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::delete_aws_cluster][crate::client::AwsClusters::delete_aws_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::DeleteAwsCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAwsCluster {
     ///   # panic!();
@@ -2078,14 +2060,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::generate_aws_cluster_agent_token][crate::client::AwsClusters::generate_aws_cluster_agent_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GenerateAwsClusterAgentToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GenerateAwsClusterAgentToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAwsClusterAgentToken {
     ///   # panic!();
@@ -2206,14 +2187,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::generate_aws_access_token][crate::client::AwsClusters::generate_aws_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GenerateAwsAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GenerateAwsAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAwsAccessToken {
     ///   # panic!();
@@ -2272,15 +2252,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::create_aws_node_pool][crate::client::AwsClusters::create_aws_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::CreateAwsNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CreateAwsNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAwsNodePool {
     ///   # panic!();
@@ -2415,15 +2394,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::update_aws_node_pool][crate::client::AwsClusters::update_aws_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::UpdateAwsNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::UpdateAwsNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAwsNodePool {
     ///   # panic!();
@@ -2564,15 +2542,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::rollback_aws_node_pool_update][crate::client::AwsClusters::rollback_aws_node_pool_update] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::RollbackAwsNodePoolUpdate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::RollbackAwsNodePoolUpdate;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RollbackAwsNodePoolUpdate {
     ///   # panic!();
@@ -2679,14 +2656,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_aws_node_pool][crate::client::AwsClusters::get_aws_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetAwsNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAwsNodePool {
     ///   # panic!();
@@ -2742,10 +2718,9 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::list_aws_node_pools][crate::client::AwsClusters::list_aws_node_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::ListAwsNodePools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListAwsNodePools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2753,7 +2728,7 @@ pub mod aws_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAwsNodePools {
     ///   # panic!();
@@ -2848,15 +2823,14 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::delete_aws_node_pool][crate::client::AwsClusters::delete_aws_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::DeleteAwsNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteAwsNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAwsNodePool {
     ///   # panic!();
@@ -2979,14 +2953,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_aws_open_id_config][crate::client::AwsClusters::get_aws_open_id_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetAwsOpenIdConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsOpenIdConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAwsOpenIdConfig {
     ///   # panic!();
@@ -3045,14 +3018,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_aws_json_web_keys][crate::client::AwsClusters::get_aws_json_web_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetAwsJsonWebKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsJsonWebKeys;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAwsJsonWebKeys {
     ///   # panic!();
@@ -3111,14 +3083,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_aws_server_config][crate::client::AwsClusters::get_aws_server_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetAwsServerConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetAwsServerConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAwsServerConfig {
     ///   # panic!();
@@ -3177,10 +3148,9 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::list_operations][crate::client::AwsClusters::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3188,7 +3158,7 @@ pub mod aws_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3295,14 +3265,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::get_operation][crate::client::AwsClusters::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3359,14 +3328,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::delete_operation][crate::client::AwsClusters::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3423,14 +3391,13 @@ pub mod aws_clusters {
     /// The request builder for [AwsClusters::cancel_operation][crate::client::AwsClusters::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::aws_clusters::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::aws_clusters::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3491,7 +3458,7 @@ pub mod azure_clusters {
     /// A builder for [AzureClusters][crate::client::AzureClusters].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkemulticloud_v1::*;
     /// # use builder::azure_clusters::ClientBuilder;
     /// # use client::AzureClusters;
@@ -3499,7 +3466,7 @@ pub mod azure_clusters {
     /// let client = builder
     ///     .with_endpoint("https://gkemulticloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3545,15 +3512,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::create_azure_client][crate::client::AzureClusters::create_azure_client] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::CreateAzureClient;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureClient;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAzureClient {
     ///   # panic!();
@@ -3688,14 +3654,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_client][crate::client::AzureClusters::get_azure_client] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureClient;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureClient;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureClient {
     ///   # panic!();
@@ -3751,10 +3716,9 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::list_azure_clients][crate::client::AzureClusters::list_azure_clients] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::ListAzureClients;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureClients;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3762,7 +3726,7 @@ pub mod azure_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAzureClients {
     ///   # panic!();
@@ -3857,15 +3821,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::delete_azure_client][crate::client::AzureClusters::delete_azure_client] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::DeleteAzureClient;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureClient;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAzureClient {
     ///   # panic!();
@@ -3976,15 +3939,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::create_azure_cluster][crate::client::AzureClusters::create_azure_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::CreateAzureCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAzureCluster {
     ///   # panic!();
@@ -4119,15 +4081,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::update_azure_cluster][crate::client::AzureClusters::update_azure_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::UpdateAzureCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAzureCluster {
     ///   # panic!();
@@ -4268,14 +4229,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_cluster][crate::client::AzureClusters::get_azure_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureCluster {
     ///   # panic!();
@@ -4331,10 +4291,9 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::list_azure_clusters][crate::client::AzureClusters::list_azure_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::ListAzureClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4342,7 +4301,7 @@ pub mod azure_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAzureClusters {
     ///   # panic!();
@@ -4437,15 +4396,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::delete_azure_cluster][crate::client::AzureClusters::delete_azure_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::DeleteAzureCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAzureCluster {
     ///   # panic!();
@@ -4568,14 +4526,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::generate_azure_cluster_agent_token][crate::client::AzureClusters::generate_azure_cluster_agent_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GenerateAzureClusterAgentToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GenerateAzureClusterAgentToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAzureClusterAgentToken {
     ///   # panic!();
@@ -4696,14 +4653,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::generate_azure_access_token][crate::client::AzureClusters::generate_azure_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GenerateAzureAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GenerateAzureAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAzureAccessToken {
     ///   # panic!();
@@ -4764,15 +4720,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::create_azure_node_pool][crate::client::AzureClusters::create_azure_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::CreateAzureNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CreateAzureNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAzureNodePool {
     ///   # panic!();
@@ -4908,15 +4863,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::update_azure_node_pool][crate::client::AzureClusters::update_azure_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::UpdateAzureNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::UpdateAzureNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAzureNodePool {
     ///   # panic!();
@@ -5058,14 +5012,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_node_pool][crate::client::AzureClusters::get_azure_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureNodePool {
     ///   # panic!();
@@ -5124,10 +5077,9 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::list_azure_node_pools][crate::client::AzureClusters::list_azure_node_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::ListAzureNodePools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListAzureNodePools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5135,7 +5087,7 @@ pub mod azure_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAzureNodePools {
     ///   # panic!();
@@ -5232,15 +5184,14 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::delete_azure_node_pool][crate::client::AzureClusters::delete_azure_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::DeleteAzureNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteAzureNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAzureNodePool {
     ///   # panic!();
@@ -5363,14 +5314,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_open_id_config][crate::client::AzureClusters::get_azure_open_id_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureOpenIdConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureOpenIdConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureOpenIdConfig {
     ///   # panic!();
@@ -5429,14 +5379,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_json_web_keys][crate::client::AzureClusters::get_azure_json_web_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureJsonWebKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureJsonWebKeys;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureJsonWebKeys {
     ///   # panic!();
@@ -5495,14 +5444,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_azure_server_config][crate::client::AzureClusters::get_azure_server_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetAzureServerConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetAzureServerConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAzureServerConfig {
     ///   # panic!();
@@ -5561,10 +5509,9 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::list_operations][crate::client::AzureClusters::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5572,7 +5519,7 @@ pub mod azure_clusters {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5679,14 +5626,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::get_operation][crate::client::AzureClusters::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5743,14 +5689,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::delete_operation][crate::client::AzureClusters::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5807,14 +5752,13 @@ pub mod azure_clusters {
     /// The request builder for [AzureClusters::cancel_operation][crate::client::AzureClusters::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_gkemulticloud_v1::builder;
-    /// use builder::azure_clusters::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_gkemulticloud_v1::builder::azure_clusters::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

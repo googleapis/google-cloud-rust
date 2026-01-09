@@ -20,7 +20,7 @@ pub mod policies {
     /// A builder for [Policies][crate::client::Policies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v2::*;
     /// # use builder::policies::ClientBuilder;
     /// # use client::Policies;
@@ -28,7 +28,7 @@ pub mod policies {
     /// let client = builder
     ///     .with_endpoint("https://iam.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod policies {
     /// The request builder for [Policies::list_policies][crate::client::Policies::list_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::ListPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::ListPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod policies {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPolicies {
     ///   # panic!();
@@ -173,14 +172,13 @@ pub mod policies {
     /// The request builder for [Policies::get_policy][crate::client::Policies::get_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::GetPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::GetPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPolicy {
     ///   # panic!();
@@ -234,15 +232,14 @@ pub mod policies {
     /// The request builder for [Policies::create_policy][crate::client::Policies::create_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::CreatePolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::CreatePolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePolicy {
     ///   # panic!();
@@ -364,15 +361,14 @@ pub mod policies {
     /// The request builder for [Policies::update_policy][crate::client::Policies::update_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::UpdatePolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::UpdatePolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePolicy {
     ///   # panic!();
@@ -480,15 +476,14 @@ pub mod policies {
     /// The request builder for [Policies::delete_policy][crate::client::Policies::delete_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::DeletePolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::DeletePolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePolicy {
     ///   # panic!();
@@ -588,14 +583,13 @@ pub mod policies {
     /// The request builder for [Policies::get_operation][crate::client::Policies::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v2::builder;
-    /// use builder::policies::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v2::builder::policies::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

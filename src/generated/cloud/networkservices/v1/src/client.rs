@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::DepService;
 /// let client = DepService::builder().build().await?;
 /// // use `client` to make requests to the Network Services API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl DepService {
     /// Returns a builder for [DepService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::client::DepService;
     /// let client = DepService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dep_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::dep_service::client::Factory)
@@ -418,11 +418,11 @@ impl DepService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkservices_v1::client::NetworkServices;
 /// let client = NetworkServices::builder().build().await?;
 /// // use `client` to make requests to the Network Services API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -464,10 +464,10 @@ impl NetworkServices {
     /// Returns a builder for [NetworkServices].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkservices_v1::client::NetworkServices;
     /// let client = NetworkServices::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_services::ClientBuilder {
         gax::client_builder::internal::new_builder(

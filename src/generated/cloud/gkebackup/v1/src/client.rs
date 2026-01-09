@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
 /// let client = BackupForGKE::builder().build().await?;
 /// // use `client` to make requests to the Backup for GKE API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl BackupForGKE {
     /// Returns a builder for [BackupForGKE].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkebackup_v1::client::BackupForGKE;
     /// let client = BackupForGKE::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backup_for_gke::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::backup_for_gke::client::Factory)

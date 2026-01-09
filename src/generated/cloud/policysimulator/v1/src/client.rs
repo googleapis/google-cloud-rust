@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
 /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -78,10 +78,10 @@ impl OrgPolicyViolationsPreviewService {
     /// Returns a builder for [OrgPolicyViolationsPreviewService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::client::OrgPolicyViolationsPreviewService;
     /// let client = OrgPolicyViolationsPreviewService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::org_policy_violations_preview_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -230,11 +230,11 @@ impl OrgPolicyViolationsPreviewService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_policysimulator_v1::client::Simulator;
 /// let client = Simulator::builder().build().await?;
 /// // use `client` to make requests to the Policy Simulator API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -289,10 +289,10 @@ impl Simulator {
     /// Returns a builder for [Simulator].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::client::Simulator;
     /// let client = Simulator::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::simulator::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::simulator::client::Factory)

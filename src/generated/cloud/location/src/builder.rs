@@ -20,7 +20,7 @@ pub mod locations {
     /// A builder for [Locations][crate::client::Locations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_location::*;
     /// # use builder::locations::ClientBuilder;
     /// # use client::Locations;
@@ -28,7 +28,7 @@ pub mod locations {
     /// let client = builder
     ///     .with_endpoint("https://cloud.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod locations {
     /// The request builder for [Locations::list_locations][crate::client::Locations::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_location::builder;
-    /// use builder::locations::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_location::builder::locations::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod locations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -181,14 +180,13 @@ pub mod locations {
     /// The request builder for [Locations::get_location][crate::client::Locations::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_location::builder;
-    /// use builder::locations::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_location::builder::locations::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
 /// let client = CloudQuotas::builder().build().await?;
 /// // use `client` to make requests to the Cloud Quotas API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -72,10 +72,10 @@ impl CloudQuotas {
     /// Returns a builder for [CloudQuotas].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_cloudquotas_v1::client::CloudQuotas;
     /// let client = CloudQuotas::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_quotas::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_quotas::client::Factory)

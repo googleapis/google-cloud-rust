@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
 /// let client = IdentityAwareProxyAdminService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl IdentityAwareProxyAdminService {
     /// Returns a builder for [IdentityAwareProxyAdminService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyAdminService;
     /// let client = IdentityAwareProxyAdminService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_admin_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -232,11 +232,11 @@ impl IdentityAwareProxyAdminService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
 /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Identity-Aware Proxy API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -280,10 +280,10 @@ impl IdentityAwareProxyOAuthService {
     /// Returns a builder for [IdentityAwareProxyOAuthService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iap_v1::client::IdentityAwareProxyOAuthService;
     /// let client = IdentityAwareProxyOAuthService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity_aware_proxy_o_auth_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

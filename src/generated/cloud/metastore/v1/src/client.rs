@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_metastore_v1::client::DataprocMetastore;
 /// let client = DataprocMetastore::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -86,10 +86,10 @@ impl DataprocMetastore {
     /// Returns a builder for [DataprocMetastore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::client::DataprocMetastore;
     /// let client = DataprocMetastore::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dataproc_metastore::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -432,11 +432,11 @@ impl DataprocMetastore {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
 /// let client = DataprocMetastoreFederation::builder().build().await?;
 /// // use `client` to make requests to the Dataproc Metastore API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -491,10 +491,10 @@ impl DataprocMetastoreFederation {
     /// Returns a builder for [DataprocMetastoreFederation].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_metastore_v1::client::DataprocMetastoreFederation;
     /// let client = DataprocMetastoreFederation::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dataproc_metastore_federation::ClientBuilder {
         gax::client_builder::internal::new_builder(

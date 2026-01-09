@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
 /// let client = Publisher::builder().build().await?;
 /// // use `client` to make requests to the Eventarc Publishing API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -94,10 +94,10 @@ impl Publisher {
     /// Returns a builder for [Publisher].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_publishing_v1::client::Publisher;
     /// let client = Publisher::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::publisher::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::publisher::client::Factory)

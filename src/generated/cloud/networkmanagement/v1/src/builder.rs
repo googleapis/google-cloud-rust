@@ -20,7 +20,7 @@ pub mod reachability_service {
     /// A builder for [ReachabilityService][crate::client::ReachabilityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::reachability_service::ClientBuilder;
     /// # use client::ReachabilityService;
@@ -28,7 +28,7 @@ pub mod reachability_service {
     /// let client = builder
     ///     .with_endpoint("https://networkmanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::list_connectivity_tests][crate::client::ReachabilityService::list_connectivity_tests] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::ListConnectivityTests;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListConnectivityTests;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod reachability_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectivityTests {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::get_connectivity_test][crate::client::ReachabilityService::get_connectivity_test] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::GetConnectivityTest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetConnectivityTest;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectivityTest {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::create_connectivity_test][crate::client::ReachabilityService::create_connectivity_test] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::CreateConnectivityTest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::CreateConnectivityTest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnectivityTest {
     ///   # panic!();
@@ -398,15 +395,14 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::update_connectivity_test][crate::client::ReachabilityService::update_connectivity_test] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::UpdateConnectivityTest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::UpdateConnectivityTest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnectivityTest {
     ///   # panic!();
@@ -542,15 +538,14 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::rerun_connectivity_test][crate::client::ReachabilityService::rerun_connectivity_test] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::RerunConnectivityTest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::RerunConnectivityTest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RerunConnectivityTest {
     ///   # panic!();
@@ -650,15 +645,14 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::delete_connectivity_test][crate::client::ReachabilityService::delete_connectivity_test] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::DeleteConnectivityTest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::DeleteConnectivityTest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnectivityTest {
     ///   # panic!();
@@ -757,10 +751,9 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::list_locations][crate::client::ReachabilityService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -768,7 +761,7 @@ pub mod reachability_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -867,14 +860,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::get_location][crate::client::ReachabilityService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -928,14 +920,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::set_iam_policy][crate::client::ReachabilityService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1031,14 +1022,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::get_iam_policy][crate::client::ReachabilityService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1112,14 +1102,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::test_iam_permissions][crate::client::ReachabilityService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1191,10 +1180,9 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::list_operations][crate::client::ReachabilityService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1202,7 +1190,7 @@ pub mod reachability_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1309,14 +1297,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::get_operation][crate::client::ReachabilityService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1373,14 +1360,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::delete_operation][crate::client::ReachabilityService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1437,14 +1423,13 @@ pub mod reachability_service {
     /// The request builder for [ReachabilityService::cancel_operation][crate::client::ReachabilityService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::reachability_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::reachability_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1505,7 +1490,7 @@ pub mod vpc_flow_logs_service {
     /// A builder for [VpcFlowLogsService][crate::client::VpcFlowLogsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::vpc_flow_logs_service::ClientBuilder;
     /// # use client::VpcFlowLogsService;
@@ -1513,7 +1498,7 @@ pub mod vpc_flow_logs_service {
     /// let client = builder
     ///     .with_endpoint("https://networkmanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1559,10 +1544,9 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::list_vpc_flow_logs_configs][crate::client::VpcFlowLogsService::list_vpc_flow_logs_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListVpcFlowLogsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1570,7 +1554,7 @@ pub mod vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVpcFlowLogsConfigs {
     ///   # panic!();
@@ -1681,14 +1665,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::get_vpc_flow_logs_config][crate::client::VpcFlowLogsService::get_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVpcFlowLogsConfig {
     ///   # panic!();
@@ -1747,15 +1730,14 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::create_vpc_flow_logs_config][crate::client::VpcFlowLogsService::create_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::CreateVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVpcFlowLogsConfig {
     ///   # panic!();
@@ -1887,15 +1869,14 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::update_vpc_flow_logs_config][crate::client::VpcFlowLogsService::update_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVpcFlowLogsConfig {
     ///   # panic!();
@@ -2033,15 +2014,14 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::delete_vpc_flow_logs_config][crate::client::VpcFlowLogsService::delete_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVpcFlowLogsConfig {
     ///   # panic!();
@@ -2142,10 +2122,9 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::query_org_vpc_flow_logs_configs][crate::client::VpcFlowLogsService::query_org_vpc_flow_logs_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::QueryOrgVpcFlowLogsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2153,7 +2132,7 @@ pub mod vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryOrgVpcFlowLogsConfigs {
     ///   # panic!();
@@ -2260,10 +2239,9 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::show_effective_flow_logs_configs][crate::client::VpcFlowLogsService::show_effective_flow_logs_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ShowEffectiveFlowLogsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2271,7 +2249,7 @@ pub mod vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ShowEffectiveFlowLogsConfigs {
     ///   # panic!();
@@ -2386,10 +2364,9 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::list_locations][crate::client::VpcFlowLogsService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2397,7 +2374,7 @@ pub mod vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2496,14 +2473,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::get_location][crate::client::VpcFlowLogsService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2557,14 +2533,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::set_iam_policy][crate::client::VpcFlowLogsService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -2660,14 +2635,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::get_iam_policy][crate::client::VpcFlowLogsService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -2741,14 +2715,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::test_iam_permissions][crate::client::VpcFlowLogsService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2820,10 +2793,9 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::list_operations][crate::client::VpcFlowLogsService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2831,7 +2803,7 @@ pub mod vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2938,14 +2910,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::get_operation][crate::client::VpcFlowLogsService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3002,14 +2973,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::delete_operation][crate::client::VpcFlowLogsService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3066,14 +3036,13 @@ pub mod vpc_flow_logs_service {
     /// The request builder for [VpcFlowLogsService::cancel_operation][crate::client::VpcFlowLogsService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::vpc_flow_logs_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::vpc_flow_logs_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3134,7 +3103,7 @@ pub mod organization_vpc_flow_logs_service {
     /// A builder for [OrganizationVpcFlowLogsService][crate::client::OrganizationVpcFlowLogsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::*;
     /// # use builder::organization_vpc_flow_logs_service::ClientBuilder;
     /// # use client::OrganizationVpcFlowLogsService;
@@ -3142,7 +3111,7 @@ pub mod organization_vpc_flow_logs_service {
     /// let client = builder
     ///     .with_endpoint("https://networkmanagement.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3188,10 +3157,9 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::list_vpc_flow_logs_configs][crate::client::OrganizationVpcFlowLogsService::list_vpc_flow_logs_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListVpcFlowLogsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3199,7 +3167,7 @@ pub mod organization_vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVpcFlowLogsConfigs {
     ///   # panic!();
@@ -3310,14 +3278,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::get_vpc_flow_logs_config][crate::client::OrganizationVpcFlowLogsService::get_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVpcFlowLogsConfig {
     ///   # panic!();
@@ -3376,15 +3343,14 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::create_vpc_flow_logs_config][crate::client::OrganizationVpcFlowLogsService::create_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::CreateVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVpcFlowLogsConfig {
     ///   # panic!();
@@ -3516,15 +3482,14 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::update_vpc_flow_logs_config][crate::client::OrganizationVpcFlowLogsService::update_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::UpdateVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVpcFlowLogsConfig {
     ///   # panic!();
@@ -3662,15 +3627,14 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::delete_vpc_flow_logs_config][crate::client::OrganizationVpcFlowLogsService::delete_vpc_flow_logs_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::DeleteVpcFlowLogsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVpcFlowLogsConfig {
     ///   # panic!();
@@ -3771,10 +3735,9 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::list_locations][crate::client::OrganizationVpcFlowLogsService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3782,7 +3745,7 @@ pub mod organization_vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3881,14 +3844,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::get_location][crate::client::OrganizationVpcFlowLogsService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3942,14 +3904,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::set_iam_policy][crate::client::OrganizationVpcFlowLogsService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4045,14 +4006,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::get_iam_policy][crate::client::OrganizationVpcFlowLogsService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4126,14 +4086,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::test_iam_permissions][crate::client::OrganizationVpcFlowLogsService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -4205,10 +4164,9 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::list_operations][crate::client::OrganizationVpcFlowLogsService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4216,7 +4174,7 @@ pub mod organization_vpc_flow_logs_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4323,14 +4281,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::get_operation][crate::client::OrganizationVpcFlowLogsService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4387,14 +4344,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::delete_operation][crate::client::OrganizationVpcFlowLogsService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4451,14 +4407,13 @@ pub mod organization_vpc_flow_logs_service {
     /// The request builder for [OrganizationVpcFlowLogsService::cancel_operation][crate::client::OrganizationVpcFlowLogsService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_networkmanagement_v1::builder;
-    /// use builder::organization_vpc_flow_logs_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_networkmanagement_v1::builder::organization_vpc_flow_logs_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

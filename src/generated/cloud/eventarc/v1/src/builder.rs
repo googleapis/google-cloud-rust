@@ -20,7 +20,7 @@ pub mod eventarc {
     /// A builder for [Eventarc][crate::client::Eventarc].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_v1::*;
     /// # use builder::eventarc::ClientBuilder;
     /// # use client::Eventarc;
@@ -28,7 +28,7 @@ pub mod eventarc {
     /// let client = builder
     ///     .with_endpoint("https://eventarc.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,14 +72,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_trigger][crate::client::Eventarc::get_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTrigger {
     ///   # panic!();
@@ -133,10 +132,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_triggers][crate::client::Eventarc::list_triggers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListTriggers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListTriggers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -144,7 +142,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTriggers {
     ///   # panic!();
@@ -246,15 +244,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_trigger][crate::client::Eventarc::create_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTrigger {
     ///   # panic!();
@@ -382,15 +379,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_trigger][crate::client::Eventarc::update_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTrigger {
     ///   # panic!();
@@ -522,15 +518,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_trigger][crate::client::Eventarc::delete_trigger] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteTrigger;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteTrigger;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTrigger {
     ///   # panic!();
@@ -640,14 +635,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_channel][crate::client::Eventarc::get_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetChannel {
     ///   # panic!();
@@ -701,10 +695,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_channels][crate::client::Eventarc::list_channels] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListChannels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListChannels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -712,7 +705,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListChannels {
     ///   # panic!();
@@ -808,15 +801,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_channel][crate::client::Eventarc::create_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateChannel {
     ///   # panic!();
@@ -944,15 +936,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_channel][crate::client::Eventarc::update_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateChannel {
     ///   # panic!();
@@ -1078,15 +1069,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_channel][crate::client::Eventarc::delete_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteChannel {
     ///   # panic!();
@@ -1184,14 +1174,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_provider][crate::client::Eventarc::get_provider] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetProvider;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetProvider;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProvider {
     ///   # panic!();
@@ -1245,10 +1234,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_providers][crate::client::Eventarc::list_providers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListProviders;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListProviders;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1256,7 +1244,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProviders {
     ///   # panic!();
@@ -1358,14 +1346,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_channel_connection][crate::client::Eventarc::get_channel_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetChannelConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetChannelConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetChannelConnection {
     ///   # panic!();
@@ -1422,10 +1409,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_channel_connections][crate::client::Eventarc::list_channel_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListChannelConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListChannelConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1433,7 +1419,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListChannelConnections {
     ///   # panic!();
@@ -1530,15 +1516,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_channel_connection][crate::client::Eventarc::create_channel_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateChannelConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateChannelConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateChannelConnection {
     ///   # panic!();
@@ -1668,15 +1653,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_channel_connection][crate::client::Eventarc::delete_channel_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteChannelConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteChannelConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteChannelConnection {
     ///   # panic!();
@@ -1776,14 +1760,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_google_channel_config][crate::client::Eventarc::get_google_channel_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetGoogleChannelConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetGoogleChannelConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGoogleChannelConfig {
     ///   # panic!();
@@ -1840,14 +1823,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_google_channel_config][crate::client::Eventarc::update_google_channel_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateGoogleChannelConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateGoogleChannelConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGoogleChannelConfig {
     ///   # panic!();
@@ -1938,14 +1920,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_message_bus][crate::client::Eventarc::get_message_bus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetMessageBus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetMessageBus;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMessageBus {
     ///   # panic!();
@@ -1999,10 +1980,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_message_buses][crate::client::Eventarc::list_message_buses] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListMessageBuses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListMessageBuses;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2010,7 +1990,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMessageBuses {
     ///   # panic!();
@@ -2115,14 +2095,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_message_bus_enrollments][crate::client::Eventarc::list_message_bus_enrollments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListMessageBusEnrollments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListMessageBusEnrollments;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMessageBusEnrollments {
     ///   # panic!();
@@ -2193,15 +2172,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_message_bus][crate::client::Eventarc::create_message_bus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateMessageBus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateMessageBus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMessageBus {
     ///   # panic!();
@@ -2332,15 +2310,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_message_bus][crate::client::Eventarc::update_message_bus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateMessageBus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateMessageBus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateMessageBus {
     ///   # panic!();
@@ -2479,15 +2456,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_message_bus][crate::client::Eventarc::delete_message_bus] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteMessageBus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteMessageBus;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMessageBus {
     ///   # panic!();
@@ -2600,14 +2576,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_enrollment][crate::client::Eventarc::get_enrollment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetEnrollment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetEnrollment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnrollment {
     ///   # panic!();
@@ -2661,10 +2636,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_enrollments][crate::client::Eventarc::list_enrollments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListEnrollments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListEnrollments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2672,7 +2646,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEnrollments {
     ///   # panic!();
@@ -2774,15 +2748,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_enrollment][crate::client::Eventarc::create_enrollment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateEnrollment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateEnrollment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEnrollment {
     ///   # panic!();
@@ -2913,15 +2886,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_enrollment][crate::client::Eventarc::update_enrollment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateEnrollment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateEnrollment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEnrollment {
     ///   # panic!();
@@ -3060,15 +3032,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_enrollment][crate::client::Eventarc::delete_enrollment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteEnrollment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteEnrollment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEnrollment {
     ///   # panic!();
@@ -3181,14 +3152,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_pipeline][crate::client::Eventarc::get_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPipeline {
     ///   # panic!();
@@ -3242,10 +3212,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_pipelines][crate::client::Eventarc::list_pipelines] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListPipelines;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListPipelines;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3253,7 +3222,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPipelines {
     ///   # panic!();
@@ -3355,15 +3324,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_pipeline][crate::client::Eventarc::create_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreatePipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreatePipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePipeline {
     ///   # panic!();
@@ -3491,15 +3459,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_pipeline][crate::client::Eventarc::update_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdatePipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdatePipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePipeline {
     ///   # panic!();
@@ -3635,15 +3602,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_pipeline][crate::client::Eventarc::delete_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeletePipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeletePipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePipeline {
     ///   # panic!();
@@ -3753,14 +3719,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_google_api_source][crate::client::Eventarc::get_google_api_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetGoogleApiSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetGoogleApiSource;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGoogleApiSource {
     ///   # panic!();
@@ -3817,10 +3782,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_google_api_sources][crate::client::Eventarc::list_google_api_sources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListGoogleApiSources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListGoogleApiSources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3828,7 +3792,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGoogleApiSources {
     ///   # panic!();
@@ -3935,15 +3899,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::create_google_api_source][crate::client::Eventarc::create_google_api_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CreateGoogleApiSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CreateGoogleApiSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGoogleApiSource {
     ///   # panic!();
@@ -4077,15 +4040,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::update_google_api_source][crate::client::Eventarc::update_google_api_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::UpdateGoogleApiSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::UpdateGoogleApiSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGoogleApiSource {
     ///   # panic!();
@@ -4227,15 +4189,14 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_google_api_source][crate::client::Eventarc::delete_google_api_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteGoogleApiSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteGoogleApiSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGoogleApiSource {
     ///   # panic!();
@@ -4351,10 +4312,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_locations][crate::client::Eventarc::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4362,7 +4322,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4459,14 +4419,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_location][crate::client::Eventarc::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4518,14 +4477,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::set_iam_policy][crate::client::Eventarc::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4619,14 +4577,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_iam_policy][crate::client::Eventarc::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4698,14 +4655,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::test_iam_permissions][crate::client::Eventarc::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -4775,10 +4731,9 @@ pub mod eventarc {
     /// The request builder for [Eventarc::list_operations][crate::client::Eventarc::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4786,7 +4741,7 @@ pub mod eventarc {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4891,14 +4846,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::get_operation][crate::client::Eventarc::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4953,14 +4907,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::delete_operation][crate::client::Eventarc::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5015,14 +4968,13 @@ pub mod eventarc {
     /// The request builder for [Eventarc::cancel_operation][crate::client::Eventarc::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_eventarc_v1::builder;
-    /// use builder::eventarc::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_eventarc_v1::builder::eventarc::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

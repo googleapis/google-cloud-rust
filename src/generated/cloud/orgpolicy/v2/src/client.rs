@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
 /// let client = OrgPolicy::builder().build().await?;
 /// // use `client` to make requests to the Organization Policy API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -85,10 +85,10 @@ impl OrgPolicy {
     /// Returns a builder for [OrgPolicy].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_orgpolicy_v2::client::OrgPolicy;
     /// let client = OrgPolicy::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::org_policy::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::org_policy::client::Factory)

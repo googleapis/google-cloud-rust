@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
 /// let client = DataPolicyService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Data Policy API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl DataPolicyService {
     /// Returns a builder for [DataPolicyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_datapolicies_v1::client::DataPolicyService;
     /// let client = DataPolicyService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_policy_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

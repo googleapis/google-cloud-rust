@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
 /// let client = PrivilegedAccessManager::builder().build().await?;
 /// // use `client` to make requests to the Privileged Access Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -85,10 +85,10 @@ impl PrivilegedAccessManager {
     /// Returns a builder for [PrivilegedAccessManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_privilegedaccessmanager_v1::client::PrivilegedAccessManager;
     /// let client = PrivilegedAccessManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::privileged_access_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

@@ -20,7 +20,7 @@ pub mod managed_kafka {
     /// A builder for [ManagedKafka][crate::client::ManagedKafka].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::*;
     /// # use builder::managed_kafka::ClientBuilder;
     /// # use client::ManagedKafka;
@@ -28,7 +28,7 @@ pub mod managed_kafka {
     /// let client = builder
     ///     .with_endpoint("https://managedkafka.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_clusters][crate::client::ManagedKafka::list_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClusters {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_cluster][crate::client::ManagedKafka::get_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCluster {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::create_cluster][crate::client::ManagedKafka::create_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::CreateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::CreateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCluster {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::update_cluster][crate::client::ManagedKafka::update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::UpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::UpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
     ///   # panic!();
@@ -534,15 +530,14 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::delete_cluster][crate::client::ManagedKafka::delete_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::DeleteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
     ///   # panic!();
@@ -644,10 +639,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_topics][crate::client::ManagedKafka::list_topics] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListTopics;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListTopics;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -655,7 +649,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTopics {
     ///   # panic!();
@@ -747,14 +741,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_topic][crate::client::ManagedKafka::get_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTopic {
     ///   # panic!();
@@ -810,14 +803,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::create_topic][crate::client::ManagedKafka::create_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::CreateTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::CreateTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTopic {
     ///   # panic!();
@@ -903,14 +895,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::update_topic][crate::client::ManagedKafka::update_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::UpdateTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::UpdateTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTopic {
     ///   # panic!();
@@ -1002,14 +993,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::delete_topic][crate::client::ManagedKafka::delete_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::DeleteTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTopic {
     ///   # panic!();
@@ -1065,10 +1055,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_consumer_groups][crate::client::ManagedKafka::list_consumer_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListConsumerGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListConsumerGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1076,7 +1065,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConsumerGroups {
     ///   # panic!();
@@ -1173,14 +1162,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_consumer_group][crate::client::ManagedKafka::get_consumer_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetConsumerGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetConsumerGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConsumerGroup {
     ///   # panic!();
@@ -1239,14 +1227,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::update_consumer_group][crate::client::ManagedKafka::update_consumer_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::UpdateConsumerGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::UpdateConsumerGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConsumerGroup {
     ///   # panic!();
@@ -1341,14 +1328,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::delete_consumer_group][crate::client::ManagedKafka::delete_consumer_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::DeleteConsumerGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteConsumerGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConsumerGroup {
     ///   # panic!();
@@ -1407,10 +1393,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_acls][crate::client::ManagedKafka::list_acls] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListAcls;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListAcls;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1418,7 +1403,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAcls {
     ///   # panic!();
@@ -1510,14 +1495,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_acl][crate::client::ManagedKafka::get_acl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetAcl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetAcl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAcl {
     ///   # panic!();
@@ -1573,14 +1557,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::create_acl][crate::client::ManagedKafka::create_acl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::CreateAcl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::CreateAcl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAcl {
     ///   # panic!();
@@ -1666,14 +1649,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::update_acl][crate::client::ManagedKafka::update_acl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::UpdateAcl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::UpdateAcl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAcl {
     ///   # panic!();
@@ -1761,14 +1743,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::delete_acl][crate::client::ManagedKafka::delete_acl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::DeleteAcl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteAcl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAcl {
     ///   # panic!();
@@ -1824,14 +1805,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::add_acl_entry][crate::client::ManagedKafka::add_acl_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::AddAclEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::AddAclEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddAclEntry {
     ///   # panic!();
@@ -1909,14 +1889,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::remove_acl_entry][crate::client::ManagedKafka::remove_acl_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::RemoveAclEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::RemoveAclEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveAclEntry {
     ///   # panic!();
@@ -1994,10 +1973,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_locations][crate::client::ManagedKafka::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2005,7 +1983,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2104,14 +2082,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_location][crate::client::ManagedKafka::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2165,10 +2142,9 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::list_operations][crate::client::ManagedKafka::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2176,7 +2152,7 @@ pub mod managed_kafka {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2283,14 +2259,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::get_operation][crate::client::ManagedKafka::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2347,14 +2322,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::delete_operation][crate::client::ManagedKafka::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2411,14 +2385,13 @@ pub mod managed_kafka {
     /// The request builder for [ManagedKafka::cancel_operation][crate::client::ManagedKafka::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2479,7 +2452,7 @@ pub mod managed_kafka_connect {
     /// A builder for [ManagedKafkaConnect][crate::client::ManagedKafkaConnect].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_v1::*;
     /// # use builder::managed_kafka_connect::ClientBuilder;
     /// # use client::ManagedKafkaConnect;
@@ -2487,7 +2460,7 @@ pub mod managed_kafka_connect {
     /// let client = builder
     ///     .with_endpoint("https://managedkafka.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2533,10 +2506,9 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::list_connect_clusters][crate::client::ManagedKafkaConnect::list_connect_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::ListConnectClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::ListConnectClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2544,7 +2516,7 @@ pub mod managed_kafka_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectClusters {
     ///   # panic!();
@@ -2653,14 +2625,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::get_connect_cluster][crate::client::ManagedKafkaConnect::get_connect_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::GetConnectCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::GetConnectCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectCluster {
     ///   # panic!();
@@ -2719,15 +2690,14 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::create_connect_cluster][crate::client::ManagedKafkaConnect::create_connect_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::CreateConnectCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::CreateConnectCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnectCluster {
     ///   # panic!();
@@ -2863,15 +2833,14 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::update_connect_cluster][crate::client::ManagedKafkaConnect::update_connect_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::UpdateConnectCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::UpdateConnectCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnectCluster {
     ///   # panic!();
@@ -3013,15 +2982,14 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::delete_connect_cluster][crate::client::ManagedKafkaConnect::delete_connect_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::DeleteConnectCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::DeleteConnectCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnectCluster {
     ///   # panic!();
@@ -3126,10 +3094,9 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::list_connectors][crate::client::ManagedKafkaConnect::list_connectors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::ListConnectors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::ListConnectors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3137,7 +3104,7 @@ pub mod managed_kafka_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectors {
     ///   # panic!();
@@ -3229,14 +3196,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::get_connector][crate::client::ManagedKafkaConnect::get_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::GetConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::GetConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnector {
     ///   # panic!();
@@ -3292,14 +3258,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::create_connector][crate::client::ManagedKafkaConnect::create_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::CreateConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::CreateConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnector {
     ///   # panic!();
@@ -3385,14 +3350,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::update_connector][crate::client::ManagedKafkaConnect::update_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::UpdateConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::UpdateConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnector {
     ///   # panic!();
@@ -3484,14 +3448,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::delete_connector][crate::client::ManagedKafkaConnect::delete_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::DeleteConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::DeleteConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnector {
     ///   # panic!();
@@ -3547,14 +3510,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::pause_connector][crate::client::ManagedKafkaConnect::pause_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::PauseConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::PauseConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseConnector {
     ///   # panic!();
@@ -3610,14 +3572,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::resume_connector][crate::client::ManagedKafkaConnect::resume_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::ResumeConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::ResumeConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeConnector {
     ///   # panic!();
@@ -3673,14 +3634,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::restart_connector][crate::client::ManagedKafkaConnect::restart_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::RestartConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::RestartConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestartConnector {
     ///   # panic!();
@@ -3739,14 +3699,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::stop_connector][crate::client::ManagedKafkaConnect::stop_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::StopConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::StopConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopConnector {
     ///   # panic!();
@@ -3802,10 +3761,9 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::list_locations][crate::client::ManagedKafkaConnect::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3813,7 +3771,7 @@ pub mod managed_kafka_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3912,14 +3870,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::get_location][crate::client::ManagedKafkaConnect::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3973,10 +3930,9 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::list_operations][crate::client::ManagedKafkaConnect::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3984,7 +3940,7 @@ pub mod managed_kafka_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4091,14 +4047,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::get_operation][crate::client::ManagedKafkaConnect::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4155,14 +4110,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::delete_operation][crate::client::ManagedKafkaConnect::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4219,14 +4173,13 @@ pub mod managed_kafka_connect {
     /// The request builder for [ManagedKafkaConnect::cancel_operation][crate::client::ManagedKafkaConnect::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_v1::builder;
-    /// use builder::managed_kafka_connect::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_v1::builder::managed_kafka_connect::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

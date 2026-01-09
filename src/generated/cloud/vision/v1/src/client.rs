@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ImageAnnotator;
 /// let client = ImageAnnotator::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl ImageAnnotator {
     /// Returns a builder for [ImageAnnotator].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::client::ImageAnnotator;
     /// let client = ImageAnnotator::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::image_annotator::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::image_annotator::client::Factory)
@@ -195,11 +195,11 @@ impl ImageAnnotator {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_vision_v1::client::ProductSearch;
 /// let client = ProductSearch::builder().build().await?;
 /// // use `client` to make requests to the Cloud Vision API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -261,10 +261,10 @@ impl ProductSearch {
     /// Returns a builder for [ProductSearch].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_vision_v1::client::ProductSearch;
     /// let client = ProductSearch::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::product_search::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::product_search::client::Factory)

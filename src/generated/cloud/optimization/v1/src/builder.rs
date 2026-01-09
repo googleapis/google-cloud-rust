@@ -20,7 +20,7 @@ pub mod fleet_routing {
     /// A builder for [FleetRouting][crate::client::FleetRouting].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_optimization_v1::*;
     /// # use builder::fleet_routing::ClientBuilder;
     /// # use client::FleetRouting;
@@ -28,7 +28,7 @@ pub mod fleet_routing {
     /// let client = builder
     ///     .with_endpoint("https://cloudoptimization.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod fleet_routing {
     /// The request builder for [FleetRouting::optimize_tours][crate::client::FleetRouting::optimize_tours] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_optimization_v1::builder;
-    /// use builder::fleet_routing::OptimizeTours;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_optimization_v1::builder::fleet_routing::OptimizeTours;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> OptimizeTours {
     ///   # panic!();
@@ -331,15 +330,14 @@ pub mod fleet_routing {
     /// The request builder for [FleetRouting::batch_optimize_tours][crate::client::FleetRouting::batch_optimize_tours] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_optimization_v1::builder;
-    /// use builder::fleet_routing::BatchOptimizeTours;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_optimization_v1::builder::fleet_routing::BatchOptimizeTours;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchOptimizeTours {
     ///   # panic!();
@@ -452,14 +450,13 @@ pub mod fleet_routing {
     /// The request builder for [FleetRouting::get_operation][crate::client::FleetRouting::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_optimization_v1::builder;
-    /// use builder::fleet_routing::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_optimization_v1::builder::fleet_routing::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

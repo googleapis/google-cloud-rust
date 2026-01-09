@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Compliance;
 /// let client = Compliance::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl Compliance {
     /// Returns a builder for [Compliance].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Compliance;
     /// let client = Compliance::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::compliance::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::compliance::client::Factory)
@@ -256,11 +256,11 @@ impl Compliance {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Echo;
 /// let client = Echo::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -308,10 +308,10 @@ impl Echo {
     /// Returns a builder for [Echo].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Echo;
     /// let client = Echo::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::echo::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::echo::client::Factory)
@@ -499,11 +499,11 @@ impl Echo {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Identity;
 /// let client = Identity::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -545,10 +545,10 @@ impl Identity {
     /// Returns a builder for [Identity].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Identity;
     /// let client = Identity::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::identity::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::identity::client::Factory)
@@ -690,11 +690,11 @@ impl Identity {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Messaging;
 /// let client = Messaging::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -739,10 +739,10 @@ impl Messaging {
     /// Returns a builder for [Messaging].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Messaging;
     /// let client = Messaging::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::messaging::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::messaging::client::Factory)
@@ -929,11 +929,11 @@ impl Messaging {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::SequenceService;
 /// let client = SequenceService::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -974,10 +974,10 @@ impl SequenceService {
     /// Returns a builder for [SequenceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::SequenceService;
     /// let client = SequenceService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sequence_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1126,11 +1126,11 @@ impl SequenceService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_showcase_v1beta1::client::Testing;
 /// let client = Testing::builder().build().await?;
 /// // use `client` to make requests to the Client Libraries Showcase API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1178,10 +1178,10 @@ impl Testing {
     /// Returns a builder for [Testing].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_showcase_v1beta1::client::Testing;
     /// let client = Testing::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::testing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::testing::client::Factory)

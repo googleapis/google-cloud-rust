@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
 /// let client = CloudRedisCluster::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Memorystore for Redis API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -82,10 +82,10 @@ impl CloudRedisCluster {
     /// Returns a builder for [CloudRedisCluster].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_redis_cluster_v1::client::CloudRedisCluster;
     /// let client = CloudRedisCluster::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_redis_cluster::ClientBuilder {
         gax::client_builder::internal::new_builder(

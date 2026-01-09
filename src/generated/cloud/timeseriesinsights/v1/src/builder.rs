@@ -20,7 +20,7 @@ pub mod timeseries_insights_controller {
     /// A builder for [TimeseriesInsightsController][crate::client::TimeseriesInsightsController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_timeseriesinsights_v1::*;
     /// # use builder::timeseries_insights_controller::ClientBuilder;
     /// # use client::TimeseriesInsightsController;
@@ -28,7 +28,7 @@ pub mod timeseries_insights_controller {
     /// let client = builder
     ///     .with_endpoint("https://timeseriesinsights.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::list_data_sets][crate::client::TimeseriesInsightsController::list_data_sets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::ListDataSets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::ListDataSets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod timeseries_insights_controller {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataSets {
     ///   # panic!();
@@ -177,14 +176,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::create_data_set][crate::client::TimeseriesInsightsController::create_data_set] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::CreateDataSet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::CreateDataSet;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataSet {
     ///   # panic!();
@@ -262,14 +260,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::delete_data_set][crate::client::TimeseriesInsightsController::delete_data_set] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::DeleteDataSet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::DeleteDataSet;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataSet {
     ///   # panic!();
@@ -325,14 +322,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::append_events][crate::client::TimeseriesInsightsController::append_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::AppendEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::AppendEvents;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AppendEvents {
     ///   # panic!();
@@ -399,14 +395,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::query_data_set][crate::client::TimeseriesInsightsController::query_data_set] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::QueryDataSet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::QueryDataSet;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryDataSet {
     ///   # panic!();
@@ -562,14 +557,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::evaluate_slice][crate::client::TimeseriesInsightsController::evaluate_slice] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::EvaluateSlice;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::EvaluateSlice;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EvaluateSlice {
     ///   # panic!();
@@ -696,14 +690,13 @@ pub mod timeseries_insights_controller {
     /// The request builder for [TimeseriesInsightsController::evaluate_timeseries][crate::client::TimeseriesInsightsController::evaluate_timeseries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_timeseriesinsights_v1::builder;
-    /// use builder::timeseries_insights_controller::EvaluateTimeseries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_timeseriesinsights_v1::builder::timeseries_insights_controller::EvaluateTimeseries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EvaluateTimeseries {
     ///   # panic!();

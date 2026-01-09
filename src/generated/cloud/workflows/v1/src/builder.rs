@@ -20,7 +20,7 @@ pub mod workflows {
     /// A builder for [Workflows][crate::client::Workflows].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_workflows_v1::*;
     /// # use builder::workflows::ClientBuilder;
     /// # use client::Workflows;
@@ -28,7 +28,7 @@ pub mod workflows {
     /// let client = builder
     ///     .with_endpoint("https://workflows.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod workflows {
     /// The request builder for [Workflows::list_workflows][crate::client::Workflows::list_workflows] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::ListWorkflows;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::ListWorkflows;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod workflows {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkflows {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod workflows {
     /// The request builder for [Workflows::get_workflow][crate::client::Workflows::get_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::GetWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::GetWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkflow {
     ///   # panic!();
@@ -258,15 +256,14 @@ pub mod workflows {
     /// The request builder for [Workflows::create_workflow][crate::client::Workflows::create_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::CreateWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::CreateWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkflow {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod workflows {
     /// The request builder for [Workflows::delete_workflow][crate::client::Workflows::delete_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::DeleteWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::DeleteWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkflow {
     ///   # panic!();
@@ -494,15 +490,14 @@ pub mod workflows {
     /// The request builder for [Workflows::update_workflow][crate::client::Workflows::update_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::UpdateWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::UpdateWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkflow {
     ///   # panic!();
@@ -628,10 +623,9 @@ pub mod workflows {
     /// The request builder for [Workflows::list_workflow_revisions][crate::client::Workflows::list_workflow_revisions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::ListWorkflowRevisions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::ListWorkflowRevisions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -639,7 +633,7 @@ pub mod workflows {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkflowRevisions {
     ///   # panic!();
@@ -736,10 +730,9 @@ pub mod workflows {
     /// The request builder for [Workflows::list_locations][crate::client::Workflows::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -747,7 +740,7 @@ pub mod workflows {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -846,14 +839,13 @@ pub mod workflows {
     /// The request builder for [Workflows::get_location][crate::client::Workflows::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -907,10 +899,9 @@ pub mod workflows {
     /// The request builder for [Workflows::list_operations][crate::client::Workflows::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -918,7 +909,7 @@ pub mod workflows {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1025,14 +1016,13 @@ pub mod workflows {
     /// The request builder for [Workflows::get_operation][crate::client::Workflows::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1089,14 +1079,13 @@ pub mod workflows {
     /// The request builder for [Workflows::delete_operation][crate::client::Workflows::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_v1::builder;
-    /// use builder::workflows::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_v1::builder::workflows::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();

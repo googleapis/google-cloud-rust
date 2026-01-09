@@ -20,7 +20,7 @@ pub mod maintenance {
     /// A builder for [Maintenance][crate::client::Maintenance].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_maintenance_api_v1::*;
     /// # use builder::maintenance::ClientBuilder;
     /// # use client::Maintenance;
@@ -28,7 +28,7 @@ pub mod maintenance {
     /// let client = builder
     ///     .with_endpoint("https://maintenance.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod maintenance {
     /// The request builder for [Maintenance::summarize_maintenances][crate::client::Maintenance::summarize_maintenances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_maintenance_api_v1::builder;
-    /// use builder::maintenance::SummarizeMaintenances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::builder::maintenance::SummarizeMaintenances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod maintenance {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SummarizeMaintenances {
     ///   # panic!();
@@ -194,10 +193,9 @@ pub mod maintenance {
     /// The request builder for [Maintenance::list_resource_maintenances][crate::client::Maintenance::list_resource_maintenances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_maintenance_api_v1::builder;
-    /// use builder::maintenance::ListResourceMaintenances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::builder::maintenance::ListResourceMaintenances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -205,7 +203,7 @@ pub mod maintenance {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListResourceMaintenances {
     ///   # panic!();
@@ -318,14 +316,13 @@ pub mod maintenance {
     /// The request builder for [Maintenance::get_resource_maintenance][crate::client::Maintenance::get_resource_maintenance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_maintenance_api_v1::builder;
-    /// use builder::maintenance::GetResourceMaintenance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::builder::maintenance::GetResourceMaintenance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetResourceMaintenance {
     ///   # panic!();
@@ -384,10 +381,9 @@ pub mod maintenance {
     /// The request builder for [Maintenance::list_locations][crate::client::Maintenance::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_maintenance_api_v1::builder;
-    /// use builder::maintenance::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::builder::maintenance::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -395,7 +391,7 @@ pub mod maintenance {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -494,14 +490,13 @@ pub mod maintenance {
     /// The request builder for [Maintenance::get_location][crate::client::Maintenance::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_maintenance_api_v1::builder;
-    /// use builder::maintenance::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_maintenance_api_v1::builder::maintenance::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod os_login_service {
     /// A builder for [OsLoginService][crate::client::OsLoginService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::*;
     /// # use builder::os_login_service::ClientBuilder;
     /// # use client::OsLoginService;
@@ -28,7 +28,7 @@ pub mod os_login_service {
     /// let client = builder
     ///     .with_endpoint("https://oslogin.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::create_ssh_public_key][crate::client::OsLoginService::create_ssh_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::CreateSshPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::CreateSshPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSshPublicKey {
     ///   # panic!();
@@ -162,14 +161,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::delete_posix_account][crate::client::OsLoginService::delete_posix_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::DeletePosixAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::DeletePosixAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePosixAccount {
     ///   # panic!();
@@ -228,14 +226,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::delete_ssh_public_key][crate::client::OsLoginService::delete_ssh_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::DeleteSshPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::DeleteSshPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSshPublicKey {
     ///   # panic!();
@@ -294,14 +291,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::get_login_profile][crate::client::OsLoginService::get_login_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::GetLoginProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::GetLoginProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLoginProfile {
     ///   # panic!();
@@ -369,14 +365,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::get_ssh_public_key][crate::client::OsLoginService::get_ssh_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::GetSshPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::GetSshPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSshPublicKey {
     ///   # panic!();
@@ -432,14 +427,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::import_ssh_public_key][crate::client::OsLoginService::import_ssh_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::ImportSshPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::ImportSshPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportSshPublicKey {
     ///   # panic!();
@@ -533,14 +527,13 @@ pub mod os_login_service {
     /// The request builder for [OsLoginService::update_ssh_public_key][crate::client::OsLoginService::update_ssh_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oslogin_v1::builder;
-    /// use builder::os_login_service::UpdateSshPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oslogin_v1::builder::os_login_service::UpdateSshPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSshPublicKey {
     ///   # panic!();

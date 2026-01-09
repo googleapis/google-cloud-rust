@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
 /// let client = CloudLocationFinder::builder().build().await?;
 /// // use `client` to make requests to the Cloud Location Finder API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl CloudLocationFinder {
     /// Returns a builder for [CloudLocationFinder].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_locationfinder_v1::client::CloudLocationFinder;
     /// let client = CloudLocationFinder::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_location_finder::ClientBuilder {
         gax::client_builder::internal::new_builder(

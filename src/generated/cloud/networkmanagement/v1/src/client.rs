@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
 /// let client = ReachabilityService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -73,10 +73,10 @@ impl ReachabilityService {
     /// Returns a builder for [ReachabilityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::ReachabilityService;
     /// let client = ReachabilityService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reachability_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -315,11 +315,11 @@ impl ReachabilityService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
 /// let client = VpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -363,10 +363,10 @@ impl VpcFlowLogsService {
     /// Returns a builder for [VpcFlowLogsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::VpcFlowLogsService;
     /// let client = VpcFlowLogsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vpc_flow_logs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -598,11 +598,11 @@ impl VpcFlowLogsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
 /// let client = OrganizationVpcFlowLogsService::builder().build().await?;
 /// // use `client` to make requests to the Network Management API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -647,10 +647,10 @@ impl OrganizationVpcFlowLogsService {
     /// Returns a builder for [OrganizationVpcFlowLogsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkmanagement_v1::client::OrganizationVpcFlowLogsService;
     /// let client = OrganizationVpcFlowLogsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organization_vpc_flow_logs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

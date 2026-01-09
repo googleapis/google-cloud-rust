@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
 /// let client = ServiceController::builder().build().await?;
 /// // use `client` to make requests to the Service Control API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl ServiceController {
     /// Returns a builder for [ServiceController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v2::client::ServiceController;
     /// let client = ServiceController::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_controller::ClientBuilder {
         gax::client_builder::internal::new_builder(

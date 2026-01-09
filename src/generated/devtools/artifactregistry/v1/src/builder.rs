@@ -20,7 +20,7 @@ pub mod artifact_registry {
     /// A builder for [ArtifactRegistry][crate::client::ArtifactRegistry].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_artifactregistry_v1::*;
     /// # use builder::artifact_registry::ClientBuilder;
     /// # use client::ArtifactRegistry;
@@ -28,7 +28,7 @@ pub mod artifact_registry {
     /// let client = builder
     ///     .with_endpoint("https://artifactregistry.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_docker_images][crate::client::ArtifactRegistry::list_docker_images] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListDockerImages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListDockerImages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDockerImages {
     ///   # panic!();
@@ -186,14 +185,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_docker_image][crate::client::ArtifactRegistry::get_docker_image] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetDockerImage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetDockerImage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDockerImage {
     ///   # panic!();
@@ -249,10 +247,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_maven_artifacts][crate::client::ArtifactRegistry::list_maven_artifacts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListMavenArtifacts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListMavenArtifacts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -260,7 +257,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMavenArtifacts {
     ///   # panic!();
@@ -357,14 +354,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_maven_artifact][crate::client::ArtifactRegistry::get_maven_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetMavenArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetMavenArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMavenArtifact {
     ///   # panic!();
@@ -423,10 +419,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_npm_packages][crate::client::ArtifactRegistry::list_npm_packages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListNpmPackages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListNpmPackages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -434,7 +429,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNpmPackages {
     ///   # panic!();
@@ -526,14 +521,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_npm_package][crate::client::ArtifactRegistry::get_npm_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetNpmPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetNpmPackage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNpmPackage {
     ///   # panic!();
@@ -589,10 +583,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_python_packages][crate::client::ArtifactRegistry::list_python_packages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListPythonPackages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListPythonPackages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -600,7 +593,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPythonPackages {
     ///   # panic!();
@@ -697,14 +690,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_python_package][crate::client::ArtifactRegistry::get_python_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetPythonPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetPythonPackage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPythonPackage {
     ///   # panic!();
@@ -763,15 +755,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::import_apt_artifacts][crate::client::ArtifactRegistry::import_apt_artifacts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ImportAptArtifacts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportAptArtifacts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportAptArtifacts {
     ///   # panic!();
@@ -898,15 +889,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::import_yum_artifacts][crate::client::ArtifactRegistry::import_yum_artifacts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ImportYumArtifacts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ImportYumArtifacts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportYumArtifacts {
     ///   # panic!();
@@ -1033,10 +1023,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_repositories][crate::client::ArtifactRegistry::list_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1044,7 +1033,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRepositories {
     ///   # panic!();
@@ -1151,14 +1140,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_repository][crate::client::ArtifactRegistry::get_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRepository {
     ///   # panic!();
@@ -1214,15 +1202,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::create_repository][crate::client::ArtifactRegistry::create_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::CreateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRepository {
     ///   # panic!();
@@ -1349,14 +1336,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_repository][crate::client::ArtifactRegistry::update_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRepository {
     ///   # panic!();
@@ -1443,15 +1429,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_repository][crate::client::ArtifactRegistry::delete_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRepository {
     ///   # panic!();
@@ -1550,10 +1535,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_packages][crate::client::ArtifactRegistry::list_packages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListPackages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListPackages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1561,7 +1545,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPackages {
     ///   # panic!();
@@ -1665,14 +1649,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_package][crate::client::ArtifactRegistry::get_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetPackage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPackage {
     ///   # panic!();
@@ -1728,15 +1711,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_package][crate::client::ArtifactRegistry::delete_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeletePackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeletePackage;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePackage {
     ///   # panic!();
@@ -1832,10 +1814,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_versions][crate::client::ArtifactRegistry::list_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1843,7 +1824,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVersions {
     ///   # panic!();
@@ -1951,14 +1932,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_version][crate::client::ArtifactRegistry::get_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVersion {
     ///   # panic!();
@@ -2018,15 +1998,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_version][crate::client::ArtifactRegistry::delete_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteVersion;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVersion {
     ///   # panic!();
@@ -2126,15 +2105,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::batch_delete_versions][crate::client::ArtifactRegistry::batch_delete_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::BatchDeleteVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::BatchDeleteVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeleteVersions {
     ///   # panic!();
@@ -2251,14 +2229,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_version][crate::client::ArtifactRegistry::update_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVersion {
     ///   # panic!();
@@ -2346,10 +2323,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_files][crate::client::ArtifactRegistry::list_files] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListFiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListFiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2357,7 +2333,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFiles {
     ///   # panic!();
@@ -2461,14 +2437,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_file][crate::client::ArtifactRegistry::get_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFile {
     ///   # panic!();
@@ -2524,15 +2499,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_file][crate::client::ArtifactRegistry::delete_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteFile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFile {
     ///   # panic!();
@@ -2628,14 +2602,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_file][crate::client::ArtifactRegistry::update_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFile {
     ///   # panic!();
@@ -2727,10 +2700,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_tags][crate::client::ArtifactRegistry::list_tags] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListTags;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListTags;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2738,7 +2710,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTags {
     ///   # panic!();
@@ -2834,14 +2806,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_tag][crate::client::ArtifactRegistry::get_tag] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetTag;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetTag;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTag {
     ///   # panic!();
@@ -2895,14 +2866,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::create_tag][crate::client::ArtifactRegistry::create_tag] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::CreateTag;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateTag;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTag {
     ///   # panic!();
@@ -2980,14 +2950,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_tag][crate::client::ArtifactRegistry::update_tag] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateTag;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateTag;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTag {
     ///   # panic!();
@@ -3071,14 +3040,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_tag][crate::client::ArtifactRegistry::delete_tag] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteTag;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteTag;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTag {
     ///   # panic!();
@@ -3132,14 +3100,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::create_rule][crate::client::ArtifactRegistry::create_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::CreateRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRule {
     ///   # panic!();
@@ -3219,10 +3186,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_rules][crate::client::ArtifactRegistry::list_rules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListRules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListRules;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3230,7 +3196,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRules {
     ///   # panic!();
@@ -3322,14 +3288,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_rule][crate::client::ArtifactRegistry::get_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRule {
     ///   # panic!();
@@ -3385,14 +3350,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_rule][crate::client::ArtifactRegistry::update_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRule {
     ///   # panic!();
@@ -3476,14 +3440,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_rule][crate::client::ArtifactRegistry::delete_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRule {
     ///   # panic!();
@@ -3539,14 +3502,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::set_iam_policy][crate::client::ArtifactRegistry::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3642,14 +3604,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_iam_policy][crate::client::ArtifactRegistry::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3723,14 +3684,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::test_iam_permissions][crate::client::ArtifactRegistry::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -3802,14 +3762,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_project_settings][crate::client::ArtifactRegistry::get_project_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetProjectSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetProjectSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProjectSettings {
     ///   # panic!();
@@ -3868,14 +3827,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_project_settings][crate::client::ArtifactRegistry::update_project_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateProjectSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateProjectSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateProjectSettings {
     ///   # panic!();
@@ -3962,14 +3920,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_vpcsc_config][crate::client::ArtifactRegistry::get_vpcsc_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetVPCSCConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetVPCSCConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVPCSCConfig {
     ///   # panic!();
@@ -4025,14 +3982,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_vpcsc_config][crate::client::ArtifactRegistry::update_vpcsc_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdateVPCSCConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdateVPCSCConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVPCSCConfig {
     ///   # panic!();
@@ -4119,14 +4075,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::update_package][crate::client::ArtifactRegistry::update_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::UpdatePackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::UpdatePackage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePackage {
     ///   # panic!();
@@ -4210,10 +4165,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_attachments][crate::client::ArtifactRegistry::list_attachments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListAttachments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListAttachments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4221,7 +4175,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAttachments {
     ///   # panic!();
@@ -4319,14 +4273,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_attachment][crate::client::ArtifactRegistry::get_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAttachment {
     ///   # panic!();
@@ -4382,15 +4335,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::create_attachment][crate::client::ArtifactRegistry::create_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::CreateAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::CreateAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAttachment {
     ///   # panic!();
@@ -4517,15 +4469,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::delete_attachment][crate::client::ArtifactRegistry::delete_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::DeleteAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::DeleteAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAttachment {
     ///   # panic!();
@@ -4624,15 +4575,14 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::export_artifact][crate::client::ArtifactRegistry::export_artifact] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ExportArtifact;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ExportArtifact;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportArtifact {
     ///   # panic!();
@@ -4790,10 +4740,9 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::list_locations][crate::client::ArtifactRegistry::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4801,7 +4750,7 @@ pub mod artifact_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4900,14 +4849,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_location][crate::client::ArtifactRegistry::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4961,14 +4909,13 @@ pub mod artifact_registry {
     /// The request builder for [ArtifactRegistry::get_operation][crate::client::ArtifactRegistry::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_artifactregistry_v1::builder;
-    /// use builder::artifact_registry::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_artifactregistry_v1::builder::artifact_registry::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_parametermanager_v1::client::ParameterManager;
 /// let client = ParameterManager::builder().build().await?;
 /// // use `client` to make requests to the Parameter Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ParameterManager {
     /// Returns a builder for [ParameterManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_parametermanager_v1::client::ParameterManager;
     /// let client = ParameterManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::parameter_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

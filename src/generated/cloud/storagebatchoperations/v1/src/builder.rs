@@ -20,7 +20,7 @@ pub mod storage_batch_operations {
     /// A builder for [StorageBatchOperations][crate::client::StorageBatchOperations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_storagebatchoperations_v1::*;
     /// # use builder::storage_batch_operations::ClientBuilder;
     /// # use client::StorageBatchOperations;
@@ -28,7 +28,7 @@ pub mod storage_batch_operations {
     /// let client = builder
     ///     .with_endpoint("https://storagebatchoperations.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::list_jobs][crate::client::StorageBatchOperations::list_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::ListJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod storage_batch_operations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobs {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::get_job][crate::client::StorageBatchOperations::get_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::GetJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJob {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::create_job][crate::client::StorageBatchOperations::create_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::CreateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CreateJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateJob {
     ///   # panic!();
@@ -390,14 +387,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::delete_job][crate::client::StorageBatchOperations::delete_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::DeleteJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::DeleteJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteJob {
     ///   # panic!();
@@ -459,14 +455,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::cancel_job][crate::client::StorageBatchOperations::cancel_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::CancelJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CancelJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelJob {
     ///   # panic!();
@@ -528,10 +523,9 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::list_locations][crate::client::StorageBatchOperations::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -539,7 +533,7 @@ pub mod storage_batch_operations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -638,14 +632,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::get_location][crate::client::StorageBatchOperations::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -699,10 +692,9 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::list_operations][crate::client::StorageBatchOperations::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -710,7 +702,7 @@ pub mod storage_batch_operations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -817,14 +809,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::get_operation][crate::client::StorageBatchOperations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -881,14 +872,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::delete_operation][crate::client::StorageBatchOperations::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -945,14 +935,13 @@ pub mod storage_batch_operations {
     /// The request builder for [StorageBatchOperations::cancel_operation][crate::client::StorageBatchOperations::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagebatchoperations_v1::builder;
-    /// use builder::storage_batch_operations::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagebatchoperations_v1::builder::storage_batch_operations::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod dataform {
     /// A builder for [Dataform][crate::client::Dataform].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataform_v1::*;
     /// # use builder::dataform::ClientBuilder;
     /// # use client::Dataform;
@@ -28,7 +28,7 @@ pub mod dataform {
     /// let client = builder
     ///     .with_endpoint("https://dataform.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_repositories][crate::client::Dataform::list_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRepositories {
     ///   # panic!();
@@ -188,14 +187,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_repository][crate::client::Dataform::get_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRepository {
     ///   # panic!();
@@ -249,14 +247,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_repository][crate::client::Dataform::create_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRepository {
     ///   # panic!();
@@ -343,14 +340,13 @@ pub mod dataform {
     /// The request builder for [Dataform::update_repository][crate::client::Dataform::update_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::UpdateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::UpdateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRepository {
     ///   # panic!();
@@ -439,14 +435,13 @@ pub mod dataform {
     /// The request builder for [Dataform::delete_repository][crate::client::Dataform::delete_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::DeleteRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::DeleteRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRepository {
     ///   # panic!();
@@ -509,14 +504,13 @@ pub mod dataform {
     /// The request builder for [Dataform::commit_repository_changes][crate::client::Dataform::commit_repository_changes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CommitRepositoryChanges;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CommitRepositoryChanges;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CommitRepositoryChanges {
     ///   # panic!();
@@ -615,14 +609,13 @@ pub mod dataform {
     /// The request builder for [Dataform::read_repository_file][crate::client::Dataform::read_repository_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ReadRepositoryFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ReadRepositoryFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadRepositoryFile {
     ///   # panic!();
@@ -693,10 +686,9 @@ pub mod dataform {
     /// The request builder for [Dataform::query_repository_directory_contents][crate::client::Dataform::query_repository_directory_contents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::QueryRepositoryDirectoryContents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::QueryRepositoryDirectoryContents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -704,7 +696,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryRepositoryDirectoryContents {
     ///   # panic!();
@@ -815,10 +807,9 @@ pub mod dataform {
     /// The request builder for [Dataform::fetch_repository_history][crate::client::Dataform::fetch_repository_history] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::FetchRepositoryHistory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::FetchRepositoryHistory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -826,7 +817,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchRepositoryHistory {
     ///   # panic!();
@@ -923,14 +914,13 @@ pub mod dataform {
     /// The request builder for [Dataform::compute_repository_access_token_status][crate::client::Dataform::compute_repository_access_token_status] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ComputeRepositoryAccessTokenStatus;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ComputeRepositoryAccessTokenStatus;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ComputeRepositoryAccessTokenStatus {
     ///   # panic!();
@@ -991,14 +981,13 @@ pub mod dataform {
     /// The request builder for [Dataform::fetch_remote_branches][crate::client::Dataform::fetch_remote_branches] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::FetchRemoteBranches;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::FetchRemoteBranches;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchRemoteBranches {
     ///   # panic!();
@@ -1055,10 +1044,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_workspaces][crate::client::Dataform::list_workspaces] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListWorkspaces;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListWorkspaces;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1066,7 +1054,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkspaces {
     ///   # panic!();
@@ -1168,14 +1156,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_workspace][crate::client::Dataform::get_workspace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetWorkspace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetWorkspace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkspace {
     ///   # panic!();
@@ -1229,14 +1216,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_workspace][crate::client::Dataform::create_workspace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateWorkspace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkspace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkspace {
     ///   # panic!();
@@ -1320,14 +1306,13 @@ pub mod dataform {
     /// The request builder for [Dataform::delete_workspace][crate::client::Dataform::delete_workspace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::DeleteWorkspace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkspace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkspace {
     ///   # panic!();
@@ -1381,14 +1366,13 @@ pub mod dataform {
     /// The request builder for [Dataform::install_npm_packages][crate::client::Dataform::install_npm_packages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::InstallNpmPackages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::InstallNpmPackages;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InstallNpmPackages {
     ///   # panic!();
@@ -1445,14 +1429,13 @@ pub mod dataform {
     /// The request builder for [Dataform::pull_git_commits][crate::client::Dataform::pull_git_commits] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::PullGitCommits;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::PullGitCommits;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PullGitCommits {
     ///   # panic!();
@@ -1534,14 +1517,13 @@ pub mod dataform {
     /// The request builder for [Dataform::push_git_commits][crate::client::Dataform::push_git_commits] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::PushGitCommits;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::PushGitCommits;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PushGitCommits {
     ///   # panic!();
@@ -1601,14 +1583,13 @@ pub mod dataform {
     /// The request builder for [Dataform::fetch_file_git_statuses][crate::client::Dataform::fetch_file_git_statuses] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::FetchFileGitStatuses;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::FetchFileGitStatuses;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchFileGitStatuses {
     ///   # panic!();
@@ -1665,14 +1646,13 @@ pub mod dataform {
     /// The request builder for [Dataform::fetch_git_ahead_behind][crate::client::Dataform::fetch_git_ahead_behind] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::FetchGitAheadBehind;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::FetchGitAheadBehind;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchGitAheadBehind {
     ///   # panic!();
@@ -1735,14 +1715,13 @@ pub mod dataform {
     /// The request builder for [Dataform::commit_workspace_changes][crate::client::Dataform::commit_workspace_changes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CommitWorkspaceChanges;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CommitWorkspaceChanges;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CommitWorkspaceChanges {
     ///   # panic!();
@@ -1838,14 +1817,13 @@ pub mod dataform {
     /// The request builder for [Dataform::reset_workspace_changes][crate::client::Dataform::reset_workspace_changes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ResetWorkspaceChanges;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ResetWorkspaceChanges;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResetWorkspaceChanges {
     ///   # panic!();
@@ -1919,14 +1897,13 @@ pub mod dataform {
     /// The request builder for [Dataform::fetch_file_diff][crate::client::Dataform::fetch_file_diff] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::FetchFileDiff;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::FetchFileDiff;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchFileDiff {
     ///   # panic!();
@@ -1988,10 +1965,9 @@ pub mod dataform {
     /// The request builder for [Dataform::query_directory_contents][crate::client::Dataform::query_directory_contents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::QueryDirectoryContents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::QueryDirectoryContents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1999,7 +1975,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryDirectoryContents {
     ///   # panic!();
@@ -2102,10 +2078,9 @@ pub mod dataform {
     /// The request builder for [Dataform::search_files][crate::client::Dataform::search_files] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::SearchFiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::SearchFiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2113,7 +2088,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchFiles {
     ///   # panic!();
@@ -2209,14 +2184,13 @@ pub mod dataform {
     /// The request builder for [Dataform::make_directory][crate::client::Dataform::make_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::MakeDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::MakeDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MakeDirectory {
     ///   # panic!();
@@ -2278,14 +2252,13 @@ pub mod dataform {
     /// The request builder for [Dataform::remove_directory][crate::client::Dataform::remove_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::RemoveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::RemoveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveDirectory {
     ///   # panic!();
@@ -2347,14 +2320,13 @@ pub mod dataform {
     /// The request builder for [Dataform::move_directory][crate::client::Dataform::move_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::MoveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::MoveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveDirectory {
     ///   # panic!();
@@ -2424,14 +2396,13 @@ pub mod dataform {
     /// The request builder for [Dataform::read_file][crate::client::Dataform::read_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ReadFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ReadFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReadFile {
     ///   # panic!();
@@ -2499,14 +2470,13 @@ pub mod dataform {
     /// The request builder for [Dataform::remove_file][crate::client::Dataform::remove_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::RemoveFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::RemoveFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveFile {
     ///   # panic!();
@@ -2568,14 +2538,13 @@ pub mod dataform {
     /// The request builder for [Dataform::move_file][crate::client::Dataform::move_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::MoveFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::MoveFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveFile {
     ///   # panic!();
@@ -2645,14 +2614,13 @@ pub mod dataform {
     /// The request builder for [Dataform::write_file][crate::client::Dataform::write_file] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::WriteFile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::WriteFile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteFile {
     ///   # panic!();
@@ -2722,10 +2690,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_release_configs][crate::client::Dataform::list_release_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListReleaseConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListReleaseConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2733,7 +2700,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReleaseConfigs {
     ///   # panic!();
@@ -2828,14 +2795,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_release_config][crate::client::Dataform::get_release_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetReleaseConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetReleaseConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReleaseConfig {
     ///   # panic!();
@@ -2892,14 +2858,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_release_config][crate::client::Dataform::create_release_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateReleaseConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateReleaseConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateReleaseConfig {
     ///   # panic!();
@@ -2986,14 +2951,13 @@ pub mod dataform {
     /// The request builder for [Dataform::update_release_config][crate::client::Dataform::update_release_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::UpdateReleaseConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::UpdateReleaseConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateReleaseConfig {
     ///   # panic!();
@@ -3082,14 +3046,13 @@ pub mod dataform {
     /// The request builder for [Dataform::delete_release_config][crate::client::Dataform::delete_release_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::DeleteReleaseConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::DeleteReleaseConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteReleaseConfig {
     ///   # panic!();
@@ -3146,10 +3109,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_compilation_results][crate::client::Dataform::list_compilation_results] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListCompilationResults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListCompilationResults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3157,7 +3119,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCompilationResults {
     ///   # panic!();
@@ -3266,14 +3228,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_compilation_result][crate::client::Dataform::get_compilation_result] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetCompilationResult;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetCompilationResult;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCompilationResult {
     ///   # panic!();
@@ -3330,14 +3291,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_compilation_result][crate::client::Dataform::create_compilation_result] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateCompilationResult;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateCompilationResult;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCompilationResult {
     ///   # panic!();
@@ -3418,10 +3378,9 @@ pub mod dataform {
     /// The request builder for [Dataform::query_compilation_result_actions][crate::client::Dataform::query_compilation_result_actions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::QueryCompilationResultActions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::QueryCompilationResultActions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3429,7 +3388,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryCompilationResultActions {
     ///   # panic!();
@@ -3534,10 +3493,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_workflow_configs][crate::client::Dataform::list_workflow_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListWorkflowConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListWorkflowConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3545,7 +3503,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkflowConfigs {
     ///   # panic!();
@@ -3640,14 +3598,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_workflow_config][crate::client::Dataform::get_workflow_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetWorkflowConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetWorkflowConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkflowConfig {
     ///   # panic!();
@@ -3704,14 +3661,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_workflow_config][crate::client::Dataform::create_workflow_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateWorkflowConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkflowConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkflowConfig {
     ///   # panic!();
@@ -3798,14 +3754,13 @@ pub mod dataform {
     /// The request builder for [Dataform::update_workflow_config][crate::client::Dataform::update_workflow_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::UpdateWorkflowConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::UpdateWorkflowConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkflowConfig {
     ///   # panic!();
@@ -3894,14 +3849,13 @@ pub mod dataform {
     /// The request builder for [Dataform::delete_workflow_config][crate::client::Dataform::delete_workflow_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::DeleteWorkflowConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkflowConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkflowConfig {
     ///   # panic!();
@@ -3958,10 +3912,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_workflow_invocations][crate::client::Dataform::list_workflow_invocations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListWorkflowInvocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListWorkflowInvocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3969,7 +3922,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkflowInvocations {
     ///   # panic!();
@@ -4080,14 +4033,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_workflow_invocation][crate::client::Dataform::get_workflow_invocation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetWorkflowInvocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetWorkflowInvocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkflowInvocation {
     ///   # panic!();
@@ -4144,14 +4096,13 @@ pub mod dataform {
     /// The request builder for [Dataform::create_workflow_invocation][crate::client::Dataform::create_workflow_invocation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CreateWorkflowInvocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CreateWorkflowInvocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkflowInvocation {
     ///   # panic!();
@@ -4232,14 +4183,13 @@ pub mod dataform {
     /// The request builder for [Dataform::delete_workflow_invocation][crate::client::Dataform::delete_workflow_invocation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::DeleteWorkflowInvocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::DeleteWorkflowInvocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkflowInvocation {
     ///   # panic!();
@@ -4298,14 +4248,13 @@ pub mod dataform {
     /// The request builder for [Dataform::cancel_workflow_invocation][crate::client::Dataform::cancel_workflow_invocation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::CancelWorkflowInvocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::CancelWorkflowInvocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelWorkflowInvocation {
     ///   # panic!();
@@ -4364,10 +4313,9 @@ pub mod dataform {
     /// The request builder for [Dataform::query_workflow_invocation_actions][crate::client::Dataform::query_workflow_invocation_actions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::QueryWorkflowInvocationActions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::QueryWorkflowInvocationActions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4375,7 +4323,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryWorkflowInvocationActions {
     ///   # panic!();
@@ -4474,14 +4422,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_config][crate::client::Dataform::get_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConfig {
     ///   # panic!();
@@ -4535,14 +4482,13 @@ pub mod dataform {
     /// The request builder for [Dataform::update_config][crate::client::Dataform::update_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::UpdateConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::UpdateConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConfig {
     ///   # panic!();
@@ -4628,10 +4574,9 @@ pub mod dataform {
     /// The request builder for [Dataform::list_locations][crate::client::Dataform::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4639,7 +4584,7 @@ pub mod dataform {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4736,14 +4681,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_location][crate::client::Dataform::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4795,14 +4739,13 @@ pub mod dataform {
     /// The request builder for [Dataform::set_iam_policy][crate::client::Dataform::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4896,14 +4839,13 @@ pub mod dataform {
     /// The request builder for [Dataform::get_iam_policy][crate::client::Dataform::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4975,14 +4917,13 @@ pub mod dataform {
     /// The request builder for [Dataform::test_iam_permissions][crate::client::Dataform::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataform_v1::builder;
-    /// use builder::dataform::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataform_v1::builder::dataform::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();

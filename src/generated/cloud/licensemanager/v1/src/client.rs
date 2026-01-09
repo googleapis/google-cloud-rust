@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_licensemanager_v1::client::LicenseManager;
 /// let client = LicenseManager::builder().build().await?;
 /// // use `client` to make requests to the License Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl LicenseManager {
     /// Returns a builder for [LicenseManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_licensemanager_v1::client::LicenseManager;
     /// let client = LicenseManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::license_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::license_manager::client::Factory)

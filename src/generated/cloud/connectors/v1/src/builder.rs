@@ -20,7 +20,7 @@ pub mod connectors {
     /// A builder for [Connectors][crate::client::Connectors].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_connectors_v1::*;
     /// # use builder::connectors::ClientBuilder;
     /// # use client::Connectors;
@@ -28,7 +28,7 @@ pub mod connectors {
     /// let client = builder
     ///     .with_endpoint("https://connectors.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_connections][crate::client::Connectors::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();
@@ -195,14 +194,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_connection][crate::client::Connectors::get_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnection {
     ///   # panic!();
@@ -264,15 +262,14 @@ pub mod connectors {
     /// The request builder for [Connectors::create_connection][crate::client::Connectors::create_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::CreateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::CreateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnection {
     ///   # panic!();
@@ -399,15 +396,14 @@ pub mod connectors {
     /// The request builder for [Connectors::update_connection][crate::client::Connectors::update_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::UpdateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::UpdateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
     ///   # panic!();
@@ -540,15 +536,14 @@ pub mod connectors {
     /// The request builder for [Connectors::delete_connection][crate::client::Connectors::delete_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::DeleteConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::DeleteConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
     ///   # panic!();
@@ -647,10 +642,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_providers][crate::client::Connectors::list_providers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListProviders;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListProviders;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -658,7 +652,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProviders {
     ///   # panic!();
@@ -750,14 +744,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_provider][crate::client::Connectors::get_provider] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetProvider;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetProvider;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetProvider {
     ///   # panic!();
@@ -813,10 +806,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_connectors][crate::client::Connectors::list_connectors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListConnectors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListConnectors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -824,7 +816,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectors {
     ///   # panic!();
@@ -916,14 +908,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_connector][crate::client::Connectors::get_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnector {
     ///   # panic!();
@@ -979,10 +970,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_connector_versions][crate::client::Connectors::list_connector_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListConnectorVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListConnectorVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -990,7 +980,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectorVersions {
     ///   # panic!();
@@ -1093,14 +1083,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_connector_version][crate::client::Connectors::get_connector_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetConnectorVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetConnectorVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectorVersion {
     ///   # panic!();
@@ -1165,14 +1154,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_connection_schema_metadata][crate::client::Connectors::get_connection_schema_metadata] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetConnectionSchemaMetadata;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetConnectionSchemaMetadata;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectionSchemaMetadata {
     ///   # panic!();
@@ -1233,15 +1221,14 @@ pub mod connectors {
     /// The request builder for [Connectors::refresh_connection_schema_metadata][crate::client::Connectors::refresh_connection_schema_metadata] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::RefreshConnectionSchemaMetadata;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::RefreshConnectionSchemaMetadata;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RefreshConnectionSchemaMetadata {
     ///   # panic!();
@@ -1343,10 +1330,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_runtime_entity_schemas][crate::client::Connectors::list_runtime_entity_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListRuntimeEntitySchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListRuntimeEntitySchemas;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1354,7 +1340,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRuntimeEntitySchemas {
     ///   # panic!();
@@ -1463,10 +1449,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_runtime_action_schemas][crate::client::Connectors::list_runtime_action_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListRuntimeActionSchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListRuntimeActionSchemas;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1474,7 +1459,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRuntimeActionSchemas {
     ///   # panic!();
@@ -1583,14 +1568,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_runtime_config][crate::client::Connectors::get_runtime_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetRuntimeConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetRuntimeConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRuntimeConfig {
     ///   # panic!();
@@ -1649,14 +1633,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_global_settings][crate::client::Connectors::get_global_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetGlobalSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetGlobalSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlobalSettings {
     ///   # panic!();
@@ -1715,10 +1698,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_locations][crate::client::Connectors::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1726,7 +1708,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1825,14 +1807,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_location][crate::client::Connectors::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1886,14 +1867,13 @@ pub mod connectors {
     /// The request builder for [Connectors::set_iam_policy][crate::client::Connectors::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1989,14 +1969,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_iam_policy][crate::client::Connectors::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -2070,14 +2049,13 @@ pub mod connectors {
     /// The request builder for [Connectors::test_iam_permissions][crate::client::Connectors::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2149,10 +2127,9 @@ pub mod connectors {
     /// The request builder for [Connectors::list_operations][crate::client::Connectors::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2160,7 +2137,7 @@ pub mod connectors {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2267,14 +2244,13 @@ pub mod connectors {
     /// The request builder for [Connectors::get_operation][crate::client::Connectors::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2331,14 +2307,13 @@ pub mod connectors {
     /// The request builder for [Connectors::delete_operation][crate::client::Connectors::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2395,14 +2370,13 @@ pub mod connectors {
     /// The request builder for [Connectors::cancel_operation][crate::client::Connectors::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_connectors_v1::builder;
-    /// use builder::connectors::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_connectors_v1::builder::connectors::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

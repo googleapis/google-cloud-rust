@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHub;
 /// let client = ApiHub::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ApiHub {
     /// Returns a builder for [ApiHub].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHub;
     /// let client = ApiHub::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub::client::Factory)
@@ -598,11 +598,11 @@ impl ApiHub {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
 /// let client = ApiHubDependencies::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -647,10 +647,10 @@ impl ApiHubDependencies {
     /// Returns a builder for [ApiHubDependencies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHubDependencies;
     /// let client = ApiHubDependencies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub_dependencies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -781,11 +781,11 @@ impl ApiHubDependencies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubCollect;
 /// let client = ApiHubCollect::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -829,10 +829,10 @@ impl ApiHubCollect {
     /// Returns a builder for [ApiHubCollect].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHubCollect;
     /// let client = ApiHubCollect::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub_collect::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub_collect::client::Factory)
@@ -939,11 +939,11 @@ impl ApiHubCollect {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubCurate;
 /// let client = ApiHubCurate::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -986,10 +986,10 @@ impl ApiHubCurate {
     /// Returns a builder for [ApiHubCurate].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHubCurate;
     /// let client = ApiHubCurate::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub_curate::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub_curate::client::Factory)
@@ -1121,11 +1121,11 @@ impl ApiHubCurate {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
 /// let client = ApiHubDiscovery::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1168,10 +1168,10 @@ impl ApiHubDiscovery {
     /// Returns a builder for [ApiHubDiscovery].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHubDiscovery;
     /// let client = ApiHubDiscovery::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub_discovery::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1297,11 +1297,11 @@ impl ApiHubDiscovery {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
 /// let client = HostProjectRegistrationService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1343,10 +1343,10 @@ impl HostProjectRegistrationService {
     /// Returns a builder for [HostProjectRegistrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::HostProjectRegistrationService;
     /// let client = HostProjectRegistrationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::host_project_registration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1481,11 +1481,11 @@ impl HostProjectRegistrationService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::LintingService;
 /// let client = LintingService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1527,10 +1527,10 @@ impl LintingService {
     /// Returns a builder for [LintingService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::LintingService;
     /// let client = LintingService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::linting_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::linting_service::client::Factory)
@@ -1646,11 +1646,11 @@ impl LintingService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
 /// let client = ApiHubPlugin::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1692,10 +1692,10 @@ impl ApiHubPlugin {
     /// Returns a builder for [ApiHubPlugin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::ApiHubPlugin;
     /// let client = ApiHubPlugin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_hub_plugin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_hub_plugin::client::Factory)
@@ -1951,11 +1951,11 @@ impl ApiHubPlugin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::Provisioning;
 /// let client = Provisioning::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1997,10 +1997,10 @@ impl Provisioning {
     /// Returns a builder for [Provisioning].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::Provisioning;
     /// let client = Provisioning::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::provisioning::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::provisioning::client::Factory)
@@ -2133,11 +2133,11 @@ impl Provisioning {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
 /// let client = RuntimeProjectAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the API hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2179,10 +2179,10 @@ impl RuntimeProjectAttachmentService {
     /// Returns a builder for [RuntimeProjectAttachmentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apihub_v1::client::RuntimeProjectAttachmentService;
     /// let client = RuntimeProjectAttachmentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::runtime_project_attachment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

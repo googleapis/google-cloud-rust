@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
 /// let client = CrossNetworkAutomationService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl CrossNetworkAutomationService {
     /// Returns a builder for [CrossNetworkAutomationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::CrossNetworkAutomationService;
     /// let client = CrossNetworkAutomationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cross_network_automation_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -463,11 +463,11 @@ impl CrossNetworkAutomationService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
 /// let client = DataTransferService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -509,10 +509,10 @@ impl DataTransferService {
     /// Returns a builder for [DataTransferService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::DataTransferService;
     /// let client = DataTransferService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_transfer_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -788,11 +788,11 @@ impl DataTransferService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::HubService;
 /// let client = HubService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -836,10 +836,10 @@ impl HubService {
     /// Returns a builder for [HubService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::HubService;
     /// let client = HubService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::hub_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::hub_service::client::Factory)
@@ -1191,11 +1191,11 @@ impl HubService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
 /// let client = InternalRangeService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1238,10 +1238,10 @@ impl InternalRangeService {
     /// Returns a builder for [InternalRangeService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::InternalRangeService;
     /// let client = InternalRangeService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::internal_range_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1427,11 +1427,11 @@ impl InternalRangeService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
 /// let client = PolicyBasedRoutingService::builder().build().await?;
 /// // use `client` to make requests to the Network Connectivity API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1474,10 +1474,10 @@ impl PolicyBasedRoutingService {
     /// Returns a builder for [PolicyBasedRoutingService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networkconnectivity_v1::client::PolicyBasedRoutingService;
     /// let client = PolicyBasedRoutingService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_based_routing_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

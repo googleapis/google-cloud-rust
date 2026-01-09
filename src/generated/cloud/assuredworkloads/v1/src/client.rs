@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
 /// let client = AssuredWorkloadsService::builder().build().await?;
 /// // use `client` to make requests to the Assured Workloads API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl AssuredWorkloadsService {
     /// Returns a builder for [AssuredWorkloadsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_assuredworkloads_v1::client::AssuredWorkloadsService;
     /// let client = AssuredWorkloadsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::assured_workloads_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

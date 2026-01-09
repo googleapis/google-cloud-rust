@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
 /// let client = DeveloperConnect::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl DeveloperConnect {
     /// Returns a builder for [DeveloperConnect].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::DeveloperConnect;
     /// let client = DeveloperConnect::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::developer_connect::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -412,11 +412,11 @@ impl DeveloperConnect {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
 /// let client = InsightsConfigService::builder().build().await?;
 /// // use `client` to make requests to the Developer Connect API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -466,10 +466,10 @@ impl InsightsConfigService {
     /// Returns a builder for [InsightsConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
     /// let client = InsightsConfigService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::insights_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

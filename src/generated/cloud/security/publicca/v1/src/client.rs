@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
 /// let client = PublicCertificateAuthorityService::builder().build().await?;
 /// // use `client` to make requests to the Public Certificate Authority API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl PublicCertificateAuthorityService {
     /// Returns a builder for [PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_security_publicca_v1::client::PublicCertificateAuthorityService;
     /// let client = PublicCertificateAuthorityService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::public_certificate_authority_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

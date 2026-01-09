@@ -20,7 +20,7 @@ pub mod data_fusion {
     /// A builder for [DataFusion][crate::client::DataFusion].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datafusion_v1::*;
     /// # use builder::data_fusion::ClientBuilder;
     /// # use client::DataFusion;
@@ -28,7 +28,7 @@ pub mod data_fusion {
     /// let client = builder
     ///     .with_endpoint("https://datafusion.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::list_available_versions][crate::client::DataFusion::list_available_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::ListAvailableVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::ListAvailableVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod data_fusion {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAvailableVersions {
     ///   # panic!();
@@ -188,10 +187,9 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::list_instances][crate::client::DataFusion::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -199,7 +197,7 @@ pub mod data_fusion {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -303,14 +301,13 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::get_instance][crate::client::DataFusion::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -366,15 +363,14 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::create_instance][crate::client::DataFusion::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -494,15 +490,14 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::delete_instance][crate::client::DataFusion::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -598,15 +593,14 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::update_instance][crate::client::DataFusion::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -732,15 +726,14 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::restart_instance][crate::client::DataFusion::restart_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::RestartInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::RestartInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestartInstance {
     ///   # panic!();
@@ -834,10 +827,9 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::list_operations][crate::client::DataFusion::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -845,7 +837,7 @@ pub mod data_fusion {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -952,14 +944,13 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::get_operation][crate::client::DataFusion::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1016,14 +1007,13 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::delete_operation][crate::client::DataFusion::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1080,14 +1070,13 @@ pub mod data_fusion {
     /// The request builder for [DataFusion::cancel_operation][crate::client::DataFusion::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datafusion_v1::builder;
-    /// use builder::data_fusion::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datafusion_v1::builder::data_fusion::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod net_app {
     /// A builder for [NetApp][crate::client::NetApp].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_netapp_v1::*;
     /// # use builder::net_app::ClientBuilder;
     /// # use client::NetApp;
@@ -28,7 +28,7 @@ pub mod net_app {
     /// let client = builder
     ///     .with_endpoint("https://netapp.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_storage_pools][crate::client::NetApp::list_storage_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListStoragePools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListStoragePools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListStoragePools {
     ///   # panic!();
@@ -188,15 +187,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_storage_pool][crate::client::NetApp::create_storage_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateStoragePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateStoragePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateStoragePool {
     ///   # panic!();
@@ -323,14 +321,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_storage_pool][crate::client::NetApp::get_storage_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetStoragePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetStoragePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetStoragePool {
     ///   # panic!();
@@ -384,15 +381,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_storage_pool][crate::client::NetApp::update_storage_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateStoragePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateStoragePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateStoragePool {
     ///   # panic!();
@@ -525,15 +521,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_storage_pool][crate::client::NetApp::delete_storage_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteStoragePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteStoragePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteStoragePool {
     ///   # panic!();
@@ -630,15 +625,14 @@ pub mod net_app {
     /// The request builder for [NetApp::validate_directory_service][crate::client::NetApp::validate_directory_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ValidateDirectoryService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ValidateDirectoryService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ValidateDirectoryService {
     ///   # panic!();
@@ -746,15 +740,14 @@ pub mod net_app {
     /// The request builder for [NetApp::switch_active_replica_zone][crate::client::NetApp::switch_active_replica_zone] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::SwitchActiveReplicaZone;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::SwitchActiveReplicaZone;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SwitchActiveReplicaZone {
     ///   # panic!();
@@ -853,10 +846,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_volumes][crate::client::NetApp::list_volumes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListVolumes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListVolumes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -864,7 +856,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVolumes {
     ///   # panic!();
@@ -966,14 +958,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_volume][crate::client::NetApp::get_volume] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetVolume;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetVolume;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVolume {
     ///   # panic!();
@@ -1027,15 +1018,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_volume][crate::client::NetApp::create_volume] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateVolume;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateVolume;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVolume {
     ///   # panic!();
@@ -1157,15 +1147,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_volume][crate::client::NetApp::update_volume] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateVolume;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateVolume;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVolume {
     ///   # panic!();
@@ -1293,15 +1282,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_volume][crate::client::NetApp::delete_volume] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteVolume;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteVolume;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVolume {
     ///   # panic!();
@@ -1401,15 +1389,14 @@ pub mod net_app {
     /// The request builder for [NetApp::revert_volume][crate::client::NetApp::revert_volume] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::RevertVolume;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::RevertVolume;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RevertVolume {
     ///   # panic!();
@@ -1509,10 +1496,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_snapshots][crate::client::NetApp::list_snapshots] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListSnapshots;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListSnapshots;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1520,7 +1506,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSnapshots {
     ///   # panic!();
@@ -1622,14 +1608,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_snapshot][crate::client::NetApp::get_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSnapshot {
     ///   # panic!();
@@ -1683,15 +1668,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_snapshot][crate::client::NetApp::create_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSnapshot {
     ///   # panic!();
@@ -1813,15 +1797,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_snapshot][crate::client::NetApp::delete_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSnapshot {
     ///   # panic!();
@@ -1915,15 +1898,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_snapshot][crate::client::NetApp::update_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSnapshot {
     ///   # panic!();
@@ -2051,10 +2033,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_active_directories][crate::client::NetApp::list_active_directories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListActiveDirectories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListActiveDirectories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2062,7 +2043,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListActiveDirectories {
     ///   # panic!();
@@ -2169,14 +2150,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_active_directory][crate::client::NetApp::get_active_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetActiveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetActiveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetActiveDirectory {
     ///   # panic!();
@@ -2233,15 +2213,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_active_directory][crate::client::NetApp::create_active_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateActiveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateActiveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateActiveDirectory {
     ///   # panic!();
@@ -2369,15 +2348,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_active_directory][crate::client::NetApp::update_active_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateActiveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateActiveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateActiveDirectory {
     ///   # panic!();
@@ -2511,15 +2489,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_active_directory][crate::client::NetApp::delete_active_directory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteActiveDirectory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteActiveDirectory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteActiveDirectory {
     ///   # panic!();
@@ -2616,10 +2593,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_kms_configs][crate::client::NetApp::list_kms_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListKmsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListKmsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2627,7 +2603,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListKmsConfigs {
     ///   # panic!();
@@ -2729,15 +2705,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_kms_config][crate::client::NetApp::create_kms_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateKmsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateKmsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateKmsConfig {
     ///   # panic!();
@@ -2859,14 +2834,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_kms_config][crate::client::NetApp::get_kms_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetKmsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetKmsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetKmsConfig {
     ///   # panic!();
@@ -2920,15 +2894,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_kms_config][crate::client::NetApp::update_kms_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateKmsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateKmsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateKmsConfig {
     ///   # panic!();
@@ -3056,15 +3029,14 @@ pub mod net_app {
     /// The request builder for [NetApp::encrypt_volumes][crate::client::NetApp::encrypt_volumes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::EncryptVolumes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::EncryptVolumes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EncryptVolumes {
     ///   # panic!();
@@ -3156,14 +3128,13 @@ pub mod net_app {
     /// The request builder for [NetApp::verify_kms_config][crate::client::NetApp::verify_kms_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::VerifyKmsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::VerifyKmsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyKmsConfig {
     ///   # panic!();
@@ -3217,15 +3188,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_kms_config][crate::client::NetApp::delete_kms_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteKmsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteKmsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteKmsConfig {
     ///   # panic!();
@@ -3319,10 +3289,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_replications][crate::client::NetApp::list_replications] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListReplications;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListReplications;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3330,7 +3299,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReplications {
     ///   # panic!();
@@ -3435,14 +3404,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_replication][crate::client::NetApp::get_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetReplication;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReplication {
     ///   # panic!();
@@ -3496,15 +3464,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_replication][crate::client::NetApp::create_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateReplication {
     ///   # panic!();
@@ -3631,15 +3598,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_replication][crate::client::NetApp::delete_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteReplication {
     ///   # panic!();
@@ -3736,15 +3702,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_replication][crate::client::NetApp::update_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateReplication {
     ///   # panic!();
@@ -3877,15 +3842,14 @@ pub mod net_app {
     /// The request builder for [NetApp::stop_replication][crate::client::NetApp::stop_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::StopReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::StopReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopReplication {
     ///   # panic!();
@@ -3985,15 +3949,14 @@ pub mod net_app {
     /// The request builder for [NetApp::resume_replication][crate::client::NetApp::resume_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ResumeReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ResumeReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeReplication {
     ///   # panic!();
@@ -4090,15 +4053,14 @@ pub mod net_app {
     /// The request builder for [NetApp::reverse_replication_direction][crate::client::NetApp::reverse_replication_direction] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ReverseReplicationDirection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ReverseReplicationDirection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReverseReplicationDirection {
     ///   # panic!();
@@ -4197,15 +4159,14 @@ pub mod net_app {
     /// The request builder for [NetApp::establish_peering][crate::client::NetApp::establish_peering] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::EstablishPeering;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::EstablishPeering;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EstablishPeering {
     ///   # panic!();
@@ -4337,15 +4298,14 @@ pub mod net_app {
     /// The request builder for [NetApp::sync_replication][crate::client::NetApp::sync_replication] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::SyncReplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::SyncReplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SyncReplication {
     ///   # panic!();
@@ -4439,15 +4399,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_backup_vault][crate::client::NetApp::create_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupVault {
     ///   # panic!();
@@ -4574,14 +4533,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_backup_vault][crate::client::NetApp::get_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupVault {
     ///   # panic!();
@@ -4635,10 +4593,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_backup_vaults][crate::client::NetApp::list_backup_vaults] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListBackupVaults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListBackupVaults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4646,7 +4603,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupVaults {
     ///   # panic!();
@@ -4751,15 +4708,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_backup_vault][crate::client::NetApp::update_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupVault {
     ///   # panic!();
@@ -4892,15 +4848,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_backup_vault][crate::client::NetApp::delete_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupVault {
     ///   # panic!();
@@ -4997,15 +4952,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_backup][crate::client::NetApp::create_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackup {
     ///   # panic!();
@@ -5127,14 +5081,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_backup][crate::client::NetApp::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -5188,10 +5141,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_backups][crate::client::NetApp::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5199,7 +5151,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -5301,15 +5253,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_backup][crate::client::NetApp::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -5403,15 +5354,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_backup][crate::client::NetApp::update_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackup {
     ///   # panic!();
@@ -5539,15 +5489,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_backup_policy][crate::client::NetApp::create_backup_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateBackupPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateBackupPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupPolicy {
     ///   # panic!();
@@ -5674,14 +5623,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_backup_policy][crate::client::NetApp::get_backup_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetBackupPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetBackupPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupPolicy {
     ///   # panic!();
@@ -5735,10 +5683,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_backup_policies][crate::client::NetApp::list_backup_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListBackupPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListBackupPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5746,7 +5693,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupPolicies {
     ///   # panic!();
@@ -5853,15 +5800,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_backup_policy][crate::client::NetApp::update_backup_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateBackupPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateBackupPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupPolicy {
     ///   # panic!();
@@ -5994,15 +5940,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_backup_policy][crate::client::NetApp::delete_backup_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteBackupPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteBackupPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupPolicy {
     ///   # panic!();
@@ -6099,10 +6044,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_quota_rules][crate::client::NetApp::list_quota_rules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListQuotaRules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListQuotaRules;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6110,7 +6054,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListQuotaRules {
     ///   # panic!();
@@ -6212,14 +6156,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_quota_rule][crate::client::NetApp::get_quota_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetQuotaRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetQuotaRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetQuotaRule {
     ///   # panic!();
@@ -6273,15 +6216,14 @@ pub mod net_app {
     /// The request builder for [NetApp::create_quota_rule][crate::client::NetApp::create_quota_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CreateQuotaRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CreateQuotaRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateQuotaRule {
     ///   # panic!();
@@ -6403,15 +6345,14 @@ pub mod net_app {
     /// The request builder for [NetApp::update_quota_rule][crate::client::NetApp::update_quota_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::UpdateQuotaRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::UpdateQuotaRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateQuotaRule {
     ///   # panic!();
@@ -6535,15 +6476,14 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_quota_rule][crate::client::NetApp::delete_quota_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteQuotaRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteQuotaRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteQuotaRule {
     ///   # panic!();
@@ -6637,10 +6577,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_locations][crate::client::NetApp::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6648,7 +6587,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -6745,14 +6684,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_location][crate::client::NetApp::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -6804,10 +6742,9 @@ pub mod net_app {
     /// The request builder for [NetApp::list_operations][crate::client::NetApp::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6815,7 +6752,7 @@ pub mod net_app {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6920,14 +6857,13 @@ pub mod net_app {
     /// The request builder for [NetApp::get_operation][crate::client::NetApp::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6982,14 +6918,13 @@ pub mod net_app {
     /// The request builder for [NetApp::delete_operation][crate::client::NetApp::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7044,14 +6979,13 @@ pub mod net_app {
     /// The request builder for [NetApp::cancel_operation][crate::client::NetApp::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_netapp_v1::builder;
-    /// use builder::net_app::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_netapp_v1::builder::net_app::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

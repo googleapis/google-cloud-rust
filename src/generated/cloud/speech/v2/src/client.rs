@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_speech_v2::client::Speech;
 /// let client = Speech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Speech-to-Text API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Speech {
     /// Returns a builder for [Speech].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_speech_v2::client::Speech;
     /// let client = Speech::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::speech::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::speech::client::Factory)

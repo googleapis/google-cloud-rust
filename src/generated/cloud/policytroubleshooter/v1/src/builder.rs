@@ -20,7 +20,7 @@ pub mod iam_checker {
     /// A builder for [IamChecker][crate::client::IamChecker].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_v1::*;
     /// # use builder::iam_checker::ClientBuilder;
     /// # use client::IamChecker;
@@ -28,7 +28,7 @@ pub mod iam_checker {
     /// let client = builder
     ///     .with_endpoint("https://policytroubleshooter.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod iam_checker {
     /// The request builder for [IamChecker::troubleshoot_iam_policy][crate::client::IamChecker::troubleshoot_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policytroubleshooter_v1::builder;
-    /// use builder::iam_checker::TroubleshootIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policytroubleshooter_v1::builder::iam_checker::TroubleshootIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TroubleshootIamPolicy {
     ///   # panic!();

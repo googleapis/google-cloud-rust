@@ -20,7 +20,7 @@ pub mod public_certificate_authority_service {
     /// A builder for [PublicCertificateAuthorityService][crate::client::PublicCertificateAuthorityService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_security_publicca_v1::*;
     /// # use builder::public_certificate_authority_service::ClientBuilder;
     /// # use client::PublicCertificateAuthorityService;
@@ -28,7 +28,7 @@ pub mod public_certificate_authority_service {
     /// let client = builder
     ///     .with_endpoint("https://publicca.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -76,14 +76,13 @@ pub mod public_certificate_authority_service {
     /// The request builder for [PublicCertificateAuthorityService::create_external_account_key][crate::client::PublicCertificateAuthorityService::create_external_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_security_publicca_v1::builder;
-    /// use builder::public_certificate_authority_service::CreateExternalAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_security_publicca_v1::builder::public_certificate_authority_service::CreateExternalAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExternalAccountKey {
     ///   # panic!();

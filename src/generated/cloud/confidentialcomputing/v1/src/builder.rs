@@ -20,7 +20,7 @@ pub mod confidential_computing {
     /// A builder for [ConfidentialComputing][crate::client::ConfidentialComputing].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_confidentialcomputing_v1::*;
     /// # use builder::confidential_computing::ClientBuilder;
     /// # use client::ConfidentialComputing;
@@ -28,7 +28,7 @@ pub mod confidential_computing {
     /// let client = builder
     ///     .with_endpoint("https://confidentialcomputing.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::create_challenge][crate::client::ConfidentialComputing::create_challenge] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::CreateChallenge;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::CreateChallenge;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateChallenge {
     ///   # panic!();
@@ -159,14 +158,13 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::verify_attestation][crate::client::ConfidentialComputing::verify_attestation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::VerifyAttestation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyAttestation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyAttestation {
     ///   # panic!();
@@ -351,14 +349,13 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::verify_confidential_space][crate::client::ConfidentialComputing::verify_confidential_space] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::VerifyConfidentialSpace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialSpace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyConfidentialSpace {
     ///   # panic!();
@@ -532,14 +529,13 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::verify_confidential_gke][crate::client::ConfidentialComputing::verify_confidential_gke] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::VerifyConfidentialGke;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::VerifyConfidentialGke;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyConfidentialGke {
     ///   # panic!();
@@ -627,10 +623,9 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::list_locations][crate::client::ConfidentialComputing::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -638,7 +633,7 @@ pub mod confidential_computing {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -737,14 +732,13 @@ pub mod confidential_computing {
     /// The request builder for [ConfidentialComputing::get_location][crate::client::ConfidentialComputing::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_confidentialcomputing_v1::builder;
-    /// use builder::confidential_computing::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_confidentialcomputing_v1::builder::confidential_computing::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
 /// let client = ServiceUsage::builder().build().await?;
 /// // use `client` to make requests to the Service Usage API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl ServiceUsage {
     /// Returns a builder for [ServiceUsage].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_serviceusage_v1::client::ServiceUsage;
     /// let client = ServiceUsage::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_usage::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::service_usage::client::Factory)

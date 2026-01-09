@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
 /// let client = AddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl AddressGroupService {
     /// Returns a builder for [AddressGroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::AddressGroupService;
     /// let client = AddressGroupService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::address_group_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -313,11 +313,11 @@ impl AddressGroupService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
 /// let client = OrganizationAddressGroupService::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -361,10 +361,10 @@ impl OrganizationAddressGroupService {
     /// Returns a builder for [OrganizationAddressGroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::OrganizationAddressGroupService;
     /// let client = OrganizationAddressGroupService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organization_address_group_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -643,11 +643,11 @@ impl OrganizationAddressGroupService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
 /// let client = NetworkSecurity::builder().build().await?;
 /// // use `client` to make requests to the Network Security API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -691,10 +691,10 @@ impl NetworkSecurity {
     /// Returns a builder for [NetworkSecurity].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_networksecurity_v1::client::NetworkSecurity;
     /// let client = NetworkSecurity::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_security::ClientBuilder {
         gax::client_builder::internal::new_builder(

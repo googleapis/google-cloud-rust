@@ -20,7 +20,7 @@ pub mod repository_manager {
     /// A builder for [RepositoryManager][crate::client::RepositoryManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::*;
     /// # use builder::repository_manager::ClientBuilder;
     /// # use client::RepositoryManager;
@@ -28,7 +28,7 @@ pub mod repository_manager {
     /// let client = builder
     ///     .with_endpoint("https://cloudbuild.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::create_connection][crate::client::RepositoryManager::create_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::CreateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::CreateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnection {
     ///   # panic!();
@@ -209,14 +208,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::get_connection][crate::client::RepositoryManager::get_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::GetConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::GetConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnection {
     ///   # panic!();
@@ -272,10 +270,9 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::list_connections][crate::client::RepositoryManager::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -283,7 +280,7 @@ pub mod repository_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();
@@ -375,15 +372,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::update_connection][crate::client::RepositoryManager::update_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::UpdateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::UpdateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
     ///   # panic!();
@@ -524,15 +520,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::delete_connection][crate::client::RepositoryManager::delete_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::DeleteConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::DeleteConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
     ///   # panic!();
@@ -643,15 +638,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::create_repository][crate::client::RepositoryManager::create_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::CreateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::CreateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRepository {
     ///   # panic!();
@@ -778,15 +772,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::batch_create_repositories][crate::client::RepositoryManager::batch_create_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::BatchCreateRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::BatchCreateRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateRepositories {
     ///   # panic!();
@@ -903,14 +896,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::get_repository][crate::client::RepositoryManager::get_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::GetRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::GetRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRepository {
     ///   # panic!();
@@ -966,10 +958,9 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::list_repositories][crate::client::RepositoryManager::list_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::ListRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::ListRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -977,7 +968,7 @@ pub mod repository_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRepositories {
     ///   # panic!();
@@ -1078,15 +1069,14 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::delete_repository][crate::client::RepositoryManager::delete_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::DeleteRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::DeleteRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRepository {
     ///   # panic!();
@@ -1197,14 +1187,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::fetch_read_write_token][crate::client::RepositoryManager::fetch_read_write_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::FetchReadWriteToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::FetchReadWriteToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchReadWriteToken {
     ///   # panic!();
@@ -1263,14 +1252,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::fetch_read_token][crate::client::RepositoryManager::fetch_read_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::FetchReadToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::FetchReadToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchReadToken {
     ///   # panic!();
@@ -1326,10 +1314,9 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::fetch_linkable_repositories][crate::client::RepositoryManager::fetch_linkable_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::FetchLinkableRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::FetchLinkableRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1337,7 +1324,7 @@ pub mod repository_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchLinkableRepositories {
     ///   # panic!();
@@ -1438,14 +1425,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::fetch_git_refs][crate::client::RepositoryManager::fetch_git_refs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::FetchGitRefs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::FetchGitRefs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchGitRefs {
     ///   # panic!();
@@ -1510,14 +1496,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::set_iam_policy][crate::client::RepositoryManager::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1613,14 +1598,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::get_iam_policy][crate::client::RepositoryManager::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1694,14 +1678,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::test_iam_permissions][crate::client::RepositoryManager::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1773,14 +1756,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::get_operation][crate::client::RepositoryManager::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1837,14 +1819,13 @@ pub mod repository_manager {
     /// The request builder for [RepositoryManager::cancel_operation][crate::client::RepositoryManager::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_build_v2::builder;
-    /// use builder::repository_manager::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_build_v2::builder::repository_manager::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

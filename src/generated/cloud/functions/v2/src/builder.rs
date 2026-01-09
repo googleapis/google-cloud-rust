@@ -20,7 +20,7 @@ pub mod function_service {
     /// A builder for [FunctionService][crate::client::FunctionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_functions_v2::*;
     /// # use builder::function_service::ClientBuilder;
     /// # use client::FunctionService;
@@ -28,7 +28,7 @@ pub mod function_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudfunctions.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::get_function][crate::client::FunctionService::get_function] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::GetFunction;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::GetFunction;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFunction {
     ///   # panic!();
@@ -143,10 +142,9 @@ pub mod function_service {
     /// The request builder for [FunctionService::list_functions][crate::client::FunctionService::list_functions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::ListFunctions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::ListFunctions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -154,7 +152,7 @@ pub mod function_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFunctions {
     ///   # panic!();
@@ -258,15 +256,14 @@ pub mod function_service {
     /// The request builder for [FunctionService::create_function][crate::client::FunctionService::create_function] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::CreateFunction;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::CreateFunction;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFunction {
     ///   # panic!();
@@ -388,15 +385,14 @@ pub mod function_service {
     /// The request builder for [FunctionService::update_function][crate::client::FunctionService::update_function] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::UpdateFunction;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::UpdateFunction;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFunction {
     ///   # panic!();
@@ -522,15 +518,14 @@ pub mod function_service {
     /// The request builder for [FunctionService::delete_function][crate::client::FunctionService::delete_function] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::DeleteFunction;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::DeleteFunction;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFunction {
     ///   # panic!();
@@ -626,14 +621,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::generate_upload_url][crate::client::FunctionService::generate_upload_url] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::GenerateUploadUrl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::GenerateUploadUrl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateUploadUrl {
     ///   # panic!();
@@ -704,14 +698,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::generate_download_url][crate::client::FunctionService::generate_download_url] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::GenerateDownloadUrl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::GenerateDownloadUrl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateDownloadUrl {
     ///   # panic!();
@@ -770,14 +763,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::list_runtimes][crate::client::FunctionService::list_runtimes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::ListRuntimes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::ListRuntimes;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRuntimes {
     ///   # panic!();
@@ -839,10 +831,9 @@ pub mod function_service {
     /// The request builder for [FunctionService::list_locations][crate::client::FunctionService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -850,7 +841,7 @@ pub mod function_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -949,14 +940,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::set_iam_policy][crate::client::FunctionService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1052,14 +1042,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::get_iam_policy][crate::client::FunctionService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1133,14 +1122,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::test_iam_permissions][crate::client::FunctionService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1212,10 +1200,9 @@ pub mod function_service {
     /// The request builder for [FunctionService::list_operations][crate::client::FunctionService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1223,7 +1210,7 @@ pub mod function_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1330,14 +1317,13 @@ pub mod function_service {
     /// The request builder for [FunctionService::get_operation][crate::client::FunctionService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_functions_v2::builder;
-    /// use builder::function_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_functions_v2::builder::function_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

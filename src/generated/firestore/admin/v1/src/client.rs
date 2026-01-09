@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
 /// let client = FirestoreAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Firestore API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -93,10 +93,10 @@ impl FirestoreAdmin {
     /// Returns a builder for [FirestoreAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_firestore_admin_v1::client::FirestoreAdmin;
     /// let client = FirestoreAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::firestore_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::firestore_admin::client::Factory)

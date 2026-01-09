@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
 /// let client = StorageTransferService::builder().build().await?;
 /// // use `client` to make requests to the Storage Transfer API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl StorageTransferService {
     /// Returns a builder for [StorageTransferService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_storagetransfer_v1::client::StorageTransferService;
     /// let client = StorageTransferService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::storage_transfer_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

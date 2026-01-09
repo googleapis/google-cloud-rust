@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::AnalyticsService;
 /// let client = AnalyticsService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl AnalyticsService {
     /// Returns a builder for [AnalyticsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::AnalyticsService;
     /// let client = AnalyticsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::analytics_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -161,11 +161,11 @@ impl AnalyticsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CatalogService;
 /// let client = CatalogService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -207,10 +207,10 @@ impl CatalogService {
     /// Returns a builder for [CatalogService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CatalogService;
     /// let client = CatalogService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::catalog_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::catalog_service::client::Factory)
@@ -430,11 +430,11 @@ impl CatalogService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -479,10 +479,10 @@ impl CompletionService {
     /// Returns a builder for [CompletionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::CompletionService;
     /// let client = CompletionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::completion_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -586,11 +586,11 @@ impl CompletionService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ControlService;
 /// let client = ControlService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -632,10 +632,10 @@ impl ControlService {
     /// Returns a builder for [ControlService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ControlService;
     /// let client = ControlService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::control_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::control_service::client::Factory)
@@ -748,11 +748,11 @@ impl ControlService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ConversationalSearchService;
 /// let client = ConversationalSearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -798,10 +798,10 @@ impl ConversationalSearchService {
     /// Returns a builder for [ConversationalSearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ConversationalSearchService;
     /// let client = ConversationalSearchService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::conversational_search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -873,11 +873,11 @@ impl ConversationalSearchService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
 /// let client = GenerativeQuestionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -919,10 +919,10 @@ impl GenerativeQuestionService {
     /// Returns a builder for [GenerativeQuestionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::GenerativeQuestionService;
     /// let client = GenerativeQuestionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::generative_question_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1041,11 +1041,11 @@ impl GenerativeQuestionService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ModelService;
 /// let client = ModelService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1098,10 +1098,10 @@ impl ModelService {
     /// Returns a builder for [ModelService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ModelService;
     /// let client = ModelService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::model_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::model_service::client::Factory)
@@ -1232,11 +1232,11 @@ impl ModelService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::PredictionService;
 /// let client = PredictionService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1278,10 +1278,10 @@ impl PredictionService {
     /// Returns a builder for [PredictionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::PredictionService;
     /// let client = PredictionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::prediction_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1357,11 +1357,11 @@ impl PredictionService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ProductService;
 /// let client = ProductService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1406,10 +1406,10 @@ impl ProductService {
     /// Returns a builder for [ProductService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ProductService;
     /// let client = ProductService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::product_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::product_service::client::Factory)
@@ -1855,11 +1855,11 @@ impl ProductService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::SearchService;
 /// let client = SearchService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1904,10 +1904,10 @@ impl SearchService {
     /// Returns a builder for [SearchService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::SearchService;
     /// let client = SearchService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::search_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::search_service::client::Factory)
@@ -1983,11 +1983,11 @@ impl SearchService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::ServingConfigService;
 /// let client = ServingConfigService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2029,10 +2029,10 @@ impl ServingConfigService {
     /// Returns a builder for [ServingConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::ServingConfigService;
     /// let client = ServingConfigService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::serving_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2166,11 +2166,11 @@ impl ServingConfigService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_retail_v2::client::UserEventService;
 /// let client = UserEventService::builder().build().await?;
 /// // use `client` to make requests to the Vertex AI Search for commerce API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2212,10 +2212,10 @@ impl UserEventService {
     /// Returns a builder for [UserEventService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_retail_v2::client::UserEventService;
     /// let client = UserEventService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::user_event_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

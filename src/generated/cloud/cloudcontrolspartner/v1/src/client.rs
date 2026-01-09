@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
 /// let client = CloudControlsPartnerCore::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl CloudControlsPartnerCore {
     /// Returns a builder for [CloudControlsPartnerCore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerCore;
     /// let client = CloudControlsPartnerCore::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_core::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -192,11 +192,11 @@ impl CloudControlsPartnerCore {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
 /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Controls Partner API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -238,10 +238,10 @@ impl CloudControlsPartnerMonitoring {
     /// Returns a builder for [CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::client::CloudControlsPartnerMonitoring;
     /// let client = CloudControlsPartnerMonitoring::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_controls_partner_monitoring::ClientBuilder {
         gax::client_builder::internal::new_builder(

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
 /// let client = DatabaseAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Spanner API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -73,10 +73,10 @@ impl DatabaseAdmin {
     /// Returns a builder for [DatabaseAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_database_v1::client::DatabaseAdmin;
     /// let client = DatabaseAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::database_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::database_admin::client::Factory)

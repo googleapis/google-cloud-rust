@@ -20,7 +20,7 @@ pub mod trace_service {
     /// A builder for [TraceService][crate::client::TraceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v1::*;
     /// # use builder::trace_service::ClientBuilder;
     /// # use client::TraceService;
@@ -28,7 +28,7 @@ pub mod trace_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudtrace.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod trace_service {
     /// The request builder for [TraceService::list_traces][crate::client::TraceService::list_traces] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_trace_v1::builder;
-    /// use builder::trace_service::ListTraces;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_trace_v1::builder::trace_service::ListTraces;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod trace_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTraces {
     ///   # panic!();
@@ -234,14 +233,13 @@ pub mod trace_service {
     /// The request builder for [TraceService::get_trace][crate::client::TraceService::get_trace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_trace_v1::builder;
-    /// use builder::trace_service::GetTrace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_trace_v1::builder::trace_service::GetTrace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTrace {
     ///   # panic!();
@@ -305,14 +303,13 @@ pub mod trace_service {
     /// The request builder for [TraceService::patch_traces][crate::client::TraceService::patch_traces] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_trace_v1::builder;
-    /// use builder::trace_service::PatchTraces;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_trace_v1::builder::trace_service::PatchTraces;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PatchTraces {
     ///   # panic!();

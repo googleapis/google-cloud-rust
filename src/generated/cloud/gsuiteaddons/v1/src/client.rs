@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
 /// let client = GSuiteAddOns::builder().build().await?;
 /// // use `client` to make requests to the Google Workspace add-ons API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -93,10 +93,10 @@ impl GSuiteAddOns {
     /// Returns a builder for [GSuiteAddOns].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gsuiteaddons_v1::client::GSuiteAddOns;
     /// let client = GSuiteAddOns::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::g_suite_add_ons::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::g_suite_add_ons::client::Factory)

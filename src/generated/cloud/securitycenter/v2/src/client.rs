@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
 /// let client = SecurityCenter::builder().build().await?;
 /// // use `client` to make requests to the Security Command Center API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl SecurityCenter {
     /// Returns a builder for [SecurityCenter].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_securitycenter_v2::client::SecurityCenter;
     /// let client = SecurityCenter::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::security_center::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::security_center::client::Factory)

@@ -20,7 +20,7 @@ pub mod storage_transfer_service {
     /// A builder for [StorageTransferService][crate::client::StorageTransferService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_storagetransfer_v1::*;
     /// # use builder::storage_transfer_service::ClientBuilder;
     /// # use client::StorageTransferService;
@@ -28,7 +28,7 @@ pub mod storage_transfer_service {
     /// let client = builder
     ///     .with_endpoint("https://storagetransfer.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::get_google_service_account][crate::client::StorageTransferService::get_google_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::GetGoogleServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetGoogleServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGoogleServiceAccount {
     ///   # panic!();
@@ -142,14 +141,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::create_transfer_job][crate::client::StorageTransferService::create_transfer_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::CreateTransferJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CreateTransferJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTransferJob {
     ///   # panic!();
@@ -222,14 +220,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::update_transfer_job][crate::client::StorageTransferService::update_transfer_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::UpdateTransferJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::UpdateTransferJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTransferJob {
     ///   # panic!();
@@ -339,14 +336,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::get_transfer_job][crate::client::StorageTransferService::get_transfer_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::GetTransferJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetTransferJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTransferJob {
     ///   # panic!();
@@ -410,10 +406,9 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::list_transfer_jobs][crate::client::StorageTransferService::list_transfer_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::ListTransferJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListTransferJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -421,7 +416,7 @@ pub mod storage_transfer_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTransferJobs {
     ///   # panic!();
@@ -516,14 +511,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::pause_transfer_operation][crate::client::StorageTransferService::pause_transfer_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::PauseTransferOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::PauseTransferOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseTransferOperation {
     ///   # panic!();
@@ -582,14 +576,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::resume_transfer_operation][crate::client::StorageTransferService::resume_transfer_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::ResumeTransferOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ResumeTransferOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeTransferOperation {
     ///   # panic!();
@@ -650,15 +643,14 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::run_transfer_job][crate::client::StorageTransferService::run_transfer_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::RunTransferJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::RunTransferJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunTransferJob {
     ///   # panic!();
@@ -762,14 +754,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::delete_transfer_job][crate::client::StorageTransferService::delete_transfer_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::DeleteTransferJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::DeleteTransferJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTransferJob {
     ///   # panic!();
@@ -836,14 +827,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::create_agent_pool][crate::client::StorageTransferService::create_agent_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::CreateAgentPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CreateAgentPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAgentPool {
     ///   # panic!();
@@ -929,14 +919,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::update_agent_pool][crate::client::StorageTransferService::update_agent_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::UpdateAgentPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::UpdateAgentPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAgentPool {
     ///   # panic!();
@@ -1024,14 +1013,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::get_agent_pool][crate::client::StorageTransferService::get_agent_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::GetAgentPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetAgentPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAgentPool {
     ///   # panic!();
@@ -1087,10 +1075,9 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::list_agent_pools][crate::client::StorageTransferService::list_agent_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::ListAgentPools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListAgentPools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1098,7 +1085,7 @@ pub mod storage_transfer_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAgentPools {
     ///   # panic!();
@@ -1196,14 +1183,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::delete_agent_pool][crate::client::StorageTransferService::delete_agent_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::DeleteAgentPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::DeleteAgentPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAgentPool {
     ///   # panic!();
@@ -1259,10 +1245,9 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::list_operations][crate::client::StorageTransferService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1270,7 +1255,7 @@ pub mod storage_transfer_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1377,14 +1362,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::get_operation][crate::client::StorageTransferService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1441,14 +1425,13 @@ pub mod storage_transfer_service {
     /// The request builder for [StorageTransferService::cancel_operation][crate::client::StorageTransferService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storagetransfer_v1::builder;
-    /// use builder::storage_transfer_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storagetransfer_v1::builder::storage_transfer_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

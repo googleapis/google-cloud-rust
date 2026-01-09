@@ -20,7 +20,7 @@ pub mod advisory_notifications_service {
     /// A builder for [AdvisoryNotificationsService][crate::client::AdvisoryNotificationsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_advisorynotifications_v1::*;
     /// # use builder::advisory_notifications_service::ClientBuilder;
     /// # use client::AdvisoryNotificationsService;
@@ -28,7 +28,7 @@ pub mod advisory_notifications_service {
     /// let client = builder
     ///     .with_endpoint("https://advisorynotifications.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod advisory_notifications_service {
     /// The request builder for [AdvisoryNotificationsService::list_notifications][crate::client::AdvisoryNotificationsService::list_notifications] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_advisorynotifications_v1::builder;
-    /// use builder::advisory_notifications_service::ListNotifications;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::ListNotifications;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod advisory_notifications_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotifications {
     ///   # panic!();
@@ -192,14 +191,13 @@ pub mod advisory_notifications_service {
     /// The request builder for [AdvisoryNotificationsService::get_notification][crate::client::AdvisoryNotificationsService::get_notification] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_advisorynotifications_v1::builder;
-    /// use builder::advisory_notifications_service::GetNotification;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::GetNotification;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotification {
     ///   # panic!();
@@ -261,14 +259,13 @@ pub mod advisory_notifications_service {
     /// The request builder for [AdvisoryNotificationsService::get_settings][crate::client::AdvisoryNotificationsService::get_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_advisorynotifications_v1::builder;
-    /// use builder::advisory_notifications_service::GetSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::GetSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSettings {
     ///   # panic!();
@@ -324,14 +321,13 @@ pub mod advisory_notifications_service {
     /// The request builder for [AdvisoryNotificationsService::update_settings][crate::client::AdvisoryNotificationsService::update_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_advisorynotifications_v1::builder;
-    /// use builder::advisory_notifications_service::UpdateSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_advisorynotifications_v1::builder::advisory_notifications_service::UpdateSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSettings {
     ///   # panic!();

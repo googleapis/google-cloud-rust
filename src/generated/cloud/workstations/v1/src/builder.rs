@@ -20,7 +20,7 @@ pub mod workstations {
     /// A builder for [Workstations][crate::client::Workstations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_workstations_v1::*;
     /// # use builder::workstations::ClientBuilder;
     /// # use client::Workstations;
@@ -28,7 +28,7 @@ pub mod workstations {
     /// let client = builder
     ///     .with_endpoint("https://workstations.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod workstations {
     /// The request builder for [Workstations::get_workstation_cluster][crate::client::Workstations::get_workstation_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GetWorkstationCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstationCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkstationCluster {
     ///   # panic!();
@@ -140,10 +139,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_workstation_clusters][crate::client::Workstations::list_workstation_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListWorkstationClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstationClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -151,7 +149,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkstationClusters {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod workstations {
     /// The request builder for [Workstations::create_workstation_cluster][crate::client::Workstations::create_workstation_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::CreateWorkstationCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkstationCluster {
     ///   # panic!();
@@ -398,15 +395,14 @@ pub mod workstations {
     /// The request builder for [Workstations::update_workstation_cluster][crate::client::Workstations::update_workstation_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::UpdateWorkstationCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkstationCluster {
     ///   # panic!();
@@ -556,15 +552,14 @@ pub mod workstations {
     /// The request builder for [Workstations::delete_workstation_cluster][crate::client::Workstations::delete_workstation_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::DeleteWorkstationCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkstationCluster {
     ///   # panic!();
@@ -684,14 +679,13 @@ pub mod workstations {
     /// The request builder for [Workstations::get_workstation_config][crate::client::Workstations::get_workstation_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GetWorkstationConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstationConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkstationConfig {
     ///   # panic!();
@@ -750,10 +744,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_workstation_configs][crate::client::Workstations::list_workstation_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListWorkstationConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstationConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -761,7 +754,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkstationConfigs {
     ///   # panic!();
@@ -860,10 +853,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_usable_workstation_configs][crate::client::Workstations::list_usable_workstation_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListUsableWorkstationConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListUsableWorkstationConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -871,7 +863,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUsableWorkstationConfigs {
     ///   # panic!();
@@ -972,15 +964,14 @@ pub mod workstations {
     /// The request builder for [Workstations::create_workstation_config][crate::client::Workstations::create_workstation_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::CreateWorkstationConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstationConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkstationConfig {
     ///   # panic!();
@@ -1118,15 +1109,14 @@ pub mod workstations {
     /// The request builder for [Workstations::update_workstation_config][crate::client::Workstations::update_workstation_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::UpdateWorkstationConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstationConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkstationConfig {
     ///   # panic!();
@@ -1276,15 +1266,14 @@ pub mod workstations {
     /// The request builder for [Workstations::delete_workstation_config][crate::client::Workstations::delete_workstation_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::DeleteWorkstationConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstationConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkstationConfig {
     ///   # panic!();
@@ -1404,14 +1393,13 @@ pub mod workstations {
     /// The request builder for [Workstations::get_workstation][crate::client::Workstations::get_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GetWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GetWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkstation {
     ///   # panic!();
@@ -1467,10 +1455,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_workstations][crate::client::Workstations::list_workstations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListWorkstations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListWorkstations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1478,7 +1465,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkstations {
     ///   # panic!();
@@ -1573,10 +1560,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_usable_workstations][crate::client::Workstations::list_usable_workstations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListUsableWorkstations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListUsableWorkstations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1584,7 +1570,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUsableWorkstations {
     ///   # panic!();
@@ -1683,15 +1669,14 @@ pub mod workstations {
     /// The request builder for [Workstations::create_workstation][crate::client::Workstations::create_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::CreateWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::CreateWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkstation {
     ///   # panic!();
@@ -1826,15 +1811,14 @@ pub mod workstations {
     /// The request builder for [Workstations::update_workstation][crate::client::Workstations::update_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::UpdateWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::UpdateWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkstation {
     ///   # panic!();
@@ -1981,15 +1965,14 @@ pub mod workstations {
     /// The request builder for [Workstations::delete_workstation][crate::client::Workstations::delete_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::DeleteWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::DeleteWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkstation {
     ///   # panic!();
@@ -2100,15 +2083,14 @@ pub mod workstations {
     /// The request builder for [Workstations::start_workstation][crate::client::Workstations::start_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::StartWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::StartWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartWorkstation {
     ///   # panic!();
@@ -2219,15 +2201,14 @@ pub mod workstations {
     /// The request builder for [Workstations::stop_workstation][crate::client::Workstations::stop_workstation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::StopWorkstation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::StopWorkstation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopWorkstation {
     ///   # panic!();
@@ -2335,14 +2316,13 @@ pub mod workstations {
     /// The request builder for [Workstations::generate_access_token][crate::client::Workstations::generate_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GenerateAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GenerateAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAccessToken {
     ///   # panic!();
@@ -2441,14 +2421,13 @@ pub mod workstations {
     /// The request builder for [Workstations::set_iam_policy][crate::client::Workstations::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -2544,14 +2523,13 @@ pub mod workstations {
     /// The request builder for [Workstations::get_iam_policy][crate::client::Workstations::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -2625,14 +2603,13 @@ pub mod workstations {
     /// The request builder for [Workstations::test_iam_permissions][crate::client::Workstations::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2704,10 +2681,9 @@ pub mod workstations {
     /// The request builder for [Workstations::list_operations][crate::client::Workstations::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2715,7 +2691,7 @@ pub mod workstations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2822,14 +2798,13 @@ pub mod workstations {
     /// The request builder for [Workstations::get_operation][crate::client::Workstations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2886,14 +2861,13 @@ pub mod workstations {
     /// The request builder for [Workstations::delete_operation][crate::client::Workstations::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2950,14 +2924,13 @@ pub mod workstations {
     /// The request builder for [Workstations::cancel_operation][crate::client::Workstations::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workstations_v1::builder;
-    /// use builder::workstations::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workstations_v1::builder::workstations::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

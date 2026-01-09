@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::DataCatalog;
 /// let client = DataCatalog::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl DataCatalog {
     /// Returns a builder for [DataCatalog].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::DataCatalog;
     /// let client = DataCatalog::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::data_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::data_catalog::client::Factory)
@@ -660,11 +660,11 @@ impl DataCatalog {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
 /// let client = PolicyTagManager::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -711,10 +711,10 @@ impl PolicyTagManager {
     /// Returns a builder for [PolicyTagManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManager;
     /// let client = PolicyTagManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -877,11 +877,11 @@ impl PolicyTagManager {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
 /// let client = PolicyTagManagerSerialization::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Data Catalog API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -926,10 +926,10 @@ impl PolicyTagManagerSerialization {
     /// Returns a builder for [PolicyTagManagerSerialization].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datacatalog_v1::client::PolicyTagManagerSerialization;
     /// let client = PolicyTagManagerSerialization::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_tag_manager_serialization::ClientBuilder {
         gax::client_builder::internal::new_builder(

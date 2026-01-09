@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_connectors_v1::client::Connectors;
 /// let client = Connectors::builder().build().await?;
 /// // use `client` to make requests to the Connectors API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Connectors {
     /// Returns a builder for [Connectors].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_connectors_v1::client::Connectors;
     /// let client = Connectors::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::connectors::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::connectors::client::Factory)

@@ -20,7 +20,7 @@ pub mod autokey {
     /// A builder for [Autokey][crate::client::Autokey].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::autokey::ClientBuilder;
     /// # use client::Autokey;
@@ -28,7 +28,7 @@ pub mod autokey {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,15 +72,14 @@ pub mod autokey {
     /// The request builder for [Autokey::create_key_handle][crate::client::Autokey::create_key_handle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::CreateKeyHandle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::CreateKeyHandle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateKeyHandle {
     ///   # panic!();
@@ -203,14 +202,13 @@ pub mod autokey {
     /// The request builder for [Autokey::get_key_handle][crate::client::Autokey::get_key_handle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::GetKeyHandle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::GetKeyHandle;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetKeyHandle {
     ///   # panic!();
@@ -264,10 +262,9 @@ pub mod autokey {
     /// The request builder for [Autokey::list_key_handles][crate::client::Autokey::list_key_handles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::ListKeyHandles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::ListKeyHandles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -275,7 +272,7 @@ pub mod autokey {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListKeyHandles {
     ///   # panic!();
@@ -371,10 +368,9 @@ pub mod autokey {
     /// The request builder for [Autokey::list_locations][crate::client::Autokey::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -382,7 +378,7 @@ pub mod autokey {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -479,14 +475,13 @@ pub mod autokey {
     /// The request builder for [Autokey::get_location][crate::client::Autokey::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -538,14 +533,13 @@ pub mod autokey {
     /// The request builder for [Autokey::set_iam_policy][crate::client::Autokey::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -639,14 +633,13 @@ pub mod autokey {
     /// The request builder for [Autokey::get_iam_policy][crate::client::Autokey::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -718,14 +711,13 @@ pub mod autokey {
     /// The request builder for [Autokey::test_iam_permissions][crate::client::Autokey::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -795,14 +787,13 @@ pub mod autokey {
     /// The request builder for [Autokey::get_operation][crate::client::Autokey::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -861,7 +852,7 @@ pub mod autokey_admin {
     /// A builder for [AutokeyAdmin][crate::client::AutokeyAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::autokey_admin::ClientBuilder;
     /// # use client::AutokeyAdmin;
@@ -869,7 +860,7 @@ pub mod autokey_admin {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -915,14 +906,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::update_autokey_config][crate::client::AutokeyAdmin::update_autokey_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::UpdateAutokeyConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::UpdateAutokeyConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAutokeyConfig {
     ///   # panic!();
@@ -1017,14 +1007,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::get_autokey_config][crate::client::AutokeyAdmin::get_autokey_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::GetAutokeyConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::GetAutokeyConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAutokeyConfig {
     ///   # panic!();
@@ -1083,14 +1072,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::show_effective_autokey_config][crate::client::AutokeyAdmin::show_effective_autokey_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::ShowEffectiveAutokeyConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::ShowEffectiveAutokeyConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ShowEffectiveAutokeyConfig {
     ///   # panic!();
@@ -1151,10 +1139,9 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::list_locations][crate::client::AutokeyAdmin::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1162,7 +1149,7 @@ pub mod autokey_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1261,14 +1248,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::get_location][crate::client::AutokeyAdmin::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1322,14 +1308,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::set_iam_policy][crate::client::AutokeyAdmin::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1425,14 +1410,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::get_iam_policy][crate::client::AutokeyAdmin::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1506,14 +1490,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::test_iam_permissions][crate::client::AutokeyAdmin::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1585,14 +1568,13 @@ pub mod autokey_admin {
     /// The request builder for [AutokeyAdmin::get_operation][crate::client::AutokeyAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::autokey_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::autokey_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1653,7 +1635,7 @@ pub mod ekm_service {
     /// A builder for [EkmService][crate::client::EkmService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::ekm_service::ClientBuilder;
     /// # use client::EkmService;
@@ -1661,7 +1643,7 @@ pub mod ekm_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1707,10 +1689,9 @@ pub mod ekm_service {
     /// The request builder for [EkmService::list_ekm_connections][crate::client::EkmService::list_ekm_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::ListEkmConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::ListEkmConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1718,7 +1699,7 @@ pub mod ekm_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEkmConnections {
     ///   # panic!();
@@ -1827,14 +1808,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::get_ekm_connection][crate::client::EkmService::get_ekm_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::GetEkmConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::GetEkmConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEkmConnection {
     ///   # panic!();
@@ -1893,14 +1873,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::create_ekm_connection][crate::client::EkmService::create_ekm_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::CreateEkmConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::CreateEkmConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEkmConnection {
     ///   # panic!();
@@ -1989,14 +1968,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::update_ekm_connection][crate::client::EkmService::update_ekm_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::UpdateEkmConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::UpdateEkmConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEkmConnection {
     ///   # panic!();
@@ -2091,14 +2069,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::get_ekm_config][crate::client::EkmService::get_ekm_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::GetEkmConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::GetEkmConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEkmConfig {
     ///   # panic!();
@@ -2154,14 +2131,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::update_ekm_config][crate::client::EkmService::update_ekm_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::UpdateEkmConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::UpdateEkmConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEkmConfig {
     ///   # panic!();
@@ -2253,14 +2229,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::verify_connectivity][crate::client::EkmService::verify_connectivity] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::VerifyConnectivity;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::VerifyConnectivity;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyConnectivity {
     ///   # panic!();
@@ -2319,10 +2294,9 @@ pub mod ekm_service {
     /// The request builder for [EkmService::list_locations][crate::client::EkmService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2330,7 +2304,7 @@ pub mod ekm_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2429,14 +2403,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::get_location][crate::client::EkmService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2490,14 +2463,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::set_iam_policy][crate::client::EkmService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -2593,14 +2565,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::get_iam_policy][crate::client::EkmService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -2674,14 +2645,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::test_iam_permissions][crate::client::EkmService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2753,14 +2723,13 @@ pub mod ekm_service {
     /// The request builder for [EkmService::get_operation][crate::client::EkmService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::ekm_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::ekm_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2821,7 +2790,7 @@ pub mod key_management_service {
     /// A builder for [KeyManagementService][crate::client::KeyManagementService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::*;
     /// # use builder::key_management_service::ClientBuilder;
     /// # use client::KeyManagementService;
@@ -2829,7 +2798,7 @@ pub mod key_management_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudkms.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2875,10 +2844,9 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::list_key_rings][crate::client::KeyManagementService::list_key_rings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ListKeyRings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ListKeyRings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2886,7 +2854,7 @@ pub mod key_management_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListKeyRings {
     ///   # panic!();
@@ -2990,10 +2958,9 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::list_crypto_keys][crate::client::KeyManagementService::list_crypto_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ListCryptoKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ListCryptoKeys;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3001,7 +2968,7 @@ pub mod key_management_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCryptoKeys {
     ///   # panic!();
@@ -3114,10 +3081,9 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::list_crypto_key_versions][crate::client::KeyManagementService::list_crypto_key_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ListCryptoKeyVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ListCryptoKeyVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3125,7 +3091,7 @@ pub mod key_management_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCryptoKeyVersions {
     ///   # panic!();
@@ -3243,10 +3209,9 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::list_import_jobs][crate::client::KeyManagementService::list_import_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ListImportJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ListImportJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3254,7 +3219,7 @@ pub mod key_management_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListImportJobs {
     ///   # panic!();
@@ -3358,14 +3323,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_key_ring][crate::client::KeyManagementService::get_key_ring] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetKeyRing;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetKeyRing;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetKeyRing {
     ///   # panic!();
@@ -3421,14 +3385,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_crypto_key][crate::client::KeyManagementService::get_crypto_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetCryptoKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetCryptoKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCryptoKey {
     ///   # panic!();
@@ -3484,14 +3447,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_crypto_key_version][crate::client::KeyManagementService::get_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCryptoKeyVersion {
     ///   # panic!();
@@ -3550,14 +3512,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_public_key][crate::client::KeyManagementService::get_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPublicKey {
     ///   # panic!();
@@ -3622,14 +3583,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_import_job][crate::client::KeyManagementService::get_import_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetImportJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetImportJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetImportJob {
     ///   # panic!();
@@ -3685,14 +3645,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::create_key_ring][crate::client::KeyManagementService::create_key_ring] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::CreateKeyRing;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::CreateKeyRing;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateKeyRing {
     ///   # panic!();
@@ -3778,14 +3737,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::create_crypto_key][crate::client::KeyManagementService::create_crypto_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::CreateCryptoKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::CreateCryptoKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCryptoKey {
     ///   # panic!();
@@ -3877,14 +3835,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::create_crypto_key_version][crate::client::KeyManagementService::create_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::CreateCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::CreateCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCryptoKeyVersion {
     ///   # panic!();
@@ -3965,14 +3922,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::import_crypto_key_version][crate::client::KeyManagementService::import_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ImportCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ImportCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportCryptoKeyVersion {
     ///   # panic!();
@@ -4091,14 +4047,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::create_import_job][crate::client::KeyManagementService::create_import_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::CreateImportJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::CreateImportJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateImportJob {
     ///   # panic!();
@@ -4184,14 +4139,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::update_crypto_key][crate::client::KeyManagementService::update_crypto_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::UpdateCryptoKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCryptoKey {
     ///   # panic!();
@@ -4283,14 +4237,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::update_crypto_key_version][crate::client::KeyManagementService::update_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::UpdateCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCryptoKeyVersion {
     ///   # panic!();
@@ -4385,14 +4338,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::update_crypto_key_primary_version][crate::client::KeyManagementService::update_crypto_key_primary_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::UpdateCryptoKeyPrimaryVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::UpdateCryptoKeyPrimaryVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCryptoKeyPrimaryVersion {
     ///   # panic!();
@@ -4461,14 +4413,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::destroy_crypto_key_version][crate::client::KeyManagementService::destroy_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::DestroyCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::DestroyCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DestroyCryptoKeyVersion {
     ///   # panic!();
@@ -4529,14 +4480,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::restore_crypto_key_version][crate::client::KeyManagementService::restore_crypto_key_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::RestoreCryptoKeyVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::RestoreCryptoKeyVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreCryptoKeyVersion {
     ///   # panic!();
@@ -4597,14 +4547,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::encrypt][crate::client::KeyManagementService::encrypt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::Encrypt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::Encrypt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Encrypt {
     ///   # panic!();
@@ -4714,14 +4663,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::decrypt][crate::client::KeyManagementService::decrypt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::Decrypt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::Decrypt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Decrypt {
     ///   # panic!();
@@ -4831,14 +4779,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::raw_encrypt][crate::client::KeyManagementService::raw_encrypt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::RawEncrypt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::RawEncrypt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RawEncrypt {
     ///   # panic!();
@@ -4975,14 +4922,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::raw_decrypt][crate::client::KeyManagementService::raw_decrypt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::RawDecrypt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::RawDecrypt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RawDecrypt {
     ///   # panic!();
@@ -5127,14 +5073,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::asymmetric_sign][crate::client::KeyManagementService::asymmetric_sign] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::AsymmetricSign;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::AsymmetricSign;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AsymmetricSign {
     ///   # panic!();
@@ -5250,14 +5195,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::asymmetric_decrypt][crate::client::KeyManagementService::asymmetric_decrypt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::AsymmetricDecrypt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::AsymmetricDecrypt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AsymmetricDecrypt {
     ///   # panic!();
@@ -5342,14 +5286,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::mac_sign][crate::client::KeyManagementService::mac_sign] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::MacSign;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::MacSign;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MacSign {
     ///   # panic!();
@@ -5431,14 +5374,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::mac_verify][crate::client::KeyManagementService::mac_verify] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::MacVerify;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::MacVerify;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MacVerify {
     ///   # panic!();
@@ -5546,14 +5488,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::decapsulate][crate::client::KeyManagementService::decapsulate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::Decapsulate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::Decapsulate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Decapsulate {
     ///   # panic!();
@@ -5635,14 +5576,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::generate_random_bytes][crate::client::KeyManagementService::generate_random_bytes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GenerateRandomBytes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GenerateRandomBytes;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateRandomBytes {
     ///   # panic!();
@@ -5714,10 +5654,9 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::list_locations][crate::client::KeyManagementService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5725,7 +5664,7 @@ pub mod key_management_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5824,14 +5763,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_location][crate::client::KeyManagementService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5885,14 +5823,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::set_iam_policy][crate::client::KeyManagementService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5988,14 +5925,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_iam_policy][crate::client::KeyManagementService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -6069,14 +6005,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::test_iam_permissions][crate::client::KeyManagementService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -6148,14 +6083,13 @@ pub mod key_management_service {
     /// The request builder for [KeyManagementService::get_operation][crate::client::KeyManagementService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_kms_v1::builder;
-    /// use builder::key_management_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_kms_v1::builder::key_management_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

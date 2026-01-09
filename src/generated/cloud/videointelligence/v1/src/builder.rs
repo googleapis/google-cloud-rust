@@ -20,7 +20,7 @@ pub mod video_intelligence_service {
     /// A builder for [VideoIntelligenceService][crate::client::VideoIntelligenceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_videointelligence_v1::*;
     /// # use builder::video_intelligence_service::ClientBuilder;
     /// # use client::VideoIntelligenceService;
@@ -28,7 +28,7 @@ pub mod video_intelligence_service {
     /// let client = builder
     ///     .with_endpoint("https://videointelligence.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod video_intelligence_service {
     /// The request builder for [VideoIntelligenceService::annotate_video][crate::client::VideoIntelligenceService::annotate_video] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_videointelligence_v1::builder;
-    /// use builder::video_intelligence_service::AnnotateVideo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::AnnotateVideo;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnnotateVideo {
     ///   # panic!();
@@ -226,10 +225,9 @@ pub mod video_intelligence_service {
     /// The request builder for [VideoIntelligenceService::list_operations][crate::client::VideoIntelligenceService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_videointelligence_v1::builder;
-    /// use builder::video_intelligence_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -237,7 +235,7 @@ pub mod video_intelligence_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -344,14 +342,13 @@ pub mod video_intelligence_service {
     /// The request builder for [VideoIntelligenceService::get_operation][crate::client::VideoIntelligenceService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_videointelligence_v1::builder;
-    /// use builder::video_intelligence_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -408,14 +405,13 @@ pub mod video_intelligence_service {
     /// The request builder for [VideoIntelligenceService::delete_operation][crate::client::VideoIntelligenceService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_videointelligence_v1::builder;
-    /// use builder::video_intelligence_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -472,14 +468,13 @@ pub mod video_intelligence_service {
     /// The request builder for [VideoIntelligenceService::cancel_operation][crate::client::VideoIntelligenceService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_videointelligence_v1::builder;
-    /// use builder::video_intelligence_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_videointelligence_v1::builder::video_intelligence_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

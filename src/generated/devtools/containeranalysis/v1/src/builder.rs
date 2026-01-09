@@ -20,7 +20,7 @@ pub mod container_analysis {
     /// A builder for [ContainerAnalysis][crate::client::ContainerAnalysis].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_containeranalysis_v1::*;
     /// # use builder::container_analysis::ClientBuilder;
     /// # use client::ContainerAnalysis;
@@ -28,7 +28,7 @@ pub mod container_analysis {
     /// let client = builder
     ///     .with_endpoint("https://containeranalysis.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod container_analysis {
     /// The request builder for [ContainerAnalysis::set_iam_policy][crate::client::ContainerAnalysis::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_containeranalysis_v1::builder;
-    /// use builder::container_analysis::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::builder::container_analysis::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -177,14 +176,13 @@ pub mod container_analysis {
     /// The request builder for [ContainerAnalysis::get_iam_policy][crate::client::ContainerAnalysis::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_containeranalysis_v1::builder;
-    /// use builder::container_analysis::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::builder::container_analysis::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -258,14 +256,13 @@ pub mod container_analysis {
     /// The request builder for [ContainerAnalysis::test_iam_permissions][crate::client::ContainerAnalysis::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_containeranalysis_v1::builder;
-    /// use builder::container_analysis::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::builder::container_analysis::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -337,14 +334,13 @@ pub mod container_analysis {
     /// The request builder for [ContainerAnalysis::get_vulnerability_occurrences_summary][crate::client::ContainerAnalysis::get_vulnerability_occurrences_summary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_containeranalysis_v1::builder;
-    /// use builder::container_analysis::GetVulnerabilityOccurrencesSummary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::builder::container_analysis::GetVulnerabilityOccurrencesSummary;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVulnerabilityOccurrencesSummary {
     ///   # panic!();
@@ -411,14 +407,13 @@ pub mod container_analysis {
     /// The request builder for [ContainerAnalysis::export_sbom][crate::client::ContainerAnalysis::export_sbom] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_containeranalysis_v1::builder;
-    /// use builder::container_analysis::ExportSBOM;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_containeranalysis_v1::builder::container_analysis::ExportSBOM;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportSBOM {
     ///   # panic!();

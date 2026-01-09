@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
 /// let client = AccessContextManager::builder().build().await?;
 /// // use `client` to make requests to the Access Context Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -76,10 +76,10 @@ impl AccessContextManager {
     /// Returns a builder for [AccessContextManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_identity_accesscontextmanager_v1::client::AccessContextManager;
     /// let client = AccessContextManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::access_context_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

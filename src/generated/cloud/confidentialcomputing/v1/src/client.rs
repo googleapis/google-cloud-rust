@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
 /// let client = ConfidentialComputing::builder().build().await?;
 /// // use `client` to make requests to the Confidential Computing API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ConfidentialComputing {
     /// Returns a builder for [ConfidentialComputing].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_confidentialcomputing_v1::client::ConfidentialComputing;
     /// let client = ConfidentialComputing::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::confidential_computing::ClientBuilder {
         gax::client_builder::internal::new_builder(

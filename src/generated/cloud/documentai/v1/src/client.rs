@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
 /// let client = DocumentProcessorService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Document AI API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -69,10 +69,10 @@ impl DocumentProcessorService {
     /// Returns a builder for [DocumentProcessorService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_documentai_v1::client::DocumentProcessorService;
     /// let client = DocumentProcessorService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::document_processor_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

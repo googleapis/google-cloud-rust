@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
 /// let client = SqlBackupRunsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl SqlBackupRunsService {
     /// Returns a builder for [SqlBackupRunsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlBackupRunsService;
     /// let client = SqlBackupRunsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_backup_runs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -148,11 +148,11 @@ impl SqlBackupRunsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// let client = SqlConnectService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -194,10 +194,10 @@ impl SqlConnectService {
     /// Returns a builder for [SqlConnectService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlConnectService;
     /// let client = SqlConnectService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_connect_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -269,11 +269,11 @@ impl SqlConnectService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlDatabasesService;
 /// let client = SqlDatabasesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -315,10 +315,10 @@ impl SqlDatabasesService {
     /// Returns a builder for [SqlDatabasesService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlDatabasesService;
     /// let client = SqlDatabasesService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_databases_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -411,11 +411,11 @@ impl SqlDatabasesService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlFlagsService;
 /// let client = SqlFlagsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -457,10 +457,10 @@ impl SqlFlagsService {
     /// Returns a builder for [SqlFlagsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlFlagsService;
     /// let client = SqlFlagsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_flags_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -522,11 +522,11 @@ impl SqlFlagsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlInstancesService;
 /// let client = SqlInstancesService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -568,10 +568,10 @@ impl SqlInstancesService {
     /// Returns a builder for [SqlInstancesService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlInstancesService;
     /// let client = SqlInstancesService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_instances_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -843,11 +843,11 @@ impl SqlInstancesService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlOperationsService;
 /// let client = SqlOperationsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -889,10 +889,10 @@ impl SqlOperationsService {
     /// Returns a builder for [SqlOperationsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlOperationsService;
     /// let client = SqlOperationsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_operations_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -965,11 +965,11 @@ impl SqlOperationsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlSslCertsService;
 /// let client = SqlSslCertsService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1011,10 +1011,10 @@ impl SqlSslCertsService {
     /// Returns a builder for [SqlSslCertsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlSslCertsService;
     /// let client = SqlSslCertsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_ssl_certs_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1096,11 +1096,11 @@ impl SqlSslCertsService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlTiersService;
 /// let client = SqlTiersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1142,10 +1142,10 @@ impl SqlTiersService {
     /// Returns a builder for [SqlTiersService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlTiersService;
     /// let client = SqlTiersService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_tiers_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1209,11 +1209,11 @@ impl SqlTiersService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlUsersService;
 /// let client = SqlUsersService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1255,10 +1255,10 @@ impl SqlUsersService {
     /// Returns a builder for [SqlUsersService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_sql_v1::client::SqlUsersService;
     /// let client = SqlUsersService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::sql_users_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

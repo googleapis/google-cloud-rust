@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_recommender_v1::client::Recommender;
 /// let client = Recommender::builder().build().await?;
 /// // use `client` to make requests to the Recommender API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -69,10 +69,10 @@ impl Recommender {
     /// Returns a builder for [Recommender].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_recommender_v1::client::Recommender;
     /// let client = Recommender::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::recommender::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::recommender::client::Factory)

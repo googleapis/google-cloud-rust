@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
 /// let client = KeyDashboardService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl KeyDashboardService {
     /// Returns a builder for [KeyDashboardService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::client::KeyDashboardService;
     /// let client = KeyDashboardService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::key_dashboard_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -133,11 +133,11 @@ impl KeyDashboardService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
 /// let client = KeyTrackingService::builder().build().await?;
 /// // use `client` to make requests to the KMS Inventory API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -180,10 +180,10 @@ impl KeyTrackingService {
     /// Returns a builder for [KeyTrackingService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_inventory_v1::client::KeyTrackingService;
     /// let client = KeyTrackingService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::key_tracking_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

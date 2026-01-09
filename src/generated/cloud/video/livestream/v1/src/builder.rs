@@ -20,7 +20,7 @@ pub mod livestream_service {
     /// A builder for [LivestreamService][crate::client::LivestreamService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_video_livestream_v1::*;
     /// # use builder::livestream_service::ClientBuilder;
     /// # use client::LivestreamService;
@@ -28,7 +28,7 @@ pub mod livestream_service {
     /// let client = builder
     ///     .with_endpoint("https://livestream.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_channel][crate::client::LivestreamService::create_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateChannel {
     ///   # panic!();
@@ -212,10 +211,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_channels][crate::client::LivestreamService::list_channels] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListChannels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListChannels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -223,7 +221,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListChannels {
     ///   # panic!();
@@ -327,14 +325,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_channel][crate::client::LivestreamService::get_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetChannel {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_channel][crate::client::LivestreamService::delete_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteChannel {
     ///   # panic!();
@@ -506,15 +502,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::update_channel][crate::client::LivestreamService::update_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::UpdateChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateChannel {
     ///   # panic!();
@@ -646,15 +641,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::start_channel][crate::client::LivestreamService::start_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::StartChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartChannel {
     ///   # panic!();
@@ -757,15 +751,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::stop_channel][crate::client::LivestreamService::stop_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::StopChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopChannel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopChannel {
     ///   # panic!();
@@ -868,15 +861,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::start_distribution][crate::client::LivestreamService::start_distribution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::StartDistribution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::StartDistribution;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartDistribution {
     ///   # panic!();
@@ -993,15 +985,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::stop_distribution][crate::client::LivestreamService::stop_distribution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::StopDistribution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::StopDistribution;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopDistribution {
     ///   # panic!();
@@ -1118,15 +1109,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_input][crate::client::LivestreamService::create_input] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateInput;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateInput;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInput {
     ///   # panic!();
@@ -1256,10 +1246,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_inputs][crate::client::LivestreamService::list_inputs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListInputs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListInputs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1267,7 +1256,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInputs {
     ///   # panic!();
@@ -1371,14 +1360,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_input][crate::client::LivestreamService::get_input] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetInput;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetInput;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInput {
     ///   # panic!();
@@ -1434,15 +1422,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_input][crate::client::LivestreamService::delete_input] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteInput;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteInput;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInput {
     ///   # panic!();
@@ -1544,15 +1531,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::update_input][crate::client::LivestreamService::update_input] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::UpdateInput;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateInput;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInput {
     ///   # panic!();
@@ -1684,14 +1670,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::preview_input][crate::client::LivestreamService::preview_input] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::PreviewInput;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::PreviewInput;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PreviewInput {
     ///   # panic!();
@@ -1747,14 +1732,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_event][crate::client::LivestreamService::create_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEvent {
     ///   # panic!();
@@ -1846,10 +1830,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_events][crate::client::LivestreamService::list_events] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListEvents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListEvents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1857,7 +1840,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEvents {
     ///   # panic!();
@@ -1961,14 +1944,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_event][crate::client::LivestreamService::get_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEvent {
     ///   # panic!();
@@ -2024,14 +2006,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_event][crate::client::LivestreamService::delete_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEvent {
     ///   # panic!();
@@ -2093,10 +2074,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_clips][crate::client::LivestreamService::list_clips] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListClips;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListClips;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2104,7 +2084,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClips {
     ///   # panic!();
@@ -2208,14 +2188,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_clip][crate::client::LivestreamService::get_clip] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetClip;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetClip;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetClip {
     ///   # panic!();
@@ -2271,15 +2250,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_clip][crate::client::LivestreamService::create_clip] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateClip;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateClip;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateClip {
     ///   # panic!();
@@ -2409,15 +2387,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_clip][crate::client::LivestreamService::delete_clip] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteClip;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteClip;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteClip {
     ///   # panic!();
@@ -2519,15 +2496,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_dvr_session][crate::client::LivestreamService::create_dvr_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateDvrSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateDvrSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDvrSession {
     ///   # panic!();
@@ -2660,10 +2636,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_dvr_sessions][crate::client::LivestreamService::list_dvr_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListDvrSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListDvrSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2671,7 +2646,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDvrSessions {
     ///   # panic!();
@@ -2775,14 +2750,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_dvr_session][crate::client::LivestreamService::get_dvr_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetDvrSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetDvrSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDvrSession {
     ///   # panic!();
@@ -2838,15 +2812,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_dvr_session][crate::client::LivestreamService::delete_dvr_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteDvrSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteDvrSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDvrSession {
     ///   # panic!();
@@ -2951,15 +2924,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::update_dvr_session][crate::client::LivestreamService::update_dvr_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::UpdateDvrSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdateDvrSession;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDvrSession {
     ///   # panic!();
@@ -3098,15 +3070,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::create_asset][crate::client::LivestreamService::create_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CreateAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CreateAsset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAsset {
     ///   # panic!();
@@ -3236,15 +3207,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_asset][crate::client::LivestreamService::delete_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteAsset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAsset {
     ///   # panic!();
@@ -3346,14 +3316,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_asset][crate::client::LivestreamService::get_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetAsset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAsset {
     ///   # panic!();
@@ -3409,10 +3378,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_assets][crate::client::LivestreamService::list_assets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListAssets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListAssets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3420,7 +3388,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAssets {
     ///   # panic!();
@@ -3524,14 +3492,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_pool][crate::client::LivestreamService::get_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetPool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetPool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPool {
     ///   # panic!();
@@ -3587,15 +3554,14 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::update_pool][crate::client::LivestreamService::update_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::UpdatePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::UpdatePool;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePool {
     ///   # panic!();
@@ -3727,10 +3693,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_locations][crate::client::LivestreamService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3738,7 +3703,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3837,14 +3802,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_location][crate::client::LivestreamService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3898,10 +3862,9 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::list_operations][crate::client::LivestreamService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3909,7 +3872,7 @@ pub mod livestream_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4016,14 +3979,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::get_operation][crate::client::LivestreamService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4080,14 +4042,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::delete_operation][crate::client::LivestreamService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4144,14 +4105,13 @@ pub mod livestream_service {
     /// The request builder for [LivestreamService::cancel_operation][crate::client::LivestreamService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_video_livestream_v1::builder;
-    /// use builder::livestream_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_video_livestream_v1::builder::livestream_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
