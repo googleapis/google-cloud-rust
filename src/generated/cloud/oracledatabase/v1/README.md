@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/1.5.0)
 
-[OracleDatabase]: https://docs.rs/google-cloud-oracledatabase-v1/1.4.0/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html
+[OracleDatabase]: https://docs.rs/google-cloud-oracledatabase-v1/1.5.0/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html

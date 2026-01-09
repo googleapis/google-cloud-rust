@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-advisorynotifications-v1/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-advisorynotifications-v1/1.3.0)
 
-[AdvisoryNotificationsService]: https://docs.rs/google-cloud-advisorynotifications-v1/1.2.0/google_cloud_advisorynotifications_v1/client/struct.AdvisoryNotificationsService.html
+[AdvisoryNotificationsService]: https://docs.rs/google-cloud-advisorynotifications-v1/1.3.0/google_cloud_advisorynotifications_v1/client/struct.AdvisoryNotificationsService.html

@@ -18,6 +18,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-clouddms-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-clouddms-v1/1.4.0)
 
-[DataMigrationService]: https://docs.rs/google-cloud-clouddms-v1/1.3.0/google_cloud_clouddms_v1/client/struct.DataMigrationService.html
+[DataMigrationService]: https://docs.rs/google-cloud-clouddms-v1/1.4.0/google_cloud_clouddms_v1/client/struct.DataMigrationService.html

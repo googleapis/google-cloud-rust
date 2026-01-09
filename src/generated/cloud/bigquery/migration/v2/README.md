@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-migration-v2/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-migration-v2/1.3.0)
 
-[MigrationService]: https://docs.rs/google-cloud-bigquery-migration-v2/1.2.0/google_cloud_bigquery_migration_v2/client/struct.MigrationService.html
+[MigrationService]: https://docs.rs/google-cloud-bigquery-migration-v2/1.3.0/google_cloud_bigquery_migration_v2/client/struct.MigrationService.html

@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-orgpolicy-v2/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-orgpolicy-v2/1.3.0)
 
-[OrgPolicy]: https://docs.rs/google-cloud-orgpolicy-v2/1.2.0/google_cloud_orgpolicy_v2/client/struct.OrgPolicy.html
+[OrgPolicy]: https://docs.rs/google-cloud-orgpolicy-v2/1.3.0/google_cloud_orgpolicy_v2/client/struct.OrgPolicy.html
