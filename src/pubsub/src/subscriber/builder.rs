@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::session::Session;
 use super::transport::Transport;
+use crate::Result;
 use std::sync::Arc;
 
 const MIB: i64 = 1024 * 1024;
@@ -37,6 +39,26 @@ impl StreamingPull {
         }
     }
 
+    /// Creates a new session to receive messages from the subscription.
+    ///
+    /// # Example
+    /// ```no_rust
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
+    /// let mut session = client
+    ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+    ///     .start()
+    ///     .await?;
+    /// while let Some((m, h)) = session.next().await.transpose()? {
+    ///     println!("Received message m={m:?}");
+    ///     h.ack();
+    /// }
+    /// # Ok(()) }
+    /// ```
+    pub async fn start(self) -> Result<Session> {
+        Session::new(self).await
+    }
+
     /// Sets the ack deadline to use for the stream.
     ///
     /// This value represents how long the application has to ack or nack an
@@ -53,7 +75,6 @@ impl StreamingPull {
     /// The default value is 10 seconds.
     ///
     /// # Example
-    ///
     /// ```no_rust
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
@@ -81,7 +102,6 @@ impl StreamingPull {
     /// The default value is 1000 messages.
     ///
     /// # Example
-    ///
     /// ```no_rust
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
@@ -109,7 +129,6 @@ impl StreamingPull {
     /// The default value is 100 MiB.
     ///
     /// # Example
-    ///
     /// ```no_rust
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {

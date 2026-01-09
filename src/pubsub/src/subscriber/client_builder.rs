@@ -18,6 +18,7 @@ use gaxi::options::ClientConfig;
 
 /// A builder for [Subscriber].
 ///
+/// # Example
 /// ```no_rust
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample() -> anyhow::Result<()> {
