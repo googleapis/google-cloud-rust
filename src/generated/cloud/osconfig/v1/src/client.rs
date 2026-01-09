@@ -22,11 +22,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_osconfig_v1::client::OsConfigService;
 /// let client = OsConfigService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl OsConfigService {
     /// Returns a builder for [OsConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::client::OsConfigService;
     /// let client = OsConfigService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::os_config_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -223,11 +223,11 @@ impl OsConfigService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
 /// let client = OsConfigZonalService::builder().build().await?;
 /// // use `client` to make requests to the OS Config API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -272,10 +272,10 @@ impl OsConfigZonalService {
     /// Returns a builder for [OsConfigZonalService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_osconfig_v1::client::OsConfigZonalService;
     /// let client = OsConfigZonalService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::os_config_zonal_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

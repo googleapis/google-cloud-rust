@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
 /// let client = IcebergCatalogService::builder().build().await?;
 /// // use `client` to make requests to the BigLake API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -94,10 +94,10 @@ impl IcebergCatalogService {
     /// Returns a builder for [IcebergCatalogService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_biglake_v1::client::IcebergCatalogService;
     /// let client = IcebergCatalogService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::iceberg_catalog_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

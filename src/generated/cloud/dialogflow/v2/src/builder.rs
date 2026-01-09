@@ -22,7 +22,7 @@ pub mod agents {
     /// A builder for [Agents][crate::client::Agents].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::agents::ClientBuilder;
     /// # use client::Agents;
@@ -30,7 +30,7 @@ pub mod agents {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod agents {
     /// The request builder for [Agents::get_agent][crate::client::Agents::get_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::GetAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::GetAgent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAgent {
     ///   # panic!();
@@ -135,14 +134,13 @@ pub mod agents {
     /// The request builder for [Agents::set_agent][crate::client::Agents::set_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::SetAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::SetAgent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetAgent {
     ///   # panic!();
@@ -228,14 +226,13 @@ pub mod agents {
     /// The request builder for [Agents::delete_agent][crate::client::Agents::delete_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::DeleteAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::DeleteAgent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAgent {
     ///   # panic!();
@@ -289,10 +286,9 @@ pub mod agents {
     /// The request builder for [Agents::search_agents][crate::client::Agents::search_agents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::SearchAgents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::SearchAgents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -300,7 +296,7 @@ pub mod agents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchAgents {
     ///   # panic!();
@@ -390,15 +386,14 @@ pub mod agents {
     /// The request builder for [Agents::train_agent][crate::client::Agents::train_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::TrainAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::TrainAgent;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TrainAgent {
     ///   # panic!();
@@ -492,15 +487,14 @@ pub mod agents {
     /// The request builder for [Agents::export_agent][crate::client::Agents::export_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::ExportAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::ExportAgent;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportAgent {
     ///   # panic!();
@@ -598,15 +592,14 @@ pub mod agents {
     /// The request builder for [Agents::import_agent][crate::client::Agents::import_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::ImportAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::ImportAgent;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportAgent {
     ///   # panic!();
@@ -732,15 +725,14 @@ pub mod agents {
     /// The request builder for [Agents::restore_agent][crate::client::Agents::restore_agent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::RestoreAgent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::RestoreAgent;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreAgent {
     ///   # panic!();
@@ -866,14 +858,13 @@ pub mod agents {
     /// The request builder for [Agents::get_validation_result][crate::client::Agents::get_validation_result] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::GetValidationResult;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::GetValidationResult;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetValidationResult {
     ///   # panic!();
@@ -936,10 +927,9 @@ pub mod agents {
     /// The request builder for [Agents::list_locations][crate::client::Agents::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -947,7 +937,7 @@ pub mod agents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1044,14 +1034,13 @@ pub mod agents {
     /// The request builder for [Agents::get_location][crate::client::Agents::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1103,10 +1092,9 @@ pub mod agents {
     /// The request builder for [Agents::list_operations][crate::client::Agents::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1114,7 +1102,7 @@ pub mod agents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1219,14 +1207,13 @@ pub mod agents {
     /// The request builder for [Agents::get_operation][crate::client::Agents::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1281,14 +1268,13 @@ pub mod agents {
     /// The request builder for [Agents::cancel_operation][crate::client::Agents::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::agents::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::agents::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1349,7 +1335,7 @@ pub mod answer_records {
     /// A builder for [AnswerRecords][crate::client::AnswerRecords].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::answer_records::ClientBuilder;
     /// # use client::AnswerRecords;
@@ -1357,7 +1343,7 @@ pub mod answer_records {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1403,10 +1389,9 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::list_answer_records][crate::client::AnswerRecords::list_answer_records] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::ListAnswerRecords;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::ListAnswerRecords;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1414,7 +1399,7 @@ pub mod answer_records {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAnswerRecords {
     ///   # panic!();
@@ -1515,14 +1500,13 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::update_answer_record][crate::client::AnswerRecords::update_answer_record] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::UpdateAnswerRecord;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::UpdateAnswerRecord;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAnswerRecord {
     ///   # panic!();
@@ -1617,10 +1601,9 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::list_locations][crate::client::AnswerRecords::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1628,7 +1611,7 @@ pub mod answer_records {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1727,14 +1710,13 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::get_location][crate::client::AnswerRecords::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1788,10 +1770,9 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::list_operations][crate::client::AnswerRecords::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1799,7 +1780,7 @@ pub mod answer_records {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1906,14 +1887,13 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::get_operation][crate::client::AnswerRecords::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1970,14 +1950,13 @@ pub mod answer_records {
     /// The request builder for [AnswerRecords::cancel_operation][crate::client::AnswerRecords::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::answer_records::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::answer_records::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2040,7 +2019,7 @@ pub mod contexts {
     /// A builder for [Contexts][crate::client::Contexts].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::contexts::ClientBuilder;
     /// # use client::Contexts;
@@ -2048,7 +2027,7 @@ pub mod contexts {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2092,10 +2071,9 @@ pub mod contexts {
     /// The request builder for [Contexts::list_contexts][crate::client::Contexts::list_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::ListContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::ListContexts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2103,7 +2081,7 @@ pub mod contexts {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListContexts {
     ///   # panic!();
@@ -2193,14 +2171,13 @@ pub mod contexts {
     /// The request builder for [Contexts::get_context][crate::client::Contexts::get_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::GetContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::GetContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetContext {
     ///   # panic!();
@@ -2254,14 +2231,13 @@ pub mod contexts {
     /// The request builder for [Contexts::create_context][crate::client::Contexts::create_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::CreateContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::CreateContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateContext {
     ///   # panic!();
@@ -2337,14 +2313,13 @@ pub mod contexts {
     /// The request builder for [Contexts::update_context][crate::client::Contexts::update_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::UpdateContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::UpdateContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateContext {
     ///   # panic!();
@@ -2430,14 +2405,13 @@ pub mod contexts {
     /// The request builder for [Contexts::delete_context][crate::client::Contexts::delete_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::DeleteContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::DeleteContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteContext {
     ///   # panic!();
@@ -2491,14 +2465,13 @@ pub mod contexts {
     /// The request builder for [Contexts::delete_all_contexts][crate::client::Contexts::delete_all_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::DeleteAllContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::DeleteAllContexts;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAllContexts {
     ///   # panic!();
@@ -2555,10 +2528,9 @@ pub mod contexts {
     /// The request builder for [Contexts::list_locations][crate::client::Contexts::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2566,7 +2538,7 @@ pub mod contexts {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2663,14 +2635,13 @@ pub mod contexts {
     /// The request builder for [Contexts::get_location][crate::client::Contexts::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2722,10 +2693,9 @@ pub mod contexts {
     /// The request builder for [Contexts::list_operations][crate::client::Contexts::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2733,7 +2703,7 @@ pub mod contexts {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2838,14 +2808,13 @@ pub mod contexts {
     /// The request builder for [Contexts::get_operation][crate::client::Contexts::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2900,14 +2869,13 @@ pub mod contexts {
     /// The request builder for [Contexts::cancel_operation][crate::client::Contexts::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::contexts::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::contexts::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2968,7 +2936,7 @@ pub mod conversations {
     /// A builder for [Conversations][crate::client::Conversations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversations::ClientBuilder;
     /// # use client::Conversations;
@@ -2976,7 +2944,7 @@ pub mod conversations {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3022,14 +2990,13 @@ pub mod conversations {
     /// The request builder for [Conversations::create_conversation][crate::client::Conversations::create_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::CreateConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::CreateConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversation {
     ///   # panic!();
@@ -3116,10 +3083,9 @@ pub mod conversations {
     /// The request builder for [Conversations::list_conversations][crate::client::Conversations::list_conversations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::ListConversations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::ListConversations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3127,7 +3093,7 @@ pub mod conversations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversations {
     ///   # panic!();
@@ -3228,14 +3194,13 @@ pub mod conversations {
     /// The request builder for [Conversations::get_conversation][crate::client::Conversations::get_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GetConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GetConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversation {
     ///   # panic!();
@@ -3291,14 +3256,13 @@ pub mod conversations {
     /// The request builder for [Conversations::complete_conversation][crate::client::Conversations::complete_conversation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::CompleteConversation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::CompleteConversation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteConversation {
     ///   # panic!();
@@ -3357,14 +3321,13 @@ pub mod conversations {
     /// The request builder for [Conversations::ingest_context_references][crate::client::Conversations::ingest_context_references] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::IngestContextReferences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::IngestContextReferences;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> IngestContextReferences {
     ///   # panic!();
@@ -3439,10 +3402,9 @@ pub mod conversations {
     /// The request builder for [Conversations::list_messages][crate::client::Conversations::list_messages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::ListMessages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::ListMessages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3450,7 +3412,7 @@ pub mod conversations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMessages {
     ///   # panic!();
@@ -3548,14 +3510,13 @@ pub mod conversations {
     /// The request builder for [Conversations::suggest_conversation_summary][crate::client::Conversations::suggest_conversation_summary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::SuggestConversationSummary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::SuggestConversationSummary;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestConversationSummary {
     ///   # panic!();
@@ -3646,14 +3607,13 @@ pub mod conversations {
     /// The request builder for [Conversations::generate_stateless_summary][crate::client::Conversations::generate_stateless_summary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GenerateStatelessSummary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateStatelessSummary;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateStatelessSummary {
     ///   # panic!();
@@ -3766,14 +3726,13 @@ pub mod conversations {
     /// The request builder for [Conversations::generate_stateless_suggestion][crate::client::Conversations::generate_stateless_suggestion] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GenerateStatelessSuggestion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateStatelessSuggestion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateStatelessSuggestion {
     ///   # panic!();
@@ -3921,14 +3880,13 @@ pub mod conversations {
     /// The request builder for [Conversations::search_knowledge][crate::client::Conversations::search_knowledge] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::SearchKnowledge;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::SearchKnowledge;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchKnowledge {
     ///   # panic!();
@@ -4085,14 +4043,13 @@ pub mod conversations {
     /// The request builder for [Conversations::generate_suggestions][crate::client::Conversations::generate_suggestions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GenerateSuggestions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GenerateSuggestions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateSuggestions {
     ///   # panic!();
@@ -4168,10 +4125,9 @@ pub mod conversations {
     /// The request builder for [Conversations::list_locations][crate::client::Conversations::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4179,7 +4135,7 @@ pub mod conversations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4278,14 +4234,13 @@ pub mod conversations {
     /// The request builder for [Conversations::get_location][crate::client::Conversations::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4339,10 +4294,9 @@ pub mod conversations {
     /// The request builder for [Conversations::list_operations][crate::client::Conversations::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4350,7 +4304,7 @@ pub mod conversations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4457,14 +4411,13 @@ pub mod conversations {
     /// The request builder for [Conversations::get_operation][crate::client::Conversations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4521,14 +4474,13 @@ pub mod conversations {
     /// The request builder for [Conversations::cancel_operation][crate::client::Conversations::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversations::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversations::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -4591,7 +4543,7 @@ pub mod conversation_datasets {
     /// A builder for [ConversationDatasets][crate::client::ConversationDatasets].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_datasets::ClientBuilder;
     /// # use client::ConversationDatasets;
@@ -4599,7 +4551,7 @@ pub mod conversation_datasets {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4645,15 +4597,14 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::create_conversation_dataset][crate::client::ConversationDatasets::create_conversation_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::CreateConversationDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::CreateConversationDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversationDataset {
     ///   # panic!();
@@ -4779,14 +4730,13 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::get_conversation_dataset][crate::client::ConversationDatasets::get_conversation_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::GetConversationDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetConversationDataset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversationDataset {
     ///   # panic!();
@@ -4845,10 +4795,9 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::list_conversation_datasets][crate::client::ConversationDatasets::list_conversation_datasets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::ListConversationDatasets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListConversationDatasets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4856,7 +4805,7 @@ pub mod conversation_datasets {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversationDatasets {
     ///   # panic!();
@@ -4957,15 +4906,14 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::delete_conversation_dataset][crate::client::ConversationDatasets::delete_conversation_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::DeleteConversationDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::DeleteConversationDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConversationDataset {
     ///   # panic!();
@@ -5072,15 +5020,14 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::import_conversation_data][crate::client::ConversationDatasets::import_conversation_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::ImportConversationData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ImportConversationData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportConversationData {
     ///   # panic!();
@@ -5204,10 +5151,9 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::list_locations][crate::client::ConversationDatasets::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5215,7 +5161,7 @@ pub mod conversation_datasets {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5314,14 +5260,13 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::get_location][crate::client::ConversationDatasets::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5375,10 +5320,9 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::list_operations][crate::client::ConversationDatasets::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5386,7 +5330,7 @@ pub mod conversation_datasets {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5493,14 +5437,13 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::get_operation][crate::client::ConversationDatasets::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5557,14 +5500,13 @@ pub mod conversation_datasets {
     /// The request builder for [ConversationDatasets::cancel_operation][crate::client::ConversationDatasets::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_datasets::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_datasets::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -5627,7 +5569,7 @@ pub mod conversation_models {
     /// A builder for [ConversationModels][crate::client::ConversationModels].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_models::ClientBuilder;
     /// # use client::ConversationModels;
@@ -5635,7 +5577,7 @@ pub mod conversation_models {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -5681,15 +5623,14 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::create_conversation_model][crate::client::ConversationModels::create_conversation_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::CreateConversationModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::CreateConversationModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversationModel {
     ///   # panic!();
@@ -5813,14 +5754,13 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::get_conversation_model][crate::client::ConversationModels::get_conversation_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::GetConversationModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetConversationModel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversationModel {
     ///   # panic!();
@@ -5879,10 +5819,9 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::list_conversation_models][crate::client::ConversationModels::list_conversation_models] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::ListConversationModels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListConversationModels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5890,7 +5829,7 @@ pub mod conversation_models {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversationModels {
     ///   # panic!();
@@ -5989,15 +5928,14 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::delete_conversation_model][crate::client::ConversationModels::delete_conversation_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::DeleteConversationModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::DeleteConversationModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConversationModel {
     ///   # panic!();
@@ -6103,15 +6041,14 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::deploy_conversation_model][crate::client::ConversationModels::deploy_conversation_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::DeployConversationModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::DeployConversationModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeployConversationModel {
     ///   # panic!();
@@ -6217,15 +6154,14 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::undeploy_conversation_model][crate::client::ConversationModels::undeploy_conversation_model] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::UndeployConversationModel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::UndeployConversationModel;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeployConversationModel {
     ///   # panic!();
@@ -6332,14 +6268,13 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::get_conversation_model_evaluation][crate::client::ConversationModels::get_conversation_model_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::GetConversationModelEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetConversationModelEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversationModelEvaluation {
     ///   # panic!();
@@ -6400,10 +6335,9 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::list_conversation_model_evaluations][crate::client::ConversationModels::list_conversation_model_evaluations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::ListConversationModelEvaluations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListConversationModelEvaluations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6411,7 +6345,7 @@ pub mod conversation_models {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversationModelEvaluations {
     ///   # panic!();
@@ -6512,15 +6446,14 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::create_conversation_model_evaluation][crate::client::ConversationModels::create_conversation_model_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::CreateConversationModelEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::CreateConversationModelEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversationModelEvaluation {
     ///   # panic!();
@@ -6649,10 +6582,9 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::list_locations][crate::client::ConversationModels::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6660,7 +6592,7 @@ pub mod conversation_models {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -6759,14 +6691,13 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::get_location][crate::client::ConversationModels::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -6820,10 +6751,9 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::list_operations][crate::client::ConversationModels::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6831,7 +6761,7 @@ pub mod conversation_models {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6938,14 +6868,13 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::get_operation][crate::client::ConversationModels::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7002,14 +6931,13 @@ pub mod conversation_models {
     /// The request builder for [ConversationModels::cancel_operation][crate::client::ConversationModels::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_models::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_models::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7072,7 +7000,7 @@ pub mod conversation_profiles {
     /// A builder for [ConversationProfiles][crate::client::ConversationProfiles].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::conversation_profiles::ClientBuilder;
     /// # use client::ConversationProfiles;
@@ -7080,7 +7008,7 @@ pub mod conversation_profiles {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7126,10 +7054,9 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::list_conversation_profiles][crate::client::ConversationProfiles::list_conversation_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::ListConversationProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListConversationProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7137,7 +7064,7 @@ pub mod conversation_profiles {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConversationProfiles {
     ///   # panic!();
@@ -7238,14 +7165,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::get_conversation_profile][crate::client::ConversationProfiles::get_conversation_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::GetConversationProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetConversationProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConversationProfile {
     ///   # panic!();
@@ -7304,14 +7230,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::create_conversation_profile][crate::client::ConversationProfiles::create_conversation_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::CreateConversationProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::CreateConversationProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConversationProfile {
     ///   # panic!();
@@ -7394,14 +7319,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::update_conversation_profile][crate::client::ConversationProfiles::update_conversation_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::UpdateConversationProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::UpdateConversationProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConversationProfile {
     ///   # panic!();
@@ -7498,14 +7422,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::delete_conversation_profile][crate::client::ConversationProfiles::delete_conversation_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::DeleteConversationProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::DeleteConversationProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConversationProfile {
     ///   # panic!();
@@ -7566,15 +7489,14 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::set_suggestion_feature_config][crate::client::ConversationProfiles::set_suggestion_feature_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::SetSuggestionFeatureConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::SetSuggestionFeatureConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetSuggestionFeatureConfig {
     ///   # panic!();
@@ -7718,15 +7640,14 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::clear_suggestion_feature_config][crate::client::ConversationProfiles::clear_suggestion_feature_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::ClearSuggestionFeatureConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ClearSuggestionFeatureConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ClearSuggestionFeatureConfig {
     ///   # panic!();
@@ -7852,10 +7773,9 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::list_locations][crate::client::ConversationProfiles::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7863,7 +7783,7 @@ pub mod conversation_profiles {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -7962,14 +7882,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::get_location][crate::client::ConversationProfiles::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -8023,10 +7942,9 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::list_operations][crate::client::ConversationProfiles::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8034,7 +7952,7 @@ pub mod conversation_profiles {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -8141,14 +8059,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::get_operation][crate::client::ConversationProfiles::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -8205,14 +8122,13 @@ pub mod conversation_profiles {
     /// The request builder for [ConversationProfiles::cancel_operation][crate::client::ConversationProfiles::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::conversation_profiles::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::conversation_profiles::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -8275,7 +8191,7 @@ pub mod documents {
     /// A builder for [Documents][crate::client::Documents].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::documents::ClientBuilder;
     /// # use client::Documents;
@@ -8283,7 +8199,7 @@ pub mod documents {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8329,10 +8245,9 @@ pub mod documents {
     /// The request builder for [Documents::list_documents][crate::client::Documents::list_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ListDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ListDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8340,7 +8255,7 @@ pub mod documents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDocuments {
     ///   # panic!();
@@ -8438,14 +8353,13 @@ pub mod documents {
     /// The request builder for [Documents::get_document][crate::client::Documents::get_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::GetDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::GetDocument;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDocument {
     ///   # panic!();
@@ -8501,15 +8415,14 @@ pub mod documents {
     /// The request builder for [Documents::create_document][crate::client::Documents::create_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::CreateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::CreateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDocument {
     ///   # panic!();
@@ -8628,15 +8541,14 @@ pub mod documents {
     /// The request builder for [Documents::import_documents][crate::client::Documents::import_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ImportDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ImportDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportDocuments {
     ///   # panic!();
@@ -8788,15 +8700,14 @@ pub mod documents {
     /// The request builder for [Documents::delete_document][crate::client::Documents::delete_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::DeleteDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::DeleteDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDocument {
     ///   # panic!();
@@ -8893,15 +8804,14 @@ pub mod documents {
     /// The request builder for [Documents::update_document][crate::client::Documents::update_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::UpdateDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::UpdateDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDocument {
     ///   # panic!();
@@ -9030,15 +8940,14 @@ pub mod documents {
     /// The request builder for [Documents::reload_document][crate::client::Documents::reload_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ReloadDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ReloadDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReloadDocument {
     ///   # panic!();
@@ -9169,15 +9078,14 @@ pub mod documents {
     /// The request builder for [Documents::export_document][crate::client::Documents::export_document] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ExportDocument;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ExportDocument;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportDocument {
     ///   # panic!();
@@ -9315,10 +9223,9 @@ pub mod documents {
     /// The request builder for [Documents::list_locations][crate::client::Documents::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9326,7 +9233,7 @@ pub mod documents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -9425,14 +9332,13 @@ pub mod documents {
     /// The request builder for [Documents::get_location][crate::client::Documents::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -9486,10 +9392,9 @@ pub mod documents {
     /// The request builder for [Documents::list_operations][crate::client::Documents::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9497,7 +9402,7 @@ pub mod documents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -9604,14 +9509,13 @@ pub mod documents {
     /// The request builder for [Documents::get_operation][crate::client::Documents::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -9668,14 +9572,13 @@ pub mod documents {
     /// The request builder for [Documents::cancel_operation][crate::client::Documents::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::documents::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::documents::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -9738,7 +9641,7 @@ pub mod encryption_spec_service {
     /// A builder for [EncryptionSpecService][crate::client::EncryptionSpecService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::encryption_spec_service::ClientBuilder;
     /// # use client::EncryptionSpecService;
@@ -9746,7 +9649,7 @@ pub mod encryption_spec_service {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -9792,14 +9695,13 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::get_encryption_spec][crate::client::EncryptionSpecService::get_encryption_spec] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::GetEncryptionSpec;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetEncryptionSpec;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEncryptionSpec {
     ///   # panic!();
@@ -9858,15 +9760,14 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::initialize_encryption_spec][crate::client::EncryptionSpecService::initialize_encryption_spec] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::InitializeEncryptionSpec;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::InitializeEncryptionSpec;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InitializeEncryptionSpec {
     ///   # panic!();
@@ -9984,10 +9885,9 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::list_locations][crate::client::EncryptionSpecService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9995,7 +9895,7 @@ pub mod encryption_spec_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -10094,14 +9994,13 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::get_location][crate::client::EncryptionSpecService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -10155,10 +10054,9 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::list_operations][crate::client::EncryptionSpecService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10166,7 +10064,7 @@ pub mod encryption_spec_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -10273,14 +10171,13 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::get_operation][crate::client::EncryptionSpecService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -10337,14 +10234,13 @@ pub mod encryption_spec_service {
     /// The request builder for [EncryptionSpecService::cancel_operation][crate::client::EncryptionSpecService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::encryption_spec_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::encryption_spec_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -10407,7 +10303,7 @@ pub mod entity_types {
     /// A builder for [EntityTypes][crate::client::EntityTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::entity_types::ClientBuilder;
     /// # use client::EntityTypes;
@@ -10415,7 +10311,7 @@ pub mod entity_types {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -10461,10 +10357,9 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::list_entity_types][crate::client::EntityTypes::list_entity_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::ListEntityTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::ListEntityTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10472,7 +10367,7 @@ pub mod entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntityTypes {
     ///   # panic!();
@@ -10570,14 +10465,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::get_entity_type][crate::client::EntityTypes::get_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::GetEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::GetEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntityType {
     ///   # panic!();
@@ -10639,14 +10533,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::create_entity_type][crate::client::EntityTypes::create_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::CreateEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::CreateEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntityType {
     ///   # panic!();
@@ -10733,14 +10626,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::update_entity_type][crate::client::EntityTypes::update_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::UpdateEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::UpdateEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntityType {
     ///   # panic!();
@@ -10837,14 +10729,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::delete_entity_type][crate::client::EntityTypes::delete_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::DeleteEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::DeleteEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntityType {
     ///   # panic!();
@@ -10903,15 +10794,14 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::batch_update_entity_types][crate::client::EntityTypes::batch_update_entity_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::BatchUpdateEntityTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchUpdateEntityTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchUpdateEntityTypes {
     ///   # panic!();
@@ -11074,15 +10964,14 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::batch_delete_entity_types][crate::client::EntityTypes::batch_delete_entity_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::BatchDeleteEntityTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchDeleteEntityTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeleteEntityTypes {
     ///   # panic!();
@@ -11194,15 +11083,14 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::batch_create_entities][crate::client::EntityTypes::batch_create_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::BatchCreateEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchCreateEntities;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateEntities {
     ///   # panic!();
@@ -11320,15 +11208,14 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::batch_update_entities][crate::client::EntityTypes::batch_update_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::BatchUpdateEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchUpdateEntities;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchUpdateEntities {
     ///   # panic!();
@@ -11464,15 +11351,14 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::batch_delete_entities][crate::client::EntityTypes::batch_delete_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::BatchDeleteEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::BatchDeleteEntities;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeleteEntities {
     ///   # panic!();
@@ -11590,10 +11476,9 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::list_locations][crate::client::EntityTypes::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11601,7 +11486,7 @@ pub mod entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -11700,14 +11585,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::get_location][crate::client::EntityTypes::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -11761,10 +11645,9 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::list_operations][crate::client::EntityTypes::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11772,7 +11655,7 @@ pub mod entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -11879,14 +11762,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::get_operation][crate::client::EntityTypes::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -11943,14 +11825,13 @@ pub mod entity_types {
     /// The request builder for [EntityTypes::cancel_operation][crate::client::EntityTypes::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::entity_types::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::entity_types::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -12013,7 +11894,7 @@ pub mod environments {
     /// A builder for [Environments][crate::client::Environments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::environments::ClientBuilder;
     /// # use client::Environments;
@@ -12021,7 +11902,7 @@ pub mod environments {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -12067,10 +11948,9 @@ pub mod environments {
     /// The request builder for [Environments::list_environments][crate::client::Environments::list_environments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::ListEnvironments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::ListEnvironments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12078,7 +11958,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEnvironments {
     ///   # panic!();
@@ -12173,14 +12053,13 @@ pub mod environments {
     /// The request builder for [Environments::get_environment][crate::client::Environments::get_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::GetEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::GetEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnvironment {
     ///   # panic!();
@@ -12236,14 +12115,13 @@ pub mod environments {
     /// The request builder for [Environments::create_environment][crate::client::Environments::create_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::CreateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::CreateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEnvironment {
     ///   # panic!();
@@ -12332,14 +12210,13 @@ pub mod environments {
     /// The request builder for [Environments::update_environment][crate::client::Environments::update_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::UpdateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::UpdateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEnvironment {
     ///   # panic!();
@@ -12440,14 +12317,13 @@ pub mod environments {
     /// The request builder for [Environments::delete_environment][crate::client::Environments::delete_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::DeleteEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::DeleteEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEnvironment {
     ///   # panic!();
@@ -12506,10 +12382,9 @@ pub mod environments {
     /// The request builder for [Environments::get_environment_history][crate::client::Environments::get_environment_history] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::GetEnvironmentHistory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::GetEnvironmentHistory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12517,7 +12392,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnvironmentHistory {
     ///   # panic!();
@@ -12612,10 +12487,9 @@ pub mod environments {
     /// The request builder for [Environments::list_locations][crate::client::Environments::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12623,7 +12497,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -12722,14 +12596,13 @@ pub mod environments {
     /// The request builder for [Environments::get_location][crate::client::Environments::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -12783,10 +12656,9 @@ pub mod environments {
     /// The request builder for [Environments::list_operations][crate::client::Environments::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12794,7 +12666,7 @@ pub mod environments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -12901,14 +12773,13 @@ pub mod environments {
     /// The request builder for [Environments::get_operation][crate::client::Environments::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -12965,14 +12836,13 @@ pub mod environments {
     /// The request builder for [Environments::cancel_operation][crate::client::Environments::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::environments::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::environments::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -13035,7 +12905,7 @@ pub mod fulfillments {
     /// A builder for [Fulfillments][crate::client::Fulfillments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::fulfillments::ClientBuilder;
     /// # use client::Fulfillments;
@@ -13043,7 +12913,7 @@ pub mod fulfillments {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -13089,14 +12959,13 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::get_fulfillment][crate::client::Fulfillments::get_fulfillment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::GetFulfillment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetFulfillment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFulfillment {
     ///   # panic!();
@@ -13152,14 +13021,13 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::update_fulfillment][crate::client::Fulfillments::update_fulfillment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::UpdateFulfillment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::UpdateFulfillment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFulfillment {
     ///   # panic!();
@@ -13254,10 +13122,9 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::list_locations][crate::client::Fulfillments::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13265,7 +13132,7 @@ pub mod fulfillments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -13364,14 +13231,13 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::get_location][crate::client::Fulfillments::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -13425,10 +13291,9 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::list_operations][crate::client::Fulfillments::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13436,7 +13301,7 @@ pub mod fulfillments {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -13543,14 +13408,13 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::get_operation][crate::client::Fulfillments::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -13607,14 +13471,13 @@ pub mod fulfillments {
     /// The request builder for [Fulfillments::cancel_operation][crate::client::Fulfillments::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::fulfillments::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::fulfillments::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -13677,7 +13540,7 @@ pub mod generators {
     /// A builder for [Generators][crate::client::Generators].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::generators::ClientBuilder;
     /// # use client::Generators;
@@ -13685,7 +13548,7 @@ pub mod generators {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -13731,14 +13594,13 @@ pub mod generators {
     /// The request builder for [Generators::create_generator][crate::client::Generators::create_generator] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::CreateGenerator;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::CreateGenerator;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGenerator {
     ///   # panic!();
@@ -13822,14 +13684,13 @@ pub mod generators {
     /// The request builder for [Generators::get_generator][crate::client::Generators::get_generator] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::GetGenerator;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::GetGenerator;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGenerator {
     ///   # panic!();
@@ -13885,10 +13746,9 @@ pub mod generators {
     /// The request builder for [Generators::list_generators][crate::client::Generators::list_generators] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::ListGenerators;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::ListGenerators;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13896,7 +13756,7 @@ pub mod generators {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGenerators {
     ///   # panic!();
@@ -13988,14 +13848,13 @@ pub mod generators {
     /// The request builder for [Generators::delete_generator][crate::client::Generators::delete_generator] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::DeleteGenerator;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::DeleteGenerator;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGenerator {
     ///   # panic!();
@@ -14051,14 +13910,13 @@ pub mod generators {
     /// The request builder for [Generators::update_generator][crate::client::Generators::update_generator] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::UpdateGenerator;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::UpdateGenerator;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGenerator {
     ///   # panic!();
@@ -14146,10 +14004,9 @@ pub mod generators {
     /// The request builder for [Generators::list_locations][crate::client::Generators::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14157,7 +14014,7 @@ pub mod generators {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -14256,14 +14113,13 @@ pub mod generators {
     /// The request builder for [Generators::get_location][crate::client::Generators::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -14317,10 +14173,9 @@ pub mod generators {
     /// The request builder for [Generators::list_operations][crate::client::Generators::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14328,7 +14183,7 @@ pub mod generators {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -14435,14 +14290,13 @@ pub mod generators {
     /// The request builder for [Generators::get_operation][crate::client::Generators::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -14499,14 +14353,13 @@ pub mod generators {
     /// The request builder for [Generators::cancel_operation][crate::client::Generators::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generators::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generators::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -14569,7 +14422,7 @@ pub mod generator_evaluations {
     /// A builder for [GeneratorEvaluations][crate::client::GeneratorEvaluations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::generator_evaluations::ClientBuilder;
     /// # use client::GeneratorEvaluations;
@@ -14577,7 +14430,7 @@ pub mod generator_evaluations {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -14623,15 +14476,14 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::create_generator_evaluation][crate::client::GeneratorEvaluations::create_generator_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::CreateGeneratorEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::CreateGeneratorEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGeneratorEvaluation {
     ///   # panic!();
@@ -14757,14 +14609,13 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::get_generator_evaluation][crate::client::GeneratorEvaluations::get_generator_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::GetGeneratorEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetGeneratorEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGeneratorEvaluation {
     ///   # panic!();
@@ -14823,10 +14674,9 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::list_generator_evaluations][crate::client::GeneratorEvaluations::list_generator_evaluations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::ListGeneratorEvaluations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListGeneratorEvaluations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14834,7 +14684,7 @@ pub mod generator_evaluations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGeneratorEvaluations {
     ///   # panic!();
@@ -14935,14 +14785,13 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::delete_generator_evaluation][crate::client::GeneratorEvaluations::delete_generator_evaluation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::DeleteGeneratorEvaluation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::DeleteGeneratorEvaluation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGeneratorEvaluation {
     ///   # panic!();
@@ -15003,10 +14852,9 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::list_locations][crate::client::GeneratorEvaluations::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15014,7 +14862,7 @@ pub mod generator_evaluations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -15113,14 +14961,13 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::get_location][crate::client::GeneratorEvaluations::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -15174,10 +15021,9 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::list_operations][crate::client::GeneratorEvaluations::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15185,7 +15031,7 @@ pub mod generator_evaluations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -15292,14 +15138,13 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::get_operation][crate::client::GeneratorEvaluations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -15356,14 +15201,13 @@ pub mod generator_evaluations {
     /// The request builder for [GeneratorEvaluations::cancel_operation][crate::client::GeneratorEvaluations::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::generator_evaluations::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::generator_evaluations::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -15426,7 +15270,7 @@ pub mod intents {
     /// A builder for [Intents][crate::client::Intents].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::intents::ClientBuilder;
     /// # use client::Intents;
@@ -15434,7 +15278,7 @@ pub mod intents {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -15478,10 +15322,9 @@ pub mod intents {
     /// The request builder for [Intents::list_intents][crate::client::Intents::list_intents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::ListIntents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::ListIntents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15489,7 +15332,7 @@ pub mod intents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIntents {
     ///   # panic!();
@@ -15591,14 +15434,13 @@ pub mod intents {
     /// The request builder for [Intents::get_intent][crate::client::Intents::get_intent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::GetIntent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::GetIntent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIntent {
     ///   # panic!();
@@ -15664,14 +15506,13 @@ pub mod intents {
     /// The request builder for [Intents::create_intent][crate::client::Intents::create_intent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::CreateIntent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::CreateIntent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIntent {
     ///   # panic!();
@@ -15759,14 +15600,13 @@ pub mod intents {
     /// The request builder for [Intents::update_intent][crate::client::Intents::update_intent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::UpdateIntent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::UpdateIntent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIntent {
     ///   # panic!();
@@ -15864,14 +15704,13 @@ pub mod intents {
     /// The request builder for [Intents::delete_intent][crate::client::Intents::delete_intent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::DeleteIntent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::DeleteIntent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIntent {
     ///   # panic!();
@@ -15925,15 +15764,14 @@ pub mod intents {
     /// The request builder for [Intents::batch_update_intents][crate::client::Intents::batch_update_intents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::BatchUpdateIntents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::BatchUpdateIntents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchUpdateIntents {
     ///   # panic!();
@@ -16100,15 +15938,14 @@ pub mod intents {
     /// The request builder for [Intents::batch_delete_intents][crate::client::Intents::batch_delete_intents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::BatchDeleteIntents;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::BatchDeleteIntents;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeleteIntents {
     ///   # panic!();
@@ -16218,10 +16055,9 @@ pub mod intents {
     /// The request builder for [Intents::list_locations][crate::client::Intents::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16229,7 +16065,7 @@ pub mod intents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -16326,14 +16162,13 @@ pub mod intents {
     /// The request builder for [Intents::get_location][crate::client::Intents::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -16385,10 +16220,9 @@ pub mod intents {
     /// The request builder for [Intents::list_operations][crate::client::Intents::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16396,7 +16230,7 @@ pub mod intents {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -16501,14 +16335,13 @@ pub mod intents {
     /// The request builder for [Intents::get_operation][crate::client::Intents::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -16563,14 +16396,13 @@ pub mod intents {
     /// The request builder for [Intents::cancel_operation][crate::client::Intents::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::intents::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::intents::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -16631,7 +16463,7 @@ pub mod knowledge_bases {
     /// A builder for [KnowledgeBases][crate::client::KnowledgeBases].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::knowledge_bases::ClientBuilder;
     /// # use client::KnowledgeBases;
@@ -16639,7 +16471,7 @@ pub mod knowledge_bases {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -16685,10 +16517,9 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::list_knowledge_bases][crate::client::KnowledgeBases::list_knowledge_bases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::ListKnowledgeBases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListKnowledgeBases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16696,7 +16527,7 @@ pub mod knowledge_bases {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListKnowledgeBases {
     ///   # panic!();
@@ -16799,14 +16630,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::get_knowledge_base][crate::client::KnowledgeBases::get_knowledge_base] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::GetKnowledgeBase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetKnowledgeBase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetKnowledgeBase {
     ///   # panic!();
@@ -16865,14 +16695,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::create_knowledge_base][crate::client::KnowledgeBases::create_knowledge_base] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::CreateKnowledgeBase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::CreateKnowledgeBase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateKnowledgeBase {
     ///   # panic!();
@@ -16953,14 +16782,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::delete_knowledge_base][crate::client::KnowledgeBases::delete_knowledge_base] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::DeleteKnowledgeBase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::DeleteKnowledgeBase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteKnowledgeBase {
     ///   # panic!();
@@ -17025,14 +16853,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::update_knowledge_base][crate::client::KnowledgeBases::update_knowledge_base] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::UpdateKnowledgeBase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::UpdateKnowledgeBase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateKnowledgeBase {
     ///   # panic!();
@@ -17123,10 +16950,9 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::list_locations][crate::client::KnowledgeBases::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17134,7 +16960,7 @@ pub mod knowledge_bases {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -17233,14 +17059,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::get_location][crate::client::KnowledgeBases::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -17294,10 +17119,9 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::list_operations][crate::client::KnowledgeBases::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17305,7 +17129,7 @@ pub mod knowledge_bases {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -17412,14 +17236,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::get_operation][crate::client::KnowledgeBases::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -17476,14 +17299,13 @@ pub mod knowledge_bases {
     /// The request builder for [KnowledgeBases::cancel_operation][crate::client::KnowledgeBases::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::knowledge_bases::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::knowledge_bases::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -17546,7 +17368,7 @@ pub mod participants {
     /// A builder for [Participants][crate::client::Participants].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::participants::ClientBuilder;
     /// # use client::Participants;
@@ -17554,7 +17376,7 @@ pub mod participants {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -17600,14 +17422,13 @@ pub mod participants {
     /// The request builder for [Participants::create_participant][crate::client::Participants::create_participant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::CreateParticipant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::CreateParticipant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateParticipant {
     ///   # panic!();
@@ -17688,14 +17509,13 @@ pub mod participants {
     /// The request builder for [Participants::get_participant][crate::client::Participants::get_participant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::GetParticipant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::GetParticipant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetParticipant {
     ///   # panic!();
@@ -17751,10 +17571,9 @@ pub mod participants {
     /// The request builder for [Participants::list_participants][crate::client::Participants::list_participants] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::ListParticipants;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::ListParticipants;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17762,7 +17581,7 @@ pub mod participants {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListParticipants {
     ///   # panic!();
@@ -17857,14 +17676,13 @@ pub mod participants {
     /// The request builder for [Participants::update_participant][crate::client::Participants::update_participant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::UpdateParticipant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::UpdateParticipant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateParticipant {
     ///   # panic!();
@@ -17959,14 +17777,13 @@ pub mod participants {
     /// The request builder for [Participants::analyze_content][crate::client::Participants::analyze_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::AnalyzeContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::AnalyzeContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnalyzeContent {
     ///   # panic!();
@@ -18166,14 +17983,13 @@ pub mod participants {
     /// The request builder for [Participants::suggest_articles][crate::client::Participants::suggest_articles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::SuggestArticles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::SuggestArticles;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestArticles {
     ///   # panic!();
@@ -18259,14 +18075,13 @@ pub mod participants {
     /// The request builder for [Participants::suggest_faq_answers][crate::client::Participants::suggest_faq_answers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::SuggestFaqAnswers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::SuggestFaqAnswers;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestFaqAnswers {
     ///   # panic!();
@@ -18355,14 +18170,13 @@ pub mod participants {
     /// The request builder for [Participants::suggest_smart_replies][crate::client::Participants::suggest_smart_replies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::SuggestSmartReplies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::SuggestSmartReplies;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestSmartReplies {
     ///   # panic!();
@@ -18451,14 +18265,13 @@ pub mod participants {
     /// The request builder for [Participants::suggest_knowledge_assist][crate::client::Participants::suggest_knowledge_assist] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::SuggestKnowledgeAssist;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::SuggestKnowledgeAssist;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuggestKnowledgeAssist {
     ///   # panic!();
@@ -18535,10 +18348,9 @@ pub mod participants {
     /// The request builder for [Participants::list_locations][crate::client::Participants::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18546,7 +18358,7 @@ pub mod participants {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -18645,14 +18457,13 @@ pub mod participants {
     /// The request builder for [Participants::get_location][crate::client::Participants::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -18706,10 +18517,9 @@ pub mod participants {
     /// The request builder for [Participants::list_operations][crate::client::Participants::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18717,7 +18527,7 @@ pub mod participants {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -18824,14 +18634,13 @@ pub mod participants {
     /// The request builder for [Participants::get_operation][crate::client::Participants::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -18888,14 +18697,13 @@ pub mod participants {
     /// The request builder for [Participants::cancel_operation][crate::client::Participants::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::participants::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::participants::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -18958,7 +18766,7 @@ pub mod sessions {
     /// A builder for [Sessions][crate::client::Sessions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::sessions::ClientBuilder;
     /// # use client::Sessions;
@@ -18966,7 +18774,7 @@ pub mod sessions {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -19010,14 +18818,13 @@ pub mod sessions {
     /// The request builder for [Sessions::detect_intent][crate::client::Sessions::detect_intent] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::DetectIntent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::DetectIntent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DetectIntent {
     ///   # panic!();
@@ -19153,10 +18960,9 @@ pub mod sessions {
     /// The request builder for [Sessions::list_locations][crate::client::Sessions::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19164,7 +18970,7 @@ pub mod sessions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -19261,14 +19067,13 @@ pub mod sessions {
     /// The request builder for [Sessions::get_location][crate::client::Sessions::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -19320,10 +19125,9 @@ pub mod sessions {
     /// The request builder for [Sessions::list_operations][crate::client::Sessions::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19331,7 +19135,7 @@ pub mod sessions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -19436,14 +19240,13 @@ pub mod sessions {
     /// The request builder for [Sessions::get_operation][crate::client::Sessions::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -19498,14 +19301,13 @@ pub mod sessions {
     /// The request builder for [Sessions::cancel_operation][crate::client::Sessions::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sessions::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sessions::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -19566,7 +19368,7 @@ pub mod session_entity_types {
     /// A builder for [SessionEntityTypes][crate::client::SessionEntityTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::session_entity_types::ClientBuilder;
     /// # use client::SessionEntityTypes;
@@ -19574,7 +19376,7 @@ pub mod session_entity_types {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -19620,10 +19422,9 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::list_session_entity_types][crate::client::SessionEntityTypes::list_session_entity_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::ListSessionEntityTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListSessionEntityTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -19631,7 +19432,7 @@ pub mod session_entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessionEntityTypes {
     ///   # panic!();
@@ -19730,14 +19531,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::get_session_entity_type][crate::client::SessionEntityTypes::get_session_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::GetSessionEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetSessionEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSessionEntityType {
     ///   # panic!();
@@ -19796,14 +19596,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::create_session_entity_type][crate::client::SessionEntityTypes::create_session_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::CreateSessionEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::CreateSessionEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSessionEntityType {
     ///   # panic!();
@@ -19886,14 +19685,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::update_session_entity_type][crate::client::SessionEntityTypes::update_session_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::UpdateSessionEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::UpdateSessionEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSessionEntityType {
     ///   # panic!();
@@ -19986,14 +19784,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::delete_session_entity_type][crate::client::SessionEntityTypes::delete_session_entity_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::DeleteSessionEntityType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::DeleteSessionEntityType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSessionEntityType {
     ///   # panic!();
@@ -20054,10 +19851,9 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::list_locations][crate::client::SessionEntityTypes::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20065,7 +19861,7 @@ pub mod session_entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -20164,14 +19960,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::get_location][crate::client::SessionEntityTypes::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -20225,10 +20020,9 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::list_operations][crate::client::SessionEntityTypes::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20236,7 +20030,7 @@ pub mod session_entity_types {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -20343,14 +20137,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::get_operation][crate::client::SessionEntityTypes::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -20407,14 +20200,13 @@ pub mod session_entity_types {
     /// The request builder for [SessionEntityTypes::cancel_operation][crate::client::SessionEntityTypes::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::session_entity_types::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::session_entity_types::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -20477,7 +20269,7 @@ pub mod sip_trunks {
     /// A builder for [SipTrunks][crate::client::SipTrunks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::sip_trunks::ClientBuilder;
     /// # use client::SipTrunks;
@@ -20485,7 +20277,7 @@ pub mod sip_trunks {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -20531,14 +20323,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::create_sip_trunk][crate::client::SipTrunks::create_sip_trunk] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::CreateSipTrunk;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::CreateSipTrunk;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSipTrunk {
     ///   # panic!();
@@ -20616,14 +20407,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::delete_sip_trunk][crate::client::SipTrunks::delete_sip_trunk] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::DeleteSipTrunk;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::DeleteSipTrunk;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSipTrunk {
     ///   # panic!();
@@ -20679,10 +20469,9 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::list_sip_trunks][crate::client::SipTrunks::list_sip_trunks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::ListSipTrunks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListSipTrunks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20690,7 +20479,7 @@ pub mod sip_trunks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSipTrunks {
     ///   # panic!();
@@ -20782,14 +20571,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::get_sip_trunk][crate::client::SipTrunks::get_sip_trunk] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::GetSipTrunk;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetSipTrunk;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSipTrunk {
     ///   # panic!();
@@ -20845,14 +20633,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::update_sip_trunk][crate::client::SipTrunks::update_sip_trunk] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::UpdateSipTrunk;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::UpdateSipTrunk;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSipTrunk {
     ///   # panic!();
@@ -20940,10 +20727,9 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::list_locations][crate::client::SipTrunks::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -20951,7 +20737,7 @@ pub mod sip_trunks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -21050,14 +20836,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::get_location][crate::client::SipTrunks::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -21111,10 +20896,9 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::list_operations][crate::client::SipTrunks::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21122,7 +20906,7 @@ pub mod sip_trunks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -21229,14 +21013,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::get_operation][crate::client::SipTrunks::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -21293,14 +21076,13 @@ pub mod sip_trunks {
     /// The request builder for [SipTrunks::cancel_operation][crate::client::SipTrunks::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::sip_trunks::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::sip_trunks::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -21363,7 +21145,7 @@ pub mod tools {
     /// A builder for [Tools][crate::client::Tools].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::tools::ClientBuilder;
     /// # use client::Tools;
@@ -21371,7 +21153,7 @@ pub mod tools {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -21415,14 +21197,13 @@ pub mod tools {
     /// The request builder for [Tools::create_tool][crate::client::Tools::create_tool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::CreateTool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::CreateTool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTool {
     ///   # panic!();
@@ -21504,14 +21285,13 @@ pub mod tools {
     /// The request builder for [Tools::get_tool][crate::client::Tools::get_tool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::GetTool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::GetTool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTool {
     ///   # panic!();
@@ -21565,10 +21345,9 @@ pub mod tools {
     /// The request builder for [Tools::list_tools][crate::client::Tools::list_tools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::ListTools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::ListTools;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21576,7 +21355,7 @@ pub mod tools {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTools {
     ///   # panic!();
@@ -21666,14 +21445,13 @@ pub mod tools {
     /// The request builder for [Tools::delete_tool][crate::client::Tools::delete_tool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::DeleteTool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::DeleteTool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTool {
     ///   # panic!();
@@ -21727,14 +21505,13 @@ pub mod tools {
     /// The request builder for [Tools::update_tool][crate::client::Tools::update_tool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::UpdateTool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::UpdateTool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTool {
     ///   # panic!();
@@ -21820,10 +21597,9 @@ pub mod tools {
     /// The request builder for [Tools::list_locations][crate::client::Tools::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21831,7 +21607,7 @@ pub mod tools {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -21928,14 +21704,13 @@ pub mod tools {
     /// The request builder for [Tools::get_location][crate::client::Tools::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -21987,10 +21762,9 @@ pub mod tools {
     /// The request builder for [Tools::list_operations][crate::client::Tools::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -21998,7 +21772,7 @@ pub mod tools {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -22103,14 +21877,13 @@ pub mod tools {
     /// The request builder for [Tools::get_operation][crate::client::Tools::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -22165,14 +21938,13 @@ pub mod tools {
     /// The request builder for [Tools::cancel_operation][crate::client::Tools::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::tools::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::tools::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -22233,7 +22005,7 @@ pub mod versions {
     /// A builder for [Versions][crate::client::Versions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dialogflow_v2::*;
     /// # use builder::versions::ClientBuilder;
     /// # use client::Versions;
@@ -22241,7 +22013,7 @@ pub mod versions {
     /// let client = builder
     ///     .with_endpoint("https://dialogflow.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -22285,10 +22057,9 @@ pub mod versions {
     /// The request builder for [Versions::list_versions][crate::client::Versions::list_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::ListVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::ListVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22296,7 +22067,7 @@ pub mod versions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVersions {
     ///   # panic!();
@@ -22386,14 +22157,13 @@ pub mod versions {
     /// The request builder for [Versions::get_version][crate::client::Versions::get_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::GetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::GetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVersion {
     ///   # panic!();
@@ -22447,14 +22217,13 @@ pub mod versions {
     /// The request builder for [Versions::create_version][crate::client::Versions::create_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::CreateVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::CreateVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVersion {
     ///   # panic!();
@@ -22530,14 +22299,13 @@ pub mod versions {
     /// The request builder for [Versions::update_version][crate::client::Versions::update_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::UpdateVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::UpdateVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVersion {
     ///   # panic!();
@@ -22627,14 +22395,13 @@ pub mod versions {
     /// The request builder for [Versions::delete_version][crate::client::Versions::delete_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::DeleteVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::DeleteVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVersion {
     ///   # panic!();
@@ -22688,10 +22455,9 @@ pub mod versions {
     /// The request builder for [Versions::list_locations][crate::client::Versions::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22699,7 +22465,7 @@ pub mod versions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -22796,14 +22562,13 @@ pub mod versions {
     /// The request builder for [Versions::get_location][crate::client::Versions::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -22855,10 +22620,9 @@ pub mod versions {
     /// The request builder for [Versions::list_operations][crate::client::Versions::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -22866,7 +22630,7 @@ pub mod versions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -22971,14 +22735,13 @@ pub mod versions {
     /// The request builder for [Versions::get_operation][crate::client::Versions::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -23033,14 +22796,13 @@ pub mod versions {
     /// The request builder for [Versions::cancel_operation][crate::client::Versions::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dialogflow_v2::builder;
-    /// use builder::versions::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dialogflow_v2::builder::versions::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

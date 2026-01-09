@@ -20,7 +20,7 @@ pub mod cloud_deploy {
     /// A builder for [CloudDeploy][crate::client::CloudDeploy].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_deploy_v1::*;
     /// # use builder::cloud_deploy::ClientBuilder;
     /// # use client::CloudDeploy;
@@ -28,7 +28,7 @@ pub mod cloud_deploy {
     /// let client = builder
     ///     .with_endpoint("https://clouddeploy.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_delivery_pipelines][crate::client::CloudDeploy::list_delivery_pipelines] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListDeliveryPipelines;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeliveryPipelines;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDeliveryPipelines {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_delivery_pipeline][crate::client::CloudDeploy::get_delivery_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetDeliveryPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeliveryPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDeliveryPipeline {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_delivery_pipeline][crate::client::CloudDeploy::create_delivery_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateDeliveryPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeliveryPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDeliveryPipeline {
     ///   # panic!();
@@ -410,15 +407,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::update_delivery_pipeline][crate::client::CloudDeploy::update_delivery_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::UpdateDeliveryPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeliveryPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDeliveryPipeline {
     ///   # panic!();
@@ -572,15 +568,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_delivery_pipeline][crate::client::CloudDeploy::delete_delivery_pipeline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteDeliveryPipeline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeliveryPipeline;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDeliveryPipeline {
     ///   # panic!();
@@ -709,10 +704,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_targets][crate::client::CloudDeploy::list_targets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListTargets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListTargets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -720,7 +714,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTargets {
     ///   # panic!();
@@ -824,14 +818,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::rollback_target][crate::client::CloudDeploy::rollback_target] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::RollbackTarget;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::RollbackTarget;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RollbackTarget {
     ///   # panic!();
@@ -950,14 +943,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_target][crate::client::CloudDeploy::get_target] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetTarget;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetTarget;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTarget {
     ///   # panic!();
@@ -1013,15 +1005,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_target][crate::client::CloudDeploy::create_target] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateTarget;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateTarget;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTarget {
     ///   # panic!();
@@ -1157,15 +1148,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::update_target][crate::client::CloudDeploy::update_target] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::UpdateTarget;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateTarget;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTarget {
     ///   # panic!();
@@ -1313,15 +1303,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_target][crate::client::CloudDeploy::delete_target] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteTarget;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteTarget;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTarget {
     ///   # panic!();
@@ -1441,10 +1430,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_custom_target_types][crate::client::CloudDeploy::list_custom_target_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListCustomTargetTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListCustomTargetTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1452,7 +1440,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCustomTargetTypes {
     ///   # panic!();
@@ -1561,14 +1549,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_custom_target_type][crate::client::CloudDeploy::get_custom_target_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetCustomTargetType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetCustomTargetType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCustomTargetType {
     ///   # panic!();
@@ -1627,15 +1614,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_custom_target_type][crate::client::CloudDeploy::create_custom_target_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateCustomTargetType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateCustomTargetType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCustomTargetType {
     ///   # panic!();
@@ -1777,15 +1763,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::update_custom_target_type][crate::client::CloudDeploy::update_custom_target_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::UpdateCustomTargetType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateCustomTargetType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCustomTargetType {
     ///   # panic!();
@@ -1939,15 +1924,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_custom_target_type][crate::client::CloudDeploy::delete_custom_target_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteCustomTargetType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteCustomTargetType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCustomTargetType {
     ///   # panic!();
@@ -2070,10 +2054,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_releases][crate::client::CloudDeploy::list_releases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListReleases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListReleases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2081,7 +2064,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReleases {
     ///   # panic!();
@@ -2185,14 +2168,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_release][crate::client::CloudDeploy::get_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRelease;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRelease {
     ///   # panic!();
@@ -2248,15 +2230,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_release][crate::client::CloudDeploy::create_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRelease;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRelease {
     ///   # panic!();
@@ -2403,14 +2384,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::abandon_release][crate::client::CloudDeploy::abandon_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::AbandonRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::AbandonRelease;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AbandonRelease {
     ///   # panic!();
@@ -2466,15 +2446,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_deploy_policy][crate::client::CloudDeploy::create_deploy_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateDeployPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateDeployPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDeployPolicy {
     ///   # panic!();
@@ -2615,15 +2594,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::update_deploy_policy][crate::client::CloudDeploy::update_deploy_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::UpdateDeployPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateDeployPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDeployPolicy {
     ///   # panic!();
@@ -2776,15 +2754,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_deploy_policy][crate::client::CloudDeploy::delete_deploy_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteDeployPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteDeployPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDeployPolicy {
     ///   # panic!();
@@ -2907,10 +2884,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_deploy_policies][crate::client::CloudDeploy::list_deploy_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListDeployPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListDeployPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2918,7 +2894,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDeployPolicies {
     ///   # panic!();
@@ -3027,14 +3003,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_deploy_policy][crate::client::CloudDeploy::get_deploy_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetDeployPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetDeployPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDeployPolicy {
     ///   # panic!();
@@ -3090,14 +3065,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::approve_rollout][crate::client::CloudDeploy::approve_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ApproveRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ApproveRollout;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ApproveRollout {
     ///   # panic!();
@@ -3172,14 +3146,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::advance_rollout][crate::client::CloudDeploy::advance_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::AdvanceRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::AdvanceRollout;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AdvanceRollout {
     ///   # panic!();
@@ -3254,14 +3227,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::cancel_rollout][crate::client::CloudDeploy::cancel_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CancelRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelRollout;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelRollout {
     ///   # panic!();
@@ -3328,10 +3300,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_rollouts][crate::client::CloudDeploy::list_rollouts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListRollouts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListRollouts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3339,7 +3310,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRollouts {
     ///   # panic!();
@@ -3443,14 +3414,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_rollout][crate::client::CloudDeploy::get_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetRollout;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRollout {
     ///   # panic!();
@@ -3506,15 +3476,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_rollout][crate::client::CloudDeploy::create_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateRollout;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRollout {
     ///   # panic!();
@@ -3667,14 +3636,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::ignore_job][crate::client::CloudDeploy::ignore_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::IgnoreJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::IgnoreJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> IgnoreJob {
     ///   # panic!();
@@ -3757,14 +3725,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::retry_job][crate::client::CloudDeploy::retry_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::RetryJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::RetryJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RetryJob {
     ///   # panic!();
@@ -3847,10 +3814,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_job_runs][crate::client::CloudDeploy::list_job_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListJobRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListJobRuns;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3858,7 +3824,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobRuns {
     ///   # panic!();
@@ -3962,14 +3928,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_job_run][crate::client::CloudDeploy::get_job_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetJobRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetJobRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJobRun {
     ///   # panic!();
@@ -4025,14 +3990,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::terminate_job_run][crate::client::CloudDeploy::terminate_job_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::TerminateJobRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::TerminateJobRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TerminateJobRun {
     ///   # panic!();
@@ -4099,14 +4063,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_config][crate::client::CloudDeploy::get_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConfig {
     ///   # panic!();
@@ -4162,15 +4125,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::create_automation][crate::client::CloudDeploy::create_automation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CreateAutomation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CreateAutomation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAutomation {
     ///   # panic!();
@@ -4309,15 +4271,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::update_automation][crate::client::CloudDeploy::update_automation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::UpdateAutomation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::UpdateAutomation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAutomation {
     ///   # panic!();
@@ -4468,15 +4429,14 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_automation][crate::client::CloudDeploy::delete_automation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteAutomation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteAutomation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAutomation {
     ///   # panic!();
@@ -4599,14 +4559,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_automation][crate::client::CloudDeploy::get_automation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetAutomation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAutomation {
     ///   # panic!();
@@ -4662,10 +4621,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_automations][crate::client::CloudDeploy::list_automations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListAutomations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4673,7 +4631,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutomations {
     ///   # panic!();
@@ -4777,14 +4735,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_automation_run][crate::client::CloudDeploy::get_automation_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetAutomationRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetAutomationRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAutomationRun {
     ///   # panic!();
@@ -4843,10 +4800,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_automation_runs][crate::client::CloudDeploy::list_automation_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListAutomationRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListAutomationRuns;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4854,7 +4810,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutomationRuns {
     ///   # panic!();
@@ -4963,14 +4919,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::cancel_automation_run][crate::client::CloudDeploy::cancel_automation_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CancelAutomationRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelAutomationRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelAutomationRun {
     ///   # panic!();
@@ -5029,10 +4984,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_locations][crate::client::CloudDeploy::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5040,7 +4994,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5139,14 +5093,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_location][crate::client::CloudDeploy::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5200,14 +5153,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::set_iam_policy][crate::client::CloudDeploy::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5303,14 +5255,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_iam_policy][crate::client::CloudDeploy::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5384,14 +5335,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::test_iam_permissions][crate::client::CloudDeploy::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5463,10 +5413,9 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::list_operations][crate::client::CloudDeploy::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5474,7 +5423,7 @@ pub mod cloud_deploy {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5581,14 +5530,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::get_operation][crate::client::CloudDeploy::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5645,14 +5593,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::delete_operation][crate::client::CloudDeploy::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5709,14 +5656,13 @@ pub mod cloud_deploy {
     /// The request builder for [CloudDeploy::cancel_operation][crate::client::CloudDeploy::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_deploy_v1::builder;
-    /// use builder::cloud_deploy::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_deploy_v1::builder::cloud_deploy::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

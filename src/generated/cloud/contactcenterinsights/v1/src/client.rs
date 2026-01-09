@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
 /// let client = ContactCenterInsights::builder().build().await?;
 /// // use `client` to make requests to the Contact Center AI Insights API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ContactCenterInsights {
     /// Returns a builder for [ContactCenterInsights].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_contactcenterinsights_v1::client::ContactCenterInsights;
     /// let client = ContactCenterInsights::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::contact_center_insights::ClientBuilder {
         gax::client_builder::internal::new_builder(

@@ -20,7 +20,7 @@ pub mod alloy_dbcsql_admin {
     /// A builder for [AlloyDBCSQLAdmin][crate::client::AlloyDBCSQLAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::*;
     /// # use builder::alloy_dbcsql_admin::ClientBuilder;
     /// # use client::AlloyDBCSQLAdmin;
@@ -28,7 +28,7 @@ pub mod alloy_dbcsql_admin {
     /// let client = builder
     ///     .with_endpoint("https://alloydb.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::restore_from_cloud_sql][crate::client::AlloyDBCSQLAdmin::restore_from_cloud_sql] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::RestoreFromCloudSQL;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreFromCloudSQL {
     ///   # panic!();
@@ -236,10 +235,9 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::list_locations][crate::client::AlloyDBCSQLAdmin::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -247,7 +245,7 @@ pub mod alloy_dbcsql_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -346,14 +344,13 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::get_location][crate::client::AlloyDBCSQLAdmin::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -407,10 +404,9 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::list_operations][crate::client::AlloyDBCSQLAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -418,7 +414,7 @@ pub mod alloy_dbcsql_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -525,14 +521,13 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::get_operation][crate::client::AlloyDBCSQLAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -589,14 +584,13 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::delete_operation][crate::client::AlloyDBCSQLAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -653,14 +647,13 @@ pub mod alloy_dbcsql_admin {
     /// The request builder for [AlloyDBCSQLAdmin::cancel_operation][crate::client::AlloyDBCSQLAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_dbcsql_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_dbcsql_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -721,7 +714,7 @@ pub mod alloy_db_admin {
     /// A builder for [AlloyDBAdmin][crate::client::AlloyDBAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::*;
     /// # use builder::alloy_db_admin::ClientBuilder;
     /// # use client::AlloyDBAdmin;
@@ -729,7 +722,7 @@ pub mod alloy_db_admin {
     /// let client = builder
     ///     .with_endpoint("https://alloydb.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -775,10 +768,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_clusters][crate::client::AlloyDBAdmin::list_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -786,7 +778,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClusters {
     ///   # panic!();
@@ -890,14 +882,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_cluster][crate::client::AlloyDBAdmin::get_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCluster {
     ///   # panic!();
@@ -959,15 +950,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_cluster][crate::client::AlloyDBAdmin::create_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCluster {
     ///   # panic!();
@@ -1103,15 +1093,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::update_cluster][crate::client::AlloyDBAdmin::update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::UpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
     ///   # panic!();
@@ -1255,15 +1244,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::export_cluster][crate::client::AlloyDBAdmin::export_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ExportCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ExportCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportCluster {
     ///   # panic!();
@@ -1445,15 +1433,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::import_cluster][crate::client::AlloyDBAdmin::import_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ImportCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ImportCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportCluster {
     ///   # panic!();
@@ -1618,15 +1605,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::upgrade_cluster][crate::client::AlloyDBAdmin::upgrade_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::UpgradeCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpgradeCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpgradeCluster {
     ///   # panic!();
@@ -1749,15 +1735,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::delete_cluster][crate::client::AlloyDBAdmin::delete_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::DeleteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
     ///   # panic!();
@@ -1877,15 +1862,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::promote_cluster][crate::client::AlloyDBAdmin::promote_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::PromoteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::PromoteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PromoteCluster {
     ///   # panic!();
@@ -1997,15 +1981,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::switchover_cluster][crate::client::AlloyDBAdmin::switchover_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::SwitchoverCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::SwitchoverCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SwitchoverCluster {
     ///   # panic!();
@@ -2114,15 +2097,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::restore_cluster][crate::client::AlloyDBAdmin::restore_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::RestoreCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::RestoreCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreCluster {
     ///   # panic!();
@@ -2300,15 +2282,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_secondary_cluster][crate::client::AlloyDBAdmin::create_secondary_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateSecondaryCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateSecondaryCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSecondaryCluster {
     ///   # panic!();
@@ -2447,10 +2428,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_instances][crate::client::AlloyDBAdmin::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2458,7 +2438,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -2562,14 +2542,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_instance][crate::client::AlloyDBAdmin::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -2631,15 +2610,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_instance][crate::client::AlloyDBAdmin::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -2775,15 +2753,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_secondary_instance][crate::client::AlloyDBAdmin::create_secondary_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateSecondaryInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateSecondaryInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSecondaryInstance {
     ///   # panic!();
@@ -2924,15 +2901,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::batch_create_instances][crate::client::AlloyDBAdmin::batch_create_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::BatchCreateInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::BatchCreateInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateInstances {
     ///   # panic!();
@@ -3060,15 +3036,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::update_instance][crate::client::AlloyDBAdmin::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -3212,15 +3187,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::delete_instance][crate::client::AlloyDBAdmin::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -3334,15 +3308,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::failover_instance][crate::client::AlloyDBAdmin::failover_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::FailoverInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::FailoverInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FailoverInstance {
     ///   # panic!();
@@ -3451,15 +3424,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::inject_fault][crate::client::AlloyDBAdmin::inject_fault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::InjectFault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::InjectFault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InjectFault {
     ///   # panic!();
@@ -3576,15 +3548,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::restart_instance][crate::client::AlloyDBAdmin::restart_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::RestartInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::RestartInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestartInstance {
     ///   # panic!();
@@ -3701,14 +3672,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::execute_sql][crate::client::AlloyDBAdmin::execute_sql] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ExecuteSql;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ExecuteSql;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExecuteSql {
     ///   # panic!();
@@ -3816,10 +3786,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_backups][crate::client::AlloyDBAdmin::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3827,7 +3796,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -3931,14 +3900,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_backup][crate::client::AlloyDBAdmin::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -3994,15 +3962,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_backup][crate::client::AlloyDBAdmin::create_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackup {
     ///   # panic!();
@@ -4138,15 +4105,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::update_backup][crate::client::AlloyDBAdmin::update_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::UpdateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackup {
     ///   # panic!();
@@ -4290,15 +4256,14 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::delete_backup][crate::client::AlloyDBAdmin::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -4412,10 +4377,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_supported_database_flags][crate::client::AlloyDBAdmin::list_supported_database_flags] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListSupportedDatabaseFlags;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListSupportedDatabaseFlags;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4423,7 +4387,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSupportedDatabaseFlags {
     ///   # panic!();
@@ -4533,14 +4497,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::generate_client_certificate][crate::client::AlloyDBAdmin::generate_client_certificate] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GenerateClientCertificate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GenerateClientCertificate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateClientCertificate {
     ///   # panic!();
@@ -4637,14 +4600,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_connection_info][crate::client::AlloyDBAdmin::get_connection_info] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetConnectionInfo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetConnectionInfo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectionInfo {
     ///   # panic!();
@@ -4709,10 +4671,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_users][crate::client::AlloyDBAdmin::list_users] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListUsers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListUsers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4720,7 +4681,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUsers {
     ///   # panic!();
@@ -4824,14 +4785,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_user][crate::client::AlloyDBAdmin::get_user] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetUser;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetUser;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUser {
     ///   # panic!();
@@ -4887,14 +4847,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::create_user][crate::client::AlloyDBAdmin::create_user] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CreateUser;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CreateUser;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUser {
     ///   # panic!();
@@ -4992,14 +4951,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::update_user][crate::client::AlloyDBAdmin::update_user] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::UpdateUser;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::UpdateUser;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateUser {
     ///   # panic!();
@@ -5105,14 +5063,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::delete_user][crate::client::AlloyDBAdmin::delete_user] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::DeleteUser;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteUser;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUser {
     ///   # panic!();
@@ -5180,10 +5137,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_databases][crate::client::AlloyDBAdmin::list_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5191,7 +5147,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabases {
     ///   # panic!();
@@ -5289,10 +5245,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_locations][crate::client::AlloyDBAdmin::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5300,7 +5255,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5399,14 +5354,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_location][crate::client::AlloyDBAdmin::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5460,10 +5414,9 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::list_operations][crate::client::AlloyDBAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5471,7 +5424,7 @@ pub mod alloy_db_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5578,14 +5531,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::get_operation][crate::client::AlloyDBAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5642,14 +5594,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::delete_operation][crate::client::AlloyDBAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5706,14 +5657,13 @@ pub mod alloy_db_admin {
     /// The request builder for [AlloyDBAdmin::cancel_operation][crate::client::AlloyDBAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_alloydb_v1::builder;
-    /// use builder::alloy_db_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_alloydb_v1::builder::alloy_db_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

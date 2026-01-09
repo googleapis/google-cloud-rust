@@ -20,7 +20,7 @@ pub mod datastream {
     /// A builder for [Datastream][crate::client::Datastream].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_datastream_v1::*;
     /// # use builder::datastream::ClientBuilder;
     /// # use client::Datastream;
@@ -28,7 +28,7 @@ pub mod datastream {
     /// let client = builder
     ///     .with_endpoint("https://datastream.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_connection_profiles][crate::client::Datastream::list_connection_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListConnectionProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListConnectionProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectionProfiles {
     ///   # panic!();
@@ -196,14 +195,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_connection_profile][crate::client::Datastream::get_connection_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetConnectionProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetConnectionProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnectionProfile {
     ///   # panic!();
@@ -262,15 +260,14 @@ pub mod datastream {
     /// The request builder for [Datastream::create_connection_profile][crate::client::Datastream::create_connection_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::CreateConnectionProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::CreateConnectionProfile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnectionProfile {
     ///   # panic!();
@@ -420,15 +417,14 @@ pub mod datastream {
     /// The request builder for [Datastream::update_connection_profile][crate::client::Datastream::update_connection_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::UpdateConnectionProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::UpdateConnectionProfile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnectionProfile {
     ///   # panic!();
@@ -580,15 +576,14 @@ pub mod datastream {
     /// The request builder for [Datastream::delete_connection_profile][crate::client::Datastream::delete_connection_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DeleteConnectionProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DeleteConnectionProfile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnectionProfile {
     ///   # panic!();
@@ -695,14 +690,13 @@ pub mod datastream {
     /// The request builder for [Datastream::discover_connection_profile][crate::client::Datastream::discover_connection_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DiscoverConnectionProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DiscoverConnectionProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DiscoverConnectionProfile {
     ///   # panic!();
@@ -941,10 +935,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_streams][crate::client::Datastream::list_streams] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListStreams;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListStreams;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -952,7 +945,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListStreams {
     ///   # panic!();
@@ -1056,14 +1049,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_stream][crate::client::Datastream::get_stream] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetStream;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetStream;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetStream {
     ///   # panic!();
@@ -1119,15 +1111,14 @@ pub mod datastream {
     /// The request builder for [Datastream::create_stream][crate::client::Datastream::create_stream] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::CreateStream;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::CreateStream;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateStream {
     ///   # panic!();
@@ -1269,15 +1260,14 @@ pub mod datastream {
     /// The request builder for [Datastream::update_stream][crate::client::Datastream::update_stream] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::UpdateStream;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::UpdateStream;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateStream {
     ///   # panic!();
@@ -1421,15 +1411,14 @@ pub mod datastream {
     /// The request builder for [Datastream::delete_stream][crate::client::Datastream::delete_stream] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DeleteStream;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DeleteStream;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteStream {
     ///   # panic!();
@@ -1531,15 +1520,14 @@ pub mod datastream {
     /// The request builder for [Datastream::run_stream][crate::client::Datastream::run_stream] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::RunStream;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::RunStream;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunStream {
     ///   # panic!();
@@ -1657,14 +1645,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_stream_object][crate::client::Datastream::get_stream_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetStreamObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetStreamObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetStreamObject {
     ///   # panic!();
@@ -1720,14 +1707,13 @@ pub mod datastream {
     /// The request builder for [Datastream::lookup_stream_object][crate::client::Datastream::lookup_stream_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::LookupStreamObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::LookupStreamObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupStreamObject {
     ///   # panic!();
@@ -1808,10 +1794,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_stream_objects][crate::client::Datastream::list_stream_objects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListStreamObjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListStreamObjects;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1819,7 +1804,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListStreamObjects {
     ///   # panic!();
@@ -1914,14 +1899,13 @@ pub mod datastream {
     /// The request builder for [Datastream::start_backfill_job][crate::client::Datastream::start_backfill_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::StartBackfillJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::StartBackfillJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartBackfillJob {
     ///   # panic!();
@@ -1980,14 +1964,13 @@ pub mod datastream {
     /// The request builder for [Datastream::stop_backfill_job][crate::client::Datastream::stop_backfill_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::StopBackfillJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::StopBackfillJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopBackfillJob {
     ///   # panic!();
@@ -2043,14 +2026,13 @@ pub mod datastream {
     /// The request builder for [Datastream::fetch_static_ips][crate::client::Datastream::fetch_static_ips] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::FetchStaticIps;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::FetchStaticIps;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchStaticIps {
     ///   # panic!();
@@ -2118,15 +2100,14 @@ pub mod datastream {
     /// The request builder for [Datastream::create_private_connection][crate::client::Datastream::create_private_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::CreatePrivateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::CreatePrivateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePrivateConnection {
     ///   # panic!();
@@ -2276,14 +2257,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_private_connection][crate::client::Datastream::get_private_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetPrivateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetPrivateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPrivateConnection {
     ///   # panic!();
@@ -2342,10 +2322,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_private_connections][crate::client::Datastream::list_private_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListPrivateConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListPrivateConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2353,7 +2332,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPrivateConnections {
     ///   # panic!();
@@ -2464,15 +2443,14 @@ pub mod datastream {
     /// The request builder for [Datastream::delete_private_connection][crate::client::Datastream::delete_private_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DeletePrivateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DeletePrivateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePrivateConnection {
     ///   # panic!();
@@ -2585,15 +2563,14 @@ pub mod datastream {
     /// The request builder for [Datastream::create_route][crate::client::Datastream::create_route] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::CreateRoute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::CreateRoute;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRoute {
     ///   # panic!();
@@ -2723,14 +2700,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_route][crate::client::Datastream::get_route] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetRoute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetRoute;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRoute {
     ///   # panic!();
@@ -2786,10 +2762,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_routes][crate::client::Datastream::list_routes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListRoutes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListRoutes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2797,7 +2772,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRoutes {
     ///   # panic!();
@@ -2901,15 +2876,14 @@ pub mod datastream {
     /// The request builder for [Datastream::delete_route][crate::client::Datastream::delete_route] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DeleteRoute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DeleteRoute;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRoute {
     ///   # panic!();
@@ -3011,10 +2985,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_locations][crate::client::Datastream::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3022,7 +2995,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3121,14 +3094,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_location][crate::client::Datastream::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3182,10 +3154,9 @@ pub mod datastream {
     /// The request builder for [Datastream::list_operations][crate::client::Datastream::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3193,7 +3164,7 @@ pub mod datastream {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3300,14 +3271,13 @@ pub mod datastream {
     /// The request builder for [Datastream::get_operation][crate::client::Datastream::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3364,14 +3334,13 @@ pub mod datastream {
     /// The request builder for [Datastream::delete_operation][crate::client::Datastream::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3428,14 +3397,13 @@ pub mod datastream {
     /// The request builder for [Datastream::cancel_operation][crate::client::Datastream::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_datastream_v1::builder;
-    /// use builder::datastream::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_datastream_v1::builder::datastream::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dataform_v1::client::Dataform;
 /// let client = Dataform::builder().build().await?;
 /// // use `client` to make requests to the Dataform API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl Dataform {
     /// Returns a builder for [Dataform].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataform_v1::client::Dataform;
     /// let client = Dataform::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dataform::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::dataform::client::Factory)

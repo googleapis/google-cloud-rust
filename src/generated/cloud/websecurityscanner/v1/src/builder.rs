@@ -20,7 +20,7 @@ pub mod web_security_scanner {
     /// A builder for [WebSecurityScanner][crate::client::WebSecurityScanner].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_websecurityscanner_v1::*;
     /// # use builder::web_security_scanner::ClientBuilder;
     /// # use client::WebSecurityScanner;
@@ -28,7 +28,7 @@ pub mod web_security_scanner {
     /// let client = builder
     ///     .with_endpoint("https://websecurityscanner.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::create_scan_config][crate::client::WebSecurityScanner::create_scan_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::CreateScanConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::CreateScanConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateScanConfig {
     ///   # panic!();
@@ -156,14 +155,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::delete_scan_config][crate::client::WebSecurityScanner::delete_scan_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::DeleteScanConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::DeleteScanConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteScanConfig {
     ///   # panic!();
@@ -220,14 +218,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::get_scan_config][crate::client::WebSecurityScanner::get_scan_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::GetScanConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetScanConfig {
     ///   # panic!();
@@ -281,10 +278,9 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::list_scan_configs][crate::client::WebSecurityScanner::list_scan_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::ListScanConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -292,7 +288,7 @@ pub mod web_security_scanner {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListScanConfigs {
     ///   # panic!();
@@ -382,14 +378,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::update_scan_config][crate::client::WebSecurityScanner::update_scan_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::UpdateScanConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::UpdateScanConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateScanConfig {
     ///   # panic!();
@@ -476,14 +471,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::start_scan_run][crate::client::WebSecurityScanner::start_scan_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::StartScanRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StartScanRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartScanRun {
     ///   # panic!();
@@ -537,14 +531,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::get_scan_run][crate::client::WebSecurityScanner::get_scan_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::GetScanRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetScanRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetScanRun {
     ///   # panic!();
@@ -598,10 +591,9 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::list_scan_runs][crate::client::WebSecurityScanner::list_scan_runs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::ListScanRuns;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListScanRuns;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -609,7 +601,7 @@ pub mod web_security_scanner {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListScanRuns {
     ///   # panic!();
@@ -699,14 +691,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::stop_scan_run][crate::client::WebSecurityScanner::stop_scan_run] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::StopScanRun;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::StopScanRun;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopScanRun {
     ///   # panic!();
@@ -760,10 +751,9 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::list_crawled_urls][crate::client::WebSecurityScanner::list_crawled_urls] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::ListCrawledUrls;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListCrawledUrls;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -771,7 +761,7 @@ pub mod web_security_scanner {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCrawledUrls {
     ///   # panic!();
@@ -861,14 +851,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::get_finding][crate::client::WebSecurityScanner::get_finding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::GetFinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::GetFinding;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFinding {
     ///   # panic!();
@@ -922,10 +911,9 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::list_findings][crate::client::WebSecurityScanner::list_findings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::ListFindings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -933,7 +921,7 @@ pub mod web_security_scanner {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFindings {
     ///   # panic!();
@@ -1029,14 +1017,13 @@ pub mod web_security_scanner {
     /// The request builder for [WebSecurityScanner::list_finding_type_stats][crate::client::WebSecurityScanner::list_finding_type_stats] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_websecurityscanner_v1::builder;
-    /// use builder::web_security_scanner::ListFindingTypeStats;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_websecurityscanner_v1::builder::web_security_scanner::ListFindingTypeStats;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFindingTypeStats {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_functions_v2::client::FunctionService;
 /// let client = FunctionService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Functions API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl FunctionService {
     /// Returns a builder for [FunctionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_functions_v2::client::FunctionService;
     /// let client = FunctionService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::function_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

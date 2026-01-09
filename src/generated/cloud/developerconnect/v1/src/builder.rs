@@ -20,7 +20,7 @@ pub mod developer_connect {
     /// A builder for [DeveloperConnect][crate::client::DeveloperConnect].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::*;
     /// # use builder::developer_connect::ClientBuilder;
     /// # use client::DeveloperConnect;
@@ -28,7 +28,7 @@ pub mod developer_connect {
     /// let client = builder
     ///     .with_endpoint("https://developerconnect.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_connections][crate::client::DeveloperConnect::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::get_connection][crate::client::DeveloperConnect::get_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::GetConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::GetConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnection {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::create_connection][crate::client::DeveloperConnect::create_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::CreateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnection {
     ///   # panic!();
@@ -399,15 +396,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::update_connection][crate::client::DeveloperConnect::update_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::UpdateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::UpdateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
     ///   # panic!();
@@ -558,15 +554,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_connection][crate::client::DeveloperConnect::delete_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteConnection;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
     ///   # panic!();
@@ -683,15 +678,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::create_git_repository_link][crate::client::DeveloperConnect::create_git_repository_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::CreateGitRepositoryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateGitRepositoryLink;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGitRepositoryLink {
     ///   # panic!();
@@ -835,15 +829,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_git_repository_link][crate::client::DeveloperConnect::delete_git_repository_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteGitRepositoryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteGitRepositoryLink;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGitRepositoryLink {
     ///   # panic!();
@@ -962,10 +955,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_git_repository_links][crate::client::DeveloperConnect::list_git_repository_links] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListGitRepositoryLinks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListGitRepositoryLinks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -973,7 +965,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGitRepositoryLinks {
     ///   # panic!();
@@ -1084,14 +1076,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::get_git_repository_link][crate::client::DeveloperConnect::get_git_repository_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::GetGitRepositoryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::GetGitRepositoryLink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGitRepositoryLink {
     ///   # panic!();
@@ -1150,14 +1141,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_read_write_token][crate::client::DeveloperConnect::fetch_read_write_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchReadWriteToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchReadWriteToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchReadWriteToken {
     ///   # panic!();
@@ -1216,14 +1206,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_read_token][crate::client::DeveloperConnect::fetch_read_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchReadToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchReadToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchReadToken {
     ///   # panic!();
@@ -1279,10 +1268,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_linkable_git_repositories][crate::client::DeveloperConnect::fetch_linkable_git_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchLinkableGitRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchLinkableGitRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1290,7 +1278,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchLinkableGitRepositories {
     ///   # panic!();
@@ -1391,14 +1379,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_git_hub_installations][crate::client::DeveloperConnect::fetch_git_hub_installations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchGitHubInstallations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitHubInstallations;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchGitHubInstallations {
     ///   # panic!();
@@ -1459,14 +1446,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_git_refs][crate::client::DeveloperConnect::fetch_git_refs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchGitRefs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchGitRefs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchGitRefs {
     ///   # panic!();
@@ -1545,10 +1531,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_account_connectors][crate::client::DeveloperConnect::list_account_connectors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListAccountConnectors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListAccountConnectors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1556,7 +1541,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAccountConnectors {
     ///   # panic!();
@@ -1665,14 +1650,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::get_account_connector][crate::client::DeveloperConnect::get_account_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::GetAccountConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::GetAccountConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAccountConnector {
     ///   # panic!();
@@ -1731,15 +1715,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::create_account_connector][crate::client::DeveloperConnect::create_account_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::CreateAccountConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::CreateAccountConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAccountConnector {
     ///   # panic!();
@@ -1881,15 +1864,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::update_account_connector][crate::client::DeveloperConnect::update_account_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::UpdateAccountConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::UpdateAccountConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAccountConnector {
     ///   # panic!();
@@ -2039,15 +2021,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_account_connector][crate::client::DeveloperConnect::delete_account_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteAccountConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteAccountConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAccountConnector {
     ///   # panic!();
@@ -2170,14 +2151,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_access_token][crate::client::DeveloperConnect::fetch_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchAccessToken {
     ///   # panic!();
@@ -2236,10 +2216,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_users][crate::client::DeveloperConnect::list_users] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListUsers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListUsers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2247,7 +2226,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUsers {
     ///   # panic!();
@@ -2351,15 +2330,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_user][crate::client::DeveloperConnect::delete_user] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteUser;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteUser;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUser {
     ///   # panic!();
@@ -2473,14 +2451,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::fetch_self][crate::client::DeveloperConnect::fetch_self] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::FetchSelf;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::FetchSelf;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchSelf {
     ///   # panic!();
@@ -2536,15 +2513,14 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_self][crate::client::DeveloperConnect::delete_self] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteSelf;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteSelf;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSelf {
     ///   # panic!();
@@ -2640,10 +2616,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_locations][crate::client::DeveloperConnect::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2651,7 +2626,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2750,14 +2725,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::get_location][crate::client::DeveloperConnect::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2811,10 +2785,9 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::list_operations][crate::client::DeveloperConnect::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2822,7 +2795,7 @@ pub mod developer_connect {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2929,14 +2902,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::get_operation][crate::client::DeveloperConnect::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2993,14 +2965,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::delete_operation][crate::client::DeveloperConnect::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3057,14 +3028,13 @@ pub mod developer_connect {
     /// The request builder for [DeveloperConnect::cancel_operation][crate::client::DeveloperConnect::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::developer_connect::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::developer_connect::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3125,7 +3095,7 @@ pub mod insights_config_service {
     /// A builder for [InsightsConfigService][crate::client::InsightsConfigService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_developerconnect_v1::*;
     /// # use builder::insights_config_service::ClientBuilder;
     /// # use client::InsightsConfigService;
@@ -3133,7 +3103,7 @@ pub mod insights_config_service {
     /// let client = builder
     ///     .with_endpoint("https://developerconnect.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3179,10 +3149,9 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::list_insights_configs][crate::client::InsightsConfigService::list_insights_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::ListInsightsConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::ListInsightsConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3190,7 +3159,7 @@ pub mod insights_config_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInsightsConfigs {
     ///   # panic!();
@@ -3299,15 +3268,14 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::create_insights_config][crate::client::InsightsConfigService::create_insights_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::CreateInsightsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::CreateInsightsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInsightsConfig {
     ///   # panic!();
@@ -3443,14 +3411,13 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::get_insights_config][crate::client::InsightsConfigService::get_insights_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::GetInsightsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::GetInsightsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInsightsConfig {
     ///   # panic!();
@@ -3509,15 +3476,14 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::update_insights_config][crate::client::InsightsConfigService::update_insights_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::UpdateInsightsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::UpdateInsightsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInsightsConfig {
     ///   # panic!();
@@ -3649,15 +3615,14 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::delete_insights_config][crate::client::InsightsConfigService::delete_insights_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::DeleteInsightsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::DeleteInsightsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInsightsConfig {
     ///   # panic!();
@@ -3774,10 +3739,9 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::list_locations][crate::client::InsightsConfigService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3785,7 +3749,7 @@ pub mod insights_config_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3884,14 +3848,13 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::get_location][crate::client::InsightsConfigService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3945,10 +3908,9 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::list_operations][crate::client::InsightsConfigService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3956,7 +3918,7 @@ pub mod insights_config_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4063,14 +4025,13 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::get_operation][crate::client::InsightsConfigService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4127,14 +4088,13 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::delete_operation][crate::client::InsightsConfigService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -4191,14 +4151,13 @@ pub mod insights_config_service {
     /// The request builder for [InsightsConfigService::cancel_operation][crate::client::InsightsConfigService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_developerconnect_v1::builder;
-    /// use builder::insights_config_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_developerconnect_v1::builder::insights_config_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

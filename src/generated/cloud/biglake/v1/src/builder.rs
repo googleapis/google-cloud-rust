@@ -20,7 +20,7 @@ pub mod iceberg_catalog_service {
     /// A builder for [IcebergCatalogService][crate::client::IcebergCatalogService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_biglake_v1::*;
     /// # use builder::iceberg_catalog_service::ClientBuilder;
     /// # use client::IcebergCatalogService;
@@ -28,7 +28,7 @@ pub mod iceberg_catalog_service {
     /// let client = builder
     ///     .with_endpoint("https://biglake.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::get_iceberg_catalog_config][crate::client::IcebergCatalogService::get_iceberg_catalog_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::GetIcebergCatalogConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalogConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIcebergCatalogConfig {
     ///   # panic!();
@@ -142,14 +141,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::list_iceberg_namespaces][crate::client::IcebergCatalogService::list_iceberg_namespaces] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::ListIcebergNamespaces;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergNamespaces;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIcebergNamespaces {
     ///   # panic!();
@@ -226,14 +224,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::get_iceberg_namespace][crate::client::IcebergCatalogService::get_iceberg_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::GetIcebergNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIcebergNamespace {
     ///   # panic!();
@@ -292,14 +289,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::create_iceberg_namespace][crate::client::IcebergCatalogService::create_iceberg_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::CreateIcebergNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIcebergNamespace {
     ///   # panic!();
@@ -380,14 +376,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::delete_iceberg_namespace][crate::client::IcebergCatalogService::delete_iceberg_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::DeleteIcebergNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIcebergNamespace {
     ///   # panic!();
@@ -446,14 +441,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::update_iceberg_namespace][crate::client::IcebergCatalogService::update_iceberg_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::UpdateIcebergNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIcebergNamespace {
     ///   # panic!();
@@ -534,14 +528,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::list_iceberg_table_identifiers][crate::client::IcebergCatalogService::list_iceberg_table_identifiers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::ListIcebergTableIdentifiers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergTableIdentifiers;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIcebergTableIdentifiers {
     ///   # panic!();
@@ -614,14 +607,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::create_iceberg_table][crate::client::IcebergCatalogService::create_iceberg_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::CreateIcebergTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIcebergTable {
     ///   # panic!();
@@ -702,14 +694,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::delete_iceberg_table][crate::client::IcebergCatalogService::delete_iceberg_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::DeleteIcebergTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIcebergTable {
     ///   # panic!();
@@ -774,14 +765,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::get_iceberg_table][crate::client::IcebergCatalogService::get_iceberg_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::GetIcebergTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIcebergTable {
     ///   # panic!();
@@ -843,14 +833,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::load_iceberg_table_credentials][crate::client::IcebergCatalogService::load_iceberg_table_credentials] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::LoadIcebergTableCredentials;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::LoadIcebergTableCredentials;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LoadIcebergTableCredentials {
     ///   # panic!();
@@ -912,14 +901,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::update_iceberg_table][crate::client::IcebergCatalogService::update_iceberg_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::UpdateIcebergTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIcebergTable {
     ///   # panic!();
@@ -1000,14 +988,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::register_iceberg_table][crate::client::IcebergCatalogService::register_iceberg_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::RegisterIcebergTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::RegisterIcebergTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RegisterIcebergTable {
     ///   # panic!();
@@ -1088,14 +1075,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::get_iceberg_catalog][crate::client::IcebergCatalogService::get_iceberg_catalog] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::GetIcebergCatalog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::GetIcebergCatalog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIcebergCatalog {
     ///   # panic!();
@@ -1154,14 +1140,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::list_iceberg_catalogs][crate::client::IcebergCatalogService::list_iceberg_catalogs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::ListIcebergCatalogs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::ListIcebergCatalogs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIcebergCatalogs {
     ///   # panic!();
@@ -1241,14 +1226,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::delete_iceberg_catalog][crate::client::IcebergCatalogService::delete_iceberg_catalog] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::DeleteIcebergCatalog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::DeleteIcebergCatalog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIcebergCatalog {
     ///   # panic!();
@@ -1307,14 +1291,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::update_iceberg_catalog][crate::client::IcebergCatalogService::update_iceberg_catalog] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::UpdateIcebergCatalog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::UpdateIcebergCatalog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIcebergCatalog {
     ///   # panic!();
@@ -1405,14 +1388,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::create_iceberg_catalog][crate::client::IcebergCatalogService::create_iceberg_catalog] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::CreateIcebergCatalog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::CreateIcebergCatalog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIcebergCatalog {
     ///   # panic!();
@@ -1501,14 +1483,13 @@ pub mod iceberg_catalog_service {
     /// The request builder for [IcebergCatalogService::failover_iceberg_catalog][crate::client::IcebergCatalogService::failover_iceberg_catalog] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_biglake_v1::builder;
-    /// use builder::iceberg_catalog_service::FailoverIcebergCatalog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_biglake_v1::builder::iceberg_catalog_service::FailoverIcebergCatalog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FailoverIcebergCatalog {
     ///   # panic!();

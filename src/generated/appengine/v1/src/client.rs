@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Applications;
 /// let client = Applications::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Applications {
     /// Returns a builder for [Applications].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Applications;
     /// let client = Applications::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::applications::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::applications::client::Factory)
@@ -207,11 +207,11 @@ impl Applications {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Services;
 /// let client = Services::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -253,10 +253,10 @@ impl Services {
     /// Returns a builder for [Services].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Services;
     /// let client = Services::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::services::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::services::client::Factory)
@@ -364,11 +364,11 @@ impl Services {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Versions;
 /// let client = Versions::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -410,10 +410,10 @@ impl Versions {
     /// Returns a builder for [Versions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Versions;
     /// let client = Versions::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::versions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::versions::client::Factory)
@@ -573,11 +573,11 @@ impl Versions {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -619,10 +619,10 @@ impl Instances {
     /// Returns a builder for [Instances].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Instances;
     /// let client = Instances::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instances::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
@@ -751,11 +751,11 @@ impl Instances {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::Firewall;
 /// let client = Firewall::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -806,10 +806,10 @@ impl Firewall {
     /// Returns a builder for [Firewall].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::Firewall;
     /// let client = Firewall::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::firewall::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::firewall::client::Factory)
@@ -911,11 +911,11 @@ impl Firewall {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
 /// let client = AuthorizedDomains::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -959,10 +959,10 @@ impl AuthorizedDomains {
     /// Returns a builder for [AuthorizedDomains].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::AuthorizedDomains;
     /// let client = AuthorizedDomains::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::authorized_domains::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1040,11 +1040,11 @@ impl AuthorizedDomains {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
 /// let client = AuthorizedCertificates::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1087,10 +1087,10 @@ impl AuthorizedCertificates {
     /// Returns a builder for [AuthorizedCertificates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::AuthorizedCertificates;
     /// let client = AuthorizedCertificates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::authorized_certificates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1206,11 +1206,11 @@ impl AuthorizedCertificates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_appengine_v1::client::DomainMappings;
 /// let client = DomainMappings::builder().build().await?;
 /// // use `client` to make requests to the App Engine Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1252,10 +1252,10 @@ impl DomainMappings {
     /// Returns a builder for [DomainMappings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_appengine_v1::client::DomainMappings;
     /// let client = DomainMappings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::domain_mappings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::domain_mappings::client::Factory)

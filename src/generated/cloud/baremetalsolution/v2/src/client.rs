@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
 /// let client = BareMetalSolution::builder().build().await?;
 /// // use `client` to make requests to the Bare Metal Solution API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -73,10 +73,10 @@ impl BareMetalSolution {
     /// Returns a builder for [BareMetalSolution].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_baremetalsolution_v2::client::BareMetalSolution;
     /// let client = BareMetalSolution::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::bare_metal_solution::ClientBuilder {
         gax::client_builder::internal::new_builder(

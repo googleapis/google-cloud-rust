@@ -20,7 +20,7 @@ pub mod operations {
     /// A builder for [Operations][crate::client::Operations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_longrunning::*;
     /// # use builder::operations::ClientBuilder;
     /// # use client::Operations;
@@ -28,7 +28,7 @@ pub mod operations {
     /// let client = builder
     ///     .with_endpoint("https://longrunning.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod operations {
     /// The request builder for [Operations::list_operations][crate::client::Operations::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_longrunning::builder;
-    /// use builder::operations::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_longrunning::builder::operations::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod operations {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -187,14 +186,13 @@ pub mod operations {
     /// The request builder for [Operations::get_operation][crate::client::Operations::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_longrunning::builder;
-    /// use builder::operations::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_longrunning::builder::operations::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -248,14 +246,13 @@ pub mod operations {
     /// The request builder for [Operations::delete_operation][crate::client::Operations::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_longrunning::builder;
-    /// use builder::operations::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_longrunning::builder::operations::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -309,14 +306,13 @@ pub mod operations {
     /// The request builder for [Operations::cancel_operation][crate::client::Operations::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_longrunning::builder;
-    /// use builder::operations::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_longrunning::builder::operations::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

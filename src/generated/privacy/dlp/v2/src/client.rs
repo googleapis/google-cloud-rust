@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_privacy_dlp_v2::client::DlpService;
 /// let client = DlpService::builder().build().await?;
 /// // use `client` to make requests to the Sensitive Data Protection (DLP).
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl DlpService {
     /// Returns a builder for [DlpService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_privacy_dlp_v2::client::DlpService;
     /// let client = DlpService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::dlp_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::dlp_service::client::Factory)

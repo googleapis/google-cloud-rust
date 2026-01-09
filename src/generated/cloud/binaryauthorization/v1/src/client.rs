@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
 /// let client = BinauthzManagementServiceV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -75,10 +75,10 @@ impl BinauthzManagementServiceV1 {
     /// Returns a builder for [BinauthzManagementServiceV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::BinauthzManagementServiceV1;
     /// let client = BinauthzManagementServiceV1::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::binauthz_management_service_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -209,11 +209,11 @@ impl BinauthzManagementServiceV1 {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
 /// let client = SystemPolicyV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -255,10 +255,10 @@ impl SystemPolicyV1 {
     /// Returns a builder for [SystemPolicyV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::SystemPolicyV1;
     /// let client = SystemPolicyV1::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::system_policy_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -319,11 +319,11 @@ impl SystemPolicyV1 {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
 /// let client = ValidationHelperV1::builder().build().await?;
 /// // use `client` to make requests to the Binary Authorization API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -365,10 +365,10 @@ impl ValidationHelperV1 {
     /// Returns a builder for [ValidationHelperV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::client::ValidationHelperV1;
     /// let client = ValidationHelperV1::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::validation_helper_v_1::ClientBuilder {
         gax::client_builder::internal::new_builder(

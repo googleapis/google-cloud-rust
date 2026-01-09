@@ -20,7 +20,7 @@ pub mod cloud_controls_partner_core {
     /// A builder for [CloudControlsPartnerCore][crate::client::CloudControlsPartnerCore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_core::ClientBuilder;
     /// # use client::CloudControlsPartnerCore;
@@ -28,7 +28,7 @@ pub mod cloud_controls_partner_core {
     /// let client = builder
     ///     .with_endpoint("https://cloudcontrolspartner.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::get_workload][crate::client::CloudControlsPartnerCore::get_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::GetWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkload {
     ///   # panic!();
@@ -137,10 +136,9 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::list_workloads][crate::client::CloudControlsPartnerCore::list_workloads] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::ListWorkloads;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListWorkloads;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -148,7 +146,7 @@ pub mod cloud_controls_partner_core {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkloads {
     ///   # panic!();
@@ -252,14 +250,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::get_customer][crate::client::CloudControlsPartnerCore::get_customer] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::GetCustomer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetCustomer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCustomer {
     ///   # panic!();
@@ -315,10 +312,9 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::list_customers][crate::client::CloudControlsPartnerCore::list_customers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::ListCustomers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListCustomers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -326,7 +322,7 @@ pub mod cloud_controls_partner_core {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCustomers {
     ///   # panic!();
@@ -430,14 +426,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::get_ekm_connections][crate::client::CloudControlsPartnerCore::get_ekm_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::GetEkmConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetEkmConnections;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEkmConnections {
     ///   # panic!();
@@ -496,14 +491,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::get_partner_permissions][crate::client::CloudControlsPartnerCore::get_partner_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::GetPartnerPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartnerPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPartnerPermissions {
     ///   # panic!();
@@ -562,10 +556,9 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::list_access_approval_requests][crate::client::CloudControlsPartnerCore::list_access_approval_requests] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::ListAccessApprovalRequests;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::ListAccessApprovalRequests;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -573,7 +566,7 @@ pub mod cloud_controls_partner_core {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAccessApprovalRequests {
     ///   # panic!();
@@ -686,14 +679,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::get_partner][crate::client::CloudControlsPartnerCore::get_partner] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::GetPartner;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::GetPartner;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPartner {
     ///   # panic!();
@@ -749,14 +741,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::create_customer][crate::client::CloudControlsPartnerCore::create_customer] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::CreateCustomer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::CreateCustomer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCustomer {
     ///   # panic!();
@@ -842,14 +833,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::update_customer][crate::client::CloudControlsPartnerCore::update_customer] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::UpdateCustomer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::UpdateCustomer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCustomer {
     ///   # panic!();
@@ -937,14 +927,13 @@ pub mod cloud_controls_partner_core {
     /// The request builder for [CloudControlsPartnerCore::delete_customer][crate::client::CloudControlsPartnerCore::delete_customer] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_core::DeleteCustomer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_core::DeleteCustomer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCustomer {
     ///   # panic!();
@@ -1004,7 +993,7 @@ pub mod cloud_controls_partner_monitoring {
     /// A builder for [CloudControlsPartnerMonitoring][crate::client::CloudControlsPartnerMonitoring].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudcontrolspartner_v1::*;
     /// # use builder::cloud_controls_partner_monitoring::ClientBuilder;
     /// # use client::CloudControlsPartnerMonitoring;
@@ -1012,7 +1001,7 @@ pub mod cloud_controls_partner_monitoring {
     /// let client = builder
     ///     .with_endpoint("https://cloudcontrolspartner.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1058,10 +1047,9 @@ pub mod cloud_controls_partner_monitoring {
     /// The request builder for [CloudControlsPartnerMonitoring::list_violations][crate::client::CloudControlsPartnerMonitoring::list_violations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_monitoring::ListViolations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::ListViolations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1069,7 +1057,7 @@ pub mod cloud_controls_partner_monitoring {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListViolations {
     ///   # panic!();
@@ -1191,14 +1179,13 @@ pub mod cloud_controls_partner_monitoring {
     /// The request builder for [CloudControlsPartnerMonitoring::get_violation][crate::client::CloudControlsPartnerMonitoring::get_violation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_cloudcontrolspartner_v1::builder;
-    /// use builder::cloud_controls_partner_monitoring::GetViolation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_cloudcontrolspartner_v1::builder::cloud_controls_partner_monitoring::GetViolation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetViolation {
     ///   # panic!();

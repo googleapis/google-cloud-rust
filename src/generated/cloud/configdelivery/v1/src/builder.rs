@@ -20,7 +20,7 @@ pub mod config_delivery {
     /// A builder for [ConfigDelivery][crate::client::ConfigDelivery].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_configdelivery_v1::*;
     /// # use builder::config_delivery::ClientBuilder;
     /// # use client::ConfigDelivery;
@@ -28,7 +28,7 @@ pub mod config_delivery {
     /// let client = builder
     ///     .with_endpoint("https://configdelivery.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_resource_bundles][crate::client::ConfigDelivery::list_resource_bundles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListResourceBundles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListResourceBundles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListResourceBundles {
     ///   # panic!();
@@ -194,14 +193,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_resource_bundle][crate::client::ConfigDelivery::get_resource_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetResourceBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetResourceBundle;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetResourceBundle {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::create_resource_bundle][crate::client::ConfigDelivery::create_resource_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::CreateResourceBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateResourceBundle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateResourceBundle {
     ///   # panic!();
@@ -404,15 +401,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::update_resource_bundle][crate::client::ConfigDelivery::update_resource_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::UpdateResourceBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateResourceBundle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateResourceBundle {
     ///   # panic!();
@@ -554,15 +550,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::delete_resource_bundle][crate::client::ConfigDelivery::delete_resource_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::DeleteResourceBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteResourceBundle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteResourceBundle {
     ///   # panic!();
@@ -673,10 +668,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_fleet_packages][crate::client::ConfigDelivery::list_fleet_packages] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListFleetPackages;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListFleetPackages;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -684,7 +678,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFleetPackages {
     ///   # panic!();
@@ -791,14 +785,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_fleet_package][crate::client::ConfigDelivery::get_fleet_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetFleetPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetFleetPackage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFleetPackage {
     ///   # panic!();
@@ -854,15 +847,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::create_fleet_package][crate::client::ConfigDelivery::create_fleet_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::CreateFleetPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateFleetPackage;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFleetPackage {
     ///   # panic!();
@@ -997,15 +989,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::update_fleet_package][crate::client::ConfigDelivery::update_fleet_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::UpdateFleetPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateFleetPackage;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFleetPackage {
     ///   # panic!();
@@ -1146,15 +1137,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::delete_fleet_package][crate::client::ConfigDelivery::delete_fleet_package] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::DeleteFleetPackage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteFleetPackage;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFleetPackage {
     ///   # panic!();
@@ -1271,10 +1261,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_releases][crate::client::ConfigDelivery::list_releases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListReleases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListReleases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1282,7 +1271,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReleases {
     ///   # panic!();
@@ -1386,14 +1375,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_release][crate::client::ConfigDelivery::get_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetRelease;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRelease {
     ///   # panic!();
@@ -1449,15 +1437,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::create_release][crate::client::ConfigDelivery::create_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::CreateRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateRelease;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRelease {
     ///   # panic!();
@@ -1587,15 +1574,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::update_release][crate::client::ConfigDelivery::update_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::UpdateRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateRelease;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRelease {
     ///   # panic!();
@@ -1731,15 +1717,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::delete_release][crate::client::ConfigDelivery::delete_release] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::DeleteRelease;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteRelease;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRelease {
     ///   # panic!();
@@ -1847,10 +1832,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_variants][crate::client::ConfigDelivery::list_variants] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListVariants;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListVariants;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1858,7 +1842,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVariants {
     ///   # panic!();
@@ -1962,14 +1946,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_variant][crate::client::ConfigDelivery::get_variant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetVariant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetVariant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVariant {
     ///   # panic!();
@@ -2025,15 +2008,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::create_variant][crate::client::ConfigDelivery::create_variant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::CreateVariant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::CreateVariant;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVariant {
     ///   # panic!();
@@ -2163,15 +2145,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::update_variant][crate::client::ConfigDelivery::update_variant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::UpdateVariant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::UpdateVariant;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateVariant {
     ///   # panic!();
@@ -2303,15 +2284,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::delete_variant][crate::client::ConfigDelivery::delete_variant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::DeleteVariant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteVariant;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVariant {
     ///   # panic!();
@@ -2413,10 +2393,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_rollouts][crate::client::ConfigDelivery::list_rollouts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListRollouts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListRollouts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2424,7 +2403,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRollouts {
     ///   # panic!();
@@ -2528,14 +2507,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_rollout][crate::client::ConfigDelivery::get_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetRollout;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRollout {
     ///   # panic!();
@@ -2591,15 +2569,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::suspend_rollout][crate::client::ConfigDelivery::suspend_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::SuspendRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::SuspendRollout;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SuspendRollout {
     ///   # panic!();
@@ -2699,15 +2676,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::resume_rollout][crate::client::ConfigDelivery::resume_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ResumeRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ResumeRollout;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeRollout {
     ///   # panic!();
@@ -2807,15 +2783,14 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::abort_rollout][crate::client::ConfigDelivery::abort_rollout] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::AbortRollout;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::AbortRollout;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AbortRollout {
     ///   # panic!();
@@ -2915,10 +2890,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_locations][crate::client::ConfigDelivery::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2926,7 +2900,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -3025,14 +2999,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_location][crate::client::ConfigDelivery::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3086,10 +3059,9 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::list_operations][crate::client::ConfigDelivery::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3097,7 +3069,7 @@ pub mod config_delivery {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3204,14 +3176,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::get_operation][crate::client::ConfigDelivery::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3268,14 +3239,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::delete_operation][crate::client::ConfigDelivery::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3332,14 +3302,13 @@ pub mod config_delivery {
     /// The request builder for [ConfigDelivery::cancel_operation][crate::client::ConfigDelivery::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_configdelivery_v1::builder;
-    /// use builder::config_delivery::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_configdelivery_v1::builder::config_delivery::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

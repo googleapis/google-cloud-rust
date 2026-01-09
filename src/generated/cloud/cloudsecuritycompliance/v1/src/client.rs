@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
 /// let client = Audit::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Audit {
     /// Returns a builder for [Audit].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Audit;
     /// let client = Audit::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::audit::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::audit::client::Factory)
@@ -193,11 +193,11 @@ impl Audit {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
 /// let client = CmEnrollmentService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -240,10 +240,10 @@ impl CmEnrollmentService {
     /// Returns a builder for [CmEnrollmentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::CmEnrollmentService;
     /// let client = CmEnrollmentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cm_enrollment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -360,11 +360,11 @@ impl CmEnrollmentService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
 /// let client = Config::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -407,10 +407,10 @@ impl Config {
     /// Returns a builder for [Config].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Config;
     /// let client = Config::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::config::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::config::client::Factory)
@@ -608,11 +608,11 @@ impl Config {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
 /// let client = Deployment::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -655,10 +655,10 @@ impl Deployment {
     /// Returns a builder for [Deployment].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Deployment;
     /// let client = Deployment::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::deployment::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::deployment::client::Factory)
@@ -813,11 +813,11 @@ impl Deployment {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
 /// let client = Monitoring::builder().build().await?;
 /// // use `client` to make requests to the Cloud Security Compliance API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -859,10 +859,10 @@ impl Monitoring {
     /// Returns a builder for [Monitoring].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_cloudsecuritycompliance_v1::client::Monitoring;
     /// let client = Monitoring::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::monitoring::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::monitoring::client::Factory)

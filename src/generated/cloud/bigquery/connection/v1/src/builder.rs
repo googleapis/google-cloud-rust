@@ -20,7 +20,7 @@ pub mod connection_service {
     /// A builder for [ConnectionService][crate::client::ConnectionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_connection_v1::*;
     /// # use builder::connection_service::ClientBuilder;
     /// # use client::ConnectionService;
@@ -28,7 +28,7 @@ pub mod connection_service {
     /// let client = builder
     ///     .with_endpoint("https://bigqueryconnection.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::create_connection][crate::client::ConnectionService::create_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::CreateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::CreateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnection {
     ///   # panic!();
@@ -168,14 +167,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::get_connection][crate::client::ConnectionService::get_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::GetConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::GetConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnection {
     ///   # panic!();
@@ -231,10 +229,9 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::list_connections][crate::client::ConnectionService::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -242,7 +239,7 @@ pub mod connection_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();
@@ -336,14 +333,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::update_connection][crate::client::ConnectionService::update_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::UpdateConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::UpdateConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateConnection {
     ///   # panic!();
@@ -446,14 +442,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::delete_connection][crate::client::ConnectionService::delete_connection] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::DeleteConnection;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::DeleteConnection;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnection {
     ///   # panic!();
@@ -512,14 +507,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::get_iam_policy][crate::client::ConnectionService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -593,14 +587,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::set_iam_policy][crate::client::ConnectionService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -696,14 +689,13 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::test_iam_permissions][crate::client::ConnectionService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_connection_v1::builder;
-    /// use builder::connection_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_connection_v1::builder::connection_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();

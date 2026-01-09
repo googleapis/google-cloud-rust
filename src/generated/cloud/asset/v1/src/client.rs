@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_asset_v1::client::AssetService;
 /// let client = AssetService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Asset API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl AssetService {
     /// Returns a builder for [AssetService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_asset_v1::client::AssetService;
     /// let client = AssetService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::asset_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::asset_service::client::Factory)

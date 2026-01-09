@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
 /// let client = TextToSpeech::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl TextToSpeech {
     /// Returns a builder for [TextToSpeech].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeech;
     /// let client = TextToSpeech::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::text_to_speech::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::text_to_speech::client::Factory)
@@ -148,11 +148,11 @@ impl TextToSpeech {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
 /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
 /// // use `client` to make requests to the Cloud Text-to-Speech API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -194,10 +194,10 @@ impl TextToSpeechLongAudioSynthesize {
     /// Returns a builder for [TextToSpeechLongAudioSynthesize].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_texttospeech_v1::client::TextToSpeechLongAudioSynthesize;
     /// let client = TextToSpeechLongAudioSynthesize::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::text_to_speech_long_audio_synthesize::ClientBuilder {
         gax::client_builder::internal::new_builder(

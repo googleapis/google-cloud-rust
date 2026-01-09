@@ -20,7 +20,7 @@ pub mod business_glossary_service {
     /// A builder for [BusinessGlossaryService][crate::client::BusinessGlossaryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::business_glossary_service::ClientBuilder;
     /// # use client::BusinessGlossaryService;
@@ -28,7 +28,7 @@ pub mod business_glossary_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::create_glossary][crate::client::BusinessGlossaryService::create_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::CreateGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::CreateGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGlossary {
     ///   # panic!();
@@ -212,15 +211,14 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::update_glossary][crate::client::BusinessGlossaryService::update_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::UpdateGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::UpdateGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGlossary {
     ///   # panic!();
@@ -356,15 +354,14 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::delete_glossary][crate::client::BusinessGlossaryService::delete_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::DeleteGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::DeleteGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGlossary {
     ///   # panic!();
@@ -466,14 +463,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_glossary][crate::client::BusinessGlossaryService::get_glossary] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetGlossary;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetGlossary;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlossary {
     ///   # panic!();
@@ -529,10 +525,9 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::list_glossaries][crate::client::BusinessGlossaryService::list_glossaries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::ListGlossaries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::ListGlossaries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -540,7 +535,7 @@ pub mod business_glossary_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGlossaries {
     ///   # panic!();
@@ -644,14 +639,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::create_glossary_category][crate::client::BusinessGlossaryService::create_glossary_category] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::CreateGlossaryCategory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::CreateGlossaryCategory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGlossaryCategory {
     ///   # panic!();
@@ -740,14 +734,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::update_glossary_category][crate::client::BusinessGlossaryService::update_glossary_category] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::UpdateGlossaryCategory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::UpdateGlossaryCategory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGlossaryCategory {
     ///   # panic!();
@@ -842,14 +835,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::delete_glossary_category][crate::client::BusinessGlossaryService::delete_glossary_category] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::DeleteGlossaryCategory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::DeleteGlossaryCategory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGlossaryCategory {
     ///   # panic!();
@@ -908,14 +900,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_glossary_category][crate::client::BusinessGlossaryService::get_glossary_category] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetGlossaryCategory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetGlossaryCategory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlossaryCategory {
     ///   # panic!();
@@ -974,10 +965,9 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::list_glossary_categories][crate::client::BusinessGlossaryService::list_glossary_categories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::ListGlossaryCategories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::ListGlossaryCategories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -985,7 +975,7 @@ pub mod business_glossary_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGlossaryCategories {
     ///   # panic!();
@@ -1096,14 +1086,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::create_glossary_term][crate::client::BusinessGlossaryService::create_glossary_term] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::CreateGlossaryTerm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::CreateGlossaryTerm;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGlossaryTerm {
     ///   # panic!();
@@ -1192,14 +1181,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::update_glossary_term][crate::client::BusinessGlossaryService::update_glossary_term] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::UpdateGlossaryTerm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::UpdateGlossaryTerm;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGlossaryTerm {
     ///   # panic!();
@@ -1294,14 +1282,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::delete_glossary_term][crate::client::BusinessGlossaryService::delete_glossary_term] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::DeleteGlossaryTerm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::DeleteGlossaryTerm;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGlossaryTerm {
     ///   # panic!();
@@ -1360,14 +1347,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_glossary_term][crate::client::BusinessGlossaryService::get_glossary_term] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetGlossaryTerm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetGlossaryTerm;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGlossaryTerm {
     ///   # panic!();
@@ -1423,10 +1409,9 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::list_glossary_terms][crate::client::BusinessGlossaryService::list_glossary_terms] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::ListGlossaryTerms;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::ListGlossaryTerms;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1434,7 +1419,7 @@ pub mod business_glossary_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGlossaryTerms {
     ///   # panic!();
@@ -1541,10 +1526,9 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::list_locations][crate::client::BusinessGlossaryService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1552,7 +1536,7 @@ pub mod business_glossary_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1651,14 +1635,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_location][crate::client::BusinessGlossaryService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1712,14 +1695,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::set_iam_policy][crate::client::BusinessGlossaryService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1815,14 +1797,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_iam_policy][crate::client::BusinessGlossaryService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1896,14 +1877,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::test_iam_permissions][crate::client::BusinessGlossaryService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1975,10 +1955,9 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::list_operations][crate::client::BusinessGlossaryService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1986,7 +1965,7 @@ pub mod business_glossary_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2093,14 +2072,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::get_operation][crate::client::BusinessGlossaryService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2157,14 +2135,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::delete_operation][crate::client::BusinessGlossaryService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2221,14 +2198,13 @@ pub mod business_glossary_service {
     /// The request builder for [BusinessGlossaryService::cancel_operation][crate::client::BusinessGlossaryService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::business_glossary_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::business_glossary_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -2289,7 +2265,7 @@ pub mod catalog_service {
     /// A builder for [CatalogService][crate::client::CatalogService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::catalog_service::ClientBuilder;
     /// # use client::CatalogService;
@@ -2297,7 +2273,7 @@ pub mod catalog_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2343,15 +2319,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_entry_type][crate::client::CatalogService::create_entry_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateEntryType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateEntryType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntryType {
     ///   # panic!();
@@ -2481,15 +2456,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::update_entry_type][crate::client::CatalogService::update_entry_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::UpdateEntryType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateEntryType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntryType {
     ///   # panic!();
@@ -2625,15 +2599,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_entry_type][crate::client::CatalogService::delete_entry_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteEntryType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteEntryType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntryType {
     ///   # panic!();
@@ -2735,10 +2708,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_entry_types][crate::client::CatalogService::list_entry_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListEntryTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListEntryTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2746,7 +2718,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntryTypes {
     ///   # panic!();
@@ -2850,14 +2822,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_entry_type][crate::client::CatalogService::get_entry_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetEntryType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetEntryType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntryType {
     ///   # panic!();
@@ -2913,15 +2884,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_aspect_type][crate::client::CatalogService::create_aspect_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateAspectType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateAspectType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAspectType {
     ///   # panic!();
@@ -3054,15 +3024,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::update_aspect_type][crate::client::CatalogService::update_aspect_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::UpdateAspectType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateAspectType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAspectType {
     ///   # panic!();
@@ -3201,15 +3170,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_aspect_type][crate::client::CatalogService::delete_aspect_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteAspectType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteAspectType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAspectType {
     ///   # panic!();
@@ -3314,10 +3282,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_aspect_types][crate::client::CatalogService::list_aspect_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListAspectTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListAspectTypes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3325,7 +3292,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAspectTypes {
     ///   # panic!();
@@ -3429,14 +3396,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_aspect_type][crate::client::CatalogService::get_aspect_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetAspectType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetAspectType;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAspectType {
     ///   # panic!();
@@ -3492,15 +3458,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_entry_group][crate::client::CatalogService::create_entry_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateEntryGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateEntryGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntryGroup {
     ///   # panic!();
@@ -3633,15 +3598,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::update_entry_group][crate::client::CatalogService::update_entry_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::UpdateEntryGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateEntryGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntryGroup {
     ///   # panic!();
@@ -3780,15 +3744,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_entry_group][crate::client::CatalogService::delete_entry_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteEntryGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteEntryGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntryGroup {
     ///   # panic!();
@@ -3893,10 +3856,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_entry_groups][crate::client::CatalogService::list_entry_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListEntryGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListEntryGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3904,7 +3866,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntryGroups {
     ///   # panic!();
@@ -4008,14 +3970,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_entry_group][crate::client::CatalogService::get_entry_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetEntryGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetEntryGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntryGroup {
     ///   # panic!();
@@ -4071,14 +4032,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_entry][crate::client::CatalogService::create_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntry {
     ///   # panic!();
@@ -4164,14 +4124,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::update_entry][crate::client::CatalogService::update_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::UpdateEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::UpdateEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntry {
     ///   # panic!();
@@ -4282,14 +4241,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_entry][crate::client::CatalogService::delete_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntry {
     ///   # panic!();
@@ -4345,10 +4303,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_entries][crate::client::CatalogService::list_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4356,7 +4313,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntries {
     ///   # panic!();
@@ -4454,14 +4411,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_entry][crate::client::CatalogService::get_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntry {
     ///   # panic!();
@@ -4545,14 +4501,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::lookup_entry][crate::client::CatalogService::lookup_entry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::LookupEntry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::LookupEntry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupEntry {
     ///   # panic!();
@@ -4644,10 +4599,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::search_entries][crate::client::CatalogService::search_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::SearchEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::SearchEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4655,7 +4609,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchEntries {
     ///   # panic!();
@@ -4773,15 +4727,14 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_metadata_job][crate::client::CatalogService::create_metadata_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateMetadataJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateMetadataJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMetadataJob {
     ///   # panic!();
@@ -4914,14 +4867,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_metadata_job][crate::client::CatalogService::get_metadata_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetMetadataJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetMetadataJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetadataJob {
     ///   # panic!();
@@ -4977,10 +4929,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_metadata_jobs][crate::client::CatalogService::list_metadata_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListMetadataJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListMetadataJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4988,7 +4939,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMetadataJobs {
     ///   # panic!();
@@ -5095,14 +5046,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::cancel_metadata_job][crate::client::CatalogService::cancel_metadata_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CancelMetadataJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CancelMetadataJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelMetadataJob {
     ///   # panic!();
@@ -5161,14 +5111,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::create_entry_link][crate::client::CatalogService::create_entry_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CreateEntryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CreateEntryLink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntryLink {
     ///   # panic!();
@@ -5254,14 +5203,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_entry_link][crate::client::CatalogService::delete_entry_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteEntryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteEntryLink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntryLink {
     ///   # panic!();
@@ -5317,14 +5265,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_entry_link][crate::client::CatalogService::get_entry_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetEntryLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetEntryLink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntryLink {
     ///   # panic!();
@@ -5380,10 +5327,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_locations][crate::client::CatalogService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5391,7 +5337,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5490,14 +5436,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_location][crate::client::CatalogService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5551,14 +5496,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::set_iam_policy][crate::client::CatalogService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -5654,14 +5598,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_iam_policy][crate::client::CatalogService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -5735,14 +5678,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::test_iam_permissions][crate::client::CatalogService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -5814,10 +5756,9 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::list_operations][crate::client::CatalogService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5825,7 +5766,7 @@ pub mod catalog_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5932,14 +5873,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::get_operation][crate::client::CatalogService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5996,14 +5936,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::delete_operation][crate::client::CatalogService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -6060,14 +5999,13 @@ pub mod catalog_service {
     /// The request builder for [CatalogService::cancel_operation][crate::client::CatalogService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::catalog_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::catalog_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -6128,7 +6066,7 @@ pub mod cmek_service {
     /// A builder for [CmekService][crate::client::CmekService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::cmek_service::ClientBuilder;
     /// # use client::CmekService;
@@ -6136,7 +6074,7 @@ pub mod cmek_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -6182,15 +6120,14 @@ pub mod cmek_service {
     /// The request builder for [CmekService::create_encryption_config][crate::client::CmekService::create_encryption_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::CreateEncryptionConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::CreateEncryptionConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEncryptionConfig {
     ///   # panic!();
@@ -6320,15 +6257,14 @@ pub mod cmek_service {
     /// The request builder for [CmekService::update_encryption_config][crate::client::CmekService::update_encryption_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::UpdateEncryptionConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::UpdateEncryptionConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEncryptionConfig {
     ///   # panic!();
@@ -6460,15 +6396,14 @@ pub mod cmek_service {
     /// The request builder for [CmekService::delete_encryption_config][crate::client::CmekService::delete_encryption_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::DeleteEncryptionConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::DeleteEncryptionConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEncryptionConfig {
     ///   # panic!();
@@ -6573,10 +6508,9 @@ pub mod cmek_service {
     /// The request builder for [CmekService::list_encryption_configs][crate::client::CmekService::list_encryption_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::ListEncryptionConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::ListEncryptionConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6584,7 +6518,7 @@ pub mod cmek_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEncryptionConfigs {
     ///   # panic!();
@@ -6693,14 +6627,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::get_encryption_config][crate::client::CmekService::get_encryption_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::GetEncryptionConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::GetEncryptionConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEncryptionConfig {
     ///   # panic!();
@@ -6759,10 +6692,9 @@ pub mod cmek_service {
     /// The request builder for [CmekService::list_locations][crate::client::CmekService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6770,7 +6702,7 @@ pub mod cmek_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -6869,14 +6801,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::get_location][crate::client::CmekService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -6930,14 +6861,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::set_iam_policy][crate::client::CmekService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -7033,14 +6963,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::get_iam_policy][crate::client::CmekService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -7114,14 +7043,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::test_iam_permissions][crate::client::CmekService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -7193,10 +7121,9 @@ pub mod cmek_service {
     /// The request builder for [CmekService::list_operations][crate::client::CmekService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7204,7 +7131,7 @@ pub mod cmek_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7311,14 +7238,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::get_operation][crate::client::CmekService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7375,14 +7301,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::delete_operation][crate::client::CmekService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7439,14 +7364,13 @@ pub mod cmek_service {
     /// The request builder for [CmekService::cancel_operation][crate::client::CmekService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::cmek_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::cmek_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -7507,7 +7431,7 @@ pub mod content_service {
     /// A builder for [ContentService][crate::client::ContentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::content_service::ClientBuilder;
     /// # use client::ContentService;
@@ -7515,7 +7439,7 @@ pub mod content_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -7561,14 +7485,13 @@ pub mod content_service {
     /// The request builder for [ContentService::create_content][crate::client::ContentService::create_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::CreateContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::CreateContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateContent {
     ///   # panic!();
@@ -7652,14 +7575,13 @@ pub mod content_service {
     /// The request builder for [ContentService::update_content][crate::client::ContentService::update_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::UpdateContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::UpdateContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateContent {
     ///   # panic!();
@@ -7757,14 +7679,13 @@ pub mod content_service {
     /// The request builder for [ContentService::delete_content][crate::client::ContentService::delete_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::DeleteContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::DeleteContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteContent {
     ///   # panic!();
@@ -7820,14 +7741,13 @@ pub mod content_service {
     /// The request builder for [ContentService::get_content][crate::client::ContentService::get_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::GetContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::GetContent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetContent {
     ///   # panic!();
@@ -7892,14 +7812,13 @@ pub mod content_service {
     /// The request builder for [ContentService::get_iam_policy][crate::client::ContentService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -7973,14 +7892,13 @@ pub mod content_service {
     /// The request builder for [ContentService::set_iam_policy][crate::client::ContentService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -8076,14 +7994,13 @@ pub mod content_service {
     /// The request builder for [ContentService::test_iam_permissions][crate::client::ContentService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -8155,10 +8072,9 @@ pub mod content_service {
     /// The request builder for [ContentService::list_content][crate::client::ContentService::list_content] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::ListContent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::ListContent;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8166,7 +8082,7 @@ pub mod content_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListContent {
     ///   # panic!();
@@ -8264,10 +8180,9 @@ pub mod content_service {
     /// The request builder for [ContentService::list_locations][crate::client::ContentService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8275,7 +8190,7 @@ pub mod content_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -8374,14 +8289,13 @@ pub mod content_service {
     /// The request builder for [ContentService::get_location][crate::client::ContentService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -8435,10 +8349,9 @@ pub mod content_service {
     /// The request builder for [ContentService::list_operations][crate::client::ContentService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -8446,7 +8359,7 @@ pub mod content_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -8553,14 +8466,13 @@ pub mod content_service {
     /// The request builder for [ContentService::get_operation][crate::client::ContentService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -8617,14 +8529,13 @@ pub mod content_service {
     /// The request builder for [ContentService::delete_operation][crate::client::ContentService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -8681,14 +8592,13 @@ pub mod content_service {
     /// The request builder for [ContentService::cancel_operation][crate::client::ContentService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::content_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::content_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -8749,7 +8659,7 @@ pub mod data_taxonomy_service {
     /// A builder for [DataTaxonomyService][crate::client::DataTaxonomyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::data_taxonomy_service::ClientBuilder;
     /// # use client::DataTaxonomyService;
@@ -8757,7 +8667,7 @@ pub mod data_taxonomy_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -8803,15 +8713,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::create_data_taxonomy][crate::client::DataTaxonomyService::create_data_taxonomy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::CreateDataTaxonomy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::CreateDataTaxonomy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataTaxonomy {
     ///   # panic!();
@@ -8946,15 +8855,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::update_data_taxonomy][crate::client::DataTaxonomyService::update_data_taxonomy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::UpdateDataTaxonomy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::UpdateDataTaxonomy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataTaxonomy {
     ///   # panic!();
@@ -9095,15 +9003,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::delete_data_taxonomy][crate::client::DataTaxonomyService::delete_data_taxonomy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::DeleteDataTaxonomy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::DeleteDataTaxonomy;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataTaxonomy {
     ///   # panic!();
@@ -9208,10 +9115,9 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::list_data_taxonomies][crate::client::DataTaxonomyService::list_data_taxonomies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::ListDataTaxonomies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::ListDataTaxonomies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9219,7 +9125,7 @@ pub mod data_taxonomy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataTaxonomies {
     ///   # panic!();
@@ -9328,14 +9234,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_data_taxonomy][crate::client::DataTaxonomyService::get_data_taxonomy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetDataTaxonomy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetDataTaxonomy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataTaxonomy {
     ///   # panic!();
@@ -9391,15 +9296,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::create_data_attribute_binding][crate::client::DataTaxonomyService::create_data_attribute_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::CreateDataAttributeBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::CreateDataAttributeBinding;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataAttributeBinding {
     ///   # panic!();
@@ -9537,15 +9441,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::update_data_attribute_binding][crate::client::DataTaxonomyService::update_data_attribute_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::UpdateDataAttributeBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::UpdateDataAttributeBinding;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataAttributeBinding {
     ///   # panic!();
@@ -9689,15 +9592,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::delete_data_attribute_binding][crate::client::DataTaxonomyService::delete_data_attribute_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::DeleteDataAttributeBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::DeleteDataAttributeBinding;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataAttributeBinding {
     ///   # panic!();
@@ -9806,10 +9708,9 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::list_data_attribute_bindings][crate::client::DataTaxonomyService::list_data_attribute_bindings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::ListDataAttributeBindings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::ListDataAttributeBindings;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -9817,7 +9718,7 @@ pub mod data_taxonomy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataAttributeBindings {
     ///   # panic!();
@@ -9930,14 +9831,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_data_attribute_binding][crate::client::DataTaxonomyService::get_data_attribute_binding] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetDataAttributeBinding;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetDataAttributeBinding;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataAttributeBinding {
     ///   # panic!();
@@ -9998,15 +9898,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::create_data_attribute][crate::client::DataTaxonomyService::create_data_attribute] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::CreateDataAttribute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::CreateDataAttribute;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataAttribute {
     ///   # panic!();
@@ -10142,15 +10041,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::update_data_attribute][crate::client::DataTaxonomyService::update_data_attribute] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::UpdateDataAttribute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::UpdateDataAttribute;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataAttribute {
     ///   # panic!();
@@ -10292,15 +10190,14 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::delete_data_attribute][crate::client::DataTaxonomyService::delete_data_attribute] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::DeleteDataAttribute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::DeleteDataAttribute;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataAttribute {
     ///   # panic!();
@@ -10405,10 +10302,9 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::list_data_attributes][crate::client::DataTaxonomyService::list_data_attributes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::ListDataAttributes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::ListDataAttributes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10416,7 +10312,7 @@ pub mod data_taxonomy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataAttributes {
     ///   # panic!();
@@ -10525,14 +10421,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_data_attribute][crate::client::DataTaxonomyService::get_data_attribute] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetDataAttribute;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetDataAttribute;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataAttribute {
     ///   # panic!();
@@ -10591,10 +10486,9 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::list_locations][crate::client::DataTaxonomyService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -10602,7 +10496,7 @@ pub mod data_taxonomy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -10701,14 +10595,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_location][crate::client::DataTaxonomyService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -10762,14 +10655,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::set_iam_policy][crate::client::DataTaxonomyService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -10865,14 +10757,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_iam_policy][crate::client::DataTaxonomyService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -10946,14 +10837,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::test_iam_permissions][crate::client::DataTaxonomyService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -11025,10 +10915,9 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::list_operations][crate::client::DataTaxonomyService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11036,7 +10925,7 @@ pub mod data_taxonomy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -11143,14 +11032,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::get_operation][crate::client::DataTaxonomyService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -11207,14 +11095,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::delete_operation][crate::client::DataTaxonomyService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -11271,14 +11158,13 @@ pub mod data_taxonomy_service {
     /// The request builder for [DataTaxonomyService::cancel_operation][crate::client::DataTaxonomyService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_taxonomy_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_taxonomy_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -11339,7 +11225,7 @@ pub mod data_scan_service {
     /// A builder for [DataScanService][crate::client::DataScanService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::data_scan_service::ClientBuilder;
     /// # use client::DataScanService;
@@ -11347,7 +11233,7 @@ pub mod data_scan_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -11393,15 +11279,14 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::create_data_scan][crate::client::DataScanService::create_data_scan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::CreateDataScan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::CreateDataScan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDataScan {
     ///   # panic!();
@@ -11531,15 +11416,14 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::update_data_scan][crate::client::DataScanService::update_data_scan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::UpdateDataScan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::UpdateDataScan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataScan {
     ///   # panic!();
@@ -11671,15 +11555,14 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::delete_data_scan][crate::client::DataScanService::delete_data_scan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::DeleteDataScan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::DeleteDataScan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDataScan {
     ///   # panic!();
@@ -11781,14 +11664,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::get_data_scan][crate::client::DataScanService::get_data_scan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GetDataScan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GetDataScan;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataScan {
     ///   # panic!();
@@ -11853,10 +11735,9 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::list_data_scans][crate::client::DataScanService::list_data_scans] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::ListDataScans;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::ListDataScans;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -11864,7 +11745,7 @@ pub mod data_scan_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataScans {
     ///   # panic!();
@@ -11968,14 +11849,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::run_data_scan][crate::client::DataScanService::run_data_scan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::RunDataScan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::RunDataScan;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunDataScan {
     ///   # panic!();
@@ -12031,14 +11911,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::get_data_scan_job][crate::client::DataScanService::get_data_scan_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GetDataScanJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GetDataScanJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataScanJob {
     ///   # panic!();
@@ -12103,10 +11982,9 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::list_data_scan_jobs][crate::client::DataScanService::list_data_scan_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::ListDataScanJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::ListDataScanJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12114,7 +11992,7 @@ pub mod data_scan_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataScanJobs {
     ///   # panic!();
@@ -12215,14 +12093,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::generate_data_quality_rules][crate::client::DataScanService::generate_data_quality_rules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GenerateDataQualityRules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GenerateDataQualityRules;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateDataQualityRules {
     ///   # panic!();
@@ -12283,10 +12160,9 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::list_locations][crate::client::DataScanService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12294,7 +12170,7 @@ pub mod data_scan_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -12393,14 +12269,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::get_location][crate::client::DataScanService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -12454,14 +12329,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::set_iam_policy][crate::client::DataScanService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -12557,14 +12431,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::get_iam_policy][crate::client::DataScanService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -12638,14 +12511,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::test_iam_permissions][crate::client::DataScanService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -12717,10 +12589,9 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::list_operations][crate::client::DataScanService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -12728,7 +12599,7 @@ pub mod data_scan_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -12835,14 +12706,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::get_operation][crate::client::DataScanService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -12899,14 +12769,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::delete_operation][crate::client::DataScanService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -12963,14 +12832,13 @@ pub mod data_scan_service {
     /// The request builder for [DataScanService::cancel_operation][crate::client::DataScanService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::data_scan_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::data_scan_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -13031,7 +12899,7 @@ pub mod metadata_service {
     /// A builder for [MetadataService][crate::client::MetadataService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::metadata_service::ClientBuilder;
     /// # use client::MetadataService;
@@ -13039,7 +12907,7 @@ pub mod metadata_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -13085,14 +12953,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_entity][crate::client::MetadataService::create_entity] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::CreateEntity;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::CreateEntity;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEntity {
     ///   # panic!();
@@ -13176,14 +13043,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::update_entity][crate::client::MetadataService::update_entity] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::UpdateEntity;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::UpdateEntity;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEntity {
     ///   # panic!();
@@ -13259,14 +13125,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_entity][crate::client::MetadataService::delete_entity] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::DeleteEntity;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::DeleteEntity;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEntity {
     ///   # panic!();
@@ -13330,14 +13195,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_entity][crate::client::MetadataService::get_entity] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::GetEntity;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::GetEntity;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEntity {
     ///   # panic!();
@@ -13402,10 +13266,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_entities][crate::client::MetadataService::list_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::ListEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::ListEntities;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13413,7 +13276,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntities {
     ///   # panic!();
@@ -13522,14 +13385,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::create_partition][crate::client::MetadataService::create_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::CreatePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::CreatePartition;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePartition {
     ///   # panic!();
@@ -13613,14 +13475,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_partition][crate::client::MetadataService::delete_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::DeletePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::DeletePartition;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePartition {
     ///   # panic!();
@@ -13683,14 +13544,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_partition][crate::client::MetadataService::get_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::GetPartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::GetPartition;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPartition {
     ///   # panic!();
@@ -13746,10 +13606,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_partitions][crate::client::MetadataService::list_partitions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::ListPartitions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::ListPartitions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13757,7 +13616,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPartitions {
     ///   # panic!();
@@ -13855,10 +13714,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_locations][crate::client::MetadataService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -13866,7 +13724,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -13965,14 +13823,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_location][crate::client::MetadataService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -14026,14 +13883,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::set_iam_policy][crate::client::MetadataService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -14129,14 +13985,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_iam_policy][crate::client::MetadataService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -14210,14 +14065,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::test_iam_permissions][crate::client::MetadataService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -14289,10 +14143,9 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::list_operations][crate::client::MetadataService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -14300,7 +14153,7 @@ pub mod metadata_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -14407,14 +14260,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::get_operation][crate::client::MetadataService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -14471,14 +14323,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::delete_operation][crate::client::MetadataService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -14535,14 +14386,13 @@ pub mod metadata_service {
     /// The request builder for [MetadataService::cancel_operation][crate::client::MetadataService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::metadata_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::metadata_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -14603,7 +14453,7 @@ pub mod dataplex_service {
     /// A builder for [DataplexService][crate::client::DataplexService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_dataplex_v1::*;
     /// # use builder::dataplex_service::ClientBuilder;
     /// # use client::DataplexService;
@@ -14611,7 +14461,7 @@ pub mod dataplex_service {
     /// let client = builder
     ///     .with_endpoint("https://dataplex.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -14657,15 +14507,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::create_lake][crate::client::DataplexService::create_lake] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CreateLake;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateLake;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLake {
     ///   # panic!();
@@ -14795,15 +14644,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::update_lake][crate::client::DataplexService::update_lake] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::UpdateLake;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateLake;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateLake {
     ///   # panic!();
@@ -14939,15 +14787,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_lake][crate::client::DataplexService::delete_lake] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteLake;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteLake;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLake {
     ///   # panic!();
@@ -15043,10 +14890,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_lakes][crate::client::DataplexService::list_lakes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListLakes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListLakes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15054,7 +14900,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLakes {
     ///   # panic!();
@@ -15158,14 +15004,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_lake][crate::client::DataplexService::get_lake] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetLake;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetLake;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLake {
     ///   # panic!();
@@ -15221,10 +15066,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_lake_actions][crate::client::DataplexService::list_lake_actions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListLakeActions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListLakeActions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15232,7 +15076,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLakeActions {
     ///   # panic!();
@@ -15324,15 +15168,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::create_zone][crate::client::DataplexService::create_zone] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CreateZone;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateZone;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateZone {
     ///   # panic!();
@@ -15462,15 +15305,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::update_zone][crate::client::DataplexService::update_zone] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::UpdateZone;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateZone;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateZone {
     ///   # panic!();
@@ -15606,15 +15448,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_zone][crate::client::DataplexService::delete_zone] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteZone;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteZone;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteZone {
     ///   # panic!();
@@ -15710,10 +15551,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_zones][crate::client::DataplexService::list_zones] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListZones;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListZones;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15721,7 +15561,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListZones {
     ///   # panic!();
@@ -15825,14 +15665,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_zone][crate::client::DataplexService::get_zone] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetZone;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetZone;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetZone {
     ///   # panic!();
@@ -15888,10 +15727,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_zone_actions][crate::client::DataplexService::list_zone_actions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListZoneActions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListZoneActions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -15899,7 +15737,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListZoneActions {
     ///   # panic!();
@@ -15991,15 +15829,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::create_asset][crate::client::DataplexService::create_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CreateAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateAsset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAsset {
     ///   # panic!();
@@ -16129,15 +15966,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::update_asset][crate::client::DataplexService::update_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::UpdateAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateAsset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAsset {
     ///   # panic!();
@@ -16273,15 +16109,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_asset][crate::client::DataplexService::delete_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteAsset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAsset {
     ///   # panic!();
@@ -16377,10 +16212,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_assets][crate::client::DataplexService::list_assets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListAssets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListAssets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16388,7 +16222,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAssets {
     ///   # panic!();
@@ -16492,14 +16326,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_asset][crate::client::DataplexService::get_asset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetAsset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetAsset;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAsset {
     ///   # panic!();
@@ -16555,10 +16388,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_asset_actions][crate::client::DataplexService::list_asset_actions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListAssetActions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListAssetActions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -16566,7 +16398,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAssetActions {
     ///   # panic!();
@@ -16661,15 +16493,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::create_task][crate::client::DataplexService::create_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CreateTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateTask;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTask {
     ///   # panic!();
@@ -16799,15 +16630,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::update_task][crate::client::DataplexService::update_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::UpdateTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateTask;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTask {
     ///   # panic!();
@@ -16943,15 +16773,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_task][crate::client::DataplexService::delete_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteTask;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTask {
     ///   # panic!();
@@ -17047,10 +16876,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_tasks][crate::client::DataplexService::list_tasks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListTasks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListTasks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17058,7 +16886,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTasks {
     ///   # panic!();
@@ -17162,14 +16990,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_task][crate::client::DataplexService::get_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTask {
     ///   # panic!();
@@ -17225,10 +17052,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_jobs][crate::client::DataplexService::list_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17236,7 +17062,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobs {
     ///   # panic!();
@@ -17328,14 +17154,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::run_task][crate::client::DataplexService::run_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::RunTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::RunTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunTask {
     ///   # panic!();
@@ -17413,14 +17238,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_job][crate::client::DataplexService::get_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJob {
     ///   # panic!();
@@ -17476,14 +17300,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::cancel_job][crate::client::DataplexService::cancel_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CancelJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CancelJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelJob {
     ///   # panic!();
@@ -17539,15 +17362,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::create_environment][crate::client::DataplexService::create_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CreateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CreateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEnvironment {
     ///   # panic!();
@@ -17682,15 +17504,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::update_environment][crate::client::DataplexService::update_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::UpdateEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::UpdateEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEnvironment {
     ///   # panic!();
@@ -17831,15 +17652,14 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_environment][crate::client::DataplexService::delete_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEnvironment {
     ///   # panic!();
@@ -17938,10 +17758,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_environments][crate::client::DataplexService::list_environments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListEnvironments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListEnvironments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -17949,7 +17768,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEnvironments {
     ///   # panic!();
@@ -18056,14 +17875,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_environment][crate::client::DataplexService::get_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnvironment {
     ///   # panic!();
@@ -18119,10 +17937,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_sessions][crate::client::DataplexService::list_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18130,7 +17947,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSessions {
     ///   # panic!();
@@ -18228,10 +18045,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_locations][crate::client::DataplexService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18239,7 +18055,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -18338,14 +18154,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_location][crate::client::DataplexService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -18399,14 +18214,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::set_iam_policy][crate::client::DataplexService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -18502,14 +18316,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_iam_policy][crate::client::DataplexService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -18583,14 +18396,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::test_iam_permissions][crate::client::DataplexService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -18662,10 +18474,9 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::list_operations][crate::client::DataplexService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -18673,7 +18484,7 @@ pub mod dataplex_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -18780,14 +18591,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::get_operation][crate::client::DataplexService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -18844,14 +18654,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::delete_operation][crate::client::DataplexService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -18908,14 +18717,13 @@ pub mod dataplex_service {
     /// The request builder for [DataplexService::cancel_operation][crate::client::DataplexService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_dataplex_v1::builder;
-    /// use builder::dataplex_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_dataplex_v1::builder::dataplex_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

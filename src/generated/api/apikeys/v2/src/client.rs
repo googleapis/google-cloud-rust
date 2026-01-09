@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apikeys_v2::client::ApiKeys;
 /// let client = ApiKeys::builder().build().await?;
 /// // use `client` to make requests to the API Keys API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ApiKeys {
     /// Returns a builder for [ApiKeys].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apikeys_v2::client::ApiKeys;
     /// let client = ApiKeys::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::api_keys::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::api_keys::client::Factory)

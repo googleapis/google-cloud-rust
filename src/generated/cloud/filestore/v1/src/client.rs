@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
 /// let client = CloudFilestoreManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Filestore API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -86,10 +86,10 @@ impl CloudFilestoreManager {
     /// Returns a builder for [CloudFilestoreManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_filestore_v1::client::CloudFilestoreManager;
     /// let client = CloudFilestoreManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_filestore_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

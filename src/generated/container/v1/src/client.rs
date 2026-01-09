@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_container_v1::client::ClusterManager;
 /// let client = ClusterManager::builder().build().await?;
 /// // use `client` to make requests to the Kubernetes Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl ClusterManager {
     /// Returns a builder for [ClusterManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_container_v1::client::ClusterManager;
     /// let client = ClusterManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cluster_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cluster_manager::client::Factory)

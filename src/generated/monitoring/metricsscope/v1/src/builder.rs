@@ -20,7 +20,7 @@ pub mod metrics_scopes {
     /// A builder for [MetricsScopes][crate::client::MetricsScopes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_metricsscope_v1::*;
     /// # use builder::metrics_scopes::ClientBuilder;
     /// # use client::MetricsScopes;
@@ -28,7 +28,7 @@ pub mod metrics_scopes {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod metrics_scopes {
     /// The request builder for [MetricsScopes::get_metrics_scope][crate::client::MetricsScopes::get_metrics_scope] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_metricsscope_v1::builder;
-    /// use builder::metrics_scopes::GetMetricsScope;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::GetMetricsScope;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetricsScope {
     ///   # panic!();
@@ -137,14 +136,13 @@ pub mod metrics_scopes {
     /// The request builder for [MetricsScopes::list_metrics_scopes_by_monitored_project][crate::client::MetricsScopes::list_metrics_scopes_by_monitored_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_metricsscope_v1::builder;
-    /// use builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::ListMetricsScopesByMonitoredProject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMetricsScopesByMonitoredProject {
     ///   # panic!();
@@ -210,15 +208,14 @@ pub mod metrics_scopes {
     /// The request builder for [MetricsScopes::create_monitored_project][crate::client::MetricsScopes::create_monitored_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_metricsscope_v1::builder;
-    /// use builder::metrics_scopes::CreateMonitoredProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::CreateMonitoredProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMonitoredProject {
     ///   # panic!();
@@ -340,15 +337,14 @@ pub mod metrics_scopes {
     /// The request builder for [MetricsScopes::delete_monitored_project][crate::client::MetricsScopes::delete_monitored_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_metricsscope_v1::builder;
-    /// use builder::metrics_scopes::DeleteMonitoredProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::DeleteMonitoredProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMonitoredProject {
     ///   # panic!();
@@ -447,14 +443,13 @@ pub mod metrics_scopes {
     /// The request builder for [MetricsScopes::get_operation][crate::client::MetricsScopes::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_metricsscope_v1::builder;
-    /// use builder::metrics_scopes::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_metricsscope_v1::builder::metrics_scopes::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

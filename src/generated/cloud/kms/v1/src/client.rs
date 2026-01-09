@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::Autokey;
 /// let client = Autokey::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -88,10 +88,10 @@ impl Autokey {
     /// Returns a builder for [Autokey].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::Autokey;
     /// let client = Autokey::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autokey::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::autokey::client::Factory)
@@ -226,11 +226,11 @@ impl Autokey {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::AutokeyAdmin;
 /// let client = AutokeyAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -281,10 +281,10 @@ impl AutokeyAdmin {
     /// Returns a builder for [AutokeyAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::AutokeyAdmin;
     /// let client = AutokeyAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autokey_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::autokey_admin::client::Factory)
@@ -411,11 +411,11 @@ impl AutokeyAdmin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::EkmService;
 /// let client = EkmService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -464,10 +464,10 @@ impl EkmService {
     /// Returns a builder for [EkmService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::EkmService;
     /// let client = EkmService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::ekm_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::ekm_service::client::Factory)
@@ -621,11 +621,11 @@ impl EkmService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
 /// let client = KeyManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -683,10 +683,10 @@ impl KeyManagementService {
     /// Returns a builder for [KeyManagementService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_kms_v1::client::KeyManagementService;
     /// let client = KeyManagementService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::key_management_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

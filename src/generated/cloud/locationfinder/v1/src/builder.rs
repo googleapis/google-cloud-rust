@@ -20,7 +20,7 @@ pub mod cloud_location_finder {
     /// A builder for [CloudLocationFinder][crate::client::CloudLocationFinder].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_locationfinder_v1::*;
     /// # use builder::cloud_location_finder::ClientBuilder;
     /// # use client::CloudLocationFinder;
@@ -28,7 +28,7 @@ pub mod cloud_location_finder {
     /// let client = builder
     ///     .with_endpoint("https://cloudlocationfinder.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_location_finder {
     /// The request builder for [CloudLocationFinder::list_cloud_locations][crate::client::CloudLocationFinder::list_cloud_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_locationfinder_v1::builder;
-    /// use builder::cloud_location_finder::ListCloudLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::ListCloudLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_location_finder {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCloudLocations {
     ///   # panic!();
@@ -188,14 +187,13 @@ pub mod cloud_location_finder {
     /// The request builder for [CloudLocationFinder::get_cloud_location][crate::client::CloudLocationFinder::get_cloud_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_locationfinder_v1::builder;
-    /// use builder::cloud_location_finder::GetCloudLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::GetCloudLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCloudLocation {
     ///   # panic!();
@@ -254,10 +252,9 @@ pub mod cloud_location_finder {
     /// The request builder for [CloudLocationFinder::search_cloud_locations][crate::client::CloudLocationFinder::search_cloud_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_locationfinder_v1::builder;
-    /// use builder::cloud_location_finder::SearchCloudLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::SearchCloudLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -265,7 +262,7 @@ pub mod cloud_location_finder {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchCloudLocations {
     ///   # panic!();
@@ -376,10 +373,9 @@ pub mod cloud_location_finder {
     /// The request builder for [CloudLocationFinder::list_locations][crate::client::CloudLocationFinder::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_locationfinder_v1::builder;
-    /// use builder::cloud_location_finder::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -387,7 +383,7 @@ pub mod cloud_location_finder {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -486,14 +482,13 @@ pub mod cloud_location_finder {
     /// The request builder for [CloudLocationFinder::get_location][crate::client::CloudLocationFinder::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_locationfinder_v1::builder;
-    /// use builder::cloud_location_finder::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_locationfinder_v1::builder::cloud_location_finder::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

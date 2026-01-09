@@ -20,7 +20,7 @@ pub mod quota_controller {
     /// A builder for [QuotaController][crate::client::QuotaController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::*;
     /// # use builder::quota_controller::ClientBuilder;
     /// # use client::QuotaController;
@@ -28,7 +28,7 @@ pub mod quota_controller {
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod quota_controller {
     /// The request builder for [QuotaController::allocate_quota][crate::client::QuotaController::allocate_quota] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_servicecontrol_v1::builder;
-    /// use builder::quota_controller::AllocateQuota;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::builder::quota_controller::AllocateQuota;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AllocateQuota {
     ///   # panic!();
@@ -163,7 +162,7 @@ pub mod service_controller {
     /// A builder for [ServiceController][crate::client::ServiceController].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicecontrol_v1::*;
     /// # use builder::service_controller::ClientBuilder;
     /// # use client::ServiceController;
@@ -171,7 +170,7 @@ pub mod service_controller {
     /// let client = builder
     ///     .with_endpoint("https://servicecontrol.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -217,14 +216,13 @@ pub mod service_controller {
     /// The request builder for [ServiceController::check][crate::client::ServiceController::check] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_servicecontrol_v1::builder;
-    /// use builder::service_controller::Check;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::builder::service_controller::Check;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Check {
     ///   # panic!();
@@ -302,14 +300,13 @@ pub mod service_controller {
     /// The request builder for [ServiceController::report][crate::client::ServiceController::report] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_servicecontrol_v1::builder;
-    /// use builder::service_controller::Report;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_servicecontrol_v1::builder::service_controller::Report;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Report {
     ///   # panic!();

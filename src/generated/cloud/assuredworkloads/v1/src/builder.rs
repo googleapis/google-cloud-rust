@@ -20,7 +20,7 @@ pub mod assured_workloads_service {
     /// A builder for [AssuredWorkloadsService][crate::client::AssuredWorkloadsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_assuredworkloads_v1::*;
     /// # use builder::assured_workloads_service::ClientBuilder;
     /// # use client::AssuredWorkloadsService;
@@ -28,7 +28,7 @@ pub mod assured_workloads_service {
     /// let client = builder
     ///     .with_endpoint("https://assuredworkloads.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::create_workload][crate::client::AssuredWorkloadsService::create_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::CreateWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::CreateWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkload {
     ///   # panic!();
@@ -207,14 +206,13 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::update_workload][crate::client::AssuredWorkloadsService::update_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::UpdateWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::UpdateWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkload {
     ///   # panic!();
@@ -306,14 +304,13 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::restrict_allowed_resources][crate::client::AssuredWorkloadsService::restrict_allowed_resources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::RestrictAllowedResources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::RestrictAllowedResources;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestrictAllowedResources {
     ///   # panic!();
@@ -387,14 +384,13 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::delete_workload][crate::client::AssuredWorkloadsService::delete_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::DeleteWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::DeleteWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkload {
     ///   # panic!();
@@ -456,14 +452,13 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::get_workload][crate::client::AssuredWorkloadsService::get_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::GetWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::GetWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkload {
     ///   # panic!();
@@ -519,10 +514,9 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::list_workloads][crate::client::AssuredWorkloadsService::list_workloads] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::ListWorkloads;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::ListWorkloads;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -530,7 +524,7 @@ pub mod assured_workloads_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkloads {
     ///   # panic!();
@@ -628,10 +622,9 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::list_operations][crate::client::AssuredWorkloadsService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -639,7 +632,7 @@ pub mod assured_workloads_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -746,14 +739,13 @@ pub mod assured_workloads_service {
     /// The request builder for [AssuredWorkloadsService::get_operation][crate::client::AssuredWorkloadsService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_assuredworkloads_v1::builder;
-    /// use builder::assured_workloads_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_assuredworkloads_v1::builder::assured_workloads_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

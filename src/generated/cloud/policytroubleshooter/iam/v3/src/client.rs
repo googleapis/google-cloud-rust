@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
 /// let client = PolicyTroubleshooter::builder().build().await?;
 /// // use `client` to make requests to the Policy Troubleshooter API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl PolicyTroubleshooter {
     /// Returns a builder for [PolicyTroubleshooter].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policytroubleshooter_iam_v3::client::PolicyTroubleshooter;
     /// let client = PolicyTroubleshooter::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_troubleshooter::ClientBuilder {
         gax::client_builder::internal::new_builder(

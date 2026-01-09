@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
 /// let client = ContainerAnalysis::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -78,10 +78,10 @@ impl ContainerAnalysis {
     /// Returns a builder for [ContainerAnalysis].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_containeranalysis_v1::client::ContainerAnalysis;
     /// let client = ContainerAnalysis::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::container_analysis::ClientBuilder {
         gax::client_builder::internal::new_builder(

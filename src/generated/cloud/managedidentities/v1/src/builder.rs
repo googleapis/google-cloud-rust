@@ -20,7 +20,7 @@ pub mod managed_identities_service {
     /// A builder for [ManagedIdentitiesService][crate::client::ManagedIdentitiesService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedidentities_v1::*;
     /// # use builder::managed_identities_service::ClientBuilder;
     /// # use client::ManagedIdentitiesService;
@@ -28,7 +28,7 @@ pub mod managed_identities_service {
     /// let client = builder
     ///     .with_endpoint("https://managedidentities.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::create_microsoft_ad_domain][crate::client::ManagedIdentitiesService::create_microsoft_ad_domain] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::CreateMicrosoftAdDomain;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::CreateMicrosoftAdDomain;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMicrosoftAdDomain {
     ///   # panic!();
@@ -209,14 +208,13 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::reset_admin_password][crate::client::ManagedIdentitiesService::reset_admin_password] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::ResetAdminPassword;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ResetAdminPassword;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResetAdminPassword {
     ///   # panic!();
@@ -275,10 +273,9 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::list_domains][crate::client::ManagedIdentitiesService::list_domains] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::ListDomains;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ListDomains;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -286,7 +283,7 @@ pub mod managed_identities_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDomains {
     ///   # panic!();
@@ -390,14 +387,13 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::get_domain][crate::client::ManagedIdentitiesService::get_domain] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::GetDomain;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::GetDomain;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDomain {
     ///   # panic!();
@@ -453,15 +449,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::update_domain][crate::client::ManagedIdentitiesService::update_domain] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::UpdateDomain;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::UpdateDomain;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDomain {
     ///   # panic!();
@@ -589,15 +584,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::delete_domain][crate::client::ManagedIdentitiesService::delete_domain] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::DeleteDomain;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DeleteDomain;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDomain {
     ///   # panic!();
@@ -693,15 +687,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::attach_trust][crate::client::ManagedIdentitiesService::attach_trust] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::AttachTrust;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::AttachTrust;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AttachTrust {
     ///   # panic!();
@@ -815,15 +808,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::reconfigure_trust][crate::client::ManagedIdentitiesService::reconfigure_trust] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::ReconfigureTrust;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ReconfigureTrust;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReconfigureTrust {
     ///   # panic!();
@@ -939,15 +931,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::detach_trust][crate::client::ManagedIdentitiesService::detach_trust] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::DetachTrust;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DetachTrust;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DetachTrust {
     ///   # panic!();
@@ -1061,15 +1052,14 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::validate_trust][crate::client::ManagedIdentitiesService::validate_trust] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::ValidateTrust;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ValidateTrust;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ValidateTrust {
     ///   # panic!();
@@ -1183,10 +1173,9 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::list_operations][crate::client::ManagedIdentitiesService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1194,7 +1183,7 @@ pub mod managed_identities_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1301,14 +1290,13 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::get_operation][crate::client::ManagedIdentitiesService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1365,14 +1353,13 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::delete_operation][crate::client::ManagedIdentitiesService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1429,14 +1416,13 @@ pub mod managed_identities_service {
     /// The request builder for [ManagedIdentitiesService::cancel_operation][crate::client::ManagedIdentitiesService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedidentities_v1::builder;
-    /// use builder::managed_identities_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedidentities_v1::builder::managed_identities_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

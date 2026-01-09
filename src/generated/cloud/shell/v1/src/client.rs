@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_shell_v1::client::CloudShellService;
 /// let client = CloudShellService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Shell API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -72,10 +72,10 @@ impl CloudShellService {
     /// Returns a builder for [CloudShellService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_shell_v1::client::CloudShellService;
     /// let client = CloudShellService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_shell_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

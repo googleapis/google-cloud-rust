@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseAttachmentService;
 /// let client = CaseAttachmentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl CaseAttachmentService {
     /// Returns a builder for [CaseAttachmentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseAttachmentService;
     /// let client = CaseAttachmentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::case_attachment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -131,11 +131,11 @@ impl CaseAttachmentService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CaseService;
 /// let client = CaseService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -177,10 +177,10 @@ impl CaseService {
     /// Returns a builder for [CaseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CaseService;
     /// let client = CaseService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::case_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::case_service::client::Factory)
@@ -299,11 +299,11 @@ impl CaseService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_support_v2::client::CommentService;
 /// let client = CommentService::builder().build().await?;
 /// // use `client` to make requests to the Google Cloud Support API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -345,10 +345,10 @@ impl CommentService {
     /// Returns a builder for [CommentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::client::CommentService;
     /// let client = CommentService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::comment_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::comment_service::client::Factory)

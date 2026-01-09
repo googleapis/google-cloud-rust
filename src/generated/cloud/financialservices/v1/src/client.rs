@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_financialservices_v1::client::Aml;
 /// let client = Aml::builder().build().await?;
 /// // use `client` to make requests to the Financial Services API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl Aml {
     /// Returns a builder for [Aml].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_financialservices_v1::client::Aml;
     /// let client = Aml::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::aml::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::aml::client::Factory)

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_grafeas_v1::client::Grafeas;
 /// let client = Grafeas::builder().build().await?;
 /// // use `client` to make requests to the Container Analysis API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -79,10 +79,10 @@ impl Grafeas {
     /// Returns a builder for [Grafeas].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_grafeas_v1::client::Grafeas;
     /// let client = Grafeas::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::grafeas::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::grafeas::client::Factory)

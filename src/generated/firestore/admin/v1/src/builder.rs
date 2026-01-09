@@ -20,7 +20,7 @@ pub mod firestore_admin {
     /// A builder for [FirestoreAdmin][crate::client::FirestoreAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_firestore_admin_v1::*;
     /// # use builder::firestore_admin::ClientBuilder;
     /// # use client::FirestoreAdmin;
@@ -28,7 +28,7 @@ pub mod firestore_admin {
     /// let client = builder
     ///     .with_endpoint("https://firestore.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::create_index][crate::client::FirestoreAdmin::create_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CreateIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateIndex;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIndex {
     ///   # panic!();
@@ -198,10 +197,9 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_indexes][crate::client::FirestoreAdmin::list_indexes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListIndexes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListIndexes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -209,7 +207,7 @@ pub mod firestore_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIndexes {
     ///   # panic!();
@@ -307,14 +305,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_index][crate::client::FirestoreAdmin::get_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetIndex;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIndex {
     ///   # panic!();
@@ -370,14 +367,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_index][crate::client::FirestoreAdmin::delete_index] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteIndex;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteIndex;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIndex {
     ///   # panic!();
@@ -433,14 +429,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_field][crate::client::FirestoreAdmin::get_field] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetField;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetField;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetField {
     ///   # panic!();
@@ -496,15 +491,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::update_field][crate::client::FirestoreAdmin::update_field] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::UpdateField;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::UpdateField;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateField {
     ///   # panic!();
@@ -630,10 +624,9 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_fields][crate::client::FirestoreAdmin::list_fields] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListFields;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListFields;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -641,7 +634,7 @@ pub mod firestore_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFields {
     ///   # panic!();
@@ -739,15 +732,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::export_documents][crate::client::FirestoreAdmin::export_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ExportDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ExportDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportDocuments {
     ///   # panic!();
@@ -890,15 +882,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::import_documents][crate::client::FirestoreAdmin::import_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ImportDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ImportDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportDocuments {
     ///   # panic!();
@@ -1023,15 +1014,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::bulk_delete_documents][crate::client::FirestoreAdmin::bulk_delete_documents] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::BulkDeleteDocuments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::BulkDeleteDocuments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BulkDeleteDocuments {
     ///   # panic!();
@@ -1155,15 +1145,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::create_database][crate::client::FirestoreAdmin::create_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CreateDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDatabase {
     ///   # panic!();
@@ -1290,14 +1279,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_database][crate::client::FirestoreAdmin::get_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatabase {
     ///   # panic!();
@@ -1353,14 +1341,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_databases][crate::client::FirestoreAdmin::list_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabases {
     ///   # panic!();
@@ -1422,15 +1409,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::update_database][crate::client::FirestoreAdmin::update_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::UpdateDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::UpdateDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDatabase {
     ///   # panic!();
@@ -1559,15 +1545,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_database][crate::client::FirestoreAdmin::delete_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDatabase {
     ///   # panic!();
@@ -1670,14 +1655,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::create_user_creds][crate::client::FirestoreAdmin::create_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CreateUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUserCreds {
     ///   # panic!();
@@ -1763,14 +1747,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_user_creds][crate::client::FirestoreAdmin::get_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUserCreds {
     ///   # panic!();
@@ -1826,14 +1809,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_user_creds][crate::client::FirestoreAdmin::list_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUserCreds {
     ///   # panic!();
@@ -1889,14 +1871,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::enable_user_creds][crate::client::FirestoreAdmin::enable_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::EnableUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::EnableUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EnableUserCreds {
     ///   # panic!();
@@ -1952,14 +1933,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::disable_user_creds][crate::client::FirestoreAdmin::disable_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DisableUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DisableUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DisableUserCreds {
     ///   # panic!();
@@ -2018,14 +1998,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::reset_user_password][crate::client::FirestoreAdmin::reset_user_password] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ResetUserPassword;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ResetUserPassword;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResetUserPassword {
     ///   # panic!();
@@ -2084,14 +2063,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_user_creds][crate::client::FirestoreAdmin::delete_user_creds] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteUserCreds;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteUserCreds;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUserCreds {
     ///   # panic!();
@@ -2147,14 +2125,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_backup][crate::client::FirestoreAdmin::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -2210,14 +2187,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_backups][crate::client::FirestoreAdmin::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -2279,14 +2255,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_backup][crate::client::FirestoreAdmin::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -2342,15 +2317,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::restore_database][crate::client::FirestoreAdmin::restore_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::RestoreDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::RestoreDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreDatabase {
     ///   # panic!();
@@ -2492,14 +2466,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::create_backup_schedule][crate::client::FirestoreAdmin::create_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CreateBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CreateBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupSchedule {
     ///   # panic!();
@@ -2580,14 +2553,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_backup_schedule][crate::client::FirestoreAdmin::get_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupSchedule {
     ///   # panic!();
@@ -2646,14 +2618,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_backup_schedules][crate::client::FirestoreAdmin::list_backup_schedules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListBackupSchedules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListBackupSchedules;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupSchedules {
     ///   # panic!();
@@ -2712,14 +2683,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::update_backup_schedule][crate::client::FirestoreAdmin::update_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::UpdateBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::UpdateBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupSchedule {
     ///   # panic!();
@@ -2810,14 +2780,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_backup_schedule][crate::client::FirestoreAdmin::delete_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupSchedule {
     ///   # panic!();
@@ -2876,15 +2845,14 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::clone_database][crate::client::FirestoreAdmin::clone_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CloneDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CloneDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CloneDatabase {
     ///   # panic!();
@@ -3039,10 +3007,9 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::list_operations][crate::client::FirestoreAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3050,7 +3017,7 @@ pub mod firestore_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3157,14 +3124,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::get_operation][crate::client::FirestoreAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3221,14 +3187,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::delete_operation][crate::client::FirestoreAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3285,14 +3250,13 @@ pub mod firestore_admin {
     /// The request builder for [FirestoreAdmin::cancel_operation][crate::client::FirestoreAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_firestore_admin_v1::builder;
-    /// use builder::firestore_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_firestore_admin_v1::builder::firestore_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

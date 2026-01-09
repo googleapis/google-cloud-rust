@@ -20,7 +20,7 @@ pub mod binauthz_management_service_v_1 {
     /// A builder for [BinauthzManagementServiceV1][crate::client::BinauthzManagementServiceV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::binauthz_management_service_v_1::ClientBuilder;
     /// # use client::BinauthzManagementServiceV1;
@@ -28,7 +28,7 @@ pub mod binauthz_management_service_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::get_policy][crate::client::BinauthzManagementServiceV1::get_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::GetPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::GetPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPolicy {
     ///   # panic!();
@@ -137,14 +136,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::update_policy][crate::client::BinauthzManagementServiceV1::update_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::UpdatePolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::UpdatePolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePolicy {
     ///   # panic!();
@@ -214,14 +212,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::create_attestor][crate::client::BinauthzManagementServiceV1::create_attestor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::CreateAttestor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::CreateAttestor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAttestor {
     ///   # panic!();
@@ -307,14 +304,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::get_attestor][crate::client::BinauthzManagementServiceV1::get_attestor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::GetAttestor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::GetAttestor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAttestor {
     ///   # panic!();
@@ -370,14 +366,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::update_attestor][crate::client::BinauthzManagementServiceV1::update_attestor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::UpdateAttestor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::UpdateAttestor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAttestor {
     ///   # panic!();
@@ -447,10 +442,9 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::list_attestors][crate::client::BinauthzManagementServiceV1::list_attestors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::ListAttestors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::ListAttestors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -458,7 +452,7 @@ pub mod binauthz_management_service_v_1 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAttestors {
     ///   # panic!();
@@ -550,14 +544,13 @@ pub mod binauthz_management_service_v_1 {
     /// The request builder for [BinauthzManagementServiceV1::delete_attestor][crate::client::BinauthzManagementServiceV1::delete_attestor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::binauthz_management_service_v_1::DeleteAttestor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::binauthz_management_service_v_1::DeleteAttestor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAttestor {
     ///   # panic!();
@@ -617,7 +610,7 @@ pub mod system_policy_v_1 {
     /// A builder for [SystemPolicyV1][crate::client::SystemPolicyV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::system_policy_v_1::ClientBuilder;
     /// # use client::SystemPolicyV1;
@@ -625,7 +618,7 @@ pub mod system_policy_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -671,14 +664,13 @@ pub mod system_policy_v_1 {
     /// The request builder for [SystemPolicyV1::get_system_policy][crate::client::SystemPolicyV1::get_system_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::system_policy_v_1::GetSystemPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::system_policy_v_1::GetSystemPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSystemPolicy {
     ///   # panic!();
@@ -738,7 +730,7 @@ pub mod validation_helper_v_1 {
     /// A builder for [ValidationHelperV1][crate::client::ValidationHelperV1].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_binaryauthorization_v1::*;
     /// # use builder::validation_helper_v_1::ClientBuilder;
     /// # use client::ValidationHelperV1;
@@ -746,7 +738,7 @@ pub mod validation_helper_v_1 {
     /// let client = builder
     ///     .with_endpoint("https://binaryauthorization.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -792,14 +784,13 @@ pub mod validation_helper_v_1 {
     /// The request builder for [ValidationHelperV1::validate_attestation_occurrence][crate::client::ValidationHelperV1::validate_attestation_occurrence] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_binaryauthorization_v1::builder;
-    /// use builder::validation_helper_v_1::ValidateAttestationOccurrence;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_binaryauthorization_v1::builder::validation_helper_v_1::ValidateAttestationOccurrence;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ValidateAttestationOccurrence {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod iam_policy {
     /// A builder for [IAMPolicy][crate::client::IAMPolicy].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v1::*;
     /// # use builder::iam_policy::ClientBuilder;
     /// # use client::IAMPolicy;
@@ -28,7 +28,7 @@ pub mod iam_policy {
     /// let client = builder
     ///     .with_endpoint("https://iam-meta-api.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod iam_policy {
     /// The request builder for [IAMPolicy::set_iam_policy][crate::client::IAMPolicy::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v1::builder;
-    /// use builder::iam_policy::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v1::builder::iam_policy::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -177,14 +176,13 @@ pub mod iam_policy {
     /// The request builder for [IAMPolicy::get_iam_policy][crate::client::IAMPolicy::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v1::builder;
-    /// use builder::iam_policy::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v1::builder::iam_policy::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -258,14 +256,13 @@ pub mod iam_policy {
     /// The request builder for [IAMPolicy::test_iam_permissions][crate::client::IAMPolicy::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_v1::builder;
-    /// use builder::iam_policy::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_v1::builder::iam_policy::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();

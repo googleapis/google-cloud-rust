@@ -20,7 +20,7 @@ pub mod lustre {
     /// A builder for [Lustre][crate::client::Lustre].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_lustre_v1::*;
     /// # use builder::lustre::ClientBuilder;
     /// # use client::Lustre;
@@ -28,7 +28,7 @@ pub mod lustre {
     /// let client = builder
     ///     .with_endpoint("https://lustre.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod lustre {
     /// The request builder for [Lustre::list_instances][crate::client::Lustre::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod lustre {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -185,14 +184,13 @@ pub mod lustre {
     /// The request builder for [Lustre::get_instance][crate::client::Lustre::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -246,15 +244,14 @@ pub mod lustre {
     /// The request builder for [Lustre::create_instance][crate::client::Lustre::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -382,15 +379,14 @@ pub mod lustre {
     /// The request builder for [Lustre::update_instance][crate::client::Lustre::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -520,15 +516,14 @@ pub mod lustre {
     /// The request builder for [Lustre::delete_instance][crate::client::Lustre::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -628,15 +623,14 @@ pub mod lustre {
     /// The request builder for [Lustre::import_data][crate::client::Lustre::import_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::ImportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ImportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportData {
     ///   # panic!();
@@ -793,15 +787,14 @@ pub mod lustre {
     /// The request builder for [Lustre::export_data][crate::client::Lustre::export_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::ExportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ExportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportData {
     ///   # panic!();
@@ -958,10 +951,9 @@ pub mod lustre {
     /// The request builder for [Lustre::list_locations][crate::client::Lustre::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -969,7 +961,7 @@ pub mod lustre {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1066,14 +1058,13 @@ pub mod lustre {
     /// The request builder for [Lustre::get_location][crate::client::Lustre::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1125,10 +1116,9 @@ pub mod lustre {
     /// The request builder for [Lustre::list_operations][crate::client::Lustre::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1136,7 +1126,7 @@ pub mod lustre {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1241,14 +1231,13 @@ pub mod lustre {
     /// The request builder for [Lustre::get_operation][crate::client::Lustre::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1303,14 +1292,13 @@ pub mod lustre {
     /// The request builder for [Lustre::delete_operation][crate::client::Lustre::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1365,14 +1353,13 @@ pub mod lustre {
     /// The request builder for [Lustre::cancel_operation][crate::client::Lustre::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_lustre_v1::builder;
-    /// use builder::lustre::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_lustre_v1::builder::lustre::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

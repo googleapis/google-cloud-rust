@@ -20,7 +20,7 @@ pub mod connection_service {
     /// A builder for [ConnectionService][crate::client::ConnectionService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apigeeconnect_v1::*;
     /// # use builder::connection_service::ClientBuilder;
     /// # use client::ConnectionService;
@@ -28,7 +28,7 @@ pub mod connection_service {
     /// let client = builder
     ///     .with_endpoint("https://apigeeconnect.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod connection_service {
     /// The request builder for [ConnectionService::list_connections][crate::client::ConnectionService::list_connections] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apigeeconnect_v1::builder;
-    /// use builder::connection_service::ListConnections;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apigeeconnect_v1::builder::connection_service::ListConnections;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod connection_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnections {
     ///   # panic!();

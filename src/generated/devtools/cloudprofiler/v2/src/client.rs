@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ProfilerService;
 /// let client = ProfilerService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl ProfilerService {
     /// Returns a builder for [ProfilerService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ProfilerService;
     /// let client = ProfilerService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::profiler_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -177,11 +177,11 @@ impl ProfilerService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_profiler_v2::client::ExportService;
 /// let client = ExportService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Profiler API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -224,10 +224,10 @@ impl ExportService {
     /// Returns a builder for [ExportService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::client::ExportService;
     /// let client = ExportService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::export_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::export_service::client::Factory)

@@ -20,7 +20,7 @@ pub mod instance_admin {
     /// A builder for [InstanceAdmin][crate::client::InstanceAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_instance_v1::*;
     /// # use builder::instance_admin::ClientBuilder;
     /// # use client::InstanceAdmin;
@@ -28,7 +28,7 @@ pub mod instance_admin {
     /// let client = builder
     ///     .with_endpoint("https://spanner.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_instance_configs][crate::client::InstanceAdmin::list_instance_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListInstanceConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstanceConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstanceConfigs {
     ///   # panic!();
@@ -182,14 +181,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::get_instance_config][crate::client::InstanceAdmin::get_instance_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::GetInstanceConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstanceConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstanceConfig {
     ///   # panic!();
@@ -248,15 +246,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::create_instance_config][crate::client::InstanceAdmin::create_instance_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::CreateInstanceConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstanceConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstanceConfig {
     ///   # panic!();
@@ -392,15 +389,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::update_instance_config][crate::client::InstanceAdmin::update_instance_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::UpdateInstanceConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstanceConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstanceConfig {
     ///   # panic!();
@@ -542,14 +538,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::delete_instance_config][crate::client::InstanceAdmin::delete_instance_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::DeleteInstanceConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstanceConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstanceConfig {
     ///   # panic!();
@@ -620,10 +615,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_instance_config_operations][crate::client::InstanceAdmin::list_instance_config_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListInstanceConfigOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstanceConfigOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -631,7 +625,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstanceConfigOperations {
     ///   # panic!();
@@ -738,10 +732,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_instances][crate::client::InstanceAdmin::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -749,7 +742,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -865,10 +858,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_instance_partitions][crate::client::InstanceAdmin::list_instance_partitions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListInstancePartitions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstancePartitions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -876,7 +868,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstancePartitions {
     ///   # panic!();
@@ -996,14 +988,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::get_instance][crate::client::InstanceAdmin::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -1077,15 +1068,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::create_instance][crate::client::InstanceAdmin::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -1212,15 +1202,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::update_instance][crate::client::InstanceAdmin::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -1353,14 +1342,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::delete_instance][crate::client::InstanceAdmin::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -1416,14 +1404,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::set_iam_policy][crate::client::InstanceAdmin::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1519,14 +1506,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::get_iam_policy][crate::client::InstanceAdmin::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1600,14 +1586,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::test_iam_permissions][crate::client::InstanceAdmin::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1679,14 +1664,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::get_instance_partition][crate::client::InstanceAdmin::get_instance_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::GetInstancePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetInstancePartition;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstancePartition {
     ///   # panic!();
@@ -1745,15 +1729,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::create_instance_partition][crate::client::InstanceAdmin::create_instance_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::CreateInstancePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CreateInstancePartition;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstancePartition {
     ///   # panic!();
@@ -1887,14 +1870,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::delete_instance_partition][crate::client::InstanceAdmin::delete_instance_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::DeleteInstancePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteInstancePartition;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstancePartition {
     ///   # panic!();
@@ -1961,15 +1943,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::update_instance_partition][crate::client::InstanceAdmin::update_instance_partition] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::UpdateInstancePartition;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::UpdateInstancePartition;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstancePartition {
     ///   # panic!();
@@ -2109,10 +2090,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_instance_partition_operations][crate::client::InstanceAdmin::list_instance_partition_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListInstancePartitionOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListInstancePartitionOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2120,7 +2100,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstancePartitionOperations {
     ///   # panic!();
@@ -2248,15 +2228,14 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::move_instance][crate::client::InstanceAdmin::move_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::MoveInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::MoveInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveInstance {
     ///   # panic!();
@@ -2361,10 +2340,9 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::list_operations][crate::client::InstanceAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2372,7 +2350,7 @@ pub mod instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2479,14 +2457,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::get_operation][crate::client::InstanceAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2543,14 +2520,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::delete_operation][crate::client::InstanceAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2607,14 +2583,13 @@ pub mod instance_admin {
     /// The request builder for [InstanceAdmin::cancel_operation][crate::client::InstanceAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_instance_v1::builder;
-    /// use builder::instance_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_instance_v1::builder::instance_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

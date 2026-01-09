@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
 /// let client = ServiceManager::builder().build().await?;
 /// // use `client` to make requests to the Service Management API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl ServiceManager {
     /// Returns a builder for [ServiceManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_servicemanagement_v1::client::ServiceManager;
     /// let client = ServiceManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::service_manager::client::Factory)

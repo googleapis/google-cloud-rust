@@ -20,7 +20,7 @@ pub mod case_attachment_service {
     /// A builder for [CaseAttachmentService][crate::client::CaseAttachmentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_attachment_service::ClientBuilder;
     /// # use client::CaseAttachmentService;
@@ -28,7 +28,7 @@ pub mod case_attachment_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod case_attachment_service {
     /// The request builder for [CaseAttachmentService::list_attachments][crate::client::CaseAttachmentService::list_attachments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_attachment_service::ListAttachments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_attachment_service::ListAttachments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod case_attachment_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAttachments {
     ///   # panic!();
@@ -181,7 +180,7 @@ pub mod case_service {
     /// A builder for [CaseService][crate::client::CaseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::case_service::ClientBuilder;
     /// # use client::CaseService;
@@ -189,7 +188,7 @@ pub mod case_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -235,14 +234,13 @@ pub mod case_service {
     /// The request builder for [CaseService::get_case][crate::client::CaseService::get_case] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::GetCase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::GetCase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCase {
     ///   # panic!();
@@ -298,10 +296,9 @@ pub mod case_service {
     /// The request builder for [CaseService::list_cases][crate::client::CaseService::list_cases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::ListCases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::ListCases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -309,7 +306,7 @@ pub mod case_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCases {
     ///   # panic!();
@@ -407,10 +404,9 @@ pub mod case_service {
     /// The request builder for [CaseService::search_cases][crate::client::CaseService::search_cases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::SearchCases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::SearchCases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -418,7 +414,7 @@ pub mod case_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchCases {
     ///   # panic!();
@@ -514,14 +510,13 @@ pub mod case_service {
     /// The request builder for [CaseService::create_case][crate::client::CaseService::create_case] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::CreateCase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::CreateCase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCase {
     ///   # panic!();
@@ -599,14 +594,13 @@ pub mod case_service {
     /// The request builder for [CaseService::update_case][crate::client::CaseService::update_case] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::UpdateCase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::UpdateCase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCase {
     ///   # panic!();
@@ -694,14 +688,13 @@ pub mod case_service {
     /// The request builder for [CaseService::escalate_case][crate::client::CaseService::escalate_case] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::EscalateCase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::EscalateCase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EscalateCase {
     ///   # panic!();
@@ -775,14 +768,13 @@ pub mod case_service {
     /// The request builder for [CaseService::close_case][crate::client::CaseService::close_case] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::CloseCase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::CloseCase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CloseCase {
     ///   # panic!();
@@ -838,10 +830,9 @@ pub mod case_service {
     /// The request builder for [CaseService::search_case_classifications][crate::client::CaseService::search_case_classifications] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::case_service::SearchCaseClassifications;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::case_service::SearchCaseClassifications;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -849,7 +840,7 @@ pub mod case_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchCaseClassifications {
     ///   # panic!();
@@ -952,7 +943,7 @@ pub mod comment_service {
     /// A builder for [CommentService][crate::client::CommentService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_support_v2::*;
     /// # use builder::comment_service::ClientBuilder;
     /// # use client::CommentService;
@@ -960,7 +951,7 @@ pub mod comment_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudsupport.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1006,10 +997,9 @@ pub mod comment_service {
     /// The request builder for [CommentService::list_comments][crate::client::CommentService::list_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::comment_service::ListComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::comment_service::ListComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1017,7 +1007,7 @@ pub mod comment_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListComments {
     ///   # panic!();
@@ -1109,14 +1099,13 @@ pub mod comment_service {
     /// The request builder for [CommentService::create_comment][crate::client::CommentService::create_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_support_v2::builder;
-    /// use builder::comment_service::CreateComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_support_v2::builder::comment_service::CreateComment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateComment {
     ///   # panic!();

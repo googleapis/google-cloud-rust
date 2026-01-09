@@ -20,7 +20,7 @@ pub mod language_service {
     /// A builder for [LanguageService][crate::client::LanguageService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_language_v2::*;
     /// # use builder::language_service::ClientBuilder;
     /// # use client::LanguageService;
@@ -28,7 +28,7 @@ pub mod language_service {
     /// let client = builder
     ///     .with_endpoint("https://language.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod language_service {
     /// The request builder for [LanguageService::analyze_sentiment][crate::client::LanguageService::analyze_sentiment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_language_v2::builder;
-    /// use builder::language_service::AnalyzeSentiment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_language_v2::builder::language_service::AnalyzeSentiment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnalyzeSentiment {
     ///   # panic!();
@@ -160,14 +159,13 @@ pub mod language_service {
     /// The request builder for [LanguageService::analyze_entities][crate::client::LanguageService::analyze_entities] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_language_v2::builder;
-    /// use builder::language_service::AnalyzeEntities;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_language_v2::builder::language_service::AnalyzeEntities;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnalyzeEntities {
     ///   # panic!();
@@ -243,14 +241,13 @@ pub mod language_service {
     /// The request builder for [LanguageService::classify_text][crate::client::LanguageService::classify_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_language_v2::builder;
-    /// use builder::language_service::ClassifyText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_language_v2::builder::language_service::ClassifyText;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ClassifyText {
     ///   # panic!();
@@ -320,14 +317,13 @@ pub mod language_service {
     /// The request builder for [LanguageService::moderate_text][crate::client::LanguageService::moderate_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_language_v2::builder;
-    /// use builder::language_service::ModerateText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_language_v2::builder::language_service::ModerateText;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ModerateText {
     ///   # panic!();
@@ -406,14 +402,13 @@ pub mod language_service {
     /// The request builder for [LanguageService::annotate_text][crate::client::LanguageService::annotate_text] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_language_v2::builder;
-    /// use builder::language_service::AnnotateText;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_language_v2::builder::language_service::AnnotateText;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnnotateText {
     ///   # panic!();

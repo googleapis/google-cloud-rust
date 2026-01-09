@@ -20,7 +20,7 @@ pub mod iam {
     /// A builder for [Iam][crate::client::Iam].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_admin_v1::*;
     /// # use builder::iam::ClientBuilder;
     /// # use client::Iam;
@@ -28,7 +28,7 @@ pub mod iam {
     /// let client = builder
     ///     .with_endpoint("https://iam.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod iam {
     /// The request builder for [Iam::list_service_accounts][crate::client::Iam::list_service_accounts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::ListServiceAccounts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::ListServiceAccounts;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod iam {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServiceAccounts {
     ///   # panic!();
@@ -178,14 +177,13 @@ pub mod iam {
     /// The request builder for [Iam::get_service_account][crate::client::Iam::get_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::GetServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::GetServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServiceAccount {
     ///   # panic!();
@@ -242,14 +240,13 @@ pub mod iam {
     /// The request builder for [Iam::create_service_account][crate::client::Iam::create_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::CreateServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::CreateServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServiceAccount {
     ///   # panic!();
@@ -332,14 +329,13 @@ pub mod iam {
     /// The request builder for [Iam::update_service_account][crate::client::Iam::update_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::UpdateServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::UpdateServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateServiceAccount {
     ///   # panic!();
@@ -440,14 +436,13 @@ pub mod iam {
     /// The request builder for [Iam::patch_service_account][crate::client::Iam::patch_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::PatchServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::PatchServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PatchServiceAccount {
     ///   # panic!();
@@ -532,14 +527,13 @@ pub mod iam {
     /// The request builder for [Iam::delete_service_account][crate::client::Iam::delete_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::DeleteServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::DeleteServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteServiceAccount {
     ///   # panic!();
@@ -596,14 +590,13 @@ pub mod iam {
     /// The request builder for [Iam::undelete_service_account][crate::client::Iam::undelete_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::UndeleteServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::UndeleteServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteServiceAccount {
     ///   # panic!();
@@ -658,14 +651,13 @@ pub mod iam {
     /// The request builder for [Iam::enable_service_account][crate::client::Iam::enable_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::EnableServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::EnableServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EnableServiceAccount {
     ///   # panic!();
@@ -720,14 +712,13 @@ pub mod iam {
     /// The request builder for [Iam::disable_service_account][crate::client::Iam::disable_service_account] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::DisableServiceAccount;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::DisableServiceAccount;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DisableServiceAccount {
     ///   # panic!();
@@ -782,14 +773,13 @@ pub mod iam {
     /// The request builder for [Iam::list_service_account_keys][crate::client::Iam::list_service_account_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::ListServiceAccountKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::ListServiceAccountKeys;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServiceAccountKeys {
     ///   # panic!();
@@ -857,14 +847,13 @@ pub mod iam {
     /// The request builder for [Iam::get_service_account_key][crate::client::Iam::get_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::GetServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::GetServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServiceAccountKey {
     ///   # panic!();
@@ -930,14 +919,13 @@ pub mod iam {
     /// The request builder for [Iam::create_service_account_key][crate::client::Iam::create_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::CreateServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::CreateServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServiceAccountKey {
     ///   # panic!();
@@ -1014,14 +1002,13 @@ pub mod iam {
     /// The request builder for [Iam::upload_service_account_key][crate::client::Iam::upload_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::UploadServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::UploadServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UploadServiceAccountKey {
     ///   # panic!();
@@ -1084,14 +1071,13 @@ pub mod iam {
     /// The request builder for [Iam::delete_service_account_key][crate::client::Iam::delete_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::DeleteServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::DeleteServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteServiceAccountKey {
     ///   # panic!();
@@ -1150,14 +1136,13 @@ pub mod iam {
     /// The request builder for [Iam::disable_service_account_key][crate::client::Iam::disable_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::DisableServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::DisableServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DisableServiceAccountKey {
     ///   # panic!();
@@ -1216,14 +1201,13 @@ pub mod iam {
     /// The request builder for [Iam::enable_service_account_key][crate::client::Iam::enable_service_account_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::EnableServiceAccountKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::EnableServiceAccountKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> EnableServiceAccountKey {
     ///   # panic!();
@@ -1282,14 +1266,13 @@ pub mod iam {
     /// The request builder for [Iam::sign_blob][crate::client::Iam::sign_blob] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::SignBlob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::SignBlob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SignBlob {
     ///   # panic!();
@@ -1353,14 +1336,13 @@ pub mod iam {
     /// The request builder for [Iam::sign_jwt][crate::client::Iam::sign_jwt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::SignJwt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::SignJwt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SignJwt {
     ///   # panic!();
@@ -1424,14 +1406,13 @@ pub mod iam {
     /// The request builder for [Iam::get_iam_policy][crate::client::Iam::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1503,14 +1484,13 @@ pub mod iam {
     /// The request builder for [Iam::set_iam_policy][crate::client::Iam::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1604,14 +1584,13 @@ pub mod iam {
     /// The request builder for [Iam::test_iam_permissions][crate::client::Iam::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1681,10 +1660,9 @@ pub mod iam {
     /// The request builder for [Iam::query_grantable_roles][crate::client::Iam::query_grantable_roles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::QueryGrantableRoles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::QueryGrantableRoles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1692,7 +1670,7 @@ pub mod iam {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryGrantableRoles {
     ///   # panic!();
@@ -1793,10 +1771,9 @@ pub mod iam {
     /// The request builder for [Iam::list_roles][crate::client::Iam::list_roles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::ListRoles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::ListRoles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1804,7 +1781,7 @@ pub mod iam {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRoles {
     ///   # panic!();
@@ -1904,14 +1881,13 @@ pub mod iam {
     /// The request builder for [Iam::get_role][crate::client::Iam::get_role] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::GetRole;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::GetRole;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRole {
     ///   # panic!();
@@ -1963,14 +1939,13 @@ pub mod iam {
     /// The request builder for [Iam::create_role][crate::client::Iam::create_role] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::CreateRole;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::CreateRole;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRole {
     ///   # panic!();
@@ -2046,14 +2021,13 @@ pub mod iam {
     /// The request builder for [Iam::update_role][crate::client::Iam::update_role] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::UpdateRole;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::UpdateRole;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRole {
     ///   # panic!();
@@ -2141,14 +2115,13 @@ pub mod iam {
     /// The request builder for [Iam::delete_role][crate::client::Iam::delete_role] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::DeleteRole;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::DeleteRole;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRole {
     ///   # panic!();
@@ -2206,14 +2179,13 @@ pub mod iam {
     /// The request builder for [Iam::undelete_role][crate::client::Iam::undelete_role] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::UndeleteRole;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::UndeleteRole;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteRole {
     ///   # panic!();
@@ -2271,10 +2243,9 @@ pub mod iam {
     /// The request builder for [Iam::query_testable_permissions][crate::client::Iam::query_testable_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::QueryTestablePermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::QueryTestablePermissions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2282,7 +2253,7 @@ pub mod iam {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryTestablePermissions {
     ///   # panic!();
@@ -2379,14 +2350,13 @@ pub mod iam {
     /// The request builder for [Iam::query_auditable_services][crate::client::Iam::query_auditable_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::QueryAuditableServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::QueryAuditableServices;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryAuditableServices {
     ///   # panic!();
@@ -2441,14 +2411,13 @@ pub mod iam {
     /// The request builder for [Iam::lint_policy][crate::client::Iam::lint_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_admin_v1::builder;
-    /// use builder::iam::LintPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_admin_v1::builder::iam::LintPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LintPolicy {
     ///   # panic!();

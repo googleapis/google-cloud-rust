@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
 /// let client = BigtableInstanceAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl BigtableInstanceAdmin {
     /// Returns a builder for [BigtableInstanceAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableInstanceAdmin;
     /// let client = BigtableInstanceAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::bigtable_instance_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -466,11 +466,11 @@ impl BigtableInstanceAdmin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
 /// let client = BigtableTableAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Bigtable Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -515,10 +515,10 @@ impl BigtableTableAdmin {
     /// Returns a builder for [BigtableTableAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::client::BigtableTableAdmin;
     /// let client = BigtableTableAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::bigtable_table_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(

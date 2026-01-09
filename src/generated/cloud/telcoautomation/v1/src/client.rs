@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
 /// let client = TelcoAutomation::builder().build().await?;
 /// // use `client` to make requests to the Telco Automation API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl TelcoAutomation {
     /// Returns a builder for [TelcoAutomation].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_telcoautomation_v1::client::TelcoAutomation;
     /// let client = TelcoAutomation::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::telco_automation::ClientBuilder {
         gax::client_builder::internal::new_builder(

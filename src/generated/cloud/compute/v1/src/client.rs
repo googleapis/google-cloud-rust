@@ -21,11 +21,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::AcceleratorTypes;
 /// let client = AcceleratorTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -70,10 +70,10 @@ impl AcceleratorTypes {
     /// Returns a builder for [AcceleratorTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::AcceleratorTypes;
     /// let client = AcceleratorTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::accelerator_types::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -149,11 +149,11 @@ impl AcceleratorTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Addresses;
 /// let client = Addresses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -198,10 +198,10 @@ impl Addresses {
     /// Returns a builder for [Addresses].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Addresses;
     /// let client = Addresses::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::addresses::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::addresses::client::Factory)
@@ -306,11 +306,11 @@ impl Addresses {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Advice;
 /// let client = Advice::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -355,10 +355,10 @@ impl Advice {
     /// Returns a builder for [Advice].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Advice;
     /// let client = Advice::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::advice::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::advice::client::Factory)
@@ -420,11 +420,11 @@ impl Advice {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Autoscalers;
 /// let client = Autoscalers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -469,10 +469,10 @@ impl Autoscalers {
     /// Returns a builder for [Autoscalers].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Autoscalers;
     /// let client = Autoscalers::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::autoscalers::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::autoscalers::client::Factory)
@@ -575,11 +575,11 @@ impl Autoscalers {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::BackendBuckets;
 /// let client = BackendBuckets::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -624,10 +624,10 @@ impl BackendBuckets {
     /// Returns a builder for [BackendBuckets].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::BackendBuckets;
     /// let client = BackendBuckets::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backend_buckets::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::backend_buckets::client::Factory)
@@ -758,11 +758,11 @@ impl BackendBuckets {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::BackendServices;
 /// let client = BackendServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -807,10 +807,10 @@ impl BackendServices {
     /// Returns a builder for [BackendServices].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::BackendServices;
     /// let client = BackendServices::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backend_services::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -987,11 +987,11 @@ impl BackendServices {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
 /// let client = CrossSiteNetworks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1036,10 +1036,10 @@ impl CrossSiteNetworks {
     /// Returns a builder for [CrossSiteNetworks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::CrossSiteNetworks;
     /// let client = CrossSiteNetworks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cross_site_networks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1130,11 +1130,11 @@ impl CrossSiteNetworks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::DiskTypes;
 /// let client = DiskTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1179,10 +1179,10 @@ impl DiskTypes {
     /// Returns a builder for [DiskTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::DiskTypes;
     /// let client = DiskTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::disk_types::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::disk_types::client::Factory)
@@ -1255,11 +1255,11 @@ impl DiskTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Disks;
 /// let client = Disks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1304,10 +1304,10 @@ impl Disks {
     /// Returns a builder for [Disks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Disks;
     /// let client = Disks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::disks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::disks::client::Factory)
@@ -1488,11 +1488,11 @@ impl Disks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
 /// let client = ExternalVpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1537,10 +1537,10 @@ impl ExternalVpnGateways {
     /// Returns a builder for [ExternalVpnGateways].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ExternalVpnGateways;
     /// let client = ExternalVpnGateways::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::external_vpn_gateways::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1639,11 +1639,11 @@ impl ExternalVpnGateways {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::FirewallPolicies;
 /// let client = FirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1688,10 +1688,10 @@ impl FirewallPolicies {
     /// Returns a builder for [FirewallPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::FirewallPolicies;
     /// let client = FirewallPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::firewall_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -1848,11 +1848,11 @@ impl FirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Firewalls;
 /// let client = Firewalls::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1897,10 +1897,10 @@ impl Firewalls {
     /// Returns a builder for [Firewalls].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Firewalls;
     /// let client = Firewalls::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::firewalls::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::firewalls::client::Factory)
@@ -2002,11 +2002,11 @@ impl Firewalls {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ForwardingRules;
 /// let client = ForwardingRules::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2051,10 +2051,10 @@ impl ForwardingRules {
     /// Returns a builder for [ForwardingRules].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ForwardingRules;
     /// let client = ForwardingRules::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::forwarding_rules::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2168,11 +2168,11 @@ impl ForwardingRules {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::FutureReservations;
 /// let client = FutureReservations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2217,10 +2217,10 @@ impl FutureReservations {
     /// Returns a builder for [FutureReservations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::FutureReservations;
     /// let client = FutureReservations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::future_reservations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2321,11 +2321,11 @@ impl FutureReservations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalAddresses;
 /// let client = GlobalAddresses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2370,10 +2370,10 @@ impl GlobalAddresses {
     /// Returns a builder for [GlobalAddresses].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalAddresses;
     /// let client = GlobalAddresses::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_addresses::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2472,11 +2472,11 @@ impl GlobalAddresses {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
 /// let client = GlobalForwardingRules::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2521,10 +2521,10 @@ impl GlobalForwardingRules {
     /// Returns a builder for [GlobalForwardingRules].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalForwardingRules;
     /// let client = GlobalForwardingRules::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_forwarding_rules::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2631,11 +2631,11 @@ impl GlobalForwardingRules {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
 /// let client = GlobalNetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2680,10 +2680,10 @@ impl GlobalNetworkEndpointGroups {
     /// Returns a builder for [GlobalNetworkEndpointGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalNetworkEndpointGroups;
     /// let client = GlobalNetworkEndpointGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_network_endpoint_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2796,11 +2796,11 @@ impl GlobalNetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalOperations;
 /// let client = GlobalOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -2845,10 +2845,10 @@ impl GlobalOperations {
     /// Returns a builder for [GlobalOperations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalOperations;
     /// let client = GlobalOperations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_operations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -2951,11 +2951,11 @@ impl GlobalOperations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
 /// let client = GlobalOrganizationOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3000,10 +3000,10 @@ impl GlobalOrganizationOperations {
     /// Returns a builder for [GlobalOrganizationOperations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalOrganizationOperations;
     /// let client = GlobalOrganizationOperations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_organization_operations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3078,11 +3078,11 @@ impl GlobalOrganizationOperations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
 /// let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3127,10 +3127,10 @@ impl GlobalPublicDelegatedPrefixes {
     /// Returns a builder for [GlobalPublicDelegatedPrefixes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::GlobalPublicDelegatedPrefixes;
     /// let client = GlobalPublicDelegatedPrefixes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::global_public_delegated_prefixes::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3222,11 +3222,11 @@ impl GlobalPublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HealthChecks;
 /// let client = HealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3271,10 +3271,10 @@ impl HealthChecks {
     /// Returns a builder for [HealthChecks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HealthChecks;
     /// let client = HealthChecks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::health_checks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::health_checks::client::Factory)
@@ -3378,11 +3378,11 @@ impl HealthChecks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HttpHealthChecks;
 /// let client = HttpHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3427,10 +3427,10 @@ impl HttpHealthChecks {
     /// Returns a builder for [HttpHealthChecks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HttpHealthChecks;
     /// let client = HttpHealthChecks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::http_health_checks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3528,11 +3528,11 @@ impl HttpHealthChecks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
 /// let client = HttpsHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3577,10 +3577,10 @@ impl HttpsHealthChecks {
     /// Returns a builder for [HttpsHealthChecks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::HttpsHealthChecks;
     /// let client = HttpsHealthChecks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::https_health_checks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3678,11 +3678,11 @@ impl HttpsHealthChecks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ImageFamilyViews;
 /// let client = ImageFamilyViews::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3727,10 +3727,10 @@ impl ImageFamilyViews {
     /// Returns a builder for [ImageFamilyViews].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ImageFamilyViews;
     /// let client = ImageFamilyViews::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::image_family_views::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -3793,11 +3793,11 @@ impl ImageFamilyViews {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Images;
 /// let client = Images::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -3842,10 +3842,10 @@ impl Images {
     /// Returns a builder for [Images].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Images;
     /// let client = Images::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::images::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::images::client::Factory)
@@ -3975,11 +3975,11 @@ impl Images {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
 /// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -4024,10 +4024,10 @@ impl InstanceGroupManagerResizeRequests {
     /// Returns a builder for [InstanceGroupManagerResizeRequests].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroupManagerResizeRequests;
     /// let client = InstanceGroupManagerResizeRequests::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_group_manager_resize_requests::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -4126,11 +4126,11 @@ impl InstanceGroupManagerResizeRequests {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
 /// let client = InstanceGroupManagers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -4175,10 +4175,10 @@ impl InstanceGroupManagers {
     /// Returns a builder for [InstanceGroupManagers].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroupManagers;
     /// let client = InstanceGroupManagers::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_group_managers::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -4572,11 +4572,11 @@ impl InstanceGroupManagers {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceGroups;
 /// let client = InstanceGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -4621,10 +4621,10 @@ impl InstanceGroups {
     /// Returns a builder for [InstanceGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceGroups;
     /// let client = InstanceGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::instance_groups::client::Factory)
@@ -4762,11 +4762,11 @@ impl InstanceGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceSettings;
 /// let client = InstanceSettings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -4811,10 +4811,10 @@ impl InstanceSettings {
     /// Returns a builder for [InstanceSettings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceSettings;
     /// let client = InstanceSettings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_settings::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -4886,11 +4886,11 @@ impl InstanceSettings {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstanceTemplates;
 /// let client = InstanceTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -4935,10 +4935,10 @@ impl InstanceTemplates {
     /// Returns a builder for [InstanceTemplates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstanceTemplates;
     /// let client = InstanceTemplates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instance_templates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -5053,11 +5053,11 @@ impl InstanceTemplates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Instances;
 /// let client = Instances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -5102,10 +5102,10 @@ impl Instances {
     /// Returns a builder for [Instances].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Instances;
     /// let client = Instances::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instances::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
@@ -5511,11 +5511,11 @@ impl Instances {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InstantSnapshots;
 /// let client = InstantSnapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -5560,10 +5560,10 @@ impl InstantSnapshots {
     /// Returns a builder for [InstantSnapshots].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InstantSnapshots;
     /// let client = InstantSnapshots::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::instant_snapshots::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -5685,11 +5685,11 @@ impl InstantSnapshots {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
 /// let client = InterconnectAttachmentGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -5734,10 +5734,10 @@ impl InterconnectAttachmentGroups {
     /// Returns a builder for [InterconnectAttachmentGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectAttachmentGroups;
     /// let client = InterconnectAttachmentGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnect_attachment_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -5859,11 +5859,11 @@ impl InterconnectAttachmentGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectAttachments;
 /// let client = InterconnectAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -5908,10 +5908,10 @@ impl InterconnectAttachments {
     /// Returns a builder for [InterconnectAttachments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectAttachments;
     /// let client = InterconnectAttachments::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnect_attachments::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -6019,11 +6019,11 @@ impl InterconnectAttachments {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectGroups;
 /// let client = InterconnectGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6068,10 +6068,10 @@ impl InterconnectGroups {
     /// Returns a builder for [InterconnectGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectGroups;
     /// let client = InterconnectGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnect_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -6193,11 +6193,11 @@ impl InterconnectGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectLocations;
 /// let client = InterconnectLocations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6242,10 +6242,10 @@ impl InterconnectLocations {
     /// Returns a builder for [InterconnectLocations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectLocations;
     /// let client = InterconnectLocations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnect_locations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -6314,11 +6314,11 @@ impl InterconnectLocations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
 /// let client = InterconnectRemoteLocations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6363,10 +6363,10 @@ impl InterconnectRemoteLocations {
     /// Returns a builder for [InterconnectRemoteLocations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::InterconnectRemoteLocations;
     /// let client = InterconnectRemoteLocations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnect_remote_locations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -6436,11 +6436,11 @@ impl InterconnectRemoteLocations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Interconnects;
 /// let client = Interconnects::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6485,10 +6485,10 @@ impl Interconnects {
     /// Returns a builder for [Interconnects].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Interconnects;
     /// let client = Interconnects::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::interconnects::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::interconnects::client::Factory)
@@ -6604,11 +6604,11 @@ impl Interconnects {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::LicenseCodes;
 /// let client = LicenseCodes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6653,10 +6653,10 @@ impl LicenseCodes {
     /// Returns a builder for [LicenseCodes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::LicenseCodes;
     /// let client = LicenseCodes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::license_codes::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::license_codes::client::Factory)
@@ -6727,11 +6727,11 @@ impl LicenseCodes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Licenses;
 /// let client = Licenses::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6776,10 +6776,10 @@ impl Licenses {
     /// Returns a builder for [Licenses].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Licenses;
     /// let client = Licenses::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::licenses::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::licenses::client::Factory)
@@ -6909,11 +6909,11 @@ impl Licenses {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::MachineImages;
 /// let client = MachineImages::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -6958,10 +6958,10 @@ impl MachineImages {
     /// Returns a builder for [MachineImages].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::MachineImages;
     /// let client = MachineImages::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::machine_images::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::machine_images::client::Factory)
@@ -7069,11 +7069,11 @@ impl MachineImages {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::MachineTypes;
 /// let client = MachineTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7118,10 +7118,10 @@ impl MachineTypes {
     /// Returns a builder for [MachineTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::MachineTypes;
     /// let client = MachineTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::machine_types::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::machine_types::client::Factory)
@@ -7194,11 +7194,11 @@ impl MachineTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkAttachments;
 /// let client = NetworkAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7243,10 +7243,10 @@ impl NetworkAttachments {
     /// Returns a builder for [NetworkAttachments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkAttachments;
     /// let client = NetworkAttachments::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_attachments::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -7363,11 +7363,11 @@ impl NetworkAttachments {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
 /// let client = NetworkEdgeSecurityServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7412,10 +7412,10 @@ impl NetworkEdgeSecurityServices {
     /// Returns a builder for [NetworkEdgeSecurityServices].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkEdgeSecurityServices;
     /// let client = NetworkEdgeSecurityServices::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_edge_security_services::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -7510,11 +7510,11 @@ impl NetworkEdgeSecurityServices {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
 /// let client = NetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7559,10 +7559,10 @@ impl NetworkEndpointGroups {
     /// Returns a builder for [NetworkEndpointGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkEndpointGroups;
     /// let client = NetworkEndpointGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_endpoint_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -7686,11 +7686,11 @@ impl NetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
 /// let client = NetworkFirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7735,10 +7735,10 @@ impl NetworkFirewallPolicies {
     /// Returns a builder for [NetworkFirewallPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkFirewallPolicies;
     /// let client = NetworkFirewallPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_firewall_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -7928,11 +7928,11 @@ impl NetworkFirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NetworkProfiles;
 /// let client = NetworkProfiles::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -7977,10 +7977,10 @@ impl NetworkProfiles {
     /// Returns a builder for [NetworkProfiles].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NetworkProfiles;
     /// let client = NetworkProfiles::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::network_profiles::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -8048,11 +8048,11 @@ impl NetworkProfiles {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Networks;
 /// let client = Networks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -8097,10 +8097,10 @@ impl Networks {
     /// Returns a builder for [Networks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Networks;
     /// let client = Networks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::networks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::networks::client::Factory)
@@ -8224,11 +8224,11 @@ impl Networks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeGroups;
 /// let client = NodeGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -8273,10 +8273,10 @@ impl NodeGroups {
     /// Returns a builder for [NodeGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeGroups;
     /// let client = NodeGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::node_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::node_groups::client::Factory)
@@ -8423,11 +8423,11 @@ impl NodeGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeTemplates;
 /// let client = NodeTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -8472,10 +8472,10 @@ impl NodeTemplates {
     /// Returns a builder for [NodeTemplates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeTemplates;
     /// let client = NodeTemplates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::node_templates::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::node_templates::client::Factory)
@@ -8581,11 +8581,11 @@ impl NodeTemplates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::NodeTypes;
 /// let client = NodeTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -8630,10 +8630,10 @@ impl NodeTypes {
     /// Returns a builder for [NodeTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::NodeTypes;
     /// let client = NodeTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::node_types::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::node_types::client::Factory)
@@ -8706,11 +8706,11 @@ impl NodeTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
 /// let client = OrganizationSecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -8755,10 +8755,10 @@ impl OrganizationSecurityPolicies {
     /// Returns a builder for [OrganizationSecurityPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::OrganizationSecurityPolicies;
     /// let client = OrganizationSecurityPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organization_security_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -8988,11 +8988,11 @@ impl OrganizationSecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PacketMirrorings;
 /// let client = PacketMirrorings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9037,10 +9037,10 @@ impl PacketMirrorings {
     /// Returns a builder for [PacketMirrorings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PacketMirrorings;
     /// let client = PacketMirrorings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::packet_mirrorings::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -9145,11 +9145,11 @@ impl PacketMirrorings {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PreviewFeatures;
 /// let client = PreviewFeatures::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9194,10 +9194,10 @@ impl PreviewFeatures {
     /// Returns a builder for [PreviewFeatures].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PreviewFeatures;
     /// let client = PreviewFeatures::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::preview_features::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -9275,11 +9275,11 @@ impl PreviewFeatures {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9324,10 +9324,10 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Projects;
     /// let client = Projects::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
@@ -9500,11 +9500,11 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
 /// let client = PublicAdvertisedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9549,10 +9549,10 @@ impl PublicAdvertisedPrefixes {
     /// Returns a builder for [PublicAdvertisedPrefixes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PublicAdvertisedPrefixes;
     /// let client = PublicAdvertisedPrefixes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::public_advertised_prefixes::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -9654,11 +9654,11 @@ impl PublicAdvertisedPrefixes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
 /// let client = PublicDelegatedPrefixes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9703,10 +9703,10 @@ impl PublicDelegatedPrefixes {
     /// Returns a builder for [PublicDelegatedPrefixes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::PublicDelegatedPrefixes;
     /// let client = PublicDelegatedPrefixes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::public_delegated_prefixes::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -9817,11 +9817,11 @@ impl PublicDelegatedPrefixes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionAutoscalers;
 /// let client = RegionAutoscalers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -9866,10 +9866,10 @@ impl RegionAutoscalers {
     /// Returns a builder for [RegionAutoscalers].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionAutoscalers;
     /// let client = RegionAutoscalers::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_autoscalers::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -9967,11 +9967,11 @@ impl RegionAutoscalers {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionBackendServices;
 /// let client = RegionBackendServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10016,10 +10016,10 @@ impl RegionBackendServices {
     /// Returns a builder for [RegionBackendServices].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionBackendServices;
     /// let client = RegionBackendServices::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_backend_services::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -10161,11 +10161,11 @@ impl RegionBackendServices {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionCommitments;
 /// let client = RegionCommitments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10210,10 +10210,10 @@ impl RegionCommitments {
     /// Returns a builder for [RegionCommitments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionCommitments;
     /// let client = RegionCommitments::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_commitments::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -10307,11 +10307,11 @@ impl RegionCommitments {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionDiskTypes;
 /// let client = RegionDiskTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10356,10 +10356,10 @@ impl RegionDiskTypes {
     /// Returns a builder for [RegionDiskTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionDiskTypes;
     /// let client = RegionDiskTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_disk_types::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -10426,11 +10426,11 @@ impl RegionDiskTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionDisks;
 /// let client = RegionDisks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10475,10 +10475,10 @@ impl RegionDisks {
     /// Returns a builder for [RegionDisks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionDisks;
     /// let client = RegionDisks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_disks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::region_disks::client::Factory)
@@ -10642,11 +10642,11 @@ impl RegionDisks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
 /// let client = RegionHealthCheckServices::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10691,10 +10691,10 @@ impl RegionHealthCheckServices {
     /// Returns a builder for [RegionHealthCheckServices].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionHealthCheckServices;
     /// let client = RegionHealthCheckServices::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_health_check_services::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -10787,11 +10787,11 @@ impl RegionHealthCheckServices {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionHealthChecks;
 /// let client = RegionHealthChecks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10836,10 +10836,10 @@ impl RegionHealthChecks {
     /// Returns a builder for [RegionHealthChecks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionHealthChecks;
     /// let client = RegionHealthChecks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_health_checks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -10937,11 +10937,11 @@ impl RegionHealthChecks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
 /// let client = RegionInstanceGroupManagers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -10986,10 +10986,10 @@ impl RegionInstanceGroupManagers {
     /// Returns a builder for [RegionInstanceGroupManagers].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceGroupManagers;
     /// let client = RegionInstanceGroupManagers::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_instance_group_managers::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -11382,11 +11382,11 @@ impl RegionInstanceGroupManagers {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
 /// let client = RegionInstanceGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -11431,10 +11431,10 @@ impl RegionInstanceGroups {
     /// Returns a builder for [RegionInstanceGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceGroups;
     /// let client = RegionInstanceGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_instance_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -11527,11 +11527,11 @@ impl RegionInstanceGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
 /// let client = RegionInstanceTemplates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -11576,10 +11576,10 @@ impl RegionInstanceTemplates {
     /// Returns a builder for [RegionInstanceTemplates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstanceTemplates;
     /// let client = RegionInstanceTemplates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_instance_templates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -11665,11 +11665,11 @@ impl RegionInstanceTemplates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstances;
 /// let client = RegionInstances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -11714,10 +11714,10 @@ impl RegionInstances {
     /// Returns a builder for [RegionInstances].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstances;
     /// let client = RegionInstances::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_instances::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -11785,11 +11785,11 @@ impl RegionInstances {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
 /// let client = RegionInstantSnapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -11834,10 +11834,10 @@ impl RegionInstantSnapshots {
     /// Returns a builder for [RegionInstantSnapshots].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionInstantSnapshots;
     /// let client = RegionInstantSnapshots::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_instant_snapshots::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -11953,11 +11953,11 @@ impl RegionInstantSnapshots {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
 /// let client = RegionNetworkEndpointGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12002,10 +12002,10 @@ impl RegionNetworkEndpointGroups {
     /// Returns a builder for [RegionNetworkEndpointGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNetworkEndpointGroups;
     /// let client = RegionNetworkEndpointGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_network_endpoint_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12118,11 +12118,11 @@ impl RegionNetworkEndpointGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
 /// let client = RegionNetworkFirewallPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12167,10 +12167,10 @@ impl RegionNetworkFirewallPolicies {
     /// Returns a builder for [RegionNetworkFirewallPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNetworkFirewallPolicies;
     /// let client = RegionNetworkFirewallPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_network_firewall_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12335,11 +12335,11 @@ impl RegionNetworkFirewallPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
 /// let client = RegionNotificationEndpoints::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12384,10 +12384,10 @@ impl RegionNotificationEndpoints {
     /// Returns a builder for [RegionNotificationEndpoints].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionNotificationEndpoints;
     /// let client = RegionNotificationEndpoints::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_notification_endpoints::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12471,11 +12471,11 @@ impl RegionNotificationEndpoints {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionOperations;
 /// let client = RegionOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12520,10 +12520,10 @@ impl RegionOperations {
     /// Returns a builder for [RegionOperations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionOperations;
     /// let client = RegionOperations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_operations::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12618,11 +12618,11 @@ impl RegionOperations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
 /// let client = RegionSecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12667,10 +12667,10 @@ impl RegionSecurityPolicies {
     /// Returns a builder for [RegionSecurityPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSecurityPolicies;
     /// let client = RegionSecurityPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_security_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12791,11 +12791,11 @@ impl RegionSecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSslCertificates;
 /// let client = RegionSslCertificates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12840,10 +12840,10 @@ impl RegionSslCertificates {
     /// Returns a builder for [RegionSslCertificates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSslCertificates;
     /// let client = RegionSslCertificates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_ssl_certificates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -12929,11 +12929,11 @@ impl RegionSslCertificates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionSslPolicies;
 /// let client = RegionSslPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -12978,10 +12978,10 @@ impl RegionSslPolicies {
     /// Returns a builder for [RegionSslPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionSslPolicies;
     /// let client = RegionSslPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_ssl_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -13080,11 +13080,11 @@ impl RegionSslPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
 /// let client = RegionTargetHttpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13129,10 +13129,10 @@ impl RegionTargetHttpProxies {
     /// Returns a builder for [RegionTargetHttpProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetHttpProxies;
     /// let client = RegionTargetHttpProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_target_http_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -13222,11 +13222,11 @@ impl RegionTargetHttpProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
 /// let client = RegionTargetHttpsProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13271,10 +13271,10 @@ impl RegionTargetHttpsProxies {
     /// Returns a builder for [RegionTargetHttpsProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetHttpsProxies;
     /// let client = RegionTargetHttpsProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_target_https_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -13379,11 +13379,11 @@ impl RegionTargetHttpsProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
 /// let client = RegionTargetTcpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13428,10 +13428,10 @@ impl RegionTargetTcpProxies {
     /// Returns a builder for [RegionTargetTcpProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionTargetTcpProxies;
     /// let client = RegionTargetTcpProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_target_tcp_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -13515,11 +13515,11 @@ impl RegionTargetTcpProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionUrlMaps;
 /// let client = RegionUrlMaps::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13564,10 +13564,10 @@ impl RegionUrlMaps {
     /// Returns a builder for [RegionUrlMaps].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionUrlMaps;
     /// let client = RegionUrlMaps::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_url_maps::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::region_url_maps::client::Factory)
@@ -13669,11 +13669,11 @@ impl RegionUrlMaps {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::RegionZones;
 /// let client = RegionZones::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13718,10 +13718,10 @@ impl RegionZones {
     /// Returns a builder for [RegionZones].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::RegionZones;
     /// let client = RegionZones::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::region_zones::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::region_zones::client::Factory)
@@ -13781,11 +13781,11 @@ impl RegionZones {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Regions;
 /// let client = Regions::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13830,10 +13830,10 @@ impl Regions {
     /// Returns a builder for [Regions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Regions;
     /// let client = Regions::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::regions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::regions::client::Factory)
@@ -13932,11 +13932,11 @@ impl Regions {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationBlocks;
 /// let client = ReservationBlocks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -13981,10 +13981,10 @@ impl ReservationBlocks {
     /// Returns a builder for [ReservationBlocks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ReservationBlocks;
     /// let client = ReservationBlocks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reservation_blocks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -14078,11 +14078,11 @@ impl ReservationBlocks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
 /// let client = ReservationSubBlocks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14127,10 +14127,10 @@ impl ReservationSubBlocks {
     /// Returns a builder for [ReservationSubBlocks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
     /// let client = ReservationSubBlocks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reservation_sub_blocks::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -14233,11 +14233,11 @@ impl ReservationSubBlocks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Reservations;
 /// let client = Reservations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14282,10 +14282,10 @@ impl Reservations {
     /// Returns a builder for [Reservations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Reservations;
     /// let client = Reservations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::reservations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::reservations::client::Factory)
@@ -14408,11 +14408,11 @@ impl Reservations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ResourcePolicies;
 /// let client = ResourcePolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14457,10 +14457,10 @@ impl ResourcePolicies {
     /// Returns a builder for [ResourcePolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ResourcePolicies;
     /// let client = ResourcePolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::resource_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -14573,11 +14573,11 @@ impl ResourcePolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Routers;
 /// let client = Routers::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14622,10 +14622,10 @@ impl Routers {
     /// Returns a builder for [Routers].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Routers;
     /// let client = Routers::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::routers::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::routers::client::Factory)
@@ -14781,11 +14781,11 @@ impl Routers {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Routes;
 /// let client = Routes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14830,10 +14830,10 @@ impl Routes {
     /// Returns a builder for [Routes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Routes;
     /// let client = Routes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::routes::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::routes::client::Factory)
@@ -14913,11 +14913,11 @@ impl Routes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SecurityPolicies;
 /// let client = SecurityPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -14962,10 +14962,10 @@ impl SecurityPolicies {
     /// Returns a builder for [SecurityPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SecurityPolicies;
     /// let client = SecurityPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::security_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -15102,11 +15102,11 @@ impl SecurityPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ServiceAttachments;
 /// let client = ServiceAttachments::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15151,10 +15151,10 @@ impl ServiceAttachments {
     /// Returns a builder for [ServiceAttachments].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ServiceAttachments;
     /// let client = ServiceAttachments::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::service_attachments::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -15271,11 +15271,11 @@ impl ServiceAttachments {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SnapshotSettings;
 /// let client = SnapshotSettings::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15320,10 +15320,10 @@ impl SnapshotSettings {
     /// Returns a builder for [SnapshotSettings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SnapshotSettings;
     /// let client = SnapshotSettings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::snapshot_settings::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -15395,11 +15395,11 @@ impl SnapshotSettings {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Snapshots;
 /// let client = Snapshots::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15444,10 +15444,10 @@ impl Snapshots {
     /// Returns a builder for [Snapshots].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Snapshots;
     /// let client = Snapshots::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::snapshots::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::snapshots::client::Factory)
@@ -15561,11 +15561,11 @@ impl Snapshots {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SslCertificates;
 /// let client = SslCertificates::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15610,10 +15610,10 @@ impl SslCertificates {
     /// Returns a builder for [SslCertificates].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SslCertificates;
     /// let client = SslCertificates::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::ssl_certificates::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -15706,11 +15706,11 @@ impl SslCertificates {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::SslPolicies;
 /// let client = SslPolicies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15755,10 +15755,10 @@ impl SslPolicies {
     /// Returns a builder for [SslPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::SslPolicies;
     /// let client = SslPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::ssl_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::ssl_policies::client::Factory)
@@ -15860,11 +15860,11 @@ impl SslPolicies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::StoragePoolTypes;
 /// let client = StoragePoolTypes::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -15909,10 +15909,10 @@ impl StoragePoolTypes {
     /// Returns a builder for [StoragePoolTypes].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::StoragePoolTypes;
     /// let client = StoragePoolTypes::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::storage_pool_types::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -15988,11 +15988,11 @@ impl StoragePoolTypes {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::StoragePools;
 /// let client = StoragePools::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16037,10 +16037,10 @@ impl StoragePools {
     /// Returns a builder for [StoragePools].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::StoragePools;
     /// let client = StoragePools::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::storage_pools::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::storage_pools::client::Factory)
@@ -16165,11 +16165,11 @@ impl StoragePools {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Subnetworks;
 /// let client = Subnetworks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16214,10 +16214,10 @@ impl Subnetworks {
     /// Returns a builder for [Subnetworks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Subnetworks;
     /// let client = Subnetworks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::subnetworks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::subnetworks::client::Factory)
@@ -16350,11 +16350,11 @@ impl Subnetworks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
 /// let client = TargetGrpcProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16399,10 +16399,10 @@ impl TargetGrpcProxies {
     /// Returns a builder for [TargetGrpcProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetGrpcProxies;
     /// let client = TargetGrpcProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_grpc_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -16493,11 +16493,11 @@ impl TargetGrpcProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetHttpProxies;
 /// let client = TargetHttpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16542,10 +16542,10 @@ impl TargetHttpProxies {
     /// Returns a builder for [TargetHttpProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetHttpProxies;
     /// let client = TargetHttpProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_http_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -16651,11 +16651,11 @@ impl TargetHttpProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
 /// let client = TargetHttpsProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16700,10 +16700,10 @@ impl TargetHttpsProxies {
     /// Returns a builder for [TargetHttpsProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetHttpsProxies;
     /// let client = TargetHttpsProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_https_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -16832,11 +16832,11 @@ impl TargetHttpsProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetInstances;
 /// let client = TargetInstances::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -16881,10 +16881,10 @@ impl TargetInstances {
     /// Returns a builder for [TargetInstances].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetInstances;
     /// let client = TargetInstances::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_instances::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -16988,11 +16988,11 @@ impl TargetInstances {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetPools;
 /// let client = TargetPools::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17037,10 +17037,10 @@ impl TargetPools {
     /// Returns a builder for [TargetPools].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetPools;
     /// let client = TargetPools::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_pools::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::target_pools::client::Factory)
@@ -17172,11 +17172,11 @@ impl TargetPools {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetSslProxies;
 /// let client = TargetSslProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17221,10 +17221,10 @@ impl TargetSslProxies {
     /// Returns a builder for [TargetSslProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetSslProxies;
     /// let client = TargetSslProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_ssl_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -17336,11 +17336,11 @@ impl TargetSslProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetTcpProxies;
 /// let client = TargetTcpProxies::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17385,10 +17385,10 @@ impl TargetTcpProxies {
     /// Returns a builder for [TargetTcpProxies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetTcpProxies;
     /// let client = TargetTcpProxies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_tcp_proxies::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -17491,11 +17491,11 @@ impl TargetTcpProxies {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::TargetVpnGateways;
 /// let client = TargetVpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17540,10 +17540,10 @@ impl TargetVpnGateways {
     /// Returns a builder for [TargetVpnGateways].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::TargetVpnGateways;
     /// let client = TargetVpnGateways::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::target_vpn_gateways::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -17641,11 +17641,11 @@ impl TargetVpnGateways {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::UrlMaps;
 /// let client = UrlMaps::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17690,10 +17690,10 @@ impl UrlMaps {
     /// Returns a builder for [UrlMaps].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::UrlMaps;
     /// let client = UrlMaps::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::url_maps::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::url_maps::client::Factory)
@@ -17813,11 +17813,11 @@ impl UrlMaps {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::VpnGateways;
 /// let client = VpnGateways::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -17862,10 +17862,10 @@ impl VpnGateways {
     /// Returns a builder for [VpnGateways].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::VpnGateways;
     /// let client = VpnGateways::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vpn_gateways::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::vpn_gateways::client::Factory)
@@ -17970,11 +17970,11 @@ impl VpnGateways {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::VpnTunnels;
 /// let client = VpnTunnels::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -18019,10 +18019,10 @@ impl VpnTunnels {
     /// Returns a builder for [VpnTunnels].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::VpnTunnels;
     /// let client = VpnTunnels::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vpn_tunnels::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::vpn_tunnels::client::Factory)
@@ -18117,11 +18117,11 @@ impl VpnTunnels {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::WireGroups;
 /// let client = WireGroups::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -18166,10 +18166,10 @@ impl WireGroups {
     /// Returns a builder for [WireGroups].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::WireGroups;
     /// let client = WireGroups::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::wire_groups::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::wire_groups::client::Factory)
@@ -18257,11 +18257,11 @@ impl WireGroups {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ZoneOperations;
 /// let client = ZoneOperations::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -18306,10 +18306,10 @@ impl ZoneOperations {
     /// Returns a builder for [ZoneOperations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::ZoneOperations;
     /// let client = ZoneOperations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::zone_operations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::zone_operations::client::Factory)
@@ -18400,11 +18400,11 @@ impl ZoneOperations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::Zones;
 /// let client = Zones::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -18449,10 +18449,10 @@ impl Zones {
     /// Returns a builder for [Zones].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_compute_v1::client::Zones;
     /// let client = Zones::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::zones::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::zones::client::Factory)

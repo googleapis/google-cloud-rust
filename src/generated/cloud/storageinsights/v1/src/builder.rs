@@ -20,7 +20,7 @@ pub mod storage_insights {
     /// A builder for [StorageInsights][crate::client::StorageInsights].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_storageinsights_v1::*;
     /// # use builder::storage_insights::ClientBuilder;
     /// # use client::StorageInsights;
@@ -28,7 +28,7 @@ pub mod storage_insights {
     /// let client = builder
     ///     .with_endpoint("https://storageinsights.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::list_report_configs][crate::client::StorageInsights::list_report_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::ListReportConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListReportConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod storage_insights {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReportConfigs {
     ///   # panic!();
@@ -192,14 +191,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::get_report_config][crate::client::StorageInsights::get_report_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::GetReportConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetReportConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReportConfig {
     ///   # panic!();
@@ -255,14 +253,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::create_report_config][crate::client::StorageInsights::create_report_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::CreateReportConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::CreateReportConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateReportConfig {
     ///   # panic!();
@@ -349,14 +346,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::update_report_config][crate::client::StorageInsights::update_report_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::UpdateReportConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::UpdateReportConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateReportConfig {
     ///   # panic!();
@@ -457,14 +453,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::delete_report_config][crate::client::StorageInsights::delete_report_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::DeleteReportConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteReportConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteReportConfig {
     ///   # panic!();
@@ -535,10 +530,9 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::list_report_details][crate::client::StorageInsights::list_report_details] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::ListReportDetails;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListReportDetails;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -546,7 +540,7 @@ pub mod storage_insights {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReportDetails {
     ///   # panic!();
@@ -653,14 +647,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::get_report_detail][crate::client::StorageInsights::get_report_detail] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::GetReportDetail;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetReportDetail;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReportDetail {
     ///   # panic!();
@@ -716,10 +709,9 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::list_dataset_configs][crate::client::StorageInsights::list_dataset_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::ListDatasetConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListDatasetConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -727,7 +719,7 @@ pub mod storage_insights {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatasetConfigs {
     ///   # panic!();
@@ -836,14 +828,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::get_dataset_config][crate::client::StorageInsights::get_dataset_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::GetDatasetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetDatasetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatasetConfig {
     ///   # panic!();
@@ -902,15 +893,14 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::create_dataset_config][crate::client::StorageInsights::create_dataset_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::CreateDatasetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::CreateDatasetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDatasetConfig {
     ///   # panic!();
@@ -1046,15 +1036,14 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::update_dataset_config][crate::client::StorageInsights::update_dataset_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::UpdateDatasetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::UpdateDatasetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDatasetConfig {
     ///   # panic!();
@@ -1196,15 +1185,14 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::delete_dataset_config][crate::client::StorageInsights::delete_dataset_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::DeleteDatasetConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteDatasetConfig;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDatasetConfig {
     ///   # panic!();
@@ -1309,15 +1297,14 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::link_dataset][crate::client::StorageInsights::link_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::LinkDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::LinkDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LinkDataset {
     ///   # panic!();
@@ -1414,15 +1401,14 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::unlink_dataset][crate::client::StorageInsights::unlink_dataset] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::UnlinkDataset;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::UnlinkDataset;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UnlinkDataset {
     ///   # panic!();
@@ -1518,10 +1504,9 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::list_locations][crate::client::StorageInsights::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1529,7 +1514,7 @@ pub mod storage_insights {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1628,14 +1613,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::get_location][crate::client::StorageInsights::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1689,10 +1673,9 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::list_operations][crate::client::StorageInsights::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1700,7 +1683,7 @@ pub mod storage_insights {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1807,14 +1790,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::get_operation][crate::client::StorageInsights::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1871,14 +1853,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::delete_operation][crate::client::StorageInsights::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1935,14 +1916,13 @@ pub mod storage_insights {
     /// The request builder for [StorageInsights::cancel_operation][crate::client::StorageInsights::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storageinsights_v1::builder;
-    /// use builder::storage_insights::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storageinsights_v1::builder::storage_insights::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

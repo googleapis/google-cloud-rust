@@ -20,7 +20,7 @@ pub mod cloud_shell_service {
     /// A builder for [CloudShellService][crate::client::CloudShellService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_shell_v1::*;
     /// # use builder::cloud_shell_service::ClientBuilder;
     /// # use client::CloudShellService;
@@ -28,7 +28,7 @@ pub mod cloud_shell_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudshell.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::get_environment][crate::client::CloudShellService::get_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::GetEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEnvironment {
     ///   # panic!();
@@ -137,15 +136,14 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::start_environment][crate::client::CloudShellService::start_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::StartEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::StartEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartEnvironment {
     ///   # panic!();
@@ -262,15 +260,14 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::authorize_environment][crate::client::CloudShellService::authorize_environment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::AuthorizeEnvironment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::AuthorizeEnvironment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AuthorizeEnvironment {
     ///   # panic!();
@@ -400,15 +397,14 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::add_public_key][crate::client::CloudShellService::add_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::AddPublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::AddPublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddPublicKey {
     ///   # panic!();
@@ -509,15 +505,14 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::remove_public_key][crate::client::CloudShellService::remove_public_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::RemovePublicKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::RemovePublicKey;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemovePublicKey {
     ///   # panic!();
@@ -618,14 +613,13 @@ pub mod cloud_shell_service {
     /// The request builder for [CloudShellService::get_operation][crate::client::CloudShellService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_shell_v1::builder;
-    /// use builder::cloud_shell_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_shell_v1::builder::cloud_shell_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

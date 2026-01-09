@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Builds;
 /// let client = Builds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Builds {
     /// Returns a builder for [Builds].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Builds;
     /// let client = Builds::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::builds::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::builds::client::Factory)
@@ -156,11 +156,11 @@ impl Builds {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Executions;
 /// let client = Executions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -202,10 +202,10 @@ impl Executions {
     /// Returns a builder for [Executions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Executions;
     /// let client = Executions::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::executions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::executions::client::Factory)
@@ -328,11 +328,11 @@ impl Executions {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Jobs;
 /// let client = Jobs::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -374,10 +374,10 @@ impl Jobs {
     /// Returns a builder for [Jobs].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Jobs;
     /// let client = Jobs::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::jobs::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::jobs::client::Factory)
@@ -548,11 +548,11 @@ impl Jobs {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Revisions;
 /// let client = Revisions::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -594,10 +594,10 @@ impl Revisions {
     /// Returns a builder for [Revisions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Revisions;
     /// let client = Revisions::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::revisions::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::revisions::client::Factory)
@@ -705,11 +705,11 @@ impl Revisions {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Services;
 /// let client = Services::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -751,10 +751,10 @@ impl Services {
     /// Returns a builder for [Services].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Services;
     /// let client = Services::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::services::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::services::client::Factory)
@@ -912,11 +912,11 @@ impl Services {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Tasks;
 /// let client = Tasks::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -958,10 +958,10 @@ impl Tasks {
     /// Returns a builder for [Tasks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::Tasks;
     /// let client = Tasks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tasks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tasks::client::Factory)
@@ -1053,11 +1053,11 @@ impl Tasks {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::WorkerPools;
 /// let client = WorkerPools::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1099,10 +1099,10 @@ impl WorkerPools {
     /// Returns a builder for [WorkerPools].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_run_v2::client::WorkerPools;
     /// let client = WorkerPools::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::worker_pools::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::worker_pools::client::Factory)

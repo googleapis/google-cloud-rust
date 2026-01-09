@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::TopicAdmin;
 /// let client = TopicAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl TopicAdmin {
     /// Returns a builder for [TopicAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::TopicAdmin;
     /// let client = TopicAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::topic_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::topic_admin::client::Factory)
@@ -176,11 +176,11 @@ impl TopicAdmin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SubscriptionAdmin;
 /// let client = SubscriptionAdmin::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -222,10 +222,10 @@ impl SubscriptionAdmin {
     /// Returns a builder for [SubscriptionAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::SubscriptionAdmin;
     /// let client = SubscriptionAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::subscription_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -405,11 +405,11 @@ impl SubscriptionAdmin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_pubsub::client::SchemaService;
 /// let client = SchemaService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Pub/Sub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -451,10 +451,10 @@ impl SchemaService {
     /// Returns a builder for [SchemaService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::client::SchemaService;
     /// let client = SchemaService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::schema_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::schema_service::client::Factory)

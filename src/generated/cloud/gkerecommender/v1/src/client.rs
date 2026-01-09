@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
 /// let client = GkeInferenceQuickstart::builder().build().await?;
 /// // use `client` to make requests to the GKE Recommender API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -69,10 +69,10 @@ impl GkeInferenceQuickstart {
     /// Returns a builder for [GkeInferenceQuickstart].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkerecommender_v1::client::GkeInferenceQuickstart;
     /// let client = GkeInferenceQuickstart::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::gke_inference_quickstart::ClientBuilder {
         gax::client_builder::internal::new_builder(

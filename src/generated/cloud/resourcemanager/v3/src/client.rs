@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Folders;
 /// let client = Folders::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -68,10 +68,10 @@ impl Folders {
     /// Returns a builder for [Folders].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Folders;
     /// let client = Folders::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::folders::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::folders::client::Factory)
@@ -352,11 +352,11 @@ impl Folders {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Organizations;
 /// let client = Organizations::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -398,10 +398,10 @@ impl Organizations {
     /// Returns a builder for [Organizations].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Organizations;
     /// let client = Organizations::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::organizations::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::organizations::client::Factory)
@@ -507,11 +507,11 @@ impl Organizations {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::Projects;
 /// let client = Projects::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -553,10 +553,10 @@ impl Projects {
     /// Returns a builder for [Projects].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::Projects;
     /// let client = Projects::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::projects::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::projects::client::Factory)
@@ -852,11 +852,11 @@ impl Projects {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagBindings;
 /// let client = TagBindings::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -899,10 +899,10 @@ impl TagBindings {
     /// Returns a builder for [TagBindings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagBindings;
     /// let client = TagBindings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_bindings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_bindings::client::Factory)
@@ -1008,11 +1008,11 @@ impl TagBindings {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagHolds;
 /// let client = TagHolds::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1058,10 +1058,10 @@ impl TagHolds {
     /// Returns a builder for [TagHolds].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagHolds;
     /// let client = TagHolds::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_holds::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_holds::client::Factory)
@@ -1158,11 +1158,11 @@ impl TagHolds {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagKeys;
 /// let client = TagKeys::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1204,10 +1204,10 @@ impl TagKeys {
     /// Returns a builder for [TagKeys].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagKeys;
     /// let client = TagKeys::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_keys::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_keys::client::Factory)
@@ -1363,11 +1363,11 @@ impl TagKeys {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_resourcemanager_v3::client::TagValues;
 /// let client = TagValues::builder().build().await?;
 /// // use `client` to make requests to the Cloud Resource Manager API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -1409,10 +1409,10 @@ impl TagValues {
     /// Returns a builder for [TagValues].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_resourcemanager_v3::client::TagValues;
     /// let client = TagValues::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::tag_values::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::tag_values::client::Factory)

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
 /// let client = LicenseManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl LicenseManagementService {
     /// Returns a builder for [LicenseManagementService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::LicenseManagementService;
     /// let client = LicenseManagementService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::license_management_service::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -163,11 +163,11 @@ impl LicenseManagementService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
 /// let client = ConsumerProcurementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Commerce Consumer Procurement API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -218,10 +218,10 @@ impl ConsumerProcurementService {
     /// Returns a builder for [ConsumerProcurementService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_commerce_consumer_procurement_v1::client::ConsumerProcurementService;
     /// let client = ConsumerProcurementService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::consumer_procurement_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

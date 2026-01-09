@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_gkehub_v1::client::GkeHub;
 /// let client = GkeHub::builder().build().await?;
 /// // use `client` to make requests to the GKE Hub.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -85,10 +85,10 @@ impl GkeHub {
     /// Returns a builder for [GkeHub].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_gkehub_v1::client::GkeHub;
     /// let client = GkeHub::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::gke_hub::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::gke_hub::client::Factory)

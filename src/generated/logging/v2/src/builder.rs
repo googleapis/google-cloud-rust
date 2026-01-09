@@ -20,7 +20,7 @@ pub mod logging_service_v_2 {
     /// A builder for [LoggingServiceV2][crate::client::LoggingServiceV2].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::logging_service_v_2::ClientBuilder;
     /// # use client::LoggingServiceV2;
@@ -28,7 +28,7 @@ pub mod logging_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::delete_log][crate::client::LoggingServiceV2::delete_log] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::DeleteLog;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::DeleteLog;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLog {
     ///   # panic!();
@@ -137,14 +136,13 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::write_log_entries][crate::client::LoggingServiceV2::write_log_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::WriteLogEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::WriteLogEntries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> WriteLogEntries {
     ///   # panic!();
@@ -252,10 +250,9 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::list_log_entries][crate::client::LoggingServiceV2::list_log_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::ListLogEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -263,7 +260,7 @@ pub mod logging_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLogEntries {
     ///   # panic!();
@@ -372,10 +369,9 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::list_monitored_resource_descriptors][crate::client::LoggingServiceV2::list_monitored_resource_descriptors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::ListMonitoredResourceDescriptors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListMonitoredResourceDescriptors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -383,7 +379,7 @@ pub mod logging_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMonitoredResourceDescriptors {
     ///   # panic!();
@@ -476,14 +472,13 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::list_logs][crate::client::LoggingServiceV2::list_logs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::ListLogs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListLogs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLogs {
     ///   # panic!();
@@ -562,10 +557,9 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::list_operations][crate::client::LoggingServiceV2::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -573,7 +567,7 @@ pub mod logging_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -680,14 +674,13 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::get_operation][crate::client::LoggingServiceV2::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -744,14 +737,13 @@ pub mod logging_service_v_2 {
     /// The request builder for [LoggingServiceV2::cancel_operation][crate::client::LoggingServiceV2::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::logging_service_v_2::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::logging_service_v_2::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -812,7 +804,7 @@ pub mod config_service_v_2 {
     /// A builder for [ConfigServiceV2][crate::client::ConfigServiceV2].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::config_service_v_2::ClientBuilder;
     /// # use client::ConfigServiceV2;
@@ -820,7 +812,7 @@ pub mod config_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -866,10 +858,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_buckets][crate::client::ConfigServiceV2::list_buckets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListBuckets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListBuckets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -877,7 +868,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBuckets {
     ///   # panic!();
@@ -969,14 +960,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_bucket][crate::client::ConfigServiceV2::get_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBucket {
     ///   # panic!();
@@ -1032,15 +1022,14 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_bucket_async][crate::client::ConfigServiceV2::create_bucket_async] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateBucketAsync;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucketAsync;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBucketAsync {
     ///   # panic!();
@@ -1164,15 +1153,14 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_bucket_async][crate::client::ConfigServiceV2::update_bucket_async] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateBucketAsync;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucketAsync;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBucketAsync {
     ///   # panic!();
@@ -1310,14 +1298,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_bucket][crate::client::ConfigServiceV2::create_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBucket {
     ///   # panic!();
@@ -1403,14 +1390,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_bucket][crate::client::ConfigServiceV2::update_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBucket {
     ///   # panic!();
@@ -1510,14 +1496,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::delete_bucket][crate::client::ConfigServiceV2::delete_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::DeleteBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBucket {
     ///   # panic!();
@@ -1573,14 +1558,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::undelete_bucket][crate::client::ConfigServiceV2::undelete_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UndeleteBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UndeleteBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteBucket {
     ///   # panic!();
@@ -1636,10 +1620,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_views][crate::client::ConfigServiceV2::list_views] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListViews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListViews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1647,7 +1630,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListViews {
     ///   # panic!();
@@ -1739,14 +1722,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_view][crate::client::ConfigServiceV2::get_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetView {
     ///   # panic!();
@@ -1802,14 +1784,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_view][crate::client::ConfigServiceV2::create_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateView {
     ///   # panic!();
@@ -1895,14 +1876,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_view][crate::client::ConfigServiceV2::update_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateView {
     ///   # panic!();
@@ -1998,14 +1978,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::delete_view][crate::client::ConfigServiceV2::delete_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::DeleteView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteView {
     ///   # panic!();
@@ -2061,10 +2040,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_sinks][crate::client::ConfigServiceV2::list_sinks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListSinks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListSinks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2072,7 +2050,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSinks {
     ///   # panic!();
@@ -2164,14 +2142,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_sink][crate::client::ConfigServiceV2::get_sink] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetSink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSink {
     ///   # panic!();
@@ -2227,14 +2204,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_sink][crate::client::ConfigServiceV2::create_sink] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateSink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateSink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSink {
     ///   # panic!();
@@ -2318,14 +2294,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_sink][crate::client::ConfigServiceV2::update_sink] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateSink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSink {
     ///   # panic!();
@@ -2427,14 +2402,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::delete_sink][crate::client::ConfigServiceV2::delete_sink] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::DeleteSink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteSink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSink {
     ///   # panic!();
@@ -2490,15 +2464,14 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_link][crate::client::ConfigServiceV2::create_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateLink;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLink {
     ///   # panic!();
@@ -2620,15 +2593,14 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::delete_link][crate::client::ConfigServiceV2::delete_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::DeleteLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteLink;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLink {
     ///   # panic!();
@@ -2724,10 +2696,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_links][crate::client::ConfigServiceV2::list_links] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListLinks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListLinks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2735,7 +2706,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLinks {
     ///   # panic!();
@@ -2827,14 +2798,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_link][crate::client::ConfigServiceV2::get_link] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetLink;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetLink;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLink {
     ///   # panic!();
@@ -2890,10 +2860,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_exclusions][crate::client::ConfigServiceV2::list_exclusions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListExclusions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListExclusions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2901,7 +2870,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExclusions {
     ///   # panic!();
@@ -2993,14 +2962,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_exclusion][crate::client::ConfigServiceV2::get_exclusion] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetExclusion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetExclusion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetExclusion {
     ///   # panic!();
@@ -3056,14 +3024,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::create_exclusion][crate::client::ConfigServiceV2::create_exclusion] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CreateExclusion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CreateExclusion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExclusion {
     ///   # panic!();
@@ -3141,14 +3108,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_exclusion][crate::client::ConfigServiceV2::update_exclusion] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateExclusion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateExclusion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateExclusion {
     ///   # panic!();
@@ -3248,14 +3214,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::delete_exclusion][crate::client::ConfigServiceV2::delete_exclusion] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::DeleteExclusion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::DeleteExclusion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteExclusion {
     ///   # panic!();
@@ -3311,14 +3276,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_cmek_settings][crate::client::ConfigServiceV2::get_cmek_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetCmekSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetCmekSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCmekSettings {
     ///   # panic!();
@@ -3374,14 +3338,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_cmek_settings][crate::client::ConfigServiceV2::update_cmek_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateCmekSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateCmekSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCmekSettings {
     ///   # panic!();
@@ -3480,14 +3443,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_settings][crate::client::ConfigServiceV2::get_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSettings {
     ///   # panic!();
@@ -3543,14 +3505,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::update_settings][crate::client::ConfigServiceV2::update_settings] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::UpdateSettings;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::UpdateSettings;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSettings {
     ///   # panic!();
@@ -3646,15 +3607,14 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::copy_log_entries][crate::client::ConfigServiceV2::copy_log_entries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CopyLogEntries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CopyLogEntries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CopyLogEntries {
     ///   # panic!();
@@ -3765,10 +3725,9 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::list_operations][crate::client::ConfigServiceV2::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3776,7 +3735,7 @@ pub mod config_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3883,14 +3842,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::get_operation][crate::client::ConfigServiceV2::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3947,14 +3905,13 @@ pub mod config_service_v_2 {
     /// The request builder for [ConfigServiceV2::cancel_operation][crate::client::ConfigServiceV2::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::config_service_v_2::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::config_service_v_2::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -4015,7 +3972,7 @@ pub mod metrics_service_v_2 {
     /// A builder for [MetricsServiceV2][crate::client::MetricsServiceV2].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_logging_v2::*;
     /// # use builder::metrics_service_v_2::ClientBuilder;
     /// # use client::MetricsServiceV2;
@@ -4023,7 +3980,7 @@ pub mod metrics_service_v_2 {
     /// let client = builder
     ///     .with_endpoint("https://logging.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4069,10 +4026,9 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::list_log_metrics][crate::client::MetricsServiceV2::list_log_metrics] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::ListLogMetrics;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListLogMetrics;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4080,7 +4036,7 @@ pub mod metrics_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLogMetrics {
     ///   # panic!();
@@ -4172,14 +4128,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::get_log_metric][crate::client::MetricsServiceV2::get_log_metric] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::GetLogMetric;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetLogMetric;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLogMetric {
     ///   # panic!();
@@ -4235,14 +4190,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::create_log_metric][crate::client::MetricsServiceV2::create_log_metric] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::CreateLogMetric;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CreateLogMetric;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLogMetric {
     ///   # panic!();
@@ -4320,14 +4274,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::update_log_metric][crate::client::MetricsServiceV2::update_log_metric] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::UpdateLogMetric;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::UpdateLogMetric;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateLogMetric {
     ///   # panic!();
@@ -4405,14 +4358,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::delete_log_metric][crate::client::MetricsServiceV2::delete_log_metric] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::DeleteLogMetric;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::DeleteLogMetric;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLogMetric {
     ///   # panic!();
@@ -4468,10 +4420,9 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::list_operations][crate::client::MetricsServiceV2::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4479,7 +4430,7 @@ pub mod metrics_service_v_2 {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -4586,14 +4537,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::get_operation][crate::client::MetricsServiceV2::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -4650,14 +4600,13 @@ pub mod metrics_service_v_2 {
     /// The request builder for [MetricsServiceV2::cancel_operation][crate::client::MetricsServiceV2::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_logging_v2::builder;
-    /// use builder::metrics_service_v_2::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_logging_v2::builder::metrics_service_v_2::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

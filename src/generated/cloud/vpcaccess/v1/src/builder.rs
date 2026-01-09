@@ -20,7 +20,7 @@ pub mod vpc_access_service {
     /// A builder for [VpcAccessService][crate::client::VpcAccessService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_vpcaccess_v1::*;
     /// # use builder::vpc_access_service::ClientBuilder;
     /// # use client::VpcAccessService;
@@ -28,7 +28,7 @@ pub mod vpc_access_service {
     /// let client = builder
     ///     .with_endpoint("https://vpcaccess.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::create_connector][crate::client::VpcAccessService::create_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::CreateConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::CreateConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateConnector {
     ///   # panic!();
@@ -206,14 +205,13 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::get_connector][crate::client::VpcAccessService::get_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::GetConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::GetConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetConnector {
     ///   # panic!();
@@ -269,10 +267,9 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::list_connectors][crate::client::VpcAccessService::list_connectors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::ListConnectors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListConnectors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -280,7 +277,7 @@ pub mod vpc_access_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListConnectors {
     ///   # panic!();
@@ -372,15 +369,14 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::delete_connector][crate::client::VpcAccessService::delete_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::DeleteConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::DeleteConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteConnector {
     ///   # panic!();
@@ -476,10 +472,9 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::list_locations][crate::client::VpcAccessService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -487,7 +482,7 @@ pub mod vpc_access_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -586,10 +581,9 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::list_operations][crate::client::VpcAccessService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -597,7 +591,7 @@ pub mod vpc_access_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -704,14 +698,13 @@ pub mod vpc_access_service {
     /// The request builder for [VpcAccessService::get_operation][crate::client::VpcAccessService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vpcaccess_v1::builder;
-    /// use builder::vpc_access_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vpcaccess_v1::builder::vpc_access_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

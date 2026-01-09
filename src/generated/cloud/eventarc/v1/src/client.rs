@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_eventarc_v1::client::Eventarc;
 /// let client = Eventarc::builder().build().await?;
 /// // use `client` to make requests to the Eventarc API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl Eventarc {
     /// Returns a builder for [Eventarc].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_eventarc_v1::client::Eventarc;
     /// let client = Eventarc::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::eventarc::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::eventarc::client::Factory)

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
 /// let client = AlloyDBCSQLAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl AlloyDBCSQLAdmin {
     /// Returns a builder for [AlloyDBCSQLAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBCSQLAdmin;
     /// let client = AlloyDBCSQLAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::alloy_dbcsql_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(
@@ -181,11 +181,11 @@ impl AlloyDBCSQLAdmin {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
 /// let client = AlloyDBAdmin::builder().build().await?;
 /// // use `client` to make requests to the AlloyDB API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -227,10 +227,10 @@ impl AlloyDBAdmin {
     /// Returns a builder for [AlloyDBAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_alloydb_v1::client::AlloyDBAdmin;
     /// let client = AlloyDBAdmin::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::alloy_db_admin::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::alloy_db_admin::client::Factory)

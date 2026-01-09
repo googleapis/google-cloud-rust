@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
 /// let client = VmwareEngine::builder().build().await?;
 /// // use `client` to make requests to the VMware Engine API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl VmwareEngine {
     /// Returns a builder for [VmwareEngine].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_vmwareengine_v1::client::VmwareEngine;
     /// let client = VmwareEngine::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::vmware_engine::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::vmware_engine::client::Factory)

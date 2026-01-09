@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v1::client::IAMPolicy;
 /// let client = IAMPolicy::builder().build().await?;
 /// // use `client` to make requests to the IAM Meta API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -90,10 +90,10 @@ impl IAMPolicy {
     /// Returns a builder for [IAMPolicy].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v1::client::IAMPolicy;
     /// let client = IAMPolicy::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::iam_policy::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::iam_policy::client::Factory)

@@ -20,7 +20,7 @@ pub mod alert_policy_service {
     /// A builder for [AlertPolicyService][crate::client::AlertPolicyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::alert_policy_service::ClientBuilder;
     /// # use client::AlertPolicyService;
@@ -28,7 +28,7 @@ pub mod alert_policy_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod alert_policy_service {
     /// The request builder for [AlertPolicyService::list_alert_policies][crate::client::AlertPolicyService::list_alert_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::alert_policy_service::ListAlertPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::alert_policy_service::ListAlertPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod alert_policy_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAlertPolicies {
     ///   # panic!();
@@ -192,14 +191,13 @@ pub mod alert_policy_service {
     /// The request builder for [AlertPolicyService::get_alert_policy][crate::client::AlertPolicyService::get_alert_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::alert_policy_service::GetAlertPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::alert_policy_service::GetAlertPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAlertPolicy {
     ///   # panic!();
@@ -255,14 +253,13 @@ pub mod alert_policy_service {
     /// The request builder for [AlertPolicyService::create_alert_policy][crate::client::AlertPolicyService::create_alert_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::alert_policy_service::CreateAlertPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::alert_policy_service::CreateAlertPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAlertPolicy {
     ///   # panic!();
@@ -343,14 +340,13 @@ pub mod alert_policy_service {
     /// The request builder for [AlertPolicyService::delete_alert_policy][crate::client::AlertPolicyService::delete_alert_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::alert_policy_service::DeleteAlertPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::alert_policy_service::DeleteAlertPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAlertPolicy {
     ///   # panic!();
@@ -409,14 +405,13 @@ pub mod alert_policy_service {
     /// The request builder for [AlertPolicyService::update_alert_policy][crate::client::AlertPolicyService::update_alert_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::alert_policy_service::UpdateAlertPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::alert_policy_service::UpdateAlertPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAlertPolicy {
     ///   # panic!();
@@ -511,7 +506,7 @@ pub mod group_service {
     /// A builder for [GroupService][crate::client::GroupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::group_service::ClientBuilder;
     /// # use client::GroupService;
@@ -519,7 +514,7 @@ pub mod group_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -565,10 +560,9 @@ pub mod group_service {
     /// The request builder for [GroupService::list_groups][crate::client::GroupService::list_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::ListGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::ListGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -576,7 +570,7 @@ pub mod group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGroups {
     ///   # panic!();
@@ -719,14 +713,13 @@ pub mod group_service {
     /// The request builder for [GroupService::get_group][crate::client::GroupService::get_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::GetGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::GetGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGroup {
     ///   # panic!();
@@ -782,14 +775,13 @@ pub mod group_service {
     /// The request builder for [GroupService::create_group][crate::client::GroupService::create_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::CreateGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::CreateGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGroup {
     ///   # panic!();
@@ -873,14 +865,13 @@ pub mod group_service {
     /// The request builder for [GroupService::update_group][crate::client::GroupService::update_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::UpdateGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::UpdateGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGroup {
     ///   # panic!();
@@ -956,14 +947,13 @@ pub mod group_service {
     /// The request builder for [GroupService::delete_group][crate::client::GroupService::delete_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::DeleteGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::DeleteGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGroup {
     ///   # panic!();
@@ -1025,10 +1015,9 @@ pub mod group_service {
     /// The request builder for [GroupService::list_group_members][crate::client::GroupService::list_group_members] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::group_service::ListGroupMembers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::group_service::ListGroupMembers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1036,7 +1025,7 @@ pub mod group_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGroupMembers {
     ///   # panic!();
@@ -1159,7 +1148,7 @@ pub mod metric_service {
     /// A builder for [MetricService][crate::client::MetricService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::metric_service::ClientBuilder;
     /// # use client::MetricService;
@@ -1167,7 +1156,7 @@ pub mod metric_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1213,10 +1202,9 @@ pub mod metric_service {
     /// The request builder for [MetricService::list_monitored_resource_descriptors][crate::client::MetricService::list_monitored_resource_descriptors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::ListMonitoredResourceDescriptors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::ListMonitoredResourceDescriptors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1224,7 +1212,7 @@ pub mod metric_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMonitoredResourceDescriptors {
     ///   # panic!();
@@ -1331,14 +1319,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::get_monitored_resource_descriptor][crate::client::MetricService::get_monitored_resource_descriptor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::GetMonitoredResourceDescriptor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::GetMonitoredResourceDescriptor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMonitoredResourceDescriptor {
     ///   # panic!();
@@ -1399,10 +1386,9 @@ pub mod metric_service {
     /// The request builder for [MetricService::list_metric_descriptors][crate::client::MetricService::list_metric_descriptors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::ListMetricDescriptors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::ListMetricDescriptors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1410,7 +1396,7 @@ pub mod metric_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMetricDescriptors {
     ///   # panic!();
@@ -1519,14 +1505,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::get_metric_descriptor][crate::client::MetricService::get_metric_descriptor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::GetMetricDescriptor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::GetMetricDescriptor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetricDescriptor {
     ///   # panic!();
@@ -1585,14 +1570,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::create_metric_descriptor][crate::client::MetricService::create_metric_descriptor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::CreateMetricDescriptor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::CreateMetricDescriptor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMetricDescriptor {
     ///   # panic!();
@@ -1673,14 +1657,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::delete_metric_descriptor][crate::client::MetricService::delete_metric_descriptor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::DeleteMetricDescriptor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::DeleteMetricDescriptor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMetricDescriptor {
     ///   # panic!();
@@ -1739,10 +1722,9 @@ pub mod metric_service {
     /// The request builder for [MetricService::list_time_series][crate::client::MetricService::list_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::ListTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::ListTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1750,7 +1732,7 @@ pub mod metric_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTimeSeries {
     ///   # panic!();
@@ -1925,14 +1907,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::create_time_series][crate::client::MetricService::create_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::CreateTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::CreateTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTimeSeries {
     ///   # panic!();
@@ -2004,14 +1985,13 @@ pub mod metric_service {
     /// The request builder for [MetricService::create_service_time_series][crate::client::MetricService::create_service_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::metric_service::CreateServiceTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::metric_service::CreateServiceTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServiceTimeSeries {
     ///   # panic!();
@@ -2087,7 +2067,7 @@ pub mod notification_channel_service {
     /// A builder for [NotificationChannelService][crate::client::NotificationChannelService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::notification_channel_service::ClientBuilder;
     /// # use client::NotificationChannelService;
@@ -2095,7 +2075,7 @@ pub mod notification_channel_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2141,10 +2121,9 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::list_notification_channel_descriptors][crate::client::NotificationChannelService::list_notification_channel_descriptors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::ListNotificationChannelDescriptors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::ListNotificationChannelDescriptors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2152,7 +2131,7 @@ pub mod notification_channel_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotificationChannelDescriptors {
     ///   # panic!();
@@ -2255,14 +2234,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::get_notification_channel_descriptor][crate::client::NotificationChannelService::get_notification_channel_descriptor] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::GetNotificationChannelDescriptor;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannelDescriptor;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotificationChannelDescriptor {
     ///   # panic!();
@@ -2323,10 +2301,9 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::list_notification_channels][crate::client::NotificationChannelService::list_notification_channels] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::ListNotificationChannels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::ListNotificationChannels;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2334,7 +2311,7 @@ pub mod notification_channel_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNotificationChannels {
     ///   # panic!();
@@ -2447,14 +2424,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::get_notification_channel][crate::client::NotificationChannelService::get_notification_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::GetNotificationChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotificationChannel {
     ///   # panic!();
@@ -2513,14 +2489,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::create_notification_channel][crate::client::NotificationChannelService::create_notification_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::CreateNotificationChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::CreateNotificationChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNotificationChannel {
     ///   # panic!();
@@ -2603,14 +2578,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::update_notification_channel][crate::client::NotificationChannelService::update_notification_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::UpdateNotificationChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::UpdateNotificationChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateNotificationChannel {
     ///   # panic!();
@@ -2703,14 +2677,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::delete_notification_channel][crate::client::NotificationChannelService::delete_notification_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::DeleteNotificationChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::DeleteNotificationChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNotificationChannel {
     ///   # panic!();
@@ -2777,14 +2750,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::send_notification_channel_verification_code][crate::client::NotificationChannelService::send_notification_channel_verification_code] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::SendNotificationChannelVerificationCode;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::SendNotificationChannelVerificationCode;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SendNotificationChannelVerificationCode {
     ///   # panic!();
@@ -2847,14 +2819,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::get_notification_channel_verification_code][crate::client::NotificationChannelService::get_notification_channel_verification_code] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::GetNotificationChannelVerificationCode;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::GetNotificationChannelVerificationCode;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNotificationChannelVerificationCode {
     ///   # panic!();
@@ -2937,14 +2908,13 @@ pub mod notification_channel_service {
     /// The request builder for [NotificationChannelService::verify_notification_channel][crate::client::NotificationChannelService::verify_notification_channel] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::notification_channel_service::VerifyNotificationChannel;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::notification_channel_service::VerifyNotificationChannel;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> VerifyNotificationChannel {
     ///   # panic!();
@@ -3017,7 +2987,7 @@ pub mod query_service {
     /// A builder for [QueryService][crate::client::QueryService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::query_service::ClientBuilder;
     /// # use client::QueryService;
@@ -3025,7 +2995,7 @@ pub mod query_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3071,10 +3041,9 @@ pub mod query_service {
     /// The request builder for [QueryService::query_time_series][crate::client::QueryService::query_time_series] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::query_service::QueryTimeSeries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::query_service::QueryTimeSeries;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3082,7 +3051,7 @@ pub mod query_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> QueryTimeSeries {
     ///   # panic!();
@@ -3186,7 +3155,7 @@ pub mod service_monitoring_service {
     /// A builder for [ServiceMonitoringService][crate::client::ServiceMonitoringService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::service_monitoring_service::ClientBuilder;
     /// # use client::ServiceMonitoringService;
@@ -3194,7 +3163,7 @@ pub mod service_monitoring_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3240,14 +3209,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::create_service][crate::client::ServiceMonitoringService::create_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::CreateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::CreateService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateService {
     ///   # panic!();
@@ -3331,14 +3299,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::get_service][crate::client::ServiceMonitoringService::get_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::GetService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::GetService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetService {
     ///   # panic!();
@@ -3394,10 +3361,9 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::list_services][crate::client::ServiceMonitoringService::list_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::ListServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::ListServices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3405,7 +3371,7 @@ pub mod service_monitoring_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServices {
     ///   # panic!();
@@ -3503,14 +3469,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::update_service][crate::client::ServiceMonitoringService::update_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::UpdateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::UpdateService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateService {
     ///   # panic!();
@@ -3598,14 +3563,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::delete_service][crate::client::ServiceMonitoringService::delete_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::DeleteService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::DeleteService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteService {
     ///   # panic!();
@@ -3661,14 +3625,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::create_service_level_objective][crate::client::ServiceMonitoringService::create_service_level_objective] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::CreateServiceLevelObjective;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::CreateServiceLevelObjective;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServiceLevelObjective {
     ///   # panic!();
@@ -3760,14 +3723,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::get_service_level_objective][crate::client::ServiceMonitoringService::get_service_level_objective] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::GetServiceLevelObjective;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::GetServiceLevelObjective;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServiceLevelObjective {
     ///   # panic!();
@@ -3837,10 +3799,9 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::list_service_level_objectives][crate::client::ServiceMonitoringService::list_service_level_objectives] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::ListServiceLevelObjectives;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::ListServiceLevelObjectives;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3848,7 +3809,7 @@ pub mod service_monitoring_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServiceLevelObjectives {
     ///   # panic!();
@@ -3964,14 +3925,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::update_service_level_objective][crate::client::ServiceMonitoringService::update_service_level_objective] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::UpdateServiceLevelObjective;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::UpdateServiceLevelObjective;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateServiceLevelObjective {
     ///   # panic!();
@@ -4064,14 +4024,13 @@ pub mod service_monitoring_service {
     /// The request builder for [ServiceMonitoringService::delete_service_level_objective][crate::client::ServiceMonitoringService::delete_service_level_objective] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::service_monitoring_service::DeleteServiceLevelObjective;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::service_monitoring_service::DeleteServiceLevelObjective;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteServiceLevelObjective {
     ///   # panic!();
@@ -4136,7 +4095,7 @@ pub mod snooze_service {
     /// A builder for [SnoozeService][crate::client::SnoozeService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::snooze_service::ClientBuilder;
     /// # use client::SnoozeService;
@@ -4144,7 +4103,7 @@ pub mod snooze_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4190,14 +4149,13 @@ pub mod snooze_service {
     /// The request builder for [SnoozeService::create_snooze][crate::client::SnoozeService::create_snooze] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::snooze_service::CreateSnooze;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::snooze_service::CreateSnooze;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSnooze {
     ///   # panic!();
@@ -4275,10 +4233,9 @@ pub mod snooze_service {
     /// The request builder for [SnoozeService::list_snoozes][crate::client::SnoozeService::list_snoozes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::snooze_service::ListSnoozes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::snooze_service::ListSnoozes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4286,7 +4243,7 @@ pub mod snooze_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSnoozes {
     ///   # panic!();
@@ -4384,14 +4341,13 @@ pub mod snooze_service {
     /// The request builder for [SnoozeService::get_snooze][crate::client::SnoozeService::get_snooze] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::snooze_service::GetSnooze;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::snooze_service::GetSnooze;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSnooze {
     ///   # panic!();
@@ -4447,14 +4403,13 @@ pub mod snooze_service {
     /// The request builder for [SnoozeService::update_snooze][crate::client::SnoozeService::update_snooze] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::snooze_service::UpdateSnooze;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::snooze_service::UpdateSnooze;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSnooze {
     ///   # panic!();
@@ -4550,7 +4505,7 @@ pub mod uptime_check_service {
     /// A builder for [UptimeCheckService][crate::client::UptimeCheckService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_v3::*;
     /// # use builder::uptime_check_service::ClientBuilder;
     /// # use client::UptimeCheckService;
@@ -4558,7 +4513,7 @@ pub mod uptime_check_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -4604,10 +4559,9 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::list_uptime_check_configs][crate::client::UptimeCheckService::list_uptime_check_configs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::ListUptimeCheckConfigs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::ListUptimeCheckConfigs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4615,7 +4569,7 @@ pub mod uptime_check_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUptimeCheckConfigs {
     ///   # panic!();
@@ -4720,14 +4674,13 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::get_uptime_check_config][crate::client::UptimeCheckService::get_uptime_check_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::GetUptimeCheckConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::GetUptimeCheckConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUptimeCheckConfig {
     ///   # panic!();
@@ -4786,14 +4739,13 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::create_uptime_check_config][crate::client::UptimeCheckService::create_uptime_check_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::CreateUptimeCheckConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::CreateUptimeCheckConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUptimeCheckConfig {
     ///   # panic!();
@@ -4876,14 +4828,13 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::update_uptime_check_config][crate::client::UptimeCheckService::update_uptime_check_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::UpdateUptimeCheckConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::UpdateUptimeCheckConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateUptimeCheckConfig {
     ///   # panic!();
@@ -4976,14 +4927,13 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::delete_uptime_check_config][crate::client::UptimeCheckService::delete_uptime_check_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::DeleteUptimeCheckConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::DeleteUptimeCheckConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUptimeCheckConfig {
     ///   # panic!();
@@ -5044,10 +4994,9 @@ pub mod uptime_check_service {
     /// The request builder for [UptimeCheckService::list_uptime_check_ips][crate::client::UptimeCheckService::list_uptime_check_ips] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_v3::builder;
-    /// use builder::uptime_check_service::ListUptimeCheckIps;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_v3::builder::uptime_check_service::ListUptimeCheckIps;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5055,7 +5004,7 @@ pub mod uptime_check_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUptimeCheckIps {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_build_v1::client::CloudBuild;
 /// let client = CloudBuild::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -73,10 +73,10 @@ impl CloudBuild {
     /// Returns a builder for [CloudBuild].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_build_v1::client::CloudBuild;
     /// let client = CloudBuild::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_build::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_build::client::Factory)

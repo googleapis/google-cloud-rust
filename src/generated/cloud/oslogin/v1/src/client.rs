@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_oslogin_v1::client::OsLoginService;
 /// let client = OsLoginService::builder().build().await?;
 /// // use `client` to make requests to the Cloud OS Login API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -69,10 +69,10 @@ impl OsLoginService {
     /// Returns a builder for [OsLoginService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_oslogin_v1::client::OsLoginService;
     /// let client = OsLoginService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::os_login_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

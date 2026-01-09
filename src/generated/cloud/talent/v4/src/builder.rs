@@ -20,7 +20,7 @@ pub mod company_service {
     /// A builder for [CompanyService][crate::client::CompanyService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::company_service::ClientBuilder;
     /// # use client::CompanyService;
@@ -28,7 +28,7 @@ pub mod company_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod company_service {
     /// The request builder for [CompanyService::create_company][crate::client::CompanyService::create_company] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::CreateCompany;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::CreateCompany;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCompany {
     ///   # panic!();
@@ -159,14 +158,13 @@ pub mod company_service {
     /// The request builder for [CompanyService::get_company][crate::client::CompanyService::get_company] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::GetCompany;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::GetCompany;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCompany {
     ///   # panic!();
@@ -222,14 +220,13 @@ pub mod company_service {
     /// The request builder for [CompanyService::update_company][crate::client::CompanyService::update_company] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::UpdateCompany;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::UpdateCompany;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCompany {
     ///   # panic!();
@@ -317,14 +314,13 @@ pub mod company_service {
     /// The request builder for [CompanyService::delete_company][crate::client::CompanyService::delete_company] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::DeleteCompany;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::DeleteCompany;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCompany {
     ///   # panic!();
@@ -380,10 +376,9 @@ pub mod company_service {
     /// The request builder for [CompanyService::list_companies][crate::client::CompanyService::list_companies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::ListCompanies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::ListCompanies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -391,7 +386,7 @@ pub mod company_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCompanies {
     ///   # panic!();
@@ -489,14 +484,13 @@ pub mod company_service {
     /// The request builder for [CompanyService::get_operation][crate::client::CompanyService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::company_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::company_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -557,7 +551,7 @@ pub mod completion {
     /// A builder for [Completion][crate::client::Completion].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::completion::ClientBuilder;
     /// # use client::Completion;
@@ -565,7 +559,7 @@ pub mod completion {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -611,14 +605,13 @@ pub mod completion {
     /// The request builder for [Completion::complete_query][crate::client::Completion::complete_query] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::completion::CompleteQuery;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::completion::CompleteQuery;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteQuery {
     ///   # panic!();
@@ -725,14 +718,13 @@ pub mod completion {
     /// The request builder for [Completion::get_operation][crate::client::Completion::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::completion::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::completion::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -793,7 +785,7 @@ pub mod event_service {
     /// A builder for [EventService][crate::client::EventService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::event_service::ClientBuilder;
     /// # use client::EventService;
@@ -801,7 +793,7 @@ pub mod event_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -847,14 +839,13 @@ pub mod event_service {
     /// The request builder for [EventService::create_client_event][crate::client::EventService::create_client_event] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::event_service::CreateClientEvent;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::event_service::CreateClientEvent;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateClientEvent {
     ///   # panic!();
@@ -935,14 +926,13 @@ pub mod event_service {
     /// The request builder for [EventService::get_operation][crate::client::EventService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::event_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::event_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1003,7 +993,7 @@ pub mod job_service {
     /// A builder for [JobService][crate::client::JobService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::job_service::ClientBuilder;
     /// # use client::JobService;
@@ -1011,7 +1001,7 @@ pub mod job_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -1057,14 +1047,13 @@ pub mod job_service {
     /// The request builder for [JobService::create_job][crate::client::JobService::create_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::CreateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::CreateJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateJob {
     ///   # panic!();
@@ -1142,15 +1131,14 @@ pub mod job_service {
     /// The request builder for [JobService::batch_create_jobs][crate::client::JobService::batch_create_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::BatchCreateJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::BatchCreateJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreateJobs {
     ///   # panic!();
@@ -1260,14 +1248,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_job][crate::client::JobService::get_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::GetJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::GetJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJob {
     ///   # panic!();
@@ -1323,14 +1310,13 @@ pub mod job_service {
     /// The request builder for [JobService::update_job][crate::client::JobService::update_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::UpdateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::UpdateJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateJob {
     ///   # panic!();
@@ -1418,15 +1404,14 @@ pub mod job_service {
     /// The request builder for [JobService::batch_update_jobs][crate::client::JobService::batch_update_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::BatchUpdateJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::BatchUpdateJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchUpdateJobs {
     ///   # panic!();
@@ -1554,14 +1539,13 @@ pub mod job_service {
     /// The request builder for [JobService::delete_job][crate::client::JobService::delete_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::DeleteJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::DeleteJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteJob {
     ///   # panic!();
@@ -1617,15 +1601,14 @@ pub mod job_service {
     /// The request builder for [JobService::batch_delete_jobs][crate::client::JobService::batch_delete_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::BatchDeleteJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::BatchDeleteJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchDeleteJobs {
     ///   # panic!();
@@ -1733,10 +1716,9 @@ pub mod job_service {
     /// The request builder for [JobService::list_jobs][crate::client::JobService::list_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::ListJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::ListJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1744,7 +1726,7 @@ pub mod job_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobs {
     ///   # panic!();
@@ -1850,14 +1832,13 @@ pub mod job_service {
     /// The request builder for [JobService::search_jobs][crate::client::JobService::search_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::SearchJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::SearchJobs;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchJobs {
     ///   # panic!();
@@ -2067,14 +2048,13 @@ pub mod job_service {
     /// The request builder for [JobService::search_jobs_for_alert][crate::client::JobService::search_jobs_for_alert] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::SearchJobsForAlert;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::SearchJobsForAlert;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchJobsForAlert {
     ///   # panic!();
@@ -2284,14 +2264,13 @@ pub mod job_service {
     /// The request builder for [JobService::get_operation][crate::client::JobService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::job_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::job_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2352,7 +2331,7 @@ pub mod tenant_service {
     /// A builder for [TenantService][crate::client::TenantService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_talent_v4::*;
     /// # use builder::tenant_service::ClientBuilder;
     /// # use client::TenantService;
@@ -2360,7 +2339,7 @@ pub mod tenant_service {
     /// let client = builder
     ///     .with_endpoint("https://jobs.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2406,14 +2385,13 @@ pub mod tenant_service {
     /// The request builder for [TenantService::create_tenant][crate::client::TenantService::create_tenant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::CreateTenant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::CreateTenant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTenant {
     ///   # panic!();
@@ -2491,14 +2469,13 @@ pub mod tenant_service {
     /// The request builder for [TenantService::get_tenant][crate::client::TenantService::get_tenant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::GetTenant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::GetTenant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTenant {
     ///   # panic!();
@@ -2554,14 +2531,13 @@ pub mod tenant_service {
     /// The request builder for [TenantService::update_tenant][crate::client::TenantService::update_tenant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::UpdateTenant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::UpdateTenant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTenant {
     ///   # panic!();
@@ -2649,14 +2625,13 @@ pub mod tenant_service {
     /// The request builder for [TenantService::delete_tenant][crate::client::TenantService::delete_tenant] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::DeleteTenant;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::DeleteTenant;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTenant {
     ///   # panic!();
@@ -2712,10 +2687,9 @@ pub mod tenant_service {
     /// The request builder for [TenantService::list_tenants][crate::client::TenantService::list_tenants] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::ListTenants;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::ListTenants;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2723,7 +2697,7 @@ pub mod tenant_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTenants {
     ///   # panic!();
@@ -2815,14 +2789,13 @@ pub mod tenant_service {
     /// The request builder for [TenantService::get_operation][crate::client::TenantService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_talent_v4::builder;
-    /// use builder::tenant_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_talent_v4::builder::tenant_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

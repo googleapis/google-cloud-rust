@@ -20,7 +20,7 @@ pub mod cluster_manager {
     /// A builder for [ClusterManager][crate::client::ClusterManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_container_v1::*;
     /// # use builder::cluster_manager::ClientBuilder;
     /// # use client::ClusterManager;
@@ -28,7 +28,7 @@ pub mod cluster_manager {
     /// let client = builder
     ///     .with_endpoint("https://container.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::list_clusters][crate::client::ClusterManager::list_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::ListClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::ListClusters;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClusters {
     ///   # panic!();
@@ -149,14 +148,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::get_cluster][crate::client::ClusterManager::get_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::GetCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::GetCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCluster {
     ///   # panic!();
@@ -231,14 +229,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::create_cluster][crate::client::ClusterManager::create_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CreateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CreateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCluster {
     ///   # panic!();
@@ -328,14 +325,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::update_cluster][crate::client::ClusterManager::update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::UpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::UpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
     ///   # panic!();
@@ -432,14 +428,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::update_node_pool][crate::client::ClusterManager::update_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::UpdateNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::UpdateNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateNodePool {
     ///   # panic!();
@@ -972,14 +967,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_node_pool_autoscaling][crate::client::ClusterManager::set_node_pool_autoscaling] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetNodePoolAutoscaling;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolAutoscaling;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetNodePoolAutoscaling {
     ///   # panic!();
@@ -1086,14 +1080,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_logging_service][crate::client::ClusterManager::set_logging_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetLoggingService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetLoggingService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetLoggingService {
     ///   # panic!();
@@ -1179,14 +1172,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_monitoring_service][crate::client::ClusterManager::set_monitoring_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetMonitoringService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetMonitoringService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetMonitoringService {
     ///   # panic!();
@@ -1272,14 +1264,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_addons_config][crate::client::ClusterManager::set_addons_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetAddonsConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetAddonsConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetAddonsConfig {
     ///   # panic!();
@@ -1376,14 +1367,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_locations][crate::client::ClusterManager::set_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetLocations;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetLocations {
     ///   # panic!();
@@ -1471,14 +1461,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::update_master][crate::client::ClusterManager::update_master] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::UpdateMaster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::UpdateMaster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateMaster {
     ///   # panic!();
@@ -1561,14 +1550,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_master_auth][crate::client::ClusterManager::set_master_auth] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetMasterAuth;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetMasterAuth;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetMasterAuth {
     ///   # panic!();
@@ -1676,14 +1664,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::delete_cluster][crate::client::ClusterManager::delete_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::DeleteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::DeleteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
     ///   # panic!();
@@ -1758,14 +1745,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::list_operations][crate::client::ClusterManager::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1833,14 +1819,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::get_operation][crate::client::ClusterManager::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1915,14 +1900,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::cancel_operation][crate::client::ClusterManager::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -1997,14 +1981,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::get_server_config][crate::client::ClusterManager::get_server_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::GetServerConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::GetServerConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServerConfig {
     ///   # panic!();
@@ -2072,14 +2055,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::get_json_web_keys][crate::client::ClusterManager::get_json_web_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::GetJSONWebKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::GetJSONWebKeys;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJSONWebKeys {
     ///   # panic!();
@@ -2133,14 +2115,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::list_node_pools][crate::client::ClusterManager::list_node_pools] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::ListNodePools;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::ListNodePools;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNodePools {
     ///   # panic!();
@@ -2215,14 +2196,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::get_node_pool][crate::client::ClusterManager::get_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::GetNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::GetNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNodePool {
     ///   # panic!();
@@ -2304,14 +2284,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::create_node_pool][crate::client::ClusterManager::create_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CreateNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CreateNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNodePool {
     ///   # panic!();
@@ -2408,14 +2387,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::delete_node_pool][crate::client::ClusterManager::delete_node_pool] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::DeleteNodePool;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::DeleteNodePool;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNodePool {
     ///   # panic!();
@@ -2497,14 +2475,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::complete_node_pool_upgrade][crate::client::ClusterManager::complete_node_pool_upgrade] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CompleteNodePoolUpgrade;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CompleteNodePoolUpgrade;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteNodePoolUpgrade {
     ///   # panic!();
@@ -2563,14 +2540,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::rollback_node_pool_upgrade][crate::client::ClusterManager::rollback_node_pool_upgrade] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::RollbackNodePoolUpgrade;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::RollbackNodePoolUpgrade;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RollbackNodePoolUpgrade {
     ///   # panic!();
@@ -2663,14 +2639,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_node_pool_management][crate::client::ClusterManager::set_node_pool_management] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetNodePoolManagement;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolManagement;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetNodePoolManagement {
     ///   # panic!();
@@ -2777,14 +2752,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_labels][crate::client::ClusterManager::set_labels] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetLabels;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetLabels;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetLabels {
     ///   # panic!();
@@ -2881,14 +2855,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_legacy_abac][crate::client::ClusterManager::set_legacy_abac] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetLegacyAbac;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetLegacyAbac;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetLegacyAbac {
     ///   # panic!();
@@ -2971,14 +2944,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::start_ip_rotation][crate::client::ClusterManager::start_ip_rotation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::StartIPRotation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::StartIPRotation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartIPRotation {
     ///   # panic!();
@@ -3059,14 +3031,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::complete_ip_rotation][crate::client::ClusterManager::complete_ip_rotation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CompleteIPRotation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CompleteIPRotation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CompleteIPRotation {
     ///   # panic!();
@@ -3144,14 +3115,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_node_pool_size][crate::client::ClusterManager::set_node_pool_size] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetNodePoolSize;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetNodePoolSize;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetNodePoolSize {
     ///   # panic!();
@@ -3241,14 +3211,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_network_policy][crate::client::ClusterManager::set_network_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetNetworkPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetNetworkPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetNetworkPolicy {
     ///   # panic!();
@@ -3348,14 +3317,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::set_maintenance_policy][crate::client::ClusterManager::set_maintenance_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::SetMaintenancePolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::SetMaintenancePolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetMaintenancePolicy {
     ///   # panic!();
@@ -3458,10 +3426,9 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::list_usable_subnetworks][crate::client::ClusterManager::list_usable_subnetworks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::ListUsableSubnetworks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::ListUsableSubnetworks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3469,7 +3436,7 @@ pub mod cluster_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUsableSubnetworks {
     ///   # panic!();
@@ -3570,14 +3537,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::check_autopilot_compatibility][crate::client::ClusterManager::check_autopilot_compatibility] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::CheckAutopilotCompatibility;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::CheckAutopilotCompatibility;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckAutopilotCompatibility {
     ///   # panic!();
@@ -3636,14 +3602,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::fetch_cluster_upgrade_info][crate::client::ClusterManager::fetch_cluster_upgrade_info] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::FetchClusterUpgradeInfo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::FetchClusterUpgradeInfo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchClusterUpgradeInfo {
     ///   # panic!();
@@ -3710,14 +3675,13 @@ pub mod cluster_manager {
     /// The request builder for [ClusterManager::fetch_node_pool_upgrade_info][crate::client::ClusterManager::fetch_node_pool_upgrade_info] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_container_v1::builder;
-    /// use builder::cluster_manager::FetchNodePoolUpgradeInfo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_container_v1::builder::cluster_manager::FetchNodePoolUpgradeInfo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchNodePoolUpgradeInfo {
     ///   # panic!();

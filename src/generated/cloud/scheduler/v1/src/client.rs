@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_scheduler_v1::client::CloudScheduler;
 /// let client = CloudScheduler::builder().build().await?;
 /// // use `client` to make requests to the Cloud Scheduler API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl CloudScheduler {
     /// Returns a builder for [CloudScheduler].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_scheduler_v1::client::CloudScheduler;
     /// let client = CloudScheduler::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_scheduler::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_scheduler::client::Factory)

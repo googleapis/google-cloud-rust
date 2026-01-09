@@ -20,7 +20,7 @@ pub mod cloud_tasks {
     /// A builder for [CloudTasks][crate::client::CloudTasks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_tasks_v2::*;
     /// # use builder::cloud_tasks::ClientBuilder;
     /// # use client::CloudTasks;
@@ -28,7 +28,7 @@ pub mod cloud_tasks {
     /// let client = builder
     ///     .with_endpoint("https://cloudtasks.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::list_queues][crate::client::CloudTasks::list_queues] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::ListQueues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListQueues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_tasks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListQueues {
     ///   # panic!();
@@ -183,14 +182,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::get_queue][crate::client::CloudTasks::get_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::GetQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetQueue {
     ///   # panic!();
@@ -246,14 +244,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::create_queue][crate::client::CloudTasks::create_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::CreateQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::CreateQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateQueue {
     ///   # panic!();
@@ -331,14 +328,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::update_queue][crate::client::CloudTasks::update_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::UpdateQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::UpdateQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateQueue {
     ///   # panic!();
@@ -426,14 +422,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::delete_queue][crate::client::CloudTasks::delete_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::DeleteQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::DeleteQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteQueue {
     ///   # panic!();
@@ -489,14 +484,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::purge_queue][crate::client::CloudTasks::purge_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::PurgeQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::PurgeQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PurgeQueue {
     ///   # panic!();
@@ -552,14 +546,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::pause_queue][crate::client::CloudTasks::pause_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::PauseQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::PauseQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseQueue {
     ///   # panic!();
@@ -615,14 +608,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::resume_queue][crate::client::CloudTasks::resume_queue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::ResumeQueue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::ResumeQueue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeQueue {
     ///   # panic!();
@@ -678,14 +670,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::get_iam_policy][crate::client::CloudTasks::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -759,14 +750,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::set_iam_policy][crate::client::CloudTasks::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -862,14 +852,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::test_iam_permissions][crate::client::CloudTasks::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -941,10 +930,9 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::list_tasks][crate::client::CloudTasks::list_tasks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::ListTasks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListTasks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -952,7 +940,7 @@ pub mod cloud_tasks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTasks {
     ///   # panic!();
@@ -1050,14 +1038,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::get_task][crate::client::CloudTasks::get_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::GetTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTask {
     ///   # panic!();
@@ -1119,14 +1106,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::create_task][crate::client::CloudTasks::create_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::CreateTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::CreateTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTask {
     ///   # panic!();
@@ -1210,14 +1196,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::delete_task][crate::client::CloudTasks::delete_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::DeleteTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::DeleteTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTask {
     ///   # panic!();
@@ -1273,14 +1258,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::run_task][crate::client::CloudTasks::run_task] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::RunTask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::RunTask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunTask {
     ///   # panic!();
@@ -1342,10 +1326,9 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::list_locations][crate::client::CloudTasks::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1353,7 +1336,7 @@ pub mod cloud_tasks {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1452,14 +1435,13 @@ pub mod cloud_tasks {
     /// The request builder for [CloudTasks::get_location][crate::client::CloudTasks::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_tasks_v2::builder;
-    /// use builder::cloud_tasks::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_tasks_v2::builder::cloud_tasks::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod topic_admin {
     /// A builder for [TopicAdmin][crate::client::TopicAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::topic_admin::ClientBuilder;
     /// # use client::TopicAdmin;
@@ -28,7 +28,7 @@ pub mod topic_admin {
     /// let client = builder
     ///     .with_endpoint("https://pubsub.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::create_topic][crate::client::TopicAdmin::create_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::CreateTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::CreateTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTopic {
     ///   # panic!();
@@ -266,14 +265,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::update_topic][crate::client::TopicAdmin::update_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::UpdateTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::UpdateTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTopic {
     ///   # panic!();
@@ -365,14 +363,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::get_topic][crate::client::TopicAdmin::get_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::GetTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::GetTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTopic {
     ///   # panic!();
@@ -428,10 +425,9 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::list_topics][crate::client::TopicAdmin::list_topics] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::ListTopics;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::ListTopics;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -439,7 +435,7 @@ pub mod topic_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTopics {
     ///   # panic!();
@@ -531,14 +527,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::list_topic_subscriptions][crate::client::TopicAdmin::list_topic_subscriptions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::ListTopicSubscriptions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSubscriptions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTopicSubscriptions {
     ///   # panic!();
@@ -609,14 +604,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::list_topic_snapshots][crate::client::TopicAdmin::list_topic_snapshots] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::ListTopicSnapshots;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::ListTopicSnapshots;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTopicSnapshots {
     ///   # panic!();
@@ -687,14 +681,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::delete_topic][crate::client::TopicAdmin::delete_topic] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::DeleteTopic;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::DeleteTopic;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTopic {
     ///   # panic!();
@@ -750,14 +743,13 @@ pub mod topic_admin {
     /// The request builder for [TopicAdmin::detach_subscription][crate::client::TopicAdmin::detach_subscription] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::topic_admin::DetachSubscription;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::topic_admin::DetachSubscription;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DetachSubscription {
     ///   # panic!();
@@ -820,7 +812,7 @@ pub mod subscription_admin {
     /// A builder for [SubscriptionAdmin][crate::client::SubscriptionAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::subscription_admin::ClientBuilder;
     /// # use client::SubscriptionAdmin;
@@ -828,7 +820,7 @@ pub mod subscription_admin {
     /// let client = builder
     ///     .with_endpoint("https://pubsub.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -874,14 +866,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::create_subscription][crate::client::SubscriptionAdmin::create_subscription] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::CreateSubscription;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::CreateSubscription;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSubscription {
     ///   # panic!();
@@ -1191,14 +1182,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::get_subscription][crate::client::SubscriptionAdmin::get_subscription] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::GetSubscription;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::GetSubscription;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSubscription {
     ///   # panic!();
@@ -1254,14 +1244,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::update_subscription][crate::client::SubscriptionAdmin::update_subscription] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::UpdateSubscription;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSubscription;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSubscription {
     ///   # panic!();
@@ -1356,10 +1345,9 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::list_subscriptions][crate::client::SubscriptionAdmin::list_subscriptions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::ListSubscriptions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::ListSubscriptions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1367,7 +1355,7 @@ pub mod subscription_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSubscriptions {
     ///   # panic!();
@@ -1462,14 +1450,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::delete_subscription][crate::client::SubscriptionAdmin::delete_subscription] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::DeleteSubscription;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSubscription;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSubscription {
     ///   # panic!();
@@ -1528,14 +1515,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::modify_push_config][crate::client::SubscriptionAdmin::modify_push_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::ModifyPushConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::ModifyPushConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ModifyPushConfig {
     ///   # panic!();
@@ -1616,14 +1602,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::get_snapshot][crate::client::SubscriptionAdmin::get_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::GetSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::GetSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSnapshot {
     ///   # panic!();
@@ -1679,10 +1664,9 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::list_snapshots][crate::client::SubscriptionAdmin::list_snapshots] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::ListSnapshots;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::ListSnapshots;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1690,7 +1674,7 @@ pub mod subscription_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSnapshots {
     ///   # panic!();
@@ -1782,14 +1766,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::create_snapshot][crate::client::SubscriptionAdmin::create_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::CreateSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::CreateSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSnapshot {
     ///   # panic!();
@@ -1875,14 +1858,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::update_snapshot][crate::client::SubscriptionAdmin::update_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::UpdateSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::UpdateSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSnapshot {
     ///   # panic!();
@@ -1974,14 +1956,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::delete_snapshot][crate::client::SubscriptionAdmin::delete_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::DeleteSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::DeleteSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSnapshot {
     ///   # panic!();
@@ -2037,14 +2018,13 @@ pub mod subscription_admin {
     /// The request builder for [SubscriptionAdmin::seek][crate::client::SubscriptionAdmin::seek] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscription_admin::Seek;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscription_admin::Seek;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Seek {
     ///   # panic!();
@@ -2139,7 +2119,7 @@ pub mod schema_service {
     /// A builder for [SchemaService][crate::client::SchemaService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_pubsub::*;
     /// # use builder::schema_service::ClientBuilder;
     /// # use client::SchemaService;
@@ -2147,7 +2127,7 @@ pub mod schema_service {
     /// let client = builder
     ///     .with_endpoint("https://pubsub.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -2193,14 +2173,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::create_schema][crate::client::SchemaService::create_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::CreateSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::CreateSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSchema {
     ///   # panic!();
@@ -2284,14 +2263,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::get_schema][crate::client::SchemaService::get_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::GetSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::GetSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchema {
     ///   # panic!();
@@ -2353,10 +2331,9 @@ pub mod schema_service {
     /// The request builder for [SchemaService::list_schemas][crate::client::SchemaService::list_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::ListSchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::ListSchemas;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2364,7 +2341,7 @@ pub mod schema_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemas {
     ///   # panic!();
@@ -2462,10 +2439,9 @@ pub mod schema_service {
     /// The request builder for [SchemaService::list_schema_revisions][crate::client::SchemaService::list_schema_revisions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::ListSchemaRevisions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::ListSchemaRevisions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2473,7 +2449,7 @@ pub mod schema_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemaRevisions {
     ///   # panic!();
@@ -2576,14 +2552,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::commit_schema][crate::client::SchemaService::commit_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::CommitSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::CommitSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CommitSchema {
     ///   # panic!();
@@ -2661,14 +2636,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::rollback_schema][crate::client::SchemaService::rollback_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::RollbackSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::RollbackSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RollbackSchema {
     ///   # panic!();
@@ -2732,14 +2706,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::delete_schema_revision][crate::client::SchemaService::delete_schema_revision] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::DeleteSchemaRevision;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::DeleteSchemaRevision;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchemaRevision {
     ///   # panic!();
@@ -2805,14 +2778,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::delete_schema][crate::client::SchemaService::delete_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::DeleteSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::DeleteSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchema {
     ///   # panic!();
@@ -2868,14 +2840,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::validate_schema][crate::client::SchemaService::validate_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::ValidateSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::ValidateSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ValidateSchema {
     ///   # panic!();
@@ -2953,14 +2924,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::validate_message][crate::client::SchemaService::validate_message] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::ValidateMessage;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::ValidateMessage;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ValidateMessage {
     ///   # panic!();
@@ -3065,14 +3035,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::set_iam_policy][crate::client::SchemaService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3168,14 +3137,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::get_iam_policy][crate::client::SchemaService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3249,14 +3217,13 @@ pub mod schema_service {
     /// The request builder for [SchemaService::test_iam_permissions][crate::client::SchemaService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::schema_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::schema_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();

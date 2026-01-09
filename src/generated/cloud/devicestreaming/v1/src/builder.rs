@@ -20,7 +20,7 @@ pub mod direct_access_service {
     /// A builder for [DirectAccessService][crate::client::DirectAccessService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_devicestreaming_v1::*;
     /// # use builder::direct_access_service::ClientBuilder;
     /// # use client::DirectAccessService;
@@ -28,7 +28,7 @@ pub mod direct_access_service {
     /// let client = builder
     ///     .with_endpoint("https://devicestreaming.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod direct_access_service {
     /// The request builder for [DirectAccessService::create_device_session][crate::client::DirectAccessService::create_device_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_devicestreaming_v1::builder;
-    /// use builder::direct_access_service::CreateDeviceSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::CreateDeviceSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDeviceSession {
     ///   # panic!();
@@ -168,10 +167,9 @@ pub mod direct_access_service {
     /// The request builder for [DirectAccessService::list_device_sessions][crate::client::DirectAccessService::list_device_sessions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_devicestreaming_v1::builder;
-    /// use builder::direct_access_service::ListDeviceSessions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::ListDeviceSessions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -179,7 +177,7 @@ pub mod direct_access_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDeviceSessions {
     ///   # panic!();
@@ -282,14 +280,13 @@ pub mod direct_access_service {
     /// The request builder for [DirectAccessService::get_device_session][crate::client::DirectAccessService::get_device_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_devicestreaming_v1::builder;
-    /// use builder::direct_access_service::GetDeviceSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::GetDeviceSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDeviceSession {
     ///   # panic!();
@@ -348,14 +345,13 @@ pub mod direct_access_service {
     /// The request builder for [DirectAccessService::cancel_device_session][crate::client::DirectAccessService::cancel_device_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_devicestreaming_v1::builder;
-    /// use builder::direct_access_service::CancelDeviceSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::CancelDeviceSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelDeviceSession {
     ///   # panic!();
@@ -414,14 +410,13 @@ pub mod direct_access_service {
     /// The request builder for [DirectAccessService::update_device_session][crate::client::DirectAccessService::update_device_session] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_devicestreaming_v1::builder;
-    /// use builder::direct_access_service::UpdateDeviceSession;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_devicestreaming_v1::builder::direct_access_service::UpdateDeviceSession;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDeviceSession {
     ///   # panic!();

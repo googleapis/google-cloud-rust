@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v2::client::Policies;
 /// let client = Policies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Policies {
     /// Returns a builder for [Policies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v2::client::Policies;
     /// let client = Policies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policies::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::policies::client::Factory)

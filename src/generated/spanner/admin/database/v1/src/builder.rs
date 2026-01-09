@@ -20,7 +20,7 @@ pub mod database_admin {
     /// A builder for [DatabaseAdmin][crate::client::DatabaseAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_spanner_admin_database_v1::*;
     /// # use builder::database_admin::ClientBuilder;
     /// # use client::DatabaseAdmin;
@@ -28,7 +28,7 @@ pub mod database_admin {
     /// let client = builder
     ///     .with_endpoint("https://spanner.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_databases][crate::client::DatabaseAdmin::list_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabases {
     ///   # panic!();
@@ -177,15 +176,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::create_database][crate::client::DatabaseAdmin::create_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::CreateDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDatabase {
     ///   # panic!();
@@ -334,14 +332,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_database][crate::client::DatabaseAdmin::get_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatabase {
     ///   # panic!();
@@ -397,15 +394,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::update_database][crate::client::DatabaseAdmin::update_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::UpdateDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDatabase {
     ///   # panic!();
@@ -538,15 +534,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::update_database_ddl][crate::client::DatabaseAdmin::update_database_ddl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::UpdateDatabaseDdl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateDatabaseDdl;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDatabaseDdl {
     ///   # panic!();
@@ -677,14 +672,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::drop_database][crate::client::DatabaseAdmin::drop_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::DropDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DropDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DropDatabase {
     ///   # panic!();
@@ -740,14 +734,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_database_ddl][crate::client::DatabaseAdmin::get_database_ddl] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetDatabaseDdl;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetDatabaseDdl;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatabaseDdl {
     ///   # panic!();
@@ -803,14 +796,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::set_iam_policy][crate::client::DatabaseAdmin::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -906,14 +898,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_iam_policy][crate::client::DatabaseAdmin::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -987,14 +978,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::test_iam_permissions][crate::client::DatabaseAdmin::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1066,15 +1056,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::create_backup][crate::client::DatabaseAdmin::create_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::CreateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackup {
     ///   # panic!();
@@ -1216,15 +1205,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::copy_backup][crate::client::DatabaseAdmin::copy_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::CopyBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CopyBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CopyBackup {
     ///   # panic!();
@@ -1374,14 +1362,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_backup][crate::client::DatabaseAdmin::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -1437,14 +1424,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::update_backup][crate::client::DatabaseAdmin::update_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::UpdateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackup {
     ///   # panic!();
@@ -1536,14 +1522,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::delete_backup][crate::client::DatabaseAdmin::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -1599,10 +1584,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_backups][crate::client::DatabaseAdmin::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1610,7 +1594,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -1708,15 +1692,14 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::restore_database][crate::client::DatabaseAdmin::restore_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::RestoreDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::RestoreDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreDatabase {
     ///   # panic!();
@@ -1861,10 +1844,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_database_operations][crate::client::DatabaseAdmin::list_database_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListDatabaseOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabaseOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1872,7 +1854,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabaseOperations {
     ///   # panic!();
@@ -1977,10 +1959,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_backup_operations][crate::client::DatabaseAdmin::list_backup_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListBackupOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackupOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1988,7 +1969,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupOperations {
     ///   # panic!();
@@ -2091,10 +2072,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_database_roles][crate::client::DatabaseAdmin::list_database_roles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListDatabaseRoles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListDatabaseRoles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2102,7 +2082,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabaseRoles {
     ///   # panic!();
@@ -2197,14 +2177,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::add_split_points][crate::client::DatabaseAdmin::add_split_points] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::AddSplitPoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::AddSplitPoints;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddSplitPoints {
     ///   # panic!();
@@ -2279,14 +2258,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::create_backup_schedule][crate::client::DatabaseAdmin::create_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::CreateBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CreateBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupSchedule {
     ///   # panic!();
@@ -2375,14 +2353,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_backup_schedule][crate::client::DatabaseAdmin::get_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupSchedule {
     ///   # panic!();
@@ -2441,14 +2418,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::update_backup_schedule][crate::client::DatabaseAdmin::update_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::UpdateBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::UpdateBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupSchedule {
     ///   # panic!();
@@ -2543,14 +2519,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::delete_backup_schedule][crate::client::DatabaseAdmin::delete_backup_schedule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::DeleteBackupSchedule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteBackupSchedule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupSchedule {
     ///   # panic!();
@@ -2609,10 +2584,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_backup_schedules][crate::client::DatabaseAdmin::list_backup_schedules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListBackupSchedules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListBackupSchedules;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2620,7 +2594,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupSchedules {
     ///   # panic!();
@@ -2717,10 +2691,9 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::list_operations][crate::client::DatabaseAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2728,7 +2701,7 @@ pub mod database_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2835,14 +2808,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::get_operation][crate::client::DatabaseAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2899,14 +2871,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::delete_operation][crate::client::DatabaseAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2963,14 +2934,13 @@ pub mod database_admin {
     /// The request builder for [DatabaseAdmin::cancel_operation][crate::client::DatabaseAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_spanner_admin_database_v1::builder;
-    /// use builder::database_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_spanner_admin_database_v1::builder::database_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

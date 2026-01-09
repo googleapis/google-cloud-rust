@@ -20,7 +20,7 @@ pub mod lookup_service {
     /// A builder for [LookupService][crate::client::LookupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::*;
     /// # use builder::lookup_service::ClientBuilder;
     /// # use client::LookupService;
@@ -28,7 +28,7 @@ pub mod lookup_service {
     /// let client = builder
     ///     .with_endpoint("https://servicedirectory.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod lookup_service {
     /// The request builder for [LookupService::resolve_service][crate::client::LookupService::resolve_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::lookup_service::ResolveService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::lookup_service::ResolveService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResolveService {
     ///   # panic!();
@@ -149,10 +148,9 @@ pub mod lookup_service {
     /// The request builder for [LookupService::list_locations][crate::client::LookupService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::lookup_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::lookup_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -160,7 +158,7 @@ pub mod lookup_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -259,14 +257,13 @@ pub mod lookup_service {
     /// The request builder for [LookupService::get_location][crate::client::LookupService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::lookup_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::lookup_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -324,7 +321,7 @@ pub mod registration_service {
     /// A builder for [RegistrationService][crate::client::RegistrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::*;
     /// # use builder::registration_service::ClientBuilder;
     /// # use client::RegistrationService;
@@ -332,7 +329,7 @@ pub mod registration_service {
     /// let client = builder
     ///     .with_endpoint("https://servicedirectory.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -378,14 +375,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::create_namespace][crate::client::RegistrationService::create_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::CreateNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateNamespace {
     ///   # panic!();
@@ -471,10 +467,9 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::list_namespaces][crate::client::RegistrationService::list_namespaces] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::ListNamespaces;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListNamespaces;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -482,7 +477,7 @@ pub mod registration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListNamespaces {
     ///   # panic!();
@@ -586,14 +581,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::get_namespace][crate::client::RegistrationService::get_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::GetNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetNamespace {
     ///   # panic!();
@@ -649,14 +643,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::update_namespace][crate::client::RegistrationService::update_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::UpdateNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateNamespace {
     ///   # panic!();
@@ -748,14 +741,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::delete_namespace][crate::client::RegistrationService::delete_namespace] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::DeleteNamespace;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteNamespace;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteNamespace {
     ///   # panic!();
@@ -811,14 +803,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::create_service][crate::client::RegistrationService::create_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::CreateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateService {
     ///   # panic!();
@@ -904,10 +895,9 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::list_services][crate::client::RegistrationService::list_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::ListServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListServices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -915,7 +905,7 @@ pub mod registration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServices {
     ///   # panic!();
@@ -1019,14 +1009,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::get_service][crate::client::RegistrationService::get_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::GetService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetService {
     ///   # panic!();
@@ -1082,14 +1071,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::update_service][crate::client::RegistrationService::update_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::UpdateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateService {
     ///   # panic!();
@@ -1181,14 +1169,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::delete_service][crate::client::RegistrationService::delete_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::DeleteService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteService {
     ///   # panic!();
@@ -1244,14 +1231,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::create_endpoint][crate::client::RegistrationService::create_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::CreateEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::CreateEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEndpoint {
     ///   # panic!();
@@ -1337,10 +1323,9 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::list_endpoints][crate::client::RegistrationService::list_endpoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::ListEndpoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListEndpoints;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1348,7 +1333,7 @@ pub mod registration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEndpoints {
     ///   # panic!();
@@ -1452,14 +1437,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::get_endpoint][crate::client::RegistrationService::get_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::GetEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEndpoint {
     ///   # panic!();
@@ -1515,14 +1499,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::update_endpoint][crate::client::RegistrationService::update_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::UpdateEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::UpdateEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateEndpoint {
     ///   # panic!();
@@ -1614,14 +1597,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::delete_endpoint][crate::client::RegistrationService::delete_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::DeleteEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::DeleteEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEndpoint {
     ///   # panic!();
@@ -1677,14 +1659,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::get_iam_policy][crate::client::RegistrationService::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1758,14 +1739,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::set_iam_policy][crate::client::RegistrationService::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -1861,14 +1841,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::test_iam_permissions][crate::client::RegistrationService::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -1940,10 +1919,9 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::list_locations][crate::client::RegistrationService::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1951,7 +1929,7 @@ pub mod registration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2050,14 +2028,13 @@ pub mod registration_service {
     /// The request builder for [RegistrationService::get_location][crate::client::RegistrationService::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_servicedirectory_v1::builder;
-    /// use builder::registration_service::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_servicedirectory_v1::builder::registration_service::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

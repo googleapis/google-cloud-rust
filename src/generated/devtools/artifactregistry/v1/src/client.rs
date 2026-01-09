@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
 /// let client = ArtifactRegistry::builder().build().await?;
 /// // use `client` to make requests to the Artifact Registry API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -78,10 +78,10 @@ impl ArtifactRegistry {
     /// Returns a builder for [ArtifactRegistry].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_artifactregistry_v1::client::ArtifactRegistry;
     /// let client = ArtifactRegistry::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::artifact_registry::ClientBuilder {
         gax::client_builder::internal::new_builder(

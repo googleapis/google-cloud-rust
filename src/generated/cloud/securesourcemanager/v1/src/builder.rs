@@ -20,7 +20,7 @@ pub mod secure_source_manager {
     /// A builder for [SecureSourceManager][crate::client::SecureSourceManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_securesourcemanager_v1::*;
     /// # use builder::secure_source_manager::ClientBuilder;
     /// # use client::SecureSourceManager;
@@ -28,7 +28,7 @@ pub mod secure_source_manager {
     /// let client = builder
     ///     .with_endpoint("https://securesourcemanager.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_instances][crate::client::SecureSourceManager::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_instance][crate::client::SecureSourceManager::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_instance][crate::client::SecureSourceManager::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_instance][crate::client::SecureSourceManager::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -500,10 +496,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_repositories][crate::client::SecureSourceManager::list_repositories] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListRepositories;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListRepositories;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -511,7 +506,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRepositories {
     ///   # panic!();
@@ -618,14 +613,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_repository][crate::client::SecureSourceManager::get_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetRepository;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRepository {
     ///   # panic!();
@@ -681,15 +675,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_repository][crate::client::SecureSourceManager::create_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateRepository {
     ///   # panic!();
@@ -816,15 +809,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_repository][crate::client::SecureSourceManager::update_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdateRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateRepository {
     ///   # panic!();
@@ -959,15 +951,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_repository][crate::client::SecureSourceManager::delete_repository] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteRepository;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteRepository;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteRepository {
     ///   # panic!();
@@ -1072,10 +1063,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_hooks][crate::client::SecureSourceManager::list_hooks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListHooks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListHooks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1083,7 +1073,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListHooks {
     ///   # panic!();
@@ -1175,14 +1165,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_hook][crate::client::SecureSourceManager::get_hook] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetHook;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetHook;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetHook {
     ///   # panic!();
@@ -1238,15 +1227,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_hook][crate::client::SecureSourceManager::create_hook] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateHook;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateHook;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateHook {
     ///   # panic!();
@@ -1370,15 +1358,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_hook][crate::client::SecureSourceManager::update_hook] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdateHook;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateHook;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateHook {
     ///   # panic!();
@@ -1508,15 +1495,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_hook][crate::client::SecureSourceManager::delete_hook] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteHook;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteHook;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteHook {
     ///   # panic!();
@@ -1612,14 +1598,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_iam_policy_repo][crate::client::SecureSourceManager::get_iam_policy_repo] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetIamPolicyRepo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIamPolicyRepo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicyRepo {
     ///   # panic!();
@@ -1693,14 +1678,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::set_iam_policy_repo][crate::client::SecureSourceManager::set_iam_policy_repo] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::SetIamPolicyRepo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::SetIamPolicyRepo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicyRepo {
     ///   # panic!();
@@ -1796,14 +1780,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::test_iam_permissions_repo][crate::client::SecureSourceManager::test_iam_permissions_repo] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::TestIamPermissionsRepo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::TestIamPermissionsRepo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissionsRepo {
     ///   # panic!();
@@ -1875,15 +1858,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_branch_rule][crate::client::SecureSourceManager::create_branch_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateBranchRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateBranchRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBranchRule {
     ///   # panic!();
@@ -2010,10 +1992,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_branch_rules][crate::client::SecureSourceManager::list_branch_rules] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListBranchRules;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListBranchRules;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2021,7 +2002,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBranchRules {
     ///   # panic!();
@@ -2113,14 +2094,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_branch_rule][crate::client::SecureSourceManager::get_branch_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetBranchRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetBranchRule;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBranchRule {
     ///   # panic!();
@@ -2176,15 +2156,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_branch_rule][crate::client::SecureSourceManager::update_branch_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdateBranchRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateBranchRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBranchRule {
     ///   # panic!();
@@ -2323,15 +2302,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_branch_rule][crate::client::SecureSourceManager::delete_branch_rule] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteBranchRule;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteBranchRule;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBranchRule {
     ///   # panic!();
@@ -2436,15 +2414,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_pull_request][crate::client::SecureSourceManager::create_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreatePullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePullRequest {
     ///   # panic!();
@@ -2565,14 +2542,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_pull_request][crate::client::SecureSourceManager::get_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetPullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetPullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPullRequest {
     ///   # panic!();
@@ -2628,10 +2604,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_pull_requests][crate::client::SecureSourceManager::list_pull_requests] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListPullRequests;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequests;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2639,7 +2614,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPullRequests {
     ///   # panic!();
@@ -2734,15 +2709,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_pull_request][crate::client::SecureSourceManager::update_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdatePullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePullRequest {
     ///   # panic!();
@@ -2873,15 +2847,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::merge_pull_request][crate::client::SecureSourceManager::merge_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::MergePullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::MergePullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MergePullRequest {
     ///   # panic!();
@@ -2980,15 +2953,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::open_pull_request][crate::client::SecureSourceManager::open_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::OpenPullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenPullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> OpenPullRequest {
     ///   # panic!();
@@ -3084,15 +3056,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::close_pull_request][crate::client::SecureSourceManager::close_pull_request] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ClosePullRequest;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ClosePullRequest;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ClosePullRequest {
     ///   # panic!();
@@ -3191,10 +3162,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_pull_request_file_diffs][crate::client::SecureSourceManager::list_pull_request_file_diffs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListPullRequestFileDiffs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequestFileDiffs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3202,7 +3172,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPullRequestFileDiffs {
     ///   # panic!();
@@ -3303,10 +3273,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::fetch_tree][crate::client::SecureSourceManager::fetch_tree] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::FetchTree;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::FetchTree;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3314,7 +3283,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchTree {
     ///   # panic!();
@@ -3418,14 +3387,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::fetch_blob][crate::client::SecureSourceManager::fetch_blob] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::FetchBlob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::FetchBlob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchBlob {
     ///   # panic!();
@@ -3489,15 +3457,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_issue][crate::client::SecureSourceManager::create_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIssue {
     ///   # panic!();
@@ -3613,14 +3580,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_issue][crate::client::SecureSourceManager::get_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIssue;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIssue {
     ///   # panic!();
@@ -3676,10 +3642,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_issues][crate::client::SecureSourceManager::list_issues] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListIssues;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListIssues;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3687,7 +3652,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIssues {
     ///   # panic!();
@@ -3785,15 +3750,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_issue][crate::client::SecureSourceManager::update_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdateIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIssue {
     ///   # panic!();
@@ -3919,15 +3883,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_issue][crate::client::SecureSourceManager::delete_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIssue {
     ///   # panic!();
@@ -4029,15 +3992,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::open_issue][crate::client::SecureSourceManager::open_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::OpenIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::OpenIssue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> OpenIssue {
     ///   # panic!();
@@ -4137,15 +4099,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::close_issue][crate::client::SecureSourceManager::close_issue] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CloseIssue;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CloseIssue;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CloseIssue {
     ///   # panic!();
@@ -4245,14 +4206,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_pull_request_comment][crate::client::SecureSourceManager::get_pull_request_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetPullRequestComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetPullRequestComment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPullRequestComment {
     ///   # panic!();
@@ -4311,10 +4271,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_pull_request_comments][crate::client::SecureSourceManager::list_pull_request_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListPullRequestComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListPullRequestComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4322,7 +4281,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPullRequestComments {
     ///   # panic!();
@@ -4423,15 +4382,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_pull_request_comment][crate::client::SecureSourceManager::create_pull_request_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreatePullRequestComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreatePullRequestComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreatePullRequestComment {
     ///   # panic!();
@@ -4555,15 +4513,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_pull_request_comment][crate::client::SecureSourceManager::update_pull_request_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdatePullRequestComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdatePullRequestComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdatePullRequestComment {
     ///   # panic!();
@@ -4697,15 +4654,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_pull_request_comment][crate::client::SecureSourceManager::delete_pull_request_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeletePullRequestComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeletePullRequestComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeletePullRequestComment {
     ///   # panic!();
@@ -4806,15 +4762,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::batch_create_pull_request_comments][crate::client::SecureSourceManager::batch_create_pull_request_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::BatchCreatePullRequestComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::BatchCreatePullRequestComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchCreatePullRequestComments {
     ///   # panic!();
@@ -4931,15 +4886,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::resolve_pull_request_comments][crate::client::SecureSourceManager::resolve_pull_request_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ResolvePullRequestComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ResolvePullRequestComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResolvePullRequestComments {
     ///   # panic!();
@@ -5062,15 +5016,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::unresolve_pull_request_comments][crate::client::SecureSourceManager::unresolve_pull_request_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UnresolvePullRequestComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UnresolvePullRequestComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UnresolvePullRequestComments {
     ///   # panic!();
@@ -5193,15 +5146,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::create_issue_comment][crate::client::SecureSourceManager::create_issue_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CreateIssueComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CreateIssueComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateIssueComment {
     ///   # panic!();
@@ -5322,14 +5274,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_issue_comment][crate::client::SecureSourceManager::get_issue_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetIssueComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIssueComment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIssueComment {
     ///   # panic!();
@@ -5385,10 +5336,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_issue_comments][crate::client::SecureSourceManager::list_issue_comments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListIssueComments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListIssueComments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5396,7 +5346,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIssueComments {
     ///   # panic!();
@@ -5491,15 +5441,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::update_issue_comment][crate::client::SecureSourceManager::update_issue_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::UpdateIssueComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::UpdateIssueComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateIssueComment {
     ///   # panic!();
@@ -5630,15 +5579,14 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_issue_comment][crate::client::SecureSourceManager::delete_issue_comment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteIssueComment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteIssueComment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteIssueComment {
     ///   # panic!();
@@ -5737,10 +5685,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_locations][crate::client::SecureSourceManager::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5748,7 +5695,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -5847,14 +5794,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_location][crate::client::SecureSourceManager::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -5908,14 +5854,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::set_iam_policy][crate::client::SecureSourceManager::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -6011,14 +5956,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_iam_policy][crate::client::SecureSourceManager::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -6092,14 +6036,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::test_iam_permissions][crate::client::SecureSourceManager::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -6171,10 +6114,9 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::list_operations][crate::client::SecureSourceManager::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6182,7 +6124,7 @@ pub mod secure_source_manager {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6289,14 +6231,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::get_operation][crate::client::SecureSourceManager::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6353,14 +6294,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::delete_operation][crate::client::SecureSourceManager::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -6417,14 +6357,13 @@ pub mod secure_source_manager {
     /// The request builder for [SecureSourceManager::cancel_operation][crate::client::SecureSourceManager::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_securesourcemanager_v1::builder;
-    /// use builder::secure_source_manager::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_securesourcemanager_v1::builder::secure_source_manager::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

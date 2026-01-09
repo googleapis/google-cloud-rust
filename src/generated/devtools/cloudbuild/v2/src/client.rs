@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_build_v2::client::RepositoryManager;
 /// let client = RepositoryManager::builder().build().await?;
 /// // use `client` to make requests to the Cloud Build API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl RepositoryManager {
     /// Returns a builder for [RepositoryManager].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_build_v2::client::RepositoryManager;
     /// let client = RepositoryManager::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::repository_manager::ClientBuilder {
         gax::client_builder::internal::new_builder(

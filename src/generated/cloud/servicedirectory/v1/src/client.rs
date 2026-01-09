@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::LookupService;
 /// let client = LookupService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl LookupService {
     /// Returns a builder for [LookupService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::LookupService;
     /// let client = LookupService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::lookup_service::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::lookup_service::client::Factory)
@@ -142,11 +142,11 @@ impl LookupService {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
 /// let client = RegistrationService::builder().build().await?;
 /// // use `client` to make requests to the Service Directory API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -207,10 +207,10 @@ impl RegistrationService {
     /// Returns a builder for [RegistrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_servicedirectory_v1::client::RegistrationService;
     /// let client = RegistrationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::registration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

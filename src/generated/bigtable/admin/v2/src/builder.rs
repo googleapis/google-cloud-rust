@@ -20,7 +20,7 @@ pub mod bigtable_instance_admin {
     /// A builder for [BigtableInstanceAdmin][crate::client::BigtableInstanceAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_instance_admin::ClientBuilder;
     /// # use client::BigtableInstanceAdmin;
@@ -28,7 +28,7 @@ pub mod bigtable_instance_admin {
     /// let client = builder
     ///     .with_endpoint("https://bigtableadmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,15 +74,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::create_instance][crate::client::BigtableInstanceAdmin::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -222,14 +221,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_instance][crate::client::BigtableInstanceAdmin::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -285,14 +283,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_instances][crate::client::BigtableInstanceAdmin::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -354,14 +351,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::update_instance][crate::client::BigtableInstanceAdmin::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -511,15 +507,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::partial_update_instance][crate::client::BigtableInstanceAdmin::partial_update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::PartialUpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PartialUpdateInstance {
     ///   # panic!();
@@ -655,14 +650,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_instance][crate::client::BigtableInstanceAdmin::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -718,15 +712,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::create_cluster][crate::client::BigtableInstanceAdmin::create_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CreateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCluster {
     ///   # panic!();
@@ -852,14 +845,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_cluster][crate::client::BigtableInstanceAdmin::get_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCluster {
     ///   # panic!();
@@ -915,14 +907,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_clusters][crate::client::BigtableInstanceAdmin::list_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListClusters;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListClusters {
     ///   # panic!();
@@ -984,15 +975,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::update_cluster][crate::client::BigtableInstanceAdmin::update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::UpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateCluster {
     ///   # panic!();
@@ -1164,15 +1154,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::partial_update_cluster][crate::client::BigtableInstanceAdmin::partial_update_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::PartialUpdateCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::PartialUpdateCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PartialUpdateCluster {
     ///   # panic!();
@@ -1308,14 +1297,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_cluster][crate::client::BigtableInstanceAdmin::delete_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCluster {
     ///   # panic!();
@@ -1371,14 +1359,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::create_app_profile][crate::client::BigtableInstanceAdmin::create_app_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CreateAppProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateAppProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAppProfile {
     ///   # panic!();
@@ -1473,14 +1460,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_app_profile][crate::client::BigtableInstanceAdmin::get_app_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetAppProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetAppProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAppProfile {
     ///   # panic!();
@@ -1536,10 +1522,9 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_app_profiles][crate::client::BigtableInstanceAdmin::list_app_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListAppProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListAppProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1547,7 +1532,7 @@ pub mod bigtable_instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAppProfiles {
     ///   # panic!();
@@ -1639,15 +1624,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::update_app_profile][crate::client::BigtableInstanceAdmin::update_app_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::UpdateAppProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateAppProfile;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAppProfile {
     ///   # panic!();
@@ -1789,14 +1773,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_app_profile][crate::client::BigtableInstanceAdmin::delete_app_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteAppProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteAppProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAppProfile {
     ///   # panic!();
@@ -1863,14 +1846,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_iam_policy][crate::client::BigtableInstanceAdmin::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -1944,14 +1926,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::set_iam_policy][crate::client::BigtableInstanceAdmin::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -2047,14 +2028,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::test_iam_permissions][crate::client::BigtableInstanceAdmin::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -2126,10 +2106,9 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_hot_tablets][crate::client::BigtableInstanceAdmin::list_hot_tablets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListHotTablets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListHotTablets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2137,7 +2116,7 @@ pub mod bigtable_instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListHotTablets {
     ///   # panic!();
@@ -2265,15 +2244,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::create_logical_view][crate::client::BigtableInstanceAdmin::create_logical_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CreateLogicalView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateLogicalView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateLogicalView {
     ///   # panic!();
@@ -2403,14 +2381,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_logical_view][crate::client::BigtableInstanceAdmin::get_logical_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetLogicalView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetLogicalView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLogicalView {
     ///   # panic!();
@@ -2466,10 +2443,9 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_logical_views][crate::client::BigtableInstanceAdmin::list_logical_views] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListLogicalViews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListLogicalViews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2477,7 +2453,7 @@ pub mod bigtable_instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLogicalViews {
     ///   # panic!();
@@ -2572,15 +2548,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::update_logical_view][crate::client::BigtableInstanceAdmin::update_logical_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::UpdateLogicalView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateLogicalView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateLogicalView {
     ///   # panic!();
@@ -2712,14 +2687,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_logical_view][crate::client::BigtableInstanceAdmin::delete_logical_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteLogicalView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteLogicalView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteLogicalView {
     ///   # panic!();
@@ -2784,15 +2758,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::create_materialized_view][crate::client::BigtableInstanceAdmin::create_materialized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CreateMaterializedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CreateMaterializedView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMaterializedView {
     ///   # panic!();
@@ -2922,14 +2895,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_materialized_view][crate::client::BigtableInstanceAdmin::get_materialized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetMaterializedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetMaterializedView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMaterializedView {
     ///   # panic!();
@@ -2988,10 +2960,9 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_materialized_views][crate::client::BigtableInstanceAdmin::list_materialized_views] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListMaterializedViews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListMaterializedViews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2999,7 +2970,7 @@ pub mod bigtable_instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMaterializedViews {
     ///   # panic!();
@@ -3096,15 +3067,14 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::update_materialized_view][crate::client::BigtableInstanceAdmin::update_materialized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::UpdateMaterializedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::UpdateMaterializedView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateMaterializedView {
     ///   # panic!();
@@ -3236,14 +3206,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_materialized_view][crate::client::BigtableInstanceAdmin::delete_materialized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteMaterializedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteMaterializedView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMaterializedView {
     ///   # panic!();
@@ -3308,10 +3277,9 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::list_operations][crate::client::BigtableInstanceAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3319,7 +3287,7 @@ pub mod bigtable_instance_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3426,14 +3394,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::get_operation][crate::client::BigtableInstanceAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3490,14 +3457,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::delete_operation][crate::client::BigtableInstanceAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3554,14 +3520,13 @@ pub mod bigtable_instance_admin {
     /// The request builder for [BigtableInstanceAdmin::cancel_operation][crate::client::BigtableInstanceAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_instance_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_instance_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();
@@ -3622,7 +3587,7 @@ pub mod bigtable_table_admin {
     /// A builder for [BigtableTableAdmin][crate::client::BigtableTableAdmin].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigtable_admin_v2::*;
     /// # use builder::bigtable_table_admin::ClientBuilder;
     /// # use client::BigtableTableAdmin;
@@ -3630,7 +3595,7 @@ pub mod bigtable_table_admin {
     /// let client = builder
     ///     .with_endpoint("https://bigtableadmin.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -3676,14 +3641,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::create_table][crate::client::BigtableTableAdmin::create_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CreateTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTable {
     ///   # panic!();
@@ -3780,15 +3744,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::create_table_from_snapshot][crate::client::BigtableTableAdmin::create_table_from_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CreateTableFromSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateTableFromSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTableFromSnapshot {
     ///   # panic!();
@@ -3906,10 +3869,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_tables][crate::client::BigtableTableAdmin::list_tables] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListTables;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListTables;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3917,7 +3879,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTables {
     ///   # panic!();
@@ -4015,14 +3977,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_table][crate::client::BigtableTableAdmin::get_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTable {
     ///   # panic!();
@@ -4084,15 +4045,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::update_table][crate::client::BigtableTableAdmin::update_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::UpdateTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateTable;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTable {
     ///   # panic!();
@@ -4228,14 +4188,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_table][crate::client::BigtableTableAdmin::delete_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteTable;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTable {
     ///   # panic!();
@@ -4291,15 +4250,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::undelete_table][crate::client::BigtableTableAdmin::undelete_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::UndeleteTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UndeleteTable;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UndeleteTable {
     ///   # panic!();
@@ -4393,15 +4351,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::create_authorized_view][crate::client::BigtableTableAdmin::create_authorized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CreateAuthorizedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateAuthorizedView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAuthorizedView {
     ///   # panic!();
@@ -4531,10 +4488,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_authorized_views][crate::client::BigtableTableAdmin::list_authorized_views] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListAuthorizedViews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListAuthorizedViews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4542,7 +4498,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAuthorizedViews {
     ///   # panic!();
@@ -4648,14 +4604,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_authorized_view][crate::client::BigtableTableAdmin::get_authorized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetAuthorizedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetAuthorizedView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAuthorizedView {
     ///   # panic!();
@@ -4723,15 +4678,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::update_authorized_view][crate::client::BigtableTableAdmin::update_authorized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::UpdateAuthorizedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateAuthorizedView;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAuthorizedView {
     ///   # panic!();
@@ -4869,14 +4823,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_authorized_view][crate::client::BigtableTableAdmin::delete_authorized_view] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteAuthorizedView;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteAuthorizedView;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAuthorizedView {
     ///   # panic!();
@@ -4941,14 +4894,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::modify_column_families][crate::client::BigtableTableAdmin::modify_column_families] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ModifyColumnFamilies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ModifyColumnFamilies;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ModifyColumnFamilies {
     ///   # panic!();
@@ -5026,14 +4978,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::drop_row_range][crate::client::BigtableTableAdmin::drop_row_range] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DropRowRange;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DropRowRange;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DropRowRange {
     ///   # panic!();
@@ -5121,14 +5072,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::generate_consistency_token][crate::client::BigtableTableAdmin::generate_consistency_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GenerateConsistencyToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GenerateConsistencyToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateConsistencyToken {
     ///   # panic!();
@@ -5189,14 +5139,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::check_consistency][crate::client::BigtableTableAdmin::check_consistency] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CheckConsistency;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CheckConsistency;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckConsistency {
     ///   # panic!();
@@ -5305,15 +5254,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::snapshot_table][crate::client::BigtableTableAdmin::snapshot_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::SnapshotTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SnapshotTable;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SnapshotTable {
     ///   # panic!();
@@ -5449,14 +5397,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_snapshot][crate::client::BigtableTableAdmin::get_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSnapshot {
     ///   # panic!();
@@ -5512,10 +5459,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_snapshots][crate::client::BigtableTableAdmin::list_snapshots] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListSnapshots;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSnapshots;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5523,7 +5469,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSnapshots {
     ///   # panic!();
@@ -5615,14 +5561,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_snapshot][crate::client::BigtableTableAdmin::delete_snapshot] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteSnapshot;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSnapshot;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSnapshot {
     ///   # panic!();
@@ -5678,15 +5623,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::create_backup][crate::client::BigtableTableAdmin::create_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CreateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackup {
     ///   # panic!();
@@ -5810,14 +5754,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_backup][crate::client::BigtableTableAdmin::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -5873,14 +5816,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::update_backup][crate::client::BigtableTableAdmin::update_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::UpdateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackup {
     ///   # panic!();
@@ -5972,14 +5914,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_backup][crate::client::BigtableTableAdmin::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -6035,10 +5976,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_backups][crate::client::BigtableTableAdmin::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6046,7 +5986,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -6150,15 +6090,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::restore_table][crate::client::BigtableTableAdmin::restore_table] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::RestoreTable;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::RestoreTable;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreTable {
     ///   # panic!();
@@ -6282,15 +6221,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::copy_backup][crate::client::BigtableTableAdmin::copy_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CopyBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CopyBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CopyBackup {
     ///   # panic!();
@@ -6422,14 +6360,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_iam_policy][crate::client::BigtableTableAdmin::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -6503,14 +6440,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::set_iam_policy][crate::client::BigtableTableAdmin::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -6606,14 +6542,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::test_iam_permissions][crate::client::BigtableTableAdmin::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -6685,15 +6620,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::create_schema_bundle][crate::client::BigtableTableAdmin::create_schema_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CreateSchemaBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CreateSchemaBundle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSchemaBundle {
     ///   # panic!();
@@ -6823,15 +6757,14 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::update_schema_bundle][crate::client::BigtableTableAdmin::update_schema_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::UpdateSchemaBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::UpdateSchemaBundle;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSchemaBundle {
     ///   # panic!();
@@ -6969,14 +6902,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_schema_bundle][crate::client::BigtableTableAdmin::get_schema_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetSchemaBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetSchemaBundle;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchemaBundle {
     ///   # panic!();
@@ -7032,10 +6964,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_schema_bundles][crate::client::BigtableTableAdmin::list_schema_bundles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListSchemaBundles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListSchemaBundles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7043,7 +6974,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemaBundles {
     ///   # panic!();
@@ -7138,14 +7069,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_schema_bundle][crate::client::BigtableTableAdmin::delete_schema_bundle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteSchemaBundle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteSchemaBundle;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchemaBundle {
     ///   # panic!();
@@ -7210,10 +7140,9 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::list_operations][crate::client::BigtableTableAdmin::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7221,7 +7150,7 @@ pub mod bigtable_table_admin {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7328,14 +7257,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::get_operation][crate::client::BigtableTableAdmin::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7392,14 +7320,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::delete_operation][crate::client::BigtableTableAdmin::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7456,14 +7383,13 @@ pub mod bigtable_table_admin {
     /// The request builder for [BigtableTableAdmin::cancel_operation][crate::client::BigtableTableAdmin::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigtable_admin_v2::builder;
-    /// use builder::bigtable_table_admin::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigtable_admin_v2::builder::bigtable_table_admin::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

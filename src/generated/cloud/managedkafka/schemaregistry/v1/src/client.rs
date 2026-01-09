@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
 /// let client = ManagedSchemaRegistry::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Apache Kafka API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -115,10 +115,10 @@ impl ManagedSchemaRegistry {
     /// Returns a builder for [ManagedSchemaRegistry].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::client::ManagedSchemaRegistry;
     /// let client = ManagedSchemaRegistry::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_schema_registry::ClientBuilder {
         gax::client_builder::internal::new_builder(

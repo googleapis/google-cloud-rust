@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
 /// let client = ManagedIdentitiesService::builder().build().await?;
 /// // use `client` to make requests to the Managed Service for Microsoft Active Directory API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -98,10 +98,10 @@ impl ManagedIdentitiesService {
     /// Returns a builder for [ManagedIdentitiesService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedidentities_v1::client::ManagedIdentitiesService;
     /// let client = ManagedIdentitiesService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::managed_identities_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

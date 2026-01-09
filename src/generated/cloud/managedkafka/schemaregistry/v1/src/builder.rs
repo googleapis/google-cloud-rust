@@ -20,7 +20,7 @@ pub mod managed_schema_registry {
     /// A builder for [ManagedSchemaRegistry][crate::client::ManagedSchemaRegistry].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_managedkafka_schemaregistry_v1::*;
     /// # use builder::managed_schema_registry::ClientBuilder;
     /// # use client::ManagedSchemaRegistry;
@@ -28,7 +28,7 @@ pub mod managed_schema_registry {
     /// let client = builder
     ///     .with_endpoint("https://managedkafka.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_schema_registry][crate::client::ManagedSchemaRegistry::get_schema_registry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetSchemaRegistry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaRegistry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchemaRegistry {
     ///   # panic!();
@@ -140,14 +139,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_schema_registries][crate::client::ManagedSchemaRegistry::list_schema_registries] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListSchemaRegistries;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaRegistries;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemaRegistries {
     ///   # panic!();
@@ -206,14 +204,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::create_schema_registry][crate::client::ManagedSchemaRegistry::create_schema_registry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::CreateSchemaRegistry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateSchemaRegistry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSchemaRegistry {
     ///   # panic!();
@@ -302,14 +299,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_schema_registry][crate::client::ManagedSchemaRegistry::delete_schema_registry] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteSchemaRegistry;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaRegistry;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchemaRegistry {
     ///   # panic!();
@@ -368,14 +364,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_context][crate::client::ManagedSchemaRegistry::get_context] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetContext;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetContext;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetContext {
     ///   # panic!();
@@ -431,14 +426,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_contexts][crate::client::ManagedSchemaRegistry::list_contexts] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListContexts;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListContexts;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListContexts {
     ///   # panic!();
@@ -494,14 +488,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_schema][crate::client::ManagedSchemaRegistry::get_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchema {
     ///   # panic!();
@@ -575,14 +568,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_raw_schema][crate::client::ManagedSchemaRegistry::get_raw_schema] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetRawSchema;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchema;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRawSchema {
     ///   # panic!();
@@ -656,14 +648,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_schema_versions][crate::client::ManagedSchemaRegistry::list_schema_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListSchemaVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaVersions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemaVersions {
     ///   # panic!();
@@ -758,14 +749,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_schema_types][crate::client::ManagedSchemaRegistry::list_schema_types] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListSchemaTypes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSchemaTypes;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSchemaTypes {
     ///   # panic!();
@@ -821,14 +811,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_subjects][crate::client::ManagedSchemaRegistry::list_subjects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListSubjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjects;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSubjects {
     ///   # panic!();
@@ -920,14 +909,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_subjects_by_schema_id][crate::client::ManagedSchemaRegistry::list_subjects_by_schema_id] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListSubjectsBySchemaId;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListSubjectsBySchemaId;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSubjectsBySchemaId {
     ///   # panic!();
@@ -1022,14 +1010,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_subject][crate::client::ManagedSchemaRegistry::delete_subject] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteSubject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSubject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSubject {
     ///   # panic!();
@@ -1103,14 +1090,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::lookup_version][crate::client::ManagedSchemaRegistry::lookup_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::LookupVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::LookupVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupVersion {
     ///   # panic!();
@@ -1239,14 +1225,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_version][crate::client::ManagedSchemaRegistry::get_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetVersion {
     ///   # panic!();
@@ -1320,14 +1305,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_raw_schema_version][crate::client::ManagedSchemaRegistry::get_raw_schema_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetRawSchemaVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetRawSchemaVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetRawSchemaVersion {
     ///   # panic!();
@@ -1401,14 +1385,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_versions][crate::client::ManagedSchemaRegistry::list_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListVersions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListVersions {
     ///   # panic!();
@@ -1482,14 +1465,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::create_version][crate::client::ManagedSchemaRegistry::create_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::CreateVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CreateVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateVersion {
     ///   # panic!();
@@ -1636,14 +1618,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_version][crate::client::ManagedSchemaRegistry::delete_version] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteVersion;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteVersion;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteVersion {
     ///   # panic!();
@@ -1717,14 +1698,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_referenced_schemas][crate::client::ManagedSchemaRegistry::list_referenced_schemas] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListReferencedSchemas;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListReferencedSchemas;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReferencedSchemas {
     ///   # panic!();
@@ -1783,14 +1763,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::check_compatibility][crate::client::ManagedSchemaRegistry::check_compatibility] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::CheckCompatibility;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CheckCompatibility;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CheckCompatibility {
     ///   # panic!();
@@ -1904,14 +1883,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_schema_config][crate::client::ManagedSchemaRegistry::get_schema_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetSchemaConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchemaConfig {
     ///   # panic!();
@@ -1985,14 +1963,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::update_schema_config][crate::client::ManagedSchemaRegistry::update_schema_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::UpdateSchemaConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSchemaConfig {
     ///   # panic!();
@@ -2091,14 +2068,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_schema_config][crate::client::ManagedSchemaRegistry::delete_schema_config] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteSchemaConfig;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaConfig;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchemaConfig {
     ///   # panic!();
@@ -2157,14 +2133,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_schema_mode][crate::client::ManagedSchemaRegistry::get_schema_mode] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetSchemaMode;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetSchemaMode;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSchemaMode {
     ///   # panic!();
@@ -2220,14 +2195,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::update_schema_mode][crate::client::ManagedSchemaRegistry::update_schema_mode] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::UpdateSchemaMode;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::UpdateSchemaMode;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSchemaMode {
     ///   # panic!();
@@ -2294,14 +2268,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_schema_mode][crate::client::ManagedSchemaRegistry::delete_schema_mode] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteSchemaMode;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteSchemaMode;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSchemaMode {
     ///   # panic!();
@@ -2360,10 +2333,9 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_locations][crate::client::ManagedSchemaRegistry::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2371,7 +2343,7 @@ pub mod managed_schema_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2470,14 +2442,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_location][crate::client::ManagedSchemaRegistry::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -2531,10 +2502,9 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::list_operations][crate::client::ManagedSchemaRegistry::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2542,7 +2512,7 @@ pub mod managed_schema_registry {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -2649,14 +2619,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::get_operation][crate::client::ManagedSchemaRegistry::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -2713,14 +2682,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::delete_operation][crate::client::ManagedSchemaRegistry::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -2777,14 +2745,13 @@ pub mod managed_schema_registry {
     /// The request builder for [ManagedSchemaRegistry::cancel_operation][crate::client::ManagedSchemaRegistry::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_managedkafka_schemaregistry_v1::builder;
-    /// use builder::managed_schema_registry::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_managedkafka_schemaregistry_v1::builder::managed_schema_registry::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

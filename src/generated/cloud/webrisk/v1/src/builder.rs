@@ -20,7 +20,7 @@ pub mod web_risk_service {
     /// A builder for [WebRiskService][crate::client::WebRiskService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_webrisk_v1::*;
     /// # use builder::web_risk_service::ClientBuilder;
     /// # use client::WebRiskService;
@@ -28,7 +28,7 @@ pub mod web_risk_service {
     /// let client = builder
     ///     .with_endpoint("https://webrisk.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::compute_threat_list_diff][crate::client::WebRiskService::compute_threat_list_diff] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::ComputeThreatListDiff;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::ComputeThreatListDiff;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ComputeThreatListDiff {
     ///   # panic!();
@@ -168,14 +167,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::search_uris][crate::client::WebRiskService::search_uris] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::SearchUris;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::SearchUris;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchUris {
     ///   # panic!();
@@ -244,14 +242,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::search_hashes][crate::client::WebRiskService::search_hashes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::SearchHashes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::SearchHashes;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchHashes {
     ///   # panic!();
@@ -318,14 +315,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::create_submission][crate::client::WebRiskService::create_submission] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::CreateSubmission;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::CreateSubmission;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSubmission {
     ///   # panic!();
@@ -406,15 +402,14 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::submit_uri][crate::client::WebRiskService::submit_uri] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::SubmitUri;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::SubmitUri;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SubmitUri {
     ///   # panic!();
@@ -566,10 +561,9 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::list_operations][crate::client::WebRiskService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -577,7 +571,7 @@ pub mod web_risk_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -684,14 +678,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::get_operation][crate::client::WebRiskService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -748,14 +741,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::delete_operation][crate::client::WebRiskService::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -812,14 +804,13 @@ pub mod web_risk_service {
     /// The request builder for [WebRiskService::cancel_operation][crate::client::WebRiskService::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_webrisk_v1::builder;
-    /// use builder::web_risk_service::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_webrisk_v1::builder::web_risk_service::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

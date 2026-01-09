@@ -20,7 +20,7 @@ pub mod cloud_scheduler {
     /// A builder for [CloudScheduler][crate::client::CloudScheduler].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_scheduler_v1::*;
     /// # use builder::cloud_scheduler::ClientBuilder;
     /// # use client::CloudScheduler;
@@ -28,7 +28,7 @@ pub mod cloud_scheduler {
     /// let client = builder
     ///     .with_endpoint("https://cloudscheduler.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::list_jobs][crate::client::CloudScheduler::list_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::ListJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ListJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_scheduler {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListJobs {
     ///   # panic!();
@@ -177,14 +176,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::get_job][crate::client::CloudScheduler::get_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::GetJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::GetJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetJob {
     ///   # panic!();
@@ -240,14 +238,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::create_job][crate::client::CloudScheduler::create_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::CreateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::CreateJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateJob {
     ///   # panic!();
@@ -325,14 +322,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::update_job][crate::client::CloudScheduler::update_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::UpdateJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::UpdateJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateJob {
     ///   # panic!();
@@ -420,14 +416,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::delete_job][crate::client::CloudScheduler::delete_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::DeleteJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::DeleteJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteJob {
     ///   # panic!();
@@ -483,14 +478,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::pause_job][crate::client::CloudScheduler::pause_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::PauseJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::PauseJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseJob {
     ///   # panic!();
@@ -546,14 +540,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::resume_job][crate::client::CloudScheduler::resume_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::ResumeJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ResumeJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeJob {
     ///   # panic!();
@@ -609,14 +602,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::run_job][crate::client::CloudScheduler::run_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::RunJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::RunJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunJob {
     ///   # panic!();
@@ -672,10 +664,9 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::list_locations][crate::client::CloudScheduler::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -683,7 +674,7 @@ pub mod cloud_scheduler {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -782,14 +773,13 @@ pub mod cloud_scheduler {
     /// The request builder for [CloudScheduler::get_location][crate::client::CloudScheduler::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_scheduler_v1::builder;
-    /// use builder::cloud_scheduler::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_scheduler_v1::builder::cloud_scheduler::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

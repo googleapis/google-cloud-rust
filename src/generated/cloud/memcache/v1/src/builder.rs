@@ -20,7 +20,7 @@ pub mod cloud_memcache {
     /// A builder for [CloudMemcache][crate::client::CloudMemcache].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_memcache_v1::*;
     /// # use builder::cloud_memcache::ClientBuilder;
     /// # use client::CloudMemcache;
@@ -28,7 +28,7 @@ pub mod cloud_memcache {
     /// let client = builder
     ///     .with_endpoint("https://memcache.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::list_instances][crate::client::CloudMemcache::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_memcache {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::get_instance][crate::client::CloudMemcache::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::create_instance][crate::client::CloudMemcache::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -384,15 +381,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::update_instance][crate::client::CloudMemcache::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -522,15 +518,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::update_parameters][crate::client::CloudMemcache::update_parameters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::UpdateParameters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::UpdateParameters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateParameters {
     ///   # panic!();
@@ -667,15 +662,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::delete_instance][crate::client::CloudMemcache::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -771,15 +765,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::apply_parameters][crate::client::CloudMemcache::apply_parameters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::ApplyParameters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::ApplyParameters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ApplyParameters {
     ///   # panic!();
@@ -890,15 +883,14 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::reschedule_maintenance][crate::client::CloudMemcache::reschedule_maintenance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::RescheduleMaintenance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::RescheduleMaintenance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RescheduleMaintenance {
     ///   # panic!();
@@ -1026,10 +1018,9 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::list_locations][crate::client::CloudMemcache::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1037,7 +1028,7 @@ pub mod cloud_memcache {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1136,14 +1127,13 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::get_location][crate::client::CloudMemcache::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1197,10 +1187,9 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::list_operations][crate::client::CloudMemcache::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1208,7 +1197,7 @@ pub mod cloud_memcache {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1315,14 +1304,13 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::get_operation][crate::client::CloudMemcache::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1379,14 +1367,13 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::delete_operation][crate::client::CloudMemcache::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1443,14 +1430,13 @@ pub mod cloud_memcache {
     /// The request builder for [CloudMemcache::cancel_operation][crate::client::CloudMemcache::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_memcache_v1::builder;
-    /// use builder::cloud_memcache::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_memcache_v1::builder::cloud_memcache::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

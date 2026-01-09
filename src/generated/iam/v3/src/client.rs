@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PolicyBindings;
 /// let client = PolicyBindings::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl PolicyBindings {
     /// Returns a builder for [PolicyBindings].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PolicyBindings;
     /// let client = PolicyBindings::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::policy_bindings::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::policy_bindings::client::Factory)
@@ -202,11 +202,11 @@ impl PolicyBindings {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
 /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
 /// // use `client` to make requests to the Identity and Access Management (IAM) API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -249,10 +249,10 @@ impl PrincipalAccessBoundaryPolicies {
     /// Returns a builder for [PrincipalAccessBoundaryPolicies].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_v3::client::PrincipalAccessBoundaryPolicies;
     /// let client = PrincipalAccessBoundaryPolicies::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::principal_access_boundary_policies::ClientBuilder {
         gax::client_builder::internal::new_builder(

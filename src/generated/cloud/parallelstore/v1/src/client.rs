@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_parallelstore_v1::client::Parallelstore;
 /// let client = Parallelstore::builder().build().await?;
 /// // use `client` to make requests to the Parallelstore API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -82,10 +82,10 @@ impl Parallelstore {
     /// Returns a builder for [Parallelstore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_parallelstore_v1::client::Parallelstore;
     /// let client = Parallelstore::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::parallelstore::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::parallelstore::client::Factory)

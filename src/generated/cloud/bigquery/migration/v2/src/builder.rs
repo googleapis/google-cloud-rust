@@ -20,7 +20,7 @@ pub mod migration_service {
     /// A builder for [MigrationService][crate::client::MigrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_migration_v2::*;
     /// # use builder::migration_service::ClientBuilder;
     /// # use client::MigrationService;
@@ -28,7 +28,7 @@ pub mod migration_service {
     /// let client = builder
     ///     .with_endpoint("https://bigquerymigration.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::create_migration_workflow][crate::client::MigrationService::create_migration_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::CreateMigrationWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::CreateMigrationWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMigrationWorkflow {
     ///   # panic!();
@@ -164,14 +163,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::get_migration_workflow][crate::client::MigrationService::get_migration_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::GetMigrationWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMigrationWorkflow {
     ///   # panic!();
@@ -248,10 +246,9 @@ pub mod migration_service {
     /// The request builder for [MigrationService::list_migration_workflows][crate::client::MigrationService::list_migration_workflows] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::ListMigrationWorkflows;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationWorkflows;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -259,7 +256,7 @@ pub mod migration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMigrationWorkflows {
     ///   # panic!();
@@ -376,14 +373,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::delete_migration_workflow][crate::client::MigrationService::delete_migration_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::DeleteMigrationWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::DeleteMigrationWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMigrationWorkflow {
     ///   # panic!();
@@ -444,14 +440,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::start_migration_workflow][crate::client::MigrationService::start_migration_workflow] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::StartMigrationWorkflow;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::StartMigrationWorkflow;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartMigrationWorkflow {
     ///   # panic!();
@@ -510,14 +505,13 @@ pub mod migration_service {
     /// The request builder for [MigrationService::get_migration_subtask][crate::client::MigrationService::get_migration_subtask] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::GetMigrationSubtask;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::GetMigrationSubtask;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMigrationSubtask {
     ///   # panic!();
@@ -594,10 +588,9 @@ pub mod migration_service {
     /// The request builder for [MigrationService::list_migration_subtasks][crate::client::MigrationService::list_migration_subtasks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_bigquery_migration_v2::builder;
-    /// use builder::migration_service::ListMigrationSubtasks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_bigquery_migration_v2::builder::migration_service::ListMigrationSubtasks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -605,7 +598,7 @@ pub mod migration_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMigrationSubtasks {
     ///   # panic!();

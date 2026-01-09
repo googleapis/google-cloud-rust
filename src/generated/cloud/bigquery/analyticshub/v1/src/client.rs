@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
 /// let client = AnalyticsHubService::builder().build().await?;
 /// // use `client` to make requests to the Analytics Hub API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -71,10 +71,10 @@ impl AnalyticsHubService {
     /// Returns a builder for [AnalyticsHubService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_analyticshub_v1::client::AnalyticsHubService;
     /// let client = AnalyticsHubService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::analytics_hub_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

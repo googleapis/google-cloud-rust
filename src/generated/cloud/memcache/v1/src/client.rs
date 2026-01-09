@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_memcache_v1::client::CloudMemcache;
 /// let client = CloudMemcache::builder().build().await?;
 /// // use `client` to make requests to the Cloud Memorystore for Memcached API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -81,10 +81,10 @@ impl CloudMemcache {
     /// Returns a builder for [CloudMemcache].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_memcache_v1::client::CloudMemcache;
     /// let client = CloudMemcache::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_memcache::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_memcache::client::Factory)

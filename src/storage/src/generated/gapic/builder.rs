@@ -43,14 +43,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::delete_bucket][crate::client::StorageControl::delete_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::DeleteBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::DeleteBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBucket {
     ///   # panic!();
@@ -145,14 +144,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::get_bucket][crate::client::StorageControl::get_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::GetBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::GetBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBucket {
     ///   # panic!();
@@ -265,14 +263,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::create_bucket][crate::client::StorageControl::create_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::CreateBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::CreateBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBucket {
     ///   # panic!();
@@ -375,10 +372,9 @@ pub mod storage_control {
     /// The request builder for [StorageControl::list_buckets][crate::client::StorageControl::list_buckets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::ListBuckets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::ListBuckets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -386,7 +382,7 @@ pub mod storage_control {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBuckets {
     ///   # panic!();
@@ -508,14 +504,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::lock_bucket_retention_policy][crate::client::StorageControl::lock_bucket_retention_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::LockBucketRetentionPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::LockBucketRetentionPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LockBucketRetentionPolicy {
     ///   # panic!();
@@ -584,14 +579,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::update_bucket][crate::client::StorageControl::update_bucket] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::UpdateBucket;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::UpdateBucket;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBucket {
     ///   # panic!();
@@ -737,14 +731,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::compose_object][crate::client::StorageControl::compose_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::ComposeObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::ComposeObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ComposeObject {
     ///   # panic!();
@@ -915,14 +908,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::delete_object][crate::client::StorageControl::delete_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::DeleteObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::DeleteObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteObject {
     ///   # panic!();
@@ -1088,14 +1080,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::restore_object][crate::client::StorageControl::restore_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::RestoreObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::RestoreObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreObject {
     ///   # panic!();
@@ -1287,14 +1278,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::get_object][crate::client::StorageControl::get_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::GetObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::GetObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetObject {
     ///   # panic!();
@@ -1502,14 +1492,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::update_object][crate::client::StorageControl::update_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::UpdateObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::UpdateObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateObject {
     ///   # panic!();
@@ -1709,10 +1698,9 @@ pub mod storage_control {
     /// The request builder for [StorageControl::list_objects][crate::client::StorageControl::list_objects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::ListObjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::ListObjects;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1720,7 +1708,7 @@ pub mod storage_control {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListObjects {
     ///   # panic!();
@@ -1890,14 +1878,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::rewrite_object][crate::client::StorageControl::rewrite_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::RewriteObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::RewriteObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RewriteObject {
     ///   # panic!();
@@ -2253,14 +2240,13 @@ pub mod storage_control {
     /// The request builder for [StorageControl::move_object][crate::client::StorageControl::move_object] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_storage::builder;
-    /// use builder::storage_control::MoveObject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_storage::builder::storage_control::MoveObject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MoveObject {
     ///   # panic!();

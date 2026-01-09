@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
 /// let client = AppConnectorsService::builder().build().await?;
 /// // use `client` to make requests to the BeyondCorp API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -79,10 +79,10 @@ impl AppConnectorsService {
     /// Returns a builder for [AppConnectorsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_beyondcorp_appconnectors_v1::client::AppConnectorsService;
     /// let client = AppConnectorsService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::app_connectors_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

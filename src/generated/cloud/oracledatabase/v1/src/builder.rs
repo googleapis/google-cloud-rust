@@ -20,7 +20,7 @@ pub mod oracle_database {
     /// A builder for [OracleDatabase][crate::client::OracleDatabase].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_oracledatabase_v1::*;
     /// # use builder::oracle_database::ClientBuilder;
     /// # use client::OracleDatabase;
@@ -28,7 +28,7 @@ pub mod oracle_database {
     /// let client = builder
     ///     .with_endpoint("https://oracledatabase.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_cloud_exadata_infrastructures][crate::client::OracleDatabase::list_cloud_exadata_infrastructures] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListCloudExadataInfrastructures;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListCloudExadataInfrastructures;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCloudExadataInfrastructures {
     ///   # panic!();
@@ -198,14 +197,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_cloud_exadata_infrastructure][crate::client::OracleDatabase::get_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetCloudExadataInfrastructure;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetCloudExadataInfrastructure;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCloudExadataInfrastructure {
     ///   # panic!();
@@ -266,15 +264,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_cloud_exadata_infrastructure][crate::client::OracleDatabase::create_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateCloudExadataInfrastructure;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateCloudExadataInfrastructure;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCloudExadataInfrastructure {
     ///   # panic!();
@@ -418,15 +415,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_cloud_exadata_infrastructure][crate::client::OracleDatabase::delete_cloud_exadata_infrastructure] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteCloudExadataInfrastructure;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteCloudExadataInfrastructure;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCloudExadataInfrastructure {
     ///   # panic!();
@@ -539,10 +535,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_cloud_vm_clusters][crate::client::OracleDatabase::list_cloud_vm_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListCloudVmClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListCloudVmClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -550,7 +545,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCloudVmClusters {
     ///   # panic!();
@@ -653,14 +648,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_cloud_vm_cluster][crate::client::OracleDatabase::get_cloud_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetCloudVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetCloudVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCloudVmCluster {
     ///   # panic!();
@@ -719,15 +713,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_cloud_vm_cluster][crate::client::OracleDatabase::create_cloud_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateCloudVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateCloudVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCloudVmCluster {
     ///   # panic!();
@@ -863,15 +856,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_cloud_vm_cluster][crate::client::OracleDatabase::delete_cloud_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteCloudVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteCloudVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteCloudVmCluster {
     ///   # panic!();
@@ -982,10 +974,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_entitlements][crate::client::OracleDatabase::list_entitlements] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListEntitlements;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListEntitlements;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -993,7 +984,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEntitlements {
     ///   # panic!();
@@ -1088,10 +1079,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_servers][crate::client::OracleDatabase::list_db_servers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbServers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbServers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1099,7 +1089,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbServers {
     ///   # panic!();
@@ -1191,10 +1181,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_nodes][crate::client::OracleDatabase::list_db_nodes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbNodes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbNodes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1202,7 +1191,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbNodes {
     ///   # panic!();
@@ -1294,10 +1283,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_gi_versions][crate::client::OracleDatabase::list_gi_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListGiVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListGiVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1305,7 +1293,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGiVersions {
     ///   # panic!();
@@ -1403,10 +1391,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_minor_versions][crate::client::OracleDatabase::list_minor_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListMinorVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListMinorVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1414,7 +1401,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMinorVersions {
     ///   # panic!();
@@ -1515,10 +1502,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_system_shapes][crate::client::OracleDatabase::list_db_system_shapes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbSystemShapes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbSystemShapes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1526,7 +1512,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbSystemShapes {
     ///   # panic!();
@@ -1629,10 +1615,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_autonomous_databases][crate::client::OracleDatabase::list_autonomous_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListAutonomousDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListAutonomousDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1640,7 +1625,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutonomousDatabases {
     ///   # panic!();
@@ -1753,14 +1738,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_autonomous_database][crate::client::OracleDatabase::get_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetAutonomousDatabase {
     ///   # panic!();
@@ -1819,15 +1803,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_autonomous_database][crate::client::OracleDatabase::create_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAutonomousDatabase {
     ///   # panic!();
@@ -1965,15 +1948,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::update_autonomous_database][crate::client::OracleDatabase::update_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::UpdateAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::UpdateAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateAutonomousDatabase {
     ///   # panic!();
@@ -2113,15 +2095,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_autonomous_database][crate::client::OracleDatabase::delete_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteAutonomousDatabase {
     ///   # panic!();
@@ -2228,15 +2209,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::restore_autonomous_database][crate::client::OracleDatabase::restore_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::RestoreAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RestoreAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreAutonomousDatabase {
     ///   # panic!();
@@ -2360,14 +2340,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::generate_autonomous_database_wallet][crate::client::OracleDatabase::generate_autonomous_database_wallet] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GenerateAutonomousDatabaseWallet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GenerateAutonomousDatabaseWallet;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAutonomousDatabaseWallet {
     ///   # panic!();
@@ -2448,10 +2427,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_autonomous_db_versions][crate::client::OracleDatabase::list_autonomous_db_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListAutonomousDbVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListAutonomousDbVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2459,7 +2437,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutonomousDbVersions {
     ///   # panic!();
@@ -2560,10 +2538,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_autonomous_database_character_sets][crate::client::OracleDatabase::list_autonomous_database_character_sets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListAutonomousDatabaseCharacterSets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListAutonomousDatabaseCharacterSets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2571,7 +2548,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutonomousDatabaseCharacterSets {
     ///   # panic!();
@@ -2680,10 +2657,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_autonomous_database_backups][crate::client::OracleDatabase::list_autonomous_database_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListAutonomousDatabaseBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListAutonomousDatabaseBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2691,7 +2667,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListAutonomousDatabaseBackups {
     ///   # panic!();
@@ -2798,15 +2774,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::stop_autonomous_database][crate::client::OracleDatabase::stop_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::StopAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::StopAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StopAutonomousDatabase {
     ///   # panic!();
@@ -2906,15 +2881,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::start_autonomous_database][crate::client::OracleDatabase::start_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::StartAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::StartAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartAutonomousDatabase {
     ///   # panic!();
@@ -3016,15 +2990,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::restart_autonomous_database][crate::client::OracleDatabase::restart_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::RestartAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RestartAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestartAutonomousDatabase {
     ///   # panic!();
@@ -3126,15 +3099,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::switchover_autonomous_database][crate::client::OracleDatabase::switchover_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::SwitchoverAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::SwitchoverAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SwitchoverAutonomousDatabase {
     ///   # panic!();
@@ -3244,15 +3216,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::failover_autonomous_database][crate::client::OracleDatabase::failover_autonomous_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::FailoverAutonomousDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::FailoverAutonomousDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FailoverAutonomousDatabase {
     ///   # panic!();
@@ -3362,10 +3333,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_odb_networks][crate::client::OracleDatabase::list_odb_networks] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListOdbNetworks;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListOdbNetworks;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3373,7 +3343,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOdbNetworks {
     ///   # panic!();
@@ -3477,14 +3447,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_odb_network][crate::client::OracleDatabase::get_odb_network] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetOdbNetwork;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetOdbNetwork;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOdbNetwork {
     ///   # panic!();
@@ -3540,15 +3509,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_odb_network][crate::client::OracleDatabase::create_odb_network] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateOdbNetwork;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateOdbNetwork;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateOdbNetwork {
     ///   # panic!();
@@ -3681,15 +3649,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_odb_network][crate::client::OracleDatabase::delete_odb_network] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteOdbNetwork;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteOdbNetwork;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOdbNetwork {
     ///   # panic!();
@@ -3794,10 +3761,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_odb_subnets][crate::client::OracleDatabase::list_odb_subnets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListOdbSubnets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListOdbSubnets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3805,7 +3771,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOdbSubnets {
     ///   # panic!();
@@ -3909,14 +3875,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_odb_subnet][crate::client::OracleDatabase::get_odb_subnet] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetOdbSubnet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetOdbSubnet;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOdbSubnet {
     ///   # panic!();
@@ -3972,15 +3937,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_odb_subnet][crate::client::OracleDatabase::create_odb_subnet] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateOdbSubnet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateOdbSubnet;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateOdbSubnet {
     ///   # panic!();
@@ -4110,15 +4074,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_odb_subnet][crate::client::OracleDatabase::delete_odb_subnet] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteOdbSubnet;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteOdbSubnet;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOdbSubnet {
     ///   # panic!();
@@ -4220,10 +4183,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_exadb_vm_clusters][crate::client::OracleDatabase::list_exadb_vm_clusters] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListExadbVmClusters;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListExadbVmClusters;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4231,7 +4193,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExadbVmClusters {
     ///   # panic!();
@@ -4340,14 +4302,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_exadb_vm_cluster][crate::client::OracleDatabase::get_exadb_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetExadbVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetExadbVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetExadbVmCluster {
     ///   # panic!();
@@ -4406,15 +4367,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_exadb_vm_cluster][crate::client::OracleDatabase::create_exadb_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateExadbVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateExadbVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExadbVmCluster {
     ///   # panic!();
@@ -4550,15 +4510,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_exadb_vm_cluster][crate::client::OracleDatabase::delete_exadb_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteExadbVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteExadbVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteExadbVmCluster {
     ///   # panic!();
@@ -4663,15 +4622,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::update_exadb_vm_cluster][crate::client::OracleDatabase::update_exadb_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::UpdateExadbVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::UpdateExadbVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateExadbVmCluster {
     ///   # panic!();
@@ -4809,15 +4767,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::remove_virtual_machine_exadb_vm_cluster][crate::client::OracleDatabase::remove_virtual_machine_exadb_vm_cluster] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::RemoveVirtualMachineExadbVmCluster;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::RemoveVirtualMachineExadbVmCluster;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveVirtualMachineExadbVmCluster {
     ///   # panic!();
@@ -4938,10 +4895,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_exascale_db_storage_vaults][crate::client::OracleDatabase::list_exascale_db_storage_vaults] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListExascaleDbStorageVaults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListExascaleDbStorageVaults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4949,7 +4905,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExascaleDbStorageVaults {
     ///   # panic!();
@@ -5062,14 +5018,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_exascale_db_storage_vault][crate::client::OracleDatabase::get_exascale_db_storage_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetExascaleDbStorageVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetExascaleDbStorageVault;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetExascaleDbStorageVault {
     ///   # panic!();
@@ -5130,15 +5085,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_exascale_db_storage_vault][crate::client::OracleDatabase::create_exascale_db_storage_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateExascaleDbStorageVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateExascaleDbStorageVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExascaleDbStorageVault {
     ///   # panic!();
@@ -5282,15 +5236,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_exascale_db_storage_vault][crate::client::OracleDatabase::delete_exascale_db_storage_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteExascaleDbStorageVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteExascaleDbStorageVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteExascaleDbStorageVault {
     ///   # panic!();
@@ -5397,10 +5350,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_system_initial_storage_sizes][crate::client::OracleDatabase::list_db_system_initial_storage_sizes] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbSystemInitialStorageSizes;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbSystemInitialStorageSizes;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5408,7 +5360,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbSystemInitialStorageSizes {
     ///   # panic!();
@@ -5509,10 +5461,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_databases][crate::client::OracleDatabase::list_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5520,7 +5471,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabases {
     ///   # panic!();
@@ -5618,14 +5569,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_database][crate::client::OracleDatabase::get_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatabase {
     ///   # panic!();
@@ -5681,10 +5631,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_pluggable_databases][crate::client::OracleDatabase::list_pluggable_databases] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListPluggableDatabases;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListPluggableDatabases;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5692,7 +5641,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListPluggableDatabases {
     ///   # panic!();
@@ -5797,14 +5746,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_pluggable_database][crate::client::OracleDatabase::get_pluggable_database] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetPluggableDatabase;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetPluggableDatabase;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetPluggableDatabase {
     ///   # panic!();
@@ -5863,10 +5811,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_systems][crate::client::OracleDatabase::list_db_systems] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbSystems;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbSystems;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5874,7 +5821,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbSystems {
     ///   # panic!();
@@ -5978,14 +5925,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_db_system][crate::client::OracleDatabase::get_db_system] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetDbSystem;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetDbSystem;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDbSystem {
     ///   # panic!();
@@ -6041,15 +5987,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::create_db_system][crate::client::OracleDatabase::create_db_system] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CreateDbSystem;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CreateDbSystem;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDbSystem {
     ///   # panic!();
@@ -6179,15 +6124,14 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_db_system][crate::client::OracleDatabase::delete_db_system] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteDbSystem;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteDbSystem;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDbSystem {
     ///   # panic!();
@@ -6289,10 +6233,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_db_versions][crate::client::OracleDatabase::list_db_versions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDbVersions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDbVersions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6300,7 +6243,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDbVersions {
     ///   # panic!();
@@ -6398,10 +6341,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_database_character_sets][crate::client::OracleDatabase::list_database_character_sets] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListDatabaseCharacterSets;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListDatabaseCharacterSets;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6409,7 +6351,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatabaseCharacterSets {
     ///   # panic!();
@@ -6516,10 +6458,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_locations][crate::client::OracleDatabase::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6527,7 +6468,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -6626,14 +6567,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_location][crate::client::OracleDatabase::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -6687,10 +6627,9 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::list_operations][crate::client::OracleDatabase::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6698,7 +6637,7 @@ pub mod oracle_database {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -6805,14 +6744,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::get_operation][crate::client::OracleDatabase::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -6869,14 +6807,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::delete_operation][crate::client::OracleDatabase::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -6933,14 +6870,13 @@ pub mod oracle_database {
     /// The request builder for [OracleDatabase::cancel_operation][crate::client::OracleDatabase::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_oracledatabase_v1::builder;
-    /// use builder::oracle_database::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_oracledatabase_v1::builder::oracle_database::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

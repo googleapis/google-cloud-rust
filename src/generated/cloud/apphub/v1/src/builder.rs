@@ -20,7 +20,7 @@ pub mod app_hub {
     /// A builder for [AppHub][crate::client::AppHub].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_apphub_v1::*;
     /// # use builder::app_hub::ClientBuilder;
     /// # use client::AppHub;
@@ -28,7 +28,7 @@ pub mod app_hub {
     /// let client = builder
     ///     .with_endpoint("https://apphub.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,14 +72,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::lookup_service_project_attachment][crate::client::AppHub::lookup_service_project_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::LookupServiceProjectAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::LookupServiceProjectAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupServiceProjectAttachment {
     ///   # panic!();
@@ -138,10 +137,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_service_project_attachments][crate::client::AppHub::list_service_project_attachments] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListServiceProjectAttachments;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListServiceProjectAttachments;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -149,7 +147,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServiceProjectAttachments {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::create_service_project_attachment][crate::client::AppHub::create_service_project_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::CreateServiceProjectAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::CreateServiceProjectAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateServiceProjectAttachment {
     ///   # panic!();
@@ -410,14 +407,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_service_project_attachment][crate::client::AppHub::get_service_project_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetServiceProjectAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetServiceProjectAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetServiceProjectAttachment {
     ///   # panic!();
@@ -476,15 +472,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::delete_service_project_attachment][crate::client::AppHub::delete_service_project_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DeleteServiceProjectAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DeleteServiceProjectAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteServiceProjectAttachment {
     ///   # panic!();
@@ -589,14 +584,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::detach_service_project_attachment][crate::client::AppHub::detach_service_project_attachment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DetachServiceProjectAttachment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DetachServiceProjectAttachment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DetachServiceProjectAttachment {
     ///   # panic!();
@@ -655,10 +649,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_discovered_services][crate::client::AppHub::list_discovered_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListDiscoveredServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListDiscoveredServices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -666,7 +659,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDiscoveredServices {
     ///   # panic!();
@@ -775,14 +768,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_discovered_service][crate::client::AppHub::get_discovered_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetDiscoveredService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetDiscoveredService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDiscoveredService {
     ///   # panic!();
@@ -839,14 +831,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::lookup_discovered_service][crate::client::AppHub::lookup_discovered_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::LookupDiscoveredService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::LookupDiscoveredService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupDiscoveredService {
     ///   # panic!();
@@ -913,10 +904,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_services][crate::client::AppHub::list_services] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListServices;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListServices;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -924,7 +914,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListServices {
     ///   # panic!();
@@ -1026,15 +1016,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::create_service][crate::client::AppHub::create_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::CreateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::CreateService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateService {
     ///   # panic!();
@@ -1162,14 +1151,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_service][crate::client::AppHub::get_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetService;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetService {
     ///   # panic!();
@@ -1223,15 +1211,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::update_service][crate::client::AppHub::update_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::UpdateService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::UpdateService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateService {
     ///   # panic!();
@@ -1365,15 +1352,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::delete_service][crate::client::AppHub::delete_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DeleteService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DeleteService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteService {
     ///   # panic!();
@@ -1473,10 +1459,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_discovered_workloads][crate::client::AppHub::list_discovered_workloads] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListDiscoveredWorkloads;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListDiscoveredWorkloads;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1484,7 +1469,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDiscoveredWorkloads {
     ///   # panic!();
@@ -1595,14 +1580,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_discovered_workload][crate::client::AppHub::get_discovered_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetDiscoveredWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetDiscoveredWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDiscoveredWorkload {
     ///   # panic!();
@@ -1659,14 +1643,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::lookup_discovered_workload][crate::client::AppHub::lookup_discovered_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::LookupDiscoveredWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::LookupDiscoveredWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> LookupDiscoveredWorkload {
     ///   # panic!();
@@ -1733,10 +1716,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_workloads][crate::client::AppHub::list_workloads] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListWorkloads;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListWorkloads;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1744,7 +1726,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListWorkloads {
     ///   # panic!();
@@ -1846,15 +1828,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::create_workload][crate::client::AppHub::create_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::CreateWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::CreateWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateWorkload {
     ///   # panic!();
@@ -1982,14 +1963,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_workload][crate::client::AppHub::get_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetWorkload {
     ///   # panic!();
@@ -2043,15 +2023,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::update_workload][crate::client::AppHub::update_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::UpdateWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::UpdateWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateWorkload {
     ///   # panic!();
@@ -2185,15 +2164,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::delete_workload][crate::client::AppHub::delete_workload] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DeleteWorkload;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DeleteWorkload;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteWorkload {
     ///   # panic!();
@@ -2293,10 +2271,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_applications][crate::client::AppHub::list_applications] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListApplications;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListApplications;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2304,7 +2281,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListApplications {
     ///   # panic!();
@@ -2409,15 +2386,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::create_application][crate::client::AppHub::create_application] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::CreateApplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::CreateApplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateApplication {
     ///   # panic!();
@@ -2550,14 +2526,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_application][crate::client::AppHub::get_application] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetApplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetApplication;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetApplication {
     ///   # panic!();
@@ -2611,15 +2586,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::update_application][crate::client::AppHub::update_application] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::UpdateApplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::UpdateApplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateApplication {
     ///   # panic!();
@@ -2758,15 +2732,14 @@ pub mod app_hub {
     /// The request builder for [AppHub::delete_application][crate::client::AppHub::delete_application] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DeleteApplication;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DeleteApplication;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteApplication {
     ///   # panic!();
@@ -2869,10 +2842,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_locations][crate::client::AppHub::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2880,7 +2852,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -2977,14 +2949,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_location][crate::client::AppHub::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -3036,14 +3007,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::set_iam_policy][crate::client::AppHub::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -3137,14 +3107,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_iam_policy][crate::client::AppHub::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -3216,14 +3185,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::test_iam_permissions][crate::client::AppHub::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -3293,10 +3261,9 @@ pub mod app_hub {
     /// The request builder for [AppHub::list_operations][crate::client::AppHub::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3304,7 +3271,7 @@ pub mod app_hub {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -3409,14 +3376,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::get_operation][crate::client::AppHub::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -3471,14 +3437,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::delete_operation][crate::client::AppHub::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -3533,14 +3498,13 @@ pub mod app_hub {
     /// The request builder for [AppHub::cancel_operation][crate::client::AppHub::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_apphub_v1::builder;
-    /// use builder::app_hub::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_apphub_v1::builder::app_hub::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

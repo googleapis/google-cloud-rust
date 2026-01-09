@@ -20,7 +20,7 @@ pub mod ids {
     /// A builder for [Ids][crate::client::Ids].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_ids_v1::*;
     /// # use builder::ids::ClientBuilder;
     /// # use client::Ids;
@@ -28,7 +28,7 @@ pub mod ids {
     /// let client = builder
     ///     .with_endpoint("https://ids.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod ids {
     /// The request builder for [Ids::list_endpoints][crate::client::Ids::list_endpoints] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::ListEndpoints;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::ListEndpoints;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod ids {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListEndpoints {
     ///   # panic!();
@@ -185,14 +184,13 @@ pub mod ids {
     /// The request builder for [Ids::get_endpoint][crate::client::Ids::get_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::GetEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::GetEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetEndpoint {
     ///   # panic!();
@@ -246,15 +244,14 @@ pub mod ids {
     /// The request builder for [Ids::create_endpoint][crate::client::Ids::create_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::CreateEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::CreateEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateEndpoint {
     ///   # panic!();
@@ -382,15 +379,14 @@ pub mod ids {
     /// The request builder for [Ids::delete_endpoint][crate::client::Ids::delete_endpoint] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::DeleteEndpoint;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::DeleteEndpoint;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteEndpoint {
     ///   # panic!();
@@ -490,10 +486,9 @@ pub mod ids {
     /// The request builder for [Ids::list_operations][crate::client::Ids::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -501,7 +496,7 @@ pub mod ids {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -606,14 +601,13 @@ pub mod ids {
     /// The request builder for [Ids::get_operation][crate::client::Ids::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -668,14 +662,13 @@ pub mod ids {
     /// The request builder for [Ids::delete_operation][crate::client::Ids::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -730,14 +723,13 @@ pub mod ids {
     /// The request builder for [Ids::cancel_operation][crate::client::Ids::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_ids_v1::builder;
-    /// use builder::ids::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_ids_v1::builder::ids::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

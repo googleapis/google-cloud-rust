@@ -20,7 +20,7 @@ pub mod backup_dr {
     /// A builder for [BackupDR][crate::client::BackupDR].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::*;
     /// # use builder::backup_dr::ClientBuilder;
     /// # use client::BackupDR;
@@ -28,7 +28,7 @@ pub mod backup_dr {
     /// let client = builder
     ///     .with_endpoint("https://backupdr.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -72,10 +72,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_management_servers][crate::client::BackupDR::list_management_servers] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListManagementServers;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListManagementServers;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -83,7 +82,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListManagementServers {
     ///   # panic!();
@@ -214,14 +213,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_management_server][crate::client::BackupDR::get_management_server] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetManagementServer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetManagementServer;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetManagementServer {
     ///   # panic!();
@@ -278,15 +276,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::create_management_server][crate::client::BackupDR::create_management_server] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::CreateManagementServer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateManagementServer;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateManagementServer {
     ///   # panic!();
@@ -420,15 +417,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_management_server][crate::client::BackupDR::delete_management_server] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteManagementServer;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteManagementServer;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteManagementServer {
     ///   # panic!();
@@ -531,15 +527,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::create_backup_vault][crate::client::BackupDR::create_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::CreateBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupVault {
     ///   # panic!();
@@ -678,10 +673,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_backup_vaults][crate::client::BackupDR::list_backup_vaults] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListBackupVaults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupVaults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -689,7 +683,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupVaults {
     ///   # panic!();
@@ -800,10 +794,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::fetch_usable_backup_vaults][crate::client::BackupDR::fetch_usable_backup_vaults] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::FetchUsableBackupVaults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchUsableBackupVaults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -811,7 +804,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchUsableBackupVaults {
     ///   # panic!();
@@ -922,14 +915,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_backup_vault][crate::client::BackupDR::get_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupVault {
     ///   # panic!();
@@ -989,15 +981,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::update_backup_vault][crate::client::BackupDR::update_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::UpdateBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupVault {
     ///   # panic!();
@@ -1154,15 +1145,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_backup_vault][crate::client::BackupDR::delete_backup_vault] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteBackupVault;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupVault;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupVault {
     ///   # panic!();
@@ -1295,10 +1285,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_data_sources][crate::client::BackupDR::list_data_sources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListDataSources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListDataSources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1306,7 +1295,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataSources {
     ///   # panic!();
@@ -1408,14 +1397,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_data_source][crate::client::BackupDR::get_data_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetDataSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetDataSource;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataSource {
     ///   # panic!();
@@ -1469,15 +1457,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::update_data_source][crate::client::BackupDR::update_data_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::UpdateDataSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateDataSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDataSource {
     ///   # panic!();
@@ -1620,10 +1607,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_backups][crate::client::BackupDR::list_backups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListBackups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1631,7 +1617,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackups {
     ///   # panic!();
@@ -1739,10 +1725,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::fetch_backups_for_resource_type][crate::client::BackupDR::fetch_backups_for_resource_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::FetchBackupsForResourceType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchBackupsForResourceType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1750,7 +1735,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchBackupsForResourceType {
     ///   # panic!();
@@ -1875,14 +1860,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_backup][crate::client::BackupDR::get_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackup {
     ///   # panic!();
@@ -1942,15 +1926,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::update_backup][crate::client::BackupDR::update_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::UpdateBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackup {
     ///   # panic!();
@@ -2084,15 +2067,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_backup][crate::client::BackupDR::delete_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackup {
     ///   # panic!();
@@ -2190,15 +2172,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::restore_backup][crate::client::BackupDR::restore_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::RestoreBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::RestoreBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RestoreBackup {
     ///   # panic!();
@@ -2423,15 +2404,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::create_backup_plan][crate::client::BackupDR::create_backup_plan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::CreateBackupPlan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupPlan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupPlan {
     ///   # panic!();
@@ -2562,15 +2542,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::update_backup_plan][crate::client::BackupDR::update_backup_plan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::UpdateBackupPlan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupPlan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupPlan {
     ///   # panic!();
@@ -2707,14 +2686,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_backup_plan][crate::client::BackupDR::get_backup_plan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetBackupPlan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlan;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupPlan {
     ///   # panic!();
@@ -2768,10 +2746,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_backup_plans][crate::client::BackupDR::list_backup_plans] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListBackupPlans;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlans;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2779,7 +2756,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupPlans {
     ///   # panic!();
@@ -2881,15 +2858,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_backup_plan][crate::client::BackupDR::delete_backup_plan] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteBackupPlan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupPlan;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupPlan {
     ///   # panic!();
@@ -2992,14 +2968,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_backup_plan_revision][crate::client::BackupDR::get_backup_plan_revision] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetBackupPlanRevision;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlanRevision;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupPlanRevision {
     ///   # panic!();
@@ -3056,10 +3031,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_backup_plan_revisions][crate::client::BackupDR::list_backup_plan_revisions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListBackupPlanRevisions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlanRevisions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3067,7 +3041,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupPlanRevisions {
     ///   # panic!();
@@ -3166,15 +3140,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::create_backup_plan_association][crate::client::BackupDR::create_backup_plan_association] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::CreateBackupPlanAssociation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::CreateBackupPlanAssociation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateBackupPlanAssociation {
     ///   # panic!();
@@ -3313,15 +3286,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::update_backup_plan_association][crate::client::BackupDR::update_backup_plan_association] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::UpdateBackupPlanAssociation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::UpdateBackupPlanAssociation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateBackupPlanAssociation {
     ///   # panic!();
@@ -3463,14 +3435,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_backup_plan_association][crate::client::BackupDR::get_backup_plan_association] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetBackupPlanAssociation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetBackupPlanAssociation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetBackupPlanAssociation {
     ///   # panic!();
@@ -3529,10 +3500,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_backup_plan_associations][crate::client::BackupDR::list_backup_plan_associations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListBackupPlanAssociations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListBackupPlanAssociations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3540,7 +3510,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListBackupPlanAssociations {
     ///   # panic!();
@@ -3645,10 +3615,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::fetch_backup_plan_associations_for_resource_type][crate::client::BackupDR::fetch_backup_plan_associations_for_resource_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::FetchBackupPlanAssociationsForResourceType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchBackupPlanAssociationsForResourceType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3656,7 +3625,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchBackupPlanAssociationsForResourceType {
     ///   # panic!();
@@ -3779,15 +3748,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_backup_plan_association][crate::client::BackupDR::delete_backup_plan_association] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteBackupPlanAssociation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteBackupPlanAssociation;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteBackupPlanAssociation {
     ///   # panic!();
@@ -3892,15 +3860,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::trigger_backup][crate::client::BackupDR::trigger_backup] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::TriggerBackup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::TriggerBackup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TriggerBackup {
     ///   # panic!();
@@ -4009,14 +3976,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_data_source_reference][crate::client::BackupDR::get_data_source_reference] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetDataSourceReference;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetDataSourceReference;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDataSourceReference {
     ///   # panic!();
@@ -4073,10 +4039,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_data_source_references][crate::client::BackupDR::list_data_source_references] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListDataSourceReferences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListDataSourceReferences;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4084,7 +4049,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDataSourceReferences {
     ///   # panic!();
@@ -4195,10 +4160,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::fetch_data_source_references_for_resource_type][crate::client::BackupDR::fetch_data_source_references_for_resource_type] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::FetchDataSourceReferencesForResourceType;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::FetchDataSourceReferencesForResourceType;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4206,7 +4170,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchDataSourceReferencesForResourceType {
     ///   # panic!();
@@ -4329,15 +4293,14 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::initialize_service][crate::client::BackupDR::initialize_service] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::InitializeService;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::InitializeService;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> InitializeService {
     ///   # panic!();
@@ -4481,10 +4444,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_locations][crate::client::BackupDR::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4492,7 +4454,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -4589,14 +4551,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_location][crate::client::BackupDR::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -4648,14 +4609,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::set_iam_policy][crate::client::BackupDR::set_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::SetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::SetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SetIamPolicy {
     ///   # panic!();
@@ -4749,14 +4709,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_iam_policy][crate::client::BackupDR::get_iam_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetIamPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetIamPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetIamPolicy {
     ///   # panic!();
@@ -4828,14 +4787,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::test_iam_permissions][crate::client::BackupDR::test_iam_permissions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::TestIamPermissions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::TestIamPermissions;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> TestIamPermissions {
     ///   # panic!();
@@ -4905,10 +4863,9 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::list_operations][crate::client::BackupDR::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4916,7 +4873,7 @@ pub mod backup_dr {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -5021,14 +4978,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::get_operation][crate::client::BackupDR::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -5083,14 +5039,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::delete_operation][crate::client::BackupDR::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -5145,14 +5100,13 @@ pub mod backup_dr {
     /// The request builder for [BackupDR::cancel_operation][crate::client::BackupDR::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_backupdr_v1::builder;
-    /// use builder::backup_dr::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_backupdr_v1::builder::backup_dr::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod profiler_service {
     /// A builder for [ProfilerService][crate::client::ProfilerService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::profiler_service::ClientBuilder;
     /// # use client::ProfilerService;
@@ -28,7 +28,7 @@ pub mod profiler_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod profiler_service {
     /// The request builder for [ProfilerService::create_profile][crate::client::ProfilerService::create_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_profiler_v2::builder;
-    /// use builder::profiler_service::CreateProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_profiler_v2::builder::profiler_service::CreateProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateProfile {
     ///   # panic!();
@@ -164,14 +163,13 @@ pub mod profiler_service {
     /// The request builder for [ProfilerService::create_offline_profile][crate::client::ProfilerService::create_offline_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_profiler_v2::builder;
-    /// use builder::profiler_service::CreateOfflineProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_profiler_v2::builder::profiler_service::CreateOfflineProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateOfflineProfile {
     ///   # panic!();
@@ -246,14 +244,13 @@ pub mod profiler_service {
     /// The request builder for [ProfilerService::update_profile][crate::client::ProfilerService::update_profile] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_profiler_v2::builder;
-    /// use builder::profiler_service::UpdateProfile;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_profiler_v2::builder::profiler_service::UpdateProfile;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateProfile {
     ///   # panic!();
@@ -341,7 +338,7 @@ pub mod export_service {
     /// A builder for [ExportService][crate::client::ExportService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_profiler_v2::*;
     /// # use builder::export_service::ClientBuilder;
     /// # use client::ExportService;
@@ -349,7 +346,7 @@ pub mod export_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudprofiler.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -395,10 +392,9 @@ pub mod export_service {
     /// The request builder for [ExportService::list_profiles][crate::client::ExportService::list_profiles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_profiler_v2::builder;
-    /// use builder::export_service::ListProfiles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_profiler_v2::builder::export_service::ListProfiles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -406,7 +402,7 @@ pub mod export_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListProfiles {
     ///   # panic!();

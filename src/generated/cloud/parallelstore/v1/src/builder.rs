@@ -20,7 +20,7 @@ pub mod parallelstore {
     /// A builder for [Parallelstore][crate::client::Parallelstore].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_parallelstore_v1::*;
     /// # use builder::parallelstore::ClientBuilder;
     /// # use client::Parallelstore;
@@ -28,7 +28,7 @@ pub mod parallelstore {
     /// let client = builder
     ///     .with_endpoint("https://parallelstore.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::list_instances][crate::client::Parallelstore::list_instances] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::ListInstances;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::ListInstances;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod parallelstore {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListInstances {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::get_instance][crate::client::Parallelstore::get_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::GetInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::GetInstance;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetInstance {
     ///   # panic!();
@@ -252,15 +250,14 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::create_instance][crate::client::Parallelstore::create_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::CreateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::CreateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateInstance {
     ///   # panic!();
@@ -390,15 +387,14 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::update_instance][crate::client::Parallelstore::update_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::UpdateInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::UpdateInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateInstance {
     ///   # panic!();
@@ -534,15 +530,14 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::delete_instance][crate::client::Parallelstore::delete_instance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::DeleteInstance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::DeleteInstance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteInstance {
     ///   # panic!();
@@ -644,15 +639,14 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::import_data][crate::client::Parallelstore::import_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::ImportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::ImportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ImportData {
     ///   # panic!();
@@ -833,15 +827,14 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::export_data][crate::client::Parallelstore::export_data] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::ExportData;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::ExportData;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExportData {
     ///   # panic!();
@@ -1022,10 +1015,9 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::list_locations][crate::client::Parallelstore::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1033,7 +1025,7 @@ pub mod parallelstore {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1132,14 +1124,13 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::get_location][crate::client::Parallelstore::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -1193,10 +1184,9 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::list_operations][crate::client::Parallelstore::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1204,7 +1194,7 @@ pub mod parallelstore {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1311,14 +1301,13 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::get_operation][crate::client::Parallelstore::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -1375,14 +1364,13 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::delete_operation][crate::client::Parallelstore::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -1439,14 +1427,13 @@ pub mod parallelstore {
     /// The request builder for [Parallelstore::cancel_operation][crate::client::Parallelstore::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_parallelstore_v1::builder;
-    /// use builder::parallelstore::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_parallelstore_v1::builder::parallelstore::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

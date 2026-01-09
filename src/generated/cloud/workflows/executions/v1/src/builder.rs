@@ -20,7 +20,7 @@ pub mod executions {
     /// A builder for [Executions][crate::client::Executions].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_workflows_executions_v1::*;
     /// # use builder::executions::ClientBuilder;
     /// # use client::Executions;
@@ -28,7 +28,7 @@ pub mod executions {
     /// let client = builder
     ///     .with_endpoint("https://workflowexecutions.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod executions {
     /// The request builder for [Executions::list_executions][crate::client::Executions::list_executions] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_executions_v1::builder;
-    /// use builder::executions::ListExecutions;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::builder::executions::ListExecutions;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod executions {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListExecutions {
     ///   # panic!();
@@ -195,14 +194,13 @@ pub mod executions {
     /// The request builder for [Executions::create_execution][crate::client::Executions::create_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_executions_v1::builder;
-    /// use builder::executions::CreateExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::builder::executions::CreateExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateExecution {
     ///   # panic!();
@@ -280,14 +278,13 @@ pub mod executions {
     /// The request builder for [Executions::get_execution][crate::client::Executions::get_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_executions_v1::builder;
-    /// use builder::executions::GetExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::builder::executions::GetExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetExecution {
     ///   # panic!();
@@ -349,14 +346,13 @@ pub mod executions {
     /// The request builder for [Executions::cancel_execution][crate::client::Executions::cancel_execution] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_workflows_executions_v1::builder;
-    /// use builder::executions::CancelExecution;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_workflows_executions_v1::builder::executions::CancelExecution;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelExecution {
     ///   # panic!();

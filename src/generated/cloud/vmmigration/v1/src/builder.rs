@@ -20,7 +20,7 @@ pub mod vm_migration {
     /// A builder for [VmMigration][crate::client::VmMigration].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_vmmigration_v1::*;
     /// # use builder::vm_migration::ClientBuilder;
     /// # use client::VmMigration;
@@ -28,7 +28,7 @@ pub mod vm_migration {
     /// let client = builder
     ///     .with_endpoint("https://vmmigration.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_sources][crate::client::VmMigration::list_sources] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListSources;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListSources;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListSources {
     ///   # panic!();
@@ -191,14 +190,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_source][crate::client::VmMigration::get_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetSource;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetSource {
     ///   # panic!();
@@ -254,15 +252,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_source][crate::client::VmMigration::create_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSource {
     ///   # panic!();
@@ -392,15 +389,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::update_source][crate::client::VmMigration::update_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpdateSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpdateSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateSource {
     ///   # panic!();
@@ -532,15 +528,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_source][crate::client::VmMigration::delete_source] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteSource;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteSource;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteSource {
     ///   # panic!();
@@ -642,14 +637,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::fetch_inventory][crate::client::VmMigration::fetch_inventory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::FetchInventory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::FetchInventory;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchInventory {
     ///   # panic!();
@@ -711,10 +705,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::fetch_storage_inventory][crate::client::VmMigration::fetch_storage_inventory] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::FetchStorageInventory;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::FetchStorageInventory;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -722,7 +715,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FetchStorageInventory {
     ///   # panic!();
@@ -836,10 +829,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_utilization_reports][crate::client::VmMigration::list_utilization_reports] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListUtilizationReports;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListUtilizationReports;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -847,7 +839,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListUtilizationReports {
     ///   # panic!();
@@ -966,14 +958,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_utilization_report][crate::client::VmMigration::get_utilization_report] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetUtilizationReport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetUtilizationReport;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetUtilizationReport {
     ///   # panic!();
@@ -1038,15 +1029,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_utilization_report][crate::client::VmMigration::create_utilization_report] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateUtilizationReport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateUtilizationReport;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateUtilizationReport {
     ///   # panic!();
@@ -1184,15 +1174,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_utilization_report][crate::client::VmMigration::delete_utilization_report] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteUtilizationReport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteUtilizationReport;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteUtilizationReport {
     ///   # panic!();
@@ -1299,10 +1288,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_datacenter_connectors][crate::client::VmMigration::list_datacenter_connectors] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListDatacenterConnectors;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListDatacenterConnectors;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1310,7 +1298,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDatacenterConnectors {
     ///   # panic!();
@@ -1425,14 +1413,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_datacenter_connector][crate::client::VmMigration::get_datacenter_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetDatacenterConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetDatacenterConnector;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDatacenterConnector {
     ///   # panic!();
@@ -1491,15 +1478,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_datacenter_connector][crate::client::VmMigration::create_datacenter_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateDatacenterConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateDatacenterConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDatacenterConnector {
     ///   # panic!();
@@ -1637,15 +1623,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_datacenter_connector][crate::client::VmMigration::delete_datacenter_connector] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteDatacenterConnector;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteDatacenterConnector;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDatacenterConnector {
     ///   # panic!();
@@ -1752,15 +1737,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::upgrade_appliance][crate::client::VmMigration::upgrade_appliance] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpgradeAppliance;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpgradeAppliance;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpgradeAppliance {
     ///   # panic!();
@@ -1866,15 +1850,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_migrating_vm][crate::client::VmMigration::create_migrating_vm] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateMigratingVm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateMigratingVm;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateMigratingVm {
     ///   # panic!();
@@ -2009,10 +1992,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_migrating_vms][crate::client::VmMigration::list_migrating_vms] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListMigratingVms;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListMigratingVms;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -2020,7 +2002,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListMigratingVms {
     ///   # panic!();
@@ -2135,14 +2117,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_migrating_vm][crate::client::VmMigration::get_migrating_vm] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetMigratingVm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetMigratingVm;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMigratingVm {
     ///   # panic!();
@@ -2204,15 +2185,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::update_migrating_vm][crate::client::VmMigration::update_migrating_vm] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpdateMigratingVm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpdateMigratingVm;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateMigratingVm {
     ///   # panic!();
@@ -2349,15 +2329,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_migrating_vm][crate::client::VmMigration::delete_migrating_vm] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteMigratingVm;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteMigratingVm;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteMigratingVm {
     ///   # panic!();
@@ -2456,15 +2435,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::start_migration][crate::client::VmMigration::start_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::StartMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::StartMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> StartMigration {
     ///   # panic!();
@@ -2561,15 +2539,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::resume_migration][crate::client::VmMigration::resume_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ResumeMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ResumeMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ResumeMigration {
     ///   # panic!();
@@ -2666,15 +2643,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::pause_migration][crate::client::VmMigration::pause_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::PauseMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::PauseMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> PauseMigration {
     ///   # panic!();
@@ -2771,15 +2747,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::finalize_migration][crate::client::VmMigration::finalize_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::FinalizeMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::FinalizeMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> FinalizeMigration {
     ///   # panic!();
@@ -2879,15 +2854,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::extend_migration][crate::client::VmMigration::extend_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ExtendMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ExtendMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ExtendMigration {
     ///   # panic!();
@@ -2984,15 +2958,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_clone_job][crate::client::VmMigration::create_clone_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateCloneJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateCloneJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCloneJob {
     ///   # panic!();
@@ -3122,15 +3095,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::cancel_clone_job][crate::client::VmMigration::cancel_clone_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CancelCloneJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CancelCloneJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelCloneJob {
     ///   # panic!();
@@ -3227,10 +3199,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_clone_jobs][crate::client::VmMigration::list_clone_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListCloneJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListCloneJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3238,7 +3209,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCloneJobs {
     ///   # panic!();
@@ -3344,14 +3315,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_clone_job][crate::client::VmMigration::get_clone_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetCloneJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetCloneJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCloneJob {
     ///   # panic!();
@@ -3407,15 +3377,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_cutover_job][crate::client::VmMigration::create_cutover_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateCutoverJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateCutoverJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateCutoverJob {
     ///   # panic!();
@@ -3548,15 +3517,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::cancel_cutover_job][crate::client::VmMigration::cancel_cutover_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CancelCutoverJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CancelCutoverJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelCutoverJob {
     ///   # panic!();
@@ -3656,10 +3624,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_cutover_jobs][crate::client::VmMigration::list_cutover_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListCutoverJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListCutoverJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3667,7 +3634,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListCutoverJobs {
     ///   # panic!();
@@ -3773,14 +3740,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_cutover_job][crate::client::VmMigration::get_cutover_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetCutoverJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetCutoverJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetCutoverJob {
     ///   # panic!();
@@ -3836,10 +3802,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_groups][crate::client::VmMigration::list_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -3847,7 +3812,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListGroups {
     ///   # panic!();
@@ -3953,14 +3918,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_group][crate::client::VmMigration::get_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetGroup;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetGroup {
     ///   # panic!();
@@ -4016,15 +3980,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_group][crate::client::VmMigration::create_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateGroup {
     ///   # panic!();
@@ -4154,15 +4117,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::update_group][crate::client::VmMigration::update_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpdateGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpdateGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateGroup {
     ///   # panic!();
@@ -4294,15 +4256,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_group][crate::client::VmMigration::delete_group] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteGroup;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteGroup;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteGroup {
     ///   # panic!();
@@ -4404,15 +4365,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::add_group_migration][crate::client::VmMigration::add_group_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::AddGroupMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::AddGroupMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddGroupMigration {
     ///   # panic!();
@@ -4518,15 +4478,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::remove_group_migration][crate::client::VmMigration::remove_group_migration] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::RemoveGroupMigration;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::RemoveGroupMigration;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveGroupMigration {
     ///   # panic!();
@@ -4632,10 +4591,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_target_projects][crate::client::VmMigration::list_target_projects] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListTargetProjects;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListTargetProjects;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -4643,7 +4601,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTargetProjects {
     ///   # panic!();
@@ -4754,14 +4712,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_target_project][crate::client::VmMigration::get_target_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetTargetProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetTargetProject;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTargetProject {
     ///   # panic!();
@@ -4820,15 +4777,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_target_project][crate::client::VmMigration::create_target_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateTargetProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateTargetProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTargetProject {
     ///   # panic!();
@@ -4964,15 +4920,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::update_target_project][crate::client::VmMigration::update_target_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpdateTargetProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpdateTargetProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTargetProject {
     ///   # panic!();
@@ -5110,15 +5065,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_target_project][crate::client::VmMigration::delete_target_project] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteTargetProject;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteTargetProject;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTargetProject {
     ///   # panic!();
@@ -5223,10 +5177,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_replication_cycles][crate::client::VmMigration::list_replication_cycles] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListReplicationCycles;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListReplicationCycles;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5234,7 +5187,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReplicationCycles {
     ///   # panic!();
@@ -5345,14 +5298,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_replication_cycle][crate::client::VmMigration::get_replication_cycle] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetReplicationCycle;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetReplicationCycle;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReplicationCycle {
     ///   # panic!();
@@ -5411,10 +5363,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_image_imports][crate::client::VmMigration::list_image_imports] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListImageImports;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListImageImports;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5422,7 +5373,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListImageImports {
     ///   # panic!();
@@ -5529,14 +5480,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_image_import][crate::client::VmMigration::get_image_import] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetImageImport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetImageImport;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetImageImport {
     ///   # panic!();
@@ -5592,15 +5542,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_image_import][crate::client::VmMigration::create_image_import] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateImageImport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateImageImport;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateImageImport {
     ///   # panic!();
@@ -5735,15 +5684,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_image_import][crate::client::VmMigration::delete_image_import] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteImageImport;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteImageImport;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteImageImport {
     ///   # panic!();
@@ -5848,10 +5796,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_image_import_jobs][crate::client::VmMigration::list_image_import_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListImageImportJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListImageImportJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -5859,7 +5806,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListImageImportJobs {
     ///   # panic!();
@@ -5968,14 +5915,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_image_import_job][crate::client::VmMigration::get_image_import_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetImageImportJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetImageImportJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetImageImportJob {
     ///   # panic!();
@@ -6034,15 +5980,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::cancel_image_import_job][crate::client::VmMigration::cancel_image_import_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CancelImageImportJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CancelImageImportJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelImageImportJob {
     ///   # panic!();
@@ -6142,15 +6087,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::create_disk_migration_job][crate::client::VmMigration::create_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CreateDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CreateDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDiskMigrationJob {
     ///   # panic!();
@@ -6286,10 +6230,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_disk_migration_jobs][crate::client::VmMigration::list_disk_migration_jobs] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListDiskMigrationJobs;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListDiskMigrationJobs;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6297,7 +6240,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDiskMigrationJobs {
     ///   # panic!();
@@ -6406,14 +6349,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_disk_migration_job][crate::client::VmMigration::get_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDiskMigrationJob {
     ///   # panic!();
@@ -6472,15 +6414,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::update_disk_migration_job][crate::client::VmMigration::update_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::UpdateDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::UpdateDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDiskMigrationJob {
     ///   # panic!();
@@ -6618,15 +6559,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_disk_migration_job][crate::client::VmMigration::delete_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDiskMigrationJob {
     ///   # panic!();
@@ -6725,15 +6665,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::run_disk_migration_job][crate::client::VmMigration::run_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::RunDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::RunDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RunDiskMigrationJob {
     ///   # panic!();
@@ -6833,15 +6772,14 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::cancel_disk_migration_job][crate::client::VmMigration::cancel_disk_migration_job] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CancelDiskMigrationJob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CancelDiskMigrationJob;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelDiskMigrationJob {
     ///   # panic!();
@@ -6943,10 +6881,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_locations][crate::client::VmMigration::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -6954,7 +6891,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -7053,14 +6990,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_location][crate::client::VmMigration::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();
@@ -7114,10 +7050,9 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::list_operations][crate::client::VmMigration::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -7125,7 +7060,7 @@ pub mod vm_migration {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -7232,14 +7167,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::get_operation][crate::client::VmMigration::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -7296,14 +7230,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::delete_operation][crate::client::VmMigration::delete_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::DeleteOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::DeleteOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteOperation {
     ///   # panic!();
@@ -7360,14 +7293,13 @@ pub mod vm_migration {
     /// The request builder for [VmMigration::cancel_operation][crate::client::VmMigration::cancel_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_vmmigration_v1::builder;
-    /// use builder::vm_migration::CancelOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_vmmigration_v1::builder::vm_migration::CancelOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CancelOperation {
     ///   # panic!();

@@ -20,7 +20,7 @@ pub mod iam_credentials {
     /// A builder for [IAMCredentials][crate::client::IAMCredentials].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_iam_credentials_v1::*;
     /// # use builder::iam_credentials::ClientBuilder;
     /// # use client::IAMCredentials;
@@ -28,7 +28,7 @@ pub mod iam_credentials {
     /// let client = builder
     ///     .with_endpoint("https://iamcredentials.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod iam_credentials {
     /// The request builder for [IAMCredentials::generate_access_token][crate::client::IAMCredentials::generate_access_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_credentials_v1::builder;
-    /// use builder::iam_credentials::GenerateAccessToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateAccessToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateAccessToken {
     ///   # panic!();
@@ -182,14 +181,13 @@ pub mod iam_credentials {
     /// The request builder for [IAMCredentials::generate_id_token][crate::client::IAMCredentials::generate_id_token] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_credentials_v1::builder;
-    /// use builder::iam_credentials::GenerateIdToken;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::GenerateIdToken;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GenerateIdToken {
     ///   # panic!();
@@ -270,14 +268,13 @@ pub mod iam_credentials {
     /// The request builder for [IAMCredentials::sign_blob][crate::client::IAMCredentials::sign_blob] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_credentials_v1::builder;
-    /// use builder::iam_credentials::SignBlob;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignBlob;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SignBlob {
     ///   # panic!();
@@ -352,14 +349,13 @@ pub mod iam_credentials {
     /// The request builder for [IAMCredentials::sign_jwt][crate::client::IAMCredentials::sign_jwt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_iam_credentials_v1::builder;
-    /// use builder::iam_credentials::SignJwt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_iam_credentials_v1::builder::iam_credentials::SignJwt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SignJwt {
     ///   # panic!();

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
 /// let client = MigrationCenter::builder().build().await?;
 /// // use `client` to make requests to the Migration Center API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl MigrationCenter {
     /// Returns a builder for [MigrationCenter].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_migrationcenter_v1::client::MigrationCenter;
     /// let client = MigrationCenter::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::migration_center::ClientBuilder {
         gax::client_builder::internal::new_builder(

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
 /// let client = OracleDatabase::builder().build().await?;
 /// // use `client` to make requests to the Oracle Database@Google Cloud API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl OracleDatabase {
     /// Returns a builder for [OracleDatabase].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_oracledatabase_v1::client::OracleDatabase;
     /// let client = OracleDatabase::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::oracle_database::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::oracle_database::client::Factory)

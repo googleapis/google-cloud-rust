@@ -20,7 +20,7 @@ pub mod trace_service {
     /// A builder for [TraceService][crate::client::TraceService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_trace_v2::*;
     /// # use builder::trace_service::ClientBuilder;
     /// # use client::TraceService;
@@ -28,7 +28,7 @@ pub mod trace_service {
     /// let client = builder
     ///     .with_endpoint("https://cloudtrace.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod trace_service {
     /// The request builder for [TraceService::batch_write_spans][crate::client::TraceService::batch_write_spans] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_trace_v2::builder;
-    /// use builder::trace_service::BatchWriteSpans;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_trace_v2::builder::trace_service::BatchWriteSpans;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> BatchWriteSpans {
     ///   # panic!();
@@ -150,14 +149,13 @@ pub mod trace_service {
     /// The request builder for [TraceService::create_span][crate::client::TraceService::create_span] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_trace_v2::builder;
-    /// use builder::trace_service::CreateSpan;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_trace_v2::builder::trace_service::CreateSpan;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateSpan {
     ///   # panic!();

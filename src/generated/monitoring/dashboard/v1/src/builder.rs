@@ -20,7 +20,7 @@ pub mod dashboards_service {
     /// A builder for [DashboardsService][crate::client::DashboardsService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_monitoring_dashboard_v1::*;
     /// # use builder::dashboards_service::ClientBuilder;
     /// # use client::DashboardsService;
@@ -28,7 +28,7 @@ pub mod dashboards_service {
     /// let client = builder
     ///     .with_endpoint("https://monitoring.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod dashboards_service {
     /// The request builder for [DashboardsService::create_dashboard][crate::client::DashboardsService::create_dashboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_dashboard_v1::builder;
-    /// use builder::dashboards_service::CreateDashboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::CreateDashboard;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateDashboard {
     ///   # panic!();
@@ -165,10 +164,9 @@ pub mod dashboards_service {
     /// The request builder for [DashboardsService::list_dashboards][crate::client::DashboardsService::list_dashboards] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_dashboard_v1::builder;
-    /// use builder::dashboards_service::ListDashboards;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::ListDashboards;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -176,7 +174,7 @@ pub mod dashboards_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListDashboards {
     ///   # panic!();
@@ -268,14 +266,13 @@ pub mod dashboards_service {
     /// The request builder for [DashboardsService::get_dashboard][crate::client::DashboardsService::get_dashboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_dashboard_v1::builder;
-    /// use builder::dashboards_service::GetDashboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::GetDashboard;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetDashboard {
     ///   # panic!();
@@ -331,14 +328,13 @@ pub mod dashboards_service {
     /// The request builder for [DashboardsService::delete_dashboard][crate::client::DashboardsService::delete_dashboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_dashboard_v1::builder;
-    /// use builder::dashboards_service::DeleteDashboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::DeleteDashboard;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteDashboard {
     ///   # panic!();
@@ -394,14 +390,13 @@ pub mod dashboards_service {
     /// The request builder for [DashboardsService::update_dashboard][crate::client::DashboardsService::update_dashboard] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_monitoring_dashboard_v1::builder;
-    /// use builder::dashboards_service::UpdateDashboard;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_monitoring_dashboard_v1::builder::dashboards_service::UpdateDashboard;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateDashboard {
     ///   # panic!();

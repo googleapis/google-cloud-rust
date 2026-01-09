@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_billing_v1::client::CloudBilling;
 /// let client = CloudBilling::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl CloudBilling {
     /// Returns a builder for [CloudBilling].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_billing_v1::client::CloudBilling;
     /// let client = CloudBilling::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_billing::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_billing::client::Factory)
@@ -253,11 +253,11 @@ impl CloudBilling {
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_billing_v1::client::CloudCatalog;
 /// let client = CloudCatalog::builder().build().await?;
 /// // use `client` to make requests to the Cloud Billing API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -301,10 +301,10 @@ impl CloudCatalog {
     /// Returns a builder for [CloudCatalog].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_billing_v1::client::CloudCatalog;
     /// let client = CloudCatalog::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_catalog::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_catalog::client::Factory)

@@ -20,7 +20,7 @@ pub mod cloud_quotas {
     /// A builder for [CloudQuotas][crate::client::CloudQuotas].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_api_cloudquotas_v1::*;
     /// # use builder::cloud_quotas::ClientBuilder;
     /// # use client::CloudQuotas;
@@ -28,7 +28,7 @@ pub mod cloud_quotas {
     /// let client = builder
     ///     .with_endpoint("https://cloudquotas.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::list_quota_infos][crate::client::CloudQuotas::list_quota_infos] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::ListQuotaInfos;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaInfos;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod cloud_quotas {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListQuotaInfos {
     ///   # panic!();
@@ -177,14 +176,13 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::get_quota_info][crate::client::CloudQuotas::get_quota_info] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::GetQuotaInfo;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaInfo;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetQuotaInfo {
     ///   # panic!();
@@ -240,10 +238,9 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::list_quota_preferences][crate::client::CloudQuotas::list_quota_preferences] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::ListQuotaPreferences;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::ListQuotaPreferences;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -251,7 +248,7 @@ pub mod cloud_quotas {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListQuotaPreferences {
     ///   # panic!();
@@ -360,14 +357,13 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::get_quota_preference][crate::client::CloudQuotas::get_quota_preference] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::GetQuotaPreference;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::GetQuotaPreference;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetQuotaPreference {
     ///   # panic!();
@@ -426,14 +422,13 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::create_quota_preference][crate::client::CloudQuotas::create_quota_preference] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::CreateQuotaPreference;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::CreateQuotaPreference;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateQuotaPreference {
     ///   # panic!();
@@ -531,14 +526,13 @@ pub mod cloud_quotas {
     /// The request builder for [CloudQuotas::update_quota_preference][crate::client::CloudQuotas::update_quota_preference] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_api_cloudquotas_v1::builder;
-    /// use builder::cloud_quotas::UpdateQuotaPreference;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_api_cloudquotas_v1::builder::cloud_quotas::UpdateQuotaPreference;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateQuotaPreference {
     ///   # panic!();

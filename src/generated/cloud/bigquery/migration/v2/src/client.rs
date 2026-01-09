@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
 /// let client = MigrationService::builder().build().await?;
 /// // use `client` to make requests to the BigQuery Migration API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl MigrationService {
     /// Returns a builder for [MigrationService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_bigquery_migration_v2::client::MigrationService;
     /// let client = MigrationService::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::migration_service::ClientBuilder {
         gax::client_builder::internal::new_builder(

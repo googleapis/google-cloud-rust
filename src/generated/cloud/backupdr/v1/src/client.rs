@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_backupdr_v1::client::BackupDR;
 /// let client = BackupDR::builder().build().await?;
 /// // use `client` to make requests to the Backup and DR Service API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl BackupDR {
     /// Returns a builder for [BackupDR].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_backupdr_v1::client::BackupDR;
     /// let client = BackupDR::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::backup_dr::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::backup_dr::client::Factory)

@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_tasks_v2::client::CloudTasks;
 /// let client = CloudTasks::builder().build().await?;
 /// // use `client` to make requests to the Cloud Tasks API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -67,10 +67,10 @@ impl CloudTasks {
     /// Returns a builder for [CloudTasks].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_tasks_v2::client::CloudTasks;
     /// let client = CloudTasks::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::cloud_tasks::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::cloud_tasks::client::Factory)

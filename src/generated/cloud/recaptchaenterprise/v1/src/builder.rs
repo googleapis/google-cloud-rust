@@ -20,7 +20,7 @@ pub mod recaptcha_enterprise_service {
     /// A builder for [RecaptchaEnterpriseService][crate::client::RecaptchaEnterpriseService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_recaptchaenterprise_v1::*;
     /// # use builder::recaptcha_enterprise_service::ClientBuilder;
     /// # use client::RecaptchaEnterpriseService;
@@ -28,7 +28,7 @@ pub mod recaptcha_enterprise_service {
     /// let client = builder
     ///     .with_endpoint("https://recaptchaenterprise.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,14 +74,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::create_assessment][crate::client::RecaptchaEnterpriseService::create_assessment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::CreateAssessment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateAssessment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateAssessment {
     ///   # panic!();
@@ -162,14 +161,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::annotate_assessment][crate::client::RecaptchaEnterpriseService::annotate_assessment] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::AnnotateAssessment;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AnnotateAssessment;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AnnotateAssessment {
     ///   # panic!();
@@ -299,14 +297,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::create_key][crate::client::RecaptchaEnterpriseService::create_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::CreateKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateKey {
     ///   # panic!();
@@ -384,10 +381,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::list_keys][crate::client::RecaptchaEnterpriseService::list_keys] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ListKeys;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListKeys;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -395,7 +391,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListKeys {
     ///   # panic!();
@@ -487,14 +483,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::retrieve_legacy_secret_key][crate::client::RecaptchaEnterpriseService::retrieve_legacy_secret_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RetrieveLegacySecretKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RetrieveLegacySecretKey {
     ///   # panic!();
@@ -555,14 +550,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::get_key][crate::client::RecaptchaEnterpriseService::get_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::GetKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetKey {
     ///   # panic!();
@@ -618,14 +612,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::update_key][crate::client::RecaptchaEnterpriseService::update_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::UpdateKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateKey {
     ///   # panic!();
@@ -713,14 +706,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::delete_key][crate::client::RecaptchaEnterpriseService::delete_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::DeleteKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteKey {
     ///   # panic!();
@@ -776,14 +768,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::migrate_key][crate::client::RecaptchaEnterpriseService::migrate_key] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::MigrateKey;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::MigrateKey;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> MigrateKey {
     ///   # panic!();
@@ -845,14 +836,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::add_ip_override][crate::client::RecaptchaEnterpriseService::add_ip_override] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::AddIpOverride;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::AddIpOverride;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> AddIpOverride {
     ///   # panic!();
@@ -930,14 +920,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::remove_ip_override][crate::client::RecaptchaEnterpriseService::remove_ip_override] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::RemoveIpOverride;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::RemoveIpOverride;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> RemoveIpOverride {
     ///   # panic!();
@@ -1018,10 +1007,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::list_ip_overrides][crate::client::RecaptchaEnterpriseService::list_ip_overrides] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ListIpOverrides;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListIpOverrides;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1029,7 +1017,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListIpOverrides {
     ///   # panic!();
@@ -1121,14 +1109,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::get_metrics][crate::client::RecaptchaEnterpriseService::get_metrics] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::GetMetrics;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetMetrics;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetMetrics {
     ///   # panic!();
@@ -1184,14 +1171,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::create_firewall_policy][crate::client::RecaptchaEnterpriseService::create_firewall_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::CreateFirewallPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::CreateFirewallPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateFirewallPolicy {
     ///   # panic!();
@@ -1272,10 +1258,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::list_firewall_policies][crate::client::RecaptchaEnterpriseService::list_firewall_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ListFirewallPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListFirewallPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1283,7 +1268,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListFirewallPolicies {
     ///   # panic!();
@@ -1380,14 +1365,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::get_firewall_policy][crate::client::RecaptchaEnterpriseService::get_firewall_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::GetFirewallPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::GetFirewallPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFirewallPolicy {
     ///   # panic!();
@@ -1446,14 +1430,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::update_firewall_policy][crate::client::RecaptchaEnterpriseService::update_firewall_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::UpdateFirewallPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFirewallPolicy {
     ///   # panic!();
@@ -1544,14 +1527,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::delete_firewall_policy][crate::client::RecaptchaEnterpriseService::delete_firewall_policy] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::DeleteFirewallPolicy;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteFirewallPolicy {
     ///   # panic!();
@@ -1610,14 +1592,13 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::reorder_firewall_policies][crate::client::RecaptchaEnterpriseService::reorder_firewall_policies] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ReorderFirewallPolicies;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ReorderFirewallPolicies {
     ///   # panic!();
@@ -1691,10 +1672,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::list_related_account_groups][crate::client::RecaptchaEnterpriseService::list_related_account_groups] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroups;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1702,7 +1682,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRelatedAccountGroups {
     ///   # panic!();
@@ -1803,10 +1783,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::list_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::list_related_account_group_memberships] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::ListRelatedAccountGroupMemberships;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1814,7 +1793,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListRelatedAccountGroupMemberships {
     ///   # panic!();
@@ -1917,10 +1896,9 @@ pub mod recaptcha_enterprise_service {
     /// The request builder for [RecaptchaEnterpriseService::search_related_account_group_memberships][crate::client::RecaptchaEnterpriseService::search_related_account_group_memberships] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_recaptchaenterprise_v1::builder;
-    /// use builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_recaptchaenterprise_v1::builder::recaptcha_enterprise_service::SearchRelatedAccountGroupMemberships;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1928,7 +1906,7 @@ pub mod recaptcha_enterprise_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SearchRelatedAccountGroupMemberships {
     ///   # panic!();

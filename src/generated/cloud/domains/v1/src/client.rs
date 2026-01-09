@@ -20,11 +20,11 @@
 ///
 /// # Example
 /// ```
-/// # tokio_test::block_on(async {
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_domains_v1::client::Domains;
 /// let client = Domains::builder().build().await?;
 /// // use `client` to make requests to the Cloud Domains API.
-/// # gax::client_builder::Result::<()>::Ok(()) });
+/// # Ok(()) }
 /// ```
 ///
 /// # Service Description
@@ -66,10 +66,10 @@ impl Domains {
     /// Returns a builder for [Domains].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_domains_v1::client::Domains;
     /// let client = Domains::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> super::builder::domains::ClientBuilder {
         gax::client_builder::internal::new_builder(super::builder::domains::client::Factory)

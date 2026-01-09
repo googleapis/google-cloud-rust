@@ -20,7 +20,7 @@ pub mod org_policy_violations_preview_service {
     /// A builder for [OrgPolicyViolationsPreviewService][crate::client::OrgPolicyViolationsPreviewService].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::*;
     /// # use builder::org_policy_violations_preview_service::ClientBuilder;
     /// # use client::OrgPolicyViolationsPreviewService;
@@ -28,7 +28,7 @@ pub mod org_policy_violations_preview_service {
     /// let client = builder
     ///     .with_endpoint("https://policysimulator.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -76,10 +76,9 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::list_org_policy_violations_previews][crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations_previews] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOrgPolicyViolationsPreviews;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -87,7 +86,7 @@ pub mod org_policy_violations_preview_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOrgPolicyViolationsPreviews {
     ///   # panic!();
@@ -190,14 +189,13 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::get_org_policy_violations_preview][crate::client::OrgPolicyViolationsPreviewService::get_org_policy_violations_preview] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::GetOrgPolicyViolationsPreview;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOrgPolicyViolationsPreview {
     ///   # panic!();
@@ -260,15 +258,14 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::create_org_policy_violations_preview][crate::client::OrgPolicyViolationsPreviewService::create_org_policy_violations_preview] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::CreateOrgPolicyViolationsPreview;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateOrgPolicyViolationsPreview {
     ///   # panic!();
@@ -408,10 +405,9 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::list_org_policy_violations][crate::client::OrgPolicyViolationsPreviewService::list_org_policy_violations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::ListOrgPolicyViolations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOrgPolicyViolations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -419,7 +415,7 @@ pub mod org_policy_violations_preview_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOrgPolicyViolations {
     ///   # panic!();
@@ -522,10 +518,9 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::list_operations][crate::client::OrgPolicyViolationsPreviewService::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -533,7 +528,7 @@ pub mod org_policy_violations_preview_service {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -642,14 +637,13 @@ pub mod org_policy_violations_preview_service {
     /// The request builder for [OrgPolicyViolationsPreviewService::get_operation][crate::client::OrgPolicyViolationsPreviewService::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::org_policy_violations_preview_service::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::org_policy_violations_preview_service::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();
@@ -712,7 +706,7 @@ pub mod simulator {
     /// A builder for [Simulator][crate::client::Simulator].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_policysimulator_v1::*;
     /// # use builder::simulator::ClientBuilder;
     /// # use client::Simulator;
@@ -720,7 +714,7 @@ pub mod simulator {
     /// let client = builder
     ///     .with_endpoint("https://policysimulator.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -766,14 +760,13 @@ pub mod simulator {
     /// The request builder for [Simulator::get_replay][crate::client::Simulator::get_replay] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::simulator::GetReplay;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::simulator::GetReplay;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetReplay {
     ///   # panic!();
@@ -829,15 +822,14 @@ pub mod simulator {
     /// The request builder for [Simulator::create_replay][crate::client::Simulator::create_replay] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::simulator::CreateReplay;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::simulator::CreateReplay;
+    /// # async fn sample() -> gax::Result<()> {
     /// use lro::Poller;
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.poller().until_done().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateReplay {
     ///   # panic!();
@@ -955,10 +947,9 @@ pub mod simulator {
     /// The request builder for [Simulator::list_replay_results][crate::client::Simulator::list_replay_results] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::simulator::ListReplayResults;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::simulator::ListReplayResults;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -966,7 +957,7 @@ pub mod simulator {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListReplayResults {
     ///   # panic!();
@@ -1061,10 +1052,9 @@ pub mod simulator {
     /// The request builder for [Simulator::list_operations][crate::client::Simulator::list_operations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::simulator::ListOperations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::simulator::ListOperations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -1072,7 +1062,7 @@ pub mod simulator {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListOperations {
     ///   # panic!();
@@ -1179,14 +1169,13 @@ pub mod simulator {
     /// The request builder for [Simulator::get_operation][crate::client::Simulator::get_operation] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_policysimulator_v1::builder;
-    /// use builder::simulator::GetOperation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_policysimulator_v1::builder::simulator::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetOperation {
     ///   # panic!();

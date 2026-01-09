@@ -20,7 +20,7 @@ pub mod model_armor {
     /// A builder for [ModelArmor][crate::client::ModelArmor].
     ///
     /// ```
-    /// # tokio_test::block_on(async {
+    /// # async fn sample() -> gax::client_builder::Result<()> {
     /// # use google_cloud_modelarmor_v1::*;
     /// # use builder::model_armor::ClientBuilder;
     /// # use client::ModelArmor;
@@ -28,7 +28,7 @@ pub mod model_armor {
     /// let client = builder
     ///     .with_endpoint("https://modelarmor.googleapis.com")
     ///     .build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub type ClientBuilder =
         gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
@@ -74,10 +74,9 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::list_templates][crate::client::ModelArmor::list_templates] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::ListTemplates;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::ListTemplates;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -85,7 +84,7 @@ pub mod model_armor {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListTemplates {
     ///   # panic!();
@@ -189,14 +188,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::get_template][crate::client::ModelArmor::get_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::GetTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::GetTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetTemplate {
     ///   # panic!();
@@ -252,14 +250,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::create_template][crate::client::ModelArmor::create_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::CreateTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::CreateTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> CreateTemplate {
     ///   # panic!();
@@ -351,14 +348,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::update_template][crate::client::ModelArmor::update_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::UpdateTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::UpdateTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateTemplate {
     ///   # panic!();
@@ -456,14 +452,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::delete_template][crate::client::ModelArmor::delete_template] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::DeleteTemplate;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::DeleteTemplate;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> DeleteTemplate {
     ///   # panic!();
@@ -525,14 +520,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::get_floor_setting][crate::client::ModelArmor::get_floor_setting] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::GetFloorSetting;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::GetFloorSetting;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetFloorSetting {
     ///   # panic!();
@@ -588,14 +582,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::update_floor_setting][crate::client::ModelArmor::update_floor_setting] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::UpdateFloorSetting;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::UpdateFloorSetting;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> UpdateFloorSetting {
     ///   # panic!();
@@ -686,14 +679,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::sanitize_user_prompt][crate::client::ModelArmor::sanitize_user_prompt] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::SanitizeUserPrompt;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::SanitizeUserPrompt;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SanitizeUserPrompt {
     ///   # panic!();
@@ -795,14 +787,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::sanitize_model_response][crate::client::ModelArmor::sanitize_model_response] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::SanitizeModelResponse;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::SanitizeModelResponse;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> SanitizeModelResponse {
     ///   # panic!();
@@ -910,10 +901,9 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::list_locations][crate::client::ModelArmor::list_locations] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::ListLocations;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::ListLocations;
+    /// # async fn sample() -> gax::Result<()> {
     /// use gax::paginator::ItemPaginator;
     ///
     /// let builder = prepare_request_builder();
@@ -921,7 +911,7 @@ pub mod model_armor {
     /// while let Some(result) = items.next().await {
     ///   let item = result?;
     /// }
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ListLocations {
     ///   # panic!();
@@ -1020,14 +1010,13 @@ pub mod model_armor {
     /// The request builder for [ModelArmor::get_location][crate::client::ModelArmor::get_location] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_modelarmor_v1::builder;
-    /// use builder::model_armor::GetLocation;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_modelarmor_v1::builder::model_armor::GetLocation;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> GetLocation {
     ///   # panic!();

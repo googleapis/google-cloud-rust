@@ -43,14 +43,13 @@ pub mod publisher {
     /// The request builder for [Publisher::publish][crate::client::Publisher::publish] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::publisher::Publish;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::publisher::Publish;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Publish {
     ///   # panic!();
@@ -146,14 +145,13 @@ pub mod subscriber {
     /// The request builder for [Subscriber::modify_ack_deadline][crate::client::Subscriber::modify_ack_deadline] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscriber::ModifyAckDeadline;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscriber::ModifyAckDeadline;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> ModifyAckDeadline {
     ///   # panic!();
@@ -233,14 +231,13 @@ pub mod subscriber {
     /// The request builder for [Subscriber::acknowledge][crate::client::Subscriber::acknowledge] calls.
     ///
     /// # Example
-    /// ```no_run
-    /// # use google_cloud_pubsub::builder;
-    /// use builder::subscriber::Acknowledge;
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # use google_cloud_pubsub::builder::subscriber::Acknowledge;
+    /// # async fn sample() -> gax::Result<()> {
     ///
     /// let builder = prepare_request_builder();
     /// let response = builder.send().await?;
-    /// # gax::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     ///
     /// fn prepare_request_builder() -> Acknowledge {
     ///   # panic!();
