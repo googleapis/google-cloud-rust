@@ -49,7 +49,16 @@ impl LeaseLoop {
                     },
                     message = message_rx.recv() => {
                         match message {
-                            None => break state.shutdown().await,
+                            None => {
+                                while let Ok(r) = ack_rx.try_recv() {
+                                    if let AckResult::Ack(ack_id) = r {
+                                        // Process any acks that we already know about.
+                                        state.ack(ack_id);
+                                    }
+                                }
+                                state.shutdown().await;
+                                break;
+                            }
                             Some(ack_id) => state.add(ack_id),
                         }
                     },
@@ -287,15 +296,22 @@ mod tests {
         const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
 
         let start = Instant::now();
+
         struct FakeLeaser;
         #[async_trait::async_trait]
         impl Leaser for FakeLeaser {
-            async fn ack(&self, _ack_ids: Vec<String>) {
+            async fn ack(&self, mut ack_ids: Vec<String>) {
+                ack_ids.sort();
+                assert_eq!(ack_ids, test_ids(0..10));
                 tokio::time::sleep(EXPECTED_SLEEP).await;
             }
-            async fn nack(&self, _ack_ids: Vec<String>) {}
+            async fn nack(&self, mut ack_ids: Vec<String>) {
+                ack_ids.sort();
+                assert_eq!(ack_ids, test_ids(10..30));
+            }
             async fn extend(&self, _ack_ids: Vec<String>) {}
         }
+
         let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());
 
         // Seed the lease loop with some messages
