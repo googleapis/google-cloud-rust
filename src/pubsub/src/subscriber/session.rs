@@ -132,22 +132,22 @@ impl Session {
             Err(e) => return Some(Err(to_gax_error(e))),
         };
         for rm in resp.received_messages {
+            let Some(message) = rm.message else {
+                // The message field should always be present. If not, the proto
+                // message was corrupted while in transit, or there is a bug in
+                // the service.
+                //
+                // The client can just ignore an ack ID without an associated
+                // message.
+                continue;
+            };
             // TODO(#3957) - add message to lease management
-            let pb = match rm.message.map(|m| m.cnv().map_err(Error::deser)) {
-                None => {
-                    // The message field should always be present. If not, the
-                    // proto message was corrupted while in transit, or there is
-                    // a bug in the service.
-                    //
-                    // The client can just ignore an ack ID without an
-                    // associated message.
-                    continue;
-                }
-                Some(Ok(pb)) => pb,
-                Some(Err(e)) => return Some(Err(e)),
+            let message = match message.cnv().map_err(Error::deser) {
+                Ok(message) => message,
+                Err(e) => return Some(Err(e)),
             };
             self.pool.push_back((
-                pb,
+                message,
                 Handler::AtLeastOnce(AtLeastOnce {
                     ack_id: rm.ack_id,
                     ack_tx: self.ack_tx.clone(),
