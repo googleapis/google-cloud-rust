@@ -240,20 +240,59 @@ impl BatchWorker {
     /// The loop terminates when the `rx` channel is closed, which happens when the
     /// `Worker` drops the Sender.
     pub(crate) async fn run(mut self) {
+        if self.ordering_key.is_empty() {
+            self.run_without_ordering_key().await;
+        } else {
+            self.run_with_ordering_key().await;
+        }
+    }
+
+    async fn run_without_ordering_key(&mut self) {
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
         let mut inflight = JoinSet::new();
         // For empty ordering key, we do not need to limit the number of inflight batches.
-        let unlimited_inflight = self.ordering_key.is_empty();
         loop {
             tokio::select! {
                 _ = inflight.join_next(), if !inflight.is_empty() => {
-                    if unlimited_inflight {
-                        // When there are no limits to the number of inflight, we can skip sending the
-                        // next batch as it is handled by the Publish and Flush operations.
-                        continue;
+                    // When there are no limits to the number of inflight, we can skip sending the
+                    // next batch as it is handled by the Publish and Flush operations.
+                    continue;
+                }
+                msg = self.rx.recv() => {
+                    match msg {
+                        Some(ToBatchWorker::Publish(msg)) => {
+                            self.pending_msgs.push_back(msg);
+                            self.move_to_batch();
+                            if self.at_batch_threshold() {
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            }
+                        },
+                        Some(ToBatchWorker::Flush(tx)) => {
+                            // Send all the batches concurrently.
+                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+                                self.move_to_batch();
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            }
+                            inflight.join_all().await;
+                            inflight = JoinSet::new();
+                            let _ = tx.send(());
+                        },
+                        None => {
+                            break;
+                        }
                     }
+                }
+            }
+        }
+    }
+
+    async fn run_with_ordering_key(&mut self) {
+        let mut inflight = JoinSet::new();
+        loop {
+            tokio::select! {
+                _ = inflight.join_next(), if !inflight.is_empty() => {
                     self.move_to_batch();
                     if self.at_batch_threshold() {
                         self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -264,29 +303,19 @@ impl BatchWorker {
                         Some(ToBatchWorker::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
                             self.move_to_batch();
-                            if self.at_batch_threshold() && (unlimited_inflight || inflight.is_empty()) {
+                            if self.at_batch_threshold() && inflight.is_empty() {
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                             }
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
-                            if unlimited_inflight {
-                                // Send all the batches concurrently.
-                                while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                    self.move_to_batch();
-                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                }
-                                inflight.join_all().await;
-                                inflight = JoinSet::new();
-                            } else {
-                                // Send batches sequentially.
-                                if !inflight.is_empty() {
-                                    inflight.join_next().await;
-                                }
-                                while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                    self.move_to_batch();
-                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                    inflight.join_next().await;
-                                }
+                            // Send batches sequentially.
+                            if !inflight.is_empty() {
+                                inflight.join_next().await;
+                            }
+                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+                                self.move_to_batch();
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                inflight.join_next().await;
                             }
                             let _ = tx.send(());
                         },
