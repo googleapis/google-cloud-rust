@@ -61,6 +61,9 @@ steps:
         tests/crypto-providers/auth-without-default
         tests/crypto-providers/gaxi-with-default
         tests/crypto-providers/gaxi-without-default
+        tests/crypto-providers/storage-with-default
+        tests/crypto-providers/storage-with-aws-lc-rs
+        tests/crypto-providers/storage-with-ring
       )
       for dir in "${directories[@]}"; do
         echo "Running test in ${dir}"
