@@ -23,7 +23,7 @@ license      = "Apache-2.0"
 repository   = "https://github.com/googleapis/google-cloud-rust/tree/main"
 keywords     = ["gcp", "google-cloud", "google-cloud-rust", "sdk"]
 categories   = ["network-programming"]
-rust-version = "1.85.0"
+rust-version = "1.92.0"
 
 # This test needs to be its own workspace so it is isolated from any features
 # enabled in the top-level Cargo.toml file (and its dependencies).

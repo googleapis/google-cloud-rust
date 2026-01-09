@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name         = "gax-internal-with-default"
+name         = "storage-with-default"
 version      = "0.0.0"
 publish      = false
 edition      = "2024"
@@ -31,8 +31,6 @@ rust-version = "1.92.0"
 
 [dependencies]
 anyhow        = { default-features = false, version = "1", features = ["std"] }
+tokio         = { default-features = false, version = "1", features = ["test-util"] }
 test-metadata = { path = "../test-metadata" }
-
-[dependencies.google-cloud-gax-internal]
-default-features = false
-path             = "../../../src/gax-internal"
+test-storage  = { path = "../test-storage", features = ["storage-default"] }
