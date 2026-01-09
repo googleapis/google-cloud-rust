@@ -71,13 +71,12 @@ pub struct Session {
     /// when it is dropped.
     _keepalive_guard: DropGuard,
 
-    #[cfg(test)]
     /// A handle on the lease loop task.
     ///
     /// We hold onto this handle so we can await pending lease operations. While awaiting pending
     /// lease operations is useful for setting expectations in our unit tests, it is not that
     /// helpful to applications in practice.
-    lease_loop: tokio::task::JoinHandle<()>,
+    _lease_loop: tokio::task::JoinHandle<()>,
 }
 
 impl Session {
@@ -113,8 +112,7 @@ impl Session {
             message_tx,
             ack_tx,
             _keepalive_guard: shutdown.drop_guard(),
-            #[cfg(test)]
-            lease_loop: _lease_loop,
+            _lease_loop,
         })
     }
 
@@ -195,7 +193,7 @@ impl Session {
         drop(self.message_tx);
 
         // Wait for the lease management task to complete.
-        self.lease_loop.await?;
+        self._lease_loop.await?;
 
         Ok(())
     }
