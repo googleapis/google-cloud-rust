@@ -163,6 +163,10 @@ locals {
     integration = {
       config = "integration.yaml"
     }
+    integration-unstable = {
+      config = "integration.yaml"
+      flags  = "--cfg google_cloud_unstable_trust_boundaries"
+    }
   }
 }
 

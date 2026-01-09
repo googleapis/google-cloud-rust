@@ -27,16 +27,16 @@ sha256sum -c <(echo 9fa5ffeda4170de60f67f3aa0f824e426421ba724c21e133c1e35d6159ca
 tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=${PATH}:/usr/local/go/bin
 
+echo "==== Install taplo ===="
+cargo install taplo-cli --locked
+
 cargo version
 rustup component add rustfmt
 rustup show active-toolchain -v
 
 echo "Regenerate all the code"
-version=$(cat /workspace/.sidekick-version.txt)
-go run github.com/googleapis/librarian/cmd/sidekick@${version} refreshall
-
-echo "Reformat the generated code"
-cargo fmt
+version=$(cat /workspace/.librarian-version.txt)
+go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the
 # committed code that is an error. All the inputs should be pinned,

@@ -23,10 +23,11 @@
 //! sign content. Use [crate::credentials::Builder::build_signer]
 //! to create a `Signer` from loaded credentials.
 //!
-//! ## Example: Creating a Signer using Application Default Credentials (ADC)
+//! ## Example: Creating a Signer using [Application Default Credentials] (ADC)
 //!
 //! This is the recommended way for most applications. It automatically finds
-//! credentials from the environment.
+//! credentials from the environment. See how [Application Default Credentials]
+//! works.
 //!
 //! ```
 //! use google_cloud_auth::credentials::Builder;
@@ -46,6 +47,12 @@
 //! environments where network access is restricted and performance is
 //! critical.
 //!
+//! <div class="warning">
+//!     <strong>Caution:</strong> Service account keys are a security risk if not managed correctly.
+//!     See <a href="https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys">
+//!     Best practices for managing service account keys</a> for more information.
+//! </div>
+//!
 //! ```
 //! use google_cloud_auth::credentials::service_account::Builder;
 //! use google_cloud_auth::signer::Signer;
@@ -58,6 +65,7 @@
 //! # });
 //! ```
 //!
+//! [Application Default Credentials]: https://docs.cloud.google.com/docs/authentication/application-default-credentials
 //! [Signed URLs]: https://cloud.google.com/storage/docs/access-control/signed-urls
 
 use std::sync::Arc;

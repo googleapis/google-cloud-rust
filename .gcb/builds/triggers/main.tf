@@ -36,6 +36,7 @@ locals {
 
   unstable_flags = join(" ", [
     "--cfg google_cloud_unstable_tracing",
+    "--cfg google_cloud_unstable_trust_boundaries",
     "--cfg google_cloud_unstable_storage_bidi"
   ])
 
