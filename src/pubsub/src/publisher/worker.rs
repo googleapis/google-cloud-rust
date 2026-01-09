@@ -252,7 +252,7 @@ impl BatchWorker {
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
         let mut inflight = JoinSet::new();
-        // For empty ordering key, we do not need to limit the number of inflight batches.
+        // For messages without an ordering key, we can have multiple inflight batches concurrently.
         loop {
             tokio::select! {
                 _ = inflight.join_next(), if !inflight.is_empty() => {
