@@ -15,7 +15,7 @@
 use super::handler::AckResult;
 use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState};
 use super::leaser::Leaser;
-use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 
 /// A convenience struct that groups the components of the lease loop.
@@ -49,16 +49,7 @@ impl LeaseLoop {
                     },
                     message = message_rx.recv() => {
                         match message {
-                            None => {
-                                while let Ok(r) = ack_rx.try_recv() {
-                                    if let AckResult::Ack(ack_id) = r {
-                                        // Process any acks that we already know about.
-                                        state.ack(ack_id);
-                                    }
-                                }
-                                state.shutdown().await;
-                                break;
-                            }
+                            None => break shutdown(state, ack_rx).await,
                             Some(ack_id) => state.add(ack_id),
                         }
                     },
@@ -78,6 +69,22 @@ impl LeaseLoop {
             ack_tx,
         }
     }
+}
+
+// Shuts down lease management.
+//
+// Processes any acks from the application that we already know about and
+// triggers a shutdown of the lease state.
+async fn shutdown<L>(mut state: LeaseState<L>, mut ack_rx: UnboundedReceiver<AckResult>)
+where
+    L: Leaser + Send + 'static,
+{
+    while let Ok(r) = ack_rx.try_recv() {
+        if let AckResult::Ack(ack_id) = r {
+            state.ack(ack_id);
+        }
+    }
+    state.shutdown().await;
 }
 
 #[cfg(test)]
