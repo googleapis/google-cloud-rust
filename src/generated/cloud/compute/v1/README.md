@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20251210" revision of the API.
+This client library was generated from the "20251230" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
