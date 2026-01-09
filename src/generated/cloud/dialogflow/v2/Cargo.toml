@@ -28,28 +28,28 @@ rust-version.workspace = true
 
 [features]
 default = [
-  "agents",
-  "answer-records",
-  "contexts",
-  "conversation-datasets",
-  "conversation-models",
-  "conversation-profiles",
-  "conversations",
-  "documents",
-  "encryption-spec-service",
-  "entity-types",
-  "environments",
-  "fulfillments",
-  "generator-evaluations",
-  "generators",
-  "intents",
-  "knowledge-bases",
-  "participants",
-  "session-entity-types",
-  "sessions",
-  "sip-trunks",
-  "tools",
-  "versions",
+    "agents",
+    "answer-records",
+    "contexts",
+    "conversation-datasets",
+    "conversation-models",
+    "conversation-profiles",
+    "conversations",
+    "documents",
+    "encryption-spec-service",
+    "entity-types",
+    "environments",
+    "fulfillments",
+    "generator-evaluations",
+    "generators",
+    "intents",
+    "knowledge-bases",
+    "participants",
+    "session-entity-types",
+    "sessions",
+    "sip-trunks",
+    "tools",
+    "versions",
 ]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
@@ -101,21 +101,21 @@ all-features = true
 
 [dependencies]
 async-trait.workspace = true
-bytes.workspace       = true
-gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-http-client"] }
-gtype.workspace       = true
+bytes.workspace      = true
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+gtype.workspace      = true
 lazy_static.workspace = true
-location.workspace    = true
+location.workspace   = true
 longrunning.workspace = true
-lro.workspace         = true
-reqwest.workspace     = true
-rpc.workspace         = true
-serde.workspace       = true
-serde_json.workspace  = true
-serde_with.workspace  = true
-tracing.workspace     = true
-wkt.workspace         = true
+lro.workspace        = true
+reqwest.workspace    = true
+rpc.workspace        = true
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+tracing.workspace    = true
+wkt.workspace        = true
 
 [dev-dependencies]
 tokio-test.workspace = true

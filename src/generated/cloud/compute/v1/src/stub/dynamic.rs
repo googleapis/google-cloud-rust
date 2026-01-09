@@ -303,12 +303,6 @@ pub trait Autoscalers: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn update(
         &self,
         req: crate::model::autoscalers::UpdateRequest,
@@ -388,15 +382,6 @@ impl<T: super::Autoscalers> Autoscalers for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -3191,12 +3176,6 @@ pub trait HealthChecks: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn update(
         &self,
         req: crate::model::health_checks::UpdateRequest,
@@ -3279,15 +3258,6 @@ impl<T: super::HealthChecks> HealthChecks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn update(
         &self,
         req: crate::model::health_checks::UpdateRequest,
@@ -3353,12 +3323,6 @@ pub trait HttpHealthChecks: std::fmt::Debug + Send + Sync {
         req: crate::model::http_health_checks::PatchRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::http_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
 
     async fn update(
         &self,
@@ -3433,15 +3397,6 @@ impl<T: super::HttpHealthChecks> HttpHealthChecks for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::http_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn update(
         &self,
         req: crate::model::http_health_checks::UpdateRequest,
@@ -3507,12 +3462,6 @@ pub trait HttpsHealthChecks: std::fmt::Debug + Send + Sync {
         req: crate::model::https_health_checks::PatchRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::https_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
 
     async fn update(
         &self,
@@ -3584,15 +3533,6 @@ impl<T: super::HttpsHealthChecks> HttpsHealthChecks for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::https_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -9899,12 +9839,6 @@ pub trait RegionAutoscalers: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn update(
         &self,
         req: crate::model::region_autoscalers::UpdateRequest,
@@ -9975,15 +9909,6 @@ impl<T: super::RegionAutoscalers> RegionAutoscalers for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -10874,12 +10799,6 @@ pub trait RegionHealthChecks: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn update(
         &self,
         req: crate::model::region_health_checks::UpdateRequest,
@@ -10950,15 +10869,6 @@ impl<T: super::RegionHealthChecks> RegionHealthChecks for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -12365,12 +12275,6 @@ pub trait RegionNotificationEndpoints: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::NotificationEndpointList>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
@@ -12426,15 +12330,6 @@ impl<T: super::RegionNotificationEndpoints> RegionNotificationEndpoints for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::NotificationEndpointList>> {
         T::list(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -14612,12 +14507,6 @@ pub trait Routes: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RouteList>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::routes::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -14673,15 +14562,6 @@ impl<T: super::Routes> Routes for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::RouteList>> {
         T::list(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::routes::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -17090,12 +16970,6 @@ pub trait TargetSslProxies: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -17199,15 +17073,6 @@ impl<T: super::TargetSslProxies> TargetSslProxies for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -17276,12 +17141,6 @@ pub trait TargetTcpProxies: std::fmt::Debug + Send + Sync {
         req: crate::model::target_tcp_proxies::SetProxyHeaderRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
-
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
 
     async fn get_operation(
         &self,
@@ -17365,15 +17224,6 @@ impl<T: super::TargetTcpProxies> TargetTcpProxies for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::set_proxy_header(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -17585,12 +17435,6 @@ pub trait UrlMaps: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::url_maps::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>;
-
     async fn update(
         &self,
         req: crate::model::url_maps::UpdateRequest,
@@ -17685,15 +17529,6 @@ impl<T: super::UrlMaps> UrlMaps for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::patch(self, req, options).await
-    }
-
-    /// Forwards the call to the implementation provided by `T`.
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::url_maps::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        T::test_iam_permissions(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

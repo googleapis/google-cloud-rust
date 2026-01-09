@@ -28,23 +28,23 @@ rust-version.workspace = true
 
 [features]
 default = [
-  "agents",
-  "changelogs",
-  "deployments",
-  "entity-types",
-  "environments",
-  "experiments",
-  "flows",
-  "generators",
-  "intents",
-  "pages",
-  "security-settings-service",
-  "session-entity-types",
-  "sessions",
-  "test-cases",
-  "transition-route-groups",
-  "versions",
-  "webhooks",
+    "agents",
+    "changelogs",
+    "deployments",
+    "entity-types",
+    "environments",
+    "experiments",
+    "flows",
+    "generators",
+    "intents",
+    "pages",
+    "security-settings-service",
+    "session-entity-types",
+    "sessions",
+    "test-cases",
+    "transition-route-groups",
+    "versions",
+    "webhooks",
 ]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
@@ -86,21 +86,21 @@ all-features = true
 
 [dependencies]
 async-trait.workspace = true
-bytes.workspace       = true
-gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-http-client"] }
-gtype.workspace       = true
+bytes.workspace      = true
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+gtype.workspace      = true
 lazy_static.workspace = true
-location.workspace    = true
+location.workspace   = true
 longrunning.workspace = true
-lro.workspace         = true
-reqwest.workspace     = true
-rpc.workspace         = true
-serde.workspace       = true
-serde_json.workspace  = true
-serde_with.workspace  = true
-tracing.workspace     = true
-wkt.workspace         = true
+lro.workspace        = true
+reqwest.workspace    = true
+rpc.workspace        = true
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+tracing.workspace    = true
+wkt.workspace        = true
 
 [dev-dependencies]
 tokio-test.workspace = true

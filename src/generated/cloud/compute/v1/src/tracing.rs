@@ -417,15 +417,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::autoscalers::UpdateRequest,
@@ -2482,15 +2473,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::health_checks::UpdateRequest,
@@ -2594,15 +2576,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::http_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::http_health_checks::UpdateRequest,
@@ -2703,15 +2676,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::https_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -7222,15 +7186,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_autoscalers::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::region_autoscalers::UpdateRequest,
@@ -7922,15 +7877,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_health_checks::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -8963,15 +8909,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::NotificationEndpointList>> {
         self.inner.list(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -10624,15 +10561,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RouteList>> {
         self.inner.list(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::routes::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -12435,15 +12363,6 @@ where
     }
 
     #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -12553,15 +12472,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_proxy_header(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -12777,15 +12687,6 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
-    }
-
-    #[tracing::instrument(ret)]
-    async fn test_iam_permissions(
-        &self,
-        req: crate::model::url_maps::TestIamPermissionsRequest,
-        options: gax::options::RequestOptions,
-    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
-        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]

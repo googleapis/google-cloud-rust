@@ -64,14 +64,15 @@ Then send a PR with whatever changed.
 
 ## Update the code with new discovery docs
 
-```bash
-git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery && 
-go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-git commit -m "chore: update discovery SHA circa $(date +%Y-%m-%d)" .
-```
+For now you have to manually update the commit and sha256 in librarian.yaml
+under sources >> discovery
 
-Alternatively you can run `librarian update --all` to update all sources at once.
+```
+sources:
+  discovery:
+    commit: f85002671045f2d315ffcc140a8dc5ea8eb35769
+    sha256: 5032016f41ba2d3f42536008fd9d67cd3ff4604f28822b2dab457e94cde16b98
+```
 
 ## Bump all version numbers
 

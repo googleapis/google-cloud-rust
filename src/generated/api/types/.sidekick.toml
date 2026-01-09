@@ -1,0 +1,92 @@
+# Copyright 2025 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[general]
+specification-source = 'google/api'
+service-config = 'google/api/serviceconfig.yaml'
+
+[codec]
+version        = '1.2.0'
+copyright-year        = '2025'
+package-name-override = 'google-cloud-api'
+
+# This is supposed to be an indented code block, but it only indents 3 spaces.
+# It should be at least 4.
+[[documentation-overrides]]
+id = '.google.api.ProjectProperties'
+match = """
+   project_properties:
+     properties:
+     - name: NO_WATERMARK
+       type: BOOL
+       description: Allows usage of the API without watermarks.
+     - name: EXTENDED_TILE_CACHE_PERIOD
+       type: INT64"""
+replace = """
+    project_properties:
+      properties:
+      - name: NO_WATERMARK
+        type: BOOL
+        description: Allows usage of the API without watermarks.
+      - name: EXTENDED_TILE_CACHE_PERIOD
+        type: INT64"""
+
+[[documentation-overrides]]
+id = '.google.api.MethodSettings.selector'
+match = """
+   publishing:
+     method_settings:
+     - selector: google.storage.control.v2.StorageControl.CreateFolder
+       # method settings for CreateFolder..."""
+replace = """
+    publishing:
+      method_settings:
+      - selector: google.storage.control.v2.StorageControl.CreateFolder
+        # method settings for CreateFolder..."""
+
+[[documentation-overrides]]
+id = '.google.api.MethodSettings.long_running'
+match = """
+   publishing:
+     method_settings:
+     - selector: google.cloud.speech.v2.Speech.BatchRecognize
+       long_running:
+         initial_poll_delay: 60s # 1 minute
+         poll_delay_multiplier: 1.5
+         max_poll_delay: 360s # 6 minutes
+         total_poll_timeout: 54000s # 90 minutes"""
+replace = """
+    publishing:
+      method_settings:
+      - selector: google.cloud.speech.v2.Speech.BatchRecognize
+        long_running:
+          initial_poll_delay: 60s # 1 minute
+          poll_delay_multiplier: 1.5
+          max_poll_delay: 360s # 6 minutes
+          total_poll_timeout: 54000s # 90 minutes"""
+
+[[documentation-overrides]]
+id = '.google.api.MethodSettings.auto_populated_fields'
+match = """
+   publishing:
+     method_settings:
+     - selector: google.example.v1.ExampleService.CreateExample
+       auto_populated_fields:
+       - request_id"""
+replace = """
+    publishing:
+      method_settings:
+      - selector: google.example.v1.ExampleService.CreateExample
+        auto_populated_fields:
+        - request_id"""

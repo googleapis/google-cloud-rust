@@ -27,21 +27,21 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
-async-trait.workspace                   = true
-bytes.workspace                         = true
-gax.workspace                           = true
-gaxi                                    = { workspace = true, features = ["_internal-http-client"] }
-gkehub_configmanagement_v1.workspace    = true
+async-trait.workspace = true
+bytes.workspace      = true
+gax.workspace        = true
+gaxi                 = { workspace = true, features = ["_internal-http-client"] }
+gkehub_configmanagement_v1.workspace = true
 gkehub_multiclusteringress_v1.workspace = true
-lazy_static.workspace                   = true
-longrunning.workspace                   = true
-lro.workspace                           = true
-reqwest.workspace                       = true
-serde.workspace                         = true
-serde_json.workspace                    = true
-serde_with.workspace                    = true
-tracing.workspace                       = true
-wkt.workspace                           = true
+lazy_static.workspace = true
+longrunning.workspace = true
+lro.workspace        = true
+reqwest.workspace    = true
+serde.workspace      = true
+serde_json.workspace = true
+serde_with.workspace = true
+tracing.workspace    = true
+wkt.workspace        = true
 
 [dev-dependencies]
 tokio-test.workspace = true
