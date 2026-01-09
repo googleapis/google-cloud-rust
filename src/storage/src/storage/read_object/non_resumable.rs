@@ -68,8 +68,8 @@ mod tests {
     use crate::{
         client::Storage, model_ext::ObjectHighlights, read_object::dynamic::ReadObjectResponse,
     };
-    use auth::credentials::anonymous::Builder as Anonymous;
     use bytes::Bytes;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
 
     type Result = anyhow::Result<()>;

@@ -102,8 +102,8 @@ pub(crate) fn required_header<'a>(
 mod tests {
     use super::*;
     use crate::client::Storage;
-    use auth::credentials::anonymous::Builder as Anonymous;
     use base64::Engine;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::error::Error as _;
     use test_case::test_case;

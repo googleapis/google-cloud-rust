@@ -17,6 +17,7 @@ use crate::builder::storage::WriteObject;
 use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::tests::{test_builder, test_inner_client};
 use crate::streaming_source::Payload;
+use google_cloud_auth::credentials::testing::error_credentials;
 use serde_json::{Value, json};
 use std::collections::BTreeMap;
 use std::sync::Arc;
@@ -220,10 +221,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
 
 #[tokio::test]
 async fn start_resumable_upload_credentials() -> Result {
-    let inner = test_inner_client(
-        test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-    )
-    .await;
+    let inner = test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(
