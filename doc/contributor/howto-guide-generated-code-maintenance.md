@@ -150,10 +150,11 @@ git -C ../librarian checkout -b fancy-rust-feature
 ```
 
 You can make changes in the `librarian` directory as usual. To test them change
-the normal commands to use that directory. For example:
+the normal commands to use the directory where your librarian changes live. For example:
+(Replace ../librarian/cmd/librarian path with the path to the directory that contains your changes.)
 
 ```bash
-go -C ../librarian run ./cmd/librarian generate --all
+go -C ../librarian/cmd/librarian build && ../librarian/cmd/librarian/librarian generate --all
 ```
 
 Once the changes work then send a PR in the librarian repo to make your changes.
