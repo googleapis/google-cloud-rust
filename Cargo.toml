@@ -458,4 +458,5 @@ unexpected_cfgs = { level = "deny", check-cfg = [
   'cfg(google_cloud_unstable_signed_url)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
+  'cfg(google_cloud_unstable_trusted_boundaries)',
 ] }
