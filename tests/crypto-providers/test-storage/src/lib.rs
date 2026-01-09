@@ -31,12 +31,7 @@ pub async fn run() -> anyhow::Result<()> {
         .list_buckets()
         .set_parent(format!("projects/{project_id}"))
         .by_item();
-    let mut count = 0;
-    while let Some(b) = buckets.next().await.transpose()? {
-        println!("found bucket {}", b.name);
-        count += 1;
-    }
-    assert_ne!(count, 0);
+    let _ = buckets.next().await.transpose()?.expect("expected at least one bucket");
 
     // Verify JSON requests work as expected:
     let storage = Storage::builder().build().await?;
