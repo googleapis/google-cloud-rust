@@ -127,7 +127,6 @@ pub struct SignedUrlBuilder {
     headers: BTreeMap<String, String>,
     query_parameters: BTreeMap<String, String>,
     endpoint: Option<String>,
-    universe_domain: String,
     client_email: Option<String>,
     timestamp: DateTime<Utc>,
     url_style: UrlStyle,
@@ -215,7 +214,6 @@ impl SignedUrlBuilder {
             headers: BTreeMap::new(),
             query_parameters: BTreeMap::new(),
             endpoint: None,
-            universe_domain: "googleapis.com".to_string(),
             client_email: None,
             timestamp: Utc::now(),
             url_style: UrlStyle::PathStyle,
@@ -390,8 +388,6 @@ impl SignedUrlBuilder {
     ///
     /// This is useful when using a custom domain, or when testing with some Cloud Storage emulators.
     ///
-    /// Setting an endpoint takes precedence over using `with_universe_domain`.
-    ///
     /// # Example
     ///
     /// ```
@@ -459,7 +455,7 @@ impl SignedUrlBuilder {
             Some(e) if e.starts_with("http://") => e.clone(),
             Some(e) if e.starts_with("https://") => e.clone(),
             Some(e) => format!("https://{}", e),
-            None => format!("https://storage.{}", self.universe_domain),
+            None => "https://storage.googleapis.com".to_string(),
         }
     }
 
@@ -639,7 +635,6 @@ mod tests {
             .with_header("x-goog-meta-test", "value")
             .with_query_param("test", "value")
             .with_endpoint("https://storage.googleapis.com")
-            .with_universe_domain("googleapis.com")
             .with_client_email("test@example.com")
             .with_url_style(UrlStyle::PathStyle)
             .sign_with(&signer)
@@ -819,7 +814,7 @@ mod tests {
                 .universe_domain
                 .iter()
                 .fold(builder, |builder, universe_domain| {
-                    builder.with_universe_domain(universe_domain)
+                    builder.with_endpoint(format!("https://storage.{}", universe_domain))
                 });
             let builder = test
                 .client_endpoint
