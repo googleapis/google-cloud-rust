@@ -229,12 +229,12 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     ///```  
     pub fn for_object<B, O>(bucket: B, object: O) -> Self
     where
@@ -251,12 +251,12 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_bucket("my-bucket")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_bucket("my-bucket")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn for_bucket<B>(bucket: B) -> Self
     where
@@ -272,7 +272,7 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the HTTP method for the signed URL. The default is [http::Method::GET][crate::signed_url::http::Method::GET].
+    /// Sets the HTTP method for the signed URL. The default is [GET][crate::signed_url::http::Method::GET].
     ///
     /// # Example
     ///
@@ -281,13 +281,13 @@ impl SignedUrlBuilder {
     /// # use auth::signer::Signer;
     /// use google_cloud_storage::signed_url::http;
     ///
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_method(http::Method::PUT)
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_method(http::Method::PUT)
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_method(mut self, method: http::Method) -> Self {
         self.method = method;
@@ -305,13 +305,13 @@ impl SignedUrlBuilder {
     /// use std::time::Duration;
     /// # use auth::signer::Signer;
     ///
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_expiration(Duration::from_secs(3600))
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_expiration(Duration::from_secs(3600))
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_expiration(mut self, expiration: std::time::Duration) -> Self {
         self.expiration = expiration;
@@ -327,13 +327,13 @@ impl SignedUrlBuilder {
     /// use google_cloud_storage::signed_url::UrlStyle;
     /// # use auth::signer::Signer;
     ///
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_url_style(UrlStyle::VirtualHostedStyle)
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_url_style(UrlStyle::VirtualHostedStyle)
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_url_style(mut self, url_style: UrlStyle) -> Self {
         self.url_style = url_style;
@@ -352,13 +352,13 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_header("content-type", "text/plain")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_header("content-type", "text/plain")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_header<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
         self.headers.insert(key.into().to_lowercase(), value.into());
@@ -370,24 +370,23 @@ impl SignedUrlBuilder {
     /// Subsequent calls to this method with the same key will override the previous value.
     ///
     /// # Example
-    ///
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_query_param("generation", "1234567890")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_query_param("generation", "1234567890")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_query_param<K: Into<String>, V: Into<String>>(mut self, key: K, value: V) -> Self {
         self.query_parameters.insert(key.into(), value.into());
         self
     }
 
-    /// Sets the endpoint for the signed URL. The default is "<https://storage.googleapis.com>".
+    /// Sets the endpoint for the signed URL. The default is `"https://storage.googleapis.com"`.
     ///
     /// This is useful when using a custom domain, or when testing with some Cloud Storage emulators.
     ///
@@ -398,36 +397,16 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_endpoint("https://private.googleapis.com")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_endpoint("https://private.googleapis.com")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_endpoint<S: Into<String>>(mut self, endpoint: S) -> Self {
         self.endpoint = Some(endpoint.into());
-        self
-    }
-
-    /// Sets the universe domain for the signed URL. The default is "googleapis.com".
-    ///
-    /// # Example
-    ///
-    /// ```
-    /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
-    /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_universe_domain("my-universe.com")
-    ///     .sign_with(signer)
-    ///     .await?;
-    /// # Ok(())
-    /// # }
-    /// ```
-    pub fn with_universe_domain<S: Into<String>>(mut self, universe_domain: S) -> Self {
-        self.universe_domain = universe_domain.into();
         self
     }
 
@@ -440,13 +419,13 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
-    /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
-    /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
-    ///     .with_client_email("my-service-account@my-project.iam.gserviceaccount.com")
-    ///     .sign_with(signer)
-    ///     .await?;
+    /// async fn run(signer: &Signer) -> anyhow::Result<()> {
+    ///     let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
+    ///         .with_client_email("my-service-account@my-project.iam.gserviceaccount.com")
+    ///         .sign_with(signer)
+    ///         .await?;
     /// # Ok(())
-    /// # }
+    /// }
     /// ```
     pub fn with_client_email<S: Into<String>>(mut self, client_email: S) -> Self {
         self.client_email = Some(client_email.into());
