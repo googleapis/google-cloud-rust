@@ -28,11 +28,11 @@ rust-version.workspace = true
 
 [dependencies]
 apps_script_type.workspace = true
-bytes.workspace      = true
-serde.workspace      = true
-serde_json.workspace = true
-serde_with.workspace = true
-wkt.workspace        = true
+bytes.workspace            = true
+serde.workspace            = true
+serde_json.workspace       = true
+serde_with.workspace       = true
+wkt.workspace              = true
 
 [dev-dependencies]
 tokio-test.workspace = true
