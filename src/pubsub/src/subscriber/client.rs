@@ -70,7 +70,7 @@ impl Subscriber {
         ClientBuilder::new()
     }
 
-    pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
+    pub(super) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Transport::new(builder.config).await?;
         Ok(Self {
             inner: Arc::new(transport),

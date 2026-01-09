@@ -22,7 +22,7 @@ use std::sync::Arc;
 ///
 /// We stub out the interface, in order to test the lease management.
 #[async_trait::async_trait]
-pub(crate) trait Leaser {
+pub(super) trait Leaser {
     /// Acknowledge a batch of messages.
     async fn ack(&self, ack_ids: Vec<String>);
     /// Negatively acknowledge a batch of messages.
@@ -31,7 +31,7 @@ pub(crate) trait Leaser {
     async fn extend(&self, ack_ids: Vec<String>);
 }
 
-pub(crate) struct DefaultLeaser<T>
+pub(super) struct DefaultLeaser<T>
 where
     T: Stub,
 {
@@ -44,7 +44,7 @@ impl<T> DefaultLeaser<T>
 where
     T: Stub,
 {
-    pub(crate) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
+    pub(super) fn new(inner: Arc<T>, subscription: String, ack_deadline_seconds: i32) -> Self {
         DefaultLeaser {
             inner,
             subscription,
@@ -96,7 +96,7 @@ where
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+pub(super) mod tests {
     use super::super::lease_state::tests::test_ids;
     use super::super::stub::tests::MockStub;
     use super::*;
@@ -106,7 +106,7 @@ pub(crate) mod tests {
 
     mockall::mock! {
         #[derive(Debug)]
-        pub(crate) Leaser {}
+        pub(in super::super) Leaser {}
         #[async_trait::async_trait]
         impl Leaser for Leaser {
             async fn ack(&self, ack_ids: Vec<String>);

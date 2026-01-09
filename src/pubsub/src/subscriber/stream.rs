@@ -22,7 +22,7 @@ use tokio::sync::mpsc;
 /// Open a stream for the `StreamingPull` RPC.
 ///
 /// This returns the stream and a Sender for feeding the stream writes.
-pub(crate) async fn open_stream<T>(
+pub(super) async fn open_stream<T>(
     inner: Arc<T>,
     initial_req: StreamingPullRequest,
 ) -> Result<(<T as Stub>::Stream, mpsc::Sender<StreamingPullRequest>)>

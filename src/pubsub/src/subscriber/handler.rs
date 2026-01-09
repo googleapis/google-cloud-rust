@@ -16,7 +16,7 @@ use tokio::sync::mpsc::UnboundedSender;
 
 /// The action an application does with a message.
 #[derive(Debug, PartialEq)]
-pub(crate) enum AckResult {
+pub(super) enum AckResult {
     Ack(String),
     Nack(String),
     // TODO(#3964) - support exactly once acking
@@ -55,8 +55,8 @@ impl Handler {
 /// A handler for at-least-once delivery.
 #[derive(Debug)]
 pub struct AtLeastOnce {
-    pub(crate) ack_id: String,
-    pub(crate) ack_tx: UnboundedSender<AckResult>,
+    pub(super) ack_id: String,
+    pub(super) ack_tx: UnboundedSender<AckResult>,
 }
 
 impl AtLeastOnce {

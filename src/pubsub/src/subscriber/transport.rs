@@ -15,7 +15,7 @@
 use super::stub::{Stub, TonicStreaming};
 use crate::Result;
 use crate::generated::gapic_dataplane::stub::dynamic::Subscriber as GapicStub;
-pub(crate) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
+pub(super) use crate::generated::gapic_dataplane::transport::Subscriber as Transport;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use tokio::sync::mpsc::Receiver;
 use tokio_stream::wrappers::ReceiverStream;
@@ -24,7 +24,7 @@ mod info {
     const NAME: &str = env!("CARGO_PKG_NAME");
     const VERSION: &str = env!("CARGO_PKG_VERSION");
     lazy_static::lazy_static! {
-        pub(crate) static ref X_GOOG_API_CLIENT_HEADER: String = {
+        pub(super) static ref X_GOOG_API_CLIENT_HEADER: String = {
             let ac = gaxi::api_header::XGoogApiClient{
                 name:          NAME,
                 version:       VERSION,
@@ -90,14 +90,14 @@ impl Stub for Transport {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+pub(super) mod tests {
     use super::*;
     use crate::google::pubsub::v1::ReceivedMessage;
     use auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
 
-    pub(crate) async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
+    pub(in super::super) async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
         let mut config = gaxi::options::ClientConfig::default();
         config.cred = Some(Anonymous::new().build());
         config.endpoint = Some(endpoint);

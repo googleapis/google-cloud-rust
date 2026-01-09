@@ -19,15 +19,15 @@ const MIB: i64 = 1024 * 1024;
 
 /// Builder for the `client::Subscriber::streaming_pull` method.
 pub struct StreamingPull {
-    pub(crate) inner: Arc<Transport>,
-    pub(crate) subscription: String,
-    pub(crate) ack_deadline_seconds: i32,
-    pub(crate) max_outstanding_messages: i64,
-    pub(crate) max_outstanding_bytes: i64,
+    pub(super) inner: Arc<Transport>,
+    pub(super) subscription: String,
+    pub(super) ack_deadline_seconds: i32,
+    pub(super) max_outstanding_messages: i64,
+    pub(super) max_outstanding_bytes: i64,
 }
 
 impl StreamingPull {
-    pub(crate) fn new(inner: Arc<Transport>, subscription: String) -> Self {
+    pub(super) fn new(inner: Arc<Transport>, subscription: String) -> Self {
         Self {
             inner,
             subscription,

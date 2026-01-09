@@ -16,7 +16,7 @@ use crate::Result;
 use crate::google::pubsub::v1::{StreamingPullRequest, StreamingPullResponse};
 use tokio::sync::mpsc::Receiver;
 
-pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
+pub(super) trait TonicStreaming: std::fmt::Debug + Send + 'static {
     fn next_message(
         &mut self,
     ) -> impl Future<Output = tonic::Result<Option<StreamingPullResponse>>> + Send;
@@ -24,7 +24,7 @@ pub(crate) trait TonicStreaming: std::fmt::Debug + Send + 'static {
 
 /// An internal trait for mocking the transport layer.
 #[async_trait::async_trait]
-pub(crate) trait Stub: std::fmt::Debug + Send + Sync {
+pub(super) trait Stub: std::fmt::Debug + Send + Sync {
     type Stream: Sized;
     async fn streaming_pull(
         &self,
@@ -46,7 +46,7 @@ pub(crate) trait Stub: std::fmt::Debug + Send + Sync {
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+pub(super) mod tests {
     use super::*;
     use tokio::sync::mpsc::Receiver;
 
@@ -61,7 +61,7 @@ pub(crate) mod tests {
 
     mockall::mock! {
         #[derive(Debug)]
-        pub(crate) Stub {}
+        pub(in super::super) Stub {}
         #[async_trait::async_trait]
         impl Stub for Stub {
             type Stream = MockStream;

@@ -80,7 +80,7 @@ pub struct Session {
 }
 
 impl Session {
-    pub(crate) async fn new(builder: StreamingPull) -> Result<Self> {
+    pub(super) async fn new(builder: StreamingPull) -> Result<Self> {
         let shutdown = CancellationToken::new();
         let inner = builder.inner;
         let subscription = builder.subscription;
@@ -150,7 +150,7 @@ impl Session {
         }
     }
 
-    pub(crate) async fn stream_next(&mut self) -> Option<Result<()>> {
+    async fn stream_next(&mut self) -> Option<Result<()>> {
         let resp = match self.stream.next_message().await.transpose()? {
             Ok(resp) => resp,
             Err(e) => return Some(Err(to_gax_error(e))),

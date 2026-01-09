@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub(crate) mod builder;
-pub(crate) mod client;
-pub(crate) mod client_builder;
-pub(crate) mod handler;
-pub(crate) mod keepalive;
-pub(crate) mod lease_loop;
-pub(crate) mod lease_state;
-pub(crate) mod leaser;
-pub(crate) mod session;
-pub(crate) mod stream;
-pub(crate) mod stub;
-pub(crate) mod transport;
+mod builder;
+mod client;
+mod client_builder;
+mod handler;
+mod keepalive;
+mod lease_loop;
+mod lease_state;
+mod leaser;
+mod session;
+mod stream;
+mod stub;
+mod transport;
