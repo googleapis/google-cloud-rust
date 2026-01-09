@@ -16,12 +16,15 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
+    use google_cloud_auth::credentials::{
+        Credentials, anonymous::Builder as Anonymous, testing::error_credentials,
+    };
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::{EchoRequest, EchoResponse};
     use grpc_server::{builder, start_echo_server};
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test]
@@ -118,7 +121,7 @@ mod tests {
         let (endpoint, _server) = start_echo_server().await?;
 
         let client = builder(endpoint)
-            .with_credentials(auth::credentials::testing::error_credentials(false))
+            .with_credentials(error_credentials(false))
             .build()
             .await?;
         let (tx, rx) = tokio::sync::mpsc::channel(100);

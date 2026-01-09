@@ -16,7 +16,6 @@
 use crate::observability::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
 };
-use auth::credentials::{CacheableResource, Credentials};
 use gax::Result;
 use gax::backoff_policy::BackoffPolicy;
 use gax::client_builder::Error as BuilderError;
@@ -27,6 +26,9 @@ use gax::polling_error_policy::{Aip194Strict as PollingAip194Strict, PollingErro
 use gax::response::{Parts, Response};
 use gax::retry_policy::{Aip194Strict as RetryAip194Strict, RetryPolicy, RetryPolicyExt as _};
 use gax::retry_throttler::SharedRetryThrottler;
+use google_cloud_auth::credentials::{
+    Builder as CredentialsBuilder, CacheableResource, Credentials,
+};
 use http::{Extensions, Method};
 use std::sync::Arc;
 use std::time::Duration;
@@ -174,11 +176,11 @@ impl ReqwestClient {
 
     async fn make_credentials(
         config: &crate::options::ClientConfig,
-    ) -> gax::client_builder::Result<auth::credentials::Credentials> {
+    ) -> gax::client_builder::Result<Credentials> {
         if let Some(c) = config.cred.clone() {
             return Ok(c);
         }
-        auth::credentials::Builder::default()
+        CredentialsBuilder::default()
             .build()
             .map_err(BuilderError::cred)
     }
@@ -415,20 +417,22 @@ async fn to_http_response<O: serde::de::DeserializeOwned + Default>(
 
 #[cfg(test)]
 mod tests {
-    use http::{HeaderMap, HeaderValue, Method};
-    use test_case::test_case;
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
     use super::*;
     #[cfg(google_cloud_unstable_tracing)]
     use crate::observability::create_client_request_span;
     use crate::options::ClientConfig;
     use crate::options::InstrumentationClientInfo;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     #[cfg(google_cloud_unstable_tracing)]
     use google_cloud_test_utils::test_layer::TestLayer;
+    use http::{HeaderMap, HeaderValue, Method};
     #[cfg(google_cloud_unstable_tracing)]
     use opentelemetry_semantic_conventions::trace as otel_trace;
+    use test_case::test_case;
     #[cfg(google_cloud_unstable_tracing)]
     use tracing::Instrument;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[tokio::test]
     async fn client_http_error_bytes() -> TestResult {
@@ -604,7 +608,7 @@ mod tests {
     ) -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
         config.endpoint = custom_endpoint.map(String::from);
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config.clone(), "https://test.googleapis.com/").await?;
         assert_eq!(client.host, expected_host);
 
@@ -622,7 +626,7 @@ mod tests {
     async fn host_from_endpoint_showcase(custom_endpoint: Option<&str>) -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
         config.endpoint = custom_endpoint.map(String::from);
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config.clone(), "https://localhost:7469/").await?;
         assert_eq!(client.host, "localhost");
 
@@ -632,7 +636,7 @@ mod tests {
     #[tokio::test]
     async fn reqwest_client_decompression_config() -> anyhow::Result<()> {
         let mut config = ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         config.disable_automatic_decompression = true;
         let _client = ReqwestClient::new(config.clone(), "https://test.googleapis.com").await?;
 
@@ -719,7 +723,7 @@ mod tests {
         );
 
         let mut config = ClientConfig::default();
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
         let builder = client.builder(Method::GET, "foo".to_string());
         let options = gax::options::RequestOptions::default();
@@ -757,7 +761,7 @@ mod tests {
 
         let mut config = ClientConfig::default();
         config.disable_follow_redirects = true;
-        config.cred = Some(auth::credentials::anonymous::Builder::new().build());
+        config.cred = Some(Anonymous::new().build());
         let client = ReqwestClient::new(config, &server.url_str("/")).await?;
 
         let builder = client.builder(Method::PUT, "upload".to_string());

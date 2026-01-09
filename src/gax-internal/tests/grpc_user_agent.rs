@@ -15,11 +15,12 @@
 #[cfg(all(test, feature = "_internal-grpc-client"))]
 mod test {
     use gax::options::*;
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax_internal::grpc;
     use grpc_server::{builder, google, start_echo_server};
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]

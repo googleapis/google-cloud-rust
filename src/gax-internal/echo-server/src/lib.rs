@@ -21,6 +21,7 @@ use axum::{
     extract::Query,
     http::{HeaderMap, StatusCode},
 };
+use google_cloud_auth::credentials::Credentials;
 use serde_json::json;
 use std::collections::HashMap;
 use tokio::task::JoinHandle;
@@ -42,14 +43,14 @@ pub async fn start() -> Result<(String, JoinHandle<()>)> {
 
 pub fn builder(
     endpoint: impl Into<String>,
-) -> gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials> {
+) -> gax::client_builder::ClientBuilder<Factory, Credentials> {
     gax::client_builder::internal::new_builder(Factory(endpoint.into()))
 }
 
 pub struct Factory(String);
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = gaxi::http::ReqwestClient;
-    type Credentials = auth::credentials::Credentials;
+    type Credentials = Credentials;
     async fn build(
         self,
         config: gaxi::options::ClientConfig,

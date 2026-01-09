@@ -14,10 +14,12 @@
 
 #[cfg(all(test, feature = "_internal-http-client"))]
 mod tests {
-    use auth::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
-    use auth::errors::CredentialsError;
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_auth::credentials::{
+        CacheableResource, Credentials, CredentialsProvider, EntityTag,
+    };
+    use google_cloud_auth::errors::CredentialsError;
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
     use serde_json::json;
