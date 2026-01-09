@@ -31,6 +31,9 @@
 //! For publishing messages:
 //! * [Client][client::Client] and [Publisher][client::Publisher]
 //!
+//! For receiving messages:
+//! * [Subscriber][client::Subscriber]
+//!
 //! Receiving messages is not yet supported by this crate.
 //!
 //! **NOTE:** This crate used to contain a different implementation, with a
@@ -45,8 +48,9 @@
 pub(crate) mod generated;
 
 pub(crate) mod publisher;
-#[allow(dead_code)]
-pub(crate) mod subscriber;
+/// Types related to receiving messages with a [Subscriber][client::Subscriber]
+/// client.
+pub mod subscriber;
 
 pub use gax::Result;
 pub use gax::error::Error;
@@ -63,13 +67,18 @@ pub mod builder {
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
+    /// Request and client builders for the [Subscriber][crate::client::Subscriber] client.
+    pub mod subscriber {
+        // TODO(#3959) - remove internal types from the public API.
+        #[doc(hidden)]
+        pub use crate::generated::gapic_dataplane::builder::subscriber::*;
+        pub use crate::subscriber::builder::StreamingPull;
+        pub use crate::subscriber::client_builder::ClientBuilder;
+    }
     /// Request and client builders for the [SubscriptionAdmin][crate::client::SubscriptionAdmin] client.
     pub use crate::generated::gapic::builder::subscription_admin;
     /// Request and client builders for the [TopicAdmin][crate::client::TopicAdmin] client.
     pub use crate::generated::gapic::builder::topic_admin;
-    // TODO(#3959) - remove internal types from the public API.
-    #[doc(hidden)]
-    pub use crate::generated::gapic_dataplane::builder::subscriber;
 }
 
 /// The messages and enums that are part of this client library.
@@ -124,6 +133,7 @@ pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::client::Client;
     pub use crate::publisher::publisher::Publisher;
+    pub use crate::subscriber::client::Subscriber;
 }
 
 /// Traits to mock the clients in this library.

@@ -23,7 +23,7 @@ use std::sync::Arc;
 /// Use this client to receive messages from a [pull subscription] on a topic.
 ///
 /// # Example
-/// ```no_rust
+/// ```
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let client = Subscriber::builder().build().await?;
@@ -41,7 +41,7 @@ use std::sync::Arc;
 /// # Configuration
 ///
 /// To configure a `Subscriber` use the `with_*` methods in the type returned by
-/// [builder()][Storage::builder]. The default configuration should work for
+/// [builder()][Subscriber::builder]. The default configuration should work for
 /// most applications. Common configuration changes include:
 ///
 /// * [with_endpoint()]: by default this client uses the global default endpoint
@@ -75,7 +75,7 @@ impl Subscriber {
     /// Returns a builder for [Subscriber].
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Subscriber::builder().build().await?;
@@ -91,7 +91,7 @@ impl Subscriber {
     /// `projects/*/subscriptions/*`.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut session = client
@@ -103,6 +103,7 @@ impl Subscriber {
     ///     h.ack();
     /// }
     /// # Ok(()) }
+    /// ```
     ///
     /// [subscription]: https://docs.cloud.google.com/pubsub/docs/subscription-overview
     pub fn streaming_pull<T>(&self, subscription: T) -> StreamingPull

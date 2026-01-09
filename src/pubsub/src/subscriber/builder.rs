@@ -42,7 +42,7 @@ impl StreamingPull {
     /// Creates a new session to receive messages from the subscription.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut session = client
@@ -75,7 +75,7 @@ impl StreamingPull {
     /// The default value is 10 seconds.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;
@@ -102,7 +102,7 @@ impl StreamingPull {
     /// The default value is 1000 messages.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = Subscriber::builder().build().await?;

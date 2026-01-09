@@ -19,7 +19,7 @@ use gaxi::options::ClientConfig;
 /// A builder for [Subscriber].
 ///
 /// # Example
-/// ```no_rust
+/// ```
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample() -> anyhow::Result<()> {
 /// let builder = Subscriber::builder();
@@ -43,7 +43,7 @@ impl ClientBuilder {
     /// Creates a new client.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Subscriber::builder().build().await?;
@@ -56,7 +56,7 @@ impl ClientBuilder {
     /// Sets the endpoint.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let client = Subscriber::builder()
@@ -76,7 +76,7 @@ impl ClientBuilder {
     /// [google-cloud-auth] crate documentation.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
     /// use auth::credentials::mds;

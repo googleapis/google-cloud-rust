@@ -12,15 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod builder;
-mod client;
-mod client_builder;
-mod handler;
+/// Handlers for acknowledging or rejecting messages.
+pub mod handler;
+
+/// Defines the return interface for
+/// [Subscriber::streaming_pull][crate::client::Subscriber::streaming_pull].
+pub mod session;
+
+pub(super) mod builder;
+pub(super) mod client;
+pub(super) mod client_builder;
 mod keepalive;
 mod lease_loop;
 mod lease_state;
 mod leaser;
-mod session;
 mod stream;
 mod stub;
 mod transport;
