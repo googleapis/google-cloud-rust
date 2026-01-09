@@ -22,11 +22,13 @@ instructions in [Set Up Development Environment].
 
 ## Generate new library
 
-First define the library's name.  Note this should match the directory path where the code lives delimited by "-" e.g. google-cloud-gax-internal:
+First define the library's name. Note this should match the directory path where
+the code lives delimited by "-" e.g. google-cloud-gax-internal:
 
 ```bash
 library=... 
 ```
+
 Create a new branch in your fork:
 
 ```bash
@@ -62,7 +64,8 @@ Then send a PR with whatever changed.
 
 ## Update the code with new discovery docs
 
-For now you have to manually update the commit and sha256 in librarian.yaml under sources >> discovery
+For now you have to manually update the commit and sha256 in librarian.yaml
+under sources >> discovery
 
 ```
 sources:
@@ -109,8 +112,8 @@ Then run the unit tests and send a PR with whatever changed.
 
 ### Single library
 
-When iterating, it can be useful to regenerate the code of a single library.
-Get the library name from librarian.yaml.
+When iterating, it can be useful to regenerate the code of a single library. Get
+the library name from librarian.yaml.
 
 Run:
 
@@ -179,9 +182,9 @@ Use a single PR to update the librarian version and any generated code.
 
 We may need to customize the target or source directory for some generated
 libraries. For example, you may need to leave room for other crates in the same
-directory. 
+directory.
 
-1. Update the librarian.yaml with the correct configuration.  
+1. Update the librarian.yaml with the correct configuration.
 
 ```
 output: custom directory to generate code in
@@ -192,6 +195,7 @@ channels > path: custom path to read protos from in googleapis
 ```
 
 example:
+
 ```
   - name: google-cloud-api
     version: 1.2.0
