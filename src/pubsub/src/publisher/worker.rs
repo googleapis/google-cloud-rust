@@ -248,16 +248,11 @@ impl BatchWorker {
     }
 
     async fn run_without_ordering_key(&mut self) {
-        // While it is possible to use Some(JoinHandle) here as there is at max
-        // a single inflight task at any given time, the use of JoinSet
-        // simplify the managing the inflight JoinHandle.
         let mut inflight = JoinSet::new();
         // For messages without an ordering key, we can have multiple inflight batches concurrently.
         loop {
             tokio::select! {
                 _ = inflight.join_next(), if !inflight.is_empty() => {
-                    // When there are no limits to the number of inflight, we can skip sending the
-                    // next batch as it is handled by the Publish and Flush operations.
                     continue;
                 }
                 msg = self.rx.recv() => {
@@ -280,6 +275,7 @@ impl BatchWorker {
                             let _ = tx.send(());
                         },
                         None => {
+                            // TODO(#4012): Add shutdown procedure for BatchWorker.
                             break;
                         }
                     }
@@ -289,6 +285,9 @@ impl BatchWorker {
     }
 
     async fn run_with_ordering_key(&mut self) {
+        // While it is possible to use Some(JoinHandle) here as there is at max
+        // a single inflight task at any given time, the use of JoinSet
+        // simplify the managing the inflight JoinHandle.
         let mut inflight = JoinSet::new();
         loop {
             tokio::select! {
@@ -309,9 +308,7 @@ impl BatchWorker {
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
                             // Send batches sequentially.
-                            if !inflight.is_empty() {
-                                inflight.join_next().await;
-                            }
+                            inflight.join_next().await;
                             while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
                                 self.move_to_batch();
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -320,6 +317,7 @@ impl BatchWorker {
                             let _ = tx.send(());
                         },
                         None => {
+                            // TODO(#4012): Add shutdown procedure for BatchWorker.
                             break;
                         }
                     }
