@@ -292,7 +292,7 @@ impl SignedUrlBuilder {
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use google_cloud_auth::signer::Signer;
-    /// use google_cloud_storage::signed_url::http;
+    /// use google_cloud_storage::http;
     ///
     /// async fn run(signer: &Signer) -> anyhow::Result<()> {
     ///     let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
