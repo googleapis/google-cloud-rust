@@ -35,7 +35,7 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// This is a stream-like struct for serving messages to an application.
 ///
 /// # Example
-/// ```no_rust
+/// ```
 /// # use google_cloud_pubsub::client::Subscriber;
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut session = client
@@ -129,7 +129,7 @@ impl Session {
     /// open until it is cancelled or encounters a permanent error.
     ///
     /// # Example
-    /// ```no_rust
+    /// ```
     /// # use google_cloud_pubsub::subscriber::session::Session;
     /// # async fn sample(mut session: Session) -> anyhow::Result<()> {
     /// while let Some((m, h)) = session.next().await.transpose()? {
