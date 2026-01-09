@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::builder::StreamingPull;
 use super::client_builder::ClientBuilder;
 use super::transport::Transport;
 use gax::client_builder::Result as BuilderResult;
@@ -21,8 +22,22 @@ use std::sync::Arc;
 ///
 /// Use this client to receive messages from a [pull subscription] on a topic.
 ///
-// TODO(#3941) - add basic subscribe example
-//
+/// # Example
+/// ```no_rust
+/// # use google_cloud_pubsub::client::Subscriber;
+/// # async fn sample() -> anyhow::Result<()> {
+/// let client = Subscriber::builder().build().await?;
+/// let mut session = client
+///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+///     .start()
+///     .await?;
+/// while let Some((m, h)) = session.next().await.transpose()? {
+///     println!("Received message m={m:?}");
+///     h.ack();
+/// }
+/// # Ok(()) }
+/// ```
+///
 /// # Configuration
 ///
 /// To configure a `Subscriber` use the `with_*` methods in the type returned by
@@ -70,6 +85,33 @@ impl Subscriber {
         ClientBuilder::new()
     }
 
+    /// Receive messages from a [subscription].
+    ///
+    /// The `subscription` is the full name, in the format of
+    /// `projects/*/subscriptions/*`.
+    ///
+    /// # Example
+    /// ```no_rust
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
+    /// let mut session = client
+    ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
+    ///     .start()
+    ///     .await?;
+    /// while let Some((m, h)) = session.next().await.transpose()? {
+    ///     println!("Received message m={m:?}");
+    ///     h.ack();
+    /// }
+    /// # Ok(()) }
+    ///
+    /// [subscription]: https://docs.cloud.google.com/pubsub/docs/subscription-overview
+    pub fn streaming_pull<T>(&self, subscription: T) -> StreamingPull
+    where
+        T: Into<String>,
+    {
+        StreamingPull::new(self.inner.clone(), subscription.into())
+    }
+
     pub(super) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Transport::new(builder.config).await?;
         Ok(Self {
@@ -81,10 +123,36 @@ impl Subscriber {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use auth::credentials::anonymous::Builder as Anonymous;
+    use pubsub_grpc_mock::{MockSubscriber, start};
 
     #[tokio::test]
     async fn basic() -> anyhow::Result<()> {
         let _ = Subscriber::builder().build().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn streaming_pull() -> anyhow::Result<()> {
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(|_| Err(tonic::Status::internal("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = Subscriber::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?;
+        let err = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await
+            .expect_err("Session should not be created.");
+        assert!(err.status().is_some(), "{err:?}");
+        let status = err.status().unwrap();
+        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.message, "fail");
+
         Ok(())
     }
 }

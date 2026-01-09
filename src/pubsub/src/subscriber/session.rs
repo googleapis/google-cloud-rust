@@ -40,9 +40,10 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut session = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start()?;
+///     .start()
+///     .await?;
 /// while let Some((m, h)) = session.next().await.transpose()? {
-///     println!("Received message m={m}");
+///     println!("Received message m={m:?}");
 ///     h.ack();
 /// }
 /// # Ok(()) }
@@ -132,7 +133,7 @@ impl Session {
     /// # use google_cloud_pubsub::subscriber::session::Session;
     /// # async fn sample(mut session: Session) -> anyhow::Result<()> {
     /// while let Some((m, h)) = session.next().await.transpose()? {
-    ///     println!("Received message m={m}");
+    ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }
     /// # Ok(()) }
