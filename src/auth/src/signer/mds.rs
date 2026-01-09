@@ -17,7 +17,7 @@ use crate::credentials::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use http::HeaderValue;
 use reqwest::Client;
-use tokio::sync::SetOnce;
+use std::sync::OnceLock;
 
 // Implements Signer for MDS that extends the existing IamSigner by fetching
 // email via MDS email endpoint.
@@ -25,7 +25,7 @@ use tokio::sync::SetOnce;
 pub(crate) struct MDSSigner {
     endpoint: String,
     iam_endpoint_override: Option<String>,
-    client_email: SetOnce<String>,
+    client_email: OnceLock<String>,
     inner: Credentials,
 }
 
@@ -33,7 +33,7 @@ impl MDSSigner {
     pub(crate) fn new(endpoint: String, inner: Credentials) -> Self {
         Self {
             endpoint,
-            client_email: SetOnce::new(),
+            client_email: OnceLock::new(),
             inner,
             iam_endpoint_override: None,
         }
