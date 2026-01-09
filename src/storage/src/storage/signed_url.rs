@@ -71,14 +71,14 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// # Ok(())
 /// # }
 /// ```
-/// 
+///
 /// # Example: Creating a Signer
 ///
 /// You can use `google-cloud-auth` to create a `Signer`.
 ///
 /// ## Using [Application Default Credentials] (ADC)
 ///
-/// This is the recommended way for most applications. It automatically finds credentials 
+/// This is the recommended way for most applications. It automatically finds credentials
 /// from the environment. See how [Application Default Credentials] works.
 ///
 /// ```
@@ -96,9 +96,9 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// This is useful when you have a specific service account key file (JSON) and want to use it directly.
 /// Service account based signers work by local signing and do not make network requests, which can be
 /// useful in environments where network access is restricted and performance is critical.
-/// 
+///
 /// <div class="warning">
-///     <strong>Caution:</strong> Service account keys are a security risk if not managed correctly. 
+///     <strong>Caution:</strong> Service account keys are a security risk if not managed correctly.
 ///     See <a href="https://docs.cloud.google.com/iam/docs/best-practices-for-managing-service-account-keys">
 ///     Best practices for managing service account keys</a> for more information.
 /// </div>
@@ -280,7 +280,7 @@ impl SignedUrlBuilder {
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use auth::signer::Signer;
     /// use google_cloud_storage::signed_url::http;
-    /// 
+    ///
     /// # async fn run(signer: &Signer) -> anyhow::Result<()> {
     /// let url = SignedUrlBuilder::for_object("my-bucket", "my-object.txt")
     ///     .with_method(http::Method::PUT)
@@ -343,9 +343,9 @@ impl SignedUrlBuilder {
     /// Adds a header to the signed URL.
     ///
     /// Subsequent calls to this method with the same key will override the previous value.
-    /// 
+    ///
     /// Note: These headers must be present in the request when using the signed URL.
-    /// 
+    ///
     ///
     /// # Example
     ///
@@ -366,7 +366,7 @@ impl SignedUrlBuilder {
     }
 
     /// Adds a query parameter to the signed URL.
-    /// 
+    ///
     /// Subsequent calls to this method with the same key will override the previous value.
     ///
     /// # Example
