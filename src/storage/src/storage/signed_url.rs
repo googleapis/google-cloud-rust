@@ -78,7 +78,8 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 ///
 /// ## Using [Application Default Credentials] (ADC)
 ///
-/// This is the recommended way for most applications. It automatically finds credentials from the environment.
+/// This is the recommended way for most applications. It automatically finds credentials 
+/// from the environment. See how [Application Default Credentials] works.
 ///
 /// ```
 /// use auth::credentials::Builder;
