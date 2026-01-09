@@ -29,11 +29,11 @@ use gaxi::options::ClientConfig;
 /// # Ok(()) }
 /// ```
 pub struct ClientBuilder {
-    pub(crate) config: ClientConfig,
+    pub(super) config: ClientConfig,
 }
 
 impl ClientBuilder {
-    pub(crate) fn new() -> Self {
+    pub(super) fn new() -> Self {
         Self {
             config: ClientConfig::default(),
         }

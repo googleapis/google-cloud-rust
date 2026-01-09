@@ -22,15 +22,15 @@ use tokio::time::{Duration, Instant, Interval, interval_at};
 // https://docs.cloud.google.com/pubsub/quotas
 const ACK_IDS_PER_RPC: usize = 2500;
 
-pub(crate) struct LeaseOptions {
+pub(super) struct LeaseOptions {
     /// How often we flush acks/nacks
-    pub(crate) flush_period: Duration,
+    pub(super) flush_period: Duration,
     /// How long we wait for the initial flush
-    pub(crate) flush_start: Duration,
+    pub(super) flush_start: Duration,
     /// How often we extend deadlines for messages under lease
-    pub(crate) extend_period: Duration,
+    pub(super) extend_period: Duration,
     /// How long we wait for the initial extensions
-    pub(crate) extend_start: Duration,
+    pub(super) extend_start: Duration,
 }
 
 impl Default for LeaseOptions {
@@ -45,7 +45,7 @@ impl Default for LeaseOptions {
 }
 
 #[derive(Debug)]
-pub(crate) struct LeaseState<L>
+pub(super) struct LeaseState<L>
 where
     L: Leaser,
 {
@@ -64,7 +64,7 @@ where
 
 /// Actions taken by the `LeaseState` in the lease loop.
 #[derive(Debug, PartialEq)]
-pub(crate) enum LeaseEvent {
+pub(super) enum LeaseEvent {
     /// Flush acks/nacks
     Flush,
     /// Extend leases
@@ -75,7 +75,7 @@ impl<L> LeaseState<L>
 where
     L: Leaser,
 {
-    pub(crate) fn new(leaser: L, options: LeaseOptions) -> Self {
+    pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
             interval_at(Instant::now() + options.flush_start, options.flush_period);
         let extend_interval =
@@ -97,7 +97,7 @@ where
     /// We need to centralize event handling because the lease loop can only
     /// hold one mutable reference to `LeaseState` within its `select!`
     /// statement.
-    pub(crate) async fn next_event(&mut self) -> LeaseEvent {
+    pub(super) async fn next_event(&mut self) -> LeaseEvent {
         if self.to_ack.len() >= ACK_IDS_PER_RPC || self.to_nack.len() >= ACK_IDS_PER_RPC {
             // This is an OR because `Acknowledge` and `ModifyAckDeadline` are
             // separate RPCs, with separate limits.
@@ -111,12 +111,12 @@ where
     }
 
     /// Accept a new ack ID under lease management
-    pub(crate) fn add(&mut self, ack_id: String) {
+    pub(super) fn add(&mut self, ack_id: String) {
         self.under_lease.insert(ack_id);
     }
 
     /// Process an ack from the application
-    pub(crate) fn ack(&mut self, ack_id: String) {
+    pub(super) fn ack(&mut self, ack_id: String) {
         self.under_lease.remove(&ack_id);
         // Unconditionally add the ack ID to the next ack batch. It doesn't hurt
         // to optimistically add it, even if its lease has expired.
@@ -124,7 +124,7 @@ where
     }
 
     /// Process a nack from the application
-    pub(crate) fn nack(&mut self, ack_id: String) {
+    pub(super) fn nack(&mut self, ack_id: String) {
         if self.under_lease.remove(&ack_id) {
             // Only add the ack ID to the nack batch if the message is under our
             // lease. If the message's lease has already expired, we do not need
@@ -134,7 +134,7 @@ where
     }
 
     /// Flush pending acks/nacks
-    pub(crate) async fn flush(&mut self) {
+    pub(super) async fn flush(&mut self) {
         let to_ack = std::mem::take(&mut self.to_ack);
         let to_nack = std::mem::take(&mut self.to_nack);
         // TODO(#3975) - await these concurrently.
@@ -145,7 +145,7 @@ where
     /// Extends leases for messages under lease management
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
-    pub(crate) async fn extend(&mut self) {
+    pub(super) async fn extend(&mut self) {
         // TODO(#3957) - drop expired messages
         let all_ack_ids: Vec<&String> = self.under_lease.iter().collect();
         for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
@@ -158,7 +158,7 @@ where
     /// Shutdown the leaser
     ///
     /// This flushes all pending acks and nacks all other messages.
-    pub(crate) async fn shutdown(self) {
+    pub(super) async fn shutdown(self) {
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_iter());
         // TODO(#3975) - await these concurrently.
@@ -179,7 +179,7 @@ where
 }
 
 #[cfg(test)]
-pub(crate) mod tests {
+pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use tokio::sync::mpsc::unbounded_channel;
@@ -209,15 +209,15 @@ pub(crate) mod tests {
         }
     }
 
-    pub(crate) fn test_id(v: i32) -> String {
+    pub(in super::super) fn test_id(v: i32) -> String {
         format!("{v:05}")
     }
 
-    pub(crate) fn test_ids(range: std::ops::Range<i32>) -> Vec<String> {
+    pub(in super::super) fn test_ids(range: std::ops::Range<i32>) -> Vec<String> {
         range.map(test_id).collect()
     }
 
-    pub(crate) fn sorted(v: &[String]) -> Vec<String> {
+    pub(in super::super) fn sorted(v: &[String]) -> Vec<String> {
         let mut s = v.to_owned();
         s.sort();
         s
