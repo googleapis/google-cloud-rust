@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-identity-accesscontextmanager-v1/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-identity-accesscontextmanager-v1/1.3.0)
 
-[AccessContextManager]: https://docs.rs/google-cloud-identity-accesscontextmanager-v1/1.2.0/google_cloud_identity_accesscontextmanager_v1/client/struct.AccessContextManager.html
+[AccessContextManager]: https://docs.rs/google-cloud-identity-accesscontextmanager-v1/1.3.0/google_cloud_identity_accesscontextmanager_v1/client/struct.AccessContextManager.html

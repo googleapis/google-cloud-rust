@@ -18,8 +18,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/1.4.0)
 
-[AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.3.0/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
-[OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.3.0/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
-[NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.3.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html
+[AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
+[OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
+[NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html

@@ -19,6 +19,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-configdelivery-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-configdelivery-v1/1.4.0)
 
-[ConfigDelivery]: https://docs.rs/google-cloud-configdelivery-v1/1.3.0/google_cloud_configdelivery_v1/client/struct.ConfigDelivery.html
+[ConfigDelivery]: https://docs.rs/google-cloud-configdelivery-v1/1.4.0/google_cloud_configdelivery_v1/client/struct.ConfigDelivery.html

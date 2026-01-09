@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-netapp-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-netapp-v1/1.4.0)
 
-[NetApp]: https://docs.rs/google-cloud-netapp-v1/1.3.0/google_cloud_netapp_v1/client/struct.NetApp.html
+[NetApp]: https://docs.rs/google-cloud-netapp-v1/1.4.0/google_cloud_netapp_v1/client/struct.NetApp.html

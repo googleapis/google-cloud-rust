@@ -22,9 +22,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-kms-v1/1.2.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-kms-v1/1.3.0)
 
-[Autokey]: https://docs.rs/google-cloud-kms-v1/1.2.0/google_cloud_kms_v1/client/struct.Autokey.html
-[AutokeyAdmin]: https://docs.rs/google-cloud-kms-v1/1.2.0/google_cloud_kms_v1/client/struct.AutokeyAdmin.html
-[EkmService]: https://docs.rs/google-cloud-kms-v1/1.2.0/google_cloud_kms_v1/client/struct.EkmService.html
-[KeyManagementService]: https://docs.rs/google-cloud-kms-v1/1.2.0/google_cloud_kms_v1/client/struct.KeyManagementService.html
+[Autokey]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.Autokey.html
+[AutokeyAdmin]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.AutokeyAdmin.html
+[EkmService]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.EkmService.html
+[KeyManagementService]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.KeyManagementService.html

@@ -20,6 +20,6 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/1.4.0)
 
-[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.3.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html
+[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.4.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html
