@@ -399,8 +399,8 @@ mod tests {
     use crate::model::{CommonObjectRequestParams, Object};
     use crate::model_ext::tests::create_key_helper;
     use anyhow::Result;
-    use auth::credentials::anonymous::Builder as Anonymous;
     use gax::retry_policy::NeverRetry;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use http::HeaderValue;
     use static_assertions::assert_impl_all;
     use storage_grpc_mock::google::storage::v2::{

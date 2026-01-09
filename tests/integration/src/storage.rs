@@ -84,7 +84,6 @@ pub async fn objects(
     Ok(())
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 pub async fn signed_urls(
     builder: storage::builder::storage::ClientBuilder,
     bucket_name: &str,

@@ -25,7 +25,7 @@ use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
 use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
-use tokio_util::sync::CancellationToken;
+use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe session.
 ///
@@ -60,9 +60,9 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
-    /// A cancellation token to shutdown the task sending keepalive pings to the
-    /// stream.
-    shutdown: CancellationToken,
+    /// A guard which signals a shutdown to the task sending keepalive pings
+    /// when it is dropped.
+    _keepalive_guard: DropGuard,
 }
 
 impl Session {
@@ -88,7 +88,7 @@ impl Session {
             stream,
             pool: VecDeque::new(),
             ack_tx,
-            shutdown,
+            _keepalive_guard: shutdown.drop_guard(),
         })
     }
 
@@ -132,22 +132,22 @@ impl Session {
             Err(e) => return Some(Err(to_gax_error(e))),
         };
         for rm in resp.received_messages {
+            let Some(message) = rm.message else {
+                // The message field should always be present. If not, the proto
+                // message was corrupted while in transit, or there is a bug in
+                // the service.
+                //
+                // The client can just ignore an ack ID without an associated
+                // message.
+                continue;
+            };
             // TODO(#3957) - add message to lease management
-            let pb = match rm.message.map(|m| m.cnv().map_err(Error::deser)) {
-                None => {
-                    // The message field should always be present. If not, the
-                    // proto message was corrupted while in transit, or there is
-                    // a bug in the service.
-                    //
-                    // The client can just ignore an ack ID without an
-                    // associated message.
-                    continue;
-                }
-                Some(Ok(pb)) => pb,
-                Some(Err(e)) => return Some(Err(e)),
+            let message = match message.cnv().map_err(Error::deser) {
+                Ok(message) => message,
+                Err(e) => return Some(Err(e)),
             };
             self.pool.push_back((
-                pb,
+                message,
                 Handler::AtLeastOnce(AtLeastOnce {
                     ack_id: rm.ack_id,
                     ack_tx: self.ack_tx.clone(),
@@ -155,12 +155,6 @@ impl Session {
             ));
         }
         Some(Ok(()))
-    }
-}
-
-impl Drop for Session {
-    fn drop(&mut self) {
-        self.shutdown.cancel();
     }
 }
 

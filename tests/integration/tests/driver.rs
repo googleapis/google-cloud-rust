@@ -201,7 +201,6 @@ mod driver {
         result
     }
 
-    #[cfg(all(test, google_cloud_unstable_signed_url))]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_signed_urls() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();

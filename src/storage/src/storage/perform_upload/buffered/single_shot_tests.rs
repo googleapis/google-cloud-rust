@@ -14,6 +14,7 @@
 
 use super::{RESUMABLE_UPLOAD_QUANTUM, SizeHint};
 use crate::client::Storage;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use httptest::{Expectation, Server, matchers::*, responders::status_code};
 
 type Result = anyhow::Result<()>;
@@ -48,7 +49,7 @@ async fn upload_object_buffered() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .with_resumable_upload_threshold(4 * RESUMABLE_UPLOAD_QUANTUM)
         .build()
         .await?;
@@ -72,7 +73,7 @@ async fn single_shot_source_error() -> Result {
 
     let client = Storage::builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSimpleSource;

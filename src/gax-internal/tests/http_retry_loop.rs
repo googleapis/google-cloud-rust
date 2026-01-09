@@ -305,8 +305,9 @@ mod tests {
     }
 
     fn test_config() -> ClientConfig {
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
         let mut config = ClientConfig::default();
-        config.cred = auth::credentials::anonymous::Builder::new().build().into();
+        config.cred = Anonymous::new().build().into();
         config
     }
 

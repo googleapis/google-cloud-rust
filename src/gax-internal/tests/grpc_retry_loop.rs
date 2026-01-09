@@ -16,12 +16,13 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::{Aip194Strict, RetryPolicyExt};
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax_internal::grpc;
     use grpc_server::google::test::v1::EchoResponse;
     use grpc_server::{builder, google, start_fixed_responses};
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test]

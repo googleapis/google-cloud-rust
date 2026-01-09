@@ -16,14 +16,15 @@
 mod tests {
     use gax::options::*;
     use gax::retry_policy::NeverRetry;
+    use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax_internal::http::ReqwestClient;
     use google_cloud_gax_internal::options::ClientConfig;
     use serde_json::{Value, json};
 
     type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
-    fn test_credentials() -> auth::credentials::Credentials {
-        auth::credentials::anonymous::Builder::new().build()
+    fn test_credentials() -> Credentials {
+        Anonymous::new().build()
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
@@ -59,7 +60,7 @@ mod tests {
     #[tokio::test]
     async fn connection_error() -> Result<()> {
         let mut config = ClientConfig::default();
-        config.cred = auth::credentials::anonymous::Builder::new().build().into();
+        config.cred = Anonymous::new().build().into();
         let mut options = RequestOptions::default();
         options.set_retry_policy(NeverRetry);
         let client = ReqwestClient::new(config, "http://localhost:1").await?;

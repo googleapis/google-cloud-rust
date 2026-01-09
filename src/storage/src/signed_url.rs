@@ -26,7 +26,6 @@ pub mod http {
 ///
 /// [resource path]: https://docs.cloud.google.com/storage/docs/authentication/canonical-requests#about-resource-path
 #[derive(Debug, Clone, Copy, Default)]
-#[allow(dead_code)]
 pub enum UrlStyle {
     /// Path style URL: `https://storage.googleapis.com/bucket/object`.
     ///

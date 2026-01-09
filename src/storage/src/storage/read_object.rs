@@ -593,9 +593,11 @@ mod tests {
     use super::*;
     use crate::error::{ChecksumMismatch, ReadError};
     use crate::model_ext::{KeyAes256, ReadRange, tests::create_key_helper};
-    use auth::credentials::anonymous::Builder as Anonymous;
     use base64::Engine;
     use futures::TryStreamExt;
+    use google_cloud_auth::credentials::{
+        anonymous::Builder as Anonymous, testing::error_credentials,
+    };
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
     use std::error::Error;
@@ -974,10 +976,8 @@ mod tests {
 
     #[tokio::test]
     async fn read_object_error_credentials() -> Result {
-        let inner = test_inner_client(
-            test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-        )
-        .await;
+        let inner =
+            test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
         let stub = crate::storage::transport::Storage::new(inner.clone());
         let builder = ReadObject::new(
             stub,

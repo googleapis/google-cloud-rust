@@ -113,6 +113,7 @@ use crate::storage::client::tests::{
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
 use gax::retry_result::RetryResult;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
 use std::time::Duration;
@@ -350,7 +351,7 @@ async fn source_next_error() -> Result {
 
     let client = test_builder()
         .with_endpoint(format!("http://{}", server.addr()))
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
     use crate::streaming_source::tests::MockSimpleSource;

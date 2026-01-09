@@ -15,7 +15,7 @@
 use super::handler::AckResult;
 use super::lease_state::{LeaseEvent, LeaseOptions, LeaseState};
 use super::leaser::Leaser;
-use tokio::sync::mpsc::{UnboundedSender, unbounded_channel};
+use tokio::sync::mpsc::{UnboundedReceiver, UnboundedSender, unbounded_channel};
 use tokio::task::JoinHandle;
 
 /// A convenience struct that groups the components of the lease loop.
@@ -49,7 +49,7 @@ impl LeaseLoop {
                     },
                     message = message_rx.recv() => {
                         match message {
-                            None => break state.shutdown().await,
+                            None => break shutdown(state, ack_rx).await,
                             Some(ack_id) => state.add(ack_id),
                         }
                     },
@@ -69,6 +69,22 @@ impl LeaseLoop {
             ack_tx,
         }
     }
+}
+
+// Shuts down lease management.
+//
+// Processes any acks from the application that we already know about and
+// triggers a shutdown of the lease state.
+async fn shutdown<L>(mut state: LeaseState<L>, mut ack_rx: UnboundedReceiver<AckResult>)
+where
+    L: Leaser + Send + 'static,
+{
+    while let Ok(r) = ack_rx.try_recv() {
+        if let AckResult::Ack(ack_id) = r {
+            state.ack(ack_id);
+        }
+    }
+    state.shutdown().await;
 }
 
 #[cfg(test)]
@@ -287,15 +303,22 @@ mod tests {
         const EXPECTED_SLEEP: Duration = Duration::from_millis(100);
 
         let start = Instant::now();
+
         struct FakeLeaser;
         #[async_trait::async_trait]
         impl Leaser for FakeLeaser {
-            async fn ack(&self, _ack_ids: Vec<String>) {
+            async fn ack(&self, mut ack_ids: Vec<String>) {
+                ack_ids.sort();
+                assert_eq!(ack_ids, test_ids(0..10));
                 tokio::time::sleep(EXPECTED_SLEEP).await;
             }
-            async fn nack(&self, _ack_ids: Vec<String>) {}
+            async fn nack(&self, mut ack_ids: Vec<String>) {
+                ack_ids.sort();
+                assert_eq!(ack_ids, test_ids(10..30));
+            }
             async fn extend(&self, _ack_ids: Vec<String>) {}
         }
+
         let lease_loop = LeaseLoop::new(FakeLeaser, LeaseOptions::default());
 
         // Seed the lease loop with some messages

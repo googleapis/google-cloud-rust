@@ -129,11 +129,12 @@ pub(crate) mod client_builder {
 #[cfg(test)]
 mod tests {
     use super::StorageControl;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
         let _ = StorageControl::builder()
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .build()
             .await?;
         Ok(())

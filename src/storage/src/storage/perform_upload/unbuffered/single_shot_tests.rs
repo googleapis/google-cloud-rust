@@ -25,8 +25,8 @@ use crate::storage::client::{
 use crate::storage::perform_upload::tests::perform_upload;
 use crate::streaming_source::IterSource;
 use crate::streaming_source::SizeHint;
-use auth::credentials::anonymous::Builder as Anonymous;
 use gax::retry_policy::RetryPolicyExt;
+use google_cloud_auth::credentials::{anonymous::Builder as Anonymous, testing::error_credentials};
 use http_body_util::BodyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
@@ -316,10 +316,7 @@ async fn upload_object_stream() -> Result {
 
 #[tokio::test]
 async fn upload_object_error_credentials() -> Result {
-    let inner = test_inner_client(
-        test_builder().with_credentials(auth::credentials::testing::error_credentials(false)),
-    )
-    .await;
+    let inner = test_inner_client(test_builder().with_credentials(error_credentials(false))).await;
     let options = inner.options.clone();
     let stub = crate::storage::transport::Storage::new(inner.clone());
     let builder = WriteObject::new(

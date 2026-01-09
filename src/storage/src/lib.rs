@@ -38,7 +38,6 @@ pub mod object_descriptor;
 pub mod read_object;
 pub mod read_resume_policy;
 pub mod retry_policy;
-#[cfg(google_cloud_unstable_signed_url)]
 pub mod signed_url;
 pub use crate::storage::request_options;
 pub use crate::storage::streaming_source;
@@ -58,7 +57,6 @@ pub mod builder {
         pub use crate::storage::client::ClientBuilder;
         pub use crate::storage::open_object::OpenObject;
         pub use crate::storage::read_object::ReadObject;
-        #[cfg(google_cloud_unstable_signed_url)]
         pub use crate::storage::signed_url::SignedUrlBuilder;
         pub use crate::storage::write_object::WriteObject;
     }

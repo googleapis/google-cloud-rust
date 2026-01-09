@@ -120,7 +120,7 @@ steps:
       chmod 755 /workspace/.bin/terraform
       git ls-files -z -- '*.tf' ':!:testdata/**' ':!:**/generated/**' | \
         xargs -0 /workspace/.bin/terraform fmt
-    waitFor: ['-']
+    waitFor: ['Install terraform']
   - name: 'rust:${_RUST_VERSION}-bookworm'
     id: 'Detect miscellanous formatting problems'
     script: git diff --exit-code
