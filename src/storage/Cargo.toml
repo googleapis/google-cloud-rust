@@ -71,7 +71,7 @@ rpc.workspace               = true
 wkt.workspace               = true
 
 [features]
-unstable-stream         = ["reqwest/stream"]
+unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
 anyhow.workspace            = true
