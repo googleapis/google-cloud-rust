@@ -48,7 +48,6 @@ impl Error {
         matches!(self.0, ErrorKind::MissingField(_))
     }
 
-    #[cfg(any(feature = "idtoken", google_cloud_unstable_signed_url))]
     /// The credential type is not supported for the given use case.
     pub fn is_not_supported(&self) -> bool {
         matches!(self.0, ErrorKind::NotSupported(_))
@@ -84,7 +83,6 @@ impl Error {
         Error(ErrorKind::MissingField(field))
     }
 
-    #[cfg(any(feature = "idtoken", google_cloud_unstable_signed_url))]
     /// The given credential type is not supported.
     pub(crate) fn not_supported<T>(credential_type: T) -> Error
     where
@@ -104,7 +102,6 @@ enum ErrorKind {
     UnknownType(#[source] BoxError),
     #[error("missing required field: {0}")]
     MissingField(&'static str),
-    #[cfg(any(feature = "idtoken", google_cloud_unstable_signed_url))]
     #[error("credentials type not supported: {0}")]
     NotSupported(#[source] BoxError),
 }

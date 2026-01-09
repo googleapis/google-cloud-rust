@@ -118,7 +118,6 @@ const PATH_ENCODE_SET: AsciiSet = ENCODED_CHARS.remove(b'/');
 /// [signed urls]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 /// [V4 signing process]: https://docs.cloud.google.com/storage/docs/access-control/signed-urls
 #[derive(Debug)]
-#[allow(dead_code)]
 pub struct SignedUrlBuilder {
     scope: SigningScope,
     method: http::Method,
@@ -132,7 +131,6 @@ pub struct SignedUrlBuilder {
 }
 
 #[derive(Debug)]
-#[allow(dead_code)]
 enum SigningScope {
     Bucket(String),
     Object(String, String),

@@ -244,16 +244,13 @@ pub enum WriteError {
     },
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 type BoxError = Box<dyn std::error::Error + Send + Sync + 'static>;
 
 /// Signed URL creation errors.
-#[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
 #[error(transparent)]
 pub struct SigningError(SigningErrorKind);
 
-#[cfg(google_cloud_unstable_signed_url)]
 impl SigningError {
     pub fn is_signing(&self) -> bool {
         matches!(self.0, SigningErrorKind::Signing(_))
@@ -283,7 +280,6 @@ impl SigningError {
     }
 }
 
-#[cfg(google_cloud_unstable_signed_url)]
 #[derive(thiserror::Error, Debug)]
 #[allow(dead_code)]
 enum SigningErrorKind {
@@ -353,7 +349,6 @@ mod tests {
         );
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     #[test]
     fn signing_errors() {
         let value = SigningError::signing("sign error".to_string());

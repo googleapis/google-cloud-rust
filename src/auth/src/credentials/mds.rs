@@ -339,12 +339,10 @@ impl Builder {
     /// ```
     ///
     /// [IAM signBlob API]: https://cloud.google.com/iam/docs/reference/credentials/rest/v1/projects.serviceAccounts/signBlob
-    #[cfg(google_cloud_unstable_signed_url)]
     pub fn build_signer(self) -> BuildResult<crate::signer::Signer> {
         self.build_signer_with_iam_endpoint_override(None)
     }
 
-    #[cfg(google_cloud_unstable_signed_url)]
     // only used for testing
     fn build_signer_with_iam_endpoint_override(
         self,
@@ -1065,7 +1063,6 @@ mod tests {
     }
 
     #[tokio::test]
-    #[cfg(google_cloud_unstable_signed_url)]
     async fn get_mds_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
         use serde_json::json;

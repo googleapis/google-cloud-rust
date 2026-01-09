@@ -391,8 +391,8 @@ tokio-stream      = { default-features = false, version = "0.1" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
-auth                          = { version = "1.3", path = "src/auth", package = "google-cloud-auth" }
-google-cloud-auth             = { default-features = false, version = "1.3", path = "src/auth" }
+auth                          = { version = "1.4", path = "src/auth", package = "google-cloud-auth" }
+google-cloud-auth             = { default-features = false, version = "1.4", path = "src/auth" }
 gax                           = { version = "1.5", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "1.5", path = "src/gax" }
 gaxi                          = { version = "0.7.7", path = "src/gax-internal", package = "google-cloud-gax-internal" }
@@ -455,7 +455,6 @@ storage-samples         = { path = "src/storage/examples" }
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "deny", check-cfg = [
-  'cfg(google_cloud_unstable_signed_url)',
   'cfg(google_cloud_unstable_storage_bidi)',
   'cfg(google_cloud_unstable_tracing)',
   'cfg(google_cloud_unstable_trusted_boundaries)',
