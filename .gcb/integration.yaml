@@ -64,7 +64,11 @@ steps:
       )
       for dir in "${directories[@]}"; do
         echo "Running test in ${dir}"
-        # Handle problems updating the `Cargo.lock` files
+        # Handle problems updating the `Cargo.lock` files. The first
+        # `cargo check` attempt may flake due to network problems. It needs to
+        # download data from crates.io and then create the `Cargo.lock` file and
+        # (maybe) download some crates. The second attempt should fix most
+        # flakes.
         env -C ${dir} cargo check || env -C ${dir} cargo check
         cargo clippy --all-targets --profile=test -- --deny warnings
         env -C ${dir} cargo run
