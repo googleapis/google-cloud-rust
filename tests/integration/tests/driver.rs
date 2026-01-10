@@ -135,10 +135,8 @@ mod driver {
             .await
             .map_err(integration_tests::report_error)?;
 
-        let _ = pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await?;
-        let _ = pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await?;
-
-        Ok(())
+        pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await?;
+        pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
