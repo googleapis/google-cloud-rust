@@ -129,6 +129,7 @@ libraries:
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
+          generate_setter_samples: "false"
     skip_publish: true
     veneer: true
   - name: google-cloud-accessapproval-v1
@@ -687,8 +688,7 @@ libraries:
     output: src/firestore
     rust:
       modules:
-        - generate_setter_samples: true
-          module_path: crate::generated::gapic::model
+        - module_path: crate::generated::gapic::model
           output: src/firestore/src/generated/convert/firestore
           skipped_ids:
             - .google.firestore.v1.Firestore.ExecutePipeline
@@ -697,14 +697,12 @@ libraries:
             - .google.firestore.v1.ExplainStats
           source: google/firestore/v1
           template: convert-prost
-        - generate_setter_samples: true
-          include_list: latlng.proto
+        - include_list: latlng.proto
           module_path: gtype::model
           output: src/firestore/src/generated/convert/type
           source: google/type
           template: convert-prost
-        - generate_setter_samples: true
-          output: src/firestore/src/generated/gapic
+        - output: src/firestore/src/generated/gapic
           skipped_ids:
             - .google.firestore.v1.Firestore.ExecutePipeline
             - .google.firestore.v1.ExecutePipelineRequest
@@ -713,8 +711,7 @@ libraries:
           source: google/firestore/v1
           template: grpc-client
           title_override: Cloud Firestore API
-        - generate_setter_samples: true
-          output: src/firestore/src/generated/protos/firestore
+        - output: src/firestore/src/generated/protos/firestore
           source: google/firestore/v1
           template: prost
     skip_publish: true
@@ -738,15 +735,13 @@ libraries:
     output: src/gax-internal
     rust:
       modules:
-        - generate_setter_samples: true
-          module_path: rpc::model
+        - module_path: rpc::model
           output: src/gax-internal/src/generated/convert/rpc
           skipped_ids:
             - .google.rpc.Status
           source: google/rpc
           template: convert-prost
-        - generate_setter_samples: true
-          output: src/gax-internal/src/generated/protos/rpc
+        - output: src/gax-internal/src/generated/protos/rpc
           source: google/rpc
           template: prost
     veneer: true
@@ -1102,8 +1097,7 @@ libraries:
     output: src/pubsub
     rust:
       modules:
-        - generate_setter_samples: true
-          included_ids:
+        - included_ids:
             - .google.pubsub.v1.Publisher.Publish
             - .google.pubsub.v1.Subscriber.StreamingPull
             - .google.pubsub.v1.Subscriber.Acknowledge
@@ -1124,7 +1118,6 @@ libraries:
                 consume messages from a subscription via the `Pull` method or by
                 establishing a bi-directional stream using the `StreamingPull` method.
               replace: The service that an application uses to manipulate subscriptions.
-          generate_setter_samples: true
           included_ids:
             - .google.pubsub.v1.SchemaService
             - .google.pubsub.v1.Publisher.CreateTopic
@@ -1163,8 +1156,8 @@ libraries:
           service_config: google/pubsub/v1/pubsub_v1.yaml
           source: google/pubsub/v1
           template: grpc-client
-        - generate_setter_samples: true
-          included_ids:
+          generate_setter_samples: "false"
+        - included_ids:
             - .google.pubsub.v1.Publisher.Publish
           output: src/pubsub/src/generated/protos/pubsub
           source: google/pubsub/v1
@@ -1329,28 +1322,24 @@ libraries:
     output: src/storage
     rust:
       modules:
-        - generate_setter_samples: true
-          module_path: crate::generated::gapic_control::model
+        - module_path: crate::generated::gapic_control::model
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/convert/control
           source: google/storage/control/v2
           template: convert-prost
-        - generate_setter_samples: true
-          module_path: iam_v1::model
+        - module_path: iam_v1::model
           output: src/storage/src/generated/convert/iam
           skipped_ids:
             - .google.iam.v1.ResourcePolicyMember
           source: google/iam/v1
           template: convert-prost
-        - generate_setter_samples: true
-          module_path: longrunning::model
+        - module_path: longrunning::model
           output: src/storage/src/generated/convert/longrunning
           skipped_ids:
             - .google.longrunning.Operation
           source: google/longrunning
           template: convert-prost
-        - generate_setter_samples: true
-          included_ids:
+        - included_ids:
             - .google.storage.v2.Storage.DeleteBucket
             - .google.storage.v2.Storage.GetBucket
             - .google.storage.v2.Storage.CreateBucket
@@ -1372,14 +1361,12 @@ libraries:
           output: src/storage/src/generated/convert/storage
           source: google/storage/v2
           template: convert-prost
-        - generate_setter_samples: true
-          include_list: date.proto,expr.proto
+        - include_list: date.proto,expr.proto
           module_path: gtype::model
           output: src/storage/src/generated/convert/type
           source: google/type
           template: convert-prost
-        - generate_setter_samples: true
-          has_veneer: true
+        - has_veneer: true
           included_ids:
             - .google.storage.v2.Storage.DeleteBucket
             - .google.storage.v2.Storage.GetBucket
@@ -1404,8 +1391,7 @@ libraries:
           service_config: google/storage/v2/storage_v2.yaml
           source: google/storage/v2
           template: grpc-client
-        - generate_setter_samples: true
-          has_veneer: true
+        - has_veneer: true
           include_grpc_only_methods: true
           name_overrides: .google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.storage.control.v2.IntelligenceConfig.Filter.cloud_storage_locations=CloudStorageLocationsOneOf
           output: src/storage/src/generated/gapic_control
@@ -1413,8 +1399,7 @@ libraries:
           service_config: google/storage/control/v2/storage_v2.yaml
           source: google/storage/control/v2
           template: grpc-client
-        - generate_setter_samples: true
-          output: src/storage/src/generated/protos/control
+        - output: src/storage/src/generated/protos/control
           post_process_protos: |-
             let name = format!("{destination}/google.storage.control.v2.rs");
             let content = std::fs::read_to_string(&name)
@@ -1445,8 +1430,7 @@ libraries:
                 .expect(format!("should be able to write '{name}'").as_str());
           source: google/storage/control/v2
           template: prost
-        - generate_setter_samples: true
-          output: src/storage/src/generated/protos/storage
+        - output: src/storage/src/generated/protos/storage
           source: google/storage/v2
           template: prost
     veneer: true
@@ -1553,8 +1537,7 @@ libraries:
     output: src/wkt
     rust:
       modules:
-        - generate_setter_samples: true
-          include_list: api.proto,source_context.proto,type.proto,descriptor.proto
+        - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
           module_path: crate
           output: src/wkt/src/generated
           source: google/protobuf
