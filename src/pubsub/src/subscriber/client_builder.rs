@@ -95,6 +95,32 @@ impl ClientBuilder {
         self.config.cred = Some(v.into());
         self
     }
+
+    /// Configure the number of subchannels used by the client.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Subscriber;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let count = std::thread::available_parallelism()?.get();
+    /// let client = Subscriber::builder()
+    ///     .with_grpc_subchannel_count(std::cmp::max(1, count))
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in
+    /// gRPC).
+    ///
+    /// Consider using more subchannels if your application makes many
+    /// concurrent requests. Consider using fewer subchannels if your
+    /// application needs the file descriptors for other purposes.
+    pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
+        self.config.grpc_subchannel_count = Some(v);
+        self
+    }
 }
 
 #[cfg(test)]
@@ -107,17 +133,20 @@ mod tests {
         let builder = ClientBuilder::new();
         assert!(builder.config.endpoint.is_none());
         assert!(builder.config.cred.is_none());
+        assert!(builder.config.grpc_subchannel_count.is_none());
     }
 
     #[test]
     fn setters() {
         let builder = ClientBuilder::new()
             .with_endpoint("test-endpoint.com")
-            .with_credentials(Anonymous::new().build());
+            .with_credentials(Anonymous::new().build())
+            .with_grpc_subchannel_count(16);
         assert_eq!(
             builder.config.endpoint,
             Some("test-endpoint.com".to_string())
         );
         assert!(builder.config.cred.is_some());
+        assert_eq!(builder.config.grpc_subchannel_count, Some(16));
     }
 }
