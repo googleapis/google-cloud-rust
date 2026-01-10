@@ -32,4 +32,4 @@ rust-version = "1.92.0"
 [dependencies]
 anyhow            = { default-features = false, version = "1", features = ["std"] }
 test-metadata     = { path = "../test-metadata" }
-google-cloud-auth = { default-features = true, version = "1.3", features = ["idtoken"] }
+google-cloud-auth = { default-features = true, path = "../../../src/auth", features = ["idtoken"] }
