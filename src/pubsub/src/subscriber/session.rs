@@ -202,13 +202,13 @@ impl Session {
 
 #[cfg(test)]
 mod tests {
+    use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::{test_id, test_ids};
-    use super::super::transport::tests::test_transport;
     use super::*;
+    use auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
-    use std::sync::Arc;
     use tokio::sync::mpsc::{channel, unbounded_channel};
     use tokio::task::JoinHandle;
     use tokio::time::Duration;
@@ -239,18 +239,24 @@ mod tests {
         }
     }
 
+    async fn test_client(endpoint: String) -> anyhow::Result<Subscriber> {
+        Ok(Subscriber::builder()
+            .with_endpoint(endpoint)
+            .with_credentials(Anonymous::new().build())
+            .build()
+            .await?)
+    }
+
     #[tokio::test]
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
             .return_once(|_| Err(tonic::Status::internal("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let err = Session::new(builder)
+        let client = test_client(endpoint).await?;
+        let err = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
             .await
             .expect_err("Session should not be created.");
         assert!(err.status().is_some(), "{err:?}");
@@ -286,15 +292,15 @@ mod tests {
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        )
-        .set_ack_deadline_seconds(20)
-        .set_max_outstanding_messages(2000)
-        .set_max_outstanding_bytes(200 * MIB);
-        let _ = Session::new(builder).await;
+        let client = test_client(endpoint).await?;
+        let _ = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .set_ack_deadline_seconds(20)
+            .set_max_outstanding_messages(2000)
+            .set_max_outstanding_bytes(200 * MIB)
+            .start()
+            .await
+            .expect_err("Session should not be created.");
 
         let initial_req = recover_writes_rx
             .recv()
@@ -323,12 +329,11 @@ mod tests {
             Ok(tonic::Response::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -384,12 +389,11 @@ mod tests {
             Ok(tonic::Response::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -468,12 +472,11 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
         let (m, Handler::AtLeastOnce(h)) = session
             .next()
             .await
@@ -499,12 +502,11 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
@@ -529,12 +531,11 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -580,12 +581,11 @@ mod tests {
             Ok(tonic::Response::from(()))
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -627,12 +627,11 @@ mod tests {
         mock.expect_streaming_pull()
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let mut session = Session::new(builder).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -683,12 +682,11 @@ mod tests {
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
-        let transport = test_transport(endpoint).await?;
-        let builder = StreamingPull::new(
-            Arc::new(transport),
-            "projects/p/subscriptions/s".to_string(),
-        );
-        let session = Session::new(builder).await;
+        let client = test_client(endpoint).await?;
+        let session = client
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await?;
 
         let initial_req = recover_writes_rx
             .recv()
