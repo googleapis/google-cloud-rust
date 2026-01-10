@@ -55,7 +55,7 @@ pub fn idtoken_has_rust_crypto_backend() -> anyhow::Result<()> {
     let metadata = metadata()?;
     let features = find_jsonwebtoken_features(&metadata)?;
     if !features.contains(&FeatureName::new("rust_crypto".to_string())) {
-        bail!("jsonwebtoken should have rust_cryto enabled")
+        bail!("jsonwebtoken should have rust_crypto enabled")
     }
     Ok(())
 }
