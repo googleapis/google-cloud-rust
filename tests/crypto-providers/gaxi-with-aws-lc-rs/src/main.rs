@@ -16,7 +16,8 @@ use rustls::crypto::{CryptoProvider, aws_lc_rs::default_provider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    test_metadata::only_aws_lc_rs(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
+    // TODO(#4170) - use `pruned == true` when we switch the default provider.
+    test_metadata::only_aws_lc_rs(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), false)?;
 
     // Install a default crypto provider and verify gax-internal works.
     CryptoProvider::install_default(default_provider())

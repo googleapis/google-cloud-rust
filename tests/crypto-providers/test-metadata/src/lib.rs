@@ -39,10 +39,11 @@ pub fn has_default_crypto_provider(cargo: &str, dir: &str) -> anyhow::Result<()>
     if !features.contains(&FeatureName::new(RUSTLS_DEFAULT_FEATURE.to_string())) {
         bail!("rustls should have {RUSTLS_DEFAULT_FEATURE} enabled")
     }
-    only_ring(cargo, dir)
+    // TODO(#4170) - use `true` for the pruned parameter.
+    only_ring(cargo, dir, false)
 }
 
-pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
+pub fn only_aws_lc_rs(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
     use std::process::Stdio;
     let output = std::process::Command::new(cargo)
         .args(["tree"])
@@ -53,11 +54,9 @@ pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
         bail!("cargo tree failed: {output:?}")
     }
     let stdout = String::try_from(output.stdout)?;
-    // TODO(#4170) - enable this code
-    // if stdout.contains(format!(" {RING_CRATE_NAME} ").as_str())
-    // {
-    //     bail!("{RING_CRATE_NAME} should **not** be a dependency")
-    // }
+    if pruned && stdout.contains(format!(" {RING_CRATE_NAME} ").as_str()) {
+        bail!("{RING_CRATE_NAME} should **not** be a dependency")
+    }
     if !stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
         bail!(
             "{AWS_LC_RS_CRATE_NAME} should be a dependency: {}",
@@ -67,7 +66,7 @@ pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn only_ring(cargo: &str, dir: &str) -> anyhow::Result<()> {
+pub fn only_ring(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
     use std::process::Stdio;
     let output = std::process::Command::new(cargo)
         .args(["tree"])
@@ -81,11 +80,9 @@ pub fn only_ring(cargo: &str, dir: &str) -> anyhow::Result<()> {
     if !stdout.contains(format!(" {RING_CRATE_NAME} ").as_str()) {
         bail!("{RING_CRATE_NAME} should be a dependency")
     }
-    // TODO(#4170) - enable this code
-    // if stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str())
-    // {
-    //     bail!("{AWS_LC_RS_CRATE_NAME} should **not** be a dependency")
-    // }
+    if pruned && stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
+        bail!("{AWS_LC_RS_CRATE_NAME} should **not** be a dependency")
+    }
     Ok(())
 }
 

@@ -35,6 +35,7 @@ features = []
 workspace = true
 
 [features]
+default = ["_default-rustls-provider"]
 _internal-http-client = [
   "_internal-common",
   "dep:bytes",
@@ -72,6 +73,7 @@ _internal-grpc-client = [
   "dep:wkt",
 ]
 _internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
+_default-rustls-provider = ["google-cloud-auth?/default-rustls-provider"]
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
@@ -96,7 +98,7 @@ tonic-prost                        = { workspace = true, optional = true }
 tower                              = { workspace = true, optional = true }
 tracing                            = { workspace = true, optional = true }
 # Local crates
-google-cloud-auth = { workspace = true, optional = true, features = ["default-rustls-provider"] }
+google-cloud-auth = { workspace = true, optional = true }
 gax               = { workspace = true, optional = true }
 rpc               = { workspace = true, optional = true }
 wkt               = { workspace = true, optional = true }
