@@ -14,9 +14,24 @@ also describes the common terminology used with authentication, such as
 > surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate
 > name to Google. Their crate continues to live as [gcloud-auth].
 
+# Features
+
+- `idtoken`: disabled by default, this feature enables support to create and
+  verify [OIDC ID Tokens]. This feature depends on the [jsonwebtoken] crate.
+- `default-jsonwebtoken-backend`: enabled by default, this feature enables a
+  default backend for the `jsonwebtoken` crate. Currently the default is
+  `rust_crypto`, but we may change the default backend at any time, applications
+  that have specific needs for this backend should not rely on the current
+  default. To control the backend selection:
+  - Configure this crate with `default-features = false`, and
+    `features = ["jsonwebtoken"]`
+  - Select the desired backend for `jsonwebtoken`.
+
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [credentials]: https://cloud.google.com/docs/authentication#credentials
 [credentials::credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credentials.html
 [gcloud-auth]: https://crates.io/crates/gcloud-auth
+[jsonwebtoken]: https://crates.io/crates/jsonwebtoken
+[oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [principals]: https://cloud.google.com/docs/authentication#principal
 [tokens]: https://cloud.google.com/docs/authentication#token

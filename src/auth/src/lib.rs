@@ -24,6 +24,22 @@
 //! guide also describes the common terminology used with authentication, such
 //! as [Principals], [Tokens], and [Credentials].
 //!
+//! # Features
+//!
+//! - `idtoken`: disabled by default, this feature enables support to create
+//!   and verify [OIDC ID Tokens]. This feature depends on the [jsonwebtoken]
+//!   crate.
+//! - `default-jsonwebtoken-backend`: enabled by default, this feature enables
+//!   a default backend for the `jsonwebtoken` crate. Currently the default is
+//!   `rust_crypto`, but we may change the default backend at any time,
+//!   applications that have specific needs for this backend should not rely
+//!   on the current default. To control the backend selection:
+//!   - Configure this crate with `default-features = false`, and
+//!     `features = ["jsonwebtoken"]`
+//!   - Select the desired backend for `jsonwebtoken`.
+//!
+//! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
+//! [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Authentication methods at Google]: https://cloud.google.com/docs/authentication
 //! [Principals]: https://cloud.google.com/docs/authentication#principal
 //! [Tokens]: https://cloud.google.com/docs/authentication#token

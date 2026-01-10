@@ -43,6 +43,34 @@ pub fn no_default_crypto_provider() -> anyhow::Result<()> {
     Ok(())
 }
 
+/// This function returns an error if the jsonwebtoken crate is not configured
+/// with the default backend.
+pub fn idtoken_has_default_backend() -> anyhow::Result<()> {
+    idtoken_has_rust_crypto_backend()
+}
+
+/// This function returns an error if the jsonwebtoken crate is not configured
+/// with the `rust_crypto` backend.
+pub fn idtoken_has_rust_crypto_backend() -> anyhow::Result<()> {
+    let metadata = metadata()?;
+    let features = find_jsonwebtoken_features(&metadata)?;
+    if !features.contains(&FeatureName::new("rust_crypto".to_string())) {
+        bail!("jsonwebtoken should have rust_cryto enabled")
+    }
+    Ok(())
+}
+
+/// This function returns an error if the jsonwebtoken crate is not configured
+/// with the `aws-lc-rs` backend.
+pub fn idtoken_has_aws_lc_rs_backend() -> anyhow::Result<()> {
+    let metadata = metadata()?;
+    let features = find_jsonwebtoken_features(&metadata)?;
+    if !features.contains(&FeatureName::new("aws_lc_rs".to_string())) {
+        bail!("jsonwebtoken should have aws_lc_rs enabled")
+    }
+    Ok(())
+}
+
 fn metadata() -> anyhow::Result<Metadata> {
     let metadata = MetadataCommand::new().exec()?;
     Ok(metadata)
@@ -54,6 +82,10 @@ fn find_reqwest_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>
 
 fn find_rustls_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
     find_dependency_features(metadata, "rustls", Version::new(0, 23, 0))
+}
+
+fn find_jsonwebtoken_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
+    find_dependency_features(metadata, "jsonwebtoken", Version::new(10, 0, 0))
 }
 
 fn find_dependency(metadata: &Metadata, name: &str, version: Version) -> anyhow::Result<PackageId> {

@@ -59,6 +59,9 @@ steps:
       directories=(
         tests/crypto-providers/auth-with-default
         tests/crypto-providers/auth-without-default
+        tests/crypto-providers/idtoken-with-default
+        tests/crypto-providers/idtoken-with-aws-lc-rs
+        tests/crypto-providers/idtoken-with-rust-crypto
         tests/crypto-providers/gaxi-with-default
         tests/crypto-providers/gaxi-with-aws-lc-rs
         tests/crypto-providers/gaxi-with-ring
