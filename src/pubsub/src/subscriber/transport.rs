@@ -97,7 +97,7 @@ pub(super) mod tests {
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
 
-    pub(in super::super) async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
+    async fn test_transport(endpoint: String) -> anyhow::Result<Transport> {
         let mut config = gaxi::options::ClientConfig::default();
         config.cred = Some(Anonymous::new().build());
         config.endpoint = Some(endpoint);
