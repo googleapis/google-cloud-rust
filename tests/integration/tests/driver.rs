@@ -123,11 +123,22 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_pubsub_basic_publisher() -> integration_tests::Result<()> {
+    async fn run_pubsub_basic_roundtrip() -> integration_tests::Result<()> {
         let _guard = integration_tests::enable_tracing();
-        integration_tests::pubsub::basic_publisher()
+        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
+        let (sub_admin, sub) = pubsub_samples::create_test_subscription(topic.name.clone()).await?;
+
+        integration_tests::pubsub::basic_publisher(topic.name.clone())
             .await
-            .map_err(integration_tests::report_error)
+            .map_err(integration_tests::report_error)?;
+        integration_tests::pubsub::basic_subscriber(sub.name.clone())
+            .await
+            .map_err(integration_tests::report_error)?;
+
+        let _ = pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await?;
+        let _ = pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await?;
+
+        Ok(())
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
