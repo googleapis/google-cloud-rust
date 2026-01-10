@@ -69,6 +69,7 @@ use std::sync::Arc;
 #[derive(Clone, Debug)]
 pub struct Subscriber {
     inner: Arc<Transport>,
+    client_id: String,
 }
 
 impl Subscriber {
@@ -110,13 +111,18 @@ impl Subscriber {
     where
         T: Into<String>,
     {
-        StreamingPull::new(self.inner.clone(), subscription.into())
+        StreamingPull::new(
+            self.inner.clone(),
+            subscription.into(),
+            self.client_id.clone(),
+        )
     }
 
     pub(super) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
         let transport = Transport::new(builder.config).await?;
         Ok(Self {
             inner: Arc::new(transport),
+            client_id: uuid::Uuid::new_v4().to_string(),
         })
     }
 }

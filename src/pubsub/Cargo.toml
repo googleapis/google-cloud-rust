@@ -46,6 +46,7 @@ tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
 tokio-util.workspace   = true
 tracing.workspace      = true
+uuid.workspace         = true
 wkt.workspace          = true
 
 [dev-dependencies]
