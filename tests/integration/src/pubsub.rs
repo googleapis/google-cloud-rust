@@ -14,17 +14,17 @@
 
 use crate::{Error, Result};
 
+use bytes::Bytes;
 use futures::future::join_all;
-use pubsub::client::Client;
+use pubsub::client::{Client, Subscriber};
 use pubsub::model::PubsubMessage;
-pub use pubsub_samples::{cleanup_test_topic, create_test_topic};
+use pubsub_samples::{cleanup_test_topic, create_test_topic};
+use std::collections::HashSet;
 
-pub async fn basic_publisher() -> Result<()> {
-    let (topic_admin, topic) = create_test_topic().await?;
-
+pub async fn basic_publisher(topic_name: String) -> Result<()> {
     tracing::info!("testing publish()");
     let client = Client::builder().build().await?;
-    let publisher = client.publisher(topic.name.clone()).build();
+    let publisher = client.publisher(topic_name).build();
     let messages: [PubsubMessage; 2] = [
         PubsubMessage::new().set_data("Hello"),
         PubsubMessage::new().set_data("World"),
@@ -41,7 +41,25 @@ pub async fn basic_publisher() -> Result<()> {
         .collect::<std::result::Result<Vec<_>, _>>()
         .map_err(Error::from)?;
     tracing::info!("successfully published messages: {:#?}", message_ids);
-    cleanup_test_topic(&topic_admin, topic.name).await?;
+
+    Ok(())
+}
+
+pub async fn basic_subscriber(subscription_name: String) -> Result<()> {
+    let subscriber = Subscriber::builder().build().await?;
+    let mut session = subscriber.streaming_pull(subscription_name).start().await?;
+
+    let mut got = HashSet::new();
+    for _ in 0..2 {
+        if let Some((m, h)) = session.next().await.transpose()? {
+            got.insert(m.data);
+            h.ack();
+        }
+    }
+
+    let want = HashSet::from([Bytes::from("Hello"), Bytes::from("World")]);
+    assert_eq!(got, want);
+    tracing::info!("successfully received messages: {got:#?}");
 
     Ok(())
 }

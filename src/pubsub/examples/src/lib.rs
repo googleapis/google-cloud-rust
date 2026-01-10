@@ -15,8 +15,10 @@
 mod topic;
 
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_pubsub::{client::SubscriptionAdmin, model::Subscription};
 use google_cloud_pubsub::{client::TopicAdmin, model::Topic};
 use rand::{Rng, distr::Alphanumeric};
+use tokio::task::JoinSet;
 
 pub async fn run_topic_examples(topic_names: &mut Vec<String>) -> anyhow::Result<()> {
     let client = TopicAdmin::builder().build().await?;
@@ -36,12 +38,9 @@ pub async fn cleanup_test_topic(client: &TopicAdmin, topic_name: String) -> anyh
 
 pub async fn create_test_topic() -> anyhow::Result<(TopicAdmin, Topic)> {
     let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-    let client = google_cloud_pubsub::client::TopicAdmin::builder()
-        .with_tracing()
-        .build()
-        .await?;
+    let client = TopicAdmin::builder().with_tracing().build().await?;
 
-    cleanup_stale_topics(&client, &project_id).await?;
+    let _ = cleanup_stale_topics(&client, &project_id).await;
 
     let topic_id = random_topic_id();
     let now = chrono::Utc::now().timestamp().to_string();
@@ -65,10 +64,8 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
         .set_project(format!("projects/{project_id}"))
         .by_item();
 
-    let mut pending = Vec::new();
-    let mut names = Vec::new();
-    while let Some(topic) = topics.next().await {
-        let topic = topic?;
+    let mut pending = JoinSet::new();
+    while let Some(topic) = topics.next().await.transpose()? {
         if topic
             .labels
             .get("integration-test")
@@ -81,21 +78,16 @@ pub async fn cleanup_stale_topics(client: &TopicAdmin, project_id: &str) -> anyh
                 .is_some_and(|create_time| create_time < stale_deadline)
         {
             let client = client.clone();
-            let name = topic.name.clone();
-            pending.push(tokio::spawn(async move {
-                cleanup_test_topic(&client, name).await
-            }));
-            names.push(topic.name);
+            pending.spawn(async move {
+                let name = topic.name.clone();
+                (topic.name, cleanup_test_topic(&client, name).await)
+            });
         }
     }
 
-    let r: std::result::Result<Vec<_>, _> = futures::future::join_all(pending)
-        .await
-        .into_iter()
-        .collect();
-    r?.into_iter()
-        .zip(names)
-        .for_each(|(r, name)| tracing::info!("deleting topic {name} resulted in {r:?}"));
+    for (name, result) in pending.join_all().await {
+        tracing::info!("deleting topic {name} resulted in {result:?}");
+    }
 
     Ok(())
 }
@@ -110,4 +102,95 @@ fn random_topic_id() -> String {
         .map(char::from)
         .collect();
     format!("{prefix}{topic_id}")
+}
+
+pub async fn cleanup_test_subscription(
+    client: &SubscriptionAdmin,
+    subscription_name: String,
+) -> anyhow::Result<()> {
+    client
+        .delete_subscription()
+        .set_subscription(subscription_name)
+        .send()
+        .await?;
+    Ok(())
+}
+
+pub async fn create_test_subscription(
+    topic_name: String,
+) -> anyhow::Result<(SubscriptionAdmin, Subscription)> {
+    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
+    let client = SubscriptionAdmin::builder().with_tracing().build().await?;
+
+    let _ = cleanup_stale_subscriptions(&client, &project_id).await;
+
+    let subscription_id = random_subscription_id();
+    let now = chrono::Utc::now().timestamp().to_string();
+
+    let subscription = client
+        .create_subscription()
+        .set_name(format!(
+            "projects/{project_id}/subscriptions/{subscription_id}"
+        ))
+        .set_topic(topic_name)
+        .set_labels([("integration-test", "true"), ("create-time", &now)])
+        .send()
+        .await?;
+    println!("success on create_subscription(): {subscription:?}");
+
+    Ok((client, subscription))
+}
+
+pub async fn cleanup_stale_subscriptions(
+    client: &SubscriptionAdmin,
+    project_id: &str,
+) -> anyhow::Result<()> {
+    let stale_deadline = chrono::Utc::now() - chrono::Duration::hours(48);
+
+    let mut subscriptions = client
+        .list_subscriptions()
+        .set_project(format!("projects/{project_id}"))
+        .by_item();
+
+    let mut pending = JoinSet::new();
+    while let Some(subscription) = subscriptions.next().await.transpose()? {
+        if subscription
+            .labels
+            .get("integration-test")
+            .is_some_and(|v| v == "true")
+            && subscription
+                .labels
+                .get("create-time")
+                .and_then(|v| v.parse::<i64>().ok())
+                .and_then(|s| chrono::DateTime::from_timestamp(s, 0))
+                .is_some_and(|create_time| create_time < stale_deadline)
+        {
+            let client = client.clone();
+            pending.spawn(async move {
+                let name = subscription.name.clone();
+                (
+                    subscription.name,
+                    cleanup_test_subscription(&client, name).await,
+                )
+            });
+        }
+    }
+
+    for (name, result) in pending.join_all().await {
+        tracing::info!("deleting subscription {name} resulted in {result:?}");
+    }
+
+    Ok(())
+}
+
+pub const SUBSCRIPTION_ID_LENGTH: usize = 255;
+
+fn random_subscription_id() -> String {
+    let prefix = "subscription-";
+    let subscription_id: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(TOPIC_ID_LENGTH - prefix.len())
+        .map(char::from)
+        .collect();
+    format!("{prefix}{subscription_id}")
 }
