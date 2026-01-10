@@ -24,8 +24,8 @@ also describes the common terminology used with authentication, such as
   that have specific needs for this backend should not rely on the current
   default. To control the backend selection:
   - Configure this crate with `default-features = false`, and
-    `features = ["jsonwebtoken"]`
-  - Select the desired backend for `jsonwebtoken`.
+    `features = ["idtoken"]`
+  - Configure the `jsonwebtoken` crate to use the desired backend.
 
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [credentials]: https://cloud.google.com/docs/authentication#credentials

@@ -17,7 +17,10 @@ use google_cloud_auth::credentials::idtoken::verifier::Builder;
 fn main() -> anyhow::Result<()> {
     test_metadata::idtoken_has_rust_crypto_backend()?;
 
-    // Verify the google-cloud-auth library is usable too.
+    // Verify the google-cloud-auth crate is usable. The crate would not compile
+    // if the `jsonwebtoken` dependency did not have a valid backend. If this
+    // code compiles we have an `*-auth` library with the `idtoken` feature
+    // enabled and (consequently) with a working `jsonwebtoken` dependency.
     let _ = Builder::new(["https://my-service.a.run.app"]).build();
     Ok(())
 }

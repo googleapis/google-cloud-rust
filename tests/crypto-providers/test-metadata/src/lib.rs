@@ -55,7 +55,12 @@ pub fn idtoken_has_rust_crypto_backend() -> anyhow::Result<()> {
     let metadata = metadata()?;
     let features = find_jsonwebtoken_features(&metadata)?;
     if !features.contains(&FeatureName::new("rust_crypto".to_string())) {
-        bail!("jsonwebtoken should have rust_crypto enabled")
+        bail!("jsonwebtoken should have rust_crypto enabled: {features:?}")
+    }
+    if features.contains(&FeatureName::new("aws_lc_rs".to_string())) {
+        // The jsonwebtoken library would not compile if both features are
+        // enabled, but it does not hurt to test.
+        bail!("jsonwebtoken should **not** have aws_lc_rs enabled: {features:?}")
     }
     Ok(())
 }
@@ -66,7 +71,12 @@ pub fn idtoken_has_aws_lc_rs_backend() -> anyhow::Result<()> {
     let metadata = metadata()?;
     let features = find_jsonwebtoken_features(&metadata)?;
     if !features.contains(&FeatureName::new("aws_lc_rs".to_string())) {
-        bail!("jsonwebtoken should have aws_lc_rs enabled")
+        bail!("jsonwebtoken should have aws_lc_rs enabled: {features:?}")
+    }
+    if features.contains(&FeatureName::new("rust_crypto".to_string())) {
+        // The jsonwebtoken library would not compile if both features are
+        // enabled, but it does not hurt to test.
+        bail!("jsonwebtoken should **not** have rust_crypto enabled: {features:?}")
     }
     Ok(())
 }

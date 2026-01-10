@@ -35,8 +35,8 @@
 //!   applications that have specific needs for this backend should not rely
 //!   on the current default. To control the backend selection:
 //!   - Configure this crate with `default-features = false`, and
-//!     `features = ["jsonwebtoken"]`
-//!   - Select the desired backend for `jsonwebtoken`.
+//!     `features = ["idtoken"]`
+//!   - Configure the `jsonwebtoken` crate to use the desired backend.
 //!
 //! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
 //! [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
