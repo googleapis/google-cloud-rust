@@ -74,6 +74,8 @@ idtoken = ["dep:jsonwebtoken"]
 # link `google-cloud-auth` with `default-features = false, feature = ["idtoken"]
 # to select the backend themselves.
 default-idtoken-backend = ["jsonwebtoken?/rust_crypto"]
+# Do not use, this was a mistake in the 1.3 release.
+jsonwebtoken = ["dep:jsonwebtoken"]
 
 [lints]
 workspace = true
