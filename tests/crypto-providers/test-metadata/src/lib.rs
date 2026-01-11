@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use anyhow::bail;
-use cargo_metadata::{semver::Version, FeatureName, Metadata, MetadataCommand, PackageId};
+use cargo_metadata::{FeatureName, Metadata, MetadataCommand, PackageId, semver::Version};
 
 pub fn has_default_crypto_provider() -> anyhow::Result<()> {
     let metadata = metadata()?;

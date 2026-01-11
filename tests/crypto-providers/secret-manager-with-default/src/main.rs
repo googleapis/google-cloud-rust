@@ -15,5 +15,5 @@
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     test_metadata::has_default_crypto_provider()?;
-    test_gaxi::run().await
+    test_secret_manager::run().await
 }
