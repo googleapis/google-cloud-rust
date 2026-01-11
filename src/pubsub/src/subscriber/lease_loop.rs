@@ -135,12 +135,6 @@ mod tests {
                 .times(1)
                 .withf(|v| sorted(v) == test_ids(0..10))
                 .returning(move |_| ());
-            mock.lock()
-                .await
-                .expect_nack()
-                .times(1)
-                .withf(|v| v.is_empty())
-                .returning(|_| ());
             tokio::time::advance(FLUSH_START).await;
 
             // Yield the current task, so tokio can execute the flush().
@@ -155,12 +149,6 @@ mod tests {
 
         // Advance to and validate the second flush
         {
-            mock.lock()
-                .await
-                .expect_ack()
-                .times(1)
-                .withf(|v| v.is_empty())
-                .returning(move |_| ());
             mock.lock()
                 .await
                 .expect_nack()
@@ -378,12 +366,6 @@ mod tests {
                     .expect_ack()
                     .times(1)
                     .withf(|v| *v == vec![test_id(1)])
-                    .returning(|_| ());
-                mock.lock()
-                    .await
-                    .expect_nack()
-                    .times(1)
-                    .withf(|v| v.is_empty())
                     .returning(|_| ());
                 tokio::time::advance(Duration::from_millis(100)).await;
 
