@@ -137,9 +137,14 @@ where
     pub(super) async fn flush(&mut self) {
         let to_ack = std::mem::take(&mut self.to_ack);
         let to_nack = std::mem::take(&mut self.to_nack);
+
         // TODO(#3975) - await these concurrently.
-        self.leaser.ack(to_ack).await;
-        self.leaser.nack(to_nack).await;
+        if !to_ack.is_empty() {
+            self.leaser.ack(to_ack).await;
+        }
+        if !to_nack.is_empty() {
+            self.leaser.nack(to_nack).await;
+        }
     }
 
     /// Extends leases for messages under lease management
@@ -159,11 +164,17 @@ where
     ///
     /// This flushes all pending acks and nacks all other messages.
     pub(super) async fn shutdown(self) {
+        // TODO(#3975) - await these concurrently.
+        let to_ack = self.to_ack;
+        if !to_ack.is_empty() {
+            self.leaser.ack(to_ack).await;
+        }
+
         let mut to_nack = self.to_nack;
         to_nack.extend(self.under_lease.into_iter());
-        // TODO(#3975) - await these concurrently.
-        self.leaser.ack(self.to_ack).await;
-        self.leaser.nack(to_nack).await;
+        if !to_nack.is_empty() {
+            self.leaser.nack(to_nack).await;
+        }
     }
 }
 
@@ -252,6 +263,17 @@ pub(super) mod tests {
 
         state.nack("3".to_string());
         assert_eq!(state, make_state([], ["1", "4"], ["2", "3"]));
+    }
+
+    #[tokio::test]
+    async fn leaser_noops() {
+        let mock = MockLeaser::new();
+        // Note that there are no calls expected into the leaser, as there are
+        // no messages under lease management.
+        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        state.extend().await;
+        state.flush().await;
+        state.shutdown().await;
     }
 
     #[tokio::test]
@@ -446,10 +468,6 @@ pub(super) mod tests {
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
             .returning(|_| ());
-        mock.expect_nack()
-            .times(1)
-            .withf(|v| v.is_empty())
-            .returning(|_| ());
         let options = LeaseOptions {
             flush_start: FLUSH_START,
             flush_period: Duration::from_secs(100),
@@ -484,10 +502,6 @@ pub(super) mod tests {
         const FLUSH_START: Duration = Duration::from_secs(1);
 
         let mut mock = MockLeaser::new();
-        mock.expect_ack()
-            .times(1)
-            .withf(|v| v.is_empty())
-            .returning(|_| ());
         mock.expect_nack()
             .times(1)
             .withf(|v| sorted(v) == test_ids(0..ACK_IDS_PER_RPC))
