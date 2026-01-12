@@ -1889,6 +1889,87 @@ impl<'de> serde::de::Deserialize<'de> for super::SpeakerDiarizationConfig {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::CustomPromptConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __custom_prompt,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CustomPromptConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "customPrompt" => Ok(__FieldTag::__custom_prompt),
+                            "custom_prompt" => Ok(__FieldTag::__custom_prompt),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::CustomPromptConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CustomPromptConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__custom_prompt => {
+                            if !fields.insert(__FieldTag::__custom_prompt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_prompt",
+                                ));
+                            }
+                            result.custom_prompt = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::RecognitionFeatures {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1907,6 +1988,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionFeatures {
             __multi_channel_mode,
             __diarization_config,
             __max_alternatives,
+            __custom_prompt_config,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1955,6 +2037,8 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionFeatures {
                             "diarization_config" => Ok(__FieldTag::__diarization_config),
                             "maxAlternatives" => Ok(__FieldTag::__max_alternatives),
                             "max_alternatives" => Ok(__FieldTag::__max_alternatives),
+                            "customPromptConfig" => Ok(__FieldTag::__custom_prompt_config),
+                            "custom_prompt_config" => Ok(__FieldTag::__custom_prompt_config),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -2080,6 +2164,15 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionFeatures {
                             }
                             result.max_alternatives =
                                 map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__custom_prompt_config => {
+                            if !fields.insert(__FieldTag::__custom_prompt_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for custom_prompt_config",
+                                ));
+                            }
+                            result.custom_prompt_config = map.next_value::<std::option::Option<crate::model::CustomPromptConfig>>()?
+                                ;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3032,6 +3125,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionResponseMetadata {
         enum __FieldTag {
             __request_id,
             __total_billed_duration,
+            __prompt,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -3056,6 +3150,7 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionResponseMetadata {
                             "request_id" => Ok(__FieldTag::__request_id),
                             "totalBilledDuration" => Ok(__FieldTag::__total_billed_duration),
                             "total_billed_duration" => Ok(__FieldTag::__total_billed_duration),
+                            "prompt" => Ok(__FieldTag::__prompt),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3099,6 +3194,15 @@ impl<'de> serde::de::Deserialize<'de> for super::RecognitionResponseMetadata {
                             }
                             result.total_billed_duration =
                                 map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__prompt => {
+                            if !fields.insert(__FieldTag::__prompt) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prompt",
+                                ));
+                            }
+                            result.prompt =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

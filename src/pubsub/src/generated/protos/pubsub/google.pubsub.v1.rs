@@ -1264,13 +1264,56 @@ impl ::prost::Name for JavaScriptUdf {
     }
 }
 #[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AiInference {
+    #[prost(string, tag = "1")]
+    pub endpoint: ::prost::alloc::string::String,
+    #[prost(string, tag = "3")]
+    pub service_account_email: ::prost::alloc::string::String,
+    #[prost(oneof = "ai_inference::InferenceMode", tags = "2")]
+    pub inference_mode: ::core::option::Option<ai_inference::InferenceMode>,
+}
+/// Nested message and enum types in `AIInference`.
+pub mod ai_inference {
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct UnstructuredInference {
+        #[prost(message, optional, tag = "1")]
+        pub parameters: ::core::option::Option<::prost_types::Struct>,
+    }
+    impl ::prost::Name for UnstructuredInference {
+        const NAME: &'static str = "UnstructuredInference";
+        const PACKAGE: &'static str = "google.pubsub.v1";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.pubsub.v1.AIInference.UnstructuredInference".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.pubsub.v1.AIInference.UnstructuredInference"
+                .into()
+        }
+    }
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum InferenceMode {
+        #[prost(message, tag = "2")]
+        UnstructuredInference(UnstructuredInference),
+    }
+}
+impl ::prost::Name for AiInference {
+    const NAME: &'static str = "AIInference";
+    const PACKAGE: &'static str = "google.pubsub.v1";
+    fn full_name() -> ::prost::alloc::string::String {
+        "google.pubsub.v1.AIInference".into()
+    }
+    fn type_url() -> ::prost::alloc::string::String {
+        "type.googleapis.com/google.pubsub.v1.AIInference".into()
+    }
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
 pub struct MessageTransform {
     #[deprecated]
     #[prost(bool, tag = "3")]
     pub enabled: bool,
     #[prost(bool, tag = "4")]
     pub disabled: bool,
-    #[prost(oneof = "message_transform::Transform", tags = "2")]
+    #[prost(oneof = "message_transform::Transform", tags = "2, 6")]
     pub transform: ::core::option::Option<message_transform::Transform>,
 }
 /// Nested message and enum types in `MessageTransform`.
@@ -1279,6 +1322,8 @@ pub mod message_transform {
     pub enum Transform {
         #[prost(message, tag = "2")]
         JavascriptUdf(super::JavaScriptUdf),
+        #[prost(message, tag = "6")]
+        AiInference(super::AiInference),
     }
 }
 impl ::prost::Name for MessageTransform {
@@ -1911,6 +1956,7 @@ pub mod big_query_config {
         NotFound = 3,
         SchemaMismatch = 4,
         InTransitLocationRestriction = 5,
+        VertexAiLocationRestriction = 6,
     }
     impl State {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -1925,6 +1971,7 @@ pub mod big_query_config {
                 Self::NotFound => "NOT_FOUND",
                 Self::SchemaMismatch => "SCHEMA_MISMATCH",
                 Self::InTransitLocationRestriction => "IN_TRANSIT_LOCATION_RESTRICTION",
+                Self::VertexAiLocationRestriction => "VERTEX_AI_LOCATION_RESTRICTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1937,6 +1984,9 @@ pub mod big_query_config {
                 "SCHEMA_MISMATCH" => Some(Self::SchemaMismatch),
                 "IN_TRANSIT_LOCATION_RESTRICTION" => {
                     Some(Self::InTransitLocationRestriction)
+                }
+                "VERTEX_AI_LOCATION_RESTRICTION" => {
+                    Some(Self::VertexAiLocationRestriction)
                 }
                 _ => None,
             }
@@ -2026,6 +2076,7 @@ pub mod cloud_storage_config {
         NotFound = 3,
         InTransitLocationRestriction = 4,
         SchemaMismatch = 5,
+        VertexAiLocationRestriction = 6,
     }
     impl State {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -2040,6 +2091,7 @@ pub mod cloud_storage_config {
                 Self::NotFound => "NOT_FOUND",
                 Self::InTransitLocationRestriction => "IN_TRANSIT_LOCATION_RESTRICTION",
                 Self::SchemaMismatch => "SCHEMA_MISMATCH",
+                Self::VertexAiLocationRestriction => "VERTEX_AI_LOCATION_RESTRICTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2053,6 +2105,9 @@ pub mod cloud_storage_config {
                     Some(Self::InTransitLocationRestriction)
                 }
                 "SCHEMA_MISMATCH" => Some(Self::SchemaMismatch),
+                "VERTEX_AI_LOCATION_RESTRICTION" => {
+                    Some(Self::VertexAiLocationRestriction)
+                }
                 _ => None,
             }
         }

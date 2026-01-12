@@ -179,6 +179,18 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ResourceDrift>>;
 
+    async fn get_auto_migration_config(
+        &self,
+        req: crate::model::GetAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AutoMigrationConfig>>;
+
+    async fn update_auto_migration_config(
+        &self,
+        req: crate::model::UpdateAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -488,6 +500,24 @@ impl<T: super::Config> Config for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ResourceDrift>> {
         T::get_resource_drift(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_auto_migration_config(
+        &self,
+        req: crate::model::GetAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AutoMigrationConfig>> {
+        T::get_auto_migration_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_auto_migration_config(
+        &self,
+        req: crate::model::UpdateAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_auto_migration_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

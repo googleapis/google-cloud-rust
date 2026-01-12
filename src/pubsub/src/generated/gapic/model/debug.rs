@@ -194,6 +194,30 @@ impl std::fmt::Debug for super::JavaScriptUDF {
     }
 }
 
+impl std::fmt::Debug for super::AIInference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AIInference");
+        debug_struct.field("endpoint", &self.endpoint);
+        debug_struct.field("service_account_email", &self.service_account_email);
+        debug_struct.field("inference_mode", &self.inference_mode);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ai_inference::UnstructuredInference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UnstructuredInference");
+        debug_struct.field("parameters", &self.parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::MessageTransform {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("MessageTransform");

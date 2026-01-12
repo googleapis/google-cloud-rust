@@ -362,6 +362,28 @@ impl Config {
         super::builder::config::GetResourceDrift::new(self.inner.clone())
     }
 
+    /// Get the AutoMigrationConfig for a given project and location.
+    pub fn get_auto_migration_config(&self) -> super::builder::config::GetAutoMigrationConfig {
+        super::builder::config::GetAutoMigrationConfig::new(self.inner.clone())
+    }
+
+    /// Updates the AutoMigrationConfig for a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_auto_migration_config(
+        &self,
+    ) -> super::builder::config::UpdateAutoMigrationConfig {
+        super::builder::config::UpdateAutoMigrationConfig::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::config::ListLocations {
         super::builder::config::ListLocations::new(self.inner.clone())

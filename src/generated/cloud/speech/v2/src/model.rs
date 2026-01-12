@@ -2609,18 +2609,12 @@ pub mod explicit_decoding_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeakerDiarizationConfig {
-    /// Required. Minimum number of speakers in the conversation. This range gives
-    /// you more flexibility by allowing the system to automatically determine the
-    /// correct number of speakers.
-    ///
-    /// To fix the number of speakers detected in the audio, set
-    /// `min_speaker_count` = `max_speaker_count`.
+    /// Optional. The system automatically determines the number of speakers. This
+    /// value is not currently used.
     pub min_speaker_count: i32,
 
-    /// Required. Maximum number of speakers in the conversation. Valid values are:
-    /// 1-6. Must be >= `min_speaker_count`. This range gives you more flexibility
-    /// by allowing the system to automatically determine the correct number of
-    /// speakers.
+    /// Optional. The system automatically determines the number of speakers. This
+    /// value is not currently used.
     pub max_speaker_count: i32,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2659,6 +2653,41 @@ impl SpeakerDiarizationConfig {
 impl wkt::message::Message for SpeakerDiarizationConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.speech.v2.SpeakerDiarizationConfig"
+    }
+}
+
+/// Configuration to enable custom prompt in chirp3.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CustomPromptConfig {
+    /// Optional. The custom instructions to override the existing instructions for
+    /// chirp3.
+    pub custom_prompt: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CustomPromptConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [custom_prompt][crate::model::CustomPromptConfig::custom_prompt].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::CustomPromptConfig;
+    /// let x = CustomPromptConfig::new().set_custom_prompt("example");
+    /// ```
+    pub fn set_custom_prompt<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.custom_prompt = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CustomPromptConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.speech.v2.CustomPromptConfig"
     }
 }
 
@@ -2703,14 +2732,8 @@ pub struct RecognitionFeatures {
     /// Mode for recognizing multi-channel audio.
     pub multi_channel_mode: crate::model::recognition_features::MultiChannelMode,
 
-    /// Configuration to enable speaker diarization and set additional
-    /// parameters to make diarization better suited for your application.
-    /// When this is enabled, we send all the words from the beginning of the
-    /// audio for the top alternative in every consecutive STREAMING responses.
-    /// This is done in order to improve our speaker tags as our models learn to
-    /// identify the speakers in the conversation over time.
-    /// For non-streaming requests, the diarization results will be provided only
-    /// in the top alternative of the FINAL SpeechRecognitionResult.
+    /// Configuration to enable speaker diarization. To enable diarization, set
+    /// this field to an empty SpeakerDiarizationConfig message.
     pub diarization_config: std::option::Option<crate::model::SpeakerDiarizationConfig>,
 
     /// Maximum number of recognition hypotheses to be returned.
@@ -2718,6 +2741,9 @@ pub struct RecognitionFeatures {
     /// Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of
     /// one. If omitted, will return a maximum of one.
     pub max_alternatives: i32,
+
+    /// Optional. Configuration to enable custom prompt for chirp3.
+    pub custom_prompt_config: std::option::Option<crate::model::CustomPromptConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2859,6 +2885,39 @@ impl RecognitionFeatures {
     /// ```
     pub fn set_max_alternatives<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.max_alternatives = v.into();
+        self
+    }
+
+    /// Sets the value of [custom_prompt_config][crate::model::RecognitionFeatures::custom_prompt_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// use google_cloud_speech_v2::model::CustomPromptConfig;
+    /// let x = RecognitionFeatures::new().set_custom_prompt_config(CustomPromptConfig::default()/* use setters */);
+    /// ```
+    pub fn set_custom_prompt_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPromptConfig>,
+    {
+        self.custom_prompt_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [custom_prompt_config][crate::model::RecognitionFeatures::custom_prompt_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::RecognitionFeatures;
+    /// use google_cloud_speech_v2::model::CustomPromptConfig;
+    /// let x = RecognitionFeatures::new().set_or_clear_custom_prompt_config(Some(CustomPromptConfig::default()/* use setters */));
+    /// let x = RecognitionFeatures::new().set_or_clear_custom_prompt_config(None::<CustomPromptConfig>);
+    /// ```
+    pub fn set_or_clear_custom_prompt_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CustomPromptConfig>,
+    {
+        self.custom_prompt_config = v.map(|x| x.into());
         self
     }
 }
@@ -4087,6 +4146,10 @@ pub struct RecognitionResponseMetadata {
     /// When available, billed audio seconds for the corresponding request.
     pub total_billed_duration: std::option::Option<wkt::Duration>,
 
+    /// Optional. Output only. Provides the prompt used for the recognition
+    /// request.
+    pub prompt: std::option::Option<std::string::String>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4137,6 +4200,37 @@ impl RecognitionResponseMetadata {
         T: std::convert::Into<wkt::Duration>,
     {
         self.total_billed_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [prompt][crate::model::RecognitionResponseMetadata::prompt].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = RecognitionResponseMetadata::new().set_prompt("example");
+    /// ```
+    pub fn set_prompt<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prompt][crate::model::RecognitionResponseMetadata::prompt].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_speech_v2::model::RecognitionResponseMetadata;
+    /// let x = RecognitionResponseMetadata::new().set_or_clear_prompt(Some("example"));
+    /// let x = RecognitionResponseMetadata::new().set_or_clear_prompt(None::<String>);
+    /// ```
+    pub fn set_or_clear_prompt<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.prompt = v.map(|x| x.into());
         self
     }
 }

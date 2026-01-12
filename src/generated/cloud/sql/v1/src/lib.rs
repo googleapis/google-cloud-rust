@@ -28,6 +28,7 @@
 //! # Available Clients
 //!
 //! * [SqlBackupRunsService](client/struct.SqlBackupRunsService.html)
+//! * [SqlBackupsService](client/struct.SqlBackupsService.html)
 //! * [SqlConnectService](client/struct.SqlConnectService.html)
 //! * [SqlDatabasesService](client/struct.SqlDatabasesService.html)
 //! * [SqlFlagsService](client/struct.SqlFlagsService.html)

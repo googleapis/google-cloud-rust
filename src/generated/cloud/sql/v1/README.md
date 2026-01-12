@@ -15,6 +15,7 @@ should not introduce breaking changes to the client libraries.
 The main types to work with this crate are the clients:
 
 - [SqlBackupRunsService]
+- [SqlBackupsService]
 - [SqlConnectService]
 - [SqlDatabasesService]
 - [SqlFlagsService]
@@ -29,6 +30,7 @@ The main types to work with this crate are the clients:
 - Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/1.4.0)
 
 [SqlBackupRunsService]: https://docs.rs/google-cloud-sql-v1/1.4.0/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html
+[SqlBackupsService]: https://docs.rs/google-cloud-sql-v1/1.4.0/google_cloud_sql_v1/client/struct.SqlBackupsService.html
 [SqlConnectService]: https://docs.rs/google-cloud-sql-v1/1.4.0/google_cloud_sql_v1/client/struct.SqlConnectService.html
 [SqlDatabasesService]: https://docs.rs/google-cloud-sql-v1/1.4.0/google_cloud_sql_v1/client/struct.SqlDatabasesService.html
 [SqlFlagsService]: https://docs.rs/google-cloud-sql-v1/1.4.0/google_cloud_sql_v1/client/struct.SqlFlagsService.html

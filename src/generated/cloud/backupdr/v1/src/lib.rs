@@ -28,6 +28,7 @@
 //! # Available Clients
 //!
 //! * [BackupDR](client/struct.BackupDR.html)
+//! * [BackupDrProtectionSummary](client/struct.BackupDrProtectionSummary.html)
 
 #![allow(deprecated)]
 

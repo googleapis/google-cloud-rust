@@ -1559,6 +1559,203 @@ impl<'de> serde::de::Deserialize<'de> for super::JavaScriptUDF {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::AIInference {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __endpoint,
+            __unstructured_inference,
+            __service_account_email,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AIInference")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "endpoint" => Ok(__FieldTag::__endpoint),
+                            "unstructuredInference" => Ok(__FieldTag::__unstructured_inference),
+                            "unstructured_inference" => Ok(__FieldTag::__unstructured_inference),
+                            "serviceAccountEmail" => Ok(__FieldTag::__service_account_email),
+                            "service_account_email" => Ok(__FieldTag::__service_account_email),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::AIInference;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AIInference")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__endpoint => {
+                            if !fields.insert(__FieldTag::__endpoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for endpoint",
+                                ));
+                            }
+                            result.endpoint = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unstructured_inference => {
+                            if !fields.insert(__FieldTag::__unstructured_inference) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unstructured_inference",
+                                ));
+                            }
+                            if result.inference_mode.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `inference_mode`, a oneof with full ID .google.pubsub.v1.AIInference.unstructured_inference, latest field was unstructuredInference",
+                                ));
+                            }
+                            result.inference_mode = std::option::Option::Some(
+                                crate::model::ai_inference::InferenceMode::UnstructuredInference(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::model::ai_inference::UnstructuredInference,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__service_account_email => {
+                            if !fields.insert(__FieldTag::__service_account_email) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service_account_email",
+                                ));
+                            }
+                            result.service_account_email = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ai_inference::UnstructuredInference {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parameters,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UnstructuredInference")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parameters" => Ok(__FieldTag::__parameters),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ai_inference::UnstructuredInference;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UnstructuredInference")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parameters => {
+                            if !fields.insert(__FieldTag::__parameters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parameters",
+                                ));
+                            }
+                            result.parameters =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -1569,6 +1766,7 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __javascript_udf,
+            __ai_inference,
             __enabled,
             __disabled,
             Unknown(std::string::String),
@@ -1593,6 +1791,8 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
                         match value {
                             "javascriptUdf" => Ok(__FieldTag::__javascript_udf),
                             "javascript_udf" => Ok(__FieldTag::__javascript_udf),
+                            "aiInference" => Ok(__FieldTag::__ai_inference),
+                            "ai_inference" => Ok(__FieldTag::__ai_inference),
                             "enabled" => Ok(__FieldTag::__enabled),
                             "disabled" => Ok(__FieldTag::__disabled),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1635,6 +1835,26 @@ impl<'de> serde::de::Deserialize<'de> for super::MessageTransform {
                                 crate::model::message_transform::Transform::JavascriptUdf(
                                     map.next_value::<std::option::Option<
                                         std::boxed::Box<crate::model::JavaScriptUDF>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__ai_inference => {
+                            if !fields.insert(__FieldTag::__ai_inference) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ai_inference",
+                                ));
+                            }
+                            if result.transform.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `transform`, a oneof with full ID .google.pubsub.v1.MessageTransform.ai_inference, latest field was aiInference",
+                                ));
+                            }
+                            result.transform = std::option::Option::Some(
+                                crate::model::message_transform::Transform::AiInference(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::AIInference>,
                                     >>()?
                                     .unwrap_or_default(),
                                 ),
