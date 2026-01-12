@@ -47,7 +47,7 @@ pub async fn basic_publisher(topic_name: String) -> Result<()> {
 
 pub async fn basic_subscriber(subscription_name: String) -> Result<()> {
     let subscriber = Subscriber::builder().build().await?;
-    let mut session = subscriber.streaming_pull(subscription_name).start().await?;
+    let mut session = subscriber.streaming_pull(subscription_name).start();
 
     let mut got = HashSet::new();
     for _ in 0..2 {
