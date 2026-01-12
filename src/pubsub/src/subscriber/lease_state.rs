@@ -14,6 +14,7 @@
 
 use super::leaser::Leaser;
 use std::collections::HashMap;
+// Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
