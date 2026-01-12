@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name         = "gax-internal-with-default"
+name         = "test-secret-manager"
 version      = "0.0.0"
 publish      = false
 edition      = "2024"
@@ -30,9 +30,18 @@ rust-version = "1.92.0"
 [workspace]
 
 [dependencies]
-anyhow        = { default-features = false, version = "1", features = ["std"] }
-test-metadata = { path = "../test-metadata" }
+anyhow = { default-features = false, version = "1", features = ["std"] }
 
-[dependencies.google-cloud-gax-internal]
+[dependencies.google-cloud-gax]
 default-features = false
-path             = "../../../src/gax-internal"
+path             = "../../../src/gax"
+
+[dependencies.google-cloud-secretmanager-v1]
+default-features = false
+path             = "../../../src/generated/cloud/secretmanager/v1"
+
+[features]
+with-defaults = [
+  # TODO(#4170) - add this when the crate gets a default feature.
+  # "google-cloud-secretmanager-v1/default"
+]
