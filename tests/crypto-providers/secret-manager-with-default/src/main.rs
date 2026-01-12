@@ -15,7 +15,7 @@
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     test_metadata::has_default_crypto_provider()?;
-    // Verify the secret manager client library works with thye default
+    // Verify the secret manager client library works with the default
     // crypto provider.
     test_secret_manager::run().await
 }
