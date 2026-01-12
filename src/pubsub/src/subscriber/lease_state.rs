@@ -32,6 +32,9 @@ pub(super) struct LeaseOptions {
     pub(super) extend_period: Duration,
     /// How long we wait for the initial extensions
     pub(super) extend_start: Duration,
+    /// How long messages can be kept under lease. A message's lease can be
+    /// extended as long as `max_lease_extension` has not elapsed.
+    pub(super) max_lease_extension: Duration,
 }
 
 impl Default for LeaseOptions {
@@ -41,6 +44,7 @@ impl Default for LeaseOptions {
             flush_start: Duration::from_secs(1),
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
+            max_lease_extension: Duration::from_secs(600),
         }
     }
 }
@@ -61,6 +65,8 @@ where
     flush_interval: Interval,
     // A timer for extending leases
     extend_interval: Interval,
+    // How long messages can be kept under lease
+    max_lease_extension: Duration,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -88,6 +94,7 @@ where
             leaser,
             flush_interval,
             extend_interval,
+            max_lease_extension: options.max_lease_extension,
         }
     }
 
@@ -152,11 +159,31 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
-        // TODO(#4211) - drop expired messages
-        let all_ack_ids: Vec<&String> = self.under_lease.keys().collect();
-        for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
-            // TODO(#3975) - await these concurrently.
-            let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
+        let now = Instant::now();
+        let mut batches = Vec::new();
+        let mut batch = Vec::new();
+        self.under_lease.retain(|ack_id, receive_time| {
+            // Note that using `HashMap::retain` allows us to iterate over the
+            // map and conditionally drop elements in one pass.
+
+            if *receive_time + self.max_lease_extension < now {
+                // Drop messages that have been held for too long.
+                false
+            } else {
+                // Extend leases for all other messages.
+                batch.push(ack_id.clone());
+                if batch.len() == ACK_IDS_PER_RPC {
+                    // Flush the batch when it is full.
+                    batches.push(std::mem::take(&mut batch));
+                }
+                true
+            }
+        });
+        if !batch.is_empty() {
+            batches.push(batch);
+        }
+        for ack_ids in batches {
+            // TODO(#3975) - send RPCs concurrently
             self.leaser.extend(ack_ids).await;
         }
     }
@@ -206,6 +233,10 @@ pub(super) mod tests {
         interval(Duration::from_secs(1))
     }
 
+    fn test_duration() -> Duration {
+        Duration::from_secs(123)
+    }
+
     fn make_state<L, A, N>(under_lease: L, to_ack: A, to_nack: N) -> LeaseState<MockLeaser>
     where
         L: IntoIterator<Item = &'static str>,
@@ -222,6 +253,7 @@ pub(super) mod tests {
             leaser: MockLeaser::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         }
     }
 
@@ -313,6 +345,7 @@ pub(super) mod tests {
             leaser: MockLeaser::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         };
         assert_eq!(state, expected);
 
@@ -327,6 +360,7 @@ pub(super) mod tests {
             leaser: MockLeaser::new(),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         };
         assert_eq!(state, expected);
     }
@@ -446,6 +480,7 @@ pub(super) mod tests {
             flush_period: FLUSH_PERIOD,
             extend_start: EXTEND_START,
             extend_period: EXTEND_PERIOD,
+            ..Default::default()
         };
         let mut state = LeaseState::new(mock, options);
 
@@ -484,6 +519,7 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
         let mut state = LeaseState::new(mock, options);
 
@@ -522,6 +558,7 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
         let mut state = LeaseState::new(mock, options);
 
@@ -556,6 +593,7 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
         let mut state = LeaseState::new(mock, options);
 
@@ -618,6 +656,53 @@ pub(super) mod tests {
 
         // Make sure all ack IDs were extended.
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn message_expiration() -> anyhow::Result<()> {
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
+        const DELTA: Duration = Duration::from_secs(1);
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockLeaser::new();
+        mock.expect_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(0..20))
+            .returning(|_| ());
+        mock.expect_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(10..20))
+            .returning(|_| ());
+
+        let options = LeaseOptions {
+            max_lease_extension: MAX_LEASE_EXTENSION,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(mock, options);
+
+        // Add 10 messages under lease management
+        for i in 0..10 {
+            state.add(test_id(i));
+        }
+
+        // Add 10 more messages under lease management, a little later.
+        tokio::time::advance(DELTA * 2).await;
+        for i in 10..20 {
+            state.add(test_id(i));
+        }
+        state.extend().await;
+
+        // Advance the time past the expiration of the original 10 messages.
+        tokio::time::advance(MAX_LEASE_EXTENSION - DELTA).await;
+        state.extend().await;
+
+        // Advance the time past the expiration of the subsequent 10 messages.
+        tokio::time::advance(DELTA * 2).await;
+        state.extend().await;
+
         Ok(())
     }
 }

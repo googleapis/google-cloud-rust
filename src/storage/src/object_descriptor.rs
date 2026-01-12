@@ -14,14 +14,12 @@
 
 //! Defines the return type for [Storage::open_object][crate::client::Storage::open_object].
 
+use crate::http::HeaderMap;
 use crate::model::Object;
 use crate::model_ext::ReadRange;
 use crate::read_object::ReadObjectResponse;
 use crate::storage::bidi::stub::dynamic::ObjectDescriptor as ObjectDescriptorStub;
 use std::sync::Arc;
-
-/// The `open_object()` metadata attributes.
-pub use http::HeaderMap;
 
 /// An open object ready to read one or more ranges.
 ///

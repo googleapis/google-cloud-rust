@@ -276,6 +276,7 @@ mod tests {
     use std::error::Error;
 
     use super::*;
+    use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::{
         find_source_error, get_mock_auth_retry_policy, get_mock_backoff_policy,
         get_mock_retry_throttler,
@@ -311,9 +312,11 @@ mod tests {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn id_token_success() -> TestResult {
         let server = Server::run();
+        let audience = "test-audience";
+        let token = generate_test_id_token(audience);
         let response = Oauth2RefreshResponse {
             access_token: "test-access-token".to_string(),
-            id_token: Some("test-id-token".to_string()),
+            id_token: Some(token.clone()),
             expires_in: Some(3600),
             refresh_token: Some("test-refresh-token".to_string()),
             scope: None,
@@ -332,7 +335,7 @@ mod tests {
         let authorized_user = authorized_user_json(server.url("/token").to_string());
         let creds = Builder::new(authorized_user).build()?;
         let id_token = creds.id_token().await?;
-        assert_eq!(id_token, "test-id-token");
+        assert_eq!(id_token, token);
         Ok(())
     }
 
@@ -457,6 +460,42 @@ mod tests {
 
         let id_token = credentials.id_token().await.unwrap();
         assert_eq!(id_token, "test-id-token");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn idtoken_caching() -> TestResult {
+        let audience = "test-audience";
+        let token = generate_test_id_token(audience);
+        let server = Server::run();
+        let response = Oauth2RefreshResponse {
+            access_token: "test-access-token".to_string(),
+            id_token: Some(token.clone()),
+            expires_in: Some(3600),
+            refresh_token: None,
+            scope: None,
+            token_type: "Bearer".to_string(),
+        };
+        server.expect(
+            Expectation::matching(all_of![
+                request::path("/token"),
+                request::body(json_decoded(|req: &Oauth2RefreshRequest| {
+                    check_request(req)
+                }))
+            ])
+            .times(1)
+            .respond_with(json_encoded(response)),
+        );
+
+        let authorized_user = authorized_user_json(server.url("/token").to_string());
+        let creds = Builder::new(authorized_user).build()?;
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token);
+
+        let id_token = creds.id_token().await?;
+        assert_eq!(id_token, token);
 
         Ok(())
     }

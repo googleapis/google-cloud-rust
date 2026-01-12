@@ -371,7 +371,7 @@ mime = { default-features = false, version = "0.3.17" }
 anyhow            = { default-features = false, version = "1.0.100", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
 flate2            = { default-features = false, version = "1" }
-httptest          = { default-features = false, version = "0.16.3" }
+httptest          = { default-features = false, version = "0.16.4" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.14" }
 multer            = { default-features = false, version = "3" }

@@ -285,14 +285,14 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the HTTP method for the signed URL. The default is [GET][crate::signed_url::http::Method::GET].
+    /// Sets the HTTP method for the signed URL. The default is [GET][crate::http::Method::GET].
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use google_cloud_auth::signer::Signer;
-    /// use google_cloud_storage::signed_url::http;
+    /// use google_cloud_storage::http;
     ///
     /// async fn run(signer: &Signer) -> anyhow::Result<()> {
     ///     let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")

@@ -42,6 +42,15 @@ pub mod signed_url;
 pub use crate::storage::request_options;
 pub use crate::storage::streaming_source;
 
+/// Re-export types from the `http` crate used in this module.
+pub mod http {
+    /// HTTP method used by the [SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
+    pub use http::Method;
+
+    /// Metadata attributes used by the [Client::open_object][crate::client::Storage::open_object].
+    pub use http::HeaderMap;
+}
+
 mod control;
 mod storage;
 
