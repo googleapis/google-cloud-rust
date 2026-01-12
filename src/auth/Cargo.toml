@@ -68,7 +68,7 @@ mutants.workspace     = true
 [features]
 # `default-idtoken-backend` is enabled by default, but has no effect unless
 # `idtoken` is also enabled. It
-        default = ["default-idtoken-backend"]
+default = ["default-idtoken-backend"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
 idtoken = ["dep:jsonwebtoken"]
