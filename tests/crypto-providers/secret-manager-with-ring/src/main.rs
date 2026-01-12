@@ -19,7 +19,8 @@ async fn main() -> anyhow::Result<()> {
     // TODO(#4170) - verify no crypto provider is enabled. Currently
     // `ring` is always installed, so we cannot enable the test.
 
-    // Install a default crypto provider and verify storage works.
+    // Install a default crypto provider and verify the secret manager client
+    // library works.
     CryptoProvider::install_default(default_provider())
         .map_err(|p| anyhow::anyhow!("default provider was already installed: {p:?}"))?;
 
