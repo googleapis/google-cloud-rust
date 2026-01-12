@@ -302,7 +302,6 @@ incremental = false
 [workspace.dependencies]
 async-trait           = { default-features = false, version = "0.1.85" }
 base64                = { default-features = false, version = "0.22", features = ["std"] }
-bon                   = { default-features = false, version = "3.8" }
 bytes                 = { default-features = false, version = "1.10", features = ["serde"] }
 cargo_metadata        = { default-features = false, version = "0.23" }
 chrono                = { default-features = false, version = "0.4.42" }

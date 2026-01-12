@@ -83,7 +83,6 @@ use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use bon::Builder;
 use gax::backoff_policy::BackoffPolicyArg;
 use gax::retry_policy::RetryPolicyArg;
 use gax::retry_throttler::RetryThrottlerArg;
@@ -140,7 +139,7 @@ pub struct Builder {
 impl Builder {
     /// Sets the endpoint for this credentials.
     ///
-    /// A trailing slash is significant, so specify the base URL without a trailing  
+    /// A trailing slash is significant, so specify the base URL without a trailing
     /// slash. If not set, the credentials use `http://metadata.google.internal`.
     ///
     /// # Example
@@ -392,17 +391,53 @@ struct MDSTokenResponse {
     token_type: String,
 }
 
-#[derive(Debug, Clone, Default, Builder)]
+#[derive(Debug, Default)]
+struct MDSAccessTokenProviderBuilder {
+    target: MDSAccessTokenProvider,
+}
+
+impl MDSAccessTokenProviderBuilder {
+    fn build(self) -> MDSAccessTokenProvider {
+        self.target
+    }
+
+    fn maybe_scopes(mut self, v: Option<Vec<String>>) -> Self {
+        self.target.scopes = v;
+        self
+    }
+
+    fn endpoint<T>(mut self, v: T) -> Self
+    where
+        T: Into<String>,
+    {
+        self.target.endpoint = v.into();
+        self
+    }
+
+    fn endpoint_overridden(mut self, v: bool) -> Self {
+        self.target.endpoint_overridden = v;
+        self
+    }
+
+    fn created_by_adc(mut self, v: bool) -> Self {
+        self.target.created_by_adc = v;
+        self
+    }
+}
+
+#[derive(Debug, Clone, Default)]
 struct MDSAccessTokenProvider {
-    #[builder(into)]
     scopes: Option<Vec<String>>,
-    #[builder(into)]
     endpoint: String,
     endpoint_overridden: bool,
     created_by_adc: bool,
 }
 
 impl MDSAccessTokenProvider {
+    fn builder() -> MDSAccessTokenProviderBuilder {
+        MDSAccessTokenProviderBuilder::default()
+    }
+
     // During ADC, if no credentials are found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
     // environment variable is not set, we default to MDS credentials without checking if the code is really
     // running in an environment with MDS. To help users who got to this state because of lack of credentials
