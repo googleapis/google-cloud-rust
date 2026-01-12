@@ -403,7 +403,7 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_mds_does_not_retry_on_non_transient_failures() -> TestResult {
-        let mut server = Server::run();
+        let server = Server::run();
         let audience = "test-audience";
         server.expect(
             Expectation::matching(all_of![
@@ -427,7 +427,7 @@ mod tests {
             matches!(source, Some(e) if e.status() == Some(StatusCode::UNAUTHORIZED)),
             "{err:?}"
         );
-        server.verify_and_clear();
+
         Ok(())
     }
 
