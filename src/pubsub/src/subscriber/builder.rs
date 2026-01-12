@@ -23,16 +23,18 @@ const MIB: i64 = 1024 * 1024;
 pub struct StreamingPull {
     pub(super) inner: Arc<Transport>,
     pub(super) subscription: String,
+    pub(super) client_id: String,
     pub(super) ack_deadline_seconds: i32,
     pub(super) max_outstanding_messages: i64,
     pub(super) max_outstanding_bytes: i64,
 }
 
 impl StreamingPull {
-    pub(super) fn new(inner: Arc<Transport>, subscription: String) -> Self {
+    pub(super) fn new(inner: Arc<Transport>, subscription: String, client_id: String) -> Self {
         Self {
             inner,
             subscription,
+            client_id,
             ack_deadline_seconds: 10,
             max_outstanding_messages: 1000,
             max_outstanding_bytes: 100 * MIB,
@@ -165,6 +167,7 @@ mod tests {
         let builder = StreamingPull::new(
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
+            "client-id".to_string(),
         );
         assert_eq!(
             builder.subscription,
@@ -190,6 +193,7 @@ mod tests {
         let builder = StreamingPull::new(
             test_inner().await?,
             "projects/my-project/subscriptions/my-subscription".to_string(),
+            "client-id".to_string(),
         )
         .set_ack_deadline_seconds(20)
         .set_max_outstanding_messages(12345)

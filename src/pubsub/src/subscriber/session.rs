@@ -102,6 +102,7 @@ impl Session {
             stream_ack_deadline_seconds: builder.ack_deadline_seconds,
             max_outstanding_messages: builder.max_outstanding_messages,
             max_outstanding_bytes: builder.max_outstanding_bytes,
+            client_id: builder.client_id,
             ..Default::default()
         };
         let (stream, request_tx) = open_stream(inner, initial_req).await?;
@@ -310,6 +311,7 @@ mod tests {
         assert_eq!(initial_req.stream_ack_deadline_seconds, 20);
         assert_eq!(initial_req.max_outstanding_messages, 2000);
         assert_eq!(initial_req.max_outstanding_bytes, 200 * MIB);
+        assert!(!initial_req.client_id.is_empty());
 
         Ok(())
     }
@@ -710,6 +712,72 @@ mod tests {
         // keepalive task was still running.
         tokio::time::advance(4 * KEEPALIVE_PERIOD).await;
         assert!(recover_writes_rx.is_empty());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn client_id() -> anyhow::Result<()> {
+        // We use this channel to surface writes (requests) from outside our
+        // mock expectation.
+        let (recover_writes_tx, mut recover_writes_rx) = channel(10);
+        let recover_writes_tx = std::sync::Arc::new(tokio::sync::Mutex::new(recover_writes_tx));
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .times(3)
+            .returning(move |request| {
+                let tx = recover_writes_tx.clone();
+                tokio::spawn(async move {
+                    // Note that this task stays alive as long as we hold
+                    // `recover_writes_rx`.
+                    let mut request_rx = request.into_inner();
+                    while let Some(request) = request_rx.recv().await {
+                        tx.lock()
+                            .await
+                            .send(request)
+                            .await
+                            .expect("forwarding writes always succeeds");
+                    }
+                });
+                Err(tonic::Status::internal("fail"))
+            });
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+
+        // Make two requests with the same client. The requests should have the
+        // same client ID.
+        let c1 = test_client(endpoint.clone()).await?;
+        let _ = c1
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await;
+        let req1 = recover_writes_rx
+            .recv()
+            .await
+            .expect("should receive a request")?;
+        let _ = c1
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await;
+        let req2 = recover_writes_rx
+            .recv()
+            .await
+            .expect("should receive a request")?;
+        assert_eq!(req1.client_id, req2.client_id);
+
+        // Make a third request with a different client. This request should
+        // have a different client ID.
+        let c2 = test_client(endpoint).await?;
+        let _ = c2
+            .streaming_pull("projects/p/subscriptions/s")
+            .start()
+            .await;
+        let req3 = recover_writes_rx
+            .recv()
+            .await
+            .expect("should receive a request")?;
+        assert_ne!(req1.client_id, req3.client_id);
 
         Ok(())
     }
