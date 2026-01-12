@@ -559,6 +559,11 @@ impl Autoscalers {
         super::builder::autoscalers::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::autoscalers::TestIamPermissions {
+        super::builder::autoscalers::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates an autoscaler in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::autoscalers::Update {
@@ -3362,6 +3367,11 @@ impl HealthChecks {
         super::builder::health_checks::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::health_checks::TestIamPermissions {
+        super::builder::health_checks::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates a HealthCheck resource in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::health_checks::Update {
@@ -3512,6 +3522,11 @@ impl HttpHealthChecks {
         super::builder::http_health_checks::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::http_health_checks::TestIamPermissions {
+        super::builder::http_health_checks::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates a HttpHealthCheck resource in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::http_health_checks::Update {
@@ -3660,6 +3675,11 @@ impl HttpsHealthChecks {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::https_health_checks::Patch {
         super::builder::https_health_checks::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::https_health_checks::TestIamPermissions {
+        super::builder::https_health_checks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a HttpsHealthCheck resource in the specified project using the data
@@ -9951,6 +9971,11 @@ impl RegionAutoscalers {
         super::builder::region_autoscalers::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_autoscalers::TestIamPermissions {
+        super::builder::region_autoscalers::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates an autoscaler in the specified project using
     /// the data included in the request.
     pub fn update(&self) -> super::builder::region_autoscalers::Update {
@@ -10919,6 +10944,11 @@ impl RegionHealthChecks {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::region_health_checks::Patch {
         super::builder::region_health_checks::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_health_checks::TestIamPermissions {
+        super::builder::region_health_checks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a HealthCheck resource in the specified project using the data
@@ -12459,6 +12489,13 @@ impl RegionNotificationEndpoints {
     /// Lists the NotificationEndpoints for a project in the given region.
     pub fn list(&self) -> super::builder::region_notification_endpoints::List {
         super::builder::region_notification_endpoints::List::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_notification_endpoints::TestIamPermissions {
+        super::builder::region_notification_endpoints::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
@@ -14903,6 +14940,11 @@ impl Routes {
         super::builder::routes::List::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::routes::TestIamPermissions {
+        super::builder::routes::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::routes::GetOperation {
         super::builder::routes::GetOperation::new(self.inner.clone())
@@ -17326,6 +17368,11 @@ impl TargetSslProxies {
         super::builder::target_ssl_proxies::SetSslPolicy::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::target_ssl_proxies::TestIamPermissions {
+        super::builder::target_ssl_proxies::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::target_ssl_proxies::GetOperation {
         super::builder::target_ssl_proxies::GetOperation::new(self.inner.clone())
@@ -17479,6 +17526,11 @@ impl TargetTcpProxies {
     /// Changes the ProxyHeaderType for TargetTcpProxy.
     pub fn set_proxy_header(&self) -> super::builder::target_tcp_proxies::SetProxyHeader {
         super::builder::target_tcp_proxies::SetProxyHeader::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::target_tcp_proxies::TestIamPermissions {
+        super::builder::target_tcp_proxies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
@@ -17788,6 +17840,11 @@ impl UrlMaps {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::url_maps::Patch {
         super::builder::url_maps::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::url_maps::TestIamPermissions {
+        super::builder::url_maps::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates the specified UrlMap resource with the data included in the
