@@ -682,7 +682,7 @@ pub(super) mod tests {
             max_lease_extension: MAX_LEASE_EXTENSION,
             ..Default::default()
         };
-        let mut state = LeaseState::new(mock, options);
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         // Add 10 messages under lease management
         for i in 0..10 {
