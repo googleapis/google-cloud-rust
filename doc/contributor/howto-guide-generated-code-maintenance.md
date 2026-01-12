@@ -49,30 +49,24 @@ Commit all these changes and send a PR to merge them:
 git commit -m "feat(${library}): generate library"
 ```
 
-## Update the code with new googleapis protos
+## Update the code generation sources
 
 Run:
 
 ```bash
-git checkout -b chore-update-googleapis-sha-circa-$(date +%Y-%m-%d)
+git checkout -b chore-update-shas-circa-$(date +%Y-%m-%d)
 V=$(cat .librarian-version.txt)
+go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
+go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
+cargo update --workspace
+git commit -m"chore: update discovery and googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
 Then send a PR with whatever changed.
 
-## Update the code with new discovery docs
-
-```bash
-git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery && 
-go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-git commit -m "chore: update discovery SHA circa $(date +%Y-%m-%d)" .
-```
-
 Alternatively you can run `librarian update --all` to update all sources at
-once.
+once. Note that this includes `showcase` and `protojson-conformance`, though.
 
 ## Bump all version numbers
 
