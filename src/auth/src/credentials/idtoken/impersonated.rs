@@ -698,7 +698,7 @@ mod tests {
     async fn test_impersonated_id_token_retries_for_success() -> TestResult {
         let audience = "test-audience";
         let token_string = generate_test_id_token(audience);
-        let mut server = Server::run();
+        let server = Server::run();
         // Source credential token endpoint
         server.expect(
             Expectation::matching(request::method_path("POST", "/token")).respond_with(
@@ -745,7 +745,6 @@ mod tests {
         let token = creds.id_token().await?;
         assert_eq!(token, token_string);
 
-        server.verify_and_clear();
         Ok(())
     }
 
