@@ -13,7 +13,8 @@
 // limitations under the License.
 
 use super::leaser::Leaser;
-use std::collections::HashSet;
+use std::collections::HashMap;
+// Use a `tokio::time::Instant` to facilitate time-based unit testing.
 use tokio::time::{Duration, Instant, Interval, interval_at};
 
 // An ack ID is less than 200 bytes. The limit for a request is 512kB. It should
@@ -49,8 +50,8 @@ pub(super) struct LeaseState<L>
 where
     L: Leaser,
 {
-    // TODO(#3957) - support message expiry
-    under_lease: HashSet<String>,
+    // A map of ack IDs to the time they were first received.
+    under_lease: HashMap<String, Instant>,
     to_ack: Vec<String>,
     to_nack: Vec<String>,
     // TODO(#3964) - support exactly once acks
@@ -81,7 +82,7 @@ where
         let extend_interval =
             interval_at(Instant::now() + options.extend_start, options.extend_period);
         Self {
-            under_lease: HashSet::new(),
+            under_lease: HashMap::new(),
             to_ack: Vec::new(),
             to_nack: Vec::new(),
             leaser,
@@ -112,7 +113,7 @@ where
 
     /// Accept a new ack ID under lease management
     pub(super) fn add(&mut self, ack_id: String) {
-        self.under_lease.insert(ack_id);
+        self.under_lease.insert(ack_id, Instant::now());
     }
 
     /// Process an ack from the application
@@ -125,7 +126,7 @@ where
 
     /// Process a nack from the application
     pub(super) fn nack(&mut self, ack_id: String) {
-        if self.under_lease.remove(&ack_id) {
+        if self.under_lease.remove(&ack_id).is_some() {
             // Only add the ack ID to the nack batch if the message is under our
             // lease. If the message's lease has already expired, we do not need
             // to take any additional action.
@@ -151,8 +152,8 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
-        // TODO(#3957) - drop expired messages
-        let all_ack_ids: Vec<&String> = self.under_lease.iter().collect();
+        // TODO(#4211) - drop expired messages
+        let all_ack_ids: Vec<&String> = self.under_lease.keys().collect();
         for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
             // TODO(#3975) - await these concurrently.
             let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
@@ -171,7 +172,7 @@ where
         }
 
         let mut to_nack = self.to_nack;
-        to_nack.extend(self.under_lease.into_iter());
+        to_nack.extend(self.under_lease.into_keys());
         if !to_nack.is_empty() {
             self.leaser.nack(to_nack).await;
         }
@@ -193,6 +194,7 @@ where
 pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
+    use std::collections::HashSet;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::time::interval;
 
@@ -211,7 +213,10 @@ pub(super) mod tests {
         N: IntoIterator<Item = &'static str>,
     {
         LeaseState {
-            under_lease: under_lease.into_iter().map(|s| s.to_string()).collect(),
+            under_lease: under_lease
+                .into_iter()
+                .map(|s| (s.to_string(), Instant::now()))
+                .collect(),
             to_ack: to_ack.into_iter().map(|s| s.to_string()).collect(),
             to_nack: to_nack.into_iter().map(|s| s.to_string()).collect(),
             leaser: MockLeaser::new(),
@@ -234,7 +239,7 @@ pub(super) mod tests {
         s
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn basic_add_ack_nack() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(mock, LeaseOptions::default());
@@ -276,7 +281,7 @@ pub(super) mod tests {
         state.shutdown().await;
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn flush() {
         let mut mock = MockLeaser::new();
         mock.expect_ack()
@@ -299,7 +304,10 @@ pub(super) mod tests {
             state.nack(test_id(i));
         }
         let expected = LeaseState {
-            under_lease: test_ids(20..100).into_iter().collect(),
+            under_lease: test_ids(20..100)
+                .into_iter()
+                .map(|s| (s, Instant::now()))
+                .collect(),
             to_ack: test_ids(0..10),
             to_nack: test_ids(10..20),
             leaser: MockLeaser::new(),
@@ -310,7 +318,10 @@ pub(super) mod tests {
 
         state.flush().await;
         let expected = LeaseState {
-            under_lease: test_ids(20..100).into_iter().collect(),
+            under_lease: test_ids(20..100)
+                .into_iter()
+                .map(|s| (s, Instant::now()))
+                .collect(),
             to_ack: Vec::new(),
             to_nack: Vec::new(),
             leaser: MockLeaser::new(),
@@ -320,7 +331,7 @@ pub(super) mod tests {
         assert_eq!(state, expected);
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn extend() {
         let mut seq = mockall::Sequence::new();
         let mut mock = MockLeaser::new();
@@ -397,7 +408,7 @@ pub(super) mod tests {
         state.shutdown().await;
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn ack_out_of_lease_included() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(mock, LeaseOptions::default());
@@ -407,7 +418,7 @@ pub(super) mod tests {
         assert_eq!(state, make_state([], ["1"], []));
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn nack_out_of_lease_ignored() {
         let mock = MockLeaser::new();
         let mut state = LeaseState::new(mock, LeaseOptions::default());
