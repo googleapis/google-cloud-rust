@@ -82,6 +82,89 @@ impl<T: super::SqlBackupRunsService> SqlBackupRunsService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::SqlBackupsService].
+#[async_trait::async_trait]
+pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
+    async fn create_backup(
+        &self,
+        req: crate::model::CreateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>>;
+
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>;
+
+    async fn update_backup(
+        &self,
+        req: crate::model::UpdateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+}
+
+/// All implementations of [super::SqlBackupsService] also implement [SqlBackupsService].
+#[async_trait::async_trait]
+impl<T: super::SqlBackupsService> SqlBackupsService for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_backup(
+        &self,
+        req: crate::model::CreateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::create_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Backup>> {
+        T::get_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        T::list_backups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_backup(
+        &self,
+        req: crate::model::UpdateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update_backup(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::delete_backup(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::SqlConnectService].
 #[async_trait::async_trait]
 pub trait SqlConnectService: std::fmt::Debug + Send + Sync {
@@ -250,6 +333,18 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
+    async fn add_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn add_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
     async fn clone(
         &self,
         req: crate::model::SqlInstancesCloneRequest,
@@ -322,6 +417,20 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::InstancesListServerCasResponse>>;
 
+    async fn list_server_certificates(
+        &self,
+        req: crate::model::SqlInstancesListServerCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListServerCertificatesResponse>>;
+
+    async fn list_entra_id_certificates(
+        &self,
+        req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>,
+    >;
+
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
@@ -361,6 +470,18 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     async fn rotate_server_ca(
         &self,
         req: crate::model::SqlInstancesRotateServerCaRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn rotate_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn rotate_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 
@@ -440,6 +561,12 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>,
     >;
 
+    async fn execute_sql(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>>;
+
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
@@ -451,6 +578,18 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>;
+
+    async fn pre_check_major_version_upgrade(
+        &self,
+        req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn point_in_time_restore(
+        &self,
+        req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
 }
 
 /// All implementations of [super::SqlInstancesService] also implement [SqlInstancesService].
@@ -463,6 +602,24 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::add_server_ca(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::add_server_certificate(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn add_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::add_entra_id_certificate(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -574,6 +731,27 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_server_certificates(
+        &self,
+        req: crate::model::SqlInstancesListServerCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::InstancesListServerCertificatesResponse>>
+    {
+        T::list_server_certificates(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_entra_id_certificates(
+        &self,
+        req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>,
+    > {
+        T::list_entra_id_certificates(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
@@ -634,6 +812,24 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
         T::rotate_server_ca(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn rotate_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::rotate_server_certificate(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn rotate_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::rotate_entra_id_certificate(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -750,6 +946,15 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn execute_sql(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
+        T::execute_sql(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
@@ -767,6 +972,24 @@ impl<T: super::SqlInstancesService> SqlInstancesService for T {
     ) -> crate::Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>>
     {
         T::release_ssrs_lease(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn pre_check_major_version_upgrade(
+        &self,
+        req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::pre_check_major_version_upgrade(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn point_in_time_restore(
+        &self,
+        req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::point_in_time_restore(self, req, options).await
     }
 }
 

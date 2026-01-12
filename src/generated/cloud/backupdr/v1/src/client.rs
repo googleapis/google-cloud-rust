@@ -559,3 +559,189 @@ impl BackupDR {
         super::builder::backup_dr::CancelOperation::new(self.inner.clone())
     }
 }
+
+/// Implements a client for the Backup and DR Service API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+/// let client = BackupDrProtectionSummary::builder().build().await?;
+/// // use `client` to make requests to the Backup and DR Service API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// The Protection Summary service.
+///
+/// # Configuration
+///
+/// To configure `BackupDrProtectionSummary` use the `with_*` methods in the type returned
+/// by [builder()][BackupDrProtectionSummary::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://backupdr.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::backup_dr_protection_summary::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::backup_dr_protection_summary::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `BackupDrProtectionSummary` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `BackupDrProtectionSummary` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct BackupDrProtectionSummary {
+    inner: std::sync::Arc<dyn super::stub::dynamic::BackupDrProtectionSummary>,
+}
+
+impl BackupDrProtectionSummary {
+    /// Returns a builder for [BackupDrProtectionSummary].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_backupdr_v1::client::BackupDrProtectionSummary;
+    /// let client = BackupDrProtectionSummary::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::backup_dr_protection_summary::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::backup_dr_protection_summary::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::BackupDrProtectionSummary + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::BackupDrProtectionSummary>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BackupDrProtectionSummary> {
+        super::transport::BackupDrProtectionSummary::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::BackupDrProtectionSummary> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::BackupDrProtectionSummary::new)
+    }
+
+    /// Lists ResourceBackupConfigs.
+    pub fn list_resource_backup_configs(
+        &self,
+    ) -> super::builder::backup_dr_protection_summary::ListResourceBackupConfigs {
+        super::builder::backup_dr_protection_summary::ListResourceBackupConfigs::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::backup_dr_protection_summary::ListLocations {
+        super::builder::backup_dr_protection_summary::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::backup_dr_protection_summary::GetLocation {
+        super::builder::backup_dr_protection_summary::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::backup_dr_protection_summary::SetIamPolicy {
+        super::builder::backup_dr_protection_summary::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::backup_dr_protection_summary::GetIamPolicy {
+        super::builder::backup_dr_protection_summary::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::backup_dr_protection_summary::TestIamPermissions {
+        super::builder::backup_dr_protection_summary::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::backup_dr_protection_summary::ListOperations {
+        super::builder::backup_dr_protection_summary::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::backup_dr_protection_summary::GetOperation {
+        super::builder::backup_dr_protection_summary::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(
+        &self,
+    ) -> super::builder::backup_dr_protection_summary::DeleteOperation {
+        super::builder::backup_dr_protection_summary::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::backup_dr_protection_summary::CancelOperation {
+        super::builder::backup_dr_protection_summary::CancelOperation::new(self.inner.clone())
+    }
+}

@@ -418,6 +418,474 @@ pub mod sql_backup_runs_service {
     }
 }
 
+pub mod sql_backups_service {
+    use crate::Result;
+
+    /// A builder for [SqlBackupsService][crate::client::SqlBackupsService].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::*;
+    /// # use builder::sql_backups_service::ClientBuilder;
+    /// # use client::SqlBackupsService;
+    /// let builder : ClientBuilder = SqlBackupsService::builder();
+    /// let client = builder
+    ///     .with_endpoint("https://sqladmin.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub type ClientBuilder =
+        gax::client_builder::ClientBuilder<client::Factory, gaxi::options::Credentials>;
+
+    pub(crate) mod client {
+        use super::super::super::client::SqlBackupsService;
+        pub struct Factory;
+        impl gax::client_builder::internal::ClientFactory for Factory {
+            type Client = SqlBackupsService;
+            type Credentials = gaxi::options::Credentials;
+            async fn build(
+                self,
+                config: gaxi::options::ClientConfig,
+            ) -> gax::client_builder::Result<Self::Client> {
+                Self::Client::new(config).await
+            }
+        }
+    }
+
+    /// Common implementation for [crate::client::SqlBackupsService] request builders.
+    #[derive(Clone, Debug)]
+    pub(crate) struct RequestBuilder<R: std::default::Default> {
+        stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        request: R,
+        options: gax::options::RequestOptions,
+    }
+
+    impl<R> RequestBuilder<R>
+    where
+        R: std::default::Default,
+    {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self {
+                stub,
+                request: R::default(),
+                options: gax::options::RequestOptions::default(),
+            }
+        }
+    }
+
+    /// The request builder for [SqlBackupsService::create_backup][crate::client::SqlBackupsService::create_backup] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_backups_service::CreateBackup;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> CreateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateBackup(RequestBuilder<crate::model::CreateBackupRequest>);
+
+    impl CreateBackup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateBackupRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .create_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateBackupRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::CreateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateBackup {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlBackupsService::get_backup][crate::client::SqlBackupsService::get_backup] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_backups_service::GetBackup;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetBackup(RequestBuilder<crate::model::GetBackupRequest>);
+
+    impl GetBackup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetBackupRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Backup> {
+            (*self.0.stub)
+                .get_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetBackup {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlBackupsService::list_backups][crate::client::SqlBackupsService::list_backups] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_backups_service::ListBackups;
+    /// # async fn sample() -> gax::Result<()> {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListBackups {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListBackups(RequestBuilder<crate::model::ListBackupsRequest>);
+
+    impl ListBackups {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListBackupsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListBackupsResponse> {
+            (*self.0.stub)
+                .list_backups(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListBackupsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListBackupsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListBackupsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListBackupsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListBackupsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListBackups {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlBackupsService::update_backup][crate::client::SqlBackupsService::update_backup] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_backups_service::UpdateBackup;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateBackup(RequestBuilder<crate::model::UpdateBackupRequest>);
+
+    impl UpdateBackup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateBackupRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .update_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [backup][crate::model::UpdateBackupRequest::backup].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Backup>,
+        {
+            self.0.request.backup = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateBackupRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateBackup {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlBackupsService::delete_backup][crate::client::SqlBackupsService::delete_backup] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_backups_service::DeleteBackup;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> DeleteBackup {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteBackup(RequestBuilder<crate::model::DeleteBackupRequest>);
+
+    impl DeleteBackup {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlBackupsService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteBackupRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .delete_backup(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::DeleteBackupRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteBackup {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+}
+
 pub mod sql_connect_service {
     use crate::Result;
 
@@ -1335,6 +1803,24 @@ pub mod sql_flags_service {
             self.0.request.database_version = v.into();
             self
         }
+
+        /// Sets the value of [flag_scope][crate::model::SqlFlagsListRequest::flag_scope].
+        pub fn set_flag_scope<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::SqlFlagScope>,
+        {
+            self.0.request.flag_scope = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flag_scope][crate::model::SqlFlagsListRequest::flag_scope].
+        pub fn set_or_clear_flag_scope<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::SqlFlagScope>,
+        {
+            self.0.request.flag_scope = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1471,6 +1957,152 @@ pub mod sql_instances_service {
         }
     }
 
+    /// The request builder for [SqlInstancesService::add_server_certificate][crate::client::SqlInstancesService::add_server_certificate] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::AddServerCertificate;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AddServerCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AddServerCertificate(
+        RequestBuilder<crate::model::SqlInstancesAddServerCertificateRequest>,
+    );
+
+    impl AddServerCertificate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesAddServerCertificateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .add_server_certificate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesAddServerCertificateRequest::instance].
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesAddServerCertificateRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddServerCertificate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::add_entra_id_certificate][crate::client::SqlInstancesService::add_entra_id_certificate] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::AddEntraIdCertificate;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> AddEntraIdCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct AddEntraIdCertificate(
+        RequestBuilder<crate::model::SqlInstancesAddEntraIdCertificateRequest>,
+    );
+
+    impl AddEntraIdCertificate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesAddEntraIdCertificateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .add_entra_id_certificate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesAddEntraIdCertificateRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesAddEntraIdCertificateRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for AddEntraIdCertificate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SqlInstancesService::clone][crate::client::SqlInstancesService::clone] calls.
     ///
     /// # Example
@@ -1521,18 +2153,24 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesCloneRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesCloneRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
         }
 
         /// Sets the value of [body][crate::model::SqlInstancesCloneRequest::body].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_body<T>(mut self, v: T) -> Self
         where
             T: std::convert::Into<crate::model::InstancesCloneRequest>,
@@ -1542,6 +2180,8 @@ pub mod sql_instances_service {
         }
 
         /// Sets or clears the value of [body][crate::model::SqlInstancesCloneRequest::body].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
         where
             T: std::convert::Into<crate::model::InstancesCloneRequest>,
@@ -1616,6 +2256,69 @@ pub mod sql_instances_service {
         /// Sets the value of [project][crate::model::SqlInstancesDeleteRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [enable_final_backup][crate::model::SqlInstancesDeleteRequest::enable_final_backup].
+        pub fn set_enable_final_backup<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.enable_final_backup = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enable_final_backup][crate::model::SqlInstancesDeleteRequest::enable_final_backup].
+        pub fn set_or_clear_enable_final_backup<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.enable_final_backup = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [final_backup_description][crate::model::SqlInstancesDeleteRequest::final_backup_description].
+        pub fn set_final_backup_description<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.final_backup_description = v.into();
+            self
+        }
+
+        /// Sets the value of [expiration][crate::model::SqlInstancesDeleteRequest::expiration].
+        ///
+        /// Note that all the setters affecting `expiration` are
+        /// mutually exclusive.
+        pub fn set_expiration<
+            T: Into<Option<crate::model::sql_instances_delete_request::Expiration>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.expiration = v.into();
+            self
+        }
+
+        /// Sets the value of [expiration][crate::model::SqlInstancesDeleteRequest::expiration]
+        /// to hold a `FinalBackupTtlDays`.
+        ///
+        /// Note that all the setters affecting `expiration` are
+        /// mutually exclusive.
+        pub fn set_final_backup_ttl_days<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+            self.0.request = self.0.request.set_final_backup_ttl_days(v);
+            self
+        }
+
+        /// Sets the value of [expiration][crate::model::SqlInstancesDeleteRequest::expiration]
+        /// to hold a `FinalBackupExpiryTime`.
+        ///
+        /// Note that all the setters affecting `expiration` are
+        /// mutually exclusive.
+        pub fn set_final_backup_expiry_time<
+            T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_final_backup_expiry_time(v);
             self
         }
     }
@@ -2117,12 +2820,16 @@ pub mod sql_instances_service {
         }
 
         /// Sets the value of [instance][crate::model::SqlInstancesGetRequest::instance].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.instance = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlInstancesGetRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -2482,6 +3189,156 @@ pub mod sql_instances_service {
         }
     }
 
+    /// The request builder for [SqlInstancesService::list_server_certificates][crate::client::SqlInstancesService::list_server_certificates] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::ListServerCertificates;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListServerCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListServerCertificates(
+        RequestBuilder<crate::model::SqlInstancesListServerCertificatesRequest>,
+    );
+
+    impl ListServerCertificates {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesListServerCertificatesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstancesListServerCertificatesResponse> {
+            (*self.0.stub)
+                .list_server_certificates(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesListServerCertificatesRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesListServerCertificatesRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListServerCertificates {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::list_entra_id_certificates][crate::client::SqlInstancesService::list_entra_id_certificates] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::ListEntraIdCertificates;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ListEntraIdCertificates {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListEntraIdCertificates(
+        RequestBuilder<crate::model::SqlInstancesListEntraIdCertificatesRequest>,
+    );
+
+    impl ListEntraIdCertificates {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesListEntraIdCertificatesRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::InstancesListEntraIdCertificatesResponse> {
+            (*self.0.stub)
+                .list_entra_id_certificates(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesListEntraIdCertificatesRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesListEntraIdCertificatesRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListEntraIdCertificates {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [SqlInstancesService::patch][crate::client::SqlInstancesService::patch] calls.
     ///
     /// # Example
@@ -2791,6 +3648,17 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [mode][crate::model::SqlInstancesResetSslConfigRequest::mode].
+        pub fn set_mode<
+            T: Into<crate::model::sql_instances_reset_ssl_config_request::ResetSslMode>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.mode = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3038,6 +3906,192 @@ pub mod sql_instances_service {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for RotateServerCa {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::rotate_server_certificate][crate::client::SqlInstancesService::rotate_server_certificate] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateServerCertificate;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RotateServerCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RotateServerCertificate(
+        RequestBuilder<crate::model::SqlInstancesRotateServerCertificateRequest>,
+    );
+
+    impl RotateServerCertificate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesRotateServerCertificateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .rotate_server_certificate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesRotateServerCertificateRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesRotateServerCertificateRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::SqlInstancesRotateServerCertificateRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateServerCertificateRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRotateServerCertificateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateServerCertificateRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RotateServerCertificate {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::rotate_entra_id_certificate][crate::client::SqlInstancesService::rotate_entra_id_certificate] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::RotateEntraIdCertificate;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> RotateEntraIdCertificate {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct RotateEntraIdCertificate(
+        RequestBuilder<crate::model::SqlInstancesRotateEntraIdCertificateRequest>,
+    );
+
+    impl RotateEntraIdCertificate {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesRotateEntraIdCertificateRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .rotate_entra_id_certificate(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesRotateEntraIdCertificateRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesRotateEntraIdCertificateRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::SqlInstancesRotateEntraIdCertificateRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateEntraIdCertificateRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesRotateEntraIdCertificateRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesRotateEntraIdCertificateRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for RotateEntraIdCertificate {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -3645,6 +4699,17 @@ pub mod sql_instances_service {
             self
         }
 
+        /// Sets the value of [selected_objects][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::selected_objects].
+        pub fn set_selected_objects<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ExternalSyncSelectedObject>,
+        {
+            use std::iter::Iterator;
+            self.0.request.selected_objects = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
         /// Sets the value of [sync_config][crate::model::SqlInstancesVerifyExternalSyncSettingsRequest::sync_config].
         ///
         /// Note that all the setters affecting `sync_config` are
@@ -3785,6 +4850,12 @@ pub mod sql_instances_service {
             v: T,
         ) -> Self {
             self.0.request.migration_type = v.into();
+            self
+        }
+
+        /// Sets the value of [replica_overwrite_enabled][crate::model::SqlInstancesStartExternalSyncRequest::replica_overwrite_enabled].
+        pub fn set_replica_overwrite_enabled<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.replica_overwrite_enabled = v.into();
             self
         }
 
@@ -4116,10 +5187,122 @@ pub mod sql_instances_service {
             self.0.request.project = v.into();
             self
         }
+
+        /// Sets the value of [source_instance_deletion_time][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::source_instance_deletion_time].
+        pub fn set_source_instance_deletion_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.source_instance_deletion_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [source_instance_deletion_time][crate::model::SqlInstancesGetLatestRecoveryTimeRequest::source_instance_deletion_time].
+        pub fn set_or_clear_source_instance_deletion_time<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.0.request.source_instance_deletion_time = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for GetLatestRecoveryTime {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::execute_sql][crate::client::SqlInstancesService::execute_sql] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::ExecuteSql;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> ExecuteSql {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ExecuteSql(RequestBuilder<crate::model::SqlInstancesExecuteSqlRequest>);
+
+    impl ExecuteSql {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesExecuteSqlRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::SqlInstancesExecuteSqlResponse> {
+            (*self.0.stub)
+                .execute_sql(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesExecuteSqlRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesExecuteSqlRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::SqlInstancesExecuteSqlRequest::body].
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::ExecuteSqlPayload>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesExecuteSqlRequest::body].
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::ExecuteSqlPayload>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ExecuteSql {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }
@@ -4292,6 +5475,194 @@ pub mod sql_instances_service {
             &mut self.0.options
         }
     }
+
+    /// The request builder for [SqlInstancesService::pre_check_major_version_upgrade][crate::client::SqlInstancesService::pre_check_major_version_upgrade] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::PreCheckMajorVersionUpgrade;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> PreCheckMajorVersionUpgrade {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct PreCheckMajorVersionUpgrade(
+        RequestBuilder<crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest>,
+    );
+
+    impl PreCheckMajorVersionUpgrade {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<
+            V: Into<crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest>,
+        >(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .pre_check_major_version_upgrade(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [instance][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::instance].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_instance<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.instance = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::project].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [body][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_body<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesPreCheckMajorVersionUpgradeRequest>,
+        {
+            self.0.request.body = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [body][crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest::body].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_body<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::InstancesPreCheckMajorVersionUpgradeRequest>,
+        {
+            self.0.request.body = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PreCheckMajorVersionUpgrade {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [SqlInstancesService::point_in_time_restore][crate::client::SqlInstancesService::point_in_time_restore] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_sql_v1::builder::sql_instances_service::PointInTimeRestore;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> PointInTimeRestore {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct PointInTimeRestore(
+        RequestBuilder<crate::model::SqlInstancesPointInTimeRestoreRequest>,
+    );
+
+    impl PointInTimeRestore {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::SqlInstancesService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::SqlInstancesPointInTimeRestoreRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .point_in_time_restore(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [parent][crate::model::SqlInstancesPointInTimeRestoreRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [context][crate::model::SqlInstancesPointInTimeRestoreRequest::context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_context<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::PointInTimeRestoreContext>,
+        {
+            self.0.request.context = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [context][crate::model::SqlInstancesPointInTimeRestoreRequest::context].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_context<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::PointInTimeRestoreContext>,
+        {
+            self.0.request.context = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for PointInTimeRestore {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
 }
 
 pub mod sql_operations_service {
@@ -4401,12 +5772,16 @@ pub mod sql_operations_service {
         }
 
         /// Sets the value of [operation][crate::model::SqlOperationsGetRequest::operation].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.operation = v.into();
             self
         }
 
         /// Sets the value of [project][crate::model::SqlOperationsGetRequest::project].
+        ///
+        /// This is a **required** field for requests.
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
             self
@@ -5505,6 +6880,17 @@ pub mod sql_users_service {
         /// Sets the value of [project][crate::model::SqlUsersUpdateRequest::project].
         pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
             self.0.request.project = v.into();
+            self
+        }
+
+        /// Sets the value of [database_roles][crate::model::SqlUsersUpdateRequest::database_roles].
+        pub fn set_database_roles<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.0.request.database_roles = v.into_iter().map(|i| i.into()).collect();
             self
         }
 

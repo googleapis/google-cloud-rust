@@ -13,9 +13,11 @@ should not introduce breaking changes to the client libraries.
 The main types to work with this crate are the clients:
 
 - [BackupDR]
+- [BackupDrProtectionSummary]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-backupdr-v1/1.4.0)
 
 [BackupDR]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDR.html
+[BackupDrProtectionSummary]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDrProtectionSummary.html

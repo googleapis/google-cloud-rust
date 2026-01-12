@@ -1877,3 +1877,145 @@ impl std::fmt::Debug for super::FetchDataSourceReferencesForResourceTypeResponse
         debug_struct.finish()
     }
 }
+
+impl std::fmt::Debug for super::ListResourceBackupConfigsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceBackupConfigsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListResourceBackupConfigsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListResourceBackupConfigsResponse");
+        debug_struct.field("resource_backup_configs", &self.resource_backup_configs);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ResourceBackupConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ResourceBackupConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("target_resource", &self.target_resource);
+        debug_struct.field(
+            "target_resource_display_name",
+            &self.target_resource_display_name,
+        );
+        debug_struct.field("target_resource_type", &self.target_resource_type);
+        debug_struct.field("target_resource_labels", &self.target_resource_labels);
+        debug_struct.field("backup_configs_details", &self.backup_configs_details);
+        debug_struct.field("backup_configured", &self.backup_configured);
+        debug_struct.field("vaulted", &self.vaulted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupConfigDetails {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupConfigDetails");
+        debug_struct.field("backup_config_source", &self.backup_config_source);
+        debug_struct.field(
+            "backup_config_source_display_name",
+            &self.backup_config_source_display_name,
+        );
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("pitr_settings", &self.pitr_settings);
+        debug_struct.field(
+            "latest_successful_backup_time",
+            &self.latest_successful_backup_time,
+        );
+        debug_struct.field("applicable_resource", &self.applicable_resource);
+        debug_struct.field("backup_vault", &self.backup_vault);
+        debug_struct.field("backup_locations", &self.backup_locations);
+        debug_struct.field("plan_specific_config", &self.plan_specific_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::PitrSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PitrSettings");
+        debug_struct.field("retention_days", &self.retention_days);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupDrTemplateConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupDrTemplateConfig");
+        debug_struct.field(
+            "first_party_management_uri",
+            &self.first_party_management_uri,
+        );
+        debug_struct.field(
+            "third_party_management_uri",
+            &self.third_party_management_uri,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupDrPlanConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupDrPlanConfig");
+        debug_struct.field("backup_dr_plan_rules", &self.backup_dr_plan_rules);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupDrPlanRule {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupDrPlanRule");
+        debug_struct.field("rule_id", &self.rule_id);
+        debug_struct.field(
+            "last_successful_backup_time",
+            &self.last_successful_backup_time,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BackupLocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackupLocation");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("location_id", &self.location_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
