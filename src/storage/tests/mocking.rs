@@ -25,8 +25,8 @@ mod tests {
     use gcs::request_options::RequestOptions;
     use gcs::streaming_source::{BytesSource, Payload, Seek, StreamingSource};
     use gcs::{
-        model_ext::{OpenObjectRequest, ReadRange},
         http::HeaderMap,
+        model_ext::{OpenObjectRequest, ReadRange},
         object_descriptor::ObjectDescriptor,
     };
     use google_cloud_storage as gcs;
