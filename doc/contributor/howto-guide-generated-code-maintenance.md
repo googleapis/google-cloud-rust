@@ -56,7 +56,9 @@ Run:
 ```bash
 git checkout -b chore-update-googleapis-sha-circa-$(date +%Y-%m-%d)
 V=$(cat .librarian-version.txt)
+go run github.com/googleapis/librarian/cmd/librarian@${V} update googleapis
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
+cargo update --workspace
 git commit -m"chore: update googleapis SHA circa $(date +%Y-%m-%d)" .
 ```
 
@@ -66,8 +68,9 @@ Then send a PR with whatever changed.
 
 ```bash
 git checkout -b chore-update-discovery-sha-circa-$(date +%Y-%m-%d)
-go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery && 
-go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
+go run github.com/googleapis/librarian/cmd/librarian@${V} update discovery
+# Note that at the moment, compute is the only discovery based service.
+go run github.com/googleapis/librarian/cmd/librarian@${V} generate google-cloud-compute-v1
 git commit -m "chore: update discovery SHA circa $(date +%Y-%m-%d)" .
 ```
 
