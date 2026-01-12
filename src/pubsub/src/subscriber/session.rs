@@ -14,7 +14,6 @@
 
 use super::builder::StreamingPull;
 use super::handler::{AckResult, AtLeastOnce, Handler};
-use super::keepalive;
 use super::lease_loop::LeaseLoop;
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
@@ -69,7 +68,8 @@ pub struct Session {
     ack_tx: UnboundedSender<AckResult>,
 
     /// A guard which signals a shutdown to the task sending keepalive pings
-    /// when it is dropped.
+    /// when it is dropped. It is more convenient to hold a `DropGuard` than to
+    /// have a custom `impl Drop for Session`.
     _keepalive_guard: DropGuard,
 
     /// A handle on the lease loop task.
@@ -105,8 +105,7 @@ impl Session {
             client_id: builder.client_id,
             ..Default::default()
         };
-        let (stream, request_tx) = open_stream(inner, initial_req).await?;
-        keepalive::spawn(request_tx, shutdown.clone());
+        let stream = open_stream(inner, initial_req, shutdown.clone()).await?;
 
         Ok(Self {
             stream,
