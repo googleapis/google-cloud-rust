@@ -160,10 +160,11 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_service_account()
     ///         .set_name(resource_name)
@@ -184,9 +185,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .create_service_account()
     ///         /* set fields */
@@ -213,9 +215,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .update_service_account()
     ///         /* set fields */
@@ -236,9 +239,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .patch_service_account()
     ///         /* set fields */
@@ -274,10 +278,11 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .delete_service_account()
     ///         .set_name(resource_name)
@@ -304,9 +309,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .undelete_service_account()
     ///         /* set fields */
@@ -335,9 +341,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .enable_service_account()
     ///         /* set fields */
@@ -374,9 +381,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .disable_service_account()
     ///         /* set fields */
@@ -396,9 +404,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .list_service_account_keys()
     ///         /* set fields */
@@ -419,10 +428,11 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_service_account_key()
     ///         .set_name(resource_name)
@@ -443,9 +453,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .create_service_account_key()
     ///         /* set fields */
@@ -470,9 +481,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .upload_service_account_key()
     ///         /* set fields */
@@ -495,10 +507,11 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .delete_service_account_key()
     ///         .set_name(resource_name)
@@ -520,9 +533,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .disable_service_account_key()
     ///         /* set fields */
@@ -542,9 +556,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .enable_service_account_key()
     ///         /* set fields */
@@ -571,9 +586,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .sign_blob()
     ///         /* set fields */
@@ -603,9 +619,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .sign_jwt()
     ///         /* set fields */
@@ -636,9 +653,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_iam_policy()
     ///         /* set fields */
@@ -677,9 +695,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .set_iam_policy()
     ///         /* set fields */
@@ -701,9 +720,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .test_iam_permissions()
     ///         /* set fields */
@@ -739,9 +759,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_role()
     ///         /* set fields */
@@ -762,9 +783,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .create_role()
     ///         /* set fields */
@@ -785,9 +807,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .update_role()
     ///         /* set fields */
@@ -826,9 +849,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .delete_role()
     ///         /* set fields */
@@ -849,9 +873,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .undelete_role()
     ///         /* set fields */
@@ -881,9 +906,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .query_auditable_services()
     ///         /* set fields */
@@ -909,9 +935,10 @@ impl Iam {
     /// # Example
     /// ```
     /// # use google_cloud_iam_admin_v1::client::Iam;
+    /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
     ///    client: &Iam
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .lint_policy()
     ///         /* set fields */

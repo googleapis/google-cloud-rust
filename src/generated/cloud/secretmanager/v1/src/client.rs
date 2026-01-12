@@ -146,9 +146,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .create_secret()
     ///         /* set fields */
@@ -172,9 +173,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .add_secret_version()
     ///         /* set fields */
@@ -195,10 +197,11 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_secret()
     ///         .set_name(resource_name)
@@ -220,9 +223,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .update_secret()
     ///         /* set fields */
@@ -243,10 +247,11 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     client
     ///         .delete_secret()
     ///         .set_name(resource_name)
@@ -280,10 +285,11 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService,
     ///    resource_name: &str
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_secret_version()
     ///         .set_name(resource_name)
@@ -308,9 +314,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .access_secret_version()
     ///         /* set fields */
@@ -339,9 +346,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .disable_secret_version()
     ///         /* set fields */
@@ -370,9 +378,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .enable_secret_version()
     ///         /* set fields */
@@ -402,9 +411,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .destroy_secret_version()
     ///         /* set fields */
@@ -434,9 +444,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .set_iam_policy()
     ///         /* set fields */
@@ -456,9 +467,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_iam_policy()
     ///         /* set fields */
@@ -483,9 +495,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .test_iam_permissions()
     ///         /* set fields */
@@ -511,9 +524,10 @@ impl SecretManagerService {
     /// # Example
     /// ```
     /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
     /// async fn sample(
     ///    client: &SecretManagerService
-    /// ) -> gax::Result<()> {
+    /// ) -> Result<()> {
     ///     let response = client
     ///         .get_location()
     ///         /* set fields */
