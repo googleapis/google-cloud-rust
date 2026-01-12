@@ -3327,6 +3327,12 @@ impl serde::ser::Serialize for super::BackendService {
         if self.network.is_some() {
             state.serialize_entry("network", &self.network)?;
         }
+        if self.network_pass_through_lb_traffic_policy.is_some() {
+            state.serialize_entry(
+                "networkPassThroughLbTrafficPolicy",
+                &self.network_pass_through_lb_traffic_policy,
+            )?;
+        }
         if self.outlier_detection.is_some() {
             state.serialize_entry("outlierDetection", &self.outlier_detection)?;
         }
@@ -4273,6 +4279,66 @@ impl serde::ser::Serialize for super::BackendServiceLogConfig {
                 }
             }
             state.serialize_entry("sampleRate", &__With(&self.sample_rate))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BackendServiceNetworkPassThroughLbTrafficPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.zonal_affinity.is_some() {
+            state.serialize_entry("zonalAffinity", &self.zonal_affinity)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.spillover.is_some() {
+            state.serialize_entry("spillover", &self.spillover)?;
+        }
+        if self.spillover_ratio.is_some() {
+            struct __With<'a>(&'a std::option::Option<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("spilloverRatio", &__With(&self.spillover_ratio))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -9316,6 +9382,9 @@ impl serde::ser::Serialize for super::FirewallPolicyRuleMatcher {
         if !self.dest_ip_ranges.is_empty() {
             state.serialize_entry("destIpRanges", &self.dest_ip_ranges)?;
         }
+        if self.dest_network_context.is_some() {
+            state.serialize_entry("destNetworkContext", &self.dest_network_context)?;
+        }
         if self.dest_network_type.is_some() {
             state.serialize_entry("destNetworkType", &self.dest_network_type)?;
         }
@@ -9336,6 +9405,9 @@ impl serde::ser::Serialize for super::FirewallPolicyRuleMatcher {
         }
         if !self.src_ip_ranges.is_empty() {
             state.serialize_entry("srcIpRanges", &self.src_ip_ranges)?;
+        }
+        if self.src_network_context.is_some() {
+            state.serialize_entry("srcNetworkContext", &self.src_network_context)?;
         }
         if self.src_network_type.is_some() {
             state.serialize_entry("srcNetworkType", &self.src_network_type)?;
@@ -22545,6 +22617,9 @@ impl serde::ser::Serialize for super::License {
         if self.os_license.is_some() {
             state.serialize_entry("osLicense", &self.os_license)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.removable_from_disk.is_some() {
             state.serialize_entry("removableFromDisk", &self.removable_from_disk)?;
         }
@@ -22655,6 +22730,29 @@ impl serde::ser::Serialize for super::LicenseCodeLicenseAlias {
         }
         if self.self_link.is_some() {
             state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "licenses")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::LicenseParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -26553,6 +26651,9 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
         if !self.address_purposes.is_empty() {
             state.serialize_entry("addressPurposes", &self.address_purposes)?;
         }
+        if self.allow_address_creation.is_some() {
+            state.serialize_entry("allowAddressCreation", &self.allow_address_creation)?;
+        }
         if self.allow_alias_ip_ranges.is_some() {
             state.serialize_entry("allowAliasIpRanges", &self.allow_alias_ip_ranges)?;
         }
@@ -26577,6 +26678,9 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
         if self.allow_external_ip_access.is_some() {
             state.serialize_entry("allowExternalIpAccess", &self.allow_external_ip_access)?;
         }
+        if self.allow_firewall_policy.is_some() {
+            state.serialize_entry("allowFirewallPolicy", &self.allow_firewall_policy)?;
+        }
         if self.allow_interconnect.is_some() {
             state.serialize_entry("allowInterconnect", &self.allow_interconnect)?;
         }
@@ -26590,6 +26694,12 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
             state.serialize_entry(
                 "allowMultiNicInSameNetwork",
                 &self.allow_multi_nic_in_same_network,
+            )?;
+        }
+        if self.allow_multi_nic_in_same_subnetwork.is_some() {
+            state.serialize_entry(
+                "allowMultiNicInSameSubnetwork",
+                &self.allow_multi_nic_in_same_subnetwork,
             )?;
         }
         if self.allow_multicast.is_some() {
@@ -26622,17 +26732,38 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
         if self.allow_sub_interfaces.is_some() {
             state.serialize_entry("allowSubInterfaces", &self.allow_sub_interfaces)?;
         }
+        if self.allow_subnetwork_creation.is_some() {
+            state.serialize_entry("allowSubnetworkCreation", &self.allow_subnetwork_creation)?;
+        }
+        if self.allow_vpc_firewall_rules.is_some() {
+            state.serialize_entry("allowVpcFirewallRules", &self.allow_vpc_firewall_rules)?;
+        }
         if self.allow_vpc_peering.is_some() {
             state.serialize_entry("allowVpcPeering", &self.allow_vpc_peering)?;
         }
         if self.allow_vpn.is_some() {
             state.serialize_entry("allowVpn", &self.allow_vpn)?;
         }
+        if !self.firewall_policy_types.is_empty() {
+            state.serialize_entry("firewallPolicyTypes", &self.firewall_policy_types)?;
+        }
         if !self.interface_types.is_empty() {
             state.serialize_entry("interfaceTypes", &self.interface_types)?;
         }
         if self.multicast.is_some() {
             state.serialize_entry("multicast", &self.multicast)?;
+        }
+        if self.predefined_network_internal_ipv_6_range.is_some() {
+            state.serialize_entry(
+                "predefinedNetworkInternalIpv6Range",
+                &self.predefined_network_internal_ipv_6_range,
+            )?;
+        }
+        if !self.predefined_subnetwork_ranges.is_empty() {
+            state.serialize_entry(
+                "predefinedSubnetworkRanges",
+                &self.predefined_subnetwork_ranges,
+            )?;
         }
         if !self.subnet_purposes.is_empty() {
             state.serialize_entry("subnetPurposes", &self.subnet_purposes)?;
@@ -26648,6 +26779,32 @@ impl serde::ser::Serialize for super::NetworkProfileNetworkFeatures {
         }
         if self.unicast.is_some() {
             state.serialize_entry("unicast", &self.unicast)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "network-profiles")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::NetworkProfileNetworkFeaturesPredefinedSubnetworkRange {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.ipv_6_range.is_some() {
+            state.serialize_entry("ipv6Range", &self.ipv_6_range)?;
+        }
+        if self.name_prefix.is_some() {
+            state.serialize_entry("namePrefix", &self.name_prefix)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -34459,6 +34616,20 @@ impl serde::ser::Serialize for super::ReservationBlock {
             }
             state.serialize_entry("inUseCount", &__With(&self.in_use_count))?;
         }
+        if self.in_use_host_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("inUseHostCount", &__With(&self.in_use_host_count))?;
+        }
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
         }
@@ -34962,6 +35133,20 @@ impl serde::ser::Serialize for super::ReservationSubBlock {
                 }
             }
             state.serialize_entry("inUseCount", &__With(&self.in_use_count))?;
+        }
+        if self.in_use_host_count.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("inUseHostCount", &__With(&self.in_use_host_count))?;
         }
         if self.kind.is_some() {
             state.serialize_entry("kind", &self.kind)?;
@@ -42222,6 +42407,12 @@ impl serde::ser::Serialize for super::SourceInstanceProperties {
         if !self.network_interfaces.is_empty() {
             state.serialize_entry("networkInterfaces", &self.network_interfaces)?;
         }
+        if self.post_key_revocation_action_type.is_some() {
+            state.serialize_entry(
+                "postKeyRevocationActionType",
+                &self.post_key_revocation_action_type,
+            )?;
+        }
         if self.scheduling.is_some() {
             state.serialize_entry("scheduling", &self.scheduling)?;
         }
@@ -43407,6 +43598,9 @@ impl serde::ser::Serialize for super::StoragePool {
         if self.name.is_some() {
             state.serialize_entry("name", &self.name)?;
         }
+        if self.params.is_some() {
+            state.serialize_entry("params", &self.params)?;
+        }
         if self.performance_provisioning_type.is_some() {
             state.serialize_entry(
                 "performanceProvisioningType",
@@ -43940,6 +44134,29 @@ impl serde::ser::Serialize for super::storage_pool_list_disks::warning::Data {
         }
         if self.value.is_some() {
             state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StoragePoolParams {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.resource_manager_tags.is_empty() {
+            state.serialize_entry("resourceManagerTags", &self.resource_manager_tags)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -48414,6 +48631,7 @@ impl serde::ser::Serialize for super::TestFailure {
 
 #[cfg(any(
     feature = "addresses",
+    feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
     feature = "disks",
@@ -48421,6 +48639,9 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "firewall-policies",
     feature = "firewalls",
     feature = "global-addresses",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
     feature = "images",
     feature = "instance-groups",
     feature = "instance-templates",
@@ -48437,21 +48658,28 @@ impl serde::ser::Serialize for super::TestFailure {
     feature = "node-groups",
     feature = "node-templates",
     feature = "packet-mirrorings",
+    feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
     feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "url-maps",
     feature = "vpn-gateways",
 ))]
 #[doc(hidden)]
@@ -48478,6 +48706,7 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
 
 #[cfg(any(
     feature = "addresses",
+    feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
     feature = "disks",
@@ -48485,6 +48714,9 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "firewall-policies",
     feature = "firewalls",
     feature = "global-addresses",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
     feature = "images",
     feature = "instance-groups",
     feature = "instance-templates",
@@ -48501,21 +48733,28 @@ impl serde::ser::Serialize for super::TestPermissionsRequest {
     feature = "node-groups",
     feature = "node-templates",
     feature = "packet-mirrorings",
+    feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
     feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "url-maps",
     feature = "vpn-gateways",
 ))]
 #[doc(hidden)]

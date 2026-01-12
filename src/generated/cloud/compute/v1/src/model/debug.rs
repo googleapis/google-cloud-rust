@@ -1347,6 +1347,10 @@ impl std::fmt::Debug for super::BackendService {
         debug_struct.field("metadatas", &self.metadatas);
         debug_struct.field("name", &self.name);
         debug_struct.field("network", &self.network);
+        debug_struct.field(
+            "network_pass_through_lb_traffic_policy",
+            &self.network_pass_through_lb_traffic_policy,
+        );
         debug_struct.field("outlier_detection", &self.outlier_detection);
         debug_struct.field("params", &self.params);
         debug_struct.field("port", &self.port);
@@ -1741,6 +1745,32 @@ impl std::fmt::Debug for super::BackendServiceLogConfig {
         debug_struct.field("optional_fields", &self.optional_fields);
         debug_struct.field("optional_mode", &self.optional_mode);
         debug_struct.field("sample_rate", &self.sample_rate);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl std::fmt::Debug for super::BackendServiceNetworkPassThroughLbTrafficPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BackendServiceNetworkPassThroughLbTrafficPolicy");
+        debug_struct.field("zonal_affinity", &self.zonal_affinity);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "backend-services", feature = "region-backend-services",))]
+impl std::fmt::Debug for super::BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("BackendServiceNetworkPassThroughLbTrafficPolicyZonalAffinity");
+        debug_struct.field("spillover", &self.spillover);
+        debug_struct.field("spillover_ratio", &self.spillover_ratio);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3984,6 +4014,7 @@ impl std::fmt::Debug for super::FirewallPolicyRuleMatcher {
         debug_struct.field("dest_address_groups", &self.dest_address_groups);
         debug_struct.field("dest_fqdns", &self.dest_fqdns);
         debug_struct.field("dest_ip_ranges", &self.dest_ip_ranges);
+        debug_struct.field("dest_network_context", &self.dest_network_context);
         debug_struct.field("dest_network_type", &self.dest_network_type);
         debug_struct.field("dest_region_codes", &self.dest_region_codes);
         debug_struct.field("dest_threat_intelligences", &self.dest_threat_intelligences);
@@ -3991,6 +4022,7 @@ impl std::fmt::Debug for super::FirewallPolicyRuleMatcher {
         debug_struct.field("src_address_groups", &self.src_address_groups);
         debug_struct.field("src_fqdns", &self.src_fqdns);
         debug_struct.field("src_ip_ranges", &self.src_ip_ranges);
+        debug_struct.field("src_network_context", &self.src_network_context);
         debug_struct.field("src_network_type", &self.src_network_type);
         debug_struct.field("src_networks", &self.src_networks);
         debug_struct.field("src_region_codes", &self.src_region_codes);
@@ -9804,6 +9836,7 @@ impl std::fmt::Debug for super::License {
         debug_struct.field("multi_tenant_only", &self.multi_tenant_only);
         debug_struct.field("name", &self.name);
         debug_struct.field("os_license", &self.os_license);
+        debug_struct.field("params", &self.params);
         debug_struct.field("removable_from_disk", &self.removable_from_disk);
         debug_struct.field(
             "required_coattached_licenses",
@@ -9848,6 +9881,18 @@ impl std::fmt::Debug for super::LicenseCodeLicenseAlias {
         let mut debug_struct = f.debug_struct("LicenseCodeLicenseAlias");
         debug_struct.field("description", &self.description);
         debug_struct.field("self_link", &self.self_link);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "licenses")]
+impl std::fmt::Debug for super::LicenseParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LicenseParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -11603,6 +11648,7 @@ impl std::fmt::Debug for super::NetworkProfileNetworkFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("NetworkProfileNetworkFeatures");
         debug_struct.field("address_purposes", &self.address_purposes);
+        debug_struct.field("allow_address_creation", &self.allow_address_creation);
         debug_struct.field("allow_alias_ip_ranges", &self.allow_alias_ip_ranges);
         debug_struct.field("allow_auto_mode_subnet", &self.allow_auto_mode_subnet);
         debug_struct.field("allow_class_d_firewalls", &self.allow_class_d_firewalls);
@@ -11613,12 +11659,17 @@ impl std::fmt::Debug for super::NetworkProfileNetworkFeatures {
             &self.allow_default_nic_attachment,
         );
         debug_struct.field("allow_external_ip_access", &self.allow_external_ip_access);
+        debug_struct.field("allow_firewall_policy", &self.allow_firewall_policy);
         debug_struct.field("allow_interconnect", &self.allow_interconnect);
         debug_struct.field("allow_ip_forwarding", &self.allow_ip_forwarding);
         debug_struct.field("allow_load_balancing", &self.allow_load_balancing);
         debug_struct.field(
             "allow_multi_nic_in_same_network",
             &self.allow_multi_nic_in_same_network,
+        );
+        debug_struct.field(
+            "allow_multi_nic_in_same_subnetwork",
+            &self.allow_multi_nic_in_same_subnetwork,
         );
         debug_struct.field("allow_multicast", &self.allow_multicast);
         debug_struct.field("allow_ncc", &self.allow_ncc);
@@ -11635,15 +11686,40 @@ impl std::fmt::Debug for super::NetworkProfileNetworkFeatures {
         );
         debug_struct.field("allow_static_routes", &self.allow_static_routes);
         debug_struct.field("allow_sub_interfaces", &self.allow_sub_interfaces);
+        debug_struct.field("allow_subnetwork_creation", &self.allow_subnetwork_creation);
+        debug_struct.field("allow_vpc_firewall_rules", &self.allow_vpc_firewall_rules);
         debug_struct.field("allow_vpc_peering", &self.allow_vpc_peering);
         debug_struct.field("allow_vpn", &self.allow_vpn);
+        debug_struct.field("firewall_policy_types", &self.firewall_policy_types);
         debug_struct.field("interface_types", &self.interface_types);
         debug_struct.field("multicast", &self.multicast);
+        debug_struct.field(
+            "predefined_network_internal_ipv_6_range",
+            &self.predefined_network_internal_ipv_6_range,
+        );
+        debug_struct.field(
+            "predefined_subnetwork_ranges",
+            &self.predefined_subnetwork_ranges,
+        );
         debug_struct.field("subnet_purposes", &self.subnet_purposes);
         debug_struct.field("subnet_stack_types", &self.subnet_stack_types);
         debug_struct.field("subnetwork_purposes", &self.subnetwork_purposes);
         debug_struct.field("subnetwork_stack_types", &self.subnetwork_stack_types);
         debug_struct.field("unicast", &self.unicast);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "network-profiles")]
+impl std::fmt::Debug for super::NetworkProfileNetworkFeaturesPredefinedSubnetworkRange {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct =
+            f.debug_struct("NetworkProfileNetworkFeaturesPredefinedSubnetworkRange");
+        debug_struct.field("ipv_6_range", &self.ipv_6_range);
+        debug_struct.field("name_prefix", &self.name_prefix);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -15444,6 +15520,7 @@ impl std::fmt::Debug for super::ReservationBlock {
         debug_struct.field("health_info", &self.health_info);
         debug_struct.field("id", &self.id);
         debug_struct.field("in_use_count", &self.in_use_count);
+        debug_struct.field("in_use_host_count", &self.in_use_host_count);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("name", &self.name);
         debug_struct.field("physical_topology", &self.physical_topology);
@@ -15636,6 +15713,7 @@ impl std::fmt::Debug for super::ReservationSubBlock {
         debug_struct.field("health_info", &self.health_info);
         debug_struct.field("id", &self.id);
         debug_struct.field("in_use_count", &self.in_use_count);
+        debug_struct.field("in_use_host_count", &self.in_use_host_count);
         debug_struct.field("kind", &self.kind);
         debug_struct.field("name", &self.name);
         debug_struct.field("physical_topology", &self.physical_topology);
@@ -18896,6 +18974,10 @@ impl std::fmt::Debug for super::SourceInstanceProperties {
         debug_struct.field("metadata", &self.metadata);
         debug_struct.field("min_cpu_platform", &self.min_cpu_platform);
         debug_struct.field("network_interfaces", &self.network_interfaces);
+        debug_struct.field(
+            "post_key_revocation_action_type",
+            &self.post_key_revocation_action_type,
+        );
         debug_struct.field("scheduling", &self.scheduling);
         debug_struct.field("service_accounts", &self.service_accounts);
         debug_struct.field("tags", &self.tags);
@@ -19484,6 +19566,7 @@ impl std::fmt::Debug for super::StoragePool {
         debug_struct.field("label_fingerprint", &self.label_fingerprint);
         debug_struct.field("labels", &self.labels);
         debug_struct.field("name", &self.name);
+        debug_struct.field("params", &self.params);
         debug_struct.field(
             "performance_provisioning_type",
             &self.performance_provisioning_type,
@@ -19678,6 +19761,18 @@ impl std::fmt::Debug for super::storage_pool_list_disks::warning::Data {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
         debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "storage-pools")]
+impl std::fmt::Debug for super::StoragePoolParams {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StoragePoolParams");
+        debug_struct.field("resource_manager_tags", &self.resource_manager_tags);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -21588,6 +21683,7 @@ impl std::fmt::Debug for super::TestFailure {
 
 #[cfg(any(
     feature = "addresses",
+    feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
     feature = "disks",
@@ -21595,6 +21691,9 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "firewall-policies",
     feature = "firewalls",
     feature = "global-addresses",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
     feature = "images",
     feature = "instance-groups",
     feature = "instance-templates",
@@ -21611,21 +21710,28 @@ impl std::fmt::Debug for super::TestFailure {
     feature = "node-groups",
     feature = "node-templates",
     feature = "packet-mirrorings",
+    feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
     feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "url-maps",
     feature = "vpn-gateways",
 ))]
 impl std::fmt::Debug for super::TestPermissionsRequest {
@@ -21641,6 +21747,7 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
 
 #[cfg(any(
     feature = "addresses",
+    feature = "autoscalers",
     feature = "backend-buckets",
     feature = "backend-services",
     feature = "disks",
@@ -21648,6 +21755,9 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "firewall-policies",
     feature = "firewalls",
     feature = "global-addresses",
+    feature = "health-checks",
+    feature = "http-health-checks",
+    feature = "https-health-checks",
     feature = "images",
     feature = "instance-groups",
     feature = "instance-templates",
@@ -21664,21 +21774,28 @@ impl std::fmt::Debug for super::TestPermissionsRequest {
     feature = "node-groups",
     feature = "node-templates",
     feature = "packet-mirrorings",
+    feature = "region-autoscalers",
     feature = "region-backend-services",
     feature = "region-disks",
+    feature = "region-health-checks",
     feature = "region-instance-groups",
     feature = "region-instant-snapshots",
     feature = "region-network-firewall-policies",
+    feature = "region-notification-endpoints",
     feature = "reservation-blocks",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
+    feature = "routes",
     feature = "service-attachments",
     feature = "snapshots",
     feature = "storage-pools",
     feature = "subnetworks",
     feature = "target-instances",
     feature = "target-pools",
+    feature = "target-ssl-proxies",
+    feature = "target-tcp-proxies",
+    feature = "url-maps",
     feature = "vpn-gateways",
 ))]
 impl std::fmt::Debug for super::TestPermissionsResponse {
@@ -23284,6 +23401,21 @@ impl std::fmt::Debug for super::autoscalers::PatchRequest {
         debug_struct.field("autoscaler", &self.autoscaler);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "autoscalers")]
+impl std::fmt::Debug for super::autoscalers::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("zone", &self.zone);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
@@ -25495,6 +25627,20 @@ impl std::fmt::Debug for super::health_checks::PatchRequest {
 }
 
 #[cfg(feature = "health-checks")]
+impl std::fmt::Debug for super::health_checks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "health-checks")]
 impl std::fmt::Debug for super::health_checks::UpdateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRequest");
@@ -25583,6 +25729,20 @@ impl std::fmt::Debug for super::http_health_checks::PatchRequest {
 }
 
 #[cfg(feature = "http-health-checks")]
+impl std::fmt::Debug for super::http_health_checks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "http-health-checks")]
 impl std::fmt::Debug for super::http_health_checks::UpdateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRequest");
@@ -25662,6 +25822,20 @@ impl std::fmt::Debug for super::https_health_checks::PatchRequest {
         debug_struct.field("https_health_check", &self.https_health_check);
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "https-health-checks")]
+impl std::fmt::Debug for super::https_health_checks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -30748,6 +30922,21 @@ impl std::fmt::Debug for super::region_autoscalers::PatchRequest {
 }
 
 #[cfg(feature = "region-autoscalers")]
+impl std::fmt::Debug for super::region_autoscalers::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-autoscalers")]
 impl std::fmt::Debug for super::region_autoscalers::UpdateRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UpdateRequest");
@@ -31488,6 +31677,21 @@ impl std::fmt::Debug for super::region_health_checks::PatchRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("request_id", &self.request_id);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-health-checks")]
+impl std::fmt::Debug for super::region_health_checks::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -32612,6 +32816,21 @@ impl std::fmt::Debug for super::region_notification_endpoints::ListRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("region", &self.region);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "region-notification-endpoints")]
+impl std::fmt::Debug for super::region_notification_endpoints::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("region", &self.region);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -34324,6 +34543,20 @@ impl std::fmt::Debug for super::routes::ListRequest {
         debug_struct.field("page_token", &self.page_token);
         debug_struct.field("project", &self.project);
         debug_struct.field("return_partial_success", &self.return_partial_success);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "routes")]
+impl std::fmt::Debug for super::routes::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -36207,6 +36440,20 @@ impl std::fmt::Debug for super::target_ssl_proxies::SetSslPolicyRequest {
     }
 }
 
+#[cfg(feature = "target-ssl-proxies")]
+impl std::fmt::Debug for super::target_ssl_proxies::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "target-tcp-proxies")]
 impl std::fmt::Debug for super::target_tcp_proxies::AggregatedListRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -36306,6 +36553,20 @@ impl std::fmt::Debug for super::target_tcp_proxies::SetProxyHeaderRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("target_tcp_proxy", &self.target_tcp_proxy);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "target-tcp-proxies")]
+impl std::fmt::Debug for super::target_tcp_proxies::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -36510,6 +36771,20 @@ impl std::fmt::Debug for super::url_maps::PatchRequest {
         debug_struct.field("project", &self.project);
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("url_map", &self.url_map);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "url-maps")]
+impl std::fmt::Debug for super::url_maps::TestIamPermissionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TestIamPermissionsRequest");
+        debug_struct.field("project", &self.project);
+        debug_struct.field("resource", &self.resource);
         debug_struct.field("body", &self.body);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
