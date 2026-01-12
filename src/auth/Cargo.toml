@@ -46,7 +46,6 @@ serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
-bon.workspace         = true
 jsonwebtoken          = { workspace = true, features = ["rust_crypto"], optional = true }
 # Local dependencies
 gax.workspace = true
