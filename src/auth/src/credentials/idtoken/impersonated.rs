@@ -78,11 +78,15 @@ use crate::{
     },
     errors,
     headers_util::{self, ID_TOKEN_REQUEST_TYPE, metrics_header_value},
+    retry::Builder as RetryTokenProviderBuilder,
     token::{CachedTokenProvider, Token, TokenProvider},
     token_cache::TokenCache,
 };
 use async_trait::async_trait;
+use gax::backoff_policy::BackoffPolicyArg;
 use gax::error::CredentialsError;
+use gax::retry_policy::RetryPolicyArg;
+use gax::retry_throttler::RetryThrottlerArg;
 use http::{Extensions, HeaderMap};
 use reqwest::Client;
 use serde_json::Value;
@@ -114,6 +118,7 @@ pub struct Builder {
     pub(crate) include_email: Option<bool>,
     target_audience: String,
     service_account_impersonation_url: Option<String>,
+    retry_builder: RetryTokenProviderBuilder,
 }
 
 impl Builder {
@@ -131,6 +136,7 @@ impl Builder {
             include_email: None,
             target_audience: target_audience.into(),
             service_account_impersonation_url: None,
+            retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
 
@@ -167,6 +173,7 @@ impl Builder {
                 "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateIdToken",
                 target_principal.into()
             )),
+            retry_builder: RetryTokenProviderBuilder::default(),
         }
     }
 
@@ -223,6 +230,83 @@ impl Builder {
         self
     }
 
+    /// Configure the retry policy for fetching tokens.
+    ///
+    /// The retry policy controls how to handle retries, and sets limits on
+    /// the number of attempts or the total time spent retrying.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    ///
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .build();
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_policy(v.into());
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// use gax::exponential_backoff::ExponentialBackoff;
+    ///
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    ///     .with_backoff_policy(ExponentialBackoff::default())
+    ///     .build();
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_backoff_policy(v.into());
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The authentication library throttles its retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throttler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::idtoken;
+    /// # use serde_json::json;
+    /// use gax::retry_throttler::AdaptiveThrottler;
+    ///
+    /// let impersonated_credential = json!({ /* add details here */ });
+    ///
+    /// let audience = "https://my-service.a.run.app";
+    /// let credentials = idtoken::impersonated::Builder::new(audience, impersonated_credential)
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build();
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.retry_builder = self.retry_builder.with_retry_throttler(v.into());
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -259,6 +343,7 @@ impl Builder {
             include_email: self.include_email,
             target_audience: self.target_audience,
         };
+        let token_provider = self.retry_builder.build(token_provider);
         Ok(IDTokenCredentials {
             inner: Arc::new(ImpersonatedServiceAccount {
                 token_provider: TokenCache::new(token_provider),
@@ -385,6 +470,9 @@ struct GenerateIdTokenResponse {
 mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
+    use crate::credentials::tests::{
+        get_mock_auth_retry_policy, get_mock_backoff_policy, get_mock_retry_throttler,
+    };
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
@@ -556,45 +644,6 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_impersonated_id_token_fail() -> TestResult {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(request::method_path("POST", "/token")).respond_with(
-                json_encoded(json!({
-                    "access_token": "test-user-account-token",
-                    "expires_in": 3600,
-                    "token_type": "Bearer",
-                })),
-            ),
-        );
-        server.expect(
-            Expectation::matching(request::method_path(
-                "POST",
-                "/v1/projects/-/serviceAccounts/test-principal:generateIdToken",
-            ))
-            .respond_with(status_code(500)),
-        );
-
-        let impersonated_credential = json!({
-            "type": "impersonated_service_account",
-            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
-            "source_credentials": {
-                "type": "authorized_user",
-                "client_id": "test-client-id",
-                "client_secret": "test-client-secret",
-                "refresh_token": "test-refresh-token",
-                "token_uri": server.url("/token").to_string()
-            }
-        });
-        let creds = Builder::new("test-audience", impersonated_credential).build()?;
-
-        let err = creds.id_token().await.unwrap_err();
-        assert!(err.is_transient());
-
-        Ok(())
-    }
-
-    #[tokio::test]
     async fn test_impersonated_id_token_metrics_header() -> TestResult {
         let audience = "test-audience";
         let token_string = generate_test_id_token(audience);
@@ -641,6 +690,107 @@ mod tests {
 
         let token = creds.id_token().await?;
         assert_eq!(token, token_string);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_retries_for_success() -> TestResult {
+        let audience = "test-audience";
+        let token_string = generate_test_id_token(audience);
+        let mut server = Server::run();
+        // Source credential token endpoint
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        // Impersonation endpoint
+        let impersonation_path = "/v1/projects/-/serviceAccounts/test-principal:generateIdToken";
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(3)
+                .respond_with(cycle![
+                    status_code(503).body("try-again"),
+                    status_code(503).body("try-again"),
+                    json_encoded(json!({
+                        "token": token_string,
+                    })),
+                ]),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+
+        let creds = Builder::new(audience, impersonated_credential)
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()?;
+
+        let token = creds.id_token().await?;
+        assert_eq!(token, token_string);
+
+        server.verify_and_clear();
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_id_token_does_not_retry_on_non_transient_failures() -> TestResult {
+        let server = Server::run();
+        // Source credential token endpoint
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        // Impersonation endpoint
+        let impersonation_path = "/v1/projects/-/serviceAccounts/test-principal:generateIdToken";
+        server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .times(1)
+                .respond_with(status_code(401)),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+
+        let creds = Builder::new("test-audience", impersonated_credential)
+            .with_retry_policy(get_mock_auth_retry_policy(3))
+            .with_backoff_policy(get_mock_backoff_policy())
+            .with_retry_throttler(get_mock_retry_throttler())
+            .build()?;
+
+        let err = creds.id_token().await.unwrap_err();
+        assert!(!err.is_transient());
 
         Ok(())
     }
