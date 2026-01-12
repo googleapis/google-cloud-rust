@@ -64,7 +64,7 @@ pub struct Session {
     /// The usability of the `Session` API would suffer if creating an instance
     /// of `Session` is blocked on the first message being available.
     ///
-    /// [^1]: https://github.com/hyperium/tonic/issues/515
+    /// [^1]: <https://github.com/hyperium/tonic/issues/515>
     stream: Option<<Transport as Stub>::Stream>,
 
     /// Applications ask for messages one at a time. Individual stream responses
