@@ -97,16 +97,15 @@ mod tests {
         let mut mock = MockStub::new();
         mock.expect_streaming_pull()
             .times(1)
-            .return_once(move |_r, _o| {
-                Ok(tonic::Response::from(response_rx))
-            });
+            .return_once(move |_r, _o| Ok(tonic::Response::from(response_rx)));
 
         response_tx.send(Ok(test_response(1..10))).await?;
         response_tx.send(Ok(test_response(11..20))).await?;
         response_tx.send(Ok(test_response(21..30))).await?;
         drop(response_tx);
 
-        let mut stream = open_stream(Arc::new(mock), initial_request(), CancellationToken::new()).await?;
+        let mut stream =
+            open_stream(Arc::new(mock), initial_request(), CancellationToken::new()).await?;
         assert_eq!(stream.next_message().await?, Some(test_response(1..10)));
         assert_eq!(stream.next_message().await?, Some(test_response(11..20)));
         assert_eq!(stream.next_message().await?, Some(test_response(21..30)));
