@@ -525,7 +525,7 @@ mod tests {
     #[tokio::test]
     #[parallel]
     async fn test_mds_does_not_retry_on_non_transient_failures() -> TestResult {
-        let mut server = Server::run();
+        let server = Server::run();
         server.expect(
             Expectation::matching(request::path(format!("{MDS_DEFAULT_URI}/token")))
                 .times(1)
@@ -541,7 +541,7 @@ mod tests {
 
         let err = provider.token().await.unwrap_err();
         assert!(!err.is_transient());
-        server.verify_and_clear();
+
         Ok(())
     }
 
