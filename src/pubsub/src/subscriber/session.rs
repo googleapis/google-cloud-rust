@@ -26,6 +26,7 @@ use crate::{Error, Result};
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
+use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio_util::sync::{CancellationToken, DropGuard};
 
@@ -39,8 +40,7 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
 /// let mut session = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start()
-///     .await?;
+///     .start();
 /// while let Some((m, h)) = session.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
@@ -49,8 +49,23 @@ use tokio_util::sync::{CancellationToken, DropGuard};
 /// ```
 #[derive(Debug)]
 pub struct Session {
+    /// The stub implementing this struct.
+    inner: Arc<Transport>,
+
+    /// The initial request used to start a stream.
+    initial_req: StreamingPullRequest,
+
     /// The bidirectional stream.
-    stream: <Transport as Stub>::Stream,
+    ///
+    /// We choose to lazy-initialize the stream when the application asks for a
+    /// message because tonic will not yield the stream to us until the first
+    /// response is available.[^1]
+    ///
+    /// The usability of the `Session` API would suffer if creating an instance
+    /// of `Session` is blocked on the first message being available.
+    ///
+    /// [^1]: https://github.com/hyperium/tonic/issues/515
+    stream: Option<<Transport as Stub>::Stream>,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -67,6 +82,10 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
+    /// A cancellation token for signalling a shutdown to the task sending
+    /// keepalive pings.
+    shutdown: CancellationToken,
+
     /// A guard which signals a shutdown to the task sending keepalive pings
     /// when it is dropped. It is more convenient to hold a `DropGuard` than to
     /// have a custom `impl Drop for Session`.
@@ -81,7 +100,7 @@ pub struct Session {
 }
 
 impl Session {
-    pub(super) async fn new(builder: StreamingPull) -> Result<Self> {
+    pub(super) fn new(builder: StreamingPull) -> Self {
         let shutdown = CancellationToken::new();
         let inner = builder.inner;
         let subscription = builder.subscription;
@@ -105,16 +124,18 @@ impl Session {
             client_id: builder.client_id,
             ..Default::default()
         };
-        let stream = open_stream(inner, initial_req, shutdown.clone()).await?;
 
-        Ok(Self {
-            stream,
+        Self {
+            inner,
+            initial_req,
+            stream: None,
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
+            shutdown: shutdown.clone(),
             _keepalive_guard: shutdown.drop_guard(),
             _lease_loop,
-        })
+        }
     }
 
     /// Returns the next message received on this subscription.
@@ -151,11 +172,39 @@ impl Session {
         }
     }
 
+    /// Returns a mutable reference to the underlying stream.
+    ///
+    /// If a stream is not yet open, this method opens the stream.
+    async fn mut_stream(&mut self) -> Result<&mut <Transport as Stub>::Stream> {
+        if self.stream.is_none() {
+            let stream = open_stream(
+                self.inner.clone(),
+                self.initial_req.clone(),
+                self.shutdown.clone(),
+            )
+            .await?;
+            self.stream = Some(stream);
+        }
+        Ok(self
+            .stream
+            .as_mut()
+            .expect("`self.stream.is_some()` must be true"))
+    }
+
     async fn stream_next(&mut self) -> Option<Result<()>> {
-        let resp = match self.stream.next_message().await.transpose()? {
-            Ok(resp) => resp,
-            Err(e) => return Some(Err(to_gax_error(e))),
+        let resp = {
+            let stream = match self.mut_stream().await {
+                Ok(s) => s,
+                // TODO(#4097) - support stream retries / resumes.
+                Err(e) => return Some(Err(e)),
+            };
+
+            match stream.next_message().await.transpose()? {
+                Ok(resp) => resp,
+                Err(e) => return Some(Err(to_gax_error(e))),
+            }
         };
+
         for rm in resp.received_messages {
             let Some(message) = rm.message else {
                 // The message field should always be present. If not, the proto
@@ -254,11 +303,12 @@ mod tests {
             .return_once(|_| Err(tonic::Status::internal("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let err = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let err = session
+            .next()
             .await
-            .expect_err("Session should not be created.");
+            .expect("stream should not be empty")
+            .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
         assert_eq!(status.code, gax::error::rpc::Code::Internal);
@@ -299,8 +349,8 @@ mod tests {
             .set_max_outstanding_messages(2000)
             .set_max_outstanding_bytes(200 * MIB)
             .start()
-            .await
-            .expect_err("Session should not be created.");
+            .next()
+            .await;
 
         let initial_req = recover_writes_rx
             .recv()
@@ -331,10 +381,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         response_tx.send(Ok(test_response(2..4))).await?;
@@ -391,10 +438,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(0..30))).await?;
         drop(response_tx);
@@ -474,10 +518,7 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
         let (m, Handler::AtLeastOnce(h)) = session
             .next()
             .await
@@ -504,10 +545,7 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         for i in 1..7 {
             response_tx.send(Ok(test_response(i..i + 1))).await?;
@@ -533,10 +571,7 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..2))).await?;
         // See if we can handle an empty range
@@ -583,10 +618,7 @@ mod tests {
         });
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         // See if we can handle an empty range
@@ -629,10 +661,7 @@ mod tests {
             .return_once(|_| Ok(tonic::Response::from(response_rx)));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let mut session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
@@ -664,7 +693,7 @@ mod tests {
         // We use this channel to surface writes (requests) from outside our
         // mock expectation.
         let (recover_writes_tx, mut recover_writes_rx) = channel(1);
-        let (_response_tx, response_rx) = channel(10);
+        let (response_tx, response_rx) = channel(10);
 
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull().return_once(move |request| {
@@ -684,10 +713,9 @@ mod tests {
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
-        let session = client
-            .streaming_pull("projects/p/subscriptions/s")
-            .start()
-            .await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        response_tx.send(Ok(test_response(1..4))).await?;
+        let _ = session.next().await;
 
         let initial_req = recover_writes_rx
             .recv()
@@ -750,6 +778,7 @@ mod tests {
         let _ = c1
             .streaming_pull("projects/p/subscriptions/s")
             .start()
+            .next()
             .await;
         let req1 = recover_writes_rx
             .recv()
@@ -758,6 +787,7 @@ mod tests {
         let _ = c1
             .streaming_pull("projects/p/subscriptions/s")
             .start()
+            .next()
             .await;
         let req2 = recover_writes_rx
             .recv()
@@ -771,12 +801,34 @@ mod tests {
         let _ = c2
             .streaming_pull("projects/p/subscriptions/s")
             .start()
+            .next()
             .await;
         let req3 = recover_writes_rx
             .recv()
             .await
             .expect("should receive a request")?;
         assert_ne!(req1.client_id, req3.client_id);
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn no_immediate_message() -> anyhow::Result<()> {
+        const TEST_TIMEOUT: Duration = Duration::from_secs(42);
+
+        let (_response_tx, response_rx) = channel(10);
+
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .return_once(move |_| Ok(tonic::Response::from(response_rx)));
+
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+
+        let _ = tokio::time::timeout(TEST_TIMEOUT, session.next())
+            .await
+            .expect_err("next() should never yield.");
 
         Ok(())
     }

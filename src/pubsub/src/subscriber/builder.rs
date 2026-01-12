@@ -14,7 +14,6 @@
 
 use super::session::Session;
 use super::transport::Transport;
-use crate::Result;
 use std::sync::Arc;
 
 const MIB: i64 = 1024 * 1024;
@@ -43,22 +42,24 @@ impl StreamingPull {
 
     /// Creates a new session to receive messages from the subscription.
     ///
+    /// Note that the underlying connection with the server is lazy-initialized.
+    /// It is not established until `Session::next()` is called.
+    ///
     /// # Example
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut session = client
     ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start()
-    ///     .await?;
+    ///     .start();
     /// while let Some((m, h)) = session.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
     /// }
     /// # Ok(()) }
     /// ```
-    pub async fn start(self) -> Result<Session> {
-        Session::new(self).await
+    pub fn start(self) -> Session {
+        Session::new(self)
     }
 
     /// Sets the ack deadline to use for the stream.

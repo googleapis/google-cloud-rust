@@ -45,7 +45,7 @@ where
     // If we do not set up keepalives first, Pub/Sub will close the stream for
     // being idle for ~90s, leading to unnecessary retries.
     //
-    // [1]: https://github.com/hyperium/tonic/issues/515
+    // [^1]: https://github.com/hyperium/tonic/issues/515
     keepalive::spawn(request_tx, shutdown.clone());
 
     let stream = inner
