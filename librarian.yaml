@@ -149,26 +149,18 @@ libraries:
       per_service_features: true
   - name: google-cloud-aiplatform-v1-schema-predict-instance
     version: 1.0.0
-    channels:
-      - service_config: google/cloud/aiplatform/v1/schema/aiplatform_v1.yaml
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/instance
   - name: google-cloud-aiplatform-v1-schema-predict-params
     version: 1.0.0
-    channels:
-      - service_config: google/cloud/aiplatform/v1/schema/aiplatform_v1.yaml
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/params
   - name: google-cloud-aiplatform-v1-schema-predict-prediction
     version: 1.0.0
-    channels:
-      - service_config: google/cloud/aiplatform/v1/schema/aiplatform_v1.yaml
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/predict/prediction
   - name: google-cloud-aiplatform-v1-schema-trainingjob-definition
     version: 1.0.0
-    channels:
-      - service_config: google/cloud/aiplatform/v1/schema/aiplatform_v1.yaml
     copyright_year: "2025"
     output: src/generated/cloud/aiplatform/schema/trainingjob/definition
   - name: google-cloud-alloydb-connectors-v1

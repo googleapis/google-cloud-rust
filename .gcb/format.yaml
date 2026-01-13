@@ -84,6 +84,8 @@ steps:
       go install github.com/google/yamlfmt/cmd/yamlfmt@v0.13.0
       git ls-files -z -- '*.yaml' '*.yml' ':!:testdata/**' ':!:**/generated/**' ':!:librarian.yaml' | \
         xargs -0 yamlfmt
+      V=$(cat .librarian-version.txt)
+      go run github.com/googleapis/librarian/cmd/librarian@${V} tidy
     waitFor: ['-']
   - name: 'ubuntu:24.04'
     id: 'Format Protobuf files'
@@ -130,7 +132,7 @@ substitutions:
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
   _RUST_VERSION: '1.92'
-  _GO_VERSION: '1.25.4'
+  _GO_VERSION: '1.25.5'
   _PYTHON_VERSION: '3.14'
   _TERRAFORM_VERSION: '1.14.0'
   _TERRAFORM_SHA256: '33ac217458ba8b44ce2813553083bc132c9a07e41a79c2e3627977682d283093'
