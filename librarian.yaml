@@ -1308,7 +1308,7 @@ libraries:
     rust:
       generate_rpc_samples: "true"
   - name: google-cloud-sql-v1
-    version: 1.4.0
+    version: 2.0.0
     copyright_year: "2025"
     rust:
       pagination_overrides:
