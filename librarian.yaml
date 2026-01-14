@@ -1434,6 +1434,8 @@ libraries:
         - language: rust_storage
           output: src/storage/src/control/generated
           specification_format: none
+          source: ""
+          template: ""
     veneer: true
   - name: google-cloud-storagebatchoperations-v1
     version: 1.4.0
