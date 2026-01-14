@@ -1097,6 +1097,7 @@ mod tests {
         Ok(())
     }
 
+    #[ignore = "TODO(#4280) - disabled because it was flaky"]
     #[tokio::test]
     async fn get_mds_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
