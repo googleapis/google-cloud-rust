@@ -1566,6 +1566,36 @@ libraries:
     output: src/gax-internal/grpc-server
     skip_publish: true
     veneer: true
+  - name: protojson-conformance
+    copyright_year: "2025"
+    output: tests/protojson-conformance
+    rust:
+      modules:
+        - include_list: conformance.proto
+          module_path: crate::generated::gapic::model
+          output: tests/protojson-conformance/src/generated/convert
+          source: conformance
+          template: convert-prost
+        - generate_setter_samples: "false"
+          include_list: conformance.proto
+          module_path: crate::generated::gapic::model
+          output: tests/protojson-conformance/src/generated/gapic
+          source: conformance
+          template: grpc-client
+        - include_list: conformance.proto
+          module_path: crate::generated::gapic::model
+          output: tests/protojson-conformance/src/generated/protos
+          root_name: conformance-root
+          source: conformance
+          template: prost
+        - generate_setter_samples: "false"
+          include_list: test_messages_proto3.proto
+          module_path: crate::generated::test_protos
+          output: tests/protojson-conformance/src/generated/test_protos
+          source: src/google/protobuf
+          template: mod
+    skip_publish: true
+    veneer: true
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
