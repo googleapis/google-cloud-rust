@@ -132,7 +132,6 @@ pub mod model_ext {
 pub mod client {
     pub use crate::generated::gapic::client::*;
     pub use crate::publisher::base_publisher::BasePublisher;
-
     pub use crate::publisher::publisher::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
