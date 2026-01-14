@@ -13,7 +13,7 @@
 // limitations under the License.
 
 pub(crate) mod batch;
-pub mod client;
+pub mod base_publisher;
 pub mod model_ext;
 pub mod options;
 #[allow(clippy::module_inception)]

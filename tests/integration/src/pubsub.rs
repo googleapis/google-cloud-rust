@@ -16,14 +16,14 @@ use crate::{Error, Result};
 
 use bytes::Bytes;
 use futures::future::join_all;
-use pubsub::client::{Client, Subscriber};
+use pubsub::client::{BasePublisher, Subscriber};
 use pubsub::model::PubsubMessage;
 use pubsub_samples::{cleanup_test_topic, create_test_topic};
 use std::collections::HashSet;
 
 pub async fn basic_publisher(topic_name: String) -> Result<()> {
     tracing::info!("testing publish()");
-    let client = Client::builder().build().await?;
+    let client = BasePublisher::builder().build().await?;
     let publisher = client.publisher(topic_name).build();
     let messages: [PubsubMessage; 2] = [
         PubsubMessage::new().set_data("Hello"),

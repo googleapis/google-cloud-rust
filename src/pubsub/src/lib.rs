@@ -62,8 +62,8 @@ pub mod builder {
         // TODO(#3959) - remove internal types from the public API.
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::ClientBuilder;
-        pub use crate::publisher::publisher::PublisherBuilder;
+        pub use crate::publisher::base_publisher::BasePublisherBuilder;
+        pub use crate::publisher::publisher::PublisherPartialBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
@@ -102,11 +102,11 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::Client;
+/// use google_cloud_pubsub::client::BasePublisher;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
 /// // Create a client for creating publishers.
-/// let client = Client::builder().build().await?;
+/// let client = BasePublisher::builder().build().await?;
 ///
 /// // Create a publisher that handles batching for a specific topic.
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -131,7 +131,8 @@ pub mod model_ext {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::Client;
+    pub use crate::publisher::base_publisher::BasePublisher;
+
     pub use crate::publisher::publisher::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
