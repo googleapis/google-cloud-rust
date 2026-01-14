@@ -45,7 +45,7 @@ pub(crate) enum ToBatchWorker {
 #[derive(Debug)]
 pub(crate) struct BundledMessage {
     pub msg: crate::model::PubsubMessage,
-    pub tx: oneshot::Sender<crate::Result<String>>,
+    pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
 /// The worker is spawned in a background task and handles
@@ -187,6 +187,7 @@ pub(crate) struct BatchWorker {
     rx: mpsc::UnboundedReceiver<ToBatchWorker>,
     pending_batch: Batch,
     pending_msgs: VecDeque<BundledMessage>,
+    paused: bool,
 }
 
 impl BatchWorker {
@@ -205,6 +206,7 @@ impl BatchWorker {
             batching_options,
             rx,
             pending_msgs: VecDeque::new(),
+            paused: false,
         }
     }
 
@@ -224,6 +226,26 @@ impl BatchWorker {
             }
         }
     }
+
+    // Pause publish operations.
+    pub(crate) fn pause(&mut self) {
+        self.paused = true;
+        while let Some(publish) = self.pending_msgs.pop_front() {
+            // The user may have dropped the handle, so it is ok if this fails.
+            let _ = publish.tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        }
+    }
+
+    // pub(crate) fn handle_inflight_join_error(&mut self, join_result: Option<Result<Result<(), iam_v1::Error>, tokio::task::JoinError>>) -> Result<Result<(), iam_v1::Error>, {
+    //     match join_result.expect("there should be at least one inflight") {
+    //         Ok(v) => {
+    //             v
+    //         }
+    //         Err(e) => {
+    //             Err(e)
+    //         }
+    //     }
+    // }
 
     /// The main loop of the batch worker.
     ///
@@ -288,10 +310,30 @@ impl BatchWorker {
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
         // simplify the managing the inflight JoinHandle.
-        let mut inflight = JoinSet::new();
+        let mut inflight: JoinSet<Result<(), gax::error::Error>> = JoinSet::new();
         loop {
             tokio::select! {
-                _ = inflight.join_next(), if !inflight.is_empty() => {
+                join = inflight.join_next(), if !inflight.is_empty() => {
+                    match join.expect("inflight should not be empty") {
+                        Ok(r) => {
+                            match r {
+                                Ok(_) => {
+                                }
+                                Err(_) => {
+                                    // There was a non-retryable error:
+                                    // 1. We need to pause publishing and send out errors for pending_msgs.
+                                    // 2. The pending batch should have sent out error for its messages.
+                                    // 3. The messages in rx will be handled when they are received.
+                                    // TODO(#3689): Extend this to return the source of the pause.
+                                    self.pause();
+                                }
+                            }
+                        }
+                        Err(_) => {
+                            // TODO(#3689): Extend this to return the join error.
+                            self.pause();
+                        }
+                    }
                     self.move_to_batch();
                     if self.at_batch_threshold() {
                         self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -300,6 +342,11 @@ impl BatchWorker {
                 msg = self.rx.recv() => {
                     match msg {
                         Some(ToBatchWorker::Publish(msg)) => {
+                            if self.paused {
+                                // The user may have dropped the handle, so it is ok if this fails.
+                                let _ = msg.tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                                continue;
+                            }
                             self.pending_msgs.push_back(msg);
                             self.move_to_batch();
                             if self.at_batch_threshold() && inflight.is_empty() {

@@ -43,14 +43,14 @@ use tokio::sync::oneshot;
 /// # }
 /// ```
 pub struct PublishHandle {
-    pub(crate) rx: oneshot::Receiver<crate::Result<String>>,
+    pub(crate) rx: oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
 }
 
 impl Future for PublishHandle {
     /// The result of the publish operation.
     /// - `Ok(String)`: The server-assigned message ID.
     /// - `Err(Error)`: An error indicating the publish failed.
-    type Output = crate::Result<String>;
+    type Output = std::result::Result<String, crate::error::PublishError>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));

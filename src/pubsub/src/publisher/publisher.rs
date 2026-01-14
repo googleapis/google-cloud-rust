@@ -975,6 +975,42 @@ mod tests {
         );
         Ok(())
     }
+    
+    #[tokio::test]
+    async fn test_ordering_error_pause_publisher() {
+        // Verify that an Publish send error will pause the publisher for a specific ordering key.
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    Err(gax::error::Error::io("io error"))
+                }
+            })
+            .times(2);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(1_u32)
+            .build();
+
+        let messages = vec![
+            PubsubMessage::new().set_data("hello".to_string()),
+            PubsubMessage::new().set_data("world".to_string()),
+        ];
+
+        let mut handles = Vec::new();
+        for msg in messages {
+            let handle = publisher.publish(msg.clone());
+            handles.push(handle);
+        }
+
+        for rx in handles.into_iter() {
+            let got = rx.await;
+            assert!(got.is_err());
+        }
+    }
 
     #[tokio::test]
     async fn test_builder_clamping() -> anyhow::Result<()> {
