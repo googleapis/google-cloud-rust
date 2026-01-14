@@ -19,11 +19,11 @@ use crate::control::client::*;
 impl StorageControl {
     /// Returns a builder for [StorageControl].
     ///
-    /// ```no_run
-    /// # tokio_test::block_on(async {
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_storage::client::StorageControl;
     /// let client = StorageControl::builder().build().await?;
-    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn builder() -> ClientBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)

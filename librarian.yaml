@@ -1431,6 +1431,11 @@ libraries:
         - output: src/storage/src/generated/protos/storage
           source: google/storage/v2
           template: prost
+        - language: rust_storage
+          output: src/storage/src/control/generated
+          specification_format: none
+          source: ""
+          template: ""
     veneer: true
   - name: google-cloud-storagebatchoperations-v1
     version: 1.4.0
