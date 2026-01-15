@@ -12,8 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() -> anyhow::Result<()> {
+use rustls::crypto::{CryptoProvider, ring::default_provider};
+
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
     // TODO(#4170) - verify no crypto provider is enabled. Currently
     // `ring` is always installed, so we cannot enable the test.
-    Ok(())
+
+    // Install a default crypto provider.
+    CryptoProvider::install_default(default_provider())
+        .map_err(|p| anyhow::anyhow!("default provider was already installed: {p:?}"))?;
+    // Verify `google-cloud-auth` leaves the `reqwest` crate with a
+    // working TLS configuration.
+    test_auth::run().await
 }
