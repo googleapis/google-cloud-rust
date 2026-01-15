@@ -45,7 +45,26 @@ if [[ -n "${BAZEL_REMOTE_CACHE:-}" ]]; then
     args+=("--experimental_guard_against_concurrent_changes")
 fi
 
-env -C /workspace/target/protobuf USE_BAZEL_VERSION=8.2.1 \
+export USE_BAZEL_VERSION=8.2.1
+
+# First run `bazelisk version` to deflake any problems downloading the toolchain.
+(
+   cd /workspace/target/protobuf
+   /workspace/.bin/bazelisk version || \
+   /workspace/.bin/bazelisk version || \
+   /workspace/.bin/bazelisk version
+)
+
+# Then run `bazelisk fetch` to deflake any problems downloading the dependencies.
+(
+    cd /workspace/target/protobuf
+    /workspace/.bin/bazelisk fetch "${args[@]}" //conformance:conformance_test_runner || \
+    /workspace/.bin/bazelisk fetch "${args[@]}" //conformance:conformance_test_runner || \
+    /workspace/.bin/bazelisk fetch "${args[@]}" //conformance:conformance_test_runner
+)
+
+# Now we are ready to build and run the tests with fewer flakes.
+env -C /workspace/target/protobuf \
     /workspace/.bin/bazelisk run "${args[@]}" -- \
     //conformance:conformance_test_runner \
     --failure_list /workspace/tests/protojson-conformance/expected_failures.txt \
