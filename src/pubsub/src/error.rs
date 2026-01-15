@@ -12,20 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Custom errors for the Cloud Pubsub clients.
+//! Custom errors for the Cloud Pub/Sub clients.
 //!
-//! The Pubsub client defines additional error types. These are often returned
+//! The Pub/Sub clients define additional error types. These are often returned
 //! as the `source()` of an [Error][crate::Error].
 
-/// Represents an error that can occur when reading response data.
+/// Represents an error that can occur when publishing a message.
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum PublishError {
-    /// Publish operation was interrupted by a Send error.
+    /// Publish operation failed sending the RPC.
     #[error("the publish operation was interrupted by an error: {0}")]
     SendError(#[source] std::sync::Arc<crate::Error>),
 
     /// Publish is paused for the ordering key.
+    ///
+    /// A previous message with this ordering key has failed to send. To prevent messages from
+    /// being sent out of order, the `Publisher` paused messages for this ordering key.
+    ///
+    /// To resume publishing messages with this ordering key, call `Publisher::resume_publish(...)`.
     #[error("the ordering key was paused")]
     OrderingKeyPaused(()),
 }
