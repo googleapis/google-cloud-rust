@@ -1101,7 +1101,6 @@ mod tests {
         Ok(())
     }
 
-    #[ignore = "TODO(#4280) - disabled because it was flaky"]
     #[tokio::test]
     #[parallel]
     async fn get_mds_signer() -> TestResult {
