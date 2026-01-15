@@ -254,6 +254,7 @@ mod tests {
         model::{PublishResponse, PubsubMessage},
     };
     use mockall::Sequence;
+    use std::error::Error;
 
     mockall::mock! {
         #[derive(Debug)]
@@ -979,9 +980,6 @@ mod tests {
     #[tokio::test]
     async fn test_ordering_error_pause_publisher() {
         // Verify that a Publish send error will pause the publisher for an ordering key.
-        use gax::error::Error;
-        use gax::error::rpc::{Code, Status};
-
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -991,9 +989,9 @@ mod tests {
                 |r, _| {
                     assert_eq!(r.topic, "my-topic");
                     assert_eq!(r.messages.len(), 1);
-                    Err(Error::service(
-                        Status::default()
-                            .set_code(Code::Unknown)
+                    Err(gax::error::Error::service(
+                        gax::error::rpc::Status::default()
+                            .set_code(gax::error::rpc::Code::Unknown)
                             .set_message("unknown error has occurred"),
                     ))
                 }
@@ -1037,25 +1035,21 @@ mod tests {
         ];
 
         // Assert the first error is caused by the Publish send operation.
-        let mut got_err = publisher
-            .publish(messages[0].clone())
-            .await
-            .unwrap_err()
-            .to_string();
-        assert_eq!(
-            got_err,
-            "the transport reports an error: the service reports an error with code UNKNOWN described as: unknown error has occurred"
-        );
+        let mut got_err = publisher.publish(messages[0].clone()).await.unwrap_err();
+        // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
+        assert!(got_err.is_transport(), "{got_err:?}");
 
         // Assert that the second error is caused by the Publisher being paused.
-        got_err = publisher
-            .publish(messages[1].clone())
-            .await
-            .unwrap_err()
-            .to_string();
-        assert_eq!(
-            got_err,
-            "the transport reports an error: the ordering key was paused"
+        got_err = publisher.publish(messages[1].clone()).await.unwrap_err();
+        let source = got_err
+            .source()
+            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+        assert!(
+            matches!(
+                source,
+                Some(crate::error::PublishError::OrderingKeyPaused(()))
+            ),
+            "{got_err:?}"
         );
 
         // Verify that the other ordering keys are not paused.

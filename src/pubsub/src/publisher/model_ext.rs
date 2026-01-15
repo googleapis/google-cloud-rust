@@ -71,5 +71,4 @@ fn convert_error(e: crate::error::PublishError) -> gax::error::Error {
         crate::error::PublishError::SendError(s) => gax::error::Error::io(s.clone()),
         crate::error::PublishError::OrderingKeyPaused(()) => gax::error::Error::io(e),
     }
-    // gax::error::Error::io(e)
 }
