@@ -14,9 +14,9 @@
 
 use tokio::task::JoinSet;
 
+use crate::error::PublishError;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::worker::BundledMessage;
-use crate::error::PublishError;
 use std::sync::Arc;
 
 #[derive(Debug, Default)]
@@ -101,9 +101,7 @@ impl Batch {
                 let e = Arc::new(e);
                 for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
-                    // TODO(#3689): The error type for this is incorrect, will need to handle
-                    // this error propagation more fully.
-                    let _ = tx.send(Err(PublishError::InterruptedError(e.clone())));
+                    let _ = tx.send(Err(PublishError::SendError(e.clone())));
                 }
                 Err(gax::error::Error::io(e))
             }
@@ -117,7 +115,6 @@ impl Batch {
                 Ok(())
             }
         }
-        // TODO(NOW): Need better error handling.
     }
 }
 

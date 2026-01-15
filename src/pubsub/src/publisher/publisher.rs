@@ -975,41 +975,95 @@ mod tests {
         );
         Ok(())
     }
-    
+
     #[tokio::test]
     async fn test_ordering_error_pause_publisher() {
-        // Verify that an Publish send error will pause the publisher for a specific ordering key.
+        // Verify that a Publish send error will pause the publisher for an ordering key.
+        use gax::error::Error;
+        use gax::error::rpc::{Code, Status};
+
+        let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
             .returning({
                 |r, _| {
                     assert_eq!(r.topic, "my-topic");
                     assert_eq!(r.messages.len(), 1);
-                    Err(gax::error::Error::io("io error"))
+                    Err(Error::service(
+                        Status::default()
+                            .set_code(Code::Unknown)
+                            .set_message("unknown error has occurred"),
+                    ))
                 }
-            })
-            .times(2);
+            });
+
+        mock.expect_publish()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    let ids = r
+                        .messages
+                        .iter()
+                        .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                    Ok(gax::response::Response::from(
+                        PublishResponse::new().set_message_ids(ids),
+                    ))
+                }
+            });
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
-        let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+        let messages = [
+            PubsubMessage::new()
+                .set_ordering_key("ordering key with error")
+                .set_data("msg 0".to_string()),
+            PubsubMessage::new()
+                .set_ordering_key("ordering key with error")
+                .set_data("msg 1".to_string()),
+            PubsubMessage::new()
+                .set_ordering_key("")
+                .set_data("msg 2".to_string()),
+            PubsubMessage::new()
+                .set_ordering_key("ordering key without error")
+                .set_data("msg 3".to_string()),
         ];
 
-        let mut handles = Vec::new();
-        for msg in messages {
-            let handle = publisher.publish(msg.clone());
-            handles.push(handle);
-        }
+        // Assert the first error is caused by the Publish send operation.
+        let mut got_err = publisher
+            .publish(messages[0].clone())
+            .await
+            .unwrap_err()
+            .to_string();
+        assert_eq!(
+            got_err,
+            "the transport reports an error: the service reports an error with code UNKNOWN described as: unknown error has occurred"
+        );
 
-        for rx in handles.into_iter() {
-            let got = rx.await;
-            assert!(got.is_err());
-        }
+        // Assert that the second error is caused by the Publisher being paused.
+        got_err = publisher
+            .publish(messages[1].clone())
+            .await
+            .unwrap_err()
+            .to_string();
+        assert_eq!(
+            got_err,
+            "the transport reports an error: the ordering key was paused"
+        );
+
+        // Verify that the other ordering keys are not paused.
+        let mut got = publisher.publish(messages[2].clone()).await;
+        assert_eq!(got.expect("expected message id"), "msg 2");
+
+        got = publisher.publish(messages[3].clone()).await;
+        assert_eq!(got.expect("expected message id"), "msg 3");
     }
 
     #[tokio::test]

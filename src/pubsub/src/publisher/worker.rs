@@ -232,20 +232,11 @@ impl BatchWorker {
         self.paused = true;
         while let Some(publish) = self.pending_msgs.pop_front() {
             // The user may have dropped the handle, so it is ok if this fails.
-            let _ = publish.tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+            let _ = publish
+                .tx
+                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
         }
     }
-
-    // pub(crate) fn handle_inflight_join_error(&mut self, join_result: Option<Result<Result<(), iam_v1::Error>, tokio::task::JoinError>>) -> Result<Result<(), iam_v1::Error>, {
-    //     match join_result.expect("there should be at least one inflight") {
-    //         Ok(v) => {
-    //             v
-    //         }
-    //         Err(e) => {
-    //             Err(e)
-    //         }
-    //     }
-    // }
 
     /// The main loop of the batch worker.
     ///
@@ -317,20 +308,17 @@ impl BatchWorker {
                     match join.expect("inflight should not be empty") {
                         Ok(r) => {
                             match r {
-                                Ok(_) => {
-                                }
+                                Ok(_) => {}
                                 Err(_) => {
                                     // There was a non-retryable error:
                                     // 1. We need to pause publishing and send out errors for pending_msgs.
                                     // 2. The pending batch should have sent out error for its messages.
                                     // 3. The messages in rx will be handled when they are received.
-                                    // TODO(#3689): Extend this to return the source of the pause.
                                     self.pause();
                                 }
                             }
                         }
                         Err(_) => {
-                            // TODO(#3689): Extend this to return the join error.
                             self.pause();
                         }
                     }

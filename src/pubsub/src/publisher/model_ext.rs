@@ -50,12 +50,26 @@ impl Future for PublishHandle {
     /// The result of the publish operation.
     /// - `Ok(String)`: The server-assigned message ID.
     /// - `Err(Error)`: An error indicating the publish failed.
-    type Output = std::result::Result<String, crate::error::PublishError>;
+    type Output = crate::Result<String>;
 
     fn poll(mut self: Pin<&mut Self>, cx: &mut Context<'_>) -> Poll<Self::Output> {
         let result = ready!(Pin::new(&mut self.rx).poll(cx));
         // An error will only occur if the sender of the self.rx was dropped,
         // which would be a bug.
-        Poll::Ready(result.expect("the client library should not release the sender"))
+        Poll::Ready(
+            result
+                .expect("the client library should not release the sender")
+                .map_err(convert_error),
+        )
     }
+}
+
+fn convert_error(e: crate::error::PublishError) -> gax::error::Error {
+    // TODO(#3689): The error type for these are not ideal, we will need will
+    // need to handle error propagation better.
+    match e {
+        crate::error::PublishError::SendError(s) => gax::error::Error::io(s.clone()),
+        crate::error::PublishError::OrderingKeyPaused(()) => gax::error::Error::io(e),
+    }
+    // gax::error::Error::io(e)
 }

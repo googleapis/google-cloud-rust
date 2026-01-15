@@ -21,14 +21,11 @@
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum PublishError {
-    /// Publish operation was interrupted by a non-retryable error.
+    /// Publish operation was interrupted by a Send error.
     #[error("the publish operation was interrupted by an error: {0}")]
-    InterruptedError(#[source] std::sync::Arc<crate::Error>),
+    SendError(#[source] std::sync::Arc<crate::Error>),
 
-    // TODO(#3689): Extend this error to include a source.
     /// Publish is paused for the ordering key.
     #[error("the ordering key was paused")]
     OrderingKeyPaused(()),
 }
-
-// TODO(NOW): Unit tests
