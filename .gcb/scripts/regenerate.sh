@@ -36,7 +36,8 @@ rustup show active-toolchain -v
 
 echo "Regenerate all the code"
 version=$(cat /workspace/.librarian-version.txt)
-go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
+# TODO(#4288) - disabled because the code generation is inconsistent and this is flaky.
+#   go run github.com/googleapis/librarian/cmd/librarian@${version} generate --all
 
 # If there is any difference between the generated code and the
 # committed code that is an error. All the inputs should be pinned,
