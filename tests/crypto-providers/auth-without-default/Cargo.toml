@@ -30,6 +30,8 @@ rust-version = "1.92.0"
 [workspace]
 
 [dependencies]
-anyhow            = { default-features = false, version = "1", features = ["std"] }
-test-metadata     = { path = "../test-metadata" }
-google-cloud-auth = { default-features = false, path = "../../../src/auth" }
+anyhow        = { default-features = false, version = "1", features = ["std"] }
+rustls        = { default-features = false, version = "0.23", features = ["ring"] }
+tokio         = { default-features = false, version = "1", features = ["test-util"] }
+test-metadata = { path = "../test-metadata" }
+test-auth     = { path = "../test-auth" }

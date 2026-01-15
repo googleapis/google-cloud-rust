@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [package]
-name         = "auth-with-default"
+name         = "test-auth"
 version      = "0.0.0"
 publish      = false
 edition      = "2024"
@@ -30,7 +30,12 @@ rust-version = "1.92.0"
 [workspace]
 
 [dependencies]
-anyhow        = { default-features = false, version = "1", features = ["std"] }
-tokio         = { default-features = false, version = "1", features = ["test-util"] }
-test-metadata = { path = "../test-metadata" }
-test-auth     = { path = "../test-auth", features = ["with-default"] }
+anyhow  = { default-features = false, version = "1", features = ["std"] }
+reqwest = { default-features = false, version = "0.12" }
+
+[dependencies.google-cloud-auth]
+default-features = false
+path             = "../../../src/auth"
+
+[features]
+with-default = ["google-cloud-auth/default"]
