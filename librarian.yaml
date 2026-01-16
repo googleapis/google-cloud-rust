@@ -1593,7 +1593,7 @@ libraries:
   - name: secretmanager-openapi-v1
     version: 1.0.0
     channels:
-      - path: testdata/secretmanager_openapi_v1.json
+      - path: google/cloud/secretmanager/v1
     copyright_year: "2024"
     output: src/generated/openapi-validation
     skip_publish: true
