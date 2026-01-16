@@ -1522,6 +1522,8 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/wkt
+    roots:
+      - protobuf-src
     veneer: true
     rust:
       modules:
