@@ -126,8 +126,6 @@ libraries:
   - name: common
     copyright_year: "2025"
     output: src/wkt/tests/common
-    skip_publish: true
-    veneer: true
     rust:
       modules:
         - disabled_rustdoc_warnings: []
@@ -138,6 +136,8 @@ libraries:
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
+    skip_publish: true
+    veneer: true
   - name: google-cloud-accessapproval-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -309,7 +309,8 @@ libraries:
       - path: google/apps/script/type
     copyright_year: "2025"
     output: src/generated/apps/script/gtype
-    rust: {}
+    rust:
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-calendar
     version: 1.3.0
     channels:
@@ -321,6 +322,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-docs
     version: 1.3.0
     channels:
@@ -332,6 +334,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-drive
     version: 1.3.0
     channels:
@@ -343,6 +346,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-gmail
     version: 1.3.0
     channels:
@@ -354,6 +358,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-sheets
     version: 1.3.0
     channels:
@@ -365,6 +370,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-apps-script-type-slides
     version: 1.3.0
     channels:
@@ -376,6 +382,7 @@ libraries:
         - name: apps_script_type
           package: google-cloud-apps-script-type
           source: google.apps.script.type
+      title_override: Google Apps Script Types
   - name: google-cloud-artifactregistry-v1
     version: 1.3.0
     channels:
@@ -462,9 +469,9 @@ libraries:
   - name: google-cloud-bigquery-v2
     version: 1.0.0
     copyright_year: "2025"
-    skip_publish: true
     rust:
       package_name_override: google-cloud-bigquery-v2
+    skip_publish: true
   - name: google-cloud-bigtable
     copyright_year: "2025"
     output: src/bigtable
@@ -518,14 +525,17 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-compute-v1
     version: 2.0.0
+    channels:
+      - path: discoveries/compute.v1.json
+        service_config: google/cloud/compute/v1/compute_v1.yaml
     copyright_year: "2025"
     keep:
       - src/errors.rs
       - src/operation.rs
+    output: src/generated/cloud/compute/v1
     roots:
       - discovery
       - googleapis
-    specification_format: discovery
     rust:
       package_dependencies:
         - name: lro
@@ -556,6 +566,7 @@ libraries:
             method_id: .google.cloud.compute.v1.globalOperations.get
           - prefix: compute/v1/
             method_id: .google.cloud.compute.v1.globalOrganizationOperations.get
+    specification_format: discovery
   - name: google-cloud-confidentialcomputing-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -673,8 +684,6 @@ libraries:
   - name: google-cloud-firestore
     copyright_year: "2025"
     output: src/firestore
-    skip_publish: true
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic::model
@@ -699,9 +708,12 @@ libraries:
             - .google.firestore.v1.ExplainStats
           source: google/firestore/v1
           template: grpc-client
+          title_override: Cloud Firestore API
         - output: src/firestore/src/generated/protos/firestore
           source: google/firestore/v1
           template: prost
+    skip_publish: true
+    veneer: true
   - name: google-cloud-firestore-admin-v1
     version: 1.4.0
     channels:
@@ -719,7 +731,6 @@ libraries:
     version: 0.7.7
     copyright_year: "2025"
     output: src/gax-internal
-    veneer: true
     rust:
       modules:
         - module_path: rpc::model
@@ -731,6 +742,7 @@ libraries:
         - output: src/gax-internal/src/generated/protos/rpc
           source: google/rpc
           template: prost
+    veneer: true
   - name: google-cloud-gkebackup-v1
     version: 1.4.0
     copyright_year: "2025"
@@ -743,14 +755,16 @@ libraries:
       - path: google/cloud/gkehub/v1/configmanagement
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/configmanagement/v1
-    rust: {}
+    rust:
+      title_override: GKE Hub Types
   - name: google-cloud-gkehub-multiclusteringress-v1
     version: 1.2.0
     channels:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
-    rust: {}
+    rust:
+      title_override: GKE Hub Types
   - name: google-cloud-gkehub-v1
     version: 1.4.0
     copyright_year: "2025"
@@ -835,6 +849,7 @@ libraries:
       - path: google/identity/accesscontextmanager/type
     copyright_year: "2025"
     rust:
+      title_override: Access Context Manager Types
       package_name_override: google-cloud-identity-accesscontextmanager-type
   - name: google-cloud-identity-accesscontextmanager-v1
     version: 1.3.0
@@ -883,6 +898,7 @@ libraries:
       - path: google/logging/type
     copyright_year: "2025"
     rust:
+      title_override: Logging types
       package_name_override: google-cloud-logging-type
   - name: google-cloud-logging-v2
     version: 1.4.0
@@ -1001,6 +1017,7 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     rust:
+      title_override: Organization Policy Types
       documentation_overrides:
         - id: .google.cloud.orgpolicy.v1.Policy.ListPolicy
           match: 'Ancestry subtrees must be in one of the following formats:'
@@ -1024,7 +1041,8 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/generated/oslogin/common
-    rust: {}
+    rust:
+      title_override: Cloud OS Login Common Types
   - name: google-cloud-oslogin-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -1077,7 +1095,6 @@ libraries:
     version: 0.32.1-preview
     copyright_year: "2025"
     output: src/pubsub
-    veneer: true
     rust:
       modules:
         - included_ids:
@@ -1145,6 +1162,7 @@ libraries:
           output: src/pubsub/src/generated/protos/pubsub
           source: google/pubsub/v1
           template: prost
+    veneer: true
   - name: google-cloud-rapidmigrationassessment-v1
     version: 1.4.0
     copyright_year: "2025"
@@ -1193,6 +1211,7 @@ libraries:
       - path: google/rpc/context
     copyright_year: "2025"
     rust:
+      title_override: RPC Audit and Logging Attributes
       package_name_override: google-cloud-rpc-context
   - name: google-cloud-run-v2
     version: 1.4.0
@@ -1233,14 +1252,15 @@ libraries:
     version: 1.0.0
     channels:
       - path: schema/google/showcase/v1beta1
+        service_config: schema/google/showcase/v1beta1/showcase_v1beta1.yaml
     copyright_year: "2025"
     output: src/generated/showcase
     roots:
       - showcase
       - googleapis
-    skip_publish: true
     rust:
       detailed_tracing_attributes: true
+    skip_publish: true
   - name: google-cloud-spanner
     copyright_year: "2025"
     output: src/spanner
@@ -1304,7 +1324,6 @@ libraries:
     version: 1.6.0
     copyright_year: "2025"
     output: src/storage
-    veneer: true
     rust:
       modules:
         - module_path: crate::generated::gapic_control::model
@@ -1423,6 +1442,7 @@ libraries:
           specification_format: none
           source: ""
           template: ""
+    veneer: true
   - name: google-cloud-storagebatchoperations-v1
     version: 1.4.0
     copyright_year: "2025"
@@ -1468,6 +1488,7 @@ libraries:
       - path: google/devtools/cloudtrace/v1
     copyright_year: "2025"
     rust:
+      title_override: Cloud Trace API
       package_name_override: google-cloud-trace-v1
   - name: google-cloud-trace-v2
     version: 1.3.0
@@ -1475,6 +1496,7 @@ libraries:
       - path: google/devtools/cloudtrace/v2
     copyright_year: "2025"
     rust:
+      title_override: Cloud Trace API
       package_name_override: google-cloud-trace-v2
   - name: google-cloud-translation-v3
     version: 1.4.0
@@ -1522,7 +1544,6 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/wkt
-    veneer: true
     rust:
       modules:
         - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
@@ -1530,6 +1551,7 @@ libraries:
           output: src/wkt/src/generated
           source: google/protobuf
           template: mod
+    veneer: true
   - name: google-cloud-workflows-executions-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -1553,8 +1575,6 @@ libraries:
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
-    skip_publish: true
-    veneer: true
     rust:
       modules:
         - include_list: conformance.proto
@@ -1580,6 +1600,8 @@ libraries:
           output: tests/protojson-conformance/src/generated/test_protos
           source: src/google/protobuf
           template: mod
+    skip_publish: true
+    veneer: true
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
@@ -1594,12 +1616,13 @@ libraries:
     version: 1.0.0
     channels:
       - path: testdata/secretmanager_openapi_v1.json
+        service_config: google/cloud/secretmanager/v1/secretmanager_v1.yaml
     copyright_year: "2024"
     output: src/generated/openapi-validation
-    skip_publish: true
-    specification_format: openapi
     rust:
       package_name_override: secretmanager-openapi-v1
+    skip_publish: true
+    specification_format: openapi
   - name: storage-grpc-mock
     copyright_year: "2025"
     output: src/storage/grpc-mock
