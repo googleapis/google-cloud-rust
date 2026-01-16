@@ -57,6 +57,8 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let mut builder = reqwest::Client::builder();
+        // Force http1 as http2 with not currently supported.
+        builder = builder.http1_only();
         if config.disable_automatic_decompression {
             builder = builder.no_gzip().no_brotli().no_deflate();
         }
