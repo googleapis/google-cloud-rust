@@ -126,6 +126,8 @@ libraries:
   - name: common
     copyright_year: "2025"
     output: src/wkt/tests/common
+    roots:
+      - src/wkt/tests/protos
     skip_publish: true
     veneer: true
     rust:
@@ -133,8 +135,6 @@ libraries:
         - disabled_rustdoc_warnings: []
           generate_setter_samples: "false"
           module_path: crate::generated
-          module_roots:
-            project-root: .
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
