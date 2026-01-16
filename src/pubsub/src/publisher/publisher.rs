@@ -30,12 +30,12 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// A `Publisher` sends messages to a specific topic. It manages message batching
 /// and sending in a background task.
 ///
-/// Publishers are created via a [`BasePublisher`](crate::publisher::base_publisher::BasePublisher).
+/// Publishers are created via a [`BasePublisher`](crate::client::BasePublisher).
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use google_cloud_pubsub::publisher::base_publisher::BasePublisher;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// # use model::PubsubMessage;
 /// let client = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -122,15 +122,14 @@ impl Publisher {
 
 /// Creates `Publisher`s.
 ///
-/// Publishers are created via a [`BasePublisher`][crate::publisher::base_publisher::BasePublisher].
+/// Publishers are created via a [`BasePublisher`][crate::client::BasePublisher].
 ///
 /// # Example
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
-/// # use google_cloud_pubsub::publisher::base_publisher::BasePublisher;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// let client = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
@@ -159,7 +158,7 @@ impl PublisherPartialBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::publisher::base_publisher::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic")
@@ -177,7 +176,7 @@ impl PublisherPartialBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::publisher::base_publisher::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic")
@@ -196,7 +195,7 @@ impl PublisherPartialBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::publisher::base_publisher::BasePublisher;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
