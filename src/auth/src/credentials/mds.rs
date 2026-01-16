@@ -626,6 +626,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -665,6 +666,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn access_token_success() -> TestResult {
         let server = Server::run();
         let response = MDSTokenResponse {
@@ -689,6 +691,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
@@ -1091,14 +1094,15 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
         Ok(())
     }
 
-    #[ignore = "TODO(#4280) - disabled because it was flaky"]
     #[tokio::test]
+    #[parallel]
     async fn get_mds_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
         use serde_json::json;
