@@ -526,8 +526,7 @@ libraries:
   - name: google-cloud-compute-v1
     version: 2.0.0
     channels:
-      - path: discoveries/compute.v1.json
-        service_config: google/cloud/compute/v1/compute_v1.yaml
+      - path: google/cloud/compute/v1
     copyright_year: "2025"
     keep:
       - src/errors.rs
