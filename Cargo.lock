@@ -7468,6 +7468,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8f50febec83f5ee1df3015341d8bd429f2d1cc62bcba7ea2076759d315084683"
 
 [[package]]
+name = "test-auth"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "reqwest",
+]
+
+[[package]]
 name = "test-case"
 version = "3.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7498,6 +7507,44 @@ dependencies = [
  "quote",
  "syn",
  "test-case-core",
+]
+
+[[package]]
+name = "test-gaxi"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "http",
+ "serde_json",
+]
+
+[[package]]
+name = "test-metadata"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "cargo_metadata",
+]
+
+[[package]]
+name = "test-secret-manager"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-gax",
+ "google-cloud-secretmanager-v1",
+]
+
+[[package]]
+name = "test-storage"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-gax",
+ "google-cloud-storage",
 ]
 
 [[package]]

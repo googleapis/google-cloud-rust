@@ -35,7 +35,3 @@ rustls        = { default-features = false, version = "0.23", features = ["ring"
 tokio         = { default-features = false, version = "1", features = ["test-util"] }
 test-gaxi     = { path = "../test-gaxi" }
 test-metadata = { path = "../test-metadata" }
-
-[dependencies.google-cloud-gax-internal]
-default-features = false
-path             = "../../../src/gax-internal"

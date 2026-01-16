@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rustls::crypto::{CryptoProvider, ring::default_provider};
+use rustls::crypto::{ring::default_provider, CryptoProvider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // TODO(#4170) - verify no crypto provider is enabled. Currently
-    // `ring` is always installed, so we cannot enable the test.
+    test_metadata::only_ring(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
 
     // Install a default crypto provider.
     CryptoProvider::install_default(default_provider())

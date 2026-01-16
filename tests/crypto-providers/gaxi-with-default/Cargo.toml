@@ -34,9 +34,3 @@ anyhow        = { default-features = false, version = "1", features = ["std"] }
 tokio         = { default-features = false, version = "1", features = ["test-util"] }
 test-gaxi     = { path = "../test-gaxi" }
 test-metadata = { path = "../test-metadata" }
-
-[dependencies.google-cloud-gax-internal]
-default-features = true
-path             = "../../../src/gax-internal"
-# TODO(#4170) - enable the default crypto provider as GAPICs would.
-features = ["_internal-http-client"]

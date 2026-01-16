@@ -33,4 +33,4 @@ rust-version = "1.92.0"
 anyhow              = { default-features = false, version = "1", features = ["std"] }
 tokio               = { default-features = false, version = "1", features = ["test-util"] }
 test-metadata       = { path = "../test-metadata" }
-test-secret-manager = { path = "../test-secret-manager" }
+test-secret-manager = { path = "../test-secret-manager", features = ["with-default"] }
