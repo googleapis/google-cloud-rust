@@ -1553,6 +1553,8 @@ libraries:
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
+    roots:
+      - conformance
     skip_publish: true
     veneer: true
     rust:
