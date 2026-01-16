@@ -27,6 +27,7 @@ if [[ "${GCB_TRIGGER_NAME:-}" == *"-test-msrv" ]]; then
     excluded+=(
         --exclude check-copyright
         --exclude minimal-version-helper
+        --exclude test-metadata
     )
 fi
 
