@@ -51,7 +51,7 @@ pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
     // {
     //     bail!("{RING_CRATE_NAME} should **not** be a dependency")
     // }
-    if stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
+    if !stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
         bail!(
             "{AWS_LC_RS_CRATE_NAME} should be a dependency: {}",
             env!("CARGO_MANIFEST_DIR")
