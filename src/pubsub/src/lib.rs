@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [Client][client::Client] and [Publisher][client::Publisher]
+//! * [BasePublisher][client::BasePublisher] and [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
