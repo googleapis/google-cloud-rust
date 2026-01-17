@@ -1196,7 +1196,6 @@ libraries:
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-rpc-context
-      title_override: RPC Audit and Logging Attributes
   - name: google-cloud-run-v2
     version: 1.4.0
     copyright_year: "2025"
