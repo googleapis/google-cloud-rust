@@ -138,16 +138,12 @@ fn find_version(metadata: &Metadata, name: &str) -> anyhow::Result<Version> {
         .packages
         .iter()
         .find(|p| p.name == auth_name)
-        .expect(&format!(
-            "{GOOGLE_CLOUD_AUTH} is a package in the workspace"
-        ));
+        .unwrap_or_else(|| panic!("{GOOGLE_CLOUD_AUTH} is a package in the workspace"));
     let target = auth
         .dependencies
         .iter()
         .find(|d| d.name == name)
-        .expect(&format!(
-            "{name} must be a dependency of {GOOGLE_CLOUD_AUTH}"
-        ));
+        .unwrap_or_else(|| panic!("{name} must be a dependency of {GOOGLE_CLOUD_AUTH}"));
     let req = target.req.clone();
     let (major, minor, patch) = match req.comparators[..] {
         [
