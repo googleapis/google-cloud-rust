@@ -42,7 +42,14 @@ path             = "../../../src/gax"
 [dependencies.google-cloud-gax-internal]
 default-features = false
 path             = "../../../src/gax-internal"
-features         = ["_internal-http-client"]
+# Activate the minimal features to make it possible to use the HTTP client.
+# Soon, this client will not have a default crypto provider for TLS, and the
+# tests will detect that change.
+#
+# Separately, we have chosen to not test the gRPC client in gax-internal in
+# isolation. That would require a lot more infrastructure. The storage-with-*
+# tests will have to suffice.
+features = ["_internal-http-client"]
 
 [features]
 with-default = [

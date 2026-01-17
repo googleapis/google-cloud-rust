@@ -32,5 +32,5 @@ rust-version = "1.92.0"
 [dependencies]
 anyhow        = { default-features = false, version = "1", features = ["std"] }
 tokio         = { default-features = false, version = "1", features = ["test-util"] }
-test-gaxi     = { path = "../test-gaxi" }
+test-gaxi     = { path = "../test-gaxi", features = ["with-default"] }
 test-metadata = { path = "../test-metadata" }
