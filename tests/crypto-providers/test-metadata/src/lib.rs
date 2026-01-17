@@ -135,8 +135,8 @@ fn metadata() -> anyhow::Result<Metadata> {
 fn find_version(metadata: &Metadata, name: &str) -> anyhow::Result<Version> {
     let auth_name = PackageName::new(GOOGLE_CLOUD_AUTH);
     let auth = metadata
-        .workspace_packages()
-        .into_iter()
+        .packages
+        .iter()
         .find(|p| p.name == auth_name)
         .expect(&format!(
             "{GOOGLE_CLOUD_AUTH} is a package in the workspace"
