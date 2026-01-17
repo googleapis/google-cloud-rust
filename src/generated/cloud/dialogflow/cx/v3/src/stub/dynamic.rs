@@ -978,6 +978,166 @@ impl<T: super::Environments> Environments for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Examples].
+#[cfg(feature = "examples")]
+#[async_trait::async_trait]
+pub trait Examples: std::fmt::Debug + Send + Sync {
+    async fn create_example(
+        &self,
+        req: crate::model::CreateExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>>;
+
+    async fn delete_example(
+        &self,
+        req: crate::model::DeleteExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_examples(
+        &self,
+        req: crate::model::ListExamplesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExamplesResponse>>;
+
+    async fn get_example(
+        &self,
+        req: crate::model::GetExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>>;
+
+    async fn update_example(
+        &self,
+        req: crate::model::UpdateExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+}
+
+/// All implementations of [super::Examples] also implement [Examples].
+#[cfg(feature = "examples")]
+#[async_trait::async_trait]
+impl<T: super::Examples> Examples for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_example(
+        &self,
+        req: crate::model::CreateExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>> {
+        T::create_example(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_example(
+        &self,
+        req: crate::model::DeleteExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_example(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_examples(
+        &self,
+        req: crate::model::ListExamplesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListExamplesResponse>> {
+        T::list_examples(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_example(
+        &self,
+        req: crate::model::GetExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>> {
+        T::get_example(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_example(
+        &self,
+        req: crate::model::UpdateExampleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Example>> {
+        T::update_example(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::Experiments].
 #[cfg(feature = "experiments")]
 #[async_trait::async_trait]
@@ -1961,6 +2121,295 @@ impl<T: super::Pages> Pages for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Playbooks].
+#[cfg(feature = "playbooks")]
+#[async_trait::async_trait]
+pub trait Playbooks: std::fmt::Debug + Send + Sync {
+    async fn create_playbook(
+        &self,
+        req: crate::model::CreatePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>>;
+
+    async fn delete_playbook(
+        &self,
+        req: crate::model::DeletePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_playbooks(
+        &self,
+        req: crate::model::ListPlaybooksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPlaybooksResponse>>;
+
+    async fn get_playbook(
+        &self,
+        req: crate::model::GetPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>>;
+
+    async fn export_playbook(
+        &self,
+        req: crate::model::ExportPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn import_playbook(
+        &self,
+        req: crate::model::ImportPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_playbook(
+        &self,
+        req: crate::model::UpdatePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>>;
+
+    async fn create_playbook_version(
+        &self,
+        req: crate::model::CreatePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PlaybookVersion>>;
+
+    async fn get_playbook_version(
+        &self,
+        req: crate::model::GetPlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PlaybookVersion>>;
+
+    async fn restore_playbook_version(
+        &self,
+        req: crate::model::RestorePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RestorePlaybookVersionResponse>>;
+
+    async fn list_playbook_versions(
+        &self,
+        req: crate::model::ListPlaybookVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPlaybookVersionsResponse>>;
+
+    async fn delete_playbook_version(
+        &self,
+        req: crate::model::DeletePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::Playbooks] also implement [Playbooks].
+#[cfg(feature = "playbooks")]
+#[async_trait::async_trait]
+impl<T: super::Playbooks> Playbooks for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_playbook(
+        &self,
+        req: crate::model::CreatePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>> {
+        T::create_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_playbook(
+        &self,
+        req: crate::model::DeletePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_playbooks(
+        &self,
+        req: crate::model::ListPlaybooksRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPlaybooksResponse>> {
+        T::list_playbooks(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_playbook(
+        &self,
+        req: crate::model::GetPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>> {
+        T::get_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn export_playbook(
+        &self,
+        req: crate::model::ExportPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::export_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn import_playbook(
+        &self,
+        req: crate::model::ImportPlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::import_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_playbook(
+        &self,
+        req: crate::model::UpdatePlaybookRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Playbook>> {
+        T::update_playbook(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_playbook_version(
+        &self,
+        req: crate::model::CreatePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PlaybookVersion>> {
+        T::create_playbook_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_playbook_version(
+        &self,
+        req: crate::model::GetPlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::PlaybookVersion>> {
+        T::get_playbook_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn restore_playbook_version(
+        &self,
+        req: crate::model::RestorePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RestorePlaybookVersionResponse>> {
+        T::restore_playbook_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_playbook_versions(
+        &self,
+        req: crate::model::ListPlaybookVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListPlaybookVersionsResponse>> {
+        T::list_playbook_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_playbook_version(
+        &self,
+        req: crate::model::DeletePlaybookVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_playbook_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::SecuritySettingsService].
 #[cfg(feature = "security-settings-service")]
 #[async_trait::async_trait]
@@ -2712,6 +3161,241 @@ impl<T: super::TestCases> TestCases for T {
         options: &gax::options::RequestOptions,
     ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
         T::get_polling_backoff_policy(self, options)
+    }
+}
+
+/// A dyn-compatible, crate-private version of [super::Tools].
+#[cfg(feature = "tools")]
+#[async_trait::async_trait]
+pub trait Tools: std::fmt::Debug + Send + Sync {
+    async fn create_tool(
+        &self,
+        req: crate::model::CreateToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>>;
+
+    async fn list_tools(
+        &self,
+        req: crate::model::ListToolsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListToolsResponse>>;
+
+    async fn get_tool(
+        &self,
+        req: crate::model::GetToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>>;
+
+    async fn update_tool(
+        &self,
+        req: crate::model::UpdateToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>>;
+
+    async fn delete_tool(
+        &self,
+        req: crate::model::DeleteToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_tool_versions(
+        &self,
+        req: crate::model::ListToolVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListToolVersionsResponse>>;
+
+    async fn create_tool_version(
+        &self,
+        req: crate::model::CreateToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ToolVersion>>;
+
+    async fn get_tool_version(
+        &self,
+        req: crate::model::GetToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ToolVersion>>;
+
+    async fn delete_tool_version(
+        &self,
+        req: crate::model::DeleteToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn restore_tool_version(
+        &self,
+        req: crate::model::RestoreToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RestoreToolVersionResponse>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+}
+
+/// All implementations of [super::Tools] also implement [Tools].
+#[cfg(feature = "tools")]
+#[async_trait::async_trait]
+impl<T: super::Tools> Tools for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_tool(
+        &self,
+        req: crate::model::CreateToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>> {
+        T::create_tool(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_tools(
+        &self,
+        req: crate::model::ListToolsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListToolsResponse>> {
+        T::list_tools(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_tool(
+        &self,
+        req: crate::model::GetToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>> {
+        T::get_tool(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_tool(
+        &self,
+        req: crate::model::UpdateToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Tool>> {
+        T::update_tool(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_tool(
+        &self,
+        req: crate::model::DeleteToolRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_tool(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_tool_versions(
+        &self,
+        req: crate::model::ListToolVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListToolVersionsResponse>> {
+        T::list_tool_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_tool_version(
+        &self,
+        req: crate::model::CreateToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ToolVersion>> {
+        T::create_tool_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_tool_version(
+        &self,
+        req: crate::model::GetToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ToolVersion>> {
+        T::get_tool_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_tool_version(
+        &self,
+        req: crate::model::DeleteToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_tool_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn restore_tool_version(
+        &self,
+        req: crate::model::RestoreToolVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RestoreToolVersionResponse>> {
+        T::restore_tool_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::cancel_operation(self, req, options).await
     }
 }
 

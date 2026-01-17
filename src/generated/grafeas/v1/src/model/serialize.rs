@@ -925,6 +925,9 @@ impl serde::ser::Serialize for super::DiscoveryOccurrence {
         if self.vulnerability_attestation.is_some() {
             state.serialize_entry("vulnerabilityAttestation", &self.vulnerability_attestation)?;
         }
+        if !self.files.is_empty() {
+            state.serialize_entry("files", &self.files)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -999,6 +1002,31 @@ impl serde::ser::Serialize for super::discovery_occurrence::VulnerabilityAttesta
         }
         if !self.error.is_empty() {
             state.serialize_entry("error", &self.error)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::discovery_occurrence::File {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.digest.is_empty() {
+            state.serialize_entry("digest", &self.digest)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1295,6 +1323,9 @@ impl serde::ser::Serialize for super::ListOccurrencesRequest {
         if !self.page_token.is_empty() {
             state.serialize_entry("pageToken", &self.page_token)?;
         }
+        if !wkt::internal::is_default(&self.return_partial_success) {
+            state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1319,6 +1350,9 @@ impl serde::ser::Serialize for super::ListOccurrencesResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1479,6 +1513,9 @@ impl serde::ser::Serialize for super::ListNotesRequest {
         if !self.page_token.is_empty() {
             state.serialize_entry("pageToken", &self.page_token)?;
         }
+        if !wkt::internal::is_default(&self.return_partial_success) {
+            state.serialize_entry("returnPartialSuccess", &self.return_partial_success)?;
+        }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -1503,6 +1540,9 @@ impl serde::ser::Serialize for super::ListNotesResponse {
         }
         if !self.next_page_token.is_empty() {
             state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2915,6 +2955,99 @@ impl serde::ser::Serialize for super::ProjectRepoId {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::Risk {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.cisa_kev.is_some() {
+            state.serialize_entry("cisaKev", &self.cisa_kev)?;
+        }
+        if self.epss.is_some() {
+            state.serialize_entry("epss", &self.epss)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CISAKnownExploitedVulnerabilities {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.known_ransomware_campaign_use.is_empty() {
+            state.serialize_entry(
+                "knownRansomwareCampaignUse",
+                &self.known_ransomware_campaign_use,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ExploitPredictionScoringSystem {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.percentile) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("percentile", &__With(&self.percentile))?;
+        }
+        if !wkt::internal::is_default(&self.score) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("score", &__With(&self.score))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::SBOMReferenceNote {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -3066,6 +3199,12 @@ impl serde::ser::Serialize for super::SecretOccurrence {
         }
         if !self.statuses.is_empty() {
             state.serialize_entry("statuses", &self.statuses)?;
+        }
+        if self.data.is_some() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.digest.is_some() {
+            state.serialize_entry("digest", &self.digest)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4127,6 +4266,9 @@ impl serde::ser::Serialize for super::VulnerabilityOccurrence {
         }
         if !self.extra_details.is_empty() {
             state.serialize_entry("extraDetails", &self.extra_details)?;
+        }
+        if self.risk.is_some() {
+            state.serialize_entry("risk", &self.risk)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -16,14 +16,14 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-/// Implements a client for the Cloud Trace API.
+/// Implements a client for the Stackdriver Trace API.
 ///
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_trace_v2::client::TraceService;
 /// let client = TraceService::builder().build().await?;
-/// // use `client` to make requests to the Cloud Trace API.
+/// // use `client` to make requests to the Stackdriver Trace API.
 /// # Ok(()) }
 /// ```
 ///

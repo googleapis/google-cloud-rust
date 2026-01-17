@@ -27,15 +27,18 @@ The main types to work with this crate are the clients:
 - [Deployments]: enabled by the `deployments` feature.
 - [EntityTypes]: enabled by the `entity-types` feature.
 - [Environments]: enabled by the `environments` feature.
+- [Examples]: enabled by the `examples` feature.
 - [Experiments]: enabled by the `experiments` feature.
 - [Flows]: enabled by the `flows` feature.
 - [Generators]: enabled by the `generators` feature.
 - [Intents]: enabled by the `intents` feature.
 - [Pages]: enabled by the `pages` feature.
+- [Playbooks]: enabled by the `playbooks` feature.
 - [SecuritySettingsService]: enabled by the `security-settings-service` feature.
 - [Sessions]: enabled by the `sessions` feature.
 - [SessionEntityTypes]: enabled by the `session-entity-types` feature.
 - [TestCases]: enabled by the `test-cases` feature.
+- [Tools]: enabled by the `tools` feature.
 - [TransitionRouteGroups]: enabled by the `transition-route-groups` feature.
 - [Versions]: enabled by the `versions` feature.
 - [Webhooks]: enabled by the `webhooks` feature.
@@ -49,15 +52,18 @@ The main types to work with this crate are the clients:
 [Deployments]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Deployments.html
 [EntityTypes]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.EntityTypes.html
 [Environments]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Environments.html
+[Examples]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Examples.html
 [Experiments]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Experiments.html
 [Flows]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Flows.html
 [Generators]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Generators.html
 [Intents]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Intents.html
 [Pages]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Pages.html
+[Playbooks]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Playbooks.html
 [SecuritySettingsService]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.SecuritySettingsService.html
 [Sessions]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Sessions.html
 [SessionEntityTypes]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.SessionEntityTypes.html
 [TestCases]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.TestCases.html
+[Tools]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Tools.html
 [TransitionRouteGroups]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.TransitionRouteGroups.html
 [Versions]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Versions.html
 [Webhooks]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Webhooks.html

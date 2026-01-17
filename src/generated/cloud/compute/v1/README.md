@@ -4,7 +4,7 @@
 
 Creates and runs virtual machines on Google Cloud Platform.
 
-This client library was generated from the "20251230" revision of the API.
+This client library was generated from the "20260113" revision of the API.
 
 The client library types and functions are stable and not expected to change.
 Please note that Google Cloud services do change from time to time. The client
@@ -99,6 +99,7 @@ The main types to work with this crate are the clients:
 - [RegionZones]: enabled by the `region-zones` feature.
 - [Regions]: enabled by the `regions` feature.
 - [ReservationBlocks]: enabled by the `reservation-blocks` feature.
+- [ReservationSlots]: enabled by the `reservation-slots` feature.
 - [ReservationSubBlocks]: enabled by the `reservation-sub-blocks` feature.
 - [Reservations]: enabled by the `reservations` feature.
 - [ResourcePolicies]: enabled by the `resource-policies` feature.
@@ -215,6 +216,7 @@ The main types to work with this crate are the clients:
 [RegionZones]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.RegionZones.html
 [Regions]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Regions.html
 [ReservationBlocks]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.ReservationBlocks.html
+[ReservationSlots]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.ReservationSlots.html
 [ReservationSubBlocks]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.ReservationSubBlocks.html
 [Reservations]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Reservations.html
 [ResourcePolicies]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.ResourcePolicies.html

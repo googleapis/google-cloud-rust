@@ -5131,6 +5131,12 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResource {
             }
             state.serialize_entry("count", &__With(&self.count))?;
         }
+        if self.instance_flexibility_policy.is_some() {
+            state.serialize_entry(
+                "instanceFlexibilityPolicy",
+                &self.instance_flexibility_policy,
+            )?;
+        }
         if self.instance_properties.is_some() {
             state.serialize_entry("instanceProperties", &self.instance_properties)?;
         }
@@ -5266,6 +5272,7 @@ impl serde::ser::Serialize for super::BulkInsertInstanceResourcePerInstancePrope
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -8068,6 +8075,7 @@ impl serde::ser::Serialize for super::Duration {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -12660,6 +12668,7 @@ impl serde::ser::Serialize for super::HealthStatusForNetworkEndpoint {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -12780,6 +12789,7 @@ impl serde::ser::Serialize for super::Help {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -14563,6 +14573,69 @@ impl serde::ser::Serialize for super::InstanceConsumptionInfo {
                 }
             }
             state.serialize_entry("minNodeCpus", &__With(&self.min_node_cpus))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceFlexibilityPolicy {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instance_selections.is_empty() {
+            state.serialize_entry("instanceSelections", &self.instance_selections)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::InstanceFlexibilityPolicyInstanceSelection {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.disks.is_empty() {
+            state.serialize_entry("disks", &self.disks)?;
+        }
+        if !self.machine_types.is_empty() {
+            state.serialize_entry("machineTypes", &self.machine_types)?;
+        }
+        if self.rank.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("rank", &__With(&self.rank))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -18160,6 +18233,7 @@ impl serde::ser::Serialize for super::InstancesAddResourcePoliciesRequest {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -23063,6 +23137,7 @@ impl serde::ser::Serialize for super::LocalDisk {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -28936,6 +29011,7 @@ impl serde::ser::Serialize for super::notification_endpoint_list::warning::Data 
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -29184,6 +29260,7 @@ impl serde::ser::Serialize for super::Operation {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -29304,6 +29381,7 @@ impl serde::ser::Serialize for super::operation::Error {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -29433,6 +29511,7 @@ impl serde::ser::Serialize for super::operation::error::Errors {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -29562,6 +29641,7 @@ impl serde::ser::Serialize for super::operation::error::errors::ErrorDetails {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -29688,6 +29768,7 @@ impl serde::ser::Serialize for super::operation::Warnings {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -32484,6 +32565,7 @@ impl serde::ser::Serialize for super::Quota {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -35046,6 +35128,247 @@ impl serde::ser::Serialize for super::reservation_list::Warning {
 #[cfg(feature = "reservations")]
 #[doc(hidden)]
 impl serde::ser::Serialize for super::reservation_list::warning::Data {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.key.is_some() {
+            state.serialize_entry("key", &self.key)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationSlot {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.creation_timestamp.is_some() {
+            state.serialize_entry("creationTimestamp", &self.creation_timestamp)?;
+        }
+        if self.id.is_some() {
+            struct __With<'a>(&'a std::option::Option<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("id", &__With(&self.id))?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.name.is_some() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.physical_topology.is_some() {
+            state.serialize_entry("physicalTopology", &self.physical_topology)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.self_link_with_id.is_some() {
+            state.serialize_entry("selfLinkWithId", &self.self_link_with_id)?;
+        }
+        if self.share_settings.is_some() {
+            state.serialize_entry("shareSettings", &self.share_settings)?;
+        }
+        if self.state.is_some() {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.status.is_some() {
+            state.serialize_entry("status", &self.status)?;
+        }
+        if self.zone.is_some() {
+            state.serialize_entry("zone", &self.zone)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationSlotPhysicalTopology {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.block.is_some() {
+            state.serialize_entry("block", &self.block)?;
+        }
+        if self.cluster.is_some() {
+            state.serialize_entry("cluster", &self.cluster)?;
+        }
+        if self.host.is_some() {
+            state.serialize_entry("host", &self.host)?;
+        }
+        if self.sub_block.is_some() {
+            state.serialize_entry("subBlock", &self.sub_block)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationSlotStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.physical_topology.is_some() {
+            state.serialize_entry("physicalTopology", &self.physical_topology)?;
+        }
+        if !self.rdma_ip_addresses.is_empty() {
+            state.serialize_entry("rdmaIpAddresses", &self.rdma_ip_addresses)?;
+        }
+        if !self.running_instances.is_empty() {
+            state.serialize_entry("runningInstances", &self.running_instances)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationSlotsGetResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.resource.is_some() {
+            state.serialize_entry("resource", &self.resource)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ReservationSlotsListResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.id.is_some() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.items.is_empty() {
+            state.serialize_entry("items", &self.items)?;
+        }
+        if self.kind.is_some() {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if self.next_page_token.is_some() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if self.self_link.is_some() {
+            state.serialize_entry("selfLink", &self.self_link)?;
+        }
+        if self.warning.is_some() {
+            state.serialize_entry("warning", &self.warning)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reservation_slots_list_response::Warning {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.code.is_some() {
+            state.serialize_entry("code", &self.code)?;
+        }
+        if !self.data.is_empty() {
+            state.serialize_entry("data", &self.data)?;
+        }
+        if self.message.is_some() {
+            state.serialize_entry("message", &self.message)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+#[doc(hidden)]
+impl serde::ser::Serialize for super::reservation_slots_list_response::warning::Data {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -41512,6 +41835,7 @@ impl serde::ser::Serialize for super::service_attachments_scoped_list::warning::
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -41635,6 +41959,7 @@ impl serde::ser::Serialize for super::SetCommonInstanceMetadataOperationMetadata
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -41693,6 +42018,7 @@ impl serde::ser::Serialize
     feature = "future-reservations",
     feature = "node-groups",
     feature = "region-commitments",
+    feature = "reservation-slots",
     feature = "reservations",
 ))]
 #[doc(hidden)]
@@ -41724,6 +42050,7 @@ impl serde::ser::Serialize for super::ShareSettings {
     feature = "future-reservations",
     feature = "node-groups",
     feature = "region-commitments",
+    feature = "reservation-slots",
     feature = "reservations",
 ))]
 #[doc(hidden)]
@@ -43467,6 +43794,7 @@ impl serde::ser::Serialize for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",

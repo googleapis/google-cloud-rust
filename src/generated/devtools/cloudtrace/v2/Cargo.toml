@@ -17,7 +17,7 @@
 [package]
 name                   = "google-cloud-trace-v2"
 version                = "1.3.0"
-description            = "Google Cloud Client Libraries for Rust - Cloud Trace API"
+description            = "Google Cloud Client Libraries for Rust - Stackdriver Trace API"
 edition.workspace      = true
 authors.workspace      = true
 license.workspace      = true

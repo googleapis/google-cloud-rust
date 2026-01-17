@@ -16,14 +16,14 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-/// Implements a client for the Cloud Firestore API.
+/// Implements a client for the .
 ///
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_firestore::client::Firestore;
 /// let client = Firestore::builder().build().await?;
-/// // use `client` to make requests to the Cloud Firestore API.
+/// // use `client` to make requests to the .
 /// # Ok(()) }
 /// ```
 ///

@@ -29,6 +29,7 @@
 //!
 //! * [Builds](client/struct.Builds.html)
 //! * [Executions](client/struct.Executions.html)
+//! * [Instances](client/struct.Instances.html)
 //! * [Jobs](client/struct.Jobs.html)
 //! * [Revisions](client/struct.Revisions.html)
 //! * [Services](client/struct.Services.html)

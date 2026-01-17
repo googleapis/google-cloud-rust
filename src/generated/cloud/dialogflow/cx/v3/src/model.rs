@@ -54,6 +54,7 @@ mod serialize;
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -102,6 +103,7 @@ pub struct AdvancedSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -248,6 +250,7 @@ impl AdvancedSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -263,6 +266,7 @@ impl wkt::message::Message for AdvancedSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -276,6 +280,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -308,6 +313,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -403,6 +409,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -418,6 +425,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -452,6 +460,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -577,6 +586,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -592,6 +602,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -617,6 +628,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -670,6 +682,7 @@ pub mod advanced_settings {
         feature = "agents",
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -790,12 +803,6 @@ pub struct Agent {
     /// Speech recognition related settings.
     pub speech_to_text_settings: std::option::Option<crate::model::SpeechToTextSettings>,
 
-    /// Immutable. Name of the start flow in this agent. A start flow will be
-    /// automatically created when the agent is created, and can only be deleted by
-    /// deleting the agent. Format:
-    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
-    pub start_flow: std::string::String,
-
     /// Name of the
     /// [SecuritySettings][google.cloud.dialogflow.cx.v3.SecuritySettings]
     /// reference for the agent. Format:
@@ -856,6 +863,9 @@ pub struct Agent {
     /// Optional. Output only. A read only boolean field reflecting Zone Isolation
     /// status of the agent.
     pub satisfies_pzi: std::option::Option<bool>,
+
+    /// The resource to start the conversations with for the agent.
+    pub session_entry_resource: std::option::Option<crate::model::agent::SessionEntryResource>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -988,18 +998,6 @@ impl Agent {
         T: std::convert::Into<crate::model::SpeechToTextSettings>,
     {
         self.speech_to_text_settings = v.map(|x| x.into());
-        self
-    }
-
-    /// Sets the value of [start_flow][crate::model::Agent::start_flow].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
-    /// let x = Agent::new().set_start_flow("example");
-    /// ```
-    pub fn set_start_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
-        self.start_flow = v.into();
         self
     }
 
@@ -1357,6 +1355,91 @@ impl Agent {
         T: std::convert::Into<bool>,
     {
         self.satisfies_pzi = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [session_entry_resource][crate::model::Agent::session_entry_resource].
+    ///
+    /// Note that all the setters affecting `session_entry_resource` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
+    /// use google_cloud_dialogflow_cx_v3::model::agent::SessionEntryResource;
+    /// let x = Agent::new().set_session_entry_resource(Some(SessionEntryResource::StartFlow("example".to_string())));
+    /// ```
+    pub fn set_session_entry_resource<
+        T: std::convert::Into<std::option::Option<crate::model::agent::SessionEntryResource>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.session_entry_resource = v.into();
+        self
+    }
+
+    /// The value of [session_entry_resource][crate::model::Agent::session_entry_resource]
+    /// if it holds a `StartFlow`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn start_flow(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.session_entry_resource.as_ref().and_then(|v| match v {
+            crate::model::agent::SessionEntryResource::StartFlow(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [session_entry_resource][crate::model::Agent::session_entry_resource]
+    /// to hold a `StartFlow`.
+    ///
+    /// Note that all the setters affecting `session_entry_resource` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
+    /// let x = Agent::new().set_start_flow("example");
+    /// assert!(x.start_flow().is_some());
+    /// assert!(x.start_playbook().is_none());
+    /// ```
+    pub fn set_start_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session_entry_resource = std::option::Option::Some(
+            crate::model::agent::SessionEntryResource::StartFlow(v.into()),
+        );
+        self
+    }
+
+    /// The value of [session_entry_resource][crate::model::Agent::session_entry_resource]
+    /// if it holds a `StartPlaybook`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn start_playbook(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.session_entry_resource.as_ref().and_then(|v| match v {
+            crate::model::agent::SessionEntryResource::StartPlaybook(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [session_entry_resource][crate::model::Agent::session_entry_resource]
+    /// to hold a `StartPlaybook`.
+    ///
+    /// Note that all the setters affecting `session_entry_resource` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Agent;
+    /// let x = Agent::new().set_start_playbook("example");
+    /// assert!(x.start_playbook().is_some());
+    /// assert!(x.start_flow().is_none());
+    /// ```
+    pub fn set_start_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.session_entry_resource = std::option::Option::Some(
+            crate::model::agent::SessionEntryResource::StartPlaybook(v.into()),
+        );
         self
     }
 }
@@ -1829,6 +1912,30 @@ pub mod agent {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.ClientCertificateSettings"
         }
+    }
+
+    /// The resource to start the conversations with for the agent.
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum SessionEntryResource {
+        /// Name of the start flow in this agent. A start flow will be automatically
+        /// created when the agent is created, and can only be deleted by deleting
+        /// the agent.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
+        /// Currently only the default start flow with id
+        /// "00000000-0000-0000-0000-000000000000" is allowed.
+        StartFlow(std::string::String),
+        /// Name of the start playbook in this agent. A start playbook will be
+        /// automatically created when the agent is created, and can only be deleted
+        /// by deleting the agent.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+        /// Currently only the
+        /// default playbook with id
+        /// "00000000-0000-0000-0000-000000000000" is allowed.
+        StartPlaybook(std::string::String),
     }
 }
 
@@ -4794,6 +4901,43 @@ impl wkt::message::Message for Changelog {
     }
 }
 
+/// Represents a code block.
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CodeBlock {
+    /// Optional. Source code of the block in Python.
+    pub code: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl CodeBlock {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [code][crate::model::CodeBlock::code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CodeBlock;
+    /// let x = CodeBlock::new().set_code("example");
+    /// ```
+    pub fn set_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.code = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for CodeBlock {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CodeBlock"
+    }
+}
+
 /// A data store connection. It represents a data store in Discovery Engine and
 /// the type of the contents it contains.
 #[cfg(any(
@@ -4801,6 +4945,7 @@ impl wkt::message::Message for Changelog {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -4827,6 +4972,7 @@ pub struct DataStoreConnection {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl DataStoreConnection {
     pub fn new() -> Self {
@@ -4888,6 +5034,7 @@ impl DataStoreConnection {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl wkt::message::Message for DataStoreConnection {
     fn typename() -> &'static str {
@@ -5282,6 +5429,9 @@ pub mod data_store_connection_signals {
         /// Text included in the prompt.
         pub text: std::string::String,
 
+        /// Metadata associated with the document.
+        pub metadata: std::option::Option<wkt::Struct>,
+
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5330,6 +5480,39 @@ pub mod data_store_connection_signals {
         /// ```
         pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
             self.text = v.into();
+            self
+        }
+
+        /// Sets the value of [metadata][crate::model::data_store_connection_signals::SearchSnippet::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
+        /// use wkt::Struct;
+        /// let x = SearchSnippet::new().set_metadata(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata][crate::model::data_store_connection_signals::SearchSnippet::metadata].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::data_store_connection_signals::SearchSnippet;
+        /// use wkt::Struct;
+        /// let x = SearchSnippet::new().set_or_clear_metadata(Some(Struct::default()/* use setters */));
+        /// let x = SearchSnippet::new().set_or_clear_metadata(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = v.map(|x| x.into());
             self
         }
     }
@@ -9374,7 +9557,7 @@ pub struct Environment {
     /// Flow`][Agent.start_flow] in the agent. Otherwise, an error will be
     /// returned.
     ///
-    /// [Agent.start_flow]: crate::model::Agent::start_flow
+    /// [Agent.start_flow]: crate::model::Agent::session_entry_resource
     pub version_configs: std::vec::Vec<crate::model::environment::VersionConfig>,
 
     /// Output only. Update time of this environment.
@@ -9571,11 +9754,13 @@ pub mod environment {
     #[derive(Clone, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VersionConfig {
-        /// Required. Both flow and playbook versions are supported.
+        /// Required. Flow, playbook and tool versions are supported.
         /// Format for flow version:
         /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/flows/\<FlowID\>/versions/\<VersionID\>.
         /// Format for playbook version:
         /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/playbooks/\<PlaybookID\>/versions/\<VersionID\>.
+        /// Format for tool version:
+        /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/tools/\<ToolID\>/versions/\<VersionID\>.
         pub version: std::string::String,
 
         pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -11085,6 +11270,741 @@ impl DeployFlowMetadata {
 impl wkt::message::Message for DeployFlowMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeployFlowMetadata"
+    }
+}
+
+/// The request message for
+/// [Examples.CreateExample][google.cloud.dialogflow.cx.v3.Examples.CreateExample].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.CreateExample]: crate::client::Examples::create_example
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateExampleRequest {
+    /// Required. The playbook to create an example for.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub parent: std::string::String,
+
+    /// Required. The example to create.
+    pub example: std::option::Option<crate::model::Example>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl CreateExampleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateExampleRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateExampleRequest;
+    /// let x = CreateExampleRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [example][crate::model::CreateExampleRequest::example].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateExampleRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = CreateExampleRequest::new().set_example(Example::default()/* use setters */);
+    /// ```
+    pub fn set_example<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Example>,
+    {
+        self.example = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [example][crate::model::CreateExampleRequest::example].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateExampleRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = CreateExampleRequest::new().set_or_clear_example(Some(Example::default()/* use setters */));
+    /// let x = CreateExampleRequest::new().set_or_clear_example(None::<Example>);
+    /// ```
+    pub fn set_or_clear_example<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Example>,
+    {
+        self.example = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for CreateExampleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateExampleRequest"
+    }
+}
+
+/// The request message for
+/// [Examples.DeleteExample][google.cloud.dialogflow.cx.v3.Examples.DeleteExample].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.DeleteExample]: crate::client::Examples::delete_example
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteExampleRequest {
+    /// Required. The name of the example to delete.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/examples/<ExampleID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl DeleteExampleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteExampleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeleteExampleRequest;
+    /// let x = DeleteExampleRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for DeleteExampleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteExampleRequest"
+    }
+}
+
+/// The request message for
+/// [Examples.ListExamples][google.cloud.dialogflow.cx.v3.Examples.ListExamples].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.ListExamples]: crate::client::Examples::list_examples
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListExamplesRequest {
+    /// Required. The playbook to list the examples from.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return in a single page. By
+    /// default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The [next_page_token][ListExampleResponse.next_page_token] value
+    /// returned from a previous list request.
+    pub page_token: std::string::String,
+
+    /// Optional. The language to list examples for.
+    /// If not specified, list all examples under the playbook.
+    /// Note: languages must be enabled in the agent before they can be used.
+    pub language_code: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl ListExamplesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListExamplesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListExamplesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListExamplesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::ListExamplesRequest::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesRequest;
+    /// let x = ListExamplesRequest::new().set_language_code("example");
+    /// ```
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for ListExamplesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListExamplesRequest"
+    }
+}
+
+/// The response message for
+/// [Examples.ListExamples][google.cloud.dialogflow.cx.v3.Examples.ListExamples].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.ListExamples]: crate::client::Examples::list_examples
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListExamplesResponse {
+    /// The list of examples. There will be a maximum number of items returned
+    /// based on the
+    /// [page_size][google.cloud.dialogflow.cx.v3.ListExamplesRequest.page_size]
+    /// field in the request.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.ListExamplesRequest.page_size]: crate::model::ListExamplesRequest::page_size
+    pub examples: std::vec::Vec<crate::model::Example>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl ListExamplesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [examples][crate::model::ListExamplesResponse::examples].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = ListExamplesResponse::new()
+    ///     .set_examples([
+    ///         Example::default()/* use setters */,
+    ///         Example::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_examples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Example>,
+    {
+        use std::iter::Iterator;
+        self.examples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListExamplesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListExamplesResponse;
+    /// let x = ListExamplesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for ListExamplesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListExamplesResponse"
+    }
+}
+
+#[cfg(feature = "examples")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListExamplesResponse {
+    type PageItem = crate::model::Example;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.examples
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [Examples.GetExample][google.cloud.dialogflow.cx.v3.Examples.GetExample].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.GetExample]: crate::client::Examples::get_example
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetExampleRequest {
+    /// Required. The name of the example.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/examples/<ExampleID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl GetExampleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetExampleRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GetExampleRequest;
+    /// let x = GetExampleRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for GetExampleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetExampleRequest"
+    }
+}
+
+/// The request message for
+/// [Examples.UpdateExample][google.cloud.dialogflow.cx.v3.Examples.UpdateExample].
+///
+/// [google.cloud.dialogflow.cx.v3.Examples.UpdateExample]: crate::client::Examples::update_example
+#[cfg(feature = "examples")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateExampleRequest {
+    /// Required. The example to update.
+    pub example: std::option::Option<crate::model::Example>,
+
+    /// Optional. The mask to control which fields get updated. If the mask is not
+    /// present, all fields will be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "examples")]
+impl UpdateExampleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [example][crate::model::UpdateExampleRequest::example].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExampleRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = UpdateExampleRequest::new().set_example(Example::default()/* use setters */);
+    /// ```
+    pub fn set_example<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Example>,
+    {
+        self.example = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [example][crate::model::UpdateExampleRequest::example].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExampleRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = UpdateExampleRequest::new().set_or_clear_example(Some(Example::default()/* use setters */));
+    /// let x = UpdateExampleRequest::new().set_or_clear_example(None::<Example>);
+    /// ```
+    pub fn set_or_clear_example<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Example>,
+    {
+        self.example = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateExampleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExampleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExampleRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateExampleRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateExampleRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateExampleRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateExampleRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "examples")]
+impl wkt::message::Message for UpdateExampleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateExampleRequest"
+    }
+}
+
+/// Example represents a sample execution of the playbook in the conversation.
+///
+/// An example consists of a list of ordered actions performed by end user
+/// or Dialogflow agent according the playbook instructions to fulfill the task.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Example {
+    /// The unique identifier of the playbook example.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/examples/<ExampleID>`.
+    pub name: std::string::String,
+
+    /// Optional. The input to the playbook in the example.
+    pub playbook_input: std::option::Option<crate::model::PlaybookInput>,
+
+    /// Optional. The output of the playbook in the example.
+    pub playbook_output: std::option::Option<crate::model::PlaybookOutput>,
+
+    /// Required. The ordered list of actions performed by the end user and the
+    /// Dialogflow agent.
+    pub actions: std::vec::Vec<crate::model::Action>,
+
+    /// Required. The display name of the example.
+    pub display_name: std::string::String,
+
+    /// Optional. The high level concise description of the example. The max number
+    /// of characters is 200.
+    pub description: std::string::String,
+
+    /// Output only. Estimated number of tokes current example takes when sent to
+    /// the LLM.
+    pub token_count: i64,
+
+    /// Output only. The timestamp of initial example creation.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last time the example was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. Example's output state.
+    pub conversation_state: crate::model::OutputState,
+
+    /// Optional. The language code of the example.
+    /// If not specified, the agent's default language is used.
+    /// Note: languages must be enabled in the agent before they can be used.
+    /// Note: example's language code is not currently used in dialogflow agents.
+    pub language_code: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl Example {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Example::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = Example::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook_input][crate::model::Example::playbook_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookInput;
+    /// let x = Example::new().set_playbook_input(PlaybookInput::default()/* use setters */);
+    /// ```
+    pub fn set_playbook_input<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookInput>,
+    {
+        self.playbook_input = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook_input][crate::model::Example::playbook_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookInput;
+    /// let x = Example::new().set_or_clear_playbook_input(Some(PlaybookInput::default()/* use setters */));
+    /// let x = Example::new().set_or_clear_playbook_input(None::<PlaybookInput>);
+    /// ```
+    pub fn set_or_clear_playbook_input<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookInput>,
+    {
+        self.playbook_input = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [playbook_output][crate::model::Example::playbook_output].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookOutput;
+    /// let x = Example::new().set_playbook_output(PlaybookOutput::default()/* use setters */);
+    /// ```
+    pub fn set_playbook_output<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookOutput>,
+    {
+        self.playbook_output = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook_output][crate::model::Example::playbook_output].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookOutput;
+    /// let x = Example::new().set_or_clear_playbook_output(Some(PlaybookOutput::default()/* use setters */));
+    /// let x = Example::new().set_or_clear_playbook_output(None::<PlaybookOutput>);
+    /// ```
+    pub fn set_or_clear_playbook_output<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookOutput>,
+    {
+        self.playbook_output = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [actions][crate::model::Example::actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::Action;
+    /// let x = Example::new()
+    ///     .set_actions([
+    ///         Action::default()/* use setters */,
+    ///         Action::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Action>,
+    {
+        use std::iter::Iterator;
+        self.actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Example::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = Example::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Example::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = Example::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [token_count][crate::model::Example::token_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = Example::new().set_token_count(42);
+    /// ```
+    pub fn set_token_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.token_count = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Example::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use wkt::Timestamp;
+    /// let x = Example::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Example::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use wkt::Timestamp;
+    /// let x = Example::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Example::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Example::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use wkt::Timestamp;
+    /// let x = Example::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Example::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use wkt::Timestamp;
+    /// let x = Example::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Example::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conversation_state][crate::model::Example::conversation_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// use google_cloud_dialogflow_cx_v3::model::OutputState;
+    /// let x0 = Example::new().set_conversation_state(OutputState::Ok);
+    /// let x1 = Example::new().set_conversation_state(OutputState::Cancelled);
+    /// let x2 = Example::new().set_conversation_state(OutputState::Failed);
+    /// ```
+    pub fn set_conversation_state<T: std::convert::Into<crate::model::OutputState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.conversation_state = v.into();
+        self
+    }
+
+    /// Sets the value of [language_code][crate::model::Example::language_code].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = Example::new().set_language_code("example");
+    /// ```
+    pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.language_code = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for Example {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.Example"
     }
 }
 
@@ -14274,6 +15194,12 @@ pub struct Flow {
     /// Optional. Knowledge connector configuration.
     pub knowledge_connector_settings: std::option::Option<crate::model::KnowledgeConnectorSettings>,
 
+    /// Optional. Defined structured input parameters for this flow.
+    pub input_parameter_definitions: std::vec::Vec<crate::model::ParameterDefinition>,
+
+    /// Optional. Defined structured output parameters for this flow.
+    pub output_parameter_definitions: std::vec::Vec<crate::model::ParameterDefinition>,
+
     /// Optional. Multi-lingual agent settings for this flow.
     pub multi_language_settings: std::option::Option<crate::model::flow::MultiLanguageSettings>,
 
@@ -14483,6 +15409,50 @@ impl Flow {
         T: std::convert::Into<crate::model::KnowledgeConnectorSettings>,
     {
         self.knowledge_connector_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [input_parameter_definitions][crate::model::Flow::input_parameter_definitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
+    /// use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = Flow::new()
+    ///     .set_input_parameter_definitions([
+    ///         ParameterDefinition::default()/* use setters */,
+    ///         ParameterDefinition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_input_parameter_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ParameterDefinition>,
+    {
+        use std::iter::Iterator;
+        self.input_parameter_definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [output_parameter_definitions][crate::model::Flow::output_parameter_definitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Flow;
+    /// use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = Flow::new()
+    ///     .set_output_parameter_definitions([
+    ///         ParameterDefinition::default()/* use setters */,
+    ///         ParameterDefinition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_output_parameter_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ParameterDefinition>,
+    {
+        use std::iter::Iterator;
+        self.output_parameter_definitions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -16111,6 +17081,7 @@ pub mod export_flow_response {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -16177,6 +17148,7 @@ pub struct Fulfillment {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -16359,6 +17331,7 @@ impl Fulfillment {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -16373,6 +17346,7 @@ impl wkt::message::Message for Fulfillment {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -16385,6 +17359,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16404,6 +17379,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16462,6 +17438,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16477,6 +17454,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16493,6 +17471,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16528,6 +17507,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16542,6 +17522,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16555,6 +17536,7 @@ pub mod fulfillment {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -16584,6 +17566,7 @@ pub mod fulfillment {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -16636,6 +17619,7 @@ pub mod fulfillment {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -16650,6 +17634,7 @@ pub mod fulfillment {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -16662,6 +17647,7 @@ pub mod fulfillment {
             #[cfg(any(
                 feature = "flows",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "sessions",
                 feature = "test-cases",
                 feature = "transition-route-groups",
@@ -16679,6 +17665,7 @@ pub mod fulfillment {
             #[cfg(any(
                 feature = "flows",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "sessions",
                 feature = "test-cases",
                 feature = "transition-route-groups",
@@ -16797,6 +17784,7 @@ pub mod fulfillment {
             #[cfg(any(
                 feature = "flows",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "sessions",
                 feature = "test-cases",
                 feature = "transition-route-groups",
@@ -16811,6 +17799,7 @@ pub mod fulfillment {
             #[cfg(any(
                 feature = "flows",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "sessions",
                 feature = "test-cases",
                 feature = "transition-route-groups",
@@ -16823,6 +17812,7 @@ pub mod fulfillment {
                 #[cfg(any(
                     feature = "flows",
                     feature = "pages",
+                    feature = "playbooks",
                     feature = "sessions",
                     feature = "test-cases",
                     feature = "transition-route-groups",
@@ -16843,6 +17833,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16879,6 +17870,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16940,6 +17932,7 @@ pub mod fulfillment {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -16957,6 +17950,7 @@ pub mod fulfillment {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -16976,6 +17970,7 @@ pub struct GcsDestination {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -17002,6 +17997,7 @@ impl GcsDestination {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -17033,6 +18029,9 @@ pub struct GenerativeSettings {
 
     /// Language for this settings.
     pub language_code: std::string::String,
+
+    /// LLM model settings.
+    pub llm_model_settings: std::option::Option<crate::model::LlmModelSettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17163,6 +18162,39 @@ impl GenerativeSettings {
     /// ```
     pub fn set_language_code<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.language_code = v.into();
+        self
+    }
+
+    /// Sets the value of [llm_model_settings][crate::model::GenerativeSettings::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = GenerativeSettings::new().set_llm_model_settings(LlmModelSettings::default()/* use setters */);
+    /// ```
+    pub fn set_llm_model_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [llm_model_settings][crate::model::GenerativeSettings::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GenerativeSettings;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = GenerativeSettings::new().set_or_clear_llm_model_settings(Some(LlmModelSettings::default()/* use setters */));
+    /// let x = GenerativeSettings::new().set_or_clear_llm_model_settings(None::<LlmModelSettings>);
+    /// ```
+    pub fn set_or_clear_llm_model_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = v.map(|x| x.into());
         self
     }
 }
@@ -17462,6 +18494,73 @@ pub mod generative_settings {
     }
 }
 
+/// Settings for LLM models.
+#[cfg(any(
+    feature = "agents",
+    feature = "generators",
+    feature = "playbooks",
+    feature = "sessions",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct LlmModelSettings {
+    /// The selected LLM model.
+    pub model: std::string::String,
+
+    /// The custom prompt to use.
+    pub prompt_text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "agents",
+    feature = "generators",
+    feature = "playbooks",
+    feature = "sessions",
+))]
+impl LlmModelSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [model][crate::model::LlmModelSettings::model].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = LlmModelSettings::new().set_model("example");
+    /// ```
+    pub fn set_model<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.model = v.into();
+        self
+    }
+
+    /// Sets the value of [prompt_text][crate::model::LlmModelSettings::prompt_text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = LlmModelSettings::new().set_prompt_text("example");
+    /// ```
+    pub fn set_prompt_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.prompt_text = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "agents",
+    feature = "generators",
+    feature = "playbooks",
+    feature = "sessions",
+))]
+impl wkt::message::Message for LlmModelSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.LlmModelSettings"
+    }
+}
+
 /// Generators contain prompt to be sent to the LLM model to generate text. The
 /// prompt can contain parameters which will be resolved before calling the
 /// model. It can optionally contain banned phrases to ensure the model responses
@@ -17491,6 +18590,9 @@ pub struct Generator {
 
     /// Optional. List of custom placeholders in the prompt text.
     pub placeholders: std::vec::Vec<crate::model::generator::Placeholder>,
+
+    /// The LLM model settings.
+    pub llm_model_settings: std::option::Option<crate::model::LlmModelSettings>,
 
     /// Parameters passed to the LLM to configure its behavior.
     pub model_parameter: std::option::Option<crate::model::generator::ModelParameter>,
@@ -17580,6 +18682,39 @@ impl Generator {
     {
         use std::iter::Iterator;
         self.placeholders = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [llm_model_settings][crate::model::Generator::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = Generator::new().set_llm_model_settings(LlmModelSettings::default()/* use setters */);
+    /// ```
+    pub fn set_llm_model_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [llm_model_settings][crate::model::Generator::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Generator;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = Generator::new().set_or_clear_llm_model_settings(Some(LlmModelSettings::default()/* use setters */));
+    /// let x = Generator::new().set_or_clear_llm_model_settings(None::<LlmModelSettings>);
+    /// ```
+    pub fn set_or_clear_llm_model_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = v.map(|x| x.into());
         self
     }
 
@@ -21486,6 +22621,7 @@ impl EventHandler {
     /// let x = EventHandler::new().set_target_page("example");
     /// assert!(x.target_page().is_some());
     /// assert!(x.target_flow().is_none());
+    /// assert!(x.target_playbook().is_none());
     /// ```
     pub fn set_target_page<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
@@ -21516,10 +22652,43 @@ impl EventHandler {
     /// let x = EventHandler::new().set_target_flow("example");
     /// assert!(x.target_flow().is_some());
     /// assert!(x.target_page().is_none());
+    /// assert!(x.target_playbook().is_none());
     /// ```
     pub fn set_target_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.target =
             std::option::Option::Some(crate::model::event_handler::Target::TargetFlow(v.into()));
+        self
+    }
+
+    /// The value of [target][crate::model::EventHandler::target]
+    /// if it holds a `TargetPlaybook`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn target_playbook(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.target.as_ref().and_then(|v| match v {
+            crate::model::event_handler::Target::TargetPlaybook(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [target][crate::model::EventHandler::target]
+    /// to hold a `TargetPlaybook`.
+    ///
+    /// Note that all the setters affecting `target` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::EventHandler;
+    /// let x = EventHandler::new().set_target_playbook("example");
+    /// assert!(x.target_playbook().is_some());
+    /// assert!(x.target_page().is_none());
+    /// assert!(x.target_flow().is_none());
+    /// ```
+    pub fn set_target_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target = std::option::Option::Some(
+            crate::model::event_handler::Target::TargetPlaybook(v.into()),
+        );
         self
     }
 }
@@ -21570,6 +22739,10 @@ pub mod event_handler {
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
         TargetFlow(std::string::String),
+        /// The target playbook to transition to.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+        TargetPlaybook(std::string::String),
     }
 }
 
@@ -22721,6 +23894,3639 @@ pub mod knowledge_connector_settings {
     }
 }
 
+/// Defines the properties of a parameter.
+/// Used to define parameters used in the agent and the
+/// input / output parameters for each fulfillment.
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ParameterDefinition {
+    /// Required. Name of parameter.
+    pub name: std::string::String,
+
+    /// Type of parameter.
+    #[deprecated]
+    pub r#type: crate::model::parameter_definition::ParameterType,
+
+    /// Optional. Type schema of parameter.
+    pub type_schema: std::option::Option<crate::model::TypeSchema>,
+
+    /// Human-readable description of the parameter. Limited to 300 characters.
+    pub description: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl ParameterDefinition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ParameterDefinition::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = ParameterDefinition::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::ParameterDefinition::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// use google_cloud_dialogflow_cx_v3::model::parameter_definition::ParameterType;
+    /// let x0 = ParameterDefinition::new().set_type(ParameterType::String);
+    /// let x1 = ParameterDefinition::new().set_type(ParameterType::Number);
+    /// let x2 = ParameterDefinition::new().set_type(ParameterType::Boolean);
+    /// ```
+    #[deprecated]
+    pub fn set_type<T: std::convert::Into<crate::model::parameter_definition::ParameterType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [type_schema][crate::model::ParameterDefinition::type_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// let x = ParameterDefinition::new().set_type_schema(TypeSchema::default()/* use setters */);
+    /// ```
+    pub fn set_type_schema<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeSchema>,
+    {
+        self.type_schema = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [type_schema][crate::model::ParameterDefinition::type_schema].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// let x = ParameterDefinition::new().set_or_clear_type_schema(Some(TypeSchema::default()/* use setters */));
+    /// let x = ParameterDefinition::new().set_or_clear_type_schema(None::<TypeSchema>);
+    /// ```
+    pub fn set_or_clear_type_schema<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeSchema>,
+    {
+        self.type_schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ParameterDefinition::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = ParameterDefinition::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl wkt::message::Message for ParameterDefinition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ParameterDefinition"
+    }
+}
+
+/// Defines additional types related to [ParameterDefinition].
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+pub mod parameter_definition {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Parameter types are used for validation.
+    /// These types are consistent with
+    /// [google.protobuf.Value][google.protobuf.Value].
+    ///
+    /// [google.protobuf.Value]: wkt::Value
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ParameterType {
+        /// Not specified. No validation will be performed.
+        Unspecified,
+        /// Represents any string value.
+        String,
+        /// Represents any number value.
+        Number,
+        /// Represents a boolean value.
+        Boolean,
+        /// Represents a null value.
+        Null,
+        /// Represents any object value.
+        Object,
+        /// Represents a repeated value.
+        List,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ParameterType::value] or
+        /// [ParameterType::name].
+        UnknownValue(parameter_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    pub mod parameter_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl ParameterType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::String => std::option::Option::Some(1),
+                Self::Number => std::option::Option::Some(2),
+                Self::Boolean => std::option::Option::Some(3),
+                Self::Null => std::option::Option::Some(4),
+                Self::Object => std::option::Option::Some(5),
+                Self::List => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PARAMETER_TYPE_UNSPECIFIED"),
+                Self::String => std::option::Option::Some("STRING"),
+                Self::Number => std::option::Option::Some("NUMBER"),
+                Self::Boolean => std::option::Option::Some("BOOLEAN"),
+                Self::Null => std::option::Option::Some("NULL"),
+                Self::Object => std::option::Option::Some("OBJECT"),
+                Self::List => std::option::Option::Some("LIST"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl std::default::Default for ParameterType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl std::fmt::Display for ParameterType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl std::convert::From<i32> for ParameterType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::String,
+                2 => Self::Number,
+                3 => Self::Boolean,
+                4 => Self::Null,
+                5 => Self::Object,
+                6 => Self::List,
+                _ => Self::UnknownValue(parameter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl std::convert::From<&str> for ParameterType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PARAMETER_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "STRING" => Self::String,
+                "NUMBER" => Self::Number,
+                "BOOLEAN" => Self::Boolean,
+                "NULL" => Self::Null,
+                "OBJECT" => Self::Object,
+                "LIST" => Self::List,
+                _ => Self::UnknownValue(parameter_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl serde::ser::Serialize for ParameterType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::String => serializer.serialize_i32(1),
+                Self::Number => serializer.serialize_i32(2),
+                Self::Boolean => serializer.serialize_i32(3),
+                Self::Null => serializer.serialize_i32(4),
+                Self::Object => serializer.serialize_i32(5),
+                Self::List => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl<'de> serde::de::Deserialize<'de> for ParameterType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ParameterType>::new(
+                ".google.cloud.dialogflow.cx.v3.ParameterDefinition.ParameterType",
+            ))
+        }
+    }
+}
+
+/// Encapsulates different type schema variations: either a reference to an
+/// a schema that's already defined by a tool, or an inline definition.
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct TypeSchema {
+    /// The encapsulated schema.
+    pub schema: std::option::Option<crate::model::type_schema::Schema>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl TypeSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schema][crate::model::TypeSchema::schema].
+    ///
+    /// Note that all the setters affecting `schema` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::InlineSchema;
+    /// let x = TypeSchema::new().set_schema(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::type_schema::Schema::InlineSchema(InlineSchema::default().into())));
+    /// ```
+    pub fn set_schema<
+        T: std::convert::Into<std::option::Option<crate::model::type_schema::Schema>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema = v.into();
+        self
+    }
+
+    /// The value of [schema][crate::model::TypeSchema::schema]
+    /// if it holds a `InlineSchema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inline_schema(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::InlineSchema>> {
+        #[allow(unreachable_patterns)]
+        self.schema.as_ref().and_then(|v| match v {
+            crate::model::type_schema::Schema::InlineSchema(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [schema][crate::model::TypeSchema::schema]
+    /// to hold a `InlineSchema`.
+    ///
+    /// Note that all the setters affecting `schema` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::InlineSchema;
+    /// let x = TypeSchema::new().set_inline_schema(InlineSchema::default()/* use setters */);
+    /// assert!(x.inline_schema().is_some());
+    /// assert!(x.schema_reference().is_none());
+    /// ```
+    pub fn set_inline_schema<T: std::convert::Into<std::boxed::Box<crate::model::InlineSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema =
+            std::option::Option::Some(crate::model::type_schema::Schema::InlineSchema(v.into()));
+        self
+    }
+
+    /// The value of [schema][crate::model::TypeSchema::schema]
+    /// if it holds a `SchemaReference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn schema_reference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::type_schema::SchemaReference>> {
+        #[allow(unreachable_patterns)]
+        self.schema.as_ref().and_then(|v| match v {
+            crate::model::type_schema::Schema::SchemaReference(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [schema][crate::model::TypeSchema::schema]
+    /// to hold a `SchemaReference`.
+    ///
+    /// Note that all the setters affecting `schema` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::type_schema::SchemaReference;
+    /// let x = TypeSchema::new().set_schema_reference(SchemaReference::default()/* use setters */);
+    /// assert!(x.schema_reference().is_some());
+    /// assert!(x.inline_schema().is_none());
+    /// ```
+    pub fn set_schema_reference<
+        T: std::convert::Into<std::boxed::Box<crate::model::type_schema::SchemaReference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema =
+            std::option::Option::Some(crate::model::type_schema::Schema::SchemaReference(v.into()));
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl wkt::message::Message for TypeSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.TypeSchema"
+    }
+}
+
+/// Defines additional types related to [TypeSchema].
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+pub mod type_schema {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A reference to the schema of an existing tool.
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SchemaReference {
+        /// The tool that contains this schema definition.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+        pub tool: std::string::String,
+
+        /// The name of the schema.
+        pub schema: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl SchemaReference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [tool][crate::model::type_schema::SchemaReference::tool].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::type_schema::SchemaReference;
+        /// let x = SchemaReference::new().set_tool("example");
+        /// ```
+        pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.tool = v.into();
+            self
+        }
+
+        /// Sets the value of [schema][crate::model::type_schema::SchemaReference::schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::type_schema::SchemaReference;
+        /// let x = SchemaReference::new().set_schema("example");
+        /// ```
+        pub fn set_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.schema = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    impl wkt::message::Message for SchemaReference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.TypeSchema.SchemaReference"
+        }
+    }
+
+    /// The encapsulated schema.
+    #[cfg(any(
+        feature = "flows",
+        feature = "playbooks",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Schema {
+        /// Set if this is an inline schema definition.
+        InlineSchema(std::boxed::Box<crate::model::InlineSchema>),
+        /// Set if this is a schema reference.
+        SchemaReference(std::boxed::Box<crate::model::type_schema::SchemaReference>),
+    }
+}
+
+/// A type schema object that's specified inline.
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct InlineSchema {
+    /// Data type of the schema.
+    pub r#type: crate::model::DataType,
+
+    /// Schema of the elements if this is an ARRAY type.
+    pub items: std::option::Option<std::boxed::Box<crate::model::TypeSchema>>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl InlineSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::InlineSchema::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::InlineSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::DataType;
+    /// let x0 = InlineSchema::new().set_type(DataType::String);
+    /// let x1 = InlineSchema::new().set_type(DataType::Number);
+    /// let x2 = InlineSchema::new().set_type(DataType::Boolean);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::DataType>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [items][crate::model::InlineSchema::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::InlineSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// let x = InlineSchema::new().set_items(TypeSchema::default()/* use setters */);
+    /// ```
+    pub fn set_items<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeSchema>,
+    {
+        self.items = std::option::Option::Some(std::boxed::Box::new(v.into()));
+        self
+    }
+
+    /// Sets or clears the value of [items][crate::model::InlineSchema::items].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::InlineSchema;
+    /// use google_cloud_dialogflow_cx_v3::model::TypeSchema;
+    /// let x = InlineSchema::new().set_or_clear_items(Some(TypeSchema::default()/* use setters */));
+    /// let x = InlineSchema::new().set_or_clear_items(None::<TypeSchema>);
+    /// ```
+    pub fn set_or_clear_items<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TypeSchema>,
+    {
+        self.items = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl wkt::message::Message for InlineSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.InlineSchema"
+    }
+}
+
+/// The request message for
+/// [Playbooks.CreatePlaybook][google.cloud.dialogflow.cx.v3.Playbooks.CreatePlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.CreatePlaybook]: crate::client::Playbooks::create_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreatePlaybookRequest {
+    /// Required. The agent to create a playbook for.
+    /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
+    pub parent: std::string::String,
+
+    /// Required. The playbook to create.
+    pub playbook: std::option::Option<crate::model::Playbook>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl CreatePlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreatePlaybookRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookRequest;
+    /// let x = CreatePlaybookRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook][crate::model::CreatePlaybookRequest::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = CreatePlaybookRequest::new().set_playbook(Playbook::default()/* use setters */);
+    /// ```
+    pub fn set_playbook<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook][crate::model::CreatePlaybookRequest::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = CreatePlaybookRequest::new().set_or_clear_playbook(Some(Playbook::default()/* use setters */));
+    /// let x = CreatePlaybookRequest::new().set_or_clear_playbook(None::<Playbook>);
+    /// ```
+    pub fn set_or_clear_playbook<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for CreatePlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreatePlaybookRequest"
+    }
+}
+
+/// The request message for
+/// [Playbooks.DeletePlaybook][google.cloud.dialogflow.cx.v3.Playbooks.DeletePlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.DeletePlaybook]: crate::client::Playbooks::delete_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeletePlaybookRequest {
+    /// Required. The name of the playbook to delete.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl DeletePlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeletePlaybookRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeletePlaybookRequest;
+    /// let x = DeletePlaybookRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for DeletePlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeletePlaybookRequest"
+    }
+}
+
+/// The request message for
+/// [Playbooks.ListPlaybooks][google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybooks].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybooks]: crate::client::Playbooks::list_playbooks
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPlaybooksRequest {
+    /// Required. The agent to list playbooks from.
+    /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
+    pub parent: std::string::String,
+
+    /// The maximum number of items to return in a single page. By default 100 and
+    /// at most 1000.
+    pub page_size: i32,
+
+    /// The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ListPlaybooksRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListPlaybooksRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksRequest;
+    /// let x = ListPlaybooksRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListPlaybooksRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksRequest;
+    /// let x = ListPlaybooksRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListPlaybooksRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksRequest;
+    /// let x = ListPlaybooksRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ListPlaybooksRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPlaybooksRequest"
+    }
+}
+
+/// The response message for
+/// [Playbooks.ListPlaybooks][google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybooks].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybooks]: crate::client::Playbooks::list_playbooks
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPlaybooksResponse {
+    /// The list of playbooks. There will be a maximum number of items returned
+    /// based on the page_size field in the request.
+    pub playbooks: std::vec::Vec<crate::model::Playbook>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ListPlaybooksResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbooks][crate::model::ListPlaybooksResponse::playbooks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = ListPlaybooksResponse::new()
+    ///     .set_playbooks([
+    ///         Playbook::default()/* use setters */,
+    ///         Playbook::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_playbooks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Playbook>,
+    {
+        use std::iter::Iterator;
+        self.playbooks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPlaybooksResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybooksResponse;
+    /// let x = ListPlaybooksResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ListPlaybooksResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPlaybooksResponse"
+    }
+}
+
+#[cfg(feature = "playbooks")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPlaybooksResponse {
+    type PageItem = crate::model::Playbook;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.playbooks
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [Playbooks.GetPlaybook][google.cloud.dialogflow.cx.v3.Playbooks.GetPlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.GetPlaybook]: crate::client::Playbooks::get_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetPlaybookRequest {
+    /// Required. The name of the playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl GetPlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetPlaybookRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GetPlaybookRequest;
+    /// let x = GetPlaybookRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for GetPlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetPlaybookRequest"
+    }
+}
+
+/// The request message for
+/// [Playbooks.UpdatePlaybook][google.cloud.dialogflow.cx.v3.Playbooks.UpdatePlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.UpdatePlaybook]: crate::client::Playbooks::update_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdatePlaybookRequest {
+    /// Required. The playbook to update.
+    pub playbook: std::option::Option<crate::model::Playbook>,
+
+    /// The mask to control which fields get updated. If the mask is not present,
+    /// all fields will be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl UpdatePlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::UpdatePlaybookRequest::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = UpdatePlaybookRequest::new().set_playbook(Playbook::default()/* use setters */);
+    /// ```
+    pub fn set_playbook<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook][crate::model::UpdatePlaybookRequest::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = UpdatePlaybookRequest::new().set_or_clear_playbook(Some(Playbook::default()/* use setters */));
+    /// let x = UpdatePlaybookRequest::new().set_or_clear_playbook(None::<Playbook>);
+    /// ```
+    pub fn set_or_clear_playbook<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdatePlaybookRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePlaybookRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePlaybookRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdatePlaybookRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdatePlaybookRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdatePlaybookRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdatePlaybookRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for UpdatePlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdatePlaybookRequest"
+    }
+}
+
+/// Playbook is the basic building block to instruct the LLM how to execute a
+/// certain task.
+///
+/// A playbook consists of a goal to accomplish, an optional list of step by step
+/// instructions (the step instruction may refers to name of the custom or
+/// default plugin tools to use) to perform the task,
+/// a list of contextual input data to be passed in at the beginning of the
+/// invoked, and a list of output parameters to store the playbook result.
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Playbook {
+    /// The unique identifier of the playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub name: std::string::String,
+
+    /// Required. The human-readable name of the playbook, unique within an agent.
+    pub display_name: std::string::String,
+
+    /// Required. High level description of the goal the playbook intend to
+    /// accomplish. A goal should be concise since it's visible to other playbooks
+    /// that may reference this playbook.
+    pub goal: std::string::String,
+
+    /// Optional. Defined structured input parameters for this playbook.
+    pub input_parameter_definitions: std::vec::Vec<crate::model::ParameterDefinition>,
+
+    /// Optional. Defined structured output parameters for this playbook.
+    pub output_parameter_definitions: std::vec::Vec<crate::model::ParameterDefinition>,
+
+    /// Instruction to accomplish target goal.
+    pub instruction: std::option::Option<crate::model::playbook::Instruction>,
+
+    /// Output only. Estimated number of tokes current playbook takes when sent to
+    /// the LLM.
+    pub token_count: i64,
+
+    /// Output only. The timestamp of initial playbook creation.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last time the playbook version was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The resource name of other playbooks referenced by the current
+    /// playbook in the instructions.
+    pub referenced_playbooks: std::vec::Vec<std::string::String>,
+
+    /// Output only. The resource name of flows referenced by the current playbook
+    /// in the instructions.
+    pub referenced_flows: std::vec::Vec<std::string::String>,
+
+    /// Optional. The resource name of tools referenced by the current playbook in
+    /// the instructions. If not provided explicitly, they are will
+    /// be implied using the tool being referenced in goal and steps.
+    pub referenced_tools: std::vec::Vec<std::string::String>,
+
+    /// Optional. Output only. Names of inline actions scoped to this playbook.
+    /// These actions are in addition to those belonging to referenced tools, child
+    /// playbooks, and flows, e.g. actions that are defined in the playbook's code
+    /// block.
+    pub inline_actions: std::vec::Vec<std::string::String>,
+
+    /// Optional. The playbook's scoped code block, which may implement handlers
+    /// and actions.
+    pub code_block: std::option::Option<crate::model::CodeBlock>,
+
+    /// Optional. Llm model settings for the playbook.
+    pub llm_model_settings: std::option::Option<crate::model::LlmModelSettings>,
+
+    /// Optional. A list of registered handlers to execuate based on the specified
+    /// triggers.
+    pub handlers: std::vec::Vec<crate::model::Handler>,
+
+    /// Optional. Type of the playbook.
+    pub playbook_type: crate::model::playbook::PlaybookType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl Playbook {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Playbook::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Playbook::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [goal][crate::model::Playbook::goal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_goal("example");
+    /// ```
+    pub fn set_goal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.goal = v.into();
+        self
+    }
+
+    /// Sets the value of [input_parameter_definitions][crate::model::Playbook::input_parameter_definitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = Playbook::new()
+    ///     .set_input_parameter_definitions([
+    ///         ParameterDefinition::default()/* use setters */,
+    ///         ParameterDefinition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_input_parameter_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ParameterDefinition>,
+    {
+        use std::iter::Iterator;
+        self.input_parameter_definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [output_parameter_definitions][crate::model::Playbook::output_parameter_definitions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::ParameterDefinition;
+    /// let x = Playbook::new()
+    ///     .set_output_parameter_definitions([
+    ///         ParameterDefinition::default()/* use setters */,
+    ///         ParameterDefinition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_output_parameter_definitions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ParameterDefinition>,
+    {
+        use std::iter::Iterator;
+        self.output_parameter_definitions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [instruction][crate::model::Playbook::instruction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::playbook::Instruction;
+    /// let x = Playbook::new().set_instruction(Instruction::default()/* use setters */);
+    /// ```
+    pub fn set_instruction<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::playbook::Instruction>,
+    {
+        self.instruction = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instruction][crate::model::Playbook::instruction].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::playbook::Instruction;
+    /// let x = Playbook::new().set_or_clear_instruction(Some(Instruction::default()/* use setters */));
+    /// let x = Playbook::new().set_or_clear_instruction(None::<Instruction>);
+    /// ```
+    pub fn set_or_clear_instruction<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::playbook::Instruction>,
+    {
+        self.instruction = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [token_count][crate::model::Playbook::token_count].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_token_count(42);
+    /// ```
+    pub fn set_token_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.token_count = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Playbook::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use wkt::Timestamp;
+    /// let x = Playbook::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Playbook::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use wkt::Timestamp;
+    /// let x = Playbook::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Playbook::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Playbook::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use wkt::Timestamp;
+    /// let x = Playbook::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Playbook::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use wkt::Timestamp;
+    /// let x = Playbook::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Playbook::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [referenced_playbooks][crate::model::Playbook::referenced_playbooks].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_referenced_playbooks(["a", "b", "c"]);
+    /// ```
+    pub fn set_referenced_playbooks<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referenced_playbooks = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referenced_flows][crate::model::Playbook::referenced_flows].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_referenced_flows(["a", "b", "c"]);
+    /// ```
+    pub fn set_referenced_flows<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referenced_flows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [referenced_tools][crate::model::Playbook::referenced_tools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_referenced_tools(["a", "b", "c"]);
+    /// ```
+    pub fn set_referenced_tools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.referenced_tools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [inline_actions][crate::model::Playbook::inline_actions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = Playbook::new().set_inline_actions(["a", "b", "c"]);
+    /// ```
+    pub fn set_inline_actions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.inline_actions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [code_block][crate::model::Playbook::code_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::CodeBlock;
+    /// let x = Playbook::new().set_code_block(CodeBlock::default()/* use setters */);
+    /// ```
+    pub fn set_code_block<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CodeBlock>,
+    {
+        self.code_block = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [code_block][crate::model::Playbook::code_block].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::CodeBlock;
+    /// let x = Playbook::new().set_or_clear_code_block(Some(CodeBlock::default()/* use setters */));
+    /// let x = Playbook::new().set_or_clear_code_block(None::<CodeBlock>);
+    /// ```
+    pub fn set_or_clear_code_block<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CodeBlock>,
+    {
+        self.code_block = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [llm_model_settings][crate::model::Playbook::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = Playbook::new().set_llm_model_settings(LlmModelSettings::default()/* use setters */);
+    /// ```
+    pub fn set_llm_model_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [llm_model_settings][crate::model::Playbook::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = Playbook::new().set_or_clear_llm_model_settings(Some(LlmModelSettings::default()/* use setters */));
+    /// let x = Playbook::new().set_or_clear_llm_model_settings(None::<LlmModelSettings>);
+    /// ```
+    pub fn set_or_clear_llm_model_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [handlers][crate::model::Playbook::handlers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::Handler;
+    /// let x = Playbook::new()
+    ///     .set_handlers([
+    ///         Handler::default()/* use setters */,
+    ///         Handler::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_handlers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Handler>,
+    {
+        use std::iter::Iterator;
+        self.handlers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [playbook_type][crate::model::Playbook::playbook_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// use google_cloud_dialogflow_cx_v3::model::playbook::PlaybookType;
+    /// let x0 = Playbook::new().set_playbook_type(PlaybookType::Task);
+    /// let x1 = Playbook::new().set_playbook_type(PlaybookType::Routine);
+    /// ```
+    pub fn set_playbook_type<T: std::convert::Into<crate::model::playbook::PlaybookType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.playbook_type = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for Playbook {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.Playbook"
+    }
+}
+
+/// Defines additional types related to [Playbook].
+#[cfg(feature = "playbooks")]
+pub mod playbook {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Message of single step execution.
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Step {
+        /// Sub-processing needed to execute the current step.
+        pub steps: std::vec::Vec<crate::model::playbook::Step>,
+
+        /// Instruction on how to execute current step.
+        pub instruction: std::option::Option<crate::model::playbook::step::Instruction>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl Step {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [steps][crate::model::playbook::Step::steps].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::playbook::Step;
+        /// let x = Step::new()
+        ///     .set_steps([
+        ///         Step::default()/* use setters */,
+        ///         Step::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_steps<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::playbook::Step>,
+        {
+            use std::iter::Iterator;
+            self.steps = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [instruction][crate::model::playbook::Step::instruction].
+        ///
+        /// Note that all the setters affecting `instruction` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::playbook::Step;
+        /// use google_cloud_dialogflow_cx_v3::model::playbook::step::Instruction;
+        /// let x = Step::new().set_instruction(Some(Instruction::Text("example".to_string())));
+        /// ```
+        pub fn set_instruction<
+            T: std::convert::Into<std::option::Option<crate::model::playbook::step::Instruction>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.instruction = v.into();
+            self
+        }
+
+        /// The value of [instruction][crate::model::playbook::Step::instruction]
+        /// if it holds a `Text`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn text(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.instruction.as_ref().and_then(|v| match v {
+                crate::model::playbook::step::Instruction::Text(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [instruction][crate::model::playbook::Step::instruction]
+        /// to hold a `Text`.
+        ///
+        /// Note that all the setters affecting `instruction` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::playbook::Step;
+        /// let x = Step::new().set_text("example");
+        /// assert!(x.text().is_some());
+        /// ```
+        pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.instruction = std::option::Option::Some(
+                crate::model::playbook::step::Instruction::Text(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl wkt::message::Message for Step {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Playbook.Step"
+        }
+    }
+
+    /// Defines additional types related to [Step].
+    #[cfg(feature = "playbooks")]
+    pub mod step {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Instruction on how to execute current step.
+        #[cfg(feature = "playbooks")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Instruction {
+            /// Step instruction in text format.
+            Text(std::string::String),
+        }
+    }
+
+    /// Message of the Instruction of the playbook.
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Instruction {
+        /// General guidelines for the playbook. These are unstructured instructions
+        /// that are not directly part of the goal, e.g. "Always be polite". It's
+        /// valid for this text to be long and used instead of steps altogether.
+        pub guidelines: std::string::String,
+
+        /// Ordered list of step by step execution instructions to accomplish
+        /// target goal.
+        pub steps: std::vec::Vec<crate::model::playbook::Step>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl Instruction {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [guidelines][crate::model::playbook::Instruction::guidelines].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::playbook::Instruction;
+        /// let x = Instruction::new().set_guidelines("example");
+        /// ```
+        pub fn set_guidelines<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.guidelines = v.into();
+            self
+        }
+
+        /// Sets the value of [steps][crate::model::playbook::Instruction::steps].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::playbook::Instruction;
+        /// use google_cloud_dialogflow_cx_v3::model::playbook::Step;
+        /// let x = Instruction::new()
+        ///     .set_steps([
+        ///         Step::default()/* use setters */,
+        ///         Step::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_steps<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::playbook::Step>,
+        {
+            use std::iter::Iterator;
+            self.steps = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl wkt::message::Message for Instruction {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Playbook.Instruction"
+        }
+    }
+
+    /// Type of the playbook.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PlaybookType {
+        /// Unspecified type. Default to TASK.
+        Unspecified,
+        /// Task playbook.
+        Task,
+        /// Routine playbook.
+        Routine,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PlaybookType::value] or
+        /// [PlaybookType::name].
+        UnknownValue(playbook_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "playbooks")]
+    pub mod playbook_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl PlaybookType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Task => std::option::Option::Some(1),
+                Self::Routine => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PLAYBOOK_TYPE_UNSPECIFIED"),
+                Self::Task => std::option::Option::Some("TASK"),
+                Self::Routine => std::option::Option::Some("ROUTINE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::default::Default for PlaybookType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::fmt::Display for PlaybookType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::convert::From<i32> for PlaybookType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Task,
+                3 => Self::Routine,
+                _ => Self::UnknownValue(playbook_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::convert::From<&str> for PlaybookType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PLAYBOOK_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "TASK" => Self::Task,
+                "ROUTINE" => Self::Routine,
+                _ => Self::UnknownValue(playbook_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl serde::ser::Serialize for PlaybookType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Task => serializer.serialize_i32(1),
+                Self::Routine => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl<'de> serde::de::Deserialize<'de> for PlaybookType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PlaybookType>::new(
+                ".google.cloud.dialogflow.cx.v3.Playbook.PlaybookType",
+            ))
+        }
+    }
+}
+
+/// The request message for
+/// [Playbooks.CreatePlaybookVersion][google.cloud.dialogflow.cx.v3.Playbooks.CreatePlaybookVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.CreatePlaybookVersion]: crate::client::Playbooks::create_playbook_version
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreatePlaybookVersionRequest {
+    /// Required. The playbook to create a version for.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub parent: std::string::String,
+
+    /// Required. The playbook version to create.
+    pub playbook_version: std::option::Option<crate::model::PlaybookVersion>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl CreatePlaybookVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreatePlaybookVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookVersionRequest;
+    /// let x = CreatePlaybookVersionRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook_version][crate::model::CreatePlaybookVersionRequest::playbook_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookVersionRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// let x = CreatePlaybookVersionRequest::new().set_playbook_version(PlaybookVersion::default()/* use setters */);
+    /// ```
+    pub fn set_playbook_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookVersion>,
+    {
+        self.playbook_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook_version][crate::model::CreatePlaybookVersionRequest::playbook_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreatePlaybookVersionRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// let x = CreatePlaybookVersionRequest::new().set_or_clear_playbook_version(Some(PlaybookVersion::default()/* use setters */));
+    /// let x = CreatePlaybookVersionRequest::new().set_or_clear_playbook_version(None::<PlaybookVersion>);
+    /// ```
+    pub fn set_or_clear_playbook_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookVersion>,
+    {
+        self.playbook_version = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for CreatePlaybookVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreatePlaybookVersionRequest"
+    }
+}
+
+/// Playbook version is a snapshot of the playbook at certain timestamp.
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookVersion {
+    /// The unique identifier of the playbook version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    /// Optional. The description of the playbook version.
+    pub description: std::string::String,
+
+    /// Output only. Snapshot of the playbook when the playbook version is created.
+    pub playbook: std::option::Option<crate::model::Playbook>,
+
+    /// Output only. Snapshot of the examples belonging to the playbook when the
+    /// playbook version is created.
+    pub examples: std::vec::Vec<crate::model::Example>,
+
+    /// Output only. Last time the playbook version was created or modified.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl PlaybookVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::PlaybookVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// let x = PlaybookVersion::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::PlaybookVersion::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// let x = PlaybookVersion::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook][crate::model::PlaybookVersion::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = PlaybookVersion::new().set_playbook(Playbook::default()/* use setters */);
+    /// ```
+    pub fn set_playbook<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook][crate::model::PlaybookVersion::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = PlaybookVersion::new().set_or_clear_playbook(Some(Playbook::default()/* use setters */));
+    /// let x = PlaybookVersion::new().set_or_clear_playbook(None::<Playbook>);
+    /// ```
+    pub fn set_or_clear_playbook<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [examples][crate::model::PlaybookVersion::examples].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// use google_cloud_dialogflow_cx_v3::model::Example;
+    /// let x = PlaybookVersion::new()
+    ///     .set_examples([
+    ///         Example::default()/* use setters */,
+    ///         Example::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_examples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Example>,
+    {
+        use std::iter::Iterator;
+        self.examples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::PlaybookVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// use wkt::Timestamp;
+    /// let x = PlaybookVersion::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::PlaybookVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// use wkt::Timestamp;
+    /// let x = PlaybookVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = PlaybookVersion::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for PlaybookVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookVersion"
+    }
+}
+
+/// The request message for
+/// [Playbooks.GetPlaybookVersion][google.cloud.dialogflow.cx.v3.Playbooks.GetPlaybookVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.GetPlaybookVersion]: crate::client::Playbooks::get_playbook_version
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetPlaybookVersionRequest {
+    /// Required. The name of the playbook version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl GetPlaybookVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetPlaybookVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GetPlaybookVersionRequest;
+    /// let x = GetPlaybookVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for GetPlaybookVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetPlaybookVersionRequest"
+    }
+}
+
+/// The request message for
+/// [Playbooks.RestorePlaybookVersion][google.cloud.dialogflow.cx.v3.Playbooks.RestorePlaybookVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.RestorePlaybookVersion]: crate::client::Playbooks::restore_playbook_version
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestorePlaybookVersionRequest {
+    /// Required. The name of the playbook version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl RestorePlaybookVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestorePlaybookVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestorePlaybookVersionRequest;
+    /// let x = RestorePlaybookVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for RestorePlaybookVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestorePlaybookVersionRequest"
+    }
+}
+
+/// The response message for
+/// [Playbooks.RestorePlaybookVersion][google.cloud.dialogflow.cx.v3.Playbooks.RestorePlaybookVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.RestorePlaybookVersion]: crate::client::Playbooks::restore_playbook_version
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestorePlaybookVersionResponse {
+    /// The updated playbook.
+    pub playbook: std::option::Option<crate::model::Playbook>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl RestorePlaybookVersionResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::RestorePlaybookVersionResponse::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestorePlaybookVersionResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = RestorePlaybookVersionResponse::new().set_playbook(Playbook::default()/* use setters */);
+    /// ```
+    pub fn set_playbook<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook][crate::model::RestorePlaybookVersionResponse::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestorePlaybookVersionResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Playbook;
+    /// let x = RestorePlaybookVersionResponse::new().set_or_clear_playbook(Some(Playbook::default()/* use setters */));
+    /// let x = RestorePlaybookVersionResponse::new().set_or_clear_playbook(None::<Playbook>);
+    /// ```
+    pub fn set_or_clear_playbook<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Playbook>,
+    {
+        self.playbook = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for RestorePlaybookVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestorePlaybookVersionResponse"
+    }
+}
+
+/// The request message for
+/// [Playbooks.ListPlaybookVersions][google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybookVersions].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybookVersions]: crate::client::Playbooks::list_playbook_versions
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPlaybookVersionsRequest {
+    /// Required. The playbook to list versions for.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return in a single page. By
+    /// default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ListPlaybookVersionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListPlaybookVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsRequest;
+    /// let x = ListPlaybookVersionsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListPlaybookVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsRequest;
+    /// let x = ListPlaybookVersionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListPlaybookVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsRequest;
+    /// let x = ListPlaybookVersionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ListPlaybookVersionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPlaybookVersionsRequest"
+    }
+}
+
+/// The response message for
+/// [Playbooks.ListPlaybookVersions][google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybookVersions].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ListPlaybookVersions]: crate::client::Playbooks::list_playbook_versions
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListPlaybookVersionsResponse {
+    /// The list of playbook version. There will be a maximum number of items
+    /// returned based on the page_size field in the request.
+    pub playbook_versions: std::vec::Vec<crate::model::PlaybookVersion>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ListPlaybookVersionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook_versions][crate::model::ListPlaybookVersionsResponse::playbook_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookVersion;
+    /// let x = ListPlaybookVersionsResponse::new()
+    ///     .set_playbook_versions([
+    ///         PlaybookVersion::default()/* use setters */,
+    ///         PlaybookVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_playbook_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::PlaybookVersion>,
+    {
+        use std::iter::Iterator;
+        self.playbook_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListPlaybookVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListPlaybookVersionsResponse;
+    /// let x = ListPlaybookVersionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ListPlaybookVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPlaybookVersionsResponse"
+    }
+}
+
+#[cfg(feature = "playbooks")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListPlaybookVersionsResponse {
+    type PageItem = crate::model::PlaybookVersion;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.playbook_versions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [Playbooks.DeletePlaybookVersion][google.cloud.dialogflow.cx.v3.Playbooks.DeletePlaybookVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.DeletePlaybookVersion]: crate::client::Playbooks::delete_playbook_version
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeletePlaybookVersionRequest {
+    /// Required. The name of the playbook version to delete.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl DeletePlaybookVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeletePlaybookVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeletePlaybookVersionRequest;
+    /// let x = DeletePlaybookVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for DeletePlaybookVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeletePlaybookVersionRequest"
+    }
+}
+
+/// The request message for
+/// [Playbooks.ExportPlaybook][google.cloud.dialogflow.cx.v3.Playbooks.ExportPlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ExportPlaybook]: crate::client::Playbooks::export_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportPlaybookRequest {
+    /// Required. The name of the playbook to export.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub name: std::string::String,
+
+    /// Optional. The [Google Cloud
+    /// Storage](https://cloud.google.com/storage/docs/) URI to export the playbook
+    /// to. The format of this URI must be `gs://<bucket-name>/<object-name>`. If
+    /// left unspecified, the serialized playbook is returned inline.
+    ///
+    /// Dialogflow performs a write operation for the Cloud Storage object
+    /// on the caller's behalf, so your request authentication must
+    /// have write permissions for the object. For more information, see
+    /// [Dialogflow access
+    /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
+    pub playbook_uri: std::string::String,
+
+    /// Optional. The data format of the exported agent. If not specified, `BLOB`
+    /// is assumed.
+    pub data_format: crate::model::export_playbook_request::DataFormat,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ExportPlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExportPlaybookRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookRequest;
+    /// let x = ExportPlaybookRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook_uri][crate::model::ExportPlaybookRequest::playbook_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookRequest;
+    /// let x = ExportPlaybookRequest::new().set_playbook_uri("example");
+    /// ```
+    pub fn set_playbook_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [data_format][crate::model::ExportPlaybookRequest::data_format].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::export_playbook_request::DataFormat;
+    /// let x0 = ExportPlaybookRequest::new().set_data_format(DataFormat::Blob);
+    /// let x1 = ExportPlaybookRequest::new().set_data_format(DataFormat::Json);
+    /// ```
+    pub fn set_data_format<
+        T: std::convert::Into<crate::model::export_playbook_request::DataFormat>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data_format = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ExportPlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportPlaybookRequest"
+    }
+}
+
+/// Defines additional types related to [ExportPlaybookRequest].
+#[cfg(feature = "playbooks")]
+pub mod export_playbook_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Data format of the exported playbook.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DataFormat {
+        /// Unspecified format.
+        Unspecified,
+        /// Flow content will be exported as raw bytes.
+        Blob,
+        /// Flow content will be exported in JSON format.
+        Json,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DataFormat::value] or
+        /// [DataFormat::name].
+        UnknownValue(data_format::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "playbooks")]
+    pub mod data_format {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl DataFormat {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Blob => std::option::Option::Some(1),
+                Self::Json => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DATA_FORMAT_UNSPECIFIED"),
+                Self::Blob => std::option::Option::Some("BLOB"),
+                Self::Json => std::option::Option::Some("JSON"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::default::Default for DataFormat {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::fmt::Display for DataFormat {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::convert::From<i32> for DataFormat {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Blob,
+                2 => Self::Json,
+                _ => Self::UnknownValue(data_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl std::convert::From<&str> for DataFormat {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DATA_FORMAT_UNSPECIFIED" => Self::Unspecified,
+                "BLOB" => Self::Blob,
+                "JSON" => Self::Json,
+                _ => Self::UnknownValue(data_format::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl serde::ser::Serialize for DataFormat {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Blob => serializer.serialize_i32(1),
+                Self::Json => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl<'de> serde::de::Deserialize<'de> for DataFormat {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataFormat>::new(
+                ".google.cloud.dialogflow.cx.v3.ExportPlaybookRequest.DataFormat",
+            ))
+        }
+    }
+}
+
+/// The request message for
+/// [Playbooks.ImportPlaybook][google.cloud.dialogflow.cx.v3.Playbooks.ImportPlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ImportPlaybook]: crate::client::Playbooks::import_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportPlaybookRequest {
+    /// Required. The agent to import the playbook into.
+    /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
+    pub parent: std::string::String,
+
+    /// Optional. Specifies the import strategy used when resolving resource
+    /// conflicts.
+    pub import_strategy: std::option::Option<crate::model::PlaybookImportStrategy>,
+
+    /// Required. The playbook to import.
+    /// The [Google Cloud Storage](https://cloud.google.com/storage/docs/) URI
+    /// to import playbook from. The format of this URI must be
+    /// `gs://<bucket-name>/<object-name>`.
+    ///
+    /// Dialogflow performs a read operation for the Cloud Storage object
+    /// on the caller's behalf, so your request authentication must
+    /// have read permissions for the object. For more information, see
+    pub playbook: std::option::Option<crate::model::import_playbook_request::Playbook>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ImportPlaybookRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ImportPlaybookRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// let x = ImportPlaybookRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [import_strategy][crate::model::ImportPlaybookRequest::import_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookImportStrategy;
+    /// let x = ImportPlaybookRequest::new().set_import_strategy(PlaybookImportStrategy::default()/* use setters */);
+    /// ```
+    pub fn set_import_strategy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookImportStrategy>,
+    {
+        self.import_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [import_strategy][crate::model::ImportPlaybookRequest::import_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookImportStrategy;
+    /// let x = ImportPlaybookRequest::new().set_or_clear_import_strategy(Some(PlaybookImportStrategy::default()/* use setters */));
+    /// let x = ImportPlaybookRequest::new().set_or_clear_import_strategy(None::<PlaybookImportStrategy>);
+    /// ```
+    pub fn set_or_clear_import_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookImportStrategy>,
+    {
+        self.import_strategy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [playbook][crate::model::ImportPlaybookRequest::playbook].
+    ///
+    /// Note that all the setters affecting `playbook` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::import_playbook_request::Playbook;
+    /// let x = ImportPlaybookRequest::new().set_playbook(Some(Playbook::PlaybookUri("example".to_string())));
+    /// ```
+    pub fn set_playbook<
+        T: std::convert::Into<std::option::Option<crate::model::import_playbook_request::Playbook>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// The value of [playbook][crate::model::ImportPlaybookRequest::playbook]
+    /// if it holds a `PlaybookUri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.playbook.as_ref().and_then(|v| match v {
+            crate::model::import_playbook_request::Playbook::PlaybookUri(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [playbook][crate::model::ImportPlaybookRequest::playbook]
+    /// to hold a `PlaybookUri`.
+    ///
+    /// Note that all the setters affecting `playbook` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// let x = ImportPlaybookRequest::new().set_playbook_uri("example");
+    /// assert!(x.playbook_uri().is_some());
+    /// assert!(x.playbook_content().is_none());
+    /// ```
+    pub fn set_playbook_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = std::option::Option::Some(
+            crate::model::import_playbook_request::Playbook::PlaybookUri(v.into()),
+        );
+        self
+    }
+
+    /// The value of [playbook][crate::model::ImportPlaybookRequest::playbook]
+    /// if it holds a `PlaybookContent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_content(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.playbook.as_ref().and_then(|v| match v {
+            crate::model::import_playbook_request::Playbook::PlaybookContent(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [playbook][crate::model::ImportPlaybookRequest::playbook]
+    /// to hold a `PlaybookContent`.
+    ///
+    /// Note that all the setters affecting `playbook` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookRequest;
+    /// let x = ImportPlaybookRequest::new().set_playbook_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.playbook_content().is_some());
+    /// assert!(x.playbook_uri().is_none());
+    /// ```
+    pub fn set_playbook_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.playbook = std::option::Option::Some(
+            crate::model::import_playbook_request::Playbook::PlaybookContent(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ImportPlaybookRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportPlaybookRequest"
+    }
+}
+
+/// Defines additional types related to [ImportPlaybookRequest].
+#[cfg(feature = "playbooks")]
+pub mod import_playbook_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Required. The playbook to import.
+    /// The [Google Cloud Storage](https://cloud.google.com/storage/docs/) URI
+    /// to import playbook from. The format of this URI must be
+    /// `gs://<bucket-name>/<object-name>`.
+    ///
+    /// Dialogflow performs a read operation for the Cloud Storage object
+    /// on the caller's behalf, so your request authentication must
+    /// have read permissions for the object. For more information, see
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Playbook {
+        /// [Dialogflow access
+        /// control]
+        /// (<https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage>).
+        PlaybookUri(std::string::String),
+        /// Uncompressed raw byte content for playbook.
+        PlaybookContent(::bytes::Bytes),
+    }
+}
+
+/// The playbook import strategy used for resource conflict resolution associated
+/// with an
+/// [ImportPlaybookRequest][google.cloud.dialogflow.cx.v3.ImportPlaybookRequest].
+///
+/// [google.cloud.dialogflow.cx.v3.ImportPlaybookRequest]: crate::model::ImportPlaybookRequest
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookImportStrategy {
+    /// Optional. Specifies the import strategy used when resolving conflicts with
+    /// the main playbook. If not specified, 'CREATE_NEW' is assumed.
+    pub main_playbook_import_strategy: crate::model::ImportStrategy,
+
+    /// Optional. Specifies the import strategy used when resolving referenced
+    /// playbook/flow conflicts. If not specified, 'CREATE_NEW' is assumed.
+    pub nested_resource_import_strategy: crate::model::ImportStrategy,
+
+    /// Optional. Specifies the import strategy used when resolving tool conflicts.
+    /// If not specified, 'CREATE_NEW' is assumed. This will be applied after the
+    /// main playbook and nested resource import strategies, meaning if the
+    /// playbook that references the tool is skipped, the tool will also be
+    /// skipped.
+    pub tool_import_strategy: crate::model::ImportStrategy,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl PlaybookImportStrategy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [main_playbook_import_strategy][crate::model::PlaybookImportStrategy::main_playbook_import_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookImportStrategy;
+    /// use google_cloud_dialogflow_cx_v3::model::ImportStrategy;
+    /// let x0 = PlaybookImportStrategy::new().set_main_playbook_import_strategy(ImportStrategy::CreateNew);
+    /// let x1 = PlaybookImportStrategy::new().set_main_playbook_import_strategy(ImportStrategy::Replace);
+    /// let x2 = PlaybookImportStrategy::new().set_main_playbook_import_strategy(ImportStrategy::Keep);
+    /// ```
+    pub fn set_main_playbook_import_strategy<
+        T: std::convert::Into<crate::model::ImportStrategy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.main_playbook_import_strategy = v.into();
+        self
+    }
+
+    /// Sets the value of [nested_resource_import_strategy][crate::model::PlaybookImportStrategy::nested_resource_import_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookImportStrategy;
+    /// use google_cloud_dialogflow_cx_v3::model::ImportStrategy;
+    /// let x0 = PlaybookImportStrategy::new().set_nested_resource_import_strategy(ImportStrategy::CreateNew);
+    /// let x1 = PlaybookImportStrategy::new().set_nested_resource_import_strategy(ImportStrategy::Replace);
+    /// let x2 = PlaybookImportStrategy::new().set_nested_resource_import_strategy(ImportStrategy::Keep);
+    /// ```
+    pub fn set_nested_resource_import_strategy<
+        T: std::convert::Into<crate::model::ImportStrategy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.nested_resource_import_strategy = v.into();
+        self
+    }
+
+    /// Sets the value of [tool_import_strategy][crate::model::PlaybookImportStrategy::tool_import_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookImportStrategy;
+    /// use google_cloud_dialogflow_cx_v3::model::ImportStrategy;
+    /// let x0 = PlaybookImportStrategy::new().set_tool_import_strategy(ImportStrategy::CreateNew);
+    /// let x1 = PlaybookImportStrategy::new().set_tool_import_strategy(ImportStrategy::Replace);
+    /// let x2 = PlaybookImportStrategy::new().set_tool_import_strategy(ImportStrategy::Keep);
+    /// ```
+    pub fn set_tool_import_strategy<T: std::convert::Into<crate::model::ImportStrategy>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_import_strategy = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for PlaybookImportStrategy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookImportStrategy"
+    }
+}
+
+/// The response message for
+/// [Playbooks.ImportPlaybook][google.cloud.dialogflow.cx.v3.Playbooks.ImportPlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ImportPlaybook]: crate::client::Playbooks::import_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ImportPlaybookResponse {
+    /// The unique identifier of the new playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub playbook: std::string::String,
+
+    /// Info which resources have conflicts when
+    /// [REPORT_CONFLICTS][ImportPlaybookResponse.REPORT_CONFLICTS] import strategy
+    /// is set for all resources in ImportPlaybookRequest.
+    pub conflicting_resources:
+        std::option::Option<crate::model::import_playbook_response::ConflictingResources>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ImportPlaybookResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::ImportPlaybookResponse::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookResponse;
+    /// let x = ImportPlaybookResponse::new().set_playbook("example");
+    /// ```
+    pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// Sets the value of [conflicting_resources][crate::model::ImportPlaybookResponse::conflicting_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::import_playbook_response::ConflictingResources;
+    /// let x = ImportPlaybookResponse::new().set_conflicting_resources(ConflictingResources::default()/* use setters */);
+    /// ```
+    pub fn set_conflicting_resources<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::import_playbook_response::ConflictingResources>,
+    {
+        self.conflicting_resources = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [conflicting_resources][crate::model::ImportPlaybookResponse::conflicting_resources].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ImportPlaybookResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::import_playbook_response::ConflictingResources;
+    /// let x = ImportPlaybookResponse::new().set_or_clear_conflicting_resources(Some(ConflictingResources::default()/* use setters */));
+    /// let x = ImportPlaybookResponse::new().set_or_clear_conflicting_resources(None::<ConflictingResources>);
+    /// ```
+    pub fn set_or_clear_conflicting_resources<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::import_playbook_response::ConflictingResources>,
+    {
+        self.conflicting_resources = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ImportPlaybookResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportPlaybookResponse"
+    }
+}
+
+/// Defines additional types related to [ImportPlaybookResponse].
+#[cfg(feature = "playbooks")]
+pub mod import_playbook_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Conflicting resources detected during the import process. Only filled when
+    /// [REPORT_CONFLICTS][ImportPlaybookResponse.REPORT_CONFLICTS] is set in the
+    /// request and there are conflicts in the display names.
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ConflictingResources {
+        /// Display name of conflicting main playbook.
+        pub main_playbook_display_name: std::string::String,
+
+        /// Display names of conflicting nested playbooks.
+        pub nested_playbook_display_names: std::vec::Vec<std::string::String>,
+
+        /// Display names of conflicting tools.
+        pub tool_display_names: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl ConflictingResources {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [main_playbook_display_name][crate::model::import_playbook_response::ConflictingResources::main_playbook_display_name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::import_playbook_response::ConflictingResources;
+        /// let x = ConflictingResources::new().set_main_playbook_display_name("example");
+        /// ```
+        pub fn set_main_playbook_display_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.main_playbook_display_name = v.into();
+            self
+        }
+
+        /// Sets the value of [nested_playbook_display_names][crate::model::import_playbook_response::ConflictingResources::nested_playbook_display_names].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::import_playbook_response::ConflictingResources;
+        /// let x = ConflictingResources::new().set_nested_playbook_display_names(["a", "b", "c"]);
+        /// ```
+        pub fn set_nested_playbook_display_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.nested_playbook_display_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [tool_display_names][crate::model::import_playbook_response::ConflictingResources::tool_display_names].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::import_playbook_response::ConflictingResources;
+        /// let x = ConflictingResources::new().set_tool_display_names(["a", "b", "c"]);
+        /// ```
+        pub fn set_tool_display_names<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.tool_display_names = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl wkt::message::Message for ConflictingResources {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportPlaybookResponse.ConflictingResources"
+        }
+    }
+}
+
+/// The response message for
+/// [Playbooks.ExportPlaybook][google.cloud.dialogflow.cx.v3.Playbooks.ExportPlaybook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbooks.ExportPlaybook]: crate::client::Playbooks::export_playbook
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExportPlaybookResponse {
+    /// The exported playbook.
+    pub playbook: std::option::Option<crate::model::export_playbook_response::Playbook>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl ExportPlaybookResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::ExportPlaybookResponse::playbook].
+    ///
+    /// Note that all the setters affecting `playbook` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::export_playbook_response::Playbook;
+    /// let x = ExportPlaybookResponse::new().set_playbook(Some(Playbook::PlaybookUri("example".to_string())));
+    /// ```
+    pub fn set_playbook<
+        T: std::convert::Into<std::option::Option<crate::model::export_playbook_response::Playbook>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// The value of [playbook][crate::model::ExportPlaybookResponse::playbook]
+    /// if it holds a `PlaybookUri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.playbook.as_ref().and_then(|v| match v {
+            crate::model::export_playbook_response::Playbook::PlaybookUri(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [playbook][crate::model::ExportPlaybookResponse::playbook]
+    /// to hold a `PlaybookUri`.
+    ///
+    /// Note that all the setters affecting `playbook` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookResponse;
+    /// let x = ExportPlaybookResponse::new().set_playbook_uri("example");
+    /// assert!(x.playbook_uri().is_some());
+    /// assert!(x.playbook_content().is_none());
+    /// ```
+    pub fn set_playbook_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = std::option::Option::Some(
+            crate::model::export_playbook_response::Playbook::PlaybookUri(v.into()),
+        );
+        self
+    }
+
+    /// The value of [playbook][crate::model::ExportPlaybookResponse::playbook]
+    /// if it holds a `PlaybookContent`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_content(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.playbook.as_ref().and_then(|v| match v {
+            crate::model::export_playbook_response::Playbook::PlaybookContent(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [playbook][crate::model::ExportPlaybookResponse::playbook]
+    /// to hold a `PlaybookContent`.
+    ///
+    /// Note that all the setters affecting `playbook` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ExportPlaybookResponse;
+    /// let x = ExportPlaybookResponse::new().set_playbook_content(bytes::Bytes::from_static(b"example"));
+    /// assert!(x.playbook_content().is_some());
+    /// assert!(x.playbook_uri().is_none());
+    /// ```
+    pub fn set_playbook_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.playbook = std::option::Option::Some(
+            crate::model::export_playbook_response::Playbook::PlaybookContent(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for ExportPlaybookResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportPlaybookResponse"
+    }
+}
+
+/// Defines additional types related to [ExportPlaybookResponse].
+#[cfg(feature = "playbooks")]
+pub mod export_playbook_response {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The exported playbook.
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Playbook {
+        /// The URI to a file containing the exported playbook. This field is
+        /// populated only if `playbook_uri` is specified in
+        /// [ExportPlaybookRequest][google.cloud.dialogflow.cx.v3.ExportPlaybookRequest].
+        ///
+        /// [google.cloud.dialogflow.cx.v3.ExportPlaybookRequest]: crate::model::ExportPlaybookRequest
+        PlaybookUri(std::string::String),
+        /// Uncompressed raw byte content for playbook.
+        PlaybookContent(::bytes::Bytes),
+    }
+}
+
+/// Handler can be used to define custom logic to be executed based on the
+/// user-specified triggers.
+#[cfg(feature = "playbooks")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Handler {
+    /// Specifies the type of handler to invoke.
+    pub handler: std::option::Option<crate::model::handler::Handler>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "playbooks")]
+impl Handler {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [handler][crate::model::Handler::handler].
+    ///
+    /// Note that all the setters affecting `handler` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Handler;
+    /// use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+    /// let x = Handler::new().set_handler(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::handler::Handler::EventHandler(EventHandler::default().into())));
+    /// ```
+    pub fn set_handler<
+        T: std::convert::Into<std::option::Option<crate::model::handler::Handler>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.handler = v.into();
+        self
+    }
+
+    /// The value of [handler][crate::model::Handler::handler]
+    /// if it holds a `EventHandler`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn event_handler(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::handler::EventHandler>> {
+        #[allow(unreachable_patterns)]
+        self.handler.as_ref().and_then(|v| match v {
+            crate::model::handler::Handler::EventHandler(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [handler][crate::model::Handler::handler]
+    /// to hold a `EventHandler`.
+    ///
+    /// Note that all the setters affecting `handler` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Handler;
+    /// use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+    /// let x = Handler::new().set_event_handler(EventHandler::default()/* use setters */);
+    /// assert!(x.event_handler().is_some());
+    /// assert!(x.lifecycle_handler().is_none());
+    /// ```
+    pub fn set_event_handler<
+        T: std::convert::Into<std::boxed::Box<crate::model::handler::EventHandler>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.handler =
+            std::option::Option::Some(crate::model::handler::Handler::EventHandler(v.into()));
+        self
+    }
+
+    /// The value of [handler][crate::model::Handler::handler]
+    /// if it holds a `LifecycleHandler`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn lifecycle_handler(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::handler::LifecycleHandler>> {
+        #[allow(unreachable_patterns)]
+        self.handler.as_ref().and_then(|v| match v {
+            crate::model::handler::Handler::LifecycleHandler(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [handler][crate::model::Handler::handler]
+    /// to hold a `LifecycleHandler`.
+    ///
+    /// Note that all the setters affecting `handler` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Handler;
+    /// use google_cloud_dialogflow_cx_v3::model::handler::LifecycleHandler;
+    /// let x = Handler::new().set_lifecycle_handler(LifecycleHandler::default()/* use setters */);
+    /// assert!(x.lifecycle_handler().is_some());
+    /// assert!(x.event_handler().is_none());
+    /// ```
+    pub fn set_lifecycle_handler<
+        T: std::convert::Into<std::boxed::Box<crate::model::handler::LifecycleHandler>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.handler =
+            std::option::Option::Some(crate::model::handler::Handler::LifecycleHandler(v.into()));
+        self
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl wkt::message::Message for Handler {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.Handler"
+    }
+}
+
+/// Defines additional types related to [Handler].
+#[cfg(feature = "playbooks")]
+pub mod handler {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// A handler that is triggered by the specified
+    /// [event][google.cloud.dialogflow.cx.v3.Handler.EventHandler.event].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Handler.EventHandler.event]: crate::model::handler::EventHandler::event
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EventHandler {
+        /// Required. The name of the event that triggers this handler.
+        pub event: std::string::String,
+
+        /// Optional. The condition that must be satisfied to trigger this handler.
+        pub condition: std::string::String,
+
+        /// Required. The fulfillment to call when the event occurs.
+        pub fulfillment: std::option::Option<crate::model::Fulfillment>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl EventHandler {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [event][crate::model::handler::EventHandler::event].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+        /// let x = EventHandler::new().set_event("example");
+        /// ```
+        pub fn set_event<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.event = v.into();
+            self
+        }
+
+        /// Sets the value of [condition][crate::model::handler::EventHandler::condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+        /// let x = EventHandler::new().set_condition("example");
+        /// ```
+        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [fulfillment][crate::model::handler::EventHandler::fulfillment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+        /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
+        /// let x = EventHandler::new().set_fulfillment(Fulfillment::default()/* use setters */);
+        /// ```
+        pub fn set_fulfillment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Fulfillment>,
+        {
+            self.fulfillment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fulfillment][crate::model::handler::EventHandler::fulfillment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::EventHandler;
+        /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
+        /// let x = EventHandler::new().set_or_clear_fulfillment(Some(Fulfillment::default()/* use setters */));
+        /// let x = EventHandler::new().set_or_clear_fulfillment(None::<Fulfillment>);
+        /// ```
+        pub fn set_or_clear_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Fulfillment>,
+        {
+            self.fulfillment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl wkt::message::Message for EventHandler {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Handler.EventHandler"
+        }
+    }
+
+    /// A handler that is triggered on the specific
+    /// [lifecycle_stage][google.cloud.dialogflow.cx.v3.Handler.LifecycleHandler.lifecycle_stage]
+    /// of the playbook execution.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Handler.LifecycleHandler.lifecycle_stage]: crate::model::handler::LifecycleHandler::lifecycle_stage
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LifecycleHandler {
+        /// Required. The name of the lifecycle stage that triggers this handler.
+        /// Supported values:
+        ///
+        /// * `playbook-start`
+        /// * `pre-action-selection`
+        /// * `pre-action-execution`
+        pub lifecycle_stage: std::string::String,
+
+        /// Optional. The condition that must be satisfied to trigger this handler.
+        pub condition: std::string::String,
+
+        /// Required. The fulfillment to call when this handler is triggered.
+        pub fulfillment: std::option::Option<crate::model::Fulfillment>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl LifecycleHandler {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [lifecycle_stage][crate::model::handler::LifecycleHandler::lifecycle_stage].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::LifecycleHandler;
+        /// let x = LifecycleHandler::new().set_lifecycle_stage("example");
+        /// ```
+        pub fn set_lifecycle_stage<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.lifecycle_stage = v.into();
+            self
+        }
+
+        /// Sets the value of [condition][crate::model::handler::LifecycleHandler::condition].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::LifecycleHandler;
+        /// let x = LifecycleHandler::new().set_condition("example");
+        /// ```
+        pub fn set_condition<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.condition = v.into();
+            self
+        }
+
+        /// Sets the value of [fulfillment][crate::model::handler::LifecycleHandler::fulfillment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::LifecycleHandler;
+        /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
+        /// let x = LifecycleHandler::new().set_fulfillment(Fulfillment::default()/* use setters */);
+        /// ```
+        pub fn set_fulfillment<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::Fulfillment>,
+        {
+            self.fulfillment = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fulfillment][crate::model::handler::LifecycleHandler::fulfillment].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::handler::LifecycleHandler;
+        /// use google_cloud_dialogflow_cx_v3::model::Fulfillment;
+        /// let x = LifecycleHandler::new().set_or_clear_fulfillment(Some(Fulfillment::default()/* use setters */));
+        /// let x = LifecycleHandler::new().set_or_clear_fulfillment(None::<Fulfillment>);
+        /// ```
+        pub fn set_or_clear_fulfillment<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::Fulfillment>,
+        {
+            self.fulfillment = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "playbooks")]
+    impl wkt::message::Message for LifecycleHandler {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Handler.LifecycleHandler"
+        }
+    }
+
+    /// Specifies the type of handler to invoke.
+    #[cfg(feature = "playbooks")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Handler {
+        /// A handler triggered by event.
+        EventHandler(std::boxed::Box<crate::model::handler::EventHandler>),
+        /// A handler triggered during specific lifecycle of the playbook execution.
+        LifecycleHandler(std::boxed::Box<crate::model::handler::LifecycleHandler>),
+    }
+}
+
 /// Represents a response message that can be returned by a conversational agent.
 ///
 /// Response messages are also used for output audio synthesis. The approach is
@@ -22741,6 +27547,7 @@ pub mod knowledge_connector_settings {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -22768,6 +27575,7 @@ pub struct ResponseMessage {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -22865,6 +27673,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_text<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::Text>>,
@@ -22909,6 +27718,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_payload<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
         mut self,
@@ -22956,6 +27766,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_conversation_success<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::ConversationSuccess>>,
@@ -23006,6 +27817,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_output_audio_text<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::OutputAudioText>>,
@@ -23056,6 +27868,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_live_agent_handoff<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::LiveAgentHandoff>>,
@@ -23105,6 +27918,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_end_interaction<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::EndInteraction>>,
@@ -23152,6 +27966,7 @@ impl ResponseMessage {
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_play_audio<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::PlayAudio>>,
@@ -23198,6 +28013,7 @@ impl ResponseMessage {
     /// assert!(x.play_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_mixed_audio<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::MixedAudio>>,
@@ -23248,6 +28064,7 @@ impl ResponseMessage {
     /// assert!(x.play_audio().is_none());
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.knowledge_info_card().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_telephony_transfer_call<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::TelephonyTransferCall>>,
@@ -23298,6 +28115,7 @@ impl ResponseMessage {
     /// assert!(x.play_audio().is_none());
     /// assert!(x.mixed_audio().is_none());
     /// assert!(x.telephony_transfer_call().is_none());
+    /// assert!(x.tool_call().is_none());
     /// ```
     pub fn set_knowledge_info_card<
         T: std::convert::Into<std::boxed::Box<crate::model::response_message::KnowledgeInfoCard>>,
@@ -23310,11 +28128,55 @@ impl ResponseMessage {
         );
         self
     }
+
+    /// The value of [message][crate::model::ResponseMessage::message]
+    /// if it holds a `ToolCall`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool_call(&self) -> std::option::Option<&std::boxed::Box<crate::model::ToolCall>> {
+        #[allow(unreachable_patterns)]
+        self.message.as_ref().and_then(|v| match v {
+            crate::model::response_message::Message::ToolCall(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [message][crate::model::ResponseMessage::message]
+    /// to hold a `ToolCall`.
+    ///
+    /// Note that all the setters affecting `message` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ResponseMessage;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolCall;
+    /// let x = ResponseMessage::new().set_tool_call(ToolCall::default()/* use setters */);
+    /// assert!(x.tool_call().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.payload().is_none());
+    /// assert!(x.conversation_success().is_none());
+    /// assert!(x.output_audio_text().is_none());
+    /// assert!(x.live_agent_handoff().is_none());
+    /// assert!(x.end_interaction().is_none());
+    /// assert!(x.play_audio().is_none());
+    /// assert!(x.mixed_audio().is_none());
+    /// assert!(x.telephony_transfer_call().is_none());
+    /// assert!(x.knowledge_info_card().is_none());
+    /// ```
+    pub fn set_tool_call<T: std::convert::Into<std::boxed::Box<crate::model::ToolCall>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.message =
+            std::option::Option::Some(crate::model::response_message::Message::ToolCall(v.into()));
+        self
+    }
 }
 
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -23329,6 +28191,7 @@ impl wkt::message::Message for ResponseMessage {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -23341,6 +28204,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23363,6 +28227,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23408,6 +28273,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23439,6 +28305,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23456,6 +28323,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23502,6 +28370,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23536,6 +28405,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23552,6 +28422,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23598,6 +28469,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23613,6 +28485,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23634,6 +28507,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23751,6 +28625,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23765,6 +28640,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23777,6 +28653,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -23798,6 +28675,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23811,6 +28689,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23824,6 +28703,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23838,6 +28718,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23860,6 +28741,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23900,6 +28782,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23922,6 +28805,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23938,6 +28822,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23973,6 +28858,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23987,6 +28873,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -23999,6 +28886,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -24021,6 +28909,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -24140,6 +29029,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -24154,6 +29044,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -24166,6 +29057,7 @@ pub mod response_message {
             #[cfg(any(
                 feature = "flows",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "sessions",
                 feature = "test-cases",
                 feature = "transition-route-groups",
@@ -24188,6 +29080,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24205,6 +29098,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24280,6 +29174,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24294,6 +29189,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24306,6 +29202,7 @@ pub mod response_message {
         #[cfg(any(
             feature = "flows",
             feature = "pages",
+            feature = "playbooks",
             feature = "sessions",
             feature = "test-cases",
             feature = "transition-route-groups",
@@ -24327,6 +29224,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24340,6 +29238,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24353,6 +29252,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24381,6 +29281,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24420,6 +29321,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24434,6 +29336,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24471,6 +29374,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24485,6 +29389,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24498,6 +29403,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24519,6 +29425,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24541,6 +29448,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24563,6 +29471,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24582,6 +29491,7 @@ pub mod response_message {
     #[cfg(any(
         feature = "flows",
         feature = "pages",
+        feature = "playbooks",
         feature = "sessions",
         feature = "test-cases",
         feature = "transition-route-groups",
@@ -24631,6 +29541,9 @@ pub mod response_message {
         /// Represents info card for knowledge answers, to be better rendered in
         /// Dialogflow Messenger.
         KnowledgeInfoCard(std::boxed::Box<crate::model::response_message::KnowledgeInfoCard>),
+        /// Returns the definition of a tool call that should be executed by the
+        /// client.
+        ToolCall(std::boxed::Box<crate::model::ToolCall>),
     }
 }
 
@@ -24639,8 +29552,23 @@ pub mod response_message {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SafetySettings {
+    /// Optional. Default phrase match strategy for banned phrases.
+    pub default_banned_phrase_match_strategy: crate::model::safety_settings::PhraseMatchStrategy,
+
     /// Banned phrases for generated text.
     pub banned_phrases: std::vec::Vec<crate::model::safety_settings::Phrase>,
+
+    /// Optional. Settings for Responsible AI checks.
+    pub rai_settings: std::option::Option<crate::model::safety_settings::RaiSettings>,
+
+    /// Optional. Immutable. Default RAI settings to be annotated on the agent, so
+    /// that users will be able to restore their RAI configurations to the default
+    /// settings. Read-only field for the API proto only.
+    pub default_rai_settings: std::option::Option<crate::model::safety_settings::RaiSettings>,
+
+    /// Optional. Settings for prompt security checks.
+    pub prompt_security_settings:
+        std::option::Option<crate::model::safety_settings::PromptSecuritySettings>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -24649,6 +29577,25 @@ pub struct SafetySettings {
 impl SafetySettings {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [default_banned_phrase_match_strategy][crate::model::SafetySettings::default_banned_phrase_match_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::PhraseMatchStrategy;
+    /// let x0 = SafetySettings::new().set_default_banned_phrase_match_strategy(PhraseMatchStrategy::PartialMatch);
+    /// let x1 = SafetySettings::new().set_default_banned_phrase_match_strategy(PhraseMatchStrategy::WordMatch);
+    /// ```
+    pub fn set_default_banned_phrase_match_strategy<
+        T: std::convert::Into<crate::model::safety_settings::PhraseMatchStrategy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.default_banned_phrase_match_strategy = v.into();
+        self
     }
 
     /// Sets the value of [banned_phrases][crate::model::SafetySettings::banned_phrases].
@@ -24670,6 +29617,105 @@ impl SafetySettings {
     {
         use std::iter::Iterator;
         self.banned_phrases = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [rai_settings][crate::model::SafetySettings::rai_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::RaiSettings;
+    /// let x = SafetySettings::new().set_rai_settings(RaiSettings::default()/* use setters */);
+    /// ```
+    pub fn set_rai_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::RaiSettings>,
+    {
+        self.rai_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [rai_settings][crate::model::SafetySettings::rai_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::RaiSettings;
+    /// let x = SafetySettings::new().set_or_clear_rai_settings(Some(RaiSettings::default()/* use setters */));
+    /// let x = SafetySettings::new().set_or_clear_rai_settings(None::<RaiSettings>);
+    /// ```
+    pub fn set_or_clear_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::RaiSettings>,
+    {
+        self.rai_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [default_rai_settings][crate::model::SafetySettings::default_rai_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::RaiSettings;
+    /// let x = SafetySettings::new().set_default_rai_settings(RaiSettings::default()/* use setters */);
+    /// ```
+    pub fn set_default_rai_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::RaiSettings>,
+    {
+        self.default_rai_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [default_rai_settings][crate::model::SafetySettings::default_rai_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::RaiSettings;
+    /// let x = SafetySettings::new().set_or_clear_default_rai_settings(Some(RaiSettings::default()/* use setters */));
+    /// let x = SafetySettings::new().set_or_clear_default_rai_settings(None::<RaiSettings>);
+    /// ```
+    pub fn set_or_clear_default_rai_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::RaiSettings>,
+    {
+        self.default_rai_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [prompt_security_settings][crate::model::SafetySettings::prompt_security_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::PromptSecuritySettings;
+    /// let x = SafetySettings::new().set_prompt_security_settings(PromptSecuritySettings::default()/* use setters */);
+    /// ```
+    pub fn set_prompt_security_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::PromptSecuritySettings>,
+    {
+        self.prompt_security_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [prompt_security_settings][crate::model::SafetySettings::prompt_security_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::SafetySettings;
+    /// use google_cloud_dialogflow_cx_v3::model::safety_settings::PromptSecuritySettings;
+    /// let x = SafetySettings::new().set_or_clear_prompt_security_settings(Some(PromptSecuritySettings::default()/* use setters */));
+    /// let x = SafetySettings::new().set_or_clear_prompt_security_settings(None::<PromptSecuritySettings>);
+    /// ```
+    pub fn set_or_clear_prompt_security_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::safety_settings::PromptSecuritySettings>,
+    {
+        self.prompt_security_settings = v.map(|x| x.into());
         self
     }
 }
@@ -24739,6 +29785,629 @@ pub mod safety_settings {
     impl wkt::message::Message for Phrase {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings.Phrase"
+        }
+    }
+
+    /// Settings for Responsible AI.
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RaiSettings {
+        /// Optional. RAI blocking configurations.
+        pub category_filters:
+            std::vec::Vec<crate::model::safety_settings::rai_settings::CategoryFilter>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "agents")]
+    impl RaiSettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [category_filters][crate::model::safety_settings::RaiSettings::category_filters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::RaiSettings;
+        /// use google_cloud_dialogflow_cx_v3::model::safety_settings::rai_settings::CategoryFilter;
+        /// let x = RaiSettings::new()
+        ///     .set_category_filters([
+        ///         CategoryFilter::default()/* use setters */,
+        ///         CategoryFilter::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_category_filters<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::safety_settings::rai_settings::CategoryFilter>,
+        {
+            use std::iter::Iterator;
+            self.category_filters = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl wkt::message::Message for RaiSettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings.RaiSettings"
+        }
+    }
+
+    /// Defines additional types related to [RaiSettings].
+    #[cfg(feature = "agents")]
+    pub mod rai_settings {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Configuration of the sensitivity level for blocking an RAI category.
+        #[cfg(feature = "agents")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CategoryFilter {
+            /// RAI category to configure.
+            pub category: crate::model::safety_settings::rai_settings::SafetyCategory,
+
+            /// Blocking sensitivity level to configure for the RAI category.
+            pub filter_level: crate::model::safety_settings::rai_settings::SafetyFilterLevel,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "agents")]
+        impl CategoryFilter {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [category][crate::model::safety_settings::rai_settings::CategoryFilter::category].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::rai_settings::CategoryFilter;
+            /// use google_cloud_dialogflow_cx_v3::model::safety_settings::rai_settings::SafetyCategory;
+            /// let x0 = CategoryFilter::new().set_category(SafetyCategory::DangerousContent);
+            /// let x1 = CategoryFilter::new().set_category(SafetyCategory::HateSpeech);
+            /// let x2 = CategoryFilter::new().set_category(SafetyCategory::Harassment);
+            /// ```
+            pub fn set_category<
+                T: std::convert::Into<crate::model::safety_settings::rai_settings::SafetyCategory>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.category = v.into();
+                self
+            }
+
+            /// Sets the value of [filter_level][crate::model::safety_settings::rai_settings::CategoryFilter::filter_level].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::rai_settings::CategoryFilter;
+            /// use google_cloud_dialogflow_cx_v3::model::safety_settings::rai_settings::SafetyFilterLevel;
+            /// let x0 = CategoryFilter::new().set_filter_level(SafetyFilterLevel::BlockNone);
+            /// let x1 = CategoryFilter::new().set_filter_level(SafetyFilterLevel::BlockFew);
+            /// let x2 = CategoryFilter::new().set_filter_level(SafetyFilterLevel::BlockSome);
+            /// ```
+            pub fn set_filter_level<
+                T: std::convert::Into<crate::model::safety_settings::rai_settings::SafetyFilterLevel>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.filter_level = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl wkt::message::Message for CategoryFilter {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings.RaiSettings.CategoryFilter"
+            }
+        }
+
+        /// Sensitivity level for RAI categories.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "agents")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SafetyFilterLevel {
+            /// Unspecified -- uses default sensitivity levels.
+            Unspecified,
+            /// Block no text -- effectively disables the category.
+            BlockNone,
+            /// Block a few suspicious texts.
+            BlockFew,
+            /// Block some suspicious texts.
+            BlockSome,
+            /// Block most suspicious texts.
+            BlockMost,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SafetyFilterLevel::value] or
+            /// [SafetyFilterLevel::name].
+            UnknownValue(safety_filter_level::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "agents")]
+        pub mod safety_filter_level {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "agents")]
+        impl SafetyFilterLevel {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::BlockNone => std::option::Option::Some(1),
+                    Self::BlockFew => std::option::Option::Some(2),
+                    Self::BlockSome => std::option::Option::Some(3),
+                    Self::BlockMost => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => {
+                        std::option::Option::Some("SAFETY_FILTER_LEVEL_UNSPECIFIED")
+                    }
+                    Self::BlockNone => std::option::Option::Some("BLOCK_NONE"),
+                    Self::BlockFew => std::option::Option::Some("BLOCK_FEW"),
+                    Self::BlockSome => std::option::Option::Some("BLOCK_SOME"),
+                    Self::BlockMost => std::option::Option::Some("BLOCK_MOST"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::default::Default for SafetyFilterLevel {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::fmt::Display for SafetyFilterLevel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::convert::From<i32> for SafetyFilterLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::BlockNone,
+                    2 => Self::BlockFew,
+                    3 => Self::BlockSome,
+                    4 => Self::BlockMost,
+                    _ => Self::UnknownValue(safety_filter_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::convert::From<&str> for SafetyFilterLevel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SAFETY_FILTER_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                    "BLOCK_NONE" => Self::BlockNone,
+                    "BLOCK_FEW" => Self::BlockFew,
+                    "BLOCK_SOME" => Self::BlockSome,
+                    "BLOCK_MOST" => Self::BlockMost,
+                    _ => Self::UnknownValue(safety_filter_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl serde::ser::Serialize for SafetyFilterLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::BlockNone => serializer.serialize_i32(1),
+                    Self::BlockFew => serializer.serialize_i32(2),
+                    Self::BlockSome => serializer.serialize_i32(3),
+                    Self::BlockMost => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl<'de> serde::de::Deserialize<'de> for SafetyFilterLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SafetyFilterLevel>::new(
+                    ".google.cloud.dialogflow.cx.v3.SafetySettings.RaiSettings.SafetyFilterLevel",
+                ))
+            }
+        }
+
+        /// RAI categories to configure.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "agents")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum SafetyCategory {
+            /// Unspecified.
+            Unspecified,
+            /// Dangerous content.
+            DangerousContent,
+            /// Hate speech.
+            HateSpeech,
+            /// Harassment.
+            Harassment,
+            /// Sexually explicit content.
+            SexuallyExplicitContent,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [SafetyCategory::value] or
+            /// [SafetyCategory::name].
+            UnknownValue(safety_category::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "agents")]
+        pub mod safety_category {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "agents")]
+        impl SafetyCategory {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::DangerousContent => std::option::Option::Some(1),
+                    Self::HateSpeech => std::option::Option::Some(2),
+                    Self::Harassment => std::option::Option::Some(3),
+                    Self::SexuallyExplicitContent => std::option::Option::Some(4),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("SAFETY_CATEGORY_UNSPECIFIED"),
+                    Self::DangerousContent => std::option::Option::Some("DANGEROUS_CONTENT"),
+                    Self::HateSpeech => std::option::Option::Some("HATE_SPEECH"),
+                    Self::Harassment => std::option::Option::Some("HARASSMENT"),
+                    Self::SexuallyExplicitContent => {
+                        std::option::Option::Some("SEXUALLY_EXPLICIT_CONTENT")
+                    }
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::default::Default for SafetyCategory {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::fmt::Display for SafetyCategory {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::convert::From<i32> for SafetyCategory {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::DangerousContent,
+                    2 => Self::HateSpeech,
+                    3 => Self::Harassment,
+                    4 => Self::SexuallyExplicitContent,
+                    _ => Self::UnknownValue(safety_category::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl std::convert::From<&str> for SafetyCategory {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "SAFETY_CATEGORY_UNSPECIFIED" => Self::Unspecified,
+                    "DANGEROUS_CONTENT" => Self::DangerousContent,
+                    "HATE_SPEECH" => Self::HateSpeech,
+                    "HARASSMENT" => Self::Harassment,
+                    "SEXUALLY_EXPLICIT_CONTENT" => Self::SexuallyExplicitContent,
+                    _ => Self::UnknownValue(safety_category::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl serde::ser::Serialize for SafetyCategory {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::DangerousContent => serializer.serialize_i32(1),
+                    Self::HateSpeech => serializer.serialize_i32(2),
+                    Self::Harassment => serializer.serialize_i32(3),
+                    Self::SexuallyExplicitContent => serializer.serialize_i32(4),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "agents")]
+        impl<'de> serde::de::Deserialize<'de> for SafetyCategory {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<SafetyCategory>::new(
+                    ".google.cloud.dialogflow.cx.v3.SafetySettings.RaiSettings.SafetyCategory",
+                ))
+            }
+        }
+    }
+
+    /// Settings for prompt security checks.
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PromptSecuritySettings {
+        /// Optional. Enable prompt security checks.
+        pub enable_prompt_security: bool,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "agents")]
+    impl PromptSecuritySettings {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable_prompt_security][crate::model::safety_settings::PromptSecuritySettings::enable_prompt_security].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::safety_settings::PromptSecuritySettings;
+        /// let x = PromptSecuritySettings::new().set_enable_prompt_security(true);
+        /// ```
+        pub fn set_enable_prompt_security<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable_prompt_security = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl wkt::message::Message for PromptSecuritySettings {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings.PromptSecuritySettings"
+        }
+    }
+
+    /// Strategy for matching phrases.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "agents")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PhraseMatchStrategy {
+        /// Unspecified, defaults to PARTIAL_MATCH.
+        Unspecified,
+        /// Text that contains the phrase as a substring will be matched, e.g. "foo"
+        /// will match "afoobar".
+        PartialMatch,
+        /// Text that contains the tokenized words of the phrase will be matched,
+        /// e.g. "foo" will match "a foo bar" and "foo bar", but not "foobar".
+        WordMatch,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PhraseMatchStrategy::value] or
+        /// [PhraseMatchStrategy::name].
+        UnknownValue(phrase_match_strategy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "agents")]
+    pub mod phrase_match_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "agents")]
+    impl PhraseMatchStrategy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PartialMatch => std::option::Option::Some(1),
+                Self::WordMatch => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("PHRASE_MATCH_STRATEGY_UNSPECIFIED"),
+                Self::PartialMatch => std::option::Option::Some("PARTIAL_MATCH"),
+                Self::WordMatch => std::option::Option::Some("WORD_MATCH"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl std::default::Default for PhraseMatchStrategy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl std::fmt::Display for PhraseMatchStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl std::convert::From<i32> for PhraseMatchStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PartialMatch,
+                2 => Self::WordMatch,
+                _ => Self::UnknownValue(phrase_match_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl std::convert::From<&str> for PhraseMatchStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PHRASE_MATCH_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "PARTIAL_MATCH" => Self::PartialMatch,
+                "WORD_MATCH" => Self::WordMatch,
+                _ => Self::UnknownValue(phrase_match_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl serde::ser::Serialize for PhraseMatchStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PartialMatch => serializer.serialize_i32(1),
+                Self::WordMatch => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "agents")]
+    impl<'de> serde::de::Deserialize<'de> for PhraseMatchStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<PhraseMatchStrategy>::new(
+                ".google.cloud.dialogflow.cx.v3.SafetySettings.PhraseMatchStrategy",
+            ))
         }
     }
 }
@@ -25569,6 +31238,9 @@ pub mod security_settings {
         pub gcs_bucket: std::string::String,
 
         /// Filename pattern for exported audio.
+        /// {conversation} and {timestamp} are placeholders that will be replaced
+        /// with the conversation ID and epoch micros of the conversation.
+        /// For example, "{conversation}/recording_{timestamp}.mulaw".
         pub audio_export_pattern: std::string::String,
 
         /// Enable audio redaction if it is true.
@@ -26899,6 +32571,13 @@ pub struct DetectIntentRequest {
     /// Instructs the speech synthesizer how to generate the output audio.
     pub output_audio_config: std::option::Option<crate::model::OutputAudioConfig>,
 
+    /// Optional. Specifies which fields in the
+    /// [QueryResult][google.cloud.dialogflow.cx.v3.QueryResult] to return. If not
+    /// set, the default is DETECT_INTENT_RESPONSE_VIEW_FULL.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.QueryResult]: crate::model::QueryResult
+    pub response_view: crate::model::DetectIntentResponseView,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27016,6 +32695,24 @@ impl DetectIntentRequest {
         T: std::convert::Into<crate::model::OutputAudioConfig>,
     {
         self.output_audio_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [response_view][crate::model::DetectIntentRequest::response_view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DetectIntentRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::DetectIntentResponseView;
+    /// let x0 = DetectIntentRequest::new().set_response_view(DetectIntentResponseView::Full);
+    /// let x1 = DetectIntentRequest::new().set_response_view(DetectIntentResponseView::Basic);
+    /// let x2 = DetectIntentRequest::new().set_response_view(DetectIntentResponseView::Default);
+    /// ```
+    pub fn set_response_view<T: std::convert::Into<crate::model::DetectIntentResponseView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response_view = v.into();
         self
     }
 }
@@ -27436,6 +33133,13 @@ pub struct StreamingDetectIntentRequest {
     /// If true, `StreamingDetectIntentResponse.debugging_info` will get populated.
     pub enable_debugging_info: bool,
 
+    /// Optional. Specifies which fields in the
+    /// [QueryResult][google.cloud.dialogflow.cx.v3.QueryResult] to return. If not
+    /// set, the default is DETECT_INTENT_RESPONSE_VIEW_FULL.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.QueryResult]: crate::model::QueryResult
+    pub response_view: crate::model::DetectIntentResponseView,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -27577,6 +33281,24 @@ impl StreamingDetectIntentRequest {
     /// ```
     pub fn set_enable_debugging_info<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_debugging_info = v.into();
+        self
+    }
+
+    /// Sets the value of [response_view][crate::model::StreamingDetectIntentRequest::response_view].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::StreamingDetectIntentRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::DetectIntentResponseView;
+    /// let x0 = StreamingDetectIntentRequest::new().set_response_view(DetectIntentResponseView::Full);
+    /// let x1 = StreamingDetectIntentRequest::new().set_response_view(DetectIntentResponseView::Basic);
+    /// let x2 = StreamingDetectIntentRequest::new().set_response_view(DetectIntentResponseView::Default);
+    /// ```
+    pub fn set_response_view<T: std::convert::Into<crate::model::DetectIntentResponseView>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.response_view = v.into();
         self
     }
 }
@@ -28759,6 +34481,16 @@ pub struct QueryParameters {
     /// [SessionInfo.parameters]: crate::model::SessionInfo::parameters
     pub parameters: std::option::Option<wkt::Struct>,
 
+    /// Scope for the parameters. If not specified, parameters will be treated as
+    /// session parameters. Parameters with custom scope will not be put into
+    /// [session parameters][google.cloud.dialogflow.cx.v3.SessionInfo.parameters].
+    ///
+    /// You can reference the parameters with custom scope in the agent with the
+    /// following format: $parameter-scope.params.parameter-id.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.SessionInfo.parameters]: crate::model::SessionInfo::parameters
+    pub parameter_scope: std::string::String,
+
     /// The unique identifier of the [page][google.cloud.dialogflow.cx.v3.Page] to
     /// override the [current page][QueryResult.current_page] in the session.
     /// Format:
@@ -28806,6 +34538,20 @@ pub struct QueryParameters {
     /// the environment. Each flow can have at most one version specified in this
     /// list.
     pub flow_versions: std::vec::Vec<std::string::String>,
+
+    /// Optional. The unique identifier of the
+    /// [playbook][google.cloud.dialogflow.cx.v3.Playbook] to start or continue the
+    /// session with. If `current_playbook` is specified, the previous state of the
+    /// session will be ignored by Dialogflow.
+    ///
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Playbook]: crate::model::Playbook
+    pub current_playbook: std::string::String,
+
+    /// Optional. Use the specified LLM model settings for processing the request.
+    pub llm_model_settings: std::option::Option<crate::model::LlmModelSettings>,
 
     /// The channel which this query is for.
     ///
@@ -29001,6 +34747,18 @@ impl QueryParameters {
         self
     }
 
+    /// Sets the value of [parameter_scope][crate::model::QueryParameters::parameter_scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
+    /// let x = QueryParameters::new().set_parameter_scope("example");
+    /// ```
+    pub fn set_parameter_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parameter_scope = v.into();
+        self
+    }
+
     /// Sets the value of [current_page][crate::model::QueryParameters::current_page].
     ///
     /// # Example
@@ -29072,6 +34830,54 @@ impl QueryParameters {
     {
         use std::iter::Iterator;
         self.flow_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [current_playbook][crate::model::QueryParameters::current_playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
+    /// let x = QueryParameters::new().set_current_playbook("example");
+    /// ```
+    pub fn set_current_playbook<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.current_playbook = v.into();
+        self
+    }
+
+    /// Sets the value of [llm_model_settings][crate::model::QueryParameters::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = QueryParameters::new().set_llm_model_settings(LlmModelSettings::default()/* use setters */);
+    /// ```
+    pub fn set_llm_model_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [llm_model_settings][crate::model::QueryParameters::llm_model_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryParameters;
+    /// use google_cloud_dialogflow_cx_v3::model::LlmModelSettings;
+    /// let x = QueryParameters::new().set_or_clear_llm_model_settings(Some(LlmModelSettings::default()/* use setters */));
+    /// let x = QueryParameters::new().set_or_clear_llm_model_settings(None::<LlmModelSettings>);
+    /// ```
+    pub fn set_or_clear_llm_model_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::LlmModelSettings>,
+    {
+        self.llm_model_settings = v.map(|x| x.into());
         self
     }
 
@@ -30174,6 +35980,7 @@ impl QueryInput {
     /// assert!(x.audio().is_none());
     /// assert!(x.event().is_none());
     /// assert!(x.dtmf().is_none());
+    /// assert!(x.tool_call_result().is_none());
     /// ```
     pub fn set_text<T: std::convert::Into<std::boxed::Box<crate::model::TextInput>>>(
         mut self,
@@ -30210,6 +36017,7 @@ impl QueryInput {
     /// assert!(x.audio().is_none());
     /// assert!(x.event().is_none());
     /// assert!(x.dtmf().is_none());
+    /// assert!(x.tool_call_result().is_none());
     /// ```
     pub fn set_intent<T: std::convert::Into<std::boxed::Box<crate::model::IntentInput>>>(
         mut self,
@@ -30246,6 +36054,7 @@ impl QueryInput {
     /// assert!(x.intent().is_none());
     /// assert!(x.event().is_none());
     /// assert!(x.dtmf().is_none());
+    /// assert!(x.tool_call_result().is_none());
     /// ```
     pub fn set_audio<T: std::convert::Into<std::boxed::Box<crate::model::AudioInput>>>(
         mut self,
@@ -30282,6 +36091,7 @@ impl QueryInput {
     /// assert!(x.intent().is_none());
     /// assert!(x.audio().is_none());
     /// assert!(x.dtmf().is_none());
+    /// assert!(x.tool_call_result().is_none());
     /// ```
     pub fn set_event<T: std::convert::Into<std::boxed::Box<crate::model::EventInput>>>(
         mut self,
@@ -30318,12 +36128,55 @@ impl QueryInput {
     /// assert!(x.intent().is_none());
     /// assert!(x.audio().is_none());
     /// assert!(x.event().is_none());
+    /// assert!(x.tool_call_result().is_none());
     /// ```
     pub fn set_dtmf<T: std::convert::Into<std::boxed::Box<crate::model::DtmfInput>>>(
         mut self,
         v: T,
     ) -> Self {
         self.input = std::option::Option::Some(crate::model::query_input::Input::Dtmf(v.into()));
+        self
+    }
+
+    /// The value of [input][crate::model::QueryInput::input]
+    /// if it holds a `ToolCallResult`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool_call_result(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ToolCallResult>> {
+        #[allow(unreachable_patterns)]
+        self.input.as_ref().and_then(|v| match v {
+            crate::model::query_input::Input::ToolCallResult(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [input][crate::model::QueryInput::input]
+    /// to hold a `ToolCallResult`.
+    ///
+    /// Note that all the setters affecting `input` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::QueryInput;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// let x = QueryInput::new().set_tool_call_result(ToolCallResult::default()/* use setters */);
+    /// assert!(x.tool_call_result().is_some());
+    /// assert!(x.text().is_none());
+    /// assert!(x.intent().is_none());
+    /// assert!(x.audio().is_none());
+    /// assert!(x.event().is_none());
+    /// assert!(x.dtmf().is_none());
+    /// ```
+    pub fn set_tool_call_result<
+        T: std::convert::Into<std::boxed::Box<crate::model::ToolCallResult>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.input =
+            std::option::Option::Some(crate::model::query_input::Input::ToolCallResult(v.into()));
         self
     }
 }
@@ -30356,6 +36209,8 @@ pub mod query_input {
         Event(std::boxed::Box<crate::model::EventInput>),
         /// The DTMF event to be handled.
         Dtmf(std::boxed::Box<crate::model::DtmfInput>),
+        /// The results of a tool executed by the client.
+        ToolCallResult(std::boxed::Box<crate::model::ToolCallResult>),
     }
 }
 
@@ -30393,18 +36248,6 @@ pub struct QueryResult {
     /// simple text messages to more sophisticated, structured payloads used
     /// to drive complex logic.
     pub response_messages: std::vec::Vec<crate::model::ResponseMessage>,
-
-    /// The list of webhook ids in the order of call sequence.
-    pub webhook_ids: std::vec::Vec<std::string::String>,
-
-    /// The list of webhook display names in the order of call sequence.
-    pub webhook_display_names: std::vec::Vec<std::string::String>,
-
-    /// The list of webhook latencies in the order of call sequence.
-    pub webhook_latencies: std::vec::Vec<wkt::Duration>,
-
-    /// The list of webhook tags in the order of call sequence.
-    pub webhook_tags: std::vec::Vec<std::string::String>,
 
     /// The list of webhook call status in the order of call sequence.
     pub webhook_statuses: std::vec::Vec<rpc::model::Status>,
@@ -30577,79 +36420,6 @@ impl QueryResult {
     {
         use std::iter::Iterator;
         self.response_messages = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [webhook_ids][crate::model::QueryResult::webhook_ids].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_ids(["a", "b", "c"]);
-    /// ```
-    pub fn set_webhook_ids<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.webhook_ids = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [webhook_display_names][crate::model::QueryResult::webhook_display_names].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_display_names(["a", "b", "c"]);
-    /// ```
-    pub fn set_webhook_display_names<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.webhook_display_names = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [webhook_latencies][crate::model::QueryResult::webhook_latencies].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// use wkt::Duration;
-    /// let x = QueryResult::new()
-    ///     .set_webhook_latencies([
-    ///         Duration::default()/* use setters */,
-    ///         Duration::default()/* use (different) setters */,
-    ///     ]);
-    /// ```
-    pub fn set_webhook_latencies<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<wkt::Duration>,
-    {
-        use std::iter::Iterator;
-        self.webhook_latencies = v.into_iter().map(|i| i.into()).collect();
-        self
-    }
-
-    /// Sets the value of [webhook_tags][crate::model::QueryResult::webhook_tags].
-    ///
-    /// # Example
-    /// ```ignore,no_run
-    /// # use google_cloud_dialogflow_cx_v3::model::QueryResult;
-    /// let x = QueryResult::new().set_webhook_tags(["a", "b", "c"]);
-    /// ```
-    pub fn set_webhook_tags<T, V>(mut self, v: T) -> Self
-    where
-        T: std::iter::IntoIterator<Item = V>,
-        V: std::convert::Into<std::string::String>,
-    {
-        use std::iter::Iterator;
-        self.webhook_tags = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -31713,7 +37483,10 @@ pub mod r#match {
         Event,
         /// The query was matched to a Knowledge Connector answer.
         KnowledgeConnector,
-        /// The query was handled by a [`Playbook`][Playbook].
+        /// The query was handled by a
+        /// [`Playbook`][google.cloud.dialogflow.cx.v3.Playbook].
+        ///
+        /// [google.cloud.dialogflow.cx.v3.Playbook]: crate::model::Playbook
         Playbook,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -37884,6 +43657,4523 @@ impl wkt::message::Message for GetTestCaseResultRequest {
     }
 }
 
+/// The request message for
+/// [Tools.CreateTool][google.cloud.dialogflow.cx.v3.Tools.CreateTool].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.CreateTool]: crate::client::Tools::create_tool
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateToolRequest {
+    /// Required. The agent to create a Tool for.
+    /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
+    pub parent: std::string::String,
+
+    /// Required. The Tool to be created.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl CreateToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateToolRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolRequest;
+    /// let x = CreateToolRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [tool][crate::model::CreateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = CreateToolRequest::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::CreateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = CreateToolRequest::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = CreateToolRequest::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for CreateToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateToolRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.ListTools][google.cloud.dialogflow.cx.v3.Tools.ListTools].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.ListTools]: crate::client::Tools::list_tools
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolsRequest {
+    /// Required. The agent to list the Tools from.
+    /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
+    pub parent: std::string::String,
+
+    /// The maximum number of items to return in a single page. By default 100 and
+    /// at most 1000.
+    pub page_size: i32,
+
+    /// The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListToolsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListToolsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListToolsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolsRequest;
+    /// let x = ListToolsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListToolsRequest"
+    }
+}
+
+/// The response message for
+/// [Tools.ListTools][google.cloud.dialogflow.cx.v3.Tools.ListTools].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.ListTools]: crate::client::Tools::list_tools
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolsResponse {
+    /// The list of Tools. There will be a maximum number of items returned
+    /// based on the page_size field in the request.
+    pub tools: std::vec::Vec<crate::model::Tool>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tools][crate::model::ListToolsResponse::tools].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolsResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = ListToolsResponse::new()
+    ///     .set_tools([
+    ///         Tool::default()/* use setters */,
+    ///         Tool::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tools<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Tool>,
+    {
+        use std::iter::Iterator;
+        self.tools = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListToolsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolsResponse;
+    /// let x = ListToolsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListToolsResponse"
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListToolsResponse {
+    type PageItem = crate::model::Tool;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tools
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [Tools.GetTool][google.cloud.dialogflow.cx.v3.Tools.GetTool].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.GetTool]: crate::client::Tools::get_tool
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetToolRequest {
+    /// Required. The name of the Tool.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl GetToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetToolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GetToolRequest;
+    /// let x = GetToolRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for GetToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetToolRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.UpdateTool][google.cloud.dialogflow.cx.v3.Tools.UpdateTool].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.UpdateTool]: crate::client::Tools::update_tool
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateToolRequest {
+    /// Required. The Tool to be updated.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    /// The mask to control which fields get updated. If the mask is not present,
+    /// all fields will be updated.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl UpdateToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::UpdateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateToolRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = UpdateToolRequest::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::UpdateToolRequest::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateToolRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = UpdateToolRequest::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = UpdateToolRequest::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateToolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateToolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateToolRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateToolRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UpdateToolRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateToolRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateToolRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for UpdateToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateToolRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.DeleteTool][google.cloud.dialogflow.cx.v3.Tools.DeleteTool].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.DeleteTool]: crate::client::Tools::delete_tool
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteToolRequest {
+    /// Required. The name of the Tool to be deleted.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    pub name: std::string::String,
+
+    /// This field has no effect for Tools not being used.
+    /// For Tools that are used:
+    ///
+    /// * If `force` is set to false, an error will be returned with message
+    ///   indicating the referenced resources.
+    /// * If `force` is set to true, Dialogflow will remove the tool, as well
+    ///   as any references to the tool.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl DeleteToolRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteToolRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolRequest;
+    /// let x = DeleteToolRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteToolRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolRequest;
+    /// let x = DeleteToolRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for DeleteToolRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteToolRequest"
+    }
+}
+
+/// A tool provides a list of actions which are available to the
+/// [Playbook][google.cloud.dialogflow.cx.v3.Playbook] to attain its goal. A Tool
+/// consists of a description of the tool's usage and a specification of the tool
+/// which contains the schema and authentication information.
+///
+/// [google.cloud.dialogflow.cx.v3.Playbook]: crate::model::Playbook
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Tool {
+    /// The unique identifier of the Tool.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    pub name: std::string::String,
+
+    /// Required. The human-readable name of the Tool, unique within an agent.
+    pub display_name: std::string::String,
+
+    /// Required. High level description of the Tool and its usage.
+    pub description: std::string::String,
+
+    /// Output only. The tool type.
+    pub tool_type: crate::model::tool::ToolType,
+
+    /// Specification of the Tool.
+    pub specification: std::option::Option<crate::model::tool::Specification>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl Tool {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Tool::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = Tool::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::Tool::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = Tool::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Tool::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = Tool::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [tool_type][crate::model::Tool::tool_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// use google_cloud_dialogflow_cx_v3::model::tool::ToolType;
+    /// let x0 = Tool::new().set_tool_type(ToolType::CustomizedTool);
+    /// let x1 = Tool::new().set_tool_type(ToolType::BuiltinTool);
+    /// ```
+    pub fn set_tool_type<T: std::convert::Into<crate::model::tool::ToolType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.tool_type = v.into();
+        self
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification].
+    ///
+    /// Note that all the setters affecting `specification` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+    /// let x = Tool::new().set_specification(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::tool::Specification::OpenApiSpec(OpenApiTool::default().into())));
+    /// ```
+    pub fn set_specification<
+        T: std::convert::Into<std::option::Option<crate::model::tool::Specification>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification = v.into();
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `OpenApiSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn open_api_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::OpenApiTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::OpenApiSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `OpenApiSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+    /// let x = Tool::new().set_open_api_spec(OpenApiTool::default()/* use setters */);
+    /// assert!(x.open_api_spec().is_some());
+    /// assert!(x.data_store_spec().is_none());
+    /// assert!(x.function_spec().is_none());
+    /// ```
+    pub fn set_open_api_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::OpenApiTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::OpenApiSpec(v.into()));
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `DataStoreSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn data_store_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::DataStoreTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::DataStoreSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `DataStoreSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// use google_cloud_dialogflow_cx_v3::model::tool::DataStoreTool;
+    /// let x = Tool::new().set_data_store_spec(DataStoreTool::default()/* use setters */);
+    /// assert!(x.data_store_spec().is_some());
+    /// assert!(x.open_api_spec().is_none());
+    /// assert!(x.function_spec().is_none());
+    /// ```
+    pub fn set_data_store_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::DataStoreTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::DataStoreSpec(v.into()));
+        self
+    }
+
+    /// The value of [specification][crate::model::Tool::specification]
+    /// if it holds a `FunctionSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn function_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool::FunctionTool>> {
+        #[allow(unreachable_patterns)]
+        self.specification.as_ref().and_then(|v| match v {
+            crate::model::tool::Specification::FunctionSpec(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [specification][crate::model::Tool::specification]
+    /// to hold a `FunctionSpec`.
+    ///
+    /// Note that all the setters affecting `specification` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// use google_cloud_dialogflow_cx_v3::model::tool::FunctionTool;
+    /// let x = Tool::new().set_function_spec(FunctionTool::default()/* use setters */);
+    /// assert!(x.function_spec().is_some());
+    /// assert!(x.open_api_spec().is_none());
+    /// assert!(x.data_store_spec().is_none());
+    /// ```
+    pub fn set_function_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool::FunctionTool>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.specification =
+            std::option::Option::Some(crate::model::tool::Specification::FunctionSpec(v.into()));
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for Tool {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool"
+    }
+}
+
+/// Defines additional types related to [Tool].
+#[cfg(feature = "tools")]
+pub mod tool {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An OpenAPI tool is a way to provide the Tool specifications in the Open API
+    /// schema format.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct OpenApiTool {
+        /// Optional. Authentication information required by the API.
+        pub authentication: std::option::Option<crate::model::tool::Authentication>,
+
+        /// Optional. TLS configuration for the HTTPS verification.
+        pub tls_config: std::option::Option<crate::model::tool::TLSConfig>,
+
+        /// Optional. Service Directory configuration.
+        pub service_directory_config:
+            std::option::Option<crate::model::tool::ServiceDirectoryConfig>,
+
+        /// Schema representation.
+        pub schema: std::option::Option<crate::model::tool::open_api_tool::Schema>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl OpenApiTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [authentication][crate::model::tool::OpenApiTool::authentication].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// let x = OpenApiTool::new().set_authentication(Authentication::default()/* use setters */);
+        /// ```
+        pub fn set_authentication<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::Authentication>,
+        {
+            self.authentication = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authentication][crate::model::tool::OpenApiTool::authentication].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// let x = OpenApiTool::new().set_or_clear_authentication(Some(Authentication::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_authentication(None::<Authentication>);
+        /// ```
+        pub fn set_or_clear_authentication<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::Authentication>,
+        {
+            self.authentication = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [tls_config][crate::model::tool::OpenApiTool::tls_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::TLSConfig;
+        /// let x = OpenApiTool::new().set_tls_config(TLSConfig::default()/* use setters */);
+        /// ```
+        pub fn set_tls_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::TLSConfig>,
+        {
+            self.tls_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [tls_config][crate::model::tool::OpenApiTool::tls_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::TLSConfig;
+        /// let x = OpenApiTool::new().set_or_clear_tls_config(Some(TLSConfig::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_tls_config(None::<TLSConfig>);
+        /// ```
+        pub fn set_or_clear_tls_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::TLSConfig>,
+        {
+            self.tls_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [service_directory_config][crate::model::tool::OpenApiTool::service_directory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::ServiceDirectoryConfig;
+        /// let x = OpenApiTool::new().set_service_directory_config(ServiceDirectoryConfig::default()/* use setters */);
+        /// ```
+        pub fn set_service_directory_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::ServiceDirectoryConfig>,
+        {
+            self.service_directory_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_directory_config][crate::model::tool::OpenApiTool::service_directory_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::ServiceDirectoryConfig;
+        /// let x = OpenApiTool::new().set_or_clear_service_directory_config(Some(ServiceDirectoryConfig::default()/* use setters */));
+        /// let x = OpenApiTool::new().set_or_clear_service_directory_config(None::<ServiceDirectoryConfig>);
+        /// ```
+        pub fn set_or_clear_service_directory_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::ServiceDirectoryConfig>,
+        {
+            self.service_directory_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [schema][crate::model::tool::OpenApiTool::schema].
+        ///
+        /// Note that all the setters affecting `schema` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::open_api_tool::Schema;
+        /// let x = OpenApiTool::new().set_schema(Some(Schema::TextSchema("example".to_string())));
+        /// ```
+        pub fn set_schema<
+            T: std::convert::Into<std::option::Option<crate::model::tool::open_api_tool::Schema>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.schema = v.into();
+            self
+        }
+
+        /// The value of [schema][crate::model::tool::OpenApiTool::schema]
+        /// if it holds a `TextSchema`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn text_schema(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.schema.as_ref().and_then(|v| match v {
+                crate::model::tool::open_api_tool::Schema::TextSchema(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [schema][crate::model::tool::OpenApiTool::schema]
+        /// to hold a `TextSchema`.
+        ///
+        /// Note that all the setters affecting `schema` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::OpenApiTool;
+        /// let x = OpenApiTool::new().set_text_schema("example");
+        /// assert!(x.text_schema().is_some());
+        /// ```
+        pub fn set_text_schema<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.schema = std::option::Option::Some(
+                crate::model::tool::open_api_tool::Schema::TextSchema(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for OpenApiTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.OpenApiTool"
+        }
+    }
+
+    /// Defines additional types related to [OpenApiTool].
+    #[cfg(feature = "tools")]
+    pub mod open_api_tool {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Schema representation.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum Schema {
+            /// Required. The OpenAPI schema specified as a text.
+            TextSchema(std::string::String),
+        }
+    }
+
+    /// A DataStoreTool is a way to provide specifications needed to search a
+    /// list of data stores.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DataStoreTool {
+        /// Required. List of data stores to search.
+        pub data_store_connections: std::vec::Vec<crate::model::DataStoreConnection>,
+
+        /// Required. Fallback prompt configurations to use.
+        pub fallback_prompt:
+            std::option::Option<crate::model::tool::data_store_tool::FallbackPrompt>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl DataStoreTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [data_store_connections][crate::model::tool::DataStoreTool::data_store_connections].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::DataStoreTool;
+        /// use google_cloud_dialogflow_cx_v3::model::DataStoreConnection;
+        /// let x = DataStoreTool::new()
+        ///     .set_data_store_connections([
+        ///         DataStoreConnection::default()/* use setters */,
+        ///         DataStoreConnection::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_data_store_connections<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::DataStoreConnection>,
+        {
+            use std::iter::Iterator;
+            self.data_store_connections = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [fallback_prompt][crate::model::tool::DataStoreTool::fallback_prompt].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::DataStoreTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::data_store_tool::FallbackPrompt;
+        /// let x = DataStoreTool::new().set_fallback_prompt(FallbackPrompt::default()/* use setters */);
+        /// ```
+        pub fn set_fallback_prompt<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::data_store_tool::FallbackPrompt>,
+        {
+            self.fallback_prompt = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [fallback_prompt][crate::model::tool::DataStoreTool::fallback_prompt].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::DataStoreTool;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::data_store_tool::FallbackPrompt;
+        /// let x = DataStoreTool::new().set_or_clear_fallback_prompt(Some(FallbackPrompt::default()/* use setters */));
+        /// let x = DataStoreTool::new().set_or_clear_fallback_prompt(None::<FallbackPrompt>);
+        /// ```
+        pub fn set_or_clear_fallback_prompt<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::tool::data_store_tool::FallbackPrompt>,
+        {
+            self.fallback_prompt = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for DataStoreTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.DataStoreTool"
+        }
+    }
+
+    /// Defines additional types related to [DataStoreTool].
+    #[cfg(feature = "tools")]
+    pub mod data_store_tool {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// A FallbackPrompt is a way to provide specifications for the Data Store
+        /// fallback prompt when generating responses.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct FallbackPrompt {
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl FallbackPrompt {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for FallbackPrompt {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.DataStoreTool.FallbackPrompt"
+            }
+        }
+    }
+
+    /// A Function tool describes the functions to be invoked on the client side.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct FunctionTool {
+        /// Optional. The JSON schema is encapsulated in a
+        /// [google.protobuf.Struct][google.protobuf.Struct] to describe the input of
+        /// the function. This input is a JSON object that contains the function's
+        /// parameters as properties of the object.
+        ///
+        /// [google.protobuf.Struct]: wkt::Struct
+        pub input_schema: std::option::Option<wkt::Struct>,
+
+        /// Optional. The JSON schema is encapsulated in a
+        /// [google.protobuf.Struct][google.protobuf.Struct] to describe the output
+        /// of the function. This output is a JSON object that contains the
+        /// function's parameters as properties of the object.
+        ///
+        /// [google.protobuf.Struct]: wkt::Struct
+        pub output_schema: std::option::Option<wkt::Struct>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl FunctionTool {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [input_schema][crate::model::tool::FunctionTool::input_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_input_schema(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_input_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.input_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [input_schema][crate::model::tool::FunctionTool::input_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_or_clear_input_schema(Some(Struct::default()/* use setters */));
+        /// let x = FunctionTool::new().set_or_clear_input_schema(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_input_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.input_schema = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [output_schema][crate::model::tool::FunctionTool::output_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_output_schema(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_output_schema<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.output_schema = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [output_schema][crate::model::tool::FunctionTool::output_schema].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::FunctionTool;
+        /// use wkt::Struct;
+        /// let x = FunctionTool::new().set_or_clear_output_schema(Some(Struct::default()/* use setters */));
+        /// let x = FunctionTool::new().set_or_clear_output_schema(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_output_schema<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.output_schema = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for FunctionTool {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.FunctionTool"
+        }
+    }
+
+    /// Authentication information required for API calls
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Authentication {
+        /// The auth configuration.
+        pub auth_config: std::option::Option<crate::model::tool::authentication::AuthConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl Authentication {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config].
+        ///
+        /// Note that all the setters affecting `auth_config` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+        /// let x = Authentication::new().set_auth_config(Some(
+        ///     google_cloud_dialogflow_cx_v3::model::tool::authentication::AuthConfig::ApiKeyConfig(ApiKeyConfig::default().into())));
+        /// ```
+        pub fn set_auth_config<
+            T: std::convert::Into<std::option::Option<crate::model::tool::authentication::AuthConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = v.into();
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `ApiKeyConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn api_key_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::ApiKeyConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `ApiKeyConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+        /// let x = Authentication::new().set_api_key_config(ApiKeyConfig::default()/* use setters */);
+        /// assert!(x.api_key_config().is_some());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// assert!(x.service_account_auth_config().is_none());
+        /// ```
+        pub fn set_api_key_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::ApiKeyConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `OauthConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn oauth_config(
+            &self,
+        ) -> std::option::Option<&std::boxed::Box<crate::model::tool::authentication::OAuthConfig>>
+        {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::OauthConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `OauthConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+        /// let x = Authentication::new().set_oauth_config(OAuthConfig::default()/* use setters */);
+        /// assert!(x.oauth_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// assert!(x.service_account_auth_config().is_none());
+        /// ```
+        pub fn set_oauth_config<
+            T: std::convert::Into<std::boxed::Box<crate::model::tool::authentication::OAuthConfig>>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::OauthConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `ServiceAgentAuthConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn service_agent_auth_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::ServiceAgentAuthConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `ServiceAgentAuthConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::ServiceAgentAuthConfig;
+        /// let x = Authentication::new().set_service_agent_auth_config(ServiceAgentAuthConfig::default()/* use setters */);
+        /// assert!(x.service_agent_auth_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// assert!(x.service_account_auth_config().is_none());
+        /// ```
+        pub fn set_service_agent_auth_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::ServiceAgentAuthConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `BearerTokenConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bearer_token_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::BearerTokenConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `BearerTokenConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::BearerTokenConfig;
+        /// let x = Authentication::new().set_bearer_token_config(BearerTokenConfig::default()/* use setters */);
+        /// assert!(x.bearer_token_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.service_account_auth_config().is_none());
+        /// ```
+        pub fn set_bearer_token_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::BearerTokenConfig(v.into()),
+            );
+            self
+        }
+
+        /// The value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// if it holds a `ServiceAccountAuthConfig`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn service_account_auth_config(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::tool::authentication::ServiceAccountAuthConfig>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.auth_config.as_ref().and_then(|v| match v {
+                crate::model::tool::authentication::AuthConfig::ServiceAccountAuthConfig(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [auth_config][crate::model::tool::Authentication::auth_config]
+        /// to hold a `ServiceAccountAuthConfig`.
+        ///
+        /// Note that all the setters affecting `auth_config` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::Authentication;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::ServiceAccountAuthConfig;
+        /// let x = Authentication::new().set_service_account_auth_config(ServiceAccountAuthConfig::default()/* use setters */);
+        /// assert!(x.service_account_auth_config().is_some());
+        /// assert!(x.api_key_config().is_none());
+        /// assert!(x.oauth_config().is_none());
+        /// assert!(x.service_agent_auth_config().is_none());
+        /// assert!(x.bearer_token_config().is_none());
+        /// ```
+        pub fn set_service_account_auth_config<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::tool::authentication::ServiceAccountAuthConfig>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.auth_config = std::option::Option::Some(
+                crate::model::tool::authentication::AuthConfig::ServiceAccountAuthConfig(v.into()),
+            );
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for Authentication {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication"
+        }
+    }
+
+    /// Defines additional types related to [Authentication].
+    #[cfg(feature = "tools")]
+    pub mod authentication {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Config for authentication with API key.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ApiKeyConfig {
+            /// Required. The parameter name or the header name of the API key.
+            /// E.g., If the API request is "<https://example.com/act?X-Api-Key=>\<API
+            /// KEY\>", "X-Api-Key" would be the parameter name.
+            pub key_name: std::string::String,
+
+            /// Optional. The API key. If the `secret_version_for_api_key` field is
+            /// set, this field will be ignored.
+            pub api_key: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the API key. If this field is set, the `api_key` field will be ignored.
+            /// Format: `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_api_key: std::string::String,
+
+            /// Required. Key location in the request.
+            pub request_location: crate::model::tool::authentication::RequestLocation,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl ApiKeyConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key_name][crate::model::tool::authentication::ApiKeyConfig::key_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_key_name("example");
+            /// ```
+            pub fn set_key_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.key_name = v.into();
+                self
+            }
+
+            /// Sets the value of [api_key][crate::model::tool::authentication::ApiKeyConfig::api_key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_api_key("example");
+            /// ```
+            pub fn set_api_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.api_key = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_api_key][crate::model::tool::authentication::ApiKeyConfig::secret_version_for_api_key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+            /// let x = ApiKeyConfig::new().set_secret_version_for_api_key("example");
+            /// ```
+            pub fn set_secret_version_for_api_key<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_api_key = v.into();
+                self
+            }
+
+            /// Sets the value of [request_location][crate::model::tool::authentication::ApiKeyConfig::request_location].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ApiKeyConfig;
+            /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::RequestLocation;
+            /// let x0 = ApiKeyConfig::new().set_request_location(RequestLocation::Header);
+            /// let x1 = ApiKeyConfig::new().set_request_location(RequestLocation::QueryString);
+            /// ```
+            pub fn set_request_location<
+                T: std::convert::Into<crate::model::tool::authentication::RequestLocation>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.request_location = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for ApiKeyConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication.ApiKeyConfig"
+            }
+        }
+
+        /// Config for authentication with OAuth.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct OAuthConfig {
+            /// Required. OAuth grant types.
+            pub oauth_grant_type: crate::model::tool::authentication::o_auth_config::OauthGrantType,
+
+            /// Required. The client ID from the OAuth provider.
+            pub client_id: std::string::String,
+
+            /// Optional. The client secret from the OAuth provider. If the
+            /// `secret_version_for_client_secret` field is set, this field will be
+            /// ignored.
+            pub client_secret: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the client secret. If this field is set, the `client_secret` field will
+            /// be ignored. Format:
+            /// `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_client_secret: std::string::String,
+
+            /// Required. The token endpoint in the OAuth provider to exchange for an
+            /// access token.
+            pub token_endpoint: std::string::String,
+
+            /// Optional. The OAuth scopes to grant.
+            pub scopes: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl OAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [oauth_grant_type][crate::model::tool::authentication::OAuthConfig::oauth_grant_type].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::o_auth_config::OauthGrantType;
+            /// let x0 = OAuthConfig::new().set_oauth_grant_type(OauthGrantType::ClientCredential);
+            /// ```
+            pub fn set_oauth_grant_type<
+                T: std::convert::Into<
+                        crate::model::tool::authentication::o_auth_config::OauthGrantType,
+                    >,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.oauth_grant_type = v.into();
+                self
+            }
+
+            /// Sets the value of [client_id][crate::model::tool::authentication::OAuthConfig::client_id].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_client_id("example");
+            /// ```
+            pub fn set_client_id<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.client_id = v.into();
+                self
+            }
+
+            /// Sets the value of [client_secret][crate::model::tool::authentication::OAuthConfig::client_secret].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_client_secret("example");
+            /// ```
+            pub fn set_client_secret<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.client_secret = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_client_secret][crate::model::tool::authentication::OAuthConfig::secret_version_for_client_secret].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_secret_version_for_client_secret("example");
+            /// ```
+            pub fn set_secret_version_for_client_secret<
+                T: std::convert::Into<std::string::String>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_client_secret = v.into();
+                self
+            }
+
+            /// Sets the value of [token_endpoint][crate::model::tool::authentication::OAuthConfig::token_endpoint].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_token_endpoint("example");
+            /// ```
+            pub fn set_token_endpoint<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.token_endpoint = v.into();
+                self
+            }
+
+            /// Sets the value of [scopes][crate::model::tool::authentication::OAuthConfig::scopes].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::OAuthConfig;
+            /// let x = OAuthConfig::new().set_scopes(["a", "b", "c"]);
+            /// ```
+            pub fn set_scopes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.scopes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for OAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication.OAuthConfig"
+            }
+        }
+
+        /// Defines additional types related to [OAuthConfig].
+        #[cfg(feature = "tools")]
+        pub mod o_auth_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// OAuth grant types. Only [client credential
+            /// grant](https://oauth.net/2/grant-types/client-credentials) is
+            /// supported.
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum OauthGrantType {
+                /// Default value. This value is unused.
+                Unspecified,
+                /// Represents the [client credential
+                /// flow](https://oauth.net/2/grant-types/client-credentials).
+                ClientCredential,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [OauthGrantType::value] or
+                /// [OauthGrantType::name].
+                UnknownValue(oauth_grant_type::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            #[cfg(feature = "tools")]
+            pub mod oauth_grant_type {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            #[cfg(feature = "tools")]
+            impl OauthGrantType {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::ClientCredential => std::option::Option::Some(1),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("OAUTH_GRANT_TYPE_UNSPECIFIED")
+                        }
+                        Self::ClientCredential => std::option::Option::Some("CLIENT_CREDENTIAL"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::default::Default for OauthGrantType {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::fmt::Display for OauthGrantType {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<i32> for OauthGrantType {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::ClientCredential,
+                        _ => Self::UnknownValue(oauth_grant_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<&str> for OauthGrantType {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "OAUTH_GRANT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                        "CLIENT_CREDENTIAL" => Self::ClientCredential,
+                        _ => Self::UnknownValue(oauth_grant_type::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl serde::ser::Serialize for OauthGrantType {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::ClientCredential => serializer.serialize_i32(1),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl<'de> serde::de::Deserialize<'de> for OauthGrantType {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<OauthGrantType>::new(
+                        ".google.cloud.dialogflow.cx.v3.Tool.Authentication.OAuthConfig.OauthGrantType"))
+                }
+            }
+        }
+
+        /// Config for auth using [Diglogflow service
+        /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ServiceAgentAuthConfig {
+            /// Optional. Indicate the auth token type generated from the [Diglogflow
+            /// service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            /// The generated token is sent in the Authorization header.
+            pub service_agent_auth:
+                crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl ServiceAgentAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [service_agent_auth][crate::model::tool::authentication::ServiceAgentAuthConfig::service_agent_auth].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ServiceAgentAuthConfig;
+            /// use google_cloud_dialogflow_cx_v3::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth;
+            /// let x0 = ServiceAgentAuthConfig::new().set_service_agent_auth(ServiceAgentAuth::IdToken);
+            /// let x1 = ServiceAgentAuthConfig::new().set_service_agent_auth(ServiceAgentAuth::AccessToken);
+            /// ```
+            pub fn set_service_agent_auth<T: std::convert::Into<crate::model::tool::authentication::service_agent_auth_config::ServiceAgentAuth>>(mut self, v: T) -> Self{
+                self.service_agent_auth = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for ServiceAgentAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication.ServiceAgentAuthConfig"
+            }
+        }
+
+        /// Defines additional types related to [ServiceAgentAuthConfig].
+        #[cfg(feature = "tools")]
+        pub mod service_agent_auth_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Indicate the auth token type generated from the [Diglogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            ///
+            /// # Working with unknown values
+            ///
+            /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+            /// additional enum variants at any time. Adding new variants is not considered
+            /// a breaking change. Applications should write their code in anticipation of:
+            ///
+            /// - New values appearing in future releases of the client library, **and**
+            /// - New values received dynamically, without application changes.
+            ///
+            /// Please consult the [Working with enums] section in the user guide for some
+            /// guidelines.
+            ///
+            /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "tools")]
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum ServiceAgentAuth {
+                /// Service agent auth type unspecified. Default to ID_TOKEN.
+                Unspecified,
+                /// Use [ID
+                /// token](https://cloud.google.com/docs/authentication/token-types#id)
+                /// generated from service agent. This can be used to access Cloud
+                /// Function and Cloud Run after you grant Invoker role to
+                /// `service-<PROJECT-NUMBER>@gcp-sa-dialogflow.iam.gserviceaccount.com`.
+                IdToken,
+                /// Use [access
+                /// token](https://cloud.google.com/docs/authentication/token-types#access)
+                /// generated from service agent. This can be used to access other Google
+                /// Cloud APIs after you grant required roles to
+                /// `service-<PROJECT-NUMBER>@gcp-sa-dialogflow.iam.gserviceaccount.com`.
+                AccessToken,
+                /// If set, the enum was initialized with an unknown value.
+                ///
+                /// Applications can examine the value using [ServiceAgentAuth::value] or
+                /// [ServiceAgentAuth::name].
+                UnknownValue(service_agent_auth::UnknownValue),
+            }
+
+            #[doc(hidden)]
+            #[cfg(feature = "tools")]
+            pub mod service_agent_auth {
+                #[allow(unused_imports)]
+                use super::*;
+                #[derive(Clone, Debug, PartialEq)]
+                pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+            }
+
+            #[cfg(feature = "tools")]
+            impl ServiceAgentAuth {
+                /// Gets the enum value.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the string representation of enums.
+                pub fn value(&self) -> std::option::Option<i32> {
+                    match self {
+                        Self::Unspecified => std::option::Option::Some(0),
+                        Self::IdToken => std::option::Option::Some(1),
+                        Self::AccessToken => std::option::Option::Some(2),
+                        Self::UnknownValue(u) => u.0.value(),
+                    }
+                }
+
+                /// Gets the enum value as a string.
+                ///
+                /// Returns `None` if the enum contains an unknown value deserialized from
+                /// the integer representation of enums.
+                pub fn name(&self) -> std::option::Option<&str> {
+                    match self {
+                        Self::Unspecified => {
+                            std::option::Option::Some("SERVICE_AGENT_AUTH_UNSPECIFIED")
+                        }
+                        Self::IdToken => std::option::Option::Some("ID_TOKEN"),
+                        Self::AccessToken => std::option::Option::Some("ACCESS_TOKEN"),
+                        Self::UnknownValue(u) => u.0.name(),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::default::Default for ServiceAgentAuth {
+                fn default() -> Self {
+                    use std::convert::From;
+                    Self::from(0)
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::fmt::Display for ServiceAgentAuth {
+                fn fmt(
+                    &self,
+                    f: &mut std::fmt::Formatter<'_>,
+                ) -> std::result::Result<(), std::fmt::Error> {
+                    wkt::internal::display_enum(f, self.name(), self.value())
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<i32> for ServiceAgentAuth {
+                fn from(value: i32) -> Self {
+                    match value {
+                        0 => Self::Unspecified,
+                        1 => Self::IdToken,
+                        2 => Self::AccessToken,
+                        _ => Self::UnknownValue(service_agent_auth::UnknownValue(
+                            wkt::internal::UnknownEnumValue::Integer(value),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl std::convert::From<&str> for ServiceAgentAuth {
+                fn from(value: &str) -> Self {
+                    use std::string::ToString;
+                    match value {
+                        "SERVICE_AGENT_AUTH_UNSPECIFIED" => Self::Unspecified,
+                        "ID_TOKEN" => Self::IdToken,
+                        "ACCESS_TOKEN" => Self::AccessToken,
+                        _ => Self::UnknownValue(service_agent_auth::UnknownValue(
+                            wkt::internal::UnknownEnumValue::String(value.to_string()),
+                        )),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl serde::ser::Serialize for ServiceAgentAuth {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::Serializer,
+                {
+                    match self {
+                        Self::Unspecified => serializer.serialize_i32(0),
+                        Self::IdToken => serializer.serialize_i32(1),
+                        Self::AccessToken => serializer.serialize_i32(2),
+                        Self::UnknownValue(u) => u.0.serialize(serializer),
+                    }
+                }
+            }
+
+            #[cfg(feature = "tools")]
+            impl<'de> serde::de::Deserialize<'de> for ServiceAgentAuth {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    deserializer.deserialize_any(wkt::internal::EnumVisitor::<ServiceAgentAuth>::new(
+                        ".google.cloud.dialogflow.cx.v3.Tool.Authentication.ServiceAgentAuthConfig.ServiceAgentAuth"))
+                }
+            }
+        }
+
+        /// Config for authentication using bearer token.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BearerTokenConfig {
+            /// Optional. The text token appended to the text `Bearer` to the request
+            /// Authorization header.
+            /// [Session parameters
+            /// reference](https://cloud.google.com/dialogflow/cx/docs/concept/parameter#session-ref)
+            /// can be used to pass the token dynamically, e.g.
+            /// `$session.params.parameter-id`.
+            pub token: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the Bearer token. If this field is set, the `token` field will be
+            /// ignored. Format:
+            /// `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_token: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl BearerTokenConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [token][crate::model::tool::authentication::BearerTokenConfig::token].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::BearerTokenConfig;
+            /// let x = BearerTokenConfig::new().set_token("example");
+            /// ```
+            pub fn set_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.token = v.into();
+                self
+            }
+
+            /// Sets the value of [secret_version_for_token][crate::model::tool::authentication::BearerTokenConfig::secret_version_for_token].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::BearerTokenConfig;
+            /// let x = BearerTokenConfig::new().set_secret_version_for_token("example");
+            /// ```
+            pub fn set_secret_version_for_token<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_token = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for BearerTokenConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication.BearerTokenConfig"
+            }
+        }
+
+        /// Configuration for authentication using a service account.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ServiceAccountAuthConfig {
+            /// Required. The email address of the service account used to authenticate
+            /// the tool call. Dialogflow uses this service account to exchange an
+            /// access token and the access token is then sent in the `Authorization`
+            /// header of the tool request.
+            ///
+            /// The service account must have the
+            /// `roles/iam.serviceAccountTokenCreator` role granted to the
+            /// [Dialogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            pub service_account: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl ServiceAccountAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [service_account][crate::model::tool::authentication::ServiceAccountAuthConfig::service_account].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::authentication::ServiceAccountAuthConfig;
+            /// let x = ServiceAccountAuthConfig::new().set_service_account("example");
+            /// ```
+            pub fn set_service_account<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.service_account = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for ServiceAccountAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.Authentication.ServiceAccountAuthConfig"
+            }
+        }
+
+        /// The location of the API key in the request.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum RequestLocation {
+            /// Default value. This value is unused.
+            Unspecified,
+            /// Represents the key in http header.
+            Header,
+            /// Represents the key in query string.
+            QueryString,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [RequestLocation::value] or
+            /// [RequestLocation::name].
+            UnknownValue(request_location::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        #[cfg(feature = "tools")]
+        pub mod request_location {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        #[cfg(feature = "tools")]
+        impl RequestLocation {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Header => std::option::Option::Some(1),
+                    Self::QueryString => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("REQUEST_LOCATION_UNSPECIFIED"),
+                    Self::Header => std::option::Option::Some("HEADER"),
+                    Self::QueryString => std::option::Option::Some("QUERY_STRING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::default::Default for RequestLocation {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::fmt::Display for RequestLocation {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::convert::From<i32> for RequestLocation {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Header,
+                    2 => Self::QueryString,
+                    _ => Self::UnknownValue(request_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl std::convert::From<&str> for RequestLocation {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "REQUEST_LOCATION_UNSPECIFIED" => Self::Unspecified,
+                    "HEADER" => Self::Header,
+                    "QUERY_STRING" => Self::QueryString,
+                    _ => Self::UnknownValue(request_location::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl serde::ser::Serialize for RequestLocation {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Header => serializer.serialize_i32(1),
+                    Self::QueryString => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl<'de> serde::de::Deserialize<'de> for RequestLocation {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<RequestLocation>::new(
+                    ".google.cloud.dialogflow.cx.v3.Tool.Authentication.RequestLocation",
+                ))
+            }
+        }
+
+        /// The auth configuration.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum AuthConfig {
+            /// Config for API key auth.
+            ApiKeyConfig(std::boxed::Box<crate::model::tool::authentication::ApiKeyConfig>),
+            /// Config for OAuth.
+            OauthConfig(std::boxed::Box<crate::model::tool::authentication::OAuthConfig>),
+            /// Config for [Diglogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent)
+            /// auth.
+            ServiceAgentAuthConfig(
+                std::boxed::Box<crate::model::tool::authentication::ServiceAgentAuthConfig>,
+            ),
+            /// Config for bearer token auth.
+            BearerTokenConfig(
+                std::boxed::Box<crate::model::tool::authentication::BearerTokenConfig>,
+            ),
+            /// Configuration for service account authentication.
+            ServiceAccountAuthConfig(
+                std::boxed::Box<crate::model::tool::authentication::ServiceAccountAuthConfig>,
+            ),
+        }
+    }
+
+    /// The TLS configuration.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct TLSConfig {
+        /// Required. Specifies a list of allowed custom CA certificates for HTTPS
+        /// verification.
+        pub ca_certs: std::vec::Vec<crate::model::tool::tls_config::CACert>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl TLSConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [ca_certs][crate::model::tool::TLSConfig::ca_certs].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::TLSConfig;
+        /// use google_cloud_dialogflow_cx_v3::model::tool::tls_config::CACert;
+        /// let x = TLSConfig::new()
+        ///     .set_ca_certs([
+        ///         CACert::default()/* use setters */,
+        ///         CACert::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_ca_certs<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::tool::tls_config::CACert>,
+        {
+            use std::iter::Iterator;
+            self.ca_certs = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for TLSConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.TLSConfig"
+        }
+    }
+
+    /// Defines additional types related to [TLSConfig].
+    #[cfg(feature = "tools")]
+    pub mod tls_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// The CA certificate.
+        #[cfg(feature = "tools")]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CACert {
+            /// Required. The name of the allowed custom CA certificates. This
+            /// can be used to disambiguate the custom CA certificates.
+            pub display_name: std::string::String,
+
+            /// Required. The allowed custom CA certificates (in DER format) for
+            /// HTTPS verification. This overrides the default SSL trust store. If this
+            /// is empty or unspecified, Dialogflow will use Google's default trust
+            /// store to verify certificates. N.B. Make sure the HTTPS server
+            /// certificates are signed with "subject alt name". For instance a
+            /// certificate can be self-signed using the following command:
+            ///
+            /// ```norust
+            ///    openssl x509 -req -days 200 -in example.com.csr \
+            ///      -signkey example.com.key \
+            ///      -out example.com.crt \
+            ///      -extfile <(printf "\nsubjectAltName='DNS:www.example.com'")
+            /// ```
+            pub cert: ::bytes::Bytes,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(feature = "tools")]
+        impl CACert {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [display_name][crate::model::tool::tls_config::CACert::display_name].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::tls_config::CACert;
+            /// let x = CACert::new().set_display_name("example");
+            /// ```
+            pub fn set_display_name<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.display_name = v.into();
+                self
+            }
+
+            /// Sets the value of [cert][crate::model::tool::tls_config::CACert::cert].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::tool::tls_config::CACert;
+            /// let x = CACert::new().set_cert(bytes::Bytes::from_static(b"example"));
+            /// ```
+            pub fn set_cert<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+                self.cert = v.into();
+                self
+            }
+        }
+
+        #[cfg(feature = "tools")]
+        impl wkt::message::Message for CACert {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.TLSConfig.CACert"
+            }
+        }
+    }
+
+    /// Configuration for tools using Service Directory.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct ServiceDirectoryConfig {
+        /// Required. The name of [Service
+        /// Directory](https://cloud.google.com/service-directory) service.
+        /// Format:
+        /// `projects/<ProjectID>/locations/<LocationID>/namespaces/<NamespaceID>/services/<ServiceID>`.
+        /// `LocationID` of the service directory must be the same as the location
+        /// of the agent.
+        pub service: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(feature = "tools")]
+    impl ServiceDirectoryConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [service][crate::model::tool::ServiceDirectoryConfig::service].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool::ServiceDirectoryConfig;
+        /// let x = ServiceDirectoryConfig::new().set_service("example");
+        /// ```
+        pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.service = v.into();
+            self
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl wkt::message::Message for ServiceDirectoryConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.Tool.ServiceDirectoryConfig"
+        }
+    }
+
+    /// Represents the type of the tool.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ToolType {
+        /// Default value. This value is unused.
+        Unspecified,
+        /// Customer provided tool.
+        CustomizedTool,
+        /// First party built-in tool created by Dialogflow which cannot be modified.
+        BuiltinTool,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ToolType::value] or
+        /// [ToolType::name].
+        UnknownValue(tool_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    #[cfg(feature = "tools")]
+    pub mod tool_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    #[cfg(feature = "tools")]
+    impl ToolType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CustomizedTool => std::option::Option::Some(1),
+                Self::BuiltinTool => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TOOL_TYPE_UNSPECIFIED"),
+                Self::CustomizedTool => std::option::Option::Some("CUSTOMIZED_TOOL"),
+                Self::BuiltinTool => std::option::Option::Some("BUILTIN_TOOL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::default::Default for ToolType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::fmt::Display for ToolType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<i32> for ToolType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CustomizedTool,
+                2 => Self::BuiltinTool,
+                _ => Self::UnknownValue(tool_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl std::convert::From<&str> for ToolType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TOOL_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CUSTOMIZED_TOOL" => Self::CustomizedTool,
+                "BUILTIN_TOOL" => Self::BuiltinTool,
+                _ => Self::UnknownValue(tool_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl serde::ser::Serialize for ToolType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CustomizedTool => serializer.serialize_i32(1),
+                Self::BuiltinTool => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    #[cfg(feature = "tools")]
+    impl<'de> serde::de::Deserialize<'de> for ToolType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ToolType>::new(
+                ".google.cloud.dialogflow.cx.v3.Tool.ToolType",
+            ))
+        }
+    }
+
+    /// Specification of the Tool.
+    #[cfg(feature = "tools")]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Specification {
+        /// OpenAPI specification of the Tool.
+        OpenApiSpec(std::boxed::Box<crate::model::tool::OpenApiTool>),
+        /// Data store search tool specification.
+        DataStoreSpec(std::boxed::Box<crate::model::tool::DataStoreTool>),
+        /// Client side executed function specification.
+        FunctionSpec(std::boxed::Box<crate::model::tool::FunctionTool>),
+    }
+}
+
+/// The request message for
+/// [Tools.ListToolVersions][google.cloud.dialogflow.cx.v3.Tools.ListToolVersions].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.ListToolVersions]: crate::client::Tools::list_tool_versions
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolVersionsRequest {
+    /// Required. The parent of the tool versions.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    pub parent: std::string::String,
+
+    /// Optional. The maximum number of items to return in a single page. By
+    /// default 100 and at most 1000.
+    pub page_size: i32,
+
+    /// Optional. The next_page_token value returned from a previous list request.
+    pub page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolVersionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListToolVersionsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsRequest;
+    /// let x = ListToolVersionsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListToolVersionsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsRequest;
+    /// let x = ListToolVersionsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListToolVersionsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsRequest;
+    /// let x = ListToolVersionsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolVersionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListToolVersionsRequest"
+    }
+}
+
+/// The response message for
+/// [Tools.ListToolVersions][google.cloud.dialogflow.cx.v3.Tools.ListToolVersions].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.ListToolVersions]: crate::client::Tools::list_tool_versions
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListToolVersionsResponse {
+    /// The list of tool versions. There will be a maximum number of items
+    /// returned based on the page_size field in the request.
+    pub tool_versions: std::vec::Vec<crate::model::ToolVersion>,
+
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ListToolVersionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool_versions][crate::model::ListToolVersionsResponse::tool_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// let x = ListToolVersionsResponse::new()
+    ///     .set_tool_versions([
+    ///         ToolVersion::default()/* use setters */,
+    ///         ToolVersion::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_tool_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ToolVersion>,
+    {
+        use std::iter::Iterator;
+        self.tool_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListToolVersionsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ListToolVersionsResponse;
+    /// let x = ListToolVersionsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ListToolVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListToolVersionsResponse"
+    }
+}
+
+#[cfg(feature = "tools")]
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListToolVersionsResponse {
+    type PageItem = crate::model::ToolVersion;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.tool_versions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// The request message for
+/// [Tools.CreateToolVersion][google.cloud.dialogflow.cx.v3.Tools.CreateToolVersion].
+/// The request message for
+/// [Tools.CreateToolVersion][google.cloud.dialogflow.cx.v3.Tools.CreateToolVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.CreateToolVersion]: crate::client::Tools::create_tool_version
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateToolVersionRequest {
+    /// Required. The tool to create a version for.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    pub parent: std::string::String,
+
+    /// Required. The tool version to create.
+    pub tool_version: std::option::Option<crate::model::ToolVersion>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl CreateToolVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateToolVersionRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolVersionRequest;
+    /// let x = CreateToolVersionRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [tool_version][crate::model::CreateToolVersionRequest::tool_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolVersionRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// let x = CreateToolVersionRequest::new().set_tool_version(ToolVersion::default()/* use setters */);
+    /// ```
+    pub fn set_tool_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ToolVersion>,
+    {
+        self.tool_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool_version][crate::model::CreateToolVersionRequest::tool_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::CreateToolVersionRequest;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// let x = CreateToolVersionRequest::new().set_or_clear_tool_version(Some(ToolVersion::default()/* use setters */));
+    /// let x = CreateToolVersionRequest::new().set_or_clear_tool_version(None::<ToolVersion>);
+    /// ```
+    pub fn set_or_clear_tool_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ToolVersion>,
+    {
+        self.tool_version = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for CreateToolVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateToolVersionRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.GetToolVersion][google.cloud.dialogflow.cx.v3.Tools.GetToolVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.GetToolVersion]: crate::client::Tools::get_tool_version
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetToolVersionRequest {
+    /// Required. The name of the tool version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl GetToolVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetToolVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::GetToolVersionRequest;
+    /// let x = GetToolVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for GetToolVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetToolVersionRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.DeleteToolVersion][google.cloud.dialogflow.cx.v3.Tools.DeleteToolVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.DeleteToolVersion]: crate::client::Tools::delete_tool_version
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteToolVersionRequest {
+    /// Required. The name of the tool version to delete.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    /// Optional. This field has no effect for Tools not being used.
+    /// For Tools that are used:
+    ///
+    /// * If `force` is set to false, an error will be returned with message
+    ///   indicating the referenced resources.
+    /// * If `force` is set to true, Dialogflow will remove the tool, as well
+    ///   as any references to the tool.
+    pub force: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl DeleteToolVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteToolVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolVersionRequest;
+    /// let x = DeleteToolVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::DeleteToolVersionRequest::force].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::DeleteToolVersionRequest;
+    /// let x = DeleteToolVersionRequest::new().set_force(true);
+    /// ```
+    pub fn set_force<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.force = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for DeleteToolVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteToolVersionRequest"
+    }
+}
+
+/// The request message for
+/// [Tools.RestoreToolVersion][google.cloud.dialogflow.cx.v3.Tools.RestoreToolVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.RestoreToolVersion]: crate::client::Tools::restore_tool_version
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreToolVersionRequest {
+    /// Required. The name of the tool version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl RestoreToolVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreToolVersionRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestoreToolVersionRequest;
+    /// let x = RestoreToolVersionRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for RestoreToolVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestoreToolVersionRequest"
+    }
+}
+
+/// The response message for
+/// [Tools.RestoreToolVersion][google.cloud.dialogflow.cx.v3.Tools.RestoreToolVersion].
+///
+/// [google.cloud.dialogflow.cx.v3.Tools.RestoreToolVersion]: crate::client::Tools::restore_tool_version
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreToolVersionResponse {
+    /// The updated tool.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl RestoreToolVersionResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::RestoreToolVersionResponse::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestoreToolVersionResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = RestoreToolVersionResponse::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::RestoreToolVersionResponse::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::RestoreToolVersionResponse;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = RestoreToolVersionResponse::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = RestoreToolVersionResponse::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for RestoreToolVersionResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestoreToolVersionResponse"
+    }
+}
+
+/// Tool version is a snapshot of the tool at certain timestamp.
+#[cfg(feature = "tools")]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolVersion {
+    /// Identifier. The unique identifier of the tool version.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>/versions/<VersionID>`.
+    pub name: std::string::String,
+
+    /// Required. The display name of the tool version.
+    pub display_name: std::string::String,
+
+    /// Required. Snapshot of the tool to be associated with this version.
+    pub tool: std::option::Option<crate::model::Tool>,
+
+    /// Output only. Last time the tool version was created or modified.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Last time the tool version was created or modified.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(feature = "tools")]
+impl ToolVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ToolVersion::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// let x = ToolVersion::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ToolVersion::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// let x = ToolVersion::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [tool][crate::model::ToolVersion::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = ToolVersion::new().set_tool(Tool::default()/* use setters */);
+    /// ```
+    pub fn set_tool<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [tool][crate::model::ToolVersion::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use google_cloud_dialogflow_cx_v3::model::Tool;
+    /// let x = ToolVersion::new().set_or_clear_tool(Some(Tool::default()/* use setters */));
+    /// let x = ToolVersion::new().set_or_clear_tool(None::<Tool>);
+    /// ```
+    pub fn set_or_clear_tool<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Tool>,
+    {
+        self.tool = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ToolVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use wkt::Timestamp;
+    /// let x = ToolVersion::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ToolVersion::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use wkt::Timestamp;
+    /// let x = ToolVersion::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ToolVersion::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ToolVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use wkt::Timestamp;
+    /// let x = ToolVersion::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ToolVersion::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolVersion;
+    /// use wkt::Timestamp;
+    /// let x = ToolVersion::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = ToolVersion::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(feature = "tools")]
+impl wkt::message::Message for ToolVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolVersion"
+    }
+}
+
+/// Represents a call of a specific tool's action with the specified inputs.
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCall {
+    /// Required. The [tool][google.cloud.dialogflow.cx.v3.Tool] associated with
+    /// this call. Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub tool: std::string::String,
+
+    /// Required. The name of the tool's action associated with this call.
+    pub action: std::string::String,
+
+    /// Optional. The action's input parameters.
+    pub input_parameters: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl ToolCall {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::ToolCall::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCall;
+    /// let x = ToolCall::new().set_tool("example");
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::ToolCall::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCall;
+    /// let x = ToolCall::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [input_parameters][crate::model::ToolCall::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCall;
+    /// use wkt::Struct;
+    /// let x = ToolCall::new().set_input_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_input_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_parameters][crate::model::ToolCall::input_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCall;
+    /// use wkt::Struct;
+    /// let x = ToolCall::new().set_or_clear_input_parameters(Some(Struct::default()/* use setters */));
+    /// let x = ToolCall::new().set_or_clear_input_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_input_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_parameters = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl wkt::message::Message for ToolCall {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolCall"
+    }
+}
+
+/// The result of calling a tool's action that has been executed by the client.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolCallResult {
+    /// Required. The [tool][google.cloud.dialogflow.cx.v3.Tool] associated with
+    /// this call. Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub tool: std::string::String,
+
+    /// Required. The name of the tool's action associated with this call.
+    pub action: std::string::String,
+
+    /// The tool call's result.
+    pub result: std::option::Option<crate::model::tool_call_result::Result>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl ToolCallResult {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::ToolCallResult::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_tool("example");
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::ToolCallResult::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// let x = ToolCallResult::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result].
+    ///
+    /// Note that all the setters affecting `result` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// use google_cloud_dialogflow_cx_v3::model::tool_call_result::Error;
+    /// let x = ToolCallResult::new().set_result(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::tool_call_result::Result::Error(Error::default().into())));
+    /// ```
+    pub fn set_result<
+        T: std::convert::Into<std::option::Option<crate::model::tool_call_result::Result>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = v.into();
+        self
+    }
+
+    /// The value of [result][crate::model::ToolCallResult::result]
+    /// if it holds a `Error`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn error(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::tool_call_result::Error>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Result::Error(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result]
+    /// to hold a `Error`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// use google_cloud_dialogflow_cx_v3::model::tool_call_result::Error;
+    /// let x = ToolCallResult::new().set_error(Error::default()/* use setters */);
+    /// assert!(x.error().is_some());
+    /// assert!(x.output_parameters().is_none());
+    /// ```
+    pub fn set_error<
+        T: std::convert::Into<std::boxed::Box<crate::model::tool_call_result::Error>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result =
+            std::option::Option::Some(crate::model::tool_call_result::Result::Error(v.into()));
+        self
+    }
+
+    /// The value of [result][crate::model::ToolCallResult::result]
+    /// if it holds a `OutputParameters`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn output_parameters(&self) -> std::option::Option<&std::boxed::Box<wkt::Struct>> {
+        #[allow(unreachable_patterns)]
+        self.result.as_ref().and_then(|v| match v {
+            crate::model::tool_call_result::Result::OutputParameters(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [result][crate::model::ToolCallResult::result]
+    /// to hold a `OutputParameters`.
+    ///
+    /// Note that all the setters affecting `result` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolCallResult;
+    /// use wkt::Struct;
+    /// let x = ToolCallResult::new().set_output_parameters(Struct::default()/* use setters */);
+    /// assert!(x.output_parameters().is_some());
+    /// assert!(x.error().is_none());
+    /// ```
+    pub fn set_output_parameters<T: std::convert::Into<std::boxed::Box<wkt::Struct>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.result = std::option::Option::Some(
+            crate::model::tool_call_result::Result::OutputParameters(v.into()),
+        );
+        self
+    }
+}
+
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl wkt::message::Message for ToolCallResult {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolCallResult"
+    }
+}
+
+/// Defines additional types related to [ToolCallResult].
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+pub mod tool_call_result {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// An error produced by the tool call.
+    #[cfg(any(feature = "sessions", feature = "test-cases",))]
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct Error {
+        /// Optional. The error message of the function.
+        pub message: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    #[cfg(any(feature = "sessions", feature = "test-cases",))]
+    impl Error {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [message][crate::model::tool_call_result::Error::message].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::tool_call_result::Error;
+        /// let x = Error::new().set_message("example");
+        /// ```
+        pub fn set_message<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.message = v.into();
+            self
+        }
+    }
+
+    #[cfg(any(feature = "sessions", feature = "test-cases",))]
+    impl wkt::message::Message for Error {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolCallResult.Error"
+        }
+    }
+
+    /// The tool call's result.
+    #[cfg(any(feature = "sessions", feature = "test-cases",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Result {
+        /// The tool call's error.
+        Error(std::boxed::Box<crate::model::tool_call_result::Error>),
+        /// The tool call's output parameters.
+        OutputParameters(std::boxed::Box<wkt::Struct>),
+    }
+}
+
+/// Input of the playbook.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookInput {
+    /// Optional. Summary string of the preceding conversation for the child
+    /// playbook invocation.
+    pub preceding_conversation_summary: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl PlaybookInput {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [preceding_conversation_summary][crate::model::PlaybookInput::preceding_conversation_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInput;
+    /// let x = PlaybookInput::new().set_preceding_conversation_summary("example");
+    /// ```
+    pub fn set_preceding_conversation_summary<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.preceding_conversation_summary = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for PlaybookInput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookInput"
+    }
+}
+
+/// Output of the playbook.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookOutput {
+    /// Optional. Summary string of the execution result of the child playbook.
+    pub execution_summary: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl PlaybookOutput {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [execution_summary][crate::model::PlaybookOutput::execution_summary].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookOutput;
+    /// let x = PlaybookOutput::new().set_execution_summary("example");
+    /// ```
+    pub fn set_execution_summary<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.execution_summary = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for PlaybookOutput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookOutput"
+    }
+}
+
+/// Action performed by end user or Dialogflow agent in the conversation.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Action {
+    /// Action details.
+    pub action: std::option::Option<crate::model::action::Action>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl Action {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [action][crate::model::Action::action].
+    ///
+    /// Note that all the setters affecting `action` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::UserUtterance;
+    /// let x = Action::new().set_action(Some(
+    ///     google_cloud_dialogflow_cx_v3::model::action::Action::UserUtterance(UserUtterance::default().into())));
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::option::Option<crate::model::action::Action>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `UserUtterance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_utterance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::UserUtterance>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::UserUtterance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `UserUtterance`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::UserUtterance;
+    /// let x = Action::new().set_user_utterance(UserUtterance::default()/* use setters */);
+    /// assert!(x.user_utterance().is_some());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_user_utterance<
+        T: std::convert::Into<std::boxed::Box<crate::model::UserUtterance>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::UserUtterance(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `AgentUtterance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn agent_utterance(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::AgentUtterance>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::AgentUtterance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `AgentUtterance`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::AgentUtterance;
+    /// let x = Action::new().set_agent_utterance(AgentUtterance::default()/* use setters */);
+    /// assert!(x.agent_utterance().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_agent_utterance<
+        T: std::convert::Into<std::boxed::Box<crate::model::AgentUtterance>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::AgentUtterance(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `ToolUse`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn tool_use(&self) -> std::option::Option<&std::boxed::Box<crate::model::ToolUse>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::ToolUse(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `ToolUse`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// let x = Action::new().set_tool_use(ToolUse::default()/* use setters */);
+    /// assert!(x.tool_use().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_tool_use<T: std::convert::Into<std::boxed::Box<crate::model::ToolUse>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(crate::model::action::Action::ToolUse(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `PlaybookInvocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_invocation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PlaybookInvocation>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::PlaybookInvocation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `PlaybookInvocation`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// let x = Action::new().set_playbook_invocation(PlaybookInvocation::default()/* use setters */);
+    /// assert!(x.playbook_invocation().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_playbook_invocation<
+        T: std::convert::Into<std::boxed::Box<crate::model::PlaybookInvocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::PlaybookInvocation(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `FlowInvocation`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn flow_invocation(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FlowInvocation>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::FlowInvocation(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `FlowInvocation`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::FlowInvocation;
+    /// let x = Action::new().set_flow_invocation(FlowInvocation::default()/* use setters */);
+    /// assert!(x.flow_invocation().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_flow_invocation<
+        T: std::convert::Into<std::boxed::Box<crate::model::FlowInvocation>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::FlowInvocation(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `PlaybookTransition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn playbook_transition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::PlaybookTransition>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::PlaybookTransition(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `PlaybookTransition`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookTransition;
+    /// let x = Action::new().set_playbook_transition(PlaybookTransition::default()/* use setters */);
+    /// assert!(x.playbook_transition().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.flow_transition().is_none());
+    /// ```
+    pub fn set_playbook_transition<
+        T: std::convert::Into<std::boxed::Box<crate::model::PlaybookTransition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::PlaybookTransition(v.into()));
+        self
+    }
+
+    /// The value of [action][crate::model::Action::action]
+    /// if it holds a `FlowTransition`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn flow_transition(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::FlowTransition>> {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::action::Action::FlowTransition(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::Action::action]
+    /// to hold a `FlowTransition`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::Action;
+    /// use google_cloud_dialogflow_cx_v3::model::FlowTransition;
+    /// let x = Action::new().set_flow_transition(FlowTransition::default()/* use setters */);
+    /// assert!(x.flow_transition().is_some());
+    /// assert!(x.user_utterance().is_none());
+    /// assert!(x.agent_utterance().is_none());
+    /// assert!(x.tool_use().is_none());
+    /// assert!(x.playbook_invocation().is_none());
+    /// assert!(x.flow_invocation().is_none());
+    /// assert!(x.playbook_transition().is_none());
+    /// ```
+    pub fn set_flow_transition<
+        T: std::convert::Into<std::boxed::Box<crate::model::FlowTransition>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action =
+            std::option::Option::Some(crate::model::action::Action::FlowTransition(v.into()));
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for Action {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.Action"
+    }
+}
+
+/// Defines additional types related to [Action].
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+pub mod action {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Action details.
+    #[cfg(any(feature = "examples", feature = "playbooks",))]
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Action {
+        /// Optional. Agent obtained a message from the customer.
+        UserUtterance(std::boxed::Box<crate::model::UserUtterance>),
+        /// Optional. Action performed by the agent as a message.
+        AgentUtterance(std::boxed::Box<crate::model::AgentUtterance>),
+        /// Optional. Action performed on behalf of the agent by calling a plugin
+        /// tool.
+        ToolUse(std::boxed::Box<crate::model::ToolUse>),
+        /// Optional. Action performed on behalf of the agent by invoking a child
+        /// playbook.
+        PlaybookInvocation(std::boxed::Box<crate::model::PlaybookInvocation>),
+        /// Optional. Action performed on behalf of the agent by invoking a CX flow.
+        FlowInvocation(std::boxed::Box<crate::model::FlowInvocation>),
+        /// Optional. Action performed on behalf of the agent by transitioning to a
+        /// target playbook.
+        PlaybookTransition(std::boxed::Box<crate::model::PlaybookTransition>),
+        /// Optional. Action performed on behalf of the agent by transitioning to a
+        /// target CX flow.
+        FlowTransition(std::boxed::Box<crate::model::FlowTransition>),
+    }
+}
+
+/// UserUtterance represents one message sent by the customer.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UserUtterance {
+    /// Required. Message content in text.
+    pub text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl UserUtterance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::UserUtterance::text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::UserUtterance;
+    /// let x = UserUtterance::new().set_text("example");
+    /// ```
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for UserUtterance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.UserUtterance"
+    }
+}
+
+/// AgentUtterance represents one message sent by the agent.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AgentUtterance {
+    /// Required. Message content in text.
+    pub text: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl AgentUtterance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [text][crate::model::AgentUtterance::text].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::AgentUtterance;
+    /// let x = AgentUtterance::new().set_text("example");
+    /// ```
+    pub fn set_text<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.text = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for AgentUtterance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.AgentUtterance"
+    }
+}
+
+/// Stores metadata of the invocation of an action supported by a tool.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ToolUse {
+    /// Required. The [tool][google.cloud.dialogflow.cx.v3.Tool] that should be
+    /// used. Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/tools/<ToolID>`.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub tool: std::string::String,
+
+    /// Output only. The display name of the tool.
+    pub display_name: std::string::String,
+
+    /// Optional. Name of the action to be called during the tool use.
+    pub action: std::string::String,
+
+    /// Optional. A list of input parameters for the action.
+    pub input_action_parameters: std::option::Option<wkt::Struct>,
+
+    /// Optional. A list of output parameters generated by the action.
+    pub output_action_parameters: std::option::Option<wkt::Struct>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl ToolUse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [tool][crate::model::ToolUse::tool].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// let x = ToolUse::new().set_tool("example");
+    /// ```
+    pub fn set_tool<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.tool = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::ToolUse::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// let x = ToolUse::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [action][crate::model::ToolUse::action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// let x = ToolUse::new().set_action("example");
+    /// ```
+    pub fn set_action<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.action = v.into();
+        self
+    }
+
+    /// Sets the value of [input_action_parameters][crate::model::ToolUse::input_action_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// use wkt::Struct;
+    /// let x = ToolUse::new().set_input_action_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_input_action_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_action_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [input_action_parameters][crate::model::ToolUse::input_action_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// use wkt::Struct;
+    /// let x = ToolUse::new().set_or_clear_input_action_parameters(Some(Struct::default()/* use setters */));
+    /// let x = ToolUse::new().set_or_clear_input_action_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_input_action_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.input_action_parameters = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [output_action_parameters][crate::model::ToolUse::output_action_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// use wkt::Struct;
+    /// let x = ToolUse::new().set_output_action_parameters(Struct::default()/* use setters */);
+    /// ```
+    pub fn set_output_action_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.output_action_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [output_action_parameters][crate::model::ToolUse::output_action_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::ToolUse;
+    /// use wkt::Struct;
+    /// let x = ToolUse::new().set_or_clear_output_action_parameters(Some(Struct::default()/* use setters */));
+    /// let x = ToolUse::new().set_or_clear_output_action_parameters(None::<Struct>);
+    /// ```
+    pub fn set_or_clear_output_action_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.output_action_parameters = v.map(|x| x.into());
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for ToolUse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.ToolUse"
+    }
+}
+
+/// Stores metadata of the invocation of a child playbook.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookInvocation {
+    /// Required. The unique identifier of the playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub playbook: std::string::String,
+
+    /// Output only. The display name of the playbook.
+    pub display_name: std::string::String,
+
+    /// Optional. Input of the child playbook invocation.
+    pub playbook_input: std::option::Option<crate::model::PlaybookInput>,
+
+    /// Optional. Output of the child playbook invocation.
+    pub playbook_output: std::option::Option<crate::model::PlaybookOutput>,
+
+    /// Required. Playbook invocation's output state.
+    pub playbook_state: crate::model::OutputState,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl PlaybookInvocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::PlaybookInvocation::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// let x = PlaybookInvocation::new().set_playbook("example");
+    /// ```
+    pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PlaybookInvocation::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// let x = PlaybookInvocation::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [playbook_input][crate::model::PlaybookInvocation::playbook_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookInput;
+    /// let x = PlaybookInvocation::new().set_playbook_input(PlaybookInput::default()/* use setters */);
+    /// ```
+    pub fn set_playbook_input<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookInput>,
+    {
+        self.playbook_input = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook_input][crate::model::PlaybookInvocation::playbook_input].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookInput;
+    /// let x = PlaybookInvocation::new().set_or_clear_playbook_input(Some(PlaybookInput::default()/* use setters */));
+    /// let x = PlaybookInvocation::new().set_or_clear_playbook_input(None::<PlaybookInput>);
+    /// ```
+    pub fn set_or_clear_playbook_input<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookInput>,
+    {
+        self.playbook_input = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [playbook_output][crate::model::PlaybookInvocation::playbook_output].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookOutput;
+    /// let x = PlaybookInvocation::new().set_playbook_output(PlaybookOutput::default()/* use setters */);
+    /// ```
+    pub fn set_playbook_output<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookOutput>,
+    {
+        self.playbook_output = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [playbook_output][crate::model::PlaybookInvocation::playbook_output].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::PlaybookOutput;
+    /// let x = PlaybookInvocation::new().set_or_clear_playbook_output(Some(PlaybookOutput::default()/* use setters */));
+    /// let x = PlaybookInvocation::new().set_or_clear_playbook_output(None::<PlaybookOutput>);
+    /// ```
+    pub fn set_or_clear_playbook_output<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PlaybookOutput>,
+    {
+        self.playbook_output = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [playbook_state][crate::model::PlaybookInvocation::playbook_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::OutputState;
+    /// let x0 = PlaybookInvocation::new().set_playbook_state(OutputState::Ok);
+    /// let x1 = PlaybookInvocation::new().set_playbook_state(OutputState::Cancelled);
+    /// let x2 = PlaybookInvocation::new().set_playbook_state(OutputState::Failed);
+    /// ```
+    pub fn set_playbook_state<T: std::convert::Into<crate::model::OutputState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.playbook_state = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for PlaybookInvocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookInvocation"
+    }
+}
+
+/// Stores metadata of the invocation of a CX flow.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlowInvocation {
+    /// Required. The unique identifier of the flow.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
+    pub flow: std::string::String,
+
+    /// Output only. The display name of the flow.
+    pub display_name: std::string::String,
+
+    /// Required. Flow invocation's output state.
+    pub flow_state: crate::model::OutputState,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl FlowInvocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [flow][crate::model::FlowInvocation::flow].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowInvocation;
+    /// let x = FlowInvocation::new().set_flow("example");
+    /// ```
+    pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.flow = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::FlowInvocation::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowInvocation;
+    /// let x = FlowInvocation::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [flow_state][crate::model::FlowInvocation::flow_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowInvocation;
+    /// use google_cloud_dialogflow_cx_v3::model::OutputState;
+    /// let x0 = FlowInvocation::new().set_flow_state(OutputState::Ok);
+    /// let x1 = FlowInvocation::new().set_flow_state(OutputState::Cancelled);
+    /// let x2 = FlowInvocation::new().set_flow_state(OutputState::Failed);
+    /// ```
+    pub fn set_flow_state<T: std::convert::Into<crate::model::OutputState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.flow_state = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for FlowInvocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowInvocation"
+    }
+}
+
+/// Stores metadata of the transition to another target playbook. Playbook
+/// transition actions exit the caller playbook and enter the target playbook.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PlaybookTransition {
+    /// Required. The unique identifier of the playbook.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/playbooks/<PlaybookID>`.
+    pub playbook: std::string::String,
+
+    /// Output only. The display name of the playbook.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl PlaybookTransition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [playbook][crate::model::PlaybookTransition::playbook].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTransition;
+    /// let x = PlaybookTransition::new().set_playbook("example");
+    /// ```
+    pub fn set_playbook<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.playbook = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::PlaybookTransition::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::PlaybookTransition;
+    /// let x = PlaybookTransition::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for PlaybookTransition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.PlaybookTransition"
+    }
+}
+
+/// Stores metadata of the transition to a target CX flow. Flow transition
+/// actions exit the caller playbook and enter the child flow.
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct FlowTransition {
+    /// Required. The unique identifier of the flow.
+    /// Format:
+    /// `projects/<ProjectID>/locations/<LocationID>/agents/<Agentflows/<FlowID>`.
+    pub flow: std::string::String,
+
+    /// Output only. The display name of the flow.
+    pub display_name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl FlowTransition {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [flow][crate::model::FlowTransition::flow].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowTransition;
+    /// let x = FlowTransition::new().set_flow("example");
+    /// ```
+    pub fn set_flow<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.flow = v.into();
+        self
+    }
+
+    /// Sets the value of [display_name][crate::model::FlowTransition::display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_dialogflow_cx_v3::model::FlowTransition;
+    /// let x = FlowTransition::new().set_display_name("example");
+    /// ```
+    pub fn set_display_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.display_name = v.into();
+        self
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl wkt::message::Message for FlowTransition {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowTransition"
+    }
+}
+
 /// A TransitionRouteGroup represents a group of
 /// [`TransitionRoutes`][google.cloud.dialogflow.cx.v3.TransitionRoute] to be
 /// used by a [Page][google.cloud.dialogflow.cx.v3.Page].
@@ -40360,8 +50650,24 @@ pub mod webhook {
         #[deprecated]
         pub password: std::string::String,
 
+        /// Optional. The SecretManager secret version resource storing the
+        /// username:password pair for HTTP Basic authentication. Format:
+        /// `projects/{project}/secrets/{secret}/versions/{version}`
+        pub secret_version_for_username_password: std::string::String,
+
         /// The HTTP request headers to send together with webhook requests.
         pub request_headers: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Optional. The HTTP request headers to send together with webhook
+        /// requests. Header values are stored in SecretManager secret versions.
+        ///
+        /// When the same header name is specified in both `request_headers` and
+        /// `secret_versions_for_request_headers`, the value in
+        /// `secret_versions_for_request_headers` will be used.
+        pub secret_versions_for_request_headers: std::collections::HashMap<
+            std::string::String,
+            crate::model::webhook::generic_web_service::SecretVersionHeaderValue,
+        >,
 
         /// Optional. Specifies a list of allowed custom CA certificates (in DER
         /// format) for HTTPS verification. This overrides the default SSL trust
@@ -40389,6 +50695,11 @@ pub mod webhook {
         /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
         /// The generated token is sent in the Authorization header.
         pub service_agent_auth: crate::model::webhook::generic_web_service::ServiceAgentAuth,
+
+        /// Optional. Configuration for service account authentication.
+        pub service_account_auth_config: std::option::Option<
+            crate::model::webhook::generic_web_service::ServiceAccountAuthConfig,
+        >,
 
         /// Optional. Type of the webhook.
         pub webhook_type: crate::model::webhook::generic_web_service::WebhookType,
@@ -40455,6 +50766,23 @@ pub mod webhook {
             self
         }
 
+        /// Sets the value of [secret_version_for_username_password][crate::model::webhook::GenericWebService::secret_version_for_username_password].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
+        /// let x = GenericWebService::new().set_secret_version_for_username_password("example");
+        /// ```
+        pub fn set_secret_version_for_username_password<
+            T: std::convert::Into<std::string::String>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.secret_version_for_username_password = v.into();
+            self
+        }
+
         /// Sets the value of [request_headers][crate::model::webhook::GenericWebService::request_headers].
         ///
         /// # Example
@@ -40473,6 +50801,31 @@ pub mod webhook {
         {
             use std::iter::Iterator;
             self.request_headers = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [secret_versions_for_request_headers][crate::model::webhook::GenericWebService::secret_versions_for_request_headers].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
+        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::SecretVersionHeaderValue;
+        /// let x = GenericWebService::new().set_secret_versions_for_request_headers([
+        ///     ("key0", SecretVersionHeaderValue::default()/* use setters */),
+        ///     ("key1", SecretVersionHeaderValue::default()/* use (different) setters */),
+        /// ]);
+        /// ```
+        pub fn set_secret_versions_for_request_headers<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<
+                    crate::model::webhook::generic_web_service::SecretVersionHeaderValue,
+                >,
+        {
+            use std::iter::Iterator;
+            self.secret_versions_for_request_headers =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
             self
         }
 
@@ -40545,6 +50898,46 @@ pub mod webhook {
             v: T,
         ) -> Self {
             self.service_agent_auth = v.into();
+            self
+        }
+
+        /// Sets the value of [service_account_auth_config][crate::model::webhook::GenericWebService::service_account_auth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
+        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::ServiceAccountAuthConfig;
+        /// let x = GenericWebService::new().set_service_account_auth_config(ServiceAccountAuthConfig::default()/* use setters */);
+        /// ```
+        pub fn set_service_account_auth_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::webhook::generic_web_service::ServiceAccountAuthConfig,
+                >,
+        {
+            self.service_account_auth_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [service_account_auth_config][crate::model::webhook::GenericWebService::service_account_auth_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_dialogflow_cx_v3::model::webhook::GenericWebService;
+        /// use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::ServiceAccountAuthConfig;
+        /// let x = GenericWebService::new().set_or_clear_service_account_auth_config(Some(ServiceAccountAuthConfig::default()/* use setters */));
+        /// let x = GenericWebService::new().set_or_clear_service_account_auth_config(None::<ServiceAccountAuthConfig>);
+        /// ```
+        pub fn set_or_clear_service_account_auth_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::webhook::generic_web_service::ServiceAccountAuthConfig,
+                >,
+        {
+            self.service_account_auth_config = v.map(|x| x.into());
             self
         }
 
@@ -40637,6 +51030,48 @@ pub mod webhook {
         #[allow(unused_imports)]
         use super::*;
 
+        /// Represents the value of an HTTP header stored in a SecretManager secret
+        /// version.
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct SecretVersionHeaderValue {
+            /// Required. The SecretManager secret version resource storing the header
+            /// value. Format: `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        impl SecretVersionHeaderValue {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [secret_version][crate::model::webhook::generic_web_service::SecretVersionHeaderValue::secret_version].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::SecretVersionHeaderValue;
+            /// let x = SecretVersionHeaderValue::new().set_secret_version("example");
+            /// ```
+            pub fn set_secret_version<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        impl wkt::message::Message for SecretVersionHeaderValue {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.GenericWebService.SecretVersionHeaderValue"
+            }
+        }
+
         /// Represents configuration of OAuth client credential flow for 3rd party
         /// API authentication.
         #[cfg(any(feature = "environments", feature = "webhooks",))]
@@ -40648,6 +51083,12 @@ pub mod webhook {
 
             /// Optional. The client secret provided by the 3rd party platform.
             pub client_secret: std::string::String,
+
+            /// Optional. The name of the SecretManager secret version resource storing
+            /// the client secret. If this field is set, the `client_secret` field will
+            /// be ignored. Format:
+            /// `projects/{project}/secrets/{secret}/versions/{version}`
+            pub secret_version_for_client_secret: std::string::String,
 
             /// Required. The token endpoint provided by the 3rd party platform to
             /// exchange an access token.
@@ -40695,6 +51136,23 @@ pub mod webhook {
                 self
             }
 
+            /// Sets the value of [secret_version_for_client_secret][crate::model::webhook::generic_web_service::OAuthConfig::secret_version_for_client_secret].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::OAuthConfig;
+            /// let x = OAuthConfig::new().set_secret_version_for_client_secret("example");
+            /// ```
+            pub fn set_secret_version_for_client_secret<
+                T: std::convert::Into<std::string::String>,
+            >(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.secret_version_for_client_secret = v.into();
+                self
+            }
+
             /// Sets the value of [token_endpoint][crate::model::webhook::generic_web_service::OAuthConfig::token_endpoint].
             ///
             /// # Example
@@ -40732,6 +51190,54 @@ pub mod webhook {
         impl wkt::message::Message for OAuthConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.GenericWebService.OAuthConfig"
+            }
+        }
+
+        /// Configuration for authentication using a service account.
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct ServiceAccountAuthConfig {
+            /// Required. The email address of the service account used to authenticate
+            /// the webhook call. Dialogflow uses this service account to exchange an
+            /// access token and the access token is then sent in the `Authorization`
+            /// header of the webhook request.
+            ///
+            /// The service account must have the
+            /// `roles/iam.serviceAccountTokenCreator` role granted to the
+            /// [Dialogflow service
+            /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
+            pub service_account: std::string::String,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        impl ServiceAccountAuthConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [service_account][crate::model::webhook::generic_web_service::ServiceAccountAuthConfig::service_account].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_dialogflow_cx_v3::model::webhook::generic_web_service::ServiceAccountAuthConfig;
+            /// let x = ServiceAccountAuthConfig::new().set_service_account("example");
+            /// ```
+            pub fn set_service_account<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.service_account = v.into();
+                self
+            }
+        }
+
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
+        impl wkt::message::Message for ServiceAccountAuthConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.GenericWebService.ServiceAccountAuthConfig"
             }
         }
 
@@ -41764,15 +52270,18 @@ impl wkt::message::Message for DeleteWebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -41839,15 +52348,18 @@ pub struct WebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -42331,15 +52843,18 @@ impl WebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -42357,15 +52872,18 @@ impl wkt::message::Message for WebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -42381,15 +52899,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42417,15 +52938,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42454,15 +52978,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42480,15 +53007,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42532,15 +53062,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42621,15 +53154,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42647,15 +53183,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42671,15 +53210,18 @@ pub mod webhook_request {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -42703,15 +53245,18 @@ pub mod webhook_request {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -42776,15 +53321,18 @@ pub mod webhook_request {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -42803,15 +53351,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42837,15 +53388,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42886,15 +53440,18 @@ pub mod webhook_request {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -42946,15 +53503,18 @@ pub mod webhook_request {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -42995,15 +53555,18 @@ pub struct WebhookResponse {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43239,15 +53802,18 @@ impl WebhookResponse {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43265,15 +53831,18 @@ impl wkt::message::Message for WebhookResponse {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43289,15 +53858,18 @@ pub mod webhook_response {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -43320,15 +53892,18 @@ pub mod webhook_response {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -43386,15 +53961,18 @@ pub mod webhook_response {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -43412,15 +53990,18 @@ pub mod webhook_response {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -43450,15 +54031,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43488,15 +54072,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43514,15 +54101,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43561,15 +54151,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43587,15 +54180,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43615,15 +54211,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43647,15 +54246,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43680,15 +54282,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43713,15 +54318,18 @@ pub mod webhook_response {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -43761,15 +54369,18 @@ pub mod webhook_response {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43814,15 +54425,18 @@ pub struct PageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43896,15 +54510,18 @@ impl PageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43922,15 +54539,18 @@ impl wkt::message::Message for PageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -43946,15 +54566,18 @@ pub mod page_info {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -43981,15 +54604,18 @@ pub mod page_info {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -44028,15 +54654,18 @@ pub mod page_info {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -44054,15 +54683,18 @@ pub mod page_info {
         feature = "deployments",
         feature = "entity-types",
         feature = "environments",
+        feature = "examples",
         feature = "experiments",
         feature = "flows",
         feature = "generators",
         feature = "intents",
         feature = "pages",
+        feature = "playbooks",
         feature = "security-settings-service",
         feature = "session-entity-types",
         feature = "sessions",
         feature = "test-cases",
+        feature = "tools",
         feature = "transition-route-groups",
         feature = "versions",
         feature = "webhooks",
@@ -44078,15 +54710,18 @@ pub mod page_info {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -44159,15 +54794,18 @@ pub mod page_info {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -44278,15 +54916,18 @@ pub mod page_info {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -44304,15 +54945,18 @@ pub mod page_info {
             feature = "deployments",
             feature = "entity-types",
             feature = "environments",
+            feature = "examples",
             feature = "experiments",
             feature = "flows",
             feature = "generators",
             feature = "intents",
             feature = "pages",
+            feature = "playbooks",
             feature = "security-settings-service",
             feature = "session-entity-types",
             feature = "sessions",
             feature = "test-cases",
+            feature = "tools",
             feature = "transition-route-groups",
             feature = "versions",
             feature = "webhooks",
@@ -44342,15 +54986,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44382,15 +55029,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44408,15 +55058,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44459,15 +55112,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44485,15 +55141,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44513,15 +55172,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44546,15 +55208,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44580,15 +55245,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44614,15 +55282,18 @@ pub mod page_info {
                 feature = "deployments",
                 feature = "entity-types",
                 feature = "environments",
+                feature = "examples",
                 feature = "experiments",
                 feature = "flows",
                 feature = "generators",
                 feature = "intents",
                 feature = "pages",
+                feature = "playbooks",
                 feature = "security-settings-service",
                 feature = "session-entity-types",
                 feature = "sessions",
                 feature = "test-cases",
+                feature = "tools",
                 feature = "transition-route-groups",
                 feature = "versions",
                 feature = "webhooks",
@@ -44647,15 +55318,18 @@ pub mod page_info {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44702,15 +55376,18 @@ pub struct SessionInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44761,15 +55438,18 @@ impl SessionInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44787,15 +55467,18 @@ impl wkt::message::Message for SessionInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44825,15 +55508,18 @@ pub struct LanguageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44892,15 +55578,18 @@ impl LanguageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -44937,6 +55626,7 @@ pub enum AudioEncoding {
     /// Not specified.
     Unspecified,
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
+    /// LINT: LEGACY_NAMES
     Linear16,
     /// [`FLAC`](https://xiph.org/flac/documentation.html) (Free Lossless Audio
     /// Codec) is the recommended encoding because it is lossless (therefore
@@ -45466,10 +56156,12 @@ pub enum OutputAudioEncoding {
     Unspecified,
     /// Uncompressed 16-bit signed little-endian samples (Linear PCM).
     /// Audio content returned as LINEAR16 also contains a WAV header.
+    /// LINT: LEGACY_NAMES
     Linear16,
     /// MP3 audio at 32kbps.
     Mp3,
     /// MP3 audio at 64kbps.
+    /// LINT: LEGACY_NAMES
     Mp364Kbps,
     /// Opus encoded audio wrapped in an ogg container. The result will be a
     /// file which can be played natively on Android, and in browsers (at least
@@ -45637,6 +56329,7 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -45663,6 +56356,7 @@ pub enum DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 pub mod data_store_type {
     #[allow(unused_imports)]
@@ -45676,6 +56370,7 @@ pub mod data_store_type {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl DataStoreType {
     /// Gets the enum value.
@@ -45712,6 +56407,7 @@ impl DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::default::Default for DataStoreType {
     fn default() -> Self {
@@ -45725,6 +56421,7 @@ impl std::default::Default for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::fmt::Display for DataStoreType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
@@ -45737,6 +56434,7 @@ impl std::fmt::Display for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::convert::From<i32> for DataStoreType {
     fn from(value: i32) -> Self {
@@ -45757,6 +56455,7 @@ impl std::convert::From<i32> for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::convert::From<&str> for DataStoreType {
     fn from(value: &str) -> Self {
@@ -45778,6 +56477,7 @@ impl std::convert::From<&str> for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl serde::ser::Serialize for DataStoreType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45799,6 +56499,7 @@ impl serde::ser::Serialize for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl<'de> serde::de::Deserialize<'de> for DataStoreType {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -45831,6 +56532,7 @@ impl<'de> serde::de::Deserialize<'de> for DataStoreType {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
@@ -45856,6 +56558,7 @@ pub enum DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 pub mod document_processing_mode {
     #[allow(unused_imports)]
@@ -45869,6 +56572,7 @@ pub mod document_processing_mode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl DocumentProcessingMode {
     /// Gets the enum value.
@@ -45903,6 +56607,7 @@ impl DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::default::Default for DocumentProcessingMode {
     fn default() -> Self {
@@ -45916,6 +56621,7 @@ impl std::default::Default for DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::fmt::Display for DocumentProcessingMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
@@ -45928,6 +56634,7 @@ impl std::fmt::Display for DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::convert::From<i32> for DocumentProcessingMode {
     fn from(value: i32) -> Self {
@@ -45947,6 +56654,7 @@ impl std::convert::From<i32> for DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::convert::From<&str> for DocumentProcessingMode {
     fn from(value: &str) -> Self {
@@ -45967,6 +56675,7 @@ impl std::convert::From<&str> for DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl serde::ser::Serialize for DocumentProcessingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
@@ -45987,6 +56696,7 @@ impl serde::ser::Serialize for DocumentProcessingMode {
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl<'de> serde::de::Deserialize<'de> for DocumentProcessingMode {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -46016,7 +56726,7 @@ impl<'de> serde::de::Deserialize<'de> for DocumentProcessingMode {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ImportStrategy {
@@ -46043,7 +56753,7 @@ pub enum ImportStrategy {
 }
 
 #[doc(hidden)]
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 pub mod import_strategy {
     #[allow(unused_imports)]
     use super::*;
@@ -46051,7 +56761,7 @@ pub mod import_strategy {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl ImportStrategy {
     /// Gets the enum value.
     ///
@@ -46086,7 +56796,7 @@ impl ImportStrategy {
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl std::default::Default for ImportStrategy {
     fn default() -> Self {
         use std::convert::From;
@@ -46094,14 +56804,14 @@ impl std::default::Default for ImportStrategy {
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl std::fmt::Display for ImportStrategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl std::convert::From<i32> for ImportStrategy {
     fn from(value: i32) -> Self {
         match value {
@@ -46118,7 +56828,7 @@ impl std::convert::From<i32> for ImportStrategy {
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl std::convert::From<&str> for ImportStrategy {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -46136,7 +56846,7 @@ impl std::convert::From<&str> for ImportStrategy {
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl serde::ser::Serialize for ImportStrategy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -46154,7 +56864,7 @@ impl serde::ser::Serialize for ImportStrategy {
     }
 }
 
-#[cfg(feature = "flows")]
+#[cfg(any(feature = "flows", feature = "playbooks",))]
 impl<'de> serde::de::Deserialize<'de> for ImportStrategy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -46309,6 +57019,368 @@ impl<'de> serde::de::Deserialize<'de> for IntentView {
     }
 }
 
+/// Defines data types that are supported for inlined schemas. These types are
+/// consistent with [google.protobuf.Value][google.protobuf.Value].
+///
+/// [google.protobuf.Value]: wkt::Value
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DataType {
+    /// Not specified.
+    Unspecified,
+    /// Represents any string value.
+    String,
+    /// Represents any number value.
+    Number,
+    /// Represents a boolean value.
+    Boolean,
+    /// Represents a repeated value.
+    Array,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DataType::value] or
+    /// [DataType::name].
+    UnknownValue(data_type::UnknownValue),
+}
+
+#[doc(hidden)]
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+pub mod data_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl DataType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::String => std::option::Option::Some(1),
+            Self::Number => std::option::Option::Some(2),
+            Self::Boolean => std::option::Option::Some(3),
+            Self::Array => std::option::Option::Some(6),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("DATA_TYPE_UNSPECIFIED"),
+            Self::String => std::option::Option::Some("STRING"),
+            Self::Number => std::option::Option::Some("NUMBER"),
+            Self::Boolean => std::option::Option::Some("BOOLEAN"),
+            Self::Array => std::option::Option::Some("ARRAY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::default::Default for DataType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Display for DataType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::convert::From<i32> for DataType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::String,
+            2 => Self::Number,
+            3 => Self::Boolean,
+            6 => Self::Array,
+            _ => Self::UnknownValue(data_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::convert::From<&str> for DataType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DATA_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "STRING" => Self::String,
+            "NUMBER" => Self::Number,
+            "BOOLEAN" => Self::Boolean,
+            "ARRAY" => Self::Array,
+            _ => Self::UnknownValue(data_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl serde::ser::Serialize for DataType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::String => serializer.serialize_i32(1),
+            Self::Number => serializer.serialize_i32(2),
+            Self::Boolean => serializer.serialize_i32(3),
+            Self::Array => serializer.serialize_i32(6),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl<'de> serde::de::Deserialize<'de> for DataType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DataType>::new(
+            ".google.cloud.dialogflow.cx.v3.DataType",
+        ))
+    }
+}
+
+/// The response view specifies which fields in the
+/// [QueryResult][google.cloud.dialogflow.cx.v3.QueryResult] to return.
+///
+/// [google.cloud.dialogflow.cx.v3.QueryResult]: crate::model::QueryResult
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "sessions")]
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum DetectIntentResponseView {
+    /// Not specified. `DETECT_INTENT_RESPONSE_VIEW_DEFAULT` will be used.
+    Unspecified,
+    /// Full response view includes all fields.
+    Full,
+    /// ## Basic response view omits the following fields:
+    ///
+    /// [QueryResult.diagnostic_info][google.cloud.dialogflow.cx.v3.QueryResult.diagnostic_info]
+    ///
+    /// [google.cloud.dialogflow.cx.v3.QueryResult.diagnostic_info]: crate::model::QueryResult::diagnostic_info
+    Basic,
+    /// ## Default response view omits the following fields:
+    ///
+    /// [QueryResult.trace_blocks][google.cloud.dialogflow.cx.v3.QueryResult.trace_blocks]
+    Default,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [DetectIntentResponseView::value] or
+    /// [DetectIntentResponseView::name].
+    UnknownValue(detect_intent_response_view::UnknownValue),
+}
+
+#[doc(hidden)]
+#[cfg(feature = "sessions")]
+pub mod detect_intent_response_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+#[cfg(feature = "sessions")]
+impl DetectIntentResponseView {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Full => std::option::Option::Some(1),
+            Self::Basic => std::option::Option::Some(2),
+            Self::Default => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => {
+                std::option::Option::Some("DETECT_INTENT_RESPONSE_VIEW_UNSPECIFIED")
+            }
+            Self::Full => std::option::Option::Some("DETECT_INTENT_RESPONSE_VIEW_FULL"),
+            Self::Basic => std::option::Option::Some("DETECT_INTENT_RESPONSE_VIEW_BASIC"),
+            Self::Default => std::option::Option::Some("DETECT_INTENT_RESPONSE_VIEW_DEFAULT"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::default::Default for DetectIntentResponseView {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::fmt::Display for DetectIntentResponseView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::convert::From<i32> for DetectIntentResponseView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Full,
+            2 => Self::Basic,
+            3 => Self::Default,
+            _ => Self::UnknownValue(detect_intent_response_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl std::convert::From<&str> for DetectIntentResponseView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "DETECT_INTENT_RESPONSE_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "DETECT_INTENT_RESPONSE_VIEW_FULL" => Self::Full,
+            "DETECT_INTENT_RESPONSE_VIEW_BASIC" => Self::Basic,
+            "DETECT_INTENT_RESPONSE_VIEW_DEFAULT" => Self::Default,
+            _ => Self::UnknownValue(detect_intent_response_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl serde::ser::Serialize for DetectIntentResponseView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Full => serializer.serialize_i32(1),
+            Self::Basic => serializer.serialize_i32(2),
+            Self::Default => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+#[cfg(feature = "sessions")]
+impl<'de> serde::de::Deserialize<'de> for DetectIntentResponseView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<DetectIntentResponseView>::new(
+            ".google.cloud.dialogflow.cx.v3.DetectIntentResponseView",
+        ))
+    }
+}
+
 /// The test result for a test case and an agent environment.
 ///
 /// # Working with unknown values
@@ -46446,6 +57518,168 @@ impl<'de> serde::de::Deserialize<'de> for TestResult {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<TestResult>::new(
             ".google.cloud.dialogflow.cx.v3.TestResult",
+        ))
+    }
+}
+
+/// Output state.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OutputState {
+    /// Unspecified output.
+    Unspecified,
+    /// Succeeded.
+    Ok,
+    /// Cancelled.
+    Cancelled,
+    /// Failed.
+    Failed,
+    /// Escalated.
+    Escalated,
+    /// Pending.
+    Pending,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OutputState::value] or
+    /// [OutputState::name].
+    UnknownValue(output_state::UnknownValue),
+}
+
+#[doc(hidden)]
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+pub mod output_state {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl OutputState {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Ok => std::option::Option::Some(1),
+            Self::Cancelled => std::option::Option::Some(2),
+            Self::Failed => std::option::Option::Some(3),
+            Self::Escalated => std::option::Option::Some(4),
+            Self::Pending => std::option::Option::Some(5),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("OUTPUT_STATE_UNSPECIFIED"),
+            Self::Ok => std::option::Option::Some("OUTPUT_STATE_OK"),
+            Self::Cancelled => std::option::Option::Some("OUTPUT_STATE_CANCELLED"),
+            Self::Failed => std::option::Option::Some("OUTPUT_STATE_FAILED"),
+            Self::Escalated => std::option::Option::Some("OUTPUT_STATE_ESCALATED"),
+            Self::Pending => std::option::Option::Some("OUTPUT_STATE_PENDING"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::default::Default for OutputState {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Display for OutputState {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::convert::From<i32> for OutputState {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Ok,
+            2 => Self::Cancelled,
+            3 => Self::Failed,
+            4 => Self::Escalated,
+            5 => Self::Pending,
+            _ => Self::UnknownValue(output_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::convert::From<&str> for OutputState {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OUTPUT_STATE_UNSPECIFIED" => Self::Unspecified,
+            "OUTPUT_STATE_OK" => Self::Ok,
+            "OUTPUT_STATE_CANCELLED" => Self::Cancelled,
+            "OUTPUT_STATE_FAILED" => Self::Failed,
+            "OUTPUT_STATE_ESCALATED" => Self::Escalated,
+            "OUTPUT_STATE_PENDING" => Self::Pending,
+            _ => Self::UnknownValue(output_state::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl serde::ser::Serialize for OutputState {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Ok => serializer.serialize_i32(1),
+            Self::Cancelled => serializer.serialize_i32(2),
+            Self::Failed => serializer.serialize_i32(3),
+            Self::Escalated => serializer.serialize_i32(4),
+            Self::Pending => serializer.serialize_i32(5),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl<'de> serde::de::Deserialize<'de> for OutputState {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OutputState>::new(
+            ".google.cloud.dialogflow.cx.v3.OutputState",
         ))
     }
 }
