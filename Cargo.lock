@@ -7527,6 +7527,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "cargo_metadata",
+ "semver",
 ]
 
 [[package]]
