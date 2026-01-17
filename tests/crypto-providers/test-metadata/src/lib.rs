@@ -15,31 +15,70 @@
 use anyhow::bail;
 use cargo_metadata::{FeatureName, Metadata, MetadataCommand, PackageId, semver::Version};
 
-pub fn has_default_crypto_provider() -> anyhow::Result<()> {
+const RING_CRATE_NAME: &str = "ring";
+const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
+// TODO(#4170) - will become "default-tls" with reqwest 0.13.0
+const REQWEST_DEFAULT_FEATURE: &str = "rustls-tls";
+// TODO(#4170) - will become aws-lc-rs
+const RUSTLS_DEFAULT_FEATURE: &str = "ring";
+
+pub fn has_default_crypto_provider(cargo: &str, dir: &str) -> anyhow::Result<()> {
     let metadata = metadata()?;
     let features = find_reqwest_features(&metadata)?;
-    if !features.contains(&FeatureName::new("rustls-tls".to_string())) {
-        bail!("reqwest should have rustls-tls enabled")
+    if !features.contains(&FeatureName::new(REQWEST_DEFAULT_FEATURE.to_string())) {
+        bail!("reqwest should have {REQWEST_DEFAULT_FEATURE} enabled")
     }
     let features = find_rustls_features(&metadata)?;
-    if !features.contains(&FeatureName::new("ring".to_string())) {
-        bail!("rustls should have ring enabled")
+    if !features.contains(&FeatureName::new(RUSTLS_DEFAULT_FEATURE.to_string())) {
+        bail!("rustls should have {RUSTLS_DEFAULT_FEATURE} enabled")
     }
-    let _id = find_dependency(&metadata, "ring", Version::new(0, 17, 0))?;
-    let id = find_dependency(&metadata, "aws-lc-rs", Version::new(1, 0, 0));
-    if id.is_ok() {
-        bail!("aws-lc-rs should not be a required dependency")
+    only_ring(cargo, dir)
+}
+
+pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
+    use std::process::Stdio;
+    let output = std::process::Command::new(cargo)
+        .args(["tree"])
+        .current_dir(dir)
+        .stdin(Stdio::null())
+        .output()?;
+    if !output.status.success() {
+        bail!("cargo tree failed: {output:?}")
+    }
+    let stdout = String::try_from(output.stdout)?;
+    // TODO(#4170) - enable this code
+    // if stdout.contains(format!(" {RING_CRATE_NAME} ").as_str())
+    // {
+    //     bail!("{RING_CRATE_NAME} should **not** be a dependency")
+    // }
+    if !stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
+        bail!(
+            "{AWS_LC_RS_CRATE_NAME} should be a dependency: {}",
+            env!("CARGO_MANIFEST_DIR")
+        )
     }
     Ok(())
 }
 
-// TODO(#4170) - make this function verify that no crypto provided dependency
-//   is linked.
-pub fn no_default_crypto_provider() -> anyhow::Result<()> {
-    let result = has_default_crypto_provider();
-    if result.is_ok() {
-        bail!("default crypto provider found")
+pub fn only_ring(cargo: &str, dir: &str) -> anyhow::Result<()> {
+    use std::process::Stdio;
+    let output = std::process::Command::new(cargo)
+        .args(["tree"])
+        .current_dir(dir)
+        .stdin(Stdio::null())
+        .output()?;
+    if !output.status.success() {
+        bail!("cargo tree failed: {output:?}")
     }
+    let stdout = String::try_from(output.stdout)?;
+    if !stdout.contains(format!(" {RING_CRATE_NAME} ").as_str()) {
+        bail!("{RING_CRATE_NAME} should be a dependency")
+    }
+    // TODO(#4170) - enable this code
+    // if stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str())
+    // {
+    //     bail!("{AWS_LC_RS_CRATE_NAME} should **not** be a dependency")
+    // }
     Ok(())
 }
 
@@ -86,16 +125,34 @@ fn metadata() -> anyhow::Result<Metadata> {
     Ok(metadata)
 }
 
+fn reqwest_version(_metadata: &Metadata) -> Version {
+    // TODO(4170) - we would like to read this version from the top-level
+    //   workspace metadata.
+    Version::new(0, 12, 0)
+}
+
+fn rustls_version(_metadata: &Metadata) -> Version {
+    // TODO(4170) - we would like to read this version from the top-level
+    //   workspace metadata.
+    Version::new(0, 23, 0)
+}
+
+fn jsonwebtoken_version(_metadata: &Metadata) -> Version {
+    // TODO(4170) - we would like to read this version from the top-level
+    //   workspace metadata.
+    Version::new(10, 0, 0)
+}
+
 fn find_reqwest_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "reqwest", Version::new(0, 12, 0))
+    find_dependency_features(metadata, "reqwest", reqwest_version(metadata))
 }
 
 fn find_rustls_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "rustls", Version::new(0, 23, 0))
+    find_dependency_features(metadata, "rustls", rustls_version(metadata))
 }
 
 fn find_jsonwebtoken_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "jsonwebtoken", Version::new(10, 0, 0))
+    find_dependency_features(metadata, "jsonwebtoken", jsonwebtoken_version(metadata))
 }
 
 fn find_dependency(metadata: &Metadata, name: &str, version: Version) -> anyhow::Result<PackageId> {
