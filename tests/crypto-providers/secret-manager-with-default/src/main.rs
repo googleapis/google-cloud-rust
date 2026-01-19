@@ -14,7 +14,7 @@
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    test_metadata::has_default_crypto_provider()?;
+    test_metadata::has_default_crypto_provider(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
     // Verify the secret manager client library works with the default
     // crypto provider.
     test_secret_manager::run().await
