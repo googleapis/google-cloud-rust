@@ -97,8 +97,8 @@ impl Publisher {
     /// # use google_cloud_pubsub::model::PubsubMessage;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
     /// // Publish some messages. They will be buffered according to batching options.
-    /// let handle1 = publisher.publish(PubsubMessage::new().set_data("foo".to_string()));
-    /// let handle2 = publisher.publish(PubsubMessage::new().set_data("bar".to_string()));
+    /// let handle1 = publisher.publish(PubsubMessage::new().set_data("foo"));
+    /// let handle2 = publisher.publish(PubsubMessage::new().set_data("bar"));
     ///
     /// // Flush ensures that these messages are sent immediately and waits for
     /// // the send to complete.
@@ -299,8 +299,8 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -340,8 +340,8 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -377,8 +377,8 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
 
         let mut handles = Vec::new();
@@ -418,8 +418,8 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -430,7 +430,7 @@ mod tests {
         publisher.flush().await;
         assert_eq!(start.elapsed(), Duration::ZERO);
 
-        let post = publisher.publish(PubsubMessage::new().set_data("after".to_string()));
+        let post = publisher.publish(PubsubMessage::new().set_data("after"));
         for (id, rx) in handles.into_iter() {
             let got = rx.await.expect("expected message id");
             let id = String::from_utf8(id.data.to_vec()).unwrap();
@@ -474,8 +474,8 @@ mod tests {
 
         let start = tokio::time::Instant::now();
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         for msg in messages {
             publisher.publish(msg.clone());
@@ -523,8 +523,8 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -559,8 +559,8 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -602,8 +602,8 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello".to_string()),
-            PubsubMessage::new().set_data("world".to_string()),
+            PubsubMessage::new().set_data("hello"),
+            PubsubMessage::new().set_data("world"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
@@ -646,13 +646,13 @@ mod tests {
         for _ in 0..3 {
             let start = tokio::time::Instant::now();
             let messages = vec![
-                PubsubMessage::new().set_data("hello 0".to_string()),
-                PubsubMessage::new().set_data("hello 1".to_string()),
+                PubsubMessage::new().set_data("hello 0"),
+                PubsubMessage::new().set_data("hello 1"),
                 PubsubMessage::new()
-                    .set_data("hello 2".to_string())
+                    .set_data("hello 2")
                     .set_ordering_key("ordering key 1"),
                 PubsubMessage::new()
-                    .set_data("hello 3".to_string())
+                    .set_data("hello 3")
                     .set_ordering_key("ordering key 2"),
             ];
             let mut handles = Vec::new();
@@ -764,15 +764,15 @@ mod tests {
             .build();
 
         let messages = vec![
-            PubsubMessage::new().set_data("hello 1".to_string()),
+            PubsubMessage::new().set_data("hello 1"),
             PubsubMessage::new()
-                .set_data("hello 2".to_string())
+                .set_data("hello 2")
                 .set_ordering_key(""),
             PubsubMessage::new()
-                .set_data("hello 3".to_string())
+                .set_data("hello 3")
                 .set_ordering_key("ordering key :1"),
             PubsubMessage::new()
-                .set_data("hello 4".to_string())
+                .set_data("hello 4")
                 .set_ordering_key("ordering key :1"),
         ];
 
@@ -846,10 +846,10 @@ mod tests {
 
         let messages = [
             PubsubMessage::new()
-                .set_data("hello 1".to_string())
+                .set_data("hello 1")
                 .set_ordering_key("ordering key"),
             PubsubMessage::new()
-                .set_data("hello 2".to_string())
+                .set_data("hello 2")
                 .set_ordering_key("ordering key"),
         ];
 
@@ -925,10 +925,10 @@ mod tests {
 
         let messages = [
             PubsubMessage::new()
-                .set_data("hello 1".to_string())
+                .set_data("hello 1")
                 .set_ordering_key(""),
             PubsubMessage::new()
-                .set_data("hello 2".to_string())
+                .set_data("hello 2")
                 .set_ordering_key(""),
         ];
 
