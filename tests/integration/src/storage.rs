@@ -86,6 +86,7 @@ pub async fn objects(
 
 pub async fn signed_urls(
     builder: storage::builder::storage::ClientBuilder,
+    signer: &auth::signer::Signer,
     bucket_name: &str,
     prefix: &str,
 ) -> anyhow::Result<()> {
@@ -101,7 +102,6 @@ pub async fn signed_urls(
         .await?;
 
     tracing::info!("testing signed_url()");
-    let signer = auth::credentials::Builder::default().build_signer()?;
     let signed_url =
         storage::builder::storage::SignedUrlBuilder::for_object(bucket_name, &insert.name)
             .with_method(http::Method::GET)
