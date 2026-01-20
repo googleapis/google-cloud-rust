@@ -59,8 +59,17 @@ use std::sync::Arc;
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 ///
+/// # Troubleshooting
+///
+/// At the moment, the `Subscriber` is opaque. It is not possible to locally
+/// examine the performance (e.g. successful acknowledgements per second).
+///
+/// The best view into its performance is via the Cloud Console. There, you can
+/// [monitor subscriptions within Pub/Sub].
+///
 /// [application default credentials]: https://cloud.google.com/docs/authentication#adc
 /// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// [monitor subscriptions within pub/sub]: https://docs.cloud.google.com/pubsub/docs/monitor-subscription
 /// [private google access with vpc service controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [pull subscription]: https://docs.cloud.google.com/pubsub/docs/pull
 /// [with_endpoint()]: ClientBuilder::with_endpoint
