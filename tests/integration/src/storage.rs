@@ -107,7 +107,7 @@ pub async fn signed_urls(
             .with_method(http::Method::GET)
             .with_expiration(Duration::from_secs(60))
             .with_header("Content-Type", "text/plain")
-            .sign_with(&signer)
+            .sign_with(signer)
             .await?;
 
     tracing::info!("signed_url={signed_url}");
