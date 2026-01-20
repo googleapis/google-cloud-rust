@@ -1027,20 +1027,40 @@ mod tests {
                 .set_ordering_key("ordering key with error")
                 .set_data("msg 1".to_string()),
             PubsubMessage::new()
-                .set_ordering_key("")
+                .set_ordering_key("ordering key with error")
                 .set_data("msg 2".to_string()),
             PubsubMessage::new()
-                .set_ordering_key("ordering key without error")
+                .set_ordering_key("")
                 .set_data("msg 3".to_string()),
+            PubsubMessage::new()
+                .set_ordering_key("ordering key without error")
+                .set_data("msg 4".to_string()),
         ];
 
-        // Assert the first error is caused by the Publish send operation.
-        let mut got_err = publisher.publish(messages[0].clone()).await.unwrap_err();
+        let msg_0_handle = publisher.publish(messages[0].clone());
+        // Publish an additional message so that there's an additional pending message in the worker.
+        let msg_2_handle = publisher.publish(messages[1].clone());
+
+        // Assert the error is caused by the Publish send operation.
+        let mut got_err = msg_0_handle.await.unwrap_err();
         // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
         assert!(got_err.is_transport(), "{got_err:?}");
 
-        // Assert that the second error is caused by the Publisher being paused.
-        got_err = publisher.publish(messages[1].clone()).await.unwrap_err();
+        // Assert that the pending message error is caused by the Publisher being paused.
+        got_err = msg_2_handle.await.unwrap_err();
+        let source = got_err
+            .source()
+            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+        assert!(
+            matches!(
+                source,
+                Some(crate::error::PublishError::OrderingKeyPaused(()))
+            ),
+            "{got_err:?}"
+        );
+
+        // Assert that new publish messages returns an error because the Publisher being paused.
+        got_err = publisher.publish(messages[2].clone()).await.unwrap_err();
         let source = got_err
             .source()
             .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
@@ -1053,11 +1073,11 @@ mod tests {
         );
 
         // Verify that the other ordering keys are not paused.
-        let mut got = publisher.publish(messages[2].clone()).await;
-        assert_eq!(got.expect("expected message id"), "msg 2");
-
-        got = publisher.publish(messages[3].clone()).await;
+        let mut got = publisher.publish(messages[3].clone()).await;
         assert_eq!(got.expect("expected message id"), "msg 3");
+
+        got = publisher.publish(messages[4].clone()).await;
+        assert_eq!(got.expect("expected message id"), "msg 4");
     }
 
     #[tokio::test]

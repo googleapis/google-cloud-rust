@@ -297,6 +297,36 @@ impl BatchWorker {
         }
     }
 
+    pub(crate) fn handle_inflight_join(
+        &mut self,
+        join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
+    ) {
+        match join_next_option {
+            Some(join_next_result) => {
+                match join_next_result {
+                    Ok(inflight_result) => {
+                        match inflight_result {
+                            Ok(_) => {}
+                            Err(_) => {
+                                // There was a non-retryable error:
+                                // 1. We need to pause publishing and send out errors for pending_msgs.
+                                // 2. The pending batch should have sent out error for its messages.
+                                // 3. The messages in rx will be handled when they are received.
+                                self.pause();
+                            }
+                        }
+                    }
+                    Err(_) => {
+                        // JoinError.
+                        // This is unexpected and we should pause the publisher.
+                        self.pause();
+                    }
+                }
+            }
+            None => {}
+        }
+    }
+
     async fn run_with_ordering_key(&mut self) {
         // While it is possible to use Some(JoinHandle) here as there is at max
         // a single inflight task at any given time, the use of JoinSet
@@ -305,23 +335,7 @@ impl BatchWorker {
         loop {
             tokio::select! {
                 join = inflight.join_next(), if !inflight.is_empty() => {
-                    match join.expect("inflight should not be empty") {
-                        Ok(r) => {
-                            match r {
-                                Ok(_) => {}
-                                Err(_) => {
-                                    // There was a non-retryable error:
-                                    // 1. We need to pause publishing and send out errors for pending_msgs.
-                                    // 2. The pending batch should have sent out error for its messages.
-                                    // 3. The messages in rx will be handled when they are received.
-                                    self.pause();
-                                }
-                            }
-                        }
-                        Err(_) => {
-                            self.pause();
-                        }
-                    }
+                    self.handle_inflight_join(join);
                     self.move_to_batch();
                     if self.at_batch_threshold() {
                         self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -336,18 +350,20 @@ impl BatchWorker {
                                 continue;
                             }
                             self.pending_msgs.push_back(msg);
-                            self.move_to_batch();
-                            if self.at_batch_threshold() && inflight.is_empty() {
-                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            if inflight.is_empty() {
+                                self.move_to_batch();
+                                if self.at_batch_threshold() {
+                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                }
                             }
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
                             // Send batches sequentially.
-                            inflight.join_next().await;
+                            self.handle_inflight_join(inflight.join_next().await);
                             while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
                                 self.move_to_batch();
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                inflight.join_next().await;
+                                self.handle_inflight_join(inflight.join_next().await);
                             }
                             let _ = tx.send(());
                         },
