@@ -302,24 +302,24 @@ impl BatchWorker {
         join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
     ) {
         if let Some(join_next_result) = join_next_option {
-                match join_next_result {
-                    Ok(inflight_result) => {
-                        match inflight_result {
-                            Ok(_) => {}
-                            Err(_) => {
-                                // There was a non-retryable error:
-                                // 1. We need to pause publishing and send out errors for pending_msgs.
-                                // 2. The pending batch should have sent out error for its messages.
-                                // 3. The messages in rx will be handled when they are received.
-                                self.pause();
-                            }
+            match join_next_result {
+                Ok(inflight_result) => {
+                    match inflight_result {
+                        Ok(_) => {}
+                        Err(_) => {
+                            // There was a non-retryable error:
+                            // 1. We need to pause publishing and send out errors for pending_msgs.
+                            // 2. The pending batch should have sent out error for its messages.
+                            // 3. The messages in rx will be handled when they are received.
+                            self.pause();
                         }
                     }
-                    Err(_) => {
-                        // JoinError.
-                        // This is unexpected and we should pause the publisher.
-                        self.pause();
-                    }
+                }
+                Err(_) => {
+                    // JoinError.
+                    // This is unexpected and we should pause the publisher.
+                    self.pause();
+                }
             }
         }
     }
