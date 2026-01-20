@@ -61,8 +61,10 @@ use std::sync::Arc;
 ///
 /// # Troubleshooting
 ///
-/// The Subscriber is intentionally opaque. The best view into its performance
-/// (e.g. acknowledgements per second) is via the Cloud Console. There, you can
+/// At the moment, the `Subscriber` is opaque. It is not possible to locally
+/// examine the performance (e.g. successful acknowledgements per second).
+///
+/// The best view into its performance is via the Cloud Console. There, you can
 /// [monitor subscriptions within Pub/Sub].
 ///
 /// [application default credentials]: https://cloud.google.com/docs/authentication#adc
