@@ -977,7 +977,7 @@ mod tests {
         Ok(())
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_ordering_error_pause_publisher() {
         // Verify that a Publish send error will pause the publisher for an ordering key.
         let mut seq = Sequence::new();
@@ -1085,7 +1085,7 @@ mod tests {
         assert_eq!(got.expect("expected message id"), "msg 4");
     }
 
-    #[tokio::test]
+    #[tokio::test(start_paused = true)]
     async fn test_ordering_error_pause_then_flush() {
         // Verify that Flush on a paused ordering key returns an error.
         let mut seq = Sequence::new();
