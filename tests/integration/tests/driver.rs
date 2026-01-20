@@ -220,8 +220,8 @@ mod driver {
         let _guard = integration_tests::enable_tracing();
 
         let signer = auth::credentials::Builder::default().build_signer();
-        match signer {
-            Ok(_) => {}
+        let signer = match signer {
+            Ok(s) => s,
             Err(err) if err.is_not_supported() => {
                 tracing::warn!("skipping run_storage_signed_urls: {err:?}");
                 return Ok(());
@@ -230,7 +230,6 @@ mod driver {
                 anyhow::bail!("error creating signer: {err:?}")
             }
         };
-        let signer = signer?;
 
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
 
