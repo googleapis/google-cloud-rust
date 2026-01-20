@@ -1019,27 +1019,17 @@ mod tests {
             .set_message_count_threshold(1_u32)
             .build();
 
-        let messages = [
+        let msg_0_handle = publisher.publish(
             PubsubMessage::new()
                 .set_ordering_key("ordering key with error")
-                .set_data("msg 0".to_string()),
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 1".to_string()),
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 2".to_string()),
-            PubsubMessage::new()
-                .set_ordering_key("")
-                .set_data("msg 3".to_string()),
-            PubsubMessage::new()
-                .set_ordering_key("ordering key without error")
-                .set_data("msg 4".to_string()),
-        ];
-
-        let msg_0_handle = publisher.publish(messages[0].clone());
+                .set_data("msg 0"),
+        );
         // Publish an additional message so that there's an additional pending message in the worker.
-        let msg_2_handle = publisher.publish(messages[1].clone());
+        let msg_1_handle = publisher.publish(
+            PubsubMessage::new()
+                .set_ordering_key("ordering key with error")
+                .set_data("msg 1"),
+        );
 
         // Assert the error is caused by the Publish send operation.
         let mut got_err = msg_0_handle.await.unwrap_err();
@@ -1047,7 +1037,7 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Assert that the pending message error is caused by the Publisher being paused.
-        got_err = msg_2_handle.await.unwrap_err();
+        got_err = msg_1_handle.await.unwrap_err();
         let source = got_err
             .source()
             .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
@@ -1060,7 +1050,14 @@ mod tests {
         );
 
         // Assert that new publish messages returns an error because the Publisher being paused.
-        got_err = publisher.publish(messages[2].clone()).await.unwrap_err();
+        got_err = publisher
+            .publish(
+                PubsubMessage::new()
+                    .set_ordering_key("ordering key with error")
+                    .set_data("msg 2"),
+            )
+            .await
+            .unwrap_err();
         let source = got_err
             .source()
             .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
@@ -1073,11 +1070,107 @@ mod tests {
         );
 
         // Verify that the other ordering keys are not paused.
-        let mut got = publisher.publish(messages[3].clone()).await;
+        let mut got = publisher
+            .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 3"))
+            .await;
         assert_eq!(got.expect("expected message id"), "msg 3");
 
-        got = publisher.publish(messages[4].clone()).await;
+        got = publisher
+            .publish(
+                PubsubMessage::new()
+                    .set_ordering_key("ordering key without error")
+                    .set_data("msg 4"),
+            )
+            .await;
         assert_eq!(got.expect("expected message id"), "msg 4");
+    }
+
+    #[tokio::test]
+    async fn test_ordering_error_pause_then_flush() {
+        // Verify that Flush on a paused ordering key returns an error.
+        let mut seq = Sequence::new();
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    Err(gax::error::Error::service(
+                        gax::error::rpc::Status::default()
+                            .set_code(gax::error::rpc::Code::Unknown)
+                            .set_message("unknown error has occurred"),
+                    ))
+                }
+            });
+
+        mock.expect_publish()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning({
+                |r, _| {
+                    assert_eq!(r.topic, "my-topic");
+                    assert_eq!(r.messages.len(), 1);
+                    let ids = r
+                        .messages
+                        .iter()
+                        .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+                    Ok(gax::response::Response::from(
+                        PublishResponse::new().set_message_ids(ids),
+                    ))
+                }
+            });
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+            .set_message_count_threshold(MAX_MESSAGES)
+            .set_byte_threshold(MAX_BYTES)
+            .set_delay_threshold(std::time::Duration::from_millis(10))
+            .build();
+
+        // Cause "ordering key with error" ordering key to pause.
+        publisher.publish(
+            PubsubMessage::new()
+                .set_ordering_key("ordering key with error")
+                .set_data("msg 0"),
+        );
+        publisher.flush().await;
+
+        // Validate that new Publish on the paused ordering key will result in an error.
+        let got_err = publisher
+            .publish(
+                PubsubMessage::new()
+                    .set_ordering_key("ordering key with error")
+                    .set_data("msg 1"),
+            )
+            .await
+            .unwrap_err();
+        let source = got_err
+            .source()
+            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+        assert!(
+            matches!(
+                source,
+                Some(crate::error::PublishError::OrderingKeyPaused(()))
+            ),
+            "{got_err:?}"
+        );
+
+        // Verify that the other ordering keys are not paused.
+        let mut got = publisher
+            .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 2"))
+            .await;
+        assert_eq!(got.expect("expected message id"), "msg 2");
+
+        got = publisher
+            .publish(
+                PubsubMessage::new()
+                    .set_ordering_key("ordering key without error")
+                    .set_data("msg 3"),
+            )
+            .await;
+        assert_eq!(got.expect("expected message id"), "msg 3");
     }
 
     #[tokio::test]

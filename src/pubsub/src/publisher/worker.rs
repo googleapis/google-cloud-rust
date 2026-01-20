@@ -301,26 +301,12 @@ impl BatchWorker {
         &mut self,
         join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
     ) {
-        if let Some(join_next_result) = join_next_option {
-            match join_next_result {
-                Ok(inflight_result) => {
-                    match inflight_result {
-                        Ok(_) => {}
-                        Err(_) => {
-                            // There was a non-retryable error:
-                            // 1. We need to pause publishing and send out errors for pending_msgs.
-                            // 2. The pending batch should have sent out error for its messages.
-                            // 3. The messages in rx will be handled when they are received.
-                            self.pause();
-                        }
-                    }
-                }
-                Err(_) => {
-                    // JoinError.
-                    // This is unexpected and we should pause the publisher.
-                    self.pause();
-                }
-            }
+        // If there was a JoinError or non-retryable error:
+        // 1. We need to pause publishing and send out errors for pending_msgs.
+        // 2. The pending batch should have sent out error for its messages.
+        // 3. The messages in rx will be handled when they are received.
+        if let Some(Err(_) | Ok(Err(_))) = join_next_option {
+            self.pause();
         }
     }
 
@@ -330,6 +316,27 @@ impl BatchWorker {
         // simplify the managing the inflight JoinHandle.
         let mut inflight: JoinSet<Result<(), gax::error::Error>> = JoinSet::new();
         loop {
+            if self.paused {
+                // When paused, we do not need to check inflight as handle_inflight_join()
+                // ensures that there are no inflight batch.
+                let msg = self.rx.recv().await;
+                match msg {
+                    Some(ToBatchWorker::Publish(msg)) => {
+                        let _ = msg
+                            .tx
+                            .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                    }
+                    Some(ToBatchWorker::Flush(tx)) => {
+                        // There should be no pending messages and messages in the pending batch as
+                        // it was already handled when this was paused.
+                        let _ = tx.send(());
+                    }
+                    None => {
+                        // TODO(#4012): Add shutdown procedure for BatchWorker.
+                        break;
+                    }
+                }
+            }
             tokio::select! {
                 join = inflight.join_next(), if !inflight.is_empty() => {
                     self.handle_inflight_join(join);
@@ -341,11 +348,6 @@ impl BatchWorker {
                 msg = self.rx.recv() => {
                     match msg {
                         Some(ToBatchWorker::Publish(msg)) => {
-                            if self.paused {
-                                // The user may have dropped the handle, so it is ok if this fails.
-                                let _ = msg.tx.send(Err(crate::error::PublishError::OrderingKeyPaused(())));
-                                continue;
-                            }
                             self.pending_msgs.push_back(msg);
                             if inflight.is_empty() {
                                 self.move_to_batch();
