@@ -301,8 +301,7 @@ impl BatchWorker {
         &mut self,
         join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
     ) {
-        match join_next_option {
-            Some(join_next_result) => {
+        if let Some(join_next_result) = join_next_option {
                 match join_next_result {
                     Ok(inflight_result) => {
                         match inflight_result {
@@ -321,9 +320,7 @@ impl BatchWorker {
                         // This is unexpected and we should pause the publisher.
                         self.pause();
                     }
-                }
             }
-            None => {}
         }
     }
 
