@@ -39,15 +39,18 @@
 //! * [Deployments](client/struct.Deployments.html)
 //! * [EntityTypes](client/struct.EntityTypes.html)
 //! * [Environments](client/struct.Environments.html)
+//! * [Examples](client/struct.Examples.html)
 //! * [Experiments](client/struct.Experiments.html)
 //! * [Flows](client/struct.Flows.html)
 //! * [Generators](client/struct.Generators.html)
 //! * [Intents](client/struct.Intents.html)
 //! * [Pages](client/struct.Pages.html)
+//! * [Playbooks](client/struct.Playbooks.html)
 //! * [SecuritySettingsService](client/struct.SecuritySettingsService.html)
 //! * [Sessions](client/struct.Sessions.html)
 //! * [SessionEntityTypes](client/struct.SessionEntityTypes.html)
 //! * [TestCases](client/struct.TestCases.html)
+//! * [Tools](client/struct.Tools.html)
 //! * [TransitionRouteGroups](client/struct.TransitionRouteGroups.html)
 //! * [Versions](client/struct.Versions.html)
 //! * [Webhooks](client/struct.Webhooks.html)
@@ -85,15 +88,18 @@ pub(crate) mod transport;
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "sessions",
     feature = "session-entity-types",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -106,15 +112,18 @@ const DEFAULT_HOST: &str = "https://dialogflow.googleapis.com/";
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "sessions",
     feature = "session-entity-types",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",

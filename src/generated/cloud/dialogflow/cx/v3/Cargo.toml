@@ -33,15 +33,18 @@ default = [
   "deployments",
   "entity-types",
   "environments",
+  "examples",
   "experiments",
   "flows",
   "generators",
   "intents",
   "pages",
+  "playbooks",
   "security-settings-service",
   "session-entity-types",
   "sessions",
   "test-cases",
+  "tools",
   "transition-route-groups",
   "versions",
   "webhooks",
@@ -56,6 +59,8 @@ deployments = []
 entity-types = []
 # Enables `client::Environments` and all the types it depends on.
 environments = []
+# Enables `client::Examples` and all the types it depends on.
+examples = []
 # Enables `client::Experiments` and all the types it depends on.
 experiments = []
 # Enables `client::Flows` and all the types it depends on.
@@ -66,6 +71,8 @@ generators = []
 intents = []
 # Enables `client::Pages` and all the types it depends on.
 pages = []
+# Enables `client::Playbooks` and all the types it depends on.
+playbooks = []
 # Enables `client::SecuritySettingsService` and all the types it depends on.
 security-settings-service = []
 # Enables `client::Sessions` and all the types it depends on.
@@ -74,6 +81,8 @@ sessions = []
 session-entity-types = []
 # Enables `client::TestCases` and all the types it depends on.
 test-cases = []
+# Enables `client::Tools` and all the types it depends on.
+tools = []
 # Enables `client::TransitionRouteGroups` and all the types it depends on.
 transition-route-groups = []
 # Enables `client::Versions` and all the types it depends on.

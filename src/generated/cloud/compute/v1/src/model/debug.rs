@@ -2066,6 +2066,10 @@ impl std::fmt::Debug for super::BulkInsertInstanceResource {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("BulkInsertInstanceResource");
         debug_struct.field("count", &self.count);
+        debug_struct.field(
+            "instance_flexibility_policy",
+            &self.instance_flexibility_policy,
+        );
         debug_struct.field("instance_properties", &self.instance_properties);
         debug_struct.field("location_policy", &self.location_policy);
         debug_struct.field("min_count", &self.min_count);
@@ -2163,6 +2167,7 @@ impl std::fmt::Debug for super::BulkInsertInstanceResourcePerInstanceProperties 
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -3409,6 +3414,7 @@ impl std::fmt::Debug for super::Duration {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -5440,6 +5446,7 @@ impl std::fmt::Debug for super::HealthStatusForNetworkEndpoint {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -5549,6 +5556,7 @@ impl std::fmt::Debug for super::Help {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -6241,6 +6249,32 @@ impl std::fmt::Debug for super::InstanceConsumptionInfo {
         debug_struct.field("local_ssd_gb", &self.local_ssd_gb);
         debug_struct.field("memory_mb", &self.memory_mb);
         debug_struct.field("min_node_cpus", &self.min_node_cpus);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::InstanceFlexibilityPolicy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicy");
+        debug_struct.field("instance_selections", &self.instance_selections);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "instances", feature = "region-instances",))]
+impl std::fmt::Debug for super::InstanceFlexibilityPolicyInstanceSelection {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InstanceFlexibilityPolicyInstanceSelection");
+        debug_struct.field("disks", &self.disks);
+        debug_struct.field("machine_types", &self.machine_types);
+        debug_struct.field("rank", &self.rank);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -7889,6 +7923,7 @@ impl std::fmt::Debug for super::InstancesAddResourcePoliciesRequest {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -10055,6 +10090,7 @@ impl std::fmt::Debug for super::LocalDisk {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -12684,6 +12720,7 @@ impl std::fmt::Debug for super::notification_endpoint_list::warning::Data {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -12824,6 +12861,7 @@ impl std::fmt::Debug for super::Operation {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -12933,6 +12971,7 @@ impl std::fmt::Debug for super::operation::Error {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -13045,6 +13084,7 @@ impl std::fmt::Debug for super::operation::error::Errors {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -13157,6 +13197,7 @@ impl std::fmt::Debug for super::operation::error::errors::ErrorDetails {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -13268,6 +13309,7 @@ impl std::fmt::Debug for super::operation::Warnings {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -14531,6 +14573,7 @@ impl std::fmt::Debug for super::Quota {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -15689,6 +15732,113 @@ impl std::fmt::Debug for super::reservation_list::Warning {
 
 #[cfg(feature = "reservations")]
 impl std::fmt::Debug for super::reservation_list::warning::Data {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Data");
+        debug_struct.field("key", &self.key);
+        debug_struct.field("value", &self.value);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::ReservationSlot {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationSlot");
+        debug_struct.field("creation_timestamp", &self.creation_timestamp);
+        debug_struct.field("id", &self.id);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("name", &self.name);
+        debug_struct.field("physical_topology", &self.physical_topology);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("self_link_with_id", &self.self_link_with_id);
+        debug_struct.field("share_settings", &self.share_settings);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("status", &self.status);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::ReservationSlotPhysicalTopology {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationSlotPhysicalTopology");
+        debug_struct.field("block", &self.block);
+        debug_struct.field("cluster", &self.cluster);
+        debug_struct.field("host", &self.host);
+        debug_struct.field("sub_block", &self.sub_block);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::ReservationSlotStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationSlotStatus");
+        debug_struct.field("physical_topology", &self.physical_topology);
+        debug_struct.field("rdma_ip_addresses", &self.rdma_ip_addresses);
+        debug_struct.field("running_instances", &self.running_instances);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::ReservationSlotsGetResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationSlotsGetResponse");
+        debug_struct.field("resource", &self.resource);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::ReservationSlotsListResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ReservationSlotsListResponse");
+        debug_struct.field("id", &self.id);
+        debug_struct.field("items", &self.items);
+        debug_struct.field("kind", &self.kind);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("self_link", &self.self_link);
+        debug_struct.field("warning", &self.warning);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots_list_response::Warning {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Warning");
+        debug_struct.field("code", &self.code);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots_list_response::warning::Data {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("Data");
         debug_struct.field("key", &self.key);
@@ -18505,6 +18655,7 @@ impl std::fmt::Debug for super::service_attachments_scoped_list::warning::Data {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -18615,6 +18766,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadata {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -18659,6 +18811,7 @@ impl std::fmt::Debug for super::SetCommonInstanceMetadataOperationMetadataPerLoc
     feature = "future-reservations",
     feature = "node-groups",
     feature = "region-commitments",
+    feature = "reservation-slots",
     feature = "reservations",
 ))]
 impl std::fmt::Debug for super::ShareSettings {
@@ -18677,6 +18830,7 @@ impl std::fmt::Debug for super::ShareSettings {
     feature = "future-reservations",
     feature = "node-groups",
     feature = "region-commitments",
+    feature = "reservation-slots",
     feature = "reservations",
 ))]
 impl std::fmt::Debug for super::ShareSettingsProjectConfig {
@@ -19507,6 +19661,7 @@ impl std::fmt::Debug for super::StatefulPolicyPreservedStateNetworkIp {
     feature = "region-target-tcp-proxies",
     feature = "region-url-maps",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -33765,6 +33920,57 @@ impl std::fmt::Debug for super::reservation_blocks::TestIamPermissionsRequest {
     }
 }
 
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots::GetRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetRequest");
+        debug_struct.field("parent_name", &self.parent_name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("reservation_slot", &self.reservation_slot);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots::ListRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListRequest");
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("max_results", &self.max_results);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("parent_name", &self.parent_name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
+        debug_struct.field("zone", &self.zone);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl std::fmt::Debug for super::reservation_slots::UpdateRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateRequest");
+        debug_struct.field("parent_name", &self.parent_name);
+        debug_struct.field("project", &self.project);
+        debug_struct.field("reservation_slot", &self.reservation_slot);
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("zone", &self.zone);
+        debug_struct.field("body", &self.body);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "reservation-sub-blocks")]
 impl std::fmt::Debug for super::reservation_sub_blocks::GetRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -37153,6 +37359,7 @@ impl std::fmt::Debug for super::zone_operations::DeleteRequest {
     feature = "network-endpoint-groups",
     feature = "node-groups",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "storage-pools",
