@@ -309,7 +309,6 @@ libraries:
       - path: google/apps/script/type
     copyright_year: "2025"
     output: src/generated/apps/script/gtype
-    rust: {}
   - name: google-cloud-apps-script-type-calendar
     version: 1.3.0
     channels:
@@ -743,14 +742,12 @@ libraries:
       - path: google/cloud/gkehub/v1/configmanagement
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/configmanagement/v1
-    rust: {}
   - name: google-cloud-gkehub-multiclusteringress-v1
     version: 1.2.0
     channels:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
-    rust: {}
   - name: google-cloud-gkehub-v1
     version: 1.4.0
     copyright_year: "2025"
@@ -1024,7 +1021,6 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/generated/oslogin/common
-    rust: {}
   - name: google-cloud-oslogin-v1
     version: 1.3.0
     copyright_year: "2025"
