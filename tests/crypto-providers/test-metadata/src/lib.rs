@@ -13,7 +13,10 @@
 // limitations under the License.
 
 use anyhow::bail;
-use cargo_metadata::{FeatureName, Metadata, MetadataCommand, PackageId, semver::Version};
+use cargo_metadata::{
+    FeatureName, Metadata, MetadataCommand, PackageId, PackageName, semver::Version,
+};
+use semver::{Comparator, Op};
 
 const RING_CRATE_NAME: &str = "ring";
 const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
@@ -21,6 +24,10 @@ const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
 const REQWEST_DEFAULT_FEATURE: &str = "rustls-tls";
 // TODO(#4170) - will become aws-lc-rs
 const RUSTLS_DEFAULT_FEATURE: &str = "ring";
+// Use `google-cloud-auth` to find the versions of key dependencies. Changing
+// this test code as we update the dependency requirements (via renovatebot)
+// it would be tedious to manual update this code too.
+const GOOGLE_CLOUD_AUTH: &str = "google-cloud-auth";
 
 pub fn has_default_crypto_provider(cargo: &str, dir: &str) -> anyhow::Result<()> {
     let metadata = metadata()?;
@@ -125,34 +132,52 @@ fn metadata() -> anyhow::Result<Metadata> {
     Ok(metadata)
 }
 
-fn reqwest_version(_metadata: &Metadata) -> Version {
-    // TODO(4170) - we would like to read this version from the top-level
-    //   workspace metadata.
-    Version::new(0, 12, 0)
-}
-
-fn rustls_version(_metadata: &Metadata) -> Version {
-    // TODO(4170) - we would like to read this version from the top-level
-    //   workspace metadata.
-    Version::new(0, 23, 0)
-}
-
-fn jsonwebtoken_version(_metadata: &Metadata) -> Version {
-    // TODO(4170) - we would like to read this version from the top-level
-    //   workspace metadata.
-    Version::new(10, 0, 0)
+fn find_version(metadata: &Metadata, name: &str) -> anyhow::Result<Version> {
+    let auth_name = PackageName::new(GOOGLE_CLOUD_AUTH);
+    let auth = metadata
+        .packages
+        .iter()
+        .find(|p| p.name == auth_name)
+        .unwrap_or_else(|| panic!("{GOOGLE_CLOUD_AUTH} is a package in the workspace"));
+    let target = auth
+        .dependencies
+        .iter()
+        .find(|d| d.name == name)
+        .unwrap_or_else(|| panic!("{name} must be a dependency of {GOOGLE_CLOUD_AUTH}"));
+    let req = target.req.clone();
+    let (major, minor, patch) = match req.comparators[..] {
+        [
+            Comparator {
+                op: Op::Caret,
+                major,
+                minor,
+                patch,
+                ..
+            },
+        ] => (major, minor, patch),
+        [ref comparator] => {
+            bail!("unexpected comparator operation for {name} crate: {comparator:?}")
+        }
+        [] => bail!("expected exactly one version requirements for {name} crate"),
+        [..] => bail!("unexpected number of version requirements for {name} crate"),
+    };
+    Ok(Version::new(
+        major,
+        minor.unwrap_or_default(),
+        patch.unwrap_or_default(),
+    ))
 }
 
 fn find_reqwest_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "reqwest", reqwest_version(metadata))
+    find_dependency_features(metadata, "reqwest")
 }
 
 fn find_rustls_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "rustls", rustls_version(metadata))
+    find_dependency_features(metadata, "rustls")
 }
 
 fn find_jsonwebtoken_features(metadata: &Metadata) -> anyhow::Result<Vec<FeatureName>> {
-    find_dependency_features(metadata, "jsonwebtoken", jsonwebtoken_version(metadata))
+    find_dependency_features(metadata, "jsonwebtoken")
 }
 
 fn find_dependency(metadata: &Metadata, name: &str, version: Version) -> anyhow::Result<PackageId> {
@@ -174,11 +199,8 @@ fn find_dependency(metadata: &Metadata, name: &str, version: Version) -> anyhow:
     }
 }
 
-fn find_dependency_features(
-    metadata: &Metadata,
-    name: &str,
-    version: Version,
-) -> anyhow::Result<Vec<FeatureName>> {
+fn find_dependency_features(metadata: &Metadata, name: &str) -> anyhow::Result<Vec<FeatureName>> {
+    let version = find_version(metadata, name)?;
     let id = find_dependency(metadata, name, version)?;
     let root = metadata
         .resolve
@@ -191,4 +213,21 @@ fn find_dependency_features(
         .map(|n| n.features.clone())
         .unwrap_or_default();
     Ok(features)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn find_version() -> anyhow::Result<()> {
+        let metadata = metadata()?;
+        let v = super::find_version(&metadata, "reqwest");
+        assert!(v.is_ok(), "{v:?}");
+        let v = super::find_version(&metadata, "rustls");
+        assert!(v.is_ok(), "{v:?}");
+        let v = super::find_version(&metadata, "jsonwebtoken");
+        assert!(v.is_ok(), "{v:?}");
+        Ok(())
+    }
 }
