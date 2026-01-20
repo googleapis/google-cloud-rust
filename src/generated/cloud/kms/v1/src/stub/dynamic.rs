@@ -528,6 +528,272 @@ impl<T: super::EkmService> EkmService for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::HsmManagement].
+#[async_trait::async_trait]
+pub trait HsmManagement: std::fmt::Debug + Send + Sync {
+    async fn list_single_tenant_hsm_instances(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>>;
+
+    async fn get_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstance>>;
+
+    async fn create_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn create_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn approve_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
+    >;
+
+    async fn execute_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>>;
+
+    async fn list_single_tenant_hsm_instance_proposals(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
+    >;
+
+    async fn delete_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
+
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>>;
+
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::HsmManagement] also implement [HsmManagement].
+#[async_trait::async_trait]
+impl<T: super::HsmManagement> HsmManagement for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_single_tenant_hsm_instances(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>>
+    {
+        T::list_single_tenant_hsm_instances(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstance>> {
+        T::get_single_tenant_hsm_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_single_tenant_hsm_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_single_tenant_hsm_instance_proposal(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn approve_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>,
+    > {
+        T::approve_single_tenant_hsm_instance_proposal(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn execute_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::execute_single_tenant_hsm_instance_proposal(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>> {
+        T::get_single_tenant_hsm_instance_proposal(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_single_tenant_hsm_instance_proposals(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<
+        gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>,
+    > {
+        T::list_single_tenant_hsm_instance_proposals(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_single_tenant_hsm_instance_proposal(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::set_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::Policy>> {
+        T::get_iam_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::KeyManagementService].
 #[async_trait::async_trait]
 pub trait KeyManagementService: std::fmt::Debug + Send + Sync {

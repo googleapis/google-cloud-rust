@@ -3132,9 +3132,22 @@ pub struct BackupVault {
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
     pub destination_backup_vault: std::string::String,
 
-    /// Optional. Backup retention policy defining the retenton of backups.
+    /// Optional. Backup retention policy defining the retention of backups.
     pub backup_retention_policy:
         std::option::Option<crate::model::backup_vault::BackupRetentionPolicy>,
+
+    /// Optional. Specifies the Key Management System (KMS) configuration to be
+    /// used for backup encryption. Format:
+    /// `projects/{project}/locations/{location}/kmsConfigs/{kms_config}`
+    pub kms_config: std::string::String,
+
+    /// Output only. Field indicating encryption state of CMEK backups.
+    pub encryption_state: crate::model::backup_vault::EncryptionState,
+
+    /// Output only. The crypto key version used to encrypt the backup vault.
+    /// Format:
+    /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}/cryptoKeyVersions/{crypto_key_version}`
+    pub backups_crypto_key_version: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3343,6 +3356,53 @@ impl BackupVault {
         T: std::convert::Into<crate::model::backup_vault::BackupRetentionPolicy>,
     {
         self.backup_retention_policy = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [kms_config][crate::model::BackupVault::kms_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_kms_config("example");
+    /// ```
+    pub fn set_kms_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_config = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_state][crate::model::BackupVault::encryption_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// use google_cloud_netapp_v1::model::backup_vault::EncryptionState;
+    /// let x0 = BackupVault::new().set_encryption_state(EncryptionState::Pending);
+    /// let x1 = BackupVault::new().set_encryption_state(EncryptionState::Completed);
+    /// let x2 = BackupVault::new().set_encryption_state(EncryptionState::InProgress);
+    /// ```
+    pub fn set_encryption_state<
+        T: std::convert::Into<crate::model::backup_vault::EncryptionState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_state = v.into();
+        self
+    }
+
+    /// Sets the value of [backups_crypto_key_version][crate::model::BackupVault::backups_crypto_key_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BackupVault;
+    /// let x = BackupVault::new().set_backups_crypto_key_version("example");
+    /// ```
+    pub fn set_backups_crypto_key_version<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backups_crypto_key_version = v.into();
         self
     }
 }
@@ -3745,6 +3805,152 @@ pub mod backup_vault {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<BackupVaultType>::new(
                 ".google.cloud.netapp.v1.BackupVault.BackupVaultType",
+            ))
+        }
+    }
+
+    /// Encryption state of customer-managed encryption keys (CMEK) backups.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EncryptionState {
+        /// Encryption state not set.
+        Unspecified,
+        /// Encryption state is pending.
+        Pending,
+        /// Encryption is complete.
+        Completed,
+        /// Encryption is in progress.
+        InProgress,
+        /// Encryption has failed.
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EncryptionState::value] or
+        /// [EncryptionState::name].
+        UnknownValue(encryption_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod encryption_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EncryptionState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Pending => std::option::Option::Some(1),
+                Self::Completed => std::option::Option::Some(2),
+                Self::InProgress => std::option::Option::Some(3),
+                Self::Failed => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ENCRYPTION_STATE_UNSPECIFIED"),
+                Self::Pending => std::option::Option::Some("ENCRYPTION_STATE_PENDING"),
+                Self::Completed => std::option::Option::Some("ENCRYPTION_STATE_COMPLETED"),
+                Self::InProgress => std::option::Option::Some("ENCRYPTION_STATE_IN_PROGRESS"),
+                Self::Failed => std::option::Option::Some("ENCRYPTION_STATE_FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EncryptionState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EncryptionState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EncryptionState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Pending,
+                2 => Self::Completed,
+                3 => Self::InProgress,
+                4 => Self::Failed,
+                _ => Self::UnknownValue(encryption_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EncryptionState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ENCRYPTION_STATE_UNSPECIFIED" => Self::Unspecified,
+                "ENCRYPTION_STATE_PENDING" => Self::Pending,
+                "ENCRYPTION_STATE_COMPLETED" => Self::Completed,
+                "ENCRYPTION_STATE_IN_PROGRESS" => Self::InProgress,
+                "ENCRYPTION_STATE_FAILED" => Self::Failed,
+                _ => Self::UnknownValue(encryption_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EncryptionState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Pending => serializer.serialize_i32(1),
+                Self::Completed => serializer.serialize_i32(2),
+                Self::InProgress => serializer.serialize_i32(3),
+                Self::Failed => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EncryptionState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EncryptionState>::new(
+                ".google.cloud.netapp.v1.BackupVault.EncryptionState",
             ))
         }
     }
@@ -4384,6 +4590,9 @@ pub struct LocationMetadata {
     /// Output only. Indicates if the location has VCP support.
     pub has_vcp: bool,
 
+    /// Output only. Indicates if the location has ONTAP Proxy support.
+    pub has_ontap_proxy: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4446,6 +4655,18 @@ impl LocationMetadata {
         self.has_vcp = v.into();
         self
     }
+
+    /// Sets the value of [has_ontap_proxy][crate::model::LocationMetadata::has_ontap_proxy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_has_ontap_proxy(true);
+    /// ```
+    pub fn set_has_ontap_proxy<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.has_ontap_proxy = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for LocationMetadata {
@@ -4490,6 +4711,922 @@ impl UserCommands {
 impl wkt::message::Message for UserCommands {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.netapp.v1.UserCommands"
+    }
+}
+
+/// ListHostGroupsRequest for listing host groups.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListHostGroupsRequest {
+    /// Required. Parent value for ListHostGroupsRequest
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, the server will pick an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. Filter to apply to the request.
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListHostGroupsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListHostGroupsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
+    /// let x = ListHostGroupsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListHostGroupsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
+    /// let x = ListHostGroupsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListHostGroupsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
+    /// let x = ListHostGroupsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListHostGroupsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
+    /// let x = ListHostGroupsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListHostGroupsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsRequest;
+    /// let x = ListHostGroupsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListHostGroupsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ListHostGroupsRequest"
+    }
+}
+
+/// ListHostGroupsResponse is the response to a ListHostGroupsRequest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListHostGroupsResponse {
+    /// The list of host groups.
+    pub host_groups: std::vec::Vec<crate::model::HostGroup>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListHostGroupsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [host_groups][crate::model::ListHostGroupsResponse::host_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsResponse;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = ListHostGroupsResponse::new()
+    ///     .set_host_groups([
+    ///         HostGroup::default()/* use setters */,
+    ///         HostGroup::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_host_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::HostGroup>,
+    {
+        use std::iter::Iterator;
+        self.host_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListHostGroupsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsResponse;
+    /// let x = ListHostGroupsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListHostGroupsResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::ListHostGroupsResponse;
+    /// let x = ListHostGroupsResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListHostGroupsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.ListHostGroupsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListHostGroupsResponse {
+    type PageItem = crate::model::HostGroup;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.host_groups
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// GetHostGroupRequest for getting a host group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetHostGroupRequest {
+    /// Required. The resource name of the host group.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/hostGroups/{host_group_id}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetHostGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetHostGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::GetHostGroupRequest;
+    /// let x = GetHostGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetHostGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.GetHostGroupRequest"
+    }
+}
+
+/// CreateHostGroupRequest for creating a host group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateHostGroupRequest {
+    /// Required. Parent value for CreateHostGroupRequest
+    pub parent: std::string::String,
+
+    /// Required. Fields of the host group to create.
+    pub host_group: std::option::Option<crate::model::HostGroup>,
+
+    /// Required. ID of the host group to create. Must be unique within the parent
+    /// resource. Must contain only letters, numbers, and hyphen, with
+    /// the first character a letter or underscore, the last a letter or underscore
+    /// or a number, and a 63 character maximum.
+    pub host_group_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateHostGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateHostGroupRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CreateHostGroupRequest;
+    /// let x = CreateHostGroupRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [host_group][crate::model::CreateHostGroupRequest::host_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CreateHostGroupRequest;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = CreateHostGroupRequest::new().set_host_group(HostGroup::default()/* use setters */);
+    /// ```
+    pub fn set_host_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HostGroup>,
+    {
+        self.host_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host_group][crate::model::CreateHostGroupRequest::host_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CreateHostGroupRequest;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = CreateHostGroupRequest::new().set_or_clear_host_group(Some(HostGroup::default()/* use setters */));
+    /// let x = CreateHostGroupRequest::new().set_or_clear_host_group(None::<HostGroup>);
+    /// ```
+    pub fn set_or_clear_host_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HostGroup>,
+    {
+        self.host_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [host_group_id][crate::model::CreateHostGroupRequest::host_group_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CreateHostGroupRequest;
+    /// let x = CreateHostGroupRequest::new().set_host_group_id("example");
+    /// ```
+    pub fn set_host_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.host_group_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateHostGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.CreateHostGroupRequest"
+    }
+}
+
+/// UpdateHostGroupRequest for updating a host group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateHostGroupRequest {
+    /// Required. The host group to update.
+    /// The host group's `name` field is used to identify the host group.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/hostGroups/{host_group_id}`.
+    pub host_group: std::option::Option<crate::model::HostGroup>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateHostGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [host_group][crate::model::UpdateHostGroupRequest::host_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateHostGroupRequest;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = UpdateHostGroupRequest::new().set_host_group(HostGroup::default()/* use setters */);
+    /// ```
+    pub fn set_host_group<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HostGroup>,
+    {
+        self.host_group = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [host_group][crate::model::UpdateHostGroupRequest::host_group].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateHostGroupRequest;
+    /// use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = UpdateHostGroupRequest::new().set_or_clear_host_group(Some(HostGroup::default()/* use setters */));
+    /// let x = UpdateHostGroupRequest::new().set_or_clear_host_group(None::<HostGroup>);
+    /// ```
+    pub fn set_or_clear_host_group<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HostGroup>,
+    {
+        self.host_group = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateHostGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateHostGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHostGroupRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateHostGroupRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::UpdateHostGroupRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateHostGroupRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateHostGroupRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateHostGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.UpdateHostGroupRequest"
+    }
+}
+
+/// DeleteHostGroupRequest for deleting a single host group.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteHostGroupRequest {
+    /// Required. The resource name of the host group.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/hostGroups/{host_group_id}`.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteHostGroupRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteHostGroupRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::DeleteHostGroupRequest;
+    /// let x = DeleteHostGroupRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteHostGroupRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.DeleteHostGroupRequest"
+    }
+}
+
+/// Host group is a collection of hosts that can be used for accessing a Block
+/// Volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct HostGroup {
+    /// Identifier. The resource name of the host group.
+    /// Format:
+    /// `projects/{project_number}/locations/{location_id}/hostGroups/{host_group_id}`.
+    pub name: std::string::String,
+
+    /// Required. Type of the host group.
+    pub r#type: crate::model::host_group::Type,
+
+    /// Output only. State of the host group.
+    pub state: crate::model::host_group::State,
+
+    /// Output only. Create time of the host group.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Required. The list of hosts associated with the host group.
+    pub hosts: std::vec::Vec<std::string::String>,
+
+    /// Required. The OS type of the host group. It indicates the type of operating
+    /// system used by all of the hosts in the HostGroup. All hosts in a HostGroup
+    /// must be of the same OS type. This can be set only when creating a
+    /// HostGroup.
+    pub os_type: crate::model::OsType,
+
+    /// Optional. Description of the host group.
+    pub description: std::string::String,
+
+    /// Optional. Labels of the host group.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HostGroup {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::HostGroup::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = HostGroup::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::HostGroup::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// use google_cloud_netapp_v1::model::host_group::Type;
+    /// let x0 = HostGroup::new().set_type(Type::IscsiInitiator);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::host_group::Type>>(mut self, v: T) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::HostGroup::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// use google_cloud_netapp_v1::model::host_group::State;
+    /// let x0 = HostGroup::new().set_state(State::Creating);
+    /// let x1 = HostGroup::new().set_state(State::Ready);
+    /// let x2 = HostGroup::new().set_state(State::Updating);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::host_group::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::HostGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// use wkt::Timestamp;
+    /// let x = HostGroup::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::HostGroup::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// use wkt::Timestamp;
+    /// let x = HostGroup::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = HostGroup::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [hosts][crate::model::HostGroup::hosts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = HostGroup::new().set_hosts(["a", "b", "c"]);
+    /// ```
+    pub fn set_hosts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.hosts = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [os_type][crate::model::HostGroup::os_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// use google_cloud_netapp_v1::model::OsType;
+    /// let x0 = HostGroup::new().set_os_type(OsType::Linux);
+    /// let x1 = HostGroup::new().set_os_type(OsType::Windows);
+    /// let x2 = HostGroup::new().set_os_type(OsType::Esxi);
+    /// ```
+    pub fn set_os_type<T: std::convert::Into<crate::model::OsType>>(mut self, v: T) -> Self {
+        self.os_type = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::HostGroup::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = HostGroup::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::HostGroup::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::HostGroup;
+    /// let x = HostGroup::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for HostGroup {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.HostGroup"
+    }
+}
+
+/// Defines additional types related to [HostGroup].
+pub mod host_group {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Types of host group.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Unspecified type for host group.
+        Unspecified,
+        /// iSCSI initiator host group.
+        IscsiInitiator,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::IscsiInitiator => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::IscsiInitiator => std::option::Option::Some("ISCSI_INITIATOR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::IscsiInitiator,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ISCSI_INITIATOR" => Self::IscsiInitiator,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::IscsiInitiator => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.netapp.v1.HostGroup.Type",
+            ))
+        }
+    }
+
+    /// Host group states.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Unspecified state for host group.
+        Unspecified,
+        /// Host group is creating.
+        Creating,
+        /// Host group is ready.
+        Ready,
+        /// Host group is updating.
+        Updating,
+        /// Host group is deleting.
+        Deleting,
+        /// Host group is disabled.
+        Disabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Ready => std::option::Option::Some(2),
+                Self::Updating => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::Disabled => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Ready => std::option::Option::Some("READY"),
+                Self::Updating => std::option::Option::Some("UPDATING"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Ready,
+                3 => Self::Updating,
+                4 => Self::Deleting,
+                5 => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "READY" => Self::Ready,
+                "UPDATING" => Self::Updating,
+                "DELETING" => Self::Deleting,
+                "DISABLED" => Self::Disabled,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Ready => serializer.serialize_i32(2),
+                Self::Updating => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::Disabled => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.netapp.v1.HostGroup.State",
+            ))
+        }
     }
 }
 
@@ -5067,15 +6204,16 @@ impl wkt::message::Message for VerifyKmsConfigResponse {
     }
 }
 
-/// KmsConfig is the customer managed encryption key(CMEK) configuration.
+/// KmsConfig is the customer-managed encryption key(CMEK) configuration.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct KmsConfig {
     /// Identifier. Name of the KmsConfig.
+    /// Format: `projects/{project}/locations/{location}/kmsConfigs/{kms_config}`
     pub name: std::string::String,
 
-    /// Required. Customer managed crypto key resource full name. Format:
-    /// projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{key}.
+    /// Required. Customer-managed crypto key resource full name. Format:
+    /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`
     pub crypto_key_name: std::string::String,
 
     /// Output only. State of the KmsConfig.
@@ -10367,6 +11505,13 @@ pub struct StoragePool {
     /// the storage pool.
     pub hot_tier_size_used_gib: i64,
 
+    /// Optional. Type of the storage pool. This field is used to control whether
+    /// the pool supports `FILE` based volumes only or `UNIFIED` (both `FILE` and
+    /// `BLOCK`) volumes or `UNIFIED_LARGE_CAPACITY` (both `FILE` and `BLOCK`)
+    /// volumes with large capacity. If not specified during creation, it defaults
+    /// to `FILE`.
+    pub r#type: std::option::Option<crate::model::StoragePoolType>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -10836,6 +11981,43 @@ impl StoragePool {
     /// ```
     pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hot_tier_size_used_gib = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::StoragePool::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::StoragePoolType;
+    /// let x0 = StoragePool::new().set_type(StoragePoolType::File);
+    /// let x1 = StoragePool::new().set_type(StoragePoolType::Unified);
+    /// let x2 = StoragePool::new().set_type(StoragePoolType::UnifiedLargeCapacity);
+    /// ```
+    pub fn set_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::StoragePoolType>,
+    {
+        self.r#type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [r#type][crate::model::StoragePool::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::StoragePool;
+    /// use google_cloud_netapp_v1::model::StoragePoolType;
+    /// let x0 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::File));
+    /// let x1 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::Unified));
+    /// let x2 = StoragePool::new().set_or_clear_type(Some(StoragePoolType::UnifiedLargeCapacity));
+    /// let x_none = StoragePool::new().set_or_clear_type(None::<StoragePoolType>);
+    /// ```
+    pub fn set_or_clear_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::StoragePoolType>,
+    {
+        self.r#type = v.map(|x| x.into());
         self
     }
 }
@@ -11716,9 +12898,16 @@ pub struct Volume {
     /// Optional. Throughput of the volume (in MiB/s)
     pub throughput_mibps: f64,
 
+    /// Optional. Cache parameters for the volume.
+    pub cache_parameters: std::option::Option<crate::model::CacheParameters>,
+
     /// Output only. Total hot tier data rounded down to the nearest GiB used by
     /// the Volume. This field is only used for flex Service Level
     pub hot_tier_size_used_gib: i64,
+
+    /// Optional. Block devices for the volume.
+    /// Currently, only one block device is permitted per Volume.
+    pub block_devices: std::vec::Vec<crate::model::BlockDevice>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12418,6 +13607,39 @@ impl Volume {
         self
     }
 
+    /// Sets the value of [cache_parameters][crate::model::Volume::cache_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = Volume::new().set_cache_parameters(CacheParameters::default()/* use setters */);
+    /// ```
+    pub fn set_cache_parameters<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheParameters>,
+    {
+        self.cache_parameters = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_parameters][crate::model::Volume::cache_parameters].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = Volume::new().set_or_clear_cache_parameters(Some(CacheParameters::default()/* use setters */));
+    /// let x = Volume::new().set_or_clear_cache_parameters(None::<CacheParameters>);
+    /// ```
+    pub fn set_or_clear_cache_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheParameters>,
+    {
+        self.cache_parameters = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [hot_tier_size_used_gib][crate::model::Volume::hot_tier_size_used_gib].
     ///
     /// # Example
@@ -12427,6 +13649,28 @@ impl Volume {
     /// ```
     pub fn set_hot_tier_size_used_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
         self.hot_tier_size_used_gib = v.into();
+        self
+    }
+
+    /// Sets the value of [block_devices][crate::model::Volume::block_devices].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::Volume;
+    /// use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = Volume::new()
+    ///     .set_block_devices([
+    ///         BlockDevice::default()/* use setters */,
+    ///         BlockDevice::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_block_devices<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BlockDevice>,
+    {
+        use std::iter::Iterator;
+        self.block_devices = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -12728,7 +13972,7 @@ pub struct SimpleExportPolicyRule {
     pub squash_mode: std::option::Option<crate::model::simple_export_policy_rule::SquashMode>,
 
     /// Optional. An integer representing the anonymous user ID. Range is 0 to
-    /// 4294967295. Required when squash_mode is ROOT_SQUASH or ALL_SQUASH.
+    /// `4294967295`. Required when `squash_mode` is `ROOT_SQUASH` or `ALL_SQUASH`.
     pub anon_uid: std::option::Option<i64>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -13166,9 +14410,9 @@ pub mod simple_export_policy_rule {
     #[allow(unused_imports)]
     use super::*;
 
-    /// SquashMode defines how remote user privileges are restricted when accessing
-    /// an NFS export. It controls how user identities (like root) are mapped to
-    /// anonymous users to limit access and enforce security.
+    /// `SquashMode` defines how remote user privileges are restricted when
+    /// accessing an NFS export. It controls how user identities (like root) are
+    /// mapped to anonymous users to limit access and enforce security.
     ///
     /// # Working with unknown values
     ///
@@ -13186,7 +14430,7 @@ pub mod simple_export_policy_rule {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SquashMode {
-        /// Defaults to NO_ROOT_SQUASH.
+        /// Defaults to `NO_ROOT_SQUASH`.
         Unspecified,
         /// The root user (UID 0) retains full access. Other users are
         /// unaffected.
@@ -15040,6 +16284,1094 @@ pub mod hybrid_replication_parameters {
     }
 }
 
+/// Cache Parameters for the volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CacheParameters {
+    /// Required. Name of the origin volume for the cache volume.
+    pub peer_volume_name: std::string::String,
+
+    /// Required. Name of the origin volume's ONTAP cluster.
+    pub peer_cluster_name: std::string::String,
+
+    /// Required. Name of the origin volume's SVM.
+    pub peer_svm_name: std::string::String,
+
+    /// Required. List of IC LIF addresses of the origin volume's ONTAP cluster.
+    pub peer_ip_addresses: std::vec::Vec<std::string::String>,
+
+    /// Optional. Indicates whether the cache volume has global file lock enabled.
+    pub enable_global_file_lock: std::option::Option<bool>,
+
+    /// Optional. Configuration of the cache volume.
+    pub cache_config: std::option::Option<crate::model::CacheConfig>,
+
+    /// Output only. State of the cache volume indicating the peering status.
+    pub cache_state: crate::model::cache_parameters::CacheState,
+
+    /// Output only. Copy-paste-able commands to be used on user's ONTAP to accept
+    /// peering requests.
+    pub command: std::string::String,
+
+    /// Optional. Expiration time for the peering command to be executed on user's
+    /// ONTAP.
+    pub peering_command_expiry_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Temporary passphrase generated to accept cluster peering
+    /// command.
+    pub passphrase: std::string::String,
+
+    /// Output only. Detailed description of the current cache state.
+    pub state_details: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CacheParameters {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [peer_volume_name][crate::model::CacheParameters::peer_volume_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_peer_volume_name("example");
+    /// ```
+    pub fn set_peer_volume_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_volume_name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_cluster_name][crate::model::CacheParameters::peer_cluster_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_peer_cluster_name("example");
+    /// ```
+    pub fn set_peer_cluster_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.peer_cluster_name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_svm_name][crate::model::CacheParameters::peer_svm_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_peer_svm_name("example");
+    /// ```
+    pub fn set_peer_svm_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.peer_svm_name = v.into();
+        self
+    }
+
+    /// Sets the value of [peer_ip_addresses][crate::model::CacheParameters::peer_ip_addresses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_peer_ip_addresses(["a", "b", "c"]);
+    /// ```
+    pub fn set_peer_ip_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.peer_ip_addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [enable_global_file_lock][crate::model::CacheParameters::enable_global_file_lock].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_enable_global_file_lock(true);
+    /// ```
+    pub fn set_enable_global_file_lock<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_global_file_lock = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_global_file_lock][crate::model::CacheParameters::enable_global_file_lock].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_or_clear_enable_global_file_lock(Some(false));
+    /// let x = CacheParameters::new().set_or_clear_enable_global_file_lock(None::<bool>);
+    /// ```
+    pub fn set_or_clear_enable_global_file_lock<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_global_file_lock = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_config][crate::model::CacheParameters::cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheParameters::new().set_cache_config(CacheConfig::default()/* use setters */);
+    /// ```
+    pub fn set_cache_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheConfig>,
+    {
+        self.cache_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_config][crate::model::CacheParameters::cache_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheParameters::new().set_or_clear_cache_config(Some(CacheConfig::default()/* use setters */));
+    /// let x = CacheParameters::new().set_or_clear_cache_config(None::<CacheConfig>);
+    /// ```
+    pub fn set_or_clear_cache_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CacheConfig>,
+    {
+        self.cache_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_state][crate::model::CacheParameters::cache_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// use google_cloud_netapp_v1::model::cache_parameters::CacheState;
+    /// let x0 = CacheParameters::new().set_cache_state(CacheState::PendingClusterPeering);
+    /// let x1 = CacheParameters::new().set_cache_state(CacheState::PendingSvmPeering);
+    /// let x2 = CacheParameters::new().set_cache_state(CacheState::Peered);
+    /// ```
+    pub fn set_cache_state<T: std::convert::Into<crate::model::cache_parameters::CacheState>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cache_state = v.into();
+        self
+    }
+
+    /// Sets the value of [command][crate::model::CacheParameters::command].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_command("example");
+    /// ```
+    pub fn set_command<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.command = v.into();
+        self
+    }
+
+    /// Sets the value of [peering_command_expiry_time][crate::model::CacheParameters::peering_command_expiry_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// use wkt::Timestamp;
+    /// let x = CacheParameters::new().set_peering_command_expiry_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_peering_command_expiry_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.peering_command_expiry_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [peering_command_expiry_time][crate::model::CacheParameters::peering_command_expiry_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// use wkt::Timestamp;
+    /// let x = CacheParameters::new().set_or_clear_peering_command_expiry_time(Some(Timestamp::default()/* use setters */));
+    /// let x = CacheParameters::new().set_or_clear_peering_command_expiry_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_peering_command_expiry_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.peering_command_expiry_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [passphrase][crate::model::CacheParameters::passphrase].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_passphrase("example");
+    /// ```
+    pub fn set_passphrase<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.passphrase = v.into();
+        self
+    }
+
+    /// Sets the value of [state_details][crate::model::CacheParameters::state_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheParameters;
+    /// let x = CacheParameters::new().set_state_details("example");
+    /// ```
+    pub fn set_state_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.state_details = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CacheParameters {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.CacheParameters"
+    }
+}
+
+/// Defines additional types related to [CacheParameters].
+pub mod cache_parameters {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the cache volume indicating the peering status.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CacheState {
+        /// Default unspecified state.
+        Unspecified,
+        /// State indicating waiting for cluster peering to be established.
+        PendingClusterPeering,
+        /// State indicating waiting for SVM peering to be established.
+        PendingSvmPeering,
+        /// State indicating successful establishment of peering with origin
+        /// volumes's ONTAP cluster.
+        Peered,
+        /// Terminal state wherein peering with origin volume's ONTAP cluster
+        /// has failed.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CacheState::value] or
+        /// [CacheState::name].
+        UnknownValue(cache_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cache_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CacheState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PendingClusterPeering => std::option::Option::Some(1),
+                Self::PendingSvmPeering => std::option::Option::Some(2),
+                Self::Peered => std::option::Option::Some(3),
+                Self::Error => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CACHE_STATE_UNSPECIFIED"),
+                Self::PendingClusterPeering => std::option::Option::Some("PENDING_CLUSTER_PEERING"),
+                Self::PendingSvmPeering => std::option::Option::Some("PENDING_SVM_PEERING"),
+                Self::Peered => std::option::Option::Some("PEERED"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CacheState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CacheState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CacheState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PendingClusterPeering,
+                2 => Self::PendingSvmPeering,
+                3 => Self::Peered,
+                4 => Self::Error,
+                _ => Self::UnknownValue(cache_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CacheState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CACHE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "PENDING_CLUSTER_PEERING" => Self::PendingClusterPeering,
+                "PENDING_SVM_PEERING" => Self::PendingSvmPeering,
+                "PEERED" => Self::Peered,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(cache_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CacheState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PendingClusterPeering => serializer.serialize_i32(1),
+                Self::PendingSvmPeering => serializer.serialize_i32(2),
+                Self::Peered => serializer.serialize_i32(3),
+                Self::Error => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CacheState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CacheState>::new(
+                ".google.cloud.netapp.v1.CacheParameters.CacheState",
+            ))
+        }
+    }
+}
+
+/// Configuration of the cache volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CacheConfig {
+    /// Optional. Pre-populate cache volume with data from the origin volume.
+    pub cache_pre_populate: std::option::Option<crate::model::CachePrePopulate>,
+
+    /// Optional. Flag indicating whether writeback is enabled for the FlexCache
+    /// volume.
+    pub writeback_enabled: std::option::Option<bool>,
+
+    /// Optional. Flag indicating whether a CIFS change notification is enabled for
+    /// the FlexCache volume.
+    pub cifs_change_notify_enabled: std::option::Option<bool>,
+
+    /// Output only. State of the prepopulation job indicating how the
+    /// prepopulation is progressing.
+    pub cache_pre_populate_state: crate::model::cache_config::CachePrePopulateState,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CacheConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cache_pre_populate][crate::model::CacheConfig::cache_pre_populate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CacheConfig::new().set_cache_pre_populate(CachePrePopulate::default()/* use setters */);
+    /// ```
+    pub fn set_cache_pre_populate<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CachePrePopulate>,
+    {
+        self.cache_pre_populate = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cache_pre_populate][crate::model::CacheConfig::cache_pre_populate].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CacheConfig::new().set_or_clear_cache_pre_populate(Some(CachePrePopulate::default()/* use setters */));
+    /// let x = CacheConfig::new().set_or_clear_cache_pre_populate(None::<CachePrePopulate>);
+    /// ```
+    pub fn set_or_clear_cache_pre_populate<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CachePrePopulate>,
+    {
+        self.cache_pre_populate = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [writeback_enabled][crate::model::CacheConfig::writeback_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheConfig::new().set_writeback_enabled(true);
+    /// ```
+    pub fn set_writeback_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.writeback_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [writeback_enabled][crate::model::CacheConfig::writeback_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheConfig::new().set_or_clear_writeback_enabled(Some(false));
+    /// let x = CacheConfig::new().set_or_clear_writeback_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_writeback_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.writeback_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cifs_change_notify_enabled][crate::model::CacheConfig::cifs_change_notify_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheConfig::new().set_cifs_change_notify_enabled(true);
+    /// ```
+    pub fn set_cifs_change_notify_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.cifs_change_notify_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cifs_change_notify_enabled][crate::model::CacheConfig::cifs_change_notify_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// let x = CacheConfig::new().set_or_clear_cifs_change_notify_enabled(Some(false));
+    /// let x = CacheConfig::new().set_or_clear_cifs_change_notify_enabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_cifs_change_notify_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.cifs_change_notify_enabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cache_pre_populate_state][crate::model::CacheConfig::cache_pre_populate_state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CacheConfig;
+    /// use google_cloud_netapp_v1::model::cache_config::CachePrePopulateState;
+    /// let x0 = CacheConfig::new().set_cache_pre_populate_state(CachePrePopulateState::NotNeeded);
+    /// let x1 = CacheConfig::new().set_cache_pre_populate_state(CachePrePopulateState::InProgress);
+    /// let x2 = CacheConfig::new().set_cache_pre_populate_state(CachePrePopulateState::Complete);
+    /// ```
+    pub fn set_cache_pre_populate_state<
+        T: std::convert::Into<crate::model::cache_config::CachePrePopulateState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cache_pre_populate_state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CacheConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.CacheConfig"
+    }
+}
+
+/// Defines additional types related to [CacheConfig].
+pub mod cache_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State of the prepopulation job indicating how the prepopulation is
+    /// progressing.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CachePrePopulateState {
+        /// Default unspecified state.
+        Unspecified,
+        /// State representing when the most recent create or update request did not
+        /// require a prepopulation job.
+        NotNeeded,
+        /// State representing when the most recent update request requested a
+        /// prepopulation job but it has not yet completed.
+        InProgress,
+        /// State representing when the most recent update request requested a
+        /// prepopulation job and it has completed successfully.
+        Complete,
+        /// State representing when the most recent update request requested a
+        /// prepopulation job but the prepopulate job failed.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CachePrePopulateState::value] or
+        /// [CachePrePopulateState::name].
+        UnknownValue(cache_pre_populate_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cache_pre_populate_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CachePrePopulateState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotNeeded => std::option::Option::Some(1),
+                Self::InProgress => std::option::Option::Some(2),
+                Self::Complete => std::option::Option::Some(3),
+                Self::Error => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CACHE_PRE_POPULATE_STATE_UNSPECIFIED")
+                }
+                Self::NotNeeded => std::option::Option::Some("NOT_NEEDED"),
+                Self::InProgress => std::option::Option::Some("IN_PROGRESS"),
+                Self::Complete => std::option::Option::Some("COMPLETE"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CachePrePopulateState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CachePrePopulateState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CachePrePopulateState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotNeeded,
+                2 => Self::InProgress,
+                3 => Self::Complete,
+                4 => Self::Error,
+                _ => Self::UnknownValue(cache_pre_populate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CachePrePopulateState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CACHE_PRE_POPULATE_STATE_UNSPECIFIED" => Self::Unspecified,
+                "NOT_NEEDED" => Self::NotNeeded,
+                "IN_PROGRESS" => Self::InProgress,
+                "COMPLETE" => Self::Complete,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(cache_pre_populate_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CachePrePopulateState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotNeeded => serializer.serialize_i32(1),
+                Self::InProgress => serializer.serialize_i32(2),
+                Self::Complete => serializer.serialize_i32(3),
+                Self::Error => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CachePrePopulateState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CachePrePopulateState>::new(
+                ".google.cloud.netapp.v1.CacheConfig.CachePrePopulateState",
+            ))
+        }
+    }
+}
+
+/// Pre-populate cache volume with data from the origin volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CachePrePopulate {
+    /// Optional. List of directory-paths to be pre-populated for the FlexCache
+    /// volume.
+    pub path_list: std::vec::Vec<std::string::String>,
+
+    /// Optional. List of directory-paths to be excluded for pre-population for the
+    /// FlexCache volume.
+    pub exclude_path_list: std::vec::Vec<std::string::String>,
+
+    /// Optional. Flag indicating whether the directories listed with the
+    /// `path_list` need to be recursively pre-populated.
+    pub recursion: std::option::Option<bool>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CachePrePopulate {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [path_list][crate::model::CachePrePopulate::path_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CachePrePopulate::new().set_path_list(["a", "b", "c"]);
+    /// ```
+    pub fn set_path_list<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.path_list = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [exclude_path_list][crate::model::CachePrePopulate::exclude_path_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CachePrePopulate::new().set_exclude_path_list(["a", "b", "c"]);
+    /// ```
+    pub fn set_exclude_path_list<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.exclude_path_list = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [recursion][crate::model::CachePrePopulate::recursion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CachePrePopulate::new().set_recursion(true);
+    /// ```
+    pub fn set_recursion<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.recursion = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [recursion][crate::model::CachePrePopulate::recursion].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::CachePrePopulate;
+    /// let x = CachePrePopulate::new().set_or_clear_recursion(Some(false));
+    /// let x = CachePrePopulate::new().set_or_clear_recursion(None::<bool>);
+    /// ```
+    pub fn set_or_clear_recursion<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.recursion = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CachePrePopulate {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.CachePrePopulate"
+    }
+}
+
+/// Block device represents the device(s) which are stored in the block volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BlockDevice {
+    /// Optional. User-defined name for the block device, unique within the volume.
+    /// In case no user input is provided, name will be auto-generated in the
+    /// backend. The name must meet the following requirements:
+    ///
+    /// * Be between 1 and 255 characters long.
+    /// * Contain only uppercase or lowercase letters (A-Z, a-z), numbers (0-9),
+    ///   and the following special characters: "-", "_", "}", "{", ".".
+    /// * Spaces are not allowed.
+    pub name: std::option::Option<std::string::String>,
+
+    /// Optional. A list of host groups that identify hosts that can mount the
+    /// block volume. Format:
+    /// `projects/{project_id}/locations/{location}/hostGroups/{host_group_id}`
+    /// This field can be updated after the block device is created.
+    pub host_groups: std::vec::Vec<std::string::String>,
+
+    /// Output only. Device identifier of the block volume. This represents
+    /// `lun_serial_number` for iSCSI volumes.
+    pub identifier: std::string::String,
+
+    /// Optional. The size of the block device in GiB.
+    /// Any value provided for the `size_gib` field during volume creation is
+    /// ignored. The block device's size is system-managed and will be set to match
+    /// the parent Volume's `capacity_gib`.
+    pub size_gib: std::option::Option<i64>,
+
+    /// Required. Immutable. The OS type of the volume.
+    /// This field can't be changed after the block device is created.
+    pub os_type: crate::model::OsType,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BlockDevice {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::BlockDevice::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_name("example");
+    /// ```
+    pub fn set_name<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [name][crate::model::BlockDevice::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_or_clear_name(Some("example"));
+    /// let x = BlockDevice::new().set_or_clear_name(None::<String>);
+    /// ```
+    pub fn set_or_clear_name<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.name = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [host_groups][crate::model::BlockDevice::host_groups].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_host_groups(["a", "b", "c"]);
+    /// ```
+    pub fn set_host_groups<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.host_groups = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [identifier][crate::model::BlockDevice::identifier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_identifier("example");
+    /// ```
+    pub fn set_identifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.identifier = v.into();
+        self
+    }
+
+    /// Sets the value of [size_gib][crate::model::BlockDevice::size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_size_gib(42);
+    /// ```
+    pub fn set_size_gib<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gib = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [size_gib][crate::model::BlockDevice::size_gib].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// let x = BlockDevice::new().set_or_clear_size_gib(Some(42));
+    /// let x = BlockDevice::new().set_or_clear_size_gib(None::<i32>);
+    /// ```
+    pub fn set_or_clear_size_gib<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<i64>,
+    {
+        self.size_gib = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [os_type][crate::model::BlockDevice::os_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::BlockDevice;
+    /// use google_cloud_netapp_v1::model::OsType;
+    /// let x0 = BlockDevice::new().set_os_type(OsType::Linux);
+    /// let x1 = BlockDevice::new().set_os_type(OsType::Windows);
+    /// let x2 = BlockDevice::new().set_os_type(OsType::Esxi);
+    /// ```
+    pub fn set_os_type<T: std::convert::Into<crate::model::OsType>>(mut self, v: T) -> Self {
+        self.os_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BlockDevice {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.BlockDevice"
+    }
+}
+
+/// RestoreBackupFilesRequest restores files from a backup to a volume.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreBackupFilesRequest {
+    /// Required. The volume resource name, in the format
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
+    pub name: std::string::String,
+
+    /// Required. The backup resource name, in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
+    pub backup: std::string::String,
+
+    /// Required. List of files to be restored, specified by their absolute path in
+    /// the source volume.
+    pub file_list: std::vec::Vec<std::string::String>,
+
+    /// Optional. Absolute directory path in the destination volume. This is
+    /// required if the `file_list` is provided.
+    pub restore_destination_path: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreBackupFilesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::RestoreBackupFilesRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
+    /// let x = RestoreBackupFilesRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [backup][crate::model::RestoreBackupFilesRequest::backup].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
+    /// let x = RestoreBackupFilesRequest::new().set_backup("example");
+    /// ```
+    pub fn set_backup<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup = v.into();
+        self
+    }
+
+    /// Sets the value of [file_list][crate::model::RestoreBackupFilesRequest::file_list].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
+    /// let x = RestoreBackupFilesRequest::new().set_file_list(["a", "b", "c"]);
+    /// ```
+    pub fn set_file_list<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.file_list = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [restore_destination_path][crate::model::RestoreBackupFilesRequest::restore_destination_path].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_netapp_v1::model::RestoreBackupFilesRequest;
+    /// let x = RestoreBackupFilesRequest::new().set_restore_destination_path("example");
+    /// ```
+    pub fn set_restore_destination_path<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.restore_destination_path = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for RestoreBackupFilesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.RestoreBackupFilesRequest"
+    }
+}
+
+/// RestoreBackupFilesResponse is the result of RestoreBackupFilesRequest.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct RestoreBackupFilesResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl RestoreBackupFilesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for RestoreBackupFilesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.netapp.v1.RestoreBackupFilesResponse"
+    }
+}
+
 /// The service level of a storage pool and its volumes.
 ///
 /// # Working with unknown values
@@ -15575,6 +17907,145 @@ impl<'de> serde::de::Deserialize<'de> for DirectoryServiceType {
     }
 }
 
+/// Type of storage pool
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum StoragePoolType {
+    /// Storage pool type is not specified.
+    Unspecified,
+    /// Storage pool type is file.
+    File,
+    /// Storage pool type is unified.
+    Unified,
+    /// Storage pool type is unified large capacity.
+    UnifiedLargeCapacity,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [StoragePoolType::value] or
+    /// [StoragePoolType::name].
+    UnknownValue(storage_pool_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod storage_pool_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl StoragePoolType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::File => std::option::Option::Some(1),
+            Self::Unified => std::option::Option::Some(2),
+            Self::UnifiedLargeCapacity => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("STORAGE_POOL_TYPE_UNSPECIFIED"),
+            Self::File => std::option::Option::Some("FILE"),
+            Self::Unified => std::option::Option::Some("UNIFIED"),
+            Self::UnifiedLargeCapacity => std::option::Option::Some("UNIFIED_LARGE_CAPACITY"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for StoragePoolType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for StoragePoolType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for StoragePoolType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::File,
+            2 => Self::Unified,
+            3 => Self::UnifiedLargeCapacity,
+            _ => Self::UnknownValue(storage_pool_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for StoragePoolType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "STORAGE_POOL_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "FILE" => Self::File,
+            "UNIFIED" => Self::Unified,
+            "UNIFIED_LARGE_CAPACITY" => Self::UnifiedLargeCapacity,
+            _ => Self::UnknownValue(storage_pool_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for StoragePoolType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::File => serializer.serialize_i32(1),
+            Self::Unified => serializer.serialize_i32(2),
+            Self::UnifiedLargeCapacity => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for StoragePoolType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<StoragePoolType>::new(
+            ".google.cloud.netapp.v1.StoragePoolType",
+        ))
+    }
+}
+
 /// Schedule for Hybrid Replication.
 /// New enum values may be added in future to support different frequency of
 /// replication.
@@ -15852,6 +18323,145 @@ impl<'de> serde::de::Deserialize<'de> for QosType {
     }
 }
 
+/// OS types for the host group
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum OsType {
+    /// Unspecified OS Type
+    Unspecified,
+    /// OS Type is Linux
+    Linux,
+    /// OS Type is Windows
+    Windows,
+    /// OS Type is VMware ESXi
+    Esxi,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [OsType::value] or
+    /// [OsType::name].
+    UnknownValue(os_type::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod os_type {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl OsType {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Linux => std::option::Option::Some(1),
+            Self::Windows => std::option::Option::Some(2),
+            Self::Esxi => std::option::Option::Some(3),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("OS_TYPE_UNSPECIFIED"),
+            Self::Linux => std::option::Option::Some("LINUX"),
+            Self::Windows => std::option::Option::Some("WINDOWS"),
+            Self::Esxi => std::option::Option::Some("ESXI"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for OsType {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for OsType {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for OsType {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Linux,
+            2 => Self::Windows,
+            3 => Self::Esxi,
+            _ => Self::UnknownValue(os_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for OsType {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "OS_TYPE_UNSPECIFIED" => Self::Unspecified,
+            "LINUX" => Self::Linux,
+            "WINDOWS" => Self::Windows,
+            "ESXI" => Self::Esxi,
+            _ => Self::UnknownValue(os_type::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for OsType {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Linux => serializer.serialize_i32(1),
+            Self::Windows => serializer.serialize_i32(2),
+            Self::Esxi => serializer.serialize_i32(3),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for OsType {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<OsType>::new(
+            ".google.cloud.netapp.v1.OsType",
+        ))
+    }
+}
+
 /// Protocols is an enum of all the supported network protocols for a volume.
 ///
 /// # Working with unknown values
@@ -15878,6 +18488,8 @@ pub enum Protocols {
     Nfsv4,
     /// SMB protocol
     Smb,
+    /// ISCSI protocol
+    Iscsi,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [Protocols::value] or
@@ -15904,6 +18516,7 @@ impl Protocols {
             Self::Nfsv3 => std::option::Option::Some(1),
             Self::Nfsv4 => std::option::Option::Some(2),
             Self::Smb => std::option::Option::Some(3),
+            Self::Iscsi => std::option::Option::Some(4),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -15918,6 +18531,7 @@ impl Protocols {
             Self::Nfsv3 => std::option::Option::Some("NFSV3"),
             Self::Nfsv4 => std::option::Option::Some("NFSV4"),
             Self::Smb => std::option::Option::Some("SMB"),
+            Self::Iscsi => std::option::Option::Some("ISCSI"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -15943,6 +18557,7 @@ impl std::convert::From<i32> for Protocols {
             1 => Self::Nfsv3,
             2 => Self::Nfsv4,
             3 => Self::Smb,
+            4 => Self::Iscsi,
             _ => Self::UnknownValue(protocols::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -15958,6 +18573,7 @@ impl std::convert::From<&str> for Protocols {
             "NFSV3" => Self::Nfsv3,
             "NFSV4" => Self::Nfsv4,
             "SMB" => Self::Smb,
+            "ISCSI" => Self::Iscsi,
             _ => Self::UnknownValue(protocols::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -15975,6 +18591,7 @@ impl serde::ser::Serialize for Protocols {
             Self::Nfsv3 => serializer.serialize_i32(1),
             Self::Nfsv4 => serializer.serialize_i32(2),
             Self::Smb => serializer.serialize_i32(3),
+            Self::Iscsi => serializer.serialize_i32(4),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

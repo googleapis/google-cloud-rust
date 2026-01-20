@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20251230" revision of the API.
+//! This client library was generated from the "20260113" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -112,6 +112,7 @@
 //! * [RegionZones](client/struct.RegionZones.html)
 //! * [Regions](client/struct.Regions.html)
 //! * [ReservationBlocks](client/struct.ReservationBlocks.html)
+//! * [ReservationSlots](client/struct.ReservationSlots.html)
 //! * [ReservationSubBlocks](client/struct.ReservationSubBlocks.html)
 //! * [Reservations](client/struct.Reservations.html)
 //! * [ResourcePolicies](client/struct.ResourcePolicies.html)
@@ -252,6 +253,7 @@ pub(crate) mod transport;
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -367,6 +369,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",

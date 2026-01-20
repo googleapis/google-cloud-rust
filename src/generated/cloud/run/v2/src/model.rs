@@ -1948,6 +1948,59 @@ pub mod condition {
     }
 }
 
+/// ContainerStatus holds the information of container name and image digest
+/// value.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ContainerStatus {
+    /// The name of the container, if specified.
+    pub name: std::string::String,
+
+    /// ImageDigest holds the resolved digest for the image specified and resolved
+    /// during the creation of Revision. This field holds the digest value
+    /// regardless of whether a tag or digest was originally specified in the
+    /// Container object.
+    pub image_digest: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ContainerStatus {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ContainerStatus::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ContainerStatus;
+    /// let x = ContainerStatus::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [image_digest][crate::model::ContainerStatus::image_digest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ContainerStatus;
+    /// let x = ContainerStatus::new().set_image_digest("example");
+    /// ```
+    pub fn set_image_digest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_digest = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ContainerStatus {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.ContainerStatus"
+    }
+}
+
 /// Request message for obtaining a Execution by its full name.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -3090,6 +3143,1416 @@ impl ExecutionTemplate {
 impl wkt::message::Message for ExecutionTemplate {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.run.v2.ExecutionTemplate"
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateInstanceRequest {
+    pub parent: std::string::String,
+
+    pub instance: std::option::Option<crate::model::Instance>,
+
+    /// Required. The unique identifier for the Instance. It must begin with
+    /// letter, and cannot end with hyphen; must contain fewer than 50 characters.
+    /// The name of the instance becomes {parent}/instances/{instance_id}.
+    pub instance_id: std::string::String,
+
+    /// Optional. Indicates that the request should be validated and default values
+    /// populated, without persisting the request or creating any resources.
+    pub validate_only: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateInstanceRequest;
+    /// use google_cloud_run_v2::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_instance(Instance::default()/* use setters */);
+    /// ```
+    pub fn set_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [instance][crate::model::CreateInstanceRequest::instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateInstanceRequest;
+    /// use google_cloud_run_v2::model::Instance;
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(Some(Instance::default()/* use setters */));
+    /// let x = CreateInstanceRequest::new().set_or_clear_instance(None::<Instance>);
+    /// ```
+    pub fn set_or_clear_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Instance>,
+    {
+        self.instance = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [instance_id][crate::model::CreateInstanceRequest::instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_instance_id("example");
+    /// ```
+    pub fn set_instance_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.instance_id = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::CreateInstanceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::CreateInstanceRequest;
+    /// let x = CreateInstanceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.CreateInstanceRequest"
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetInstanceRequest {
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::GetInstanceRequest;
+    /// let x = GetInstanceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.GetInstanceRequest"
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteInstanceRequest {
+    pub name: std::string::String,
+
+    /// Optional. Indicates that the request should be validated without actually
+    /// deleting any resources.
+    pub validate_only: bool,
+
+    /// Optional. A system-generated fingerprint for this version of the
+    /// resource. May be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::DeleteInstanceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteInstanceRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::DeleteInstanceRequest;
+    /// let x = DeleteInstanceRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.DeleteInstanceRequest"
+    }
+}
+
+/// Request message for retrieving a list of Instances.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInstancesRequest {
+    /// Required. The location and project to list resources on.
+    /// Format: projects/{project}/locations/{location}, where {project} can be
+    /// project id or number.
+    pub parent: std::string::String,
+
+    /// Optional. Maximum number of Instances to return in this call.
+    pub page_size: i32,
+
+    /// Optional. A page token received from a previous call to ListInstances.
+    /// All other parameters must match.
+    pub page_token: std::string::String,
+
+    /// Optional. If true, returns deleted (but unexpired) resources along with
+    /// active ones.
+    pub show_deleted: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInstancesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [show_deleted][crate::model::ListInstancesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesRequest;
+    /// let x = ListInstancesRequest::new().set_show_deleted(true);
+    /// ```
+    pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.show_deleted = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInstancesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.ListInstancesRequest"
+    }
+}
+
+/// Response message containing a list of Instances.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListInstancesResponse {
+    /// The resulting list of Instances.
+    pub instances: std::vec::Vec<crate::model::Instance>,
+
+    /// A token indicating there are more items than page_size. Use it in the next
+    /// ListInstances request to continue.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListInstancesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [instances][crate::model::ListInstancesResponse::instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesResponse;
+    /// use google_cloud_run_v2::model::Instance;
+    /// let x = ListInstancesResponse::new()
+    ///     .set_instances([
+    ///         Instance::default()/* use setters */,
+    ///         Instance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Instance>,
+    {
+        use std::iter::Iterator;
+        self.instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::ListInstancesResponse;
+    /// let x = ListInstancesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListInstancesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.ListInstancesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListInstancesResponse {
+    type PageItem = crate::model::Instance;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.instances
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for deleting an Instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StopInstanceRequest {
+    /// Required. The name of the Instance to stop.
+    /// Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}`,
+    /// where `{project}` can be project id or number.
+    pub name: std::string::String,
+
+    /// Optional. Indicates that the request should be validated without actually
+    /// stopping any resources.
+    pub validate_only: bool,
+
+    /// Optional. A system-generated fingerprint for this version of the resource.
+    /// This may be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StopInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StopInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StopInstanceRequest;
+    /// let x = StopInstanceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::StopInstanceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StopInstanceRequest;
+    /// let x = StopInstanceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::StopInstanceRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StopInstanceRequest;
+    /// let x = StopInstanceRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StopInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.StopInstanceRequest"
+    }
+}
+
+/// Request message for starting an Instance.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StartInstanceRequest {
+    /// Required. The name of the Instance to stop.
+    /// Format:
+    /// `projects/{project}/locations/{location}/instances/{instance}`,
+    /// where `{project}` can be project id or number.
+    pub name: std::string::String,
+
+    /// Optional. Indicates that the request should be validated without actually
+    /// stopping any resources.
+    pub validate_only: bool,
+
+    /// Optional. A system-generated fingerprint for this version of the resource.
+    /// This may be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StartInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::StartInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StartInstanceRequest;
+    /// let x = StartInstanceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [validate_only][crate::model::StartInstanceRequest::validate_only].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StartInstanceRequest;
+    /// let x = StartInstanceRequest::new().set_validate_only(true);
+    /// ```
+    pub fn set_validate_only<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.validate_only = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::StartInstanceRequest::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::StartInstanceRequest;
+    /// let x = StartInstanceRequest::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for StartInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.StartInstanceRequest"
+    }
+}
+
+/// A Cloud Run Instance represents a single group of containers running in a
+/// region.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Instance {
+    /// The fully qualified name of this Instance. In CreateInstanceRequest, this
+    /// field is ignored, and instead composed from CreateInstanceRequest.parent
+    /// and CreateInstanceRequest.instance_id.
+    ///
+    /// Format:
+    /// projects/{project}/locations/{location}/instances/{instance_id}
+    pub name: std::string::String,
+
+    /// User-provided description of the Instance. This field currently has a
+    /// 512-character limit.
+    pub description: std::string::String,
+
+    /// Output only. Server assigned unique identifier for the trigger. The value
+    /// is a UUID4 string and guaranteed to remain unchanged until the resource is
+    /// deleted.
+    pub uid: std::string::String,
+
+    /// Output only. A number that monotonically increases every time the user
+    /// modifies the desired state.
+    /// Please note that unlike v1, this is an int64 value. As with most Google
+    /// APIs, its JSON representation will be a `string` instead of an `integer`.
+    pub generation: i64,
+
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Output only. The creation time.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The last-modified time.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The deletion time.
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. For a deleted resource, the time after which it will be
+    /// permamently deleted.
+    pub expire_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Email address of the authenticated creator.
+    pub creator: std::string::String,
+
+    /// Output only. Email address of the last authenticated modifier.
+    pub last_modifier: std::string::String,
+
+    /// Arbitrary identifier for the API client.
+    pub client: std::string::String,
+
+    /// Arbitrary version identifier for the API client.
+    pub client_version: std::string::String,
+
+    /// The launch stage as defined by [Google Cloud Platform
+    /// Launch Stages](https://cloud.google.com/terms/launch-stages).
+    /// Cloud Run supports `ALPHA`, `BETA`, and `GA`. If no value is specified, GA
+    /// is assumed.
+    /// Set the launch stage to a preview stage on input to allow use of preview
+    /// features in that stage. On read (or output), describes whether the
+    /// resource uses preview features.
+    pub launch_stage: api::model::LaunchStage,
+
+    /// Settings for the Binary Authorization feature.
+    pub binary_authorization: std::option::Option<crate::model::BinaryAuthorization>,
+
+    /// Optional. VPC Access configuration to use for this Revision. For more
+    /// information, visit
+    /// <https://cloud.google.com/run/docs/configuring/connecting-vpc>.
+    pub vpc_access: std::option::Option<crate::model::VpcAccess>,
+
+    pub service_account: std::string::String,
+
+    /// Required. Holds the single container that defines the unit of execution for
+    /// this Instance.
+    pub containers: std::vec::Vec<crate::model::Container>,
+
+    /// A list of Volumes to make available to containers.
+    pub volumes: std::vec::Vec<crate::model::Volume>,
+
+    /// A reference to a customer managed encryption key (CMEK) to use to encrypt
+    /// this container image. For more information, go to
+    /// <https://cloud.google.com/run/docs/securing/using-cmek>
+    pub encryption_key: std::string::String,
+
+    /// The action to take if the encryption key is revoked.
+    pub encryption_key_revocation_action: crate::model::EncryptionKeyRevocationAction,
+
+    /// If encryption_key_revocation_action is SHUTDOWN, the duration before
+    /// shutting down all instances. The minimum increment is 1 hour.
+    pub encryption_key_shutdown_duration: std::option::Option<wkt::Duration>,
+
+    /// Optional. The node selector for the instance.
+    pub node_selector: std::option::Option<crate::model::NodeSelector>,
+
+    /// Optional. True if GPU zonal redundancy is disabled on this instance.
+    pub gpu_zonal_redundancy_disabled: std::option::Option<bool>,
+
+    /// Optional. Provides the ingress settings for this Instance. On output,
+    /// returns the currently observed ingress settings, or
+    /// INGRESS_TRAFFIC_UNSPECIFIED if no revision is active.
+    pub ingress: crate::model::IngressTraffic,
+
+    /// Optional. Disables IAM permission check for run.routes.invoke for callers
+    /// of this Instance. For more information, visit
+    /// <https://cloud.google.com/run/docs/securing/managing-access#invoker_check>.
+    pub invoker_iam_disabled: bool,
+
+    /// Optional. IAP settings on the Instance.
+    pub iap_enabled: bool,
+
+    /// Output only. The generation of this Instance currently serving traffic. See
+    /// comments in `reconciling` for additional information on reconciliation
+    /// process in Cloud Run. Please note that unlike v1, this is an int64 value.
+    /// As with most Google APIs, its JSON representation will be a `string`
+    /// instead of an `integer`.
+    pub observed_generation: i64,
+
+    /// Output only. The Google Console URI to obtain logs for the Instance.
+    pub log_uri: std::string::String,
+
+    /// Output only. The Condition of this Instance, containing its readiness
+    /// status, and detailed error information in case it did not reach a serving
+    /// state. See comments in `reconciling` for additional information on
+    /// reconciliation process in Cloud Run.
+    pub terminal_condition: std::option::Option<crate::model::Condition>,
+
+    /// Output only. The Conditions of all other associated sub-resources. They
+    /// contain additional diagnostics information in case the Instance does not
+    /// reach its Serving state. See comments in `reconciling` for additional
+    /// information on reconciliation process in Cloud Run.
+    pub conditions: std::vec::Vec<crate::model::Condition>,
+
+    /// Output only. Status information for each of the specified containers. The
+    /// status includes the resolved digest for specified images.
+    pub container_statuses: std::vec::Vec<crate::model::ContainerStatus>,
+
+    /// Output only. Reserved for future use.
+    pub satisfies_pzs: bool,
+
+    /// Output only. All URLs serving traffic for this Instance.
+    pub urls: std::vec::Vec<std::string::String>,
+
+    /// Output only. Returns true if the Instance is currently being acted upon by
+    /// the system to bring it into the desired state.
+    ///
+    /// When a new Instance is created, or an existing one is updated, Cloud Run
+    /// will asynchronously perform all necessary steps to bring the Instance to
+    /// the desired serving state. This process is called reconciliation. While
+    /// reconciliation is in process, `observed_generation` will have a transient
+    /// value that might mismatch the intended state.
+    /// Once reconciliation is over (and this field is false), there are two
+    /// possible outcomes: reconciliation succeeded and the serving state matches
+    /// the Instance, or there was an error, and reconciliation failed. This state
+    /// can be found in `terminal_condition.state`.
+    pub reconciling: bool,
+
+    /// Optional. A system-generated fingerprint for this version of the
+    /// resource. May be used to detect modification conflict during updates.
+    pub etag: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Instance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::Instance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::Instance::description].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_description("example");
+    /// ```
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::Instance::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [generation][crate::model::Instance::generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_generation(42);
+    /// ```
+    pub fn set_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.generation = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::Instance::labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [annotations][crate::model::Instance::annotations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_annotations([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_annotations<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotations = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::Instance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::Instance::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::Instance::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::Instance::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [expire_time][crate::model::Instance::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_expire_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [expire_time][crate::model::Instance::expire_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Timestamp;
+    /// let x = Instance::new().set_or_clear_expire_time(Some(Timestamp::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_expire_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_expire_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.expire_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [creator][crate::model::Instance::creator].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_creator("example");
+    /// ```
+    pub fn set_creator<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.creator = v.into();
+        self
+    }
+
+    /// Sets the value of [last_modifier][crate::model::Instance::last_modifier].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_last_modifier("example");
+    /// ```
+    pub fn set_last_modifier<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.last_modifier = v.into();
+        self
+    }
+
+    /// Sets the value of [client][crate::model::Instance::client].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_client("example");
+    /// ```
+    pub fn set_client<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client = v.into();
+        self
+    }
+
+    /// Sets the value of [client_version][crate::model::Instance::client_version].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_client_version("example");
+    /// ```
+    pub fn set_client_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.client_version = v.into();
+        self
+    }
+
+    /// Sets the value of [launch_stage][crate::model::Instance::launch_stage].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use api::model::LaunchStage;
+    /// let x0 = Instance::new().set_launch_stage(LaunchStage::Unimplemented);
+    /// let x1 = Instance::new().set_launch_stage(LaunchStage::Prelaunch);
+    /// let x2 = Instance::new().set_launch_stage(LaunchStage::EarlyAccess);
+    /// ```
+    pub fn set_launch_stage<T: std::convert::Into<api::model::LaunchStage>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.launch_stage = v.into();
+        self
+    }
+
+    /// Sets the value of [binary_authorization][crate::model::Instance::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Instance::new().set_binary_authorization(BinaryAuthorization::default()/* use setters */);
+    /// ```
+    pub fn set_binary_authorization<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [binary_authorization][crate::model::Instance::binary_authorization].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::BinaryAuthorization;
+    /// let x = Instance::new().set_or_clear_binary_authorization(Some(BinaryAuthorization::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_binary_authorization(None::<BinaryAuthorization>);
+    /// ```
+    pub fn set_or_clear_binary_authorization<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::BinaryAuthorization>,
+    {
+        self.binary_authorization = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [vpc_access][crate::model::Instance::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Instance::new().set_vpc_access(VpcAccess::default()/* use setters */);
+    /// ```
+    pub fn set_vpc_access<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcAccess>,
+    {
+        self.vpc_access = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [vpc_access][crate::model::Instance::vpc_access].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::VpcAccess;
+    /// let x = Instance::new().set_or_clear_vpc_access(Some(VpcAccess::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_vpc_access(None::<VpcAccess>);
+    /// ```
+    pub fn set_or_clear_vpc_access<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::VpcAccess>,
+    {
+        self.vpc_access = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::Instance::service_account].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_service_account("example");
+    /// ```
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
+        self
+    }
+
+    /// Sets the value of [containers][crate::model::Instance::containers].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::Container;
+    /// let x = Instance::new()
+    ///     .set_containers([
+    ///         Container::default()/* use setters */,
+    ///         Container::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_containers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Container>,
+    {
+        use std::iter::Iterator;
+        self.containers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [volumes][crate::model::Instance::volumes].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::Volume;
+    /// let x = Instance::new()
+    ///     .set_volumes([
+    ///         Volume::default()/* use setters */,
+    ///         Volume::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_volumes<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Volume>,
+    {
+        use std::iter::Iterator;
+        self.volumes = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [encryption_key][crate::model::Instance::encryption_key].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_encryption_key("example");
+    /// ```
+    pub fn set_encryption_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.encryption_key = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_key_revocation_action][crate::model::Instance::encryption_key_revocation_action].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::EncryptionKeyRevocationAction;
+    /// let x0 = Instance::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::PreventNew);
+    /// let x1 = Instance::new().set_encryption_key_revocation_action(EncryptionKeyRevocationAction::Shutdown);
+    /// ```
+    pub fn set_encryption_key_revocation_action<
+        T: std::convert::Into<crate::model::EncryptionKeyRevocationAction>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.encryption_key_revocation_action = v.into();
+        self
+    }
+
+    /// Sets the value of [encryption_key_shutdown_duration][crate::model::Instance::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Duration;
+    /// let x = Instance::new().set_encryption_key_shutdown_duration(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_encryption_key_shutdown_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.encryption_key_shutdown_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [encryption_key_shutdown_duration][crate::model::Instance::encryption_key_shutdown_duration].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use wkt::Duration;
+    /// let x = Instance::new().set_or_clear_encryption_key_shutdown_duration(Some(Duration::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_encryption_key_shutdown_duration(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_encryption_key_shutdown_duration<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.encryption_key_shutdown_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [node_selector][crate::model::Instance::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Instance::new().set_node_selector(NodeSelector::default()/* use setters */);
+    /// ```
+    pub fn set_node_selector<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeSelector>,
+    {
+        self.node_selector = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_selector][crate::model::Instance::node_selector].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::NodeSelector;
+    /// let x = Instance::new().set_or_clear_node_selector(Some(NodeSelector::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_node_selector(None::<NodeSelector>);
+    /// ```
+    pub fn set_or_clear_node_selector<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::NodeSelector>,
+    {
+        self.node_selector = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [gpu_zonal_redundancy_disabled][crate::model::Instance::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_gpu_zonal_redundancy_disabled(true);
+    /// ```
+    pub fn set_gpu_zonal_redundancy_disabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_zonal_redundancy_disabled][crate::model::Instance::gpu_zonal_redundancy_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_or_clear_gpu_zonal_redundancy_disabled(Some(false));
+    /// let x = Instance::new().set_or_clear_gpu_zonal_redundancy_disabled(None::<bool>);
+    /// ```
+    pub fn set_or_clear_gpu_zonal_redundancy_disabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.gpu_zonal_redundancy_disabled = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ingress][crate::model::Instance::ingress].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::IngressTraffic;
+    /// let x0 = Instance::new().set_ingress(IngressTraffic::All);
+    /// let x1 = Instance::new().set_ingress(IngressTraffic::InternalOnly);
+    /// let x2 = Instance::new().set_ingress(IngressTraffic::InternalLoadBalancer);
+    /// ```
+    pub fn set_ingress<T: std::convert::Into<crate::model::IngressTraffic>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ingress = v.into();
+        self
+    }
+
+    /// Sets the value of [invoker_iam_disabled][crate::model::Instance::invoker_iam_disabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_invoker_iam_disabled(true);
+    /// ```
+    pub fn set_invoker_iam_disabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.invoker_iam_disabled = v.into();
+        self
+    }
+
+    /// Sets the value of [iap_enabled][crate::model::Instance::iap_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_iap_enabled(true);
+    /// ```
+    pub fn set_iap_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.iap_enabled = v.into();
+        self
+    }
+
+    /// Sets the value of [observed_generation][crate::model::Instance::observed_generation].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_observed_generation(42);
+    /// ```
+    pub fn set_observed_generation<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.observed_generation = v.into();
+        self
+    }
+
+    /// Sets the value of [log_uri][crate::model::Instance::log_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_log_uri("example");
+    /// ```
+    pub fn set_log_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.log_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [terminal_condition][crate::model::Instance::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Instance::new().set_terminal_condition(Condition::default()/* use setters */);
+    /// ```
+    pub fn set_terminal_condition<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Condition>,
+    {
+        self.terminal_condition = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [terminal_condition][crate::model::Instance::terminal_condition].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Instance::new().set_or_clear_terminal_condition(Some(Condition::default()/* use setters */));
+    /// let x = Instance::new().set_or_clear_terminal_condition(None::<Condition>);
+    /// ```
+    pub fn set_or_clear_terminal_condition<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Condition>,
+    {
+        self.terminal_condition = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [conditions][crate::model::Instance::conditions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::Condition;
+    /// let x = Instance::new()
+    ///     .set_conditions([
+    ///         Condition::default()/* use setters */,
+    ///         Condition::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_conditions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Condition>,
+    {
+        use std::iter::Iterator;
+        self.conditions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [container_statuses][crate::model::Instance::container_statuses].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// use google_cloud_run_v2::model::ContainerStatus;
+    /// let x = Instance::new()
+    ///     .set_container_statuses([
+    ///         ContainerStatus::default()/* use setters */,
+    ///         ContainerStatus::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_container_statuses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ContainerStatus>,
+    {
+        use std::iter::Iterator;
+        self.container_statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [satisfies_pzs][crate::model::Instance::satisfies_pzs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_satisfies_pzs(true);
+    /// ```
+    pub fn set_satisfies_pzs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.satisfies_pzs = v.into();
+        self
+    }
+
+    /// Sets the value of [urls][crate::model::Instance::urls].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_urls(["a", "b", "c"]);
+    /// ```
+    pub fn set_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [reconciling][crate::model::Instance::reconciling].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_reconciling(true);
+    /// ```
+    pub fn set_reconciling<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.reconciling = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::Instance::etag].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Instance;
+    /// let x = Instance::new().set_etag("example");
+    /// ```
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Instance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.run.v2.Instance"
     }
 }
 
@@ -5131,6 +6594,9 @@ pub struct Container {
     /// fails.
     pub startup_probe: std::option::Option<crate::model::Probe>,
 
+    /// Readiness probe to be used for health checks.
+    pub readiness_probe: std::option::Option<crate::model::Probe>,
+
     /// Names of the containers that must start before this container.
     pub depends_on: std::vec::Vec<std::string::String>,
 
@@ -5414,6 +6880,39 @@ impl Container {
         T: std::convert::Into<crate::model::Probe>,
     {
         self.startup_probe = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [readiness_probe][crate::model::Container::readiness_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_readiness_probe(Probe::default()/* use setters */);
+    /// ```
+    pub fn set_readiness_probe<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Probe>,
+    {
+        self.readiness_probe = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [readiness_probe][crate::model::Container::readiness_probe].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_run_v2::model::Container;
+    /// use google_cloud_run_v2::model::Probe;
+    /// let x = Container::new().set_or_clear_readiness_probe(Some(Probe::default()/* use setters */));
+    /// let x = Container::new().set_or_clear_readiness_probe(None::<Probe>);
+    /// ```
+    pub fn set_or_clear_readiness_probe<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Probe>,
+    {
+        self.readiness_probe = v.map(|x| x.into());
         self
     }
 

@@ -249,6 +249,188 @@ impl<T: super::Executions> Executions for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::Instances].
+#[async_trait::async_trait]
+pub trait Instances: std::fmt::Debug + Send + Sync {
+    async fn create_instance(
+        &self,
+        req: crate::model::CreateInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_instance(
+        &self,
+        req: crate::model::DeleteInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_instance(
+        &self,
+        req: crate::model::GetInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>>;
+
+    async fn list_instances(
+        &self,
+        req: crate::model::ListInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>>;
+
+    async fn stop_instance(
+        &self,
+        req: crate::model::StopInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn start_instance(
+        &self,
+        req: crate::model::StartInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>>;
+
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
+    async fn wait_operation(
+        &self,
+        req: longrunning::model::WaitOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::Instances] also implement [Instances].
+#[async_trait::async_trait]
+impl<T: super::Instances> Instances for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_instance(
+        &self,
+        req: crate::model::CreateInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_instance(
+        &self,
+        req: crate::model::DeleteInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_instance(
+        &self,
+        req: crate::model::GetInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Instance>> {
+        T::get_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_instances(
+        &self,
+        req: crate::model::ListInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListInstancesResponse>> {
+        T::list_instances(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn stop_instance(
+        &self,
+        req: crate::model::StopInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::stop_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn start_instance(
+        &self,
+        req: crate::model::StartInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::start_instance(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        T::list_operations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_operation(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn wait_operation(
+        &self,
+        req: longrunning::model::WaitOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::wait_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::Jobs].
 #[async_trait::async_trait]
 pub trait Jobs: std::fmt::Debug + Send + Sync {

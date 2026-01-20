@@ -30,6 +30,7 @@
 //! * [Autokey](client/struct.Autokey.html)
 //! * [AutokeyAdmin](client/struct.AutokeyAdmin.html)
 //! * [EkmService](client/struct.EkmService.html)
+//! * [HsmManagement](client/struct.HsmManagement.html)
 //! * [KeyManagementService](client/struct.KeyManagementService.html)
 
 #![allow(deprecated)]

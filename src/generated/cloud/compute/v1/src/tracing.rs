@@ -97,6 +97,7 @@
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -9947,6 +9948,82 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
         self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [ReservationSlots](super::stub::ReservationSlots) decorator for logging and tracing.
+#[cfg(feature = "reservation-slots")]
+#[derive(Clone, Debug)]
+pub struct ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "reservation-slots")]
+impl<T> ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl<T> super::stub::ReservationSlots for ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::reservation_slots::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::reservation_slots::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationSlotsListResponse>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update(
+        &self,
+        req: crate::model::reservation_slots::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.update(req, options).await
     }
 
     #[tracing::instrument(ret)]

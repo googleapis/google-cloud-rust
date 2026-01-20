@@ -194,6 +194,8 @@ region-zones = []
 regions = []
 # Enables `client::ReservationBlocks` and all the types it depends on.
 reservation-blocks = []
+# Enables `client::ReservationSlots` and all the types it depends on.
+reservation-slots = []
 # Enables `client::ReservationSubBlocks` and all the types it depends on.
 reservation-sub-blocks = []
 # Enables `client::Reservations` and all the types it depends on.

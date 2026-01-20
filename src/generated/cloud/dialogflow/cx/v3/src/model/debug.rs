@@ -21,6 +21,7 @@ use super::*;
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -46,6 +47,7 @@ impl std::fmt::Debug for super::AdvancedSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -71,6 +73,7 @@ impl std::fmt::Debug for super::advanced_settings::SpeechSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -100,6 +103,7 @@ impl std::fmt::Debug for super::advanced_settings::DtmfSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -150,7 +154,6 @@ impl std::fmt::Debug for super::Agent {
         debug_struct.field("description", &self.description);
         debug_struct.field("avatar_uri", &self.avatar_uri);
         debug_struct.field("speech_to_text_settings", &self.speech_to_text_settings);
-        debug_struct.field("start_flow", &self.start_flow);
         debug_struct.field("security_settings", &self.security_settings);
         debug_struct.field(
             "enable_stackdriver_logging",
@@ -174,6 +177,7 @@ impl std::fmt::Debug for super::Agent {
         );
         debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
         debug_struct.field("satisfies_pzi", &self.satisfies_pzi);
+        debug_struct.field("session_entry_resource", &self.session_entry_resource);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -637,11 +641,24 @@ impl std::fmt::Debug for super::Changelog {
     }
 }
 
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::CodeBlock {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CodeBlock");
+        debug_struct.field("code", &self.code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(
     feature = "flows",
     feature = "pages",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
 ))]
 impl std::fmt::Debug for super::DataStoreConnection {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -703,6 +720,7 @@ impl std::fmt::Debug for super::data_store_connection_signals::SearchSnippet {
         debug_struct.field("document_title", &self.document_title);
         debug_struct.field("document_uri", &self.document_uri);
         debug_struct.field("text", &self.text);
+        debug_struct.field("metadata", &self.metadata);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1351,6 +1369,106 @@ impl std::fmt::Debug for super::DeployFlowMetadata {
     }
 }
 
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::CreateExampleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateExampleRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("example", &self.example);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::DeleteExampleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteExampleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::ListExamplesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExamplesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::ListExamplesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListExamplesResponse");
+        debug_struct.field("examples", &self.examples);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::GetExampleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetExampleRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "examples")]
+impl std::fmt::Debug for super::UpdateExampleRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateExampleRequest");
+        debug_struct.field("example", &self.example);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::Example {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Example");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("playbook_input", &self.playbook_input);
+        debug_struct.field("playbook_output", &self.playbook_output);
+        debug_struct.field("actions", &self.actions);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("token_count", &self.token_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("conversation_state", &self.conversation_state);
+        debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "experiments")]
 impl std::fmt::Debug for super::Experiment {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -1664,6 +1782,14 @@ impl std::fmt::Debug for super::Flow {
             "knowledge_connector_settings",
             &self.knowledge_connector_settings,
         );
+        debug_struct.field(
+            "input_parameter_definitions",
+            &self.input_parameter_definitions,
+        );
+        debug_struct.field(
+            "output_parameter_definitions",
+            &self.output_parameter_definitions,
+        );
         debug_struct.field("multi_language_settings", &self.multi_language_settings);
         debug_struct.field("locked", &self.locked);
         if !self._unknown_fields.is_empty() {
@@ -1894,6 +2020,7 @@ impl std::fmt::Debug for super::ExportFlowResponse {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -1923,6 +2050,7 @@ impl std::fmt::Debug for super::Fulfillment {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -1942,6 +2070,7 @@ impl std::fmt::Debug for super::fulfillment::SetParameterAction {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -1960,6 +2089,7 @@ impl std::fmt::Debug for super::fulfillment::ConditionalCases {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -1979,6 +2109,7 @@ impl std::fmt::Debug for super::fulfillment::conditional_cases::Case {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -1997,6 +2128,7 @@ impl std::fmt::Debug for super::fulfillment::conditional_cases::case::CaseConten
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2018,6 +2150,7 @@ impl std::fmt::Debug for super::fulfillment::GeneratorSettings {
     feature = "agents",
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2048,6 +2181,7 @@ impl std::fmt::Debug for super::GenerativeSettings {
             &self.knowledge_connector_settings,
         );
         debug_struct.field("language_code", &self.language_code);
+        debug_struct.field("llm_model_settings", &self.llm_model_settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2102,6 +2236,24 @@ impl std::fmt::Debug for super::generative_settings::KnowledgeConnectorSettings 
     }
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "generators",
+    feature = "playbooks",
+    feature = "sessions",
+))]
+impl std::fmt::Debug for super::LlmModelSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LlmModelSettings");
+        debug_struct.field("model", &self.model);
+        debug_struct.field("prompt_text", &self.prompt_text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(feature = "generators")]
 impl std::fmt::Debug for super::Generator {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -2110,6 +2262,7 @@ impl std::fmt::Debug for super::Generator {
         debug_struct.field("display_name", &self.display_name);
         debug_struct.field("prompt_text", &self.prompt_text);
         debug_struct.field("placeholders", &self.placeholders);
+        debug_struct.field("llm_model_settings", &self.llm_model_settings);
         debug_struct.field("model_parameter", &self.model_parameter);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
@@ -2714,7 +2867,455 @@ impl std::fmt::Debug for super::KnowledgeConnectorSettings {
 
 #[cfg(any(
     feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for super::ParameterDefinition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ParameterDefinition");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("type_schema", &self.type_schema);
+        debug_struct.field("description", &self.description);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for super::TypeSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TypeSchema");
+        debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for super::type_schema::SchemaReference {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SchemaReference");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+))]
+impl std::fmt::Debug for super::InlineSchema {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("InlineSchema");
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("items", &self.items);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::CreatePlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePlaybookRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("playbook", &self.playbook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::DeletePlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePlaybookRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ListPlaybooksRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPlaybooksRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ListPlaybooksResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPlaybooksResponse");
+        debug_struct.field("playbooks", &self.playbooks);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::GetPlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPlaybookRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::UpdatePlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdatePlaybookRequest");
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::Playbook {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Playbook");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("goal", &self.goal);
+        debug_struct.field(
+            "input_parameter_definitions",
+            &self.input_parameter_definitions,
+        );
+        debug_struct.field(
+            "output_parameter_definitions",
+            &self.output_parameter_definitions,
+        );
+        debug_struct.field("instruction", &self.instruction);
+        debug_struct.field("token_count", &self.token_count);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("referenced_playbooks", &self.referenced_playbooks);
+        debug_struct.field("referenced_flows", &self.referenced_flows);
+        debug_struct.field("referenced_tools", &self.referenced_tools);
+        debug_struct.field("inline_actions", &self.inline_actions);
+        debug_struct.field("code_block", &self.code_block);
+        debug_struct.field("llm_model_settings", &self.llm_model_settings);
+        debug_struct.field("handlers", &self.handlers);
+        debug_struct.field("playbook_type", &self.playbook_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::playbook::Step {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Step");
+        debug_struct.field("steps", &self.steps);
+        debug_struct.field("instruction", &self.instruction);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::playbook::Instruction {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instruction");
+        debug_struct.field("guidelines", &self.guidelines);
+        debug_struct.field("steps", &self.steps);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::CreatePlaybookVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreatePlaybookVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("playbook_version", &self.playbook_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::PlaybookVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("examples", &self.examples);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::GetPlaybookVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetPlaybookVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::RestorePlaybookVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestorePlaybookVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::RestorePlaybookVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestorePlaybookVersionResponse");
+        debug_struct.field("playbook", &self.playbook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ListPlaybookVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPlaybookVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ListPlaybookVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListPlaybookVersionsResponse");
+        debug_struct.field("playbook_versions", &self.playbook_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::DeletePlaybookVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeletePlaybookVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ExportPlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportPlaybookRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("playbook_uri", &self.playbook_uri);
+        debug_struct.field("data_format", &self.data_format);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ImportPlaybookRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportPlaybookRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("import_strategy", &self.import_strategy);
+        debug_struct.field("playbook", &self.playbook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::PlaybookImportStrategy {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookImportStrategy");
+        debug_struct.field(
+            "main_playbook_import_strategy",
+            &self.main_playbook_import_strategy,
+        );
+        debug_struct.field(
+            "nested_resource_import_strategy",
+            &self.nested_resource_import_strategy,
+        );
+        debug_struct.field("tool_import_strategy", &self.tool_import_strategy);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ImportPlaybookResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ImportPlaybookResponse");
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("conflicting_resources", &self.conflicting_resources);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::import_playbook_response::ConflictingResources {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ConflictingResources");
+        debug_struct.field(
+            "main_playbook_display_name",
+            &self.main_playbook_display_name,
+        );
+        debug_struct.field(
+            "nested_playbook_display_names",
+            &self.nested_playbook_display_names,
+        );
+        debug_struct.field("tool_display_names", &self.tool_display_names);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::ExportPlaybookResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExportPlaybookResponse");
+        debug_struct.field("playbook", &self.playbook);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::Handler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Handler");
+        debug_struct.field("handler", &self.handler);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::handler::EventHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EventHandler");
+        debug_struct.field("event", &self.event);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("fulfillment", &self.fulfillment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "playbooks")]
+impl std::fmt::Debug for super::handler::LifecycleHandler {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("LifecycleHandler");
+        debug_struct.field("lifecycle_stage", &self.lifecycle_stage);
+        debug_struct.field("condition", &self.condition);
+        debug_struct.field("fulfillment", &self.fulfillment);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2735,6 +3336,7 @@ impl std::fmt::Debug for super::ResponseMessage {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2757,6 +3359,7 @@ impl std::fmt::Debug for super::response_message::Text {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2775,6 +3378,7 @@ impl std::fmt::Debug for super::response_message::LiveAgentHandoff {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2793,6 +3397,7 @@ impl std::fmt::Debug for super::response_message::ConversationSuccess {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2815,6 +3420,7 @@ impl std::fmt::Debug for super::response_message::OutputAudioText {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2832,6 +3438,7 @@ impl std::fmt::Debug for super::response_message::EndInteraction {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2854,6 +3461,7 @@ impl std::fmt::Debug for super::response_message::PlayAudio {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2872,6 +3480,7 @@ impl std::fmt::Debug for super::response_message::MixedAudio {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2894,6 +3503,7 @@ impl std::fmt::Debug for super::response_message::mixed_audio::Segment {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2912,6 +3522,7 @@ impl std::fmt::Debug for super::response_message::TelephonyTransferCall {
 #[cfg(any(
     feature = "flows",
     feature = "pages",
+    feature = "playbooks",
     feature = "sessions",
     feature = "test-cases",
     feature = "transition-route-groups",
@@ -2930,7 +3541,14 @@ impl std::fmt::Debug for super::response_message::KnowledgeInfoCard {
 impl std::fmt::Debug for super::SafetySettings {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SafetySettings");
+        debug_struct.field(
+            "default_banned_phrase_match_strategy",
+            &self.default_banned_phrase_match_strategy,
+        );
         debug_struct.field("banned_phrases", &self.banned_phrases);
+        debug_struct.field("rai_settings", &self.rai_settings);
+        debug_struct.field("default_rai_settings", &self.default_rai_settings);
+        debug_struct.field("prompt_security_settings", &self.prompt_security_settings);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -2944,6 +3562,43 @@ impl std::fmt::Debug for super::safety_settings::Phrase {
         let mut debug_struct = f.debug_struct("Phrase");
         debug_struct.field("text", &self.text);
         debug_struct.field("language_code", &self.language_code);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for super::safety_settings::RaiSettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RaiSettings");
+        debug_struct.field("category_filters", &self.category_filters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for super::safety_settings::rai_settings::CategoryFilter {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CategoryFilter");
+        debug_struct.field("category", &self.category);
+        debug_struct.field("filter_level", &self.filter_level);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "agents")]
+impl std::fmt::Debug for super::safety_settings::PromptSecuritySettings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PromptSecuritySettings");
+        debug_struct.field("enable_prompt_security", &self.enable_prompt_security);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3127,6 +3782,7 @@ impl std::fmt::Debug for super::DetectIntentRequest {
         debug_struct.field("query_params", &self.query_params);
         debug_struct.field("query_input", &self.query_input);
         debug_struct.field("output_audio_config", &self.output_audio_config);
+        debug_struct.field("response_view", &self.response_view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3161,6 +3817,7 @@ impl std::fmt::Debug for super::StreamingDetectIntentRequest {
         debug_struct.field("output_audio_config", &self.output_audio_config);
         debug_struct.field("enable_partial_response", &self.enable_partial_response);
         debug_struct.field("enable_debugging_info", &self.enable_debugging_info);
+        debug_struct.field("response_view", &self.response_view);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -3259,6 +3916,7 @@ impl std::fmt::Debug for super::QueryParameters {
         debug_struct.field("session_entity_types", &self.session_entity_types);
         debug_struct.field("payload", &self.payload);
         debug_struct.field("parameters", &self.parameters);
+        debug_struct.field("parameter_scope", &self.parameter_scope);
         debug_struct.field("current_page", &self.current_page);
         debug_struct.field("disable_webhook", &self.disable_webhook);
         debug_struct.field(
@@ -3267,6 +3925,8 @@ impl std::fmt::Debug for super::QueryParameters {
         );
         debug_struct.field("webhook_headers", &self.webhook_headers);
         debug_struct.field("flow_versions", &self.flow_versions);
+        debug_struct.field("current_playbook", &self.current_playbook);
+        debug_struct.field("llm_model_settings", &self.llm_model_settings);
         debug_struct.field("channel", &self.channel);
         debug_struct.field("session_ttl", &self.session_ttl);
         debug_struct.field("end_user_metadata", &self.end_user_metadata);
@@ -3395,10 +4055,6 @@ impl std::fmt::Debug for super::QueryResult {
         debug_struct.field("language_code", &self.language_code);
         debug_struct.field("parameters", &self.parameters);
         debug_struct.field("response_messages", &self.response_messages);
-        debug_struct.field("webhook_ids", &self.webhook_ids);
-        debug_struct.field("webhook_display_names", &self.webhook_display_names);
-        debug_struct.field("webhook_latencies", &self.webhook_latencies);
-        debug_struct.field("webhook_tags", &self.webhook_tags);
         debug_struct.field("webhook_statuses", &self.webhook_statuses);
         debug_struct.field("webhook_payloads", &self.webhook_payloads);
         debug_struct.field("current_page", &self.current_page);
@@ -4205,6 +4861,563 @@ impl std::fmt::Debug for super::GetTestCaseResultRequest {
     }
 }
 
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::CreateToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateToolRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tool", &self.tool);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolsResponse");
+        debug_struct.field("tools", &self.tools);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::GetToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetToolRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::UpdateToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateToolRequest");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::DeleteToolRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteToolRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::Tool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Tool");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("tool_type", &self.tool_type);
+        debug_struct.field("specification", &self.specification);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::OpenApiTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OpenApiTool");
+        debug_struct.field("authentication", &self.authentication);
+        debug_struct.field("tls_config", &self.tls_config);
+        debug_struct.field("service_directory_config", &self.service_directory_config);
+        debug_struct.field("schema", &self.schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::DataStoreTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DataStoreTool");
+        debug_struct.field("data_store_connections", &self.data_store_connections);
+        debug_struct.field("fallback_prompt", &self.fallback_prompt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::data_store_tool::FallbackPrompt {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FallbackPrompt");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::FunctionTool {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FunctionTool");
+        debug_struct.field("input_schema", &self.input_schema);
+        debug_struct.field("output_schema", &self.output_schema);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::Authentication {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Authentication");
+        debug_struct.field("auth_config", &self.auth_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::ApiKeyConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApiKeyConfig");
+        debug_struct.field("key_name", &self.key_name);
+        debug_struct.field("api_key", &self.api_key);
+        debug_struct.field(
+            "secret_version_for_api_key",
+            &self.secret_version_for_api_key,
+        );
+        debug_struct.field("request_location", &self.request_location);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::OAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("OAuthConfig");
+        debug_struct.field("oauth_grant_type", &self.oauth_grant_type);
+        debug_struct.field("client_id", &self.client_id);
+        debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field(
+            "secret_version_for_client_secret",
+            &self.secret_version_for_client_secret,
+        );
+        debug_struct.field("token_endpoint", &self.token_endpoint);
+        debug_struct.field("scopes", &self.scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::ServiceAgentAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAgentAuthConfig");
+        debug_struct.field("service_agent_auth", &self.service_agent_auth);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::BearerTokenConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BearerTokenConfig");
+        debug_struct.field("token", &self.token);
+        debug_struct.field("secret_version_for_token", &self.secret_version_for_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::authentication::ServiceAccountAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccountAuthConfig");
+        debug_struct.field("service_account", &self.service_account);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::TLSConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("TLSConfig");
+        debug_struct.field("ca_certs", &self.ca_certs);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::tls_config::CACert {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CACert");
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("cert", &self.cert);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::tool::ServiceDirectoryConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceDirectoryConfig");
+        debug_struct.field("service", &self.service);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolVersionsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolVersionsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ListToolVersionsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListToolVersionsResponse");
+        debug_struct.field("tool_versions", &self.tool_versions);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::CreateToolVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateToolVersionRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("tool_version", &self.tool_version);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::GetToolVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetToolVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::DeleteToolVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteToolVersionRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("force", &self.force);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::RestoreToolVersionRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreToolVersionRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::RestoreToolVersionResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreToolVersionResponse");
+        debug_struct.field("tool", &self.tool);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(feature = "tools")]
+impl std::fmt::Debug for super::ToolVersion {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolVersion");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "playbooks",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
+impl std::fmt::Debug for super::ToolCall {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolCall");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("input_parameters", &self.input_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for super::ToolCallResult {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolCallResult");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("result", &self.result);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
+impl std::fmt::Debug for super::tool_call_result::Error {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Error");
+        debug_struct.field("message", &self.message);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::PlaybookInput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookInput");
+        debug_struct.field(
+            "preceding_conversation_summary",
+            &self.preceding_conversation_summary,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::PlaybookOutput {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookOutput");
+        debug_struct.field("execution_summary", &self.execution_summary);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::Action {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Action");
+        debug_struct.field("action", &self.action);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::UserUtterance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UserUtterance");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::AgentUtterance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AgentUtterance");
+        debug_struct.field("text", &self.text);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::ToolUse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ToolUse");
+        debug_struct.field("tool", &self.tool);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("action", &self.action);
+        debug_struct.field("input_action_parameters", &self.input_action_parameters);
+        debug_struct.field("output_action_parameters", &self.output_action_parameters);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::PlaybookInvocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookInvocation");
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("playbook_input", &self.playbook_input);
+        debug_struct.field("playbook_output", &self.playbook_output);
+        debug_struct.field("playbook_state", &self.playbook_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::FlowInvocation {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlowInvocation");
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("display_name", &self.display_name);
+        debug_struct.field("flow_state", &self.flow_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::PlaybookTransition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("PlaybookTransition");
+        debug_struct.field("playbook", &self.playbook);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "examples", feature = "playbooks",))]
+impl std::fmt::Debug for super::FlowTransition {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("FlowTransition");
+        debug_struct.field("flow", &self.flow);
+        debug_struct.field("display_name", &self.display_name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 #[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
 impl std::fmt::Debug for super::TransitionRouteGroup {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
@@ -4506,14 +5719,38 @@ impl std::fmt::Debug for super::webhook::GenericWebService {
         debug_struct.field("uri", &self.uri);
         debug_struct.field("username", &self.username);
         debug_struct.field("password", &self.password);
+        debug_struct.field(
+            "secret_version_for_username_password",
+            &self.secret_version_for_username_password,
+        );
         debug_struct.field("request_headers", &self.request_headers);
+        debug_struct.field(
+            "secret_versions_for_request_headers",
+            &self.secret_versions_for_request_headers,
+        );
         debug_struct.field("allowed_ca_certs", &self.allowed_ca_certs);
         debug_struct.field("oauth_config", &self.oauth_config);
         debug_struct.field("service_agent_auth", &self.service_agent_auth);
+        debug_struct.field(
+            "service_account_auth_config",
+            &self.service_account_auth_config,
+        );
         debug_struct.field("webhook_type", &self.webhook_type);
         debug_struct.field("http_method", &self.http_method);
         debug_struct.field("request_body", &self.request_body);
         debug_struct.field("parameter_mapping", &self.parameter_mapping);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "environments", feature = "webhooks",))]
+impl std::fmt::Debug for super::webhook::generic_web_service::SecretVersionHeaderValue {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SecretVersionHeaderValue");
+        debug_struct.field("secret_version", &self.secret_version);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4527,8 +5764,24 @@ impl std::fmt::Debug for super::webhook::generic_web_service::OAuthConfig {
         let mut debug_struct = f.debug_struct("OAuthConfig");
         debug_struct.field("client_id", &self.client_id);
         debug_struct.field("client_secret", &self.client_secret);
+        debug_struct.field(
+            "secret_version_for_client_secret",
+            &self.secret_version_for_client_secret,
+        );
         debug_struct.field("token_endpoint", &self.token_endpoint);
         debug_struct.field("scopes", &self.scopes);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+#[cfg(any(feature = "environments", feature = "webhooks",))]
+impl std::fmt::Debug for super::webhook::generic_web_service::ServiceAccountAuthConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ServiceAccountAuthConfig");
+        debug_struct.field("service_account", &self.service_account);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -4633,15 +5886,18 @@ impl std::fmt::Debug for super::DeleteWebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4673,15 +5929,18 @@ impl std::fmt::Debug for super::WebhookRequest {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4703,15 +5962,18 @@ impl std::fmt::Debug for super::webhook_request::FulfillmentInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4736,15 +5998,18 @@ impl std::fmt::Debug for super::webhook_request::IntentInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4767,15 +6032,18 @@ impl std::fmt::Debug for super::webhook_request::intent_info::IntentParameterVal
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4798,15 +6066,18 @@ impl std::fmt::Debug for super::webhook_request::SentimentAnalysisResult {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4832,15 +6103,18 @@ impl std::fmt::Debug for super::WebhookResponse {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4863,15 +6137,18 @@ impl std::fmt::Debug for super::webhook_response::FulfillmentResponse {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4895,15 +6172,18 @@ impl std::fmt::Debug for super::PageInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4925,15 +6205,18 @@ impl std::fmt::Debug for super::page_info::FormInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4959,15 +6242,18 @@ impl std::fmt::Debug for super::page_info::form_info::ParameterInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
@@ -4990,15 +6276,18 @@ impl std::fmt::Debug for super::SessionInfo {
     feature = "deployments",
     feature = "entity-types",
     feature = "environments",
+    feature = "examples",
     feature = "experiments",
     feature = "flows",
     feature = "generators",
     feature = "intents",
     feature = "pages",
+    feature = "playbooks",
     feature = "security-settings-service",
     feature = "session-entity-types",
     feature = "sessions",
     feature = "test-cases",
+    feature = "tools",
     feature = "transition-route-groups",
     feature = "versions",
     feature = "webhooks",
