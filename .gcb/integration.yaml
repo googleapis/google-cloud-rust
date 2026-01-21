@@ -13,7 +13,6 @@
 # limitations under the License.
 
 options:
-  machineType: E2_HIGHCPU_8
   dynamic_substitutions: true
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
@@ -28,6 +27,7 @@ options:
     - RUSTC_WRAPPER=/workspace/.bin/sccache
     - RUSTFLAGS=${_UNSTABLE_CFG_FLAGS}
     - RUSTDOCFLAGS=${_UNSTABLE_CFG_FLAGS}
+  workerPool: 'projects/${PROJECT_ID}/locations/${_POOL_REGION}/workerPools/${_POOL_ID}'
 serviceAccount: 'projects/${PROJECT_ID}/serviceAccounts/integration-test-runner@${PROJECT_ID}.iam.gserviceaccount.com'
 steps:
   - id: 'Set up build cache'
@@ -59,6 +59,9 @@ steps:
       directories=(
         tests/crypto-providers/auth-with-default
         tests/crypto-providers/auth-without-default
+        tests/crypto-providers/idtoken-with-default
+        tests/crypto-providers/idtoken-with-aws-lc-rs
+        tests/crypto-providers/idtoken-with-rust-crypto
         tests/crypto-providers/gaxi-with-default
         tests/crypto-providers/gaxi-with-aws-lc-rs
         tests/crypto-providers/gaxi-with-ring
@@ -85,3 +88,5 @@ substitutions:
   _RUST_VERSION: '1.92'
   _SCCACHE_VERSION: 'v0.12.0'
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
+  _POOL_REGION: us-central1
+  _POOL_ID: rust-sdk-pool

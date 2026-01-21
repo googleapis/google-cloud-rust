@@ -4324,6 +4324,9 @@ pub struct DiscoveryOccurrence {
     pub vulnerability_attestation:
         std::option::Option<crate::model::discovery_occurrence::VulnerabilityAttestation>,
 
+    /// Files that make up the resource described by the occurrence.
+    pub files: std::vec::Vec<crate::model::discovery_occurrence::File>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4600,6 +4603,28 @@ impl DiscoveryOccurrence {
         T: std::convert::Into<crate::model::discovery_occurrence::VulnerabilityAttestation>,
     {
         self.vulnerability_attestation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [files][crate::model::DiscoveryOccurrence::files].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use google_cloud_grafeas_v1::model::discovery_occurrence::File;
+    /// let x = DiscoveryOccurrence::new()
+    ///     .set_files([
+    ///         File::default()/* use setters */,
+    ///         File::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_files<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::discovery_occurrence::File>,
+    {
+        use std::iter::Iterator;
+        self.files = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5079,6 +5104,61 @@ pub mod discovery_occurrence {
                 deserializer.deserialize_any(wkt::internal::EnumVisitor::<VulnerabilityAttestationState>::new(
                     ".grafeas.v1.DiscoveryOccurrence.VulnerabilityAttestation.VulnerabilityAttestationState"))
             }
+        }
+    }
+
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct File {
+        pub name: std::string::String,
+
+        pub digest: std::collections::HashMap<std::string::String, std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl File {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::discovery_occurrence::File::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::File;
+        /// let x = File::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+
+        /// Sets the value of [digest][crate::model::discovery_occurrence::File::digest].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_grafeas_v1::model::discovery_occurrence::File;
+        /// let x = File::new().set_digest([
+        ///     ("key0", "abc"),
+        ///     ("key1", "xyz"),
+        /// ]);
+        /// ```
+        pub fn set_digest<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.digest = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for File {
+        fn typename() -> &'static str {
+            "type.googleapis.com/grafeas.v1.DiscoveryOccurrence.File"
         }
     }
 
@@ -7406,6 +7486,13 @@ pub struct ListOccurrencesRequest {
     /// Token to provide to skip to a particular spot in the list.
     pub page_token: std::string::String,
 
+    /// If set, the request will return all reachable Occurrences
+    /// and report all unreachable regions in the `unreachable` field in
+    /// the response.
+    ///
+    /// Only applicable for requests in the global region.
+    pub return_partial_success: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7461,6 +7548,18 @@ impl ListOccurrencesRequest {
         self.page_token = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListOccurrencesRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesRequest;
+    /// let x = ListOccurrencesRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListOccurrencesRequest {
@@ -7480,6 +7579,12 @@ pub struct ListOccurrencesResponse {
     /// `page_token` for the following request. An empty value means no more
     /// results.
     pub next_page_token: std::string::String,
+
+    /// Unreachable regions. Populated for requests from the global region
+    /// when `return_partial_success` is set.
+    ///
+    /// Format: `projects/[PROJECT_ID]/locations/[LOCATION]`
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7520,6 +7625,23 @@ impl ListOccurrencesResponse {
     /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListOccurrencesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ListOccurrencesResponse;
+    /// let x = ListOccurrencesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7845,6 +7967,13 @@ pub struct ListNotesRequest {
     /// Token to provide to skip to a particular spot in the list.
     pub page_token: std::string::String,
 
+    /// If set, the request will return all reachable Notes
+    /// and report all unreachable regions in the `unreachable` field in
+    /// the response.
+    ///
+    /// Only applicable for requests in the global region.
+    pub return_partial_success: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7900,6 +8029,18 @@ impl ListNotesRequest {
         self.page_token = v.into();
         self
     }
+
+    /// Sets the value of [return_partial_success][crate::model::ListNotesRequest::return_partial_success].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ListNotesRequest;
+    /// let x = ListNotesRequest::new().set_return_partial_success(true);
+    /// ```
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ListNotesRequest {
@@ -7919,6 +8060,12 @@ pub struct ListNotesResponse {
     /// `page_token` for the following request. An empty value means no more
     /// results.
     pub next_page_token: std::string::String,
+
+    /// Unreachable regions. Populated for requests from the global region
+    /// when `return_partial_success` is set.
+    ///
+    /// Format: `projects/[PROJECT_ID]/locations/[LOCATION]`
+    pub unreachable: std::vec::Vec<std::string::String>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7959,6 +8106,23 @@ impl ListNotesResponse {
     /// ```
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListNotesResponse::unreachable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ListNotesResponse;
+    /// let x = ListNotesResponse::new().set_unreachable(["a", "b", "c"]);
+    /// ```
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -13161,6 +13325,185 @@ impl wkt::message::Message for ProjectRepoId {
     }
 }
 
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Risk {
+    /// CISA maintains the authoritative source of vulnerabilities that have been
+    /// exploited in the wild.
+    pub cisa_kev: std::option::Option<crate::model::CISAKnownExploitedVulnerabilities>,
+
+    /// The Exploit Prediction Scoring System (EPSS) estimates the likelihood
+    /// (probability) that a software vulnerability will be exploited in the wild.
+    pub epss: std::option::Option<crate::model::ExploitPredictionScoringSystem>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Risk {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cisa_kev][crate::model::Risk::cisa_kev].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Risk;
+    /// use google_cloud_grafeas_v1::model::CISAKnownExploitedVulnerabilities;
+    /// let x = Risk::new().set_cisa_kev(CISAKnownExploitedVulnerabilities::default()/* use setters */);
+    /// ```
+    pub fn set_cisa_kev<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CISAKnownExploitedVulnerabilities>,
+    {
+        self.cisa_kev = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cisa_kev][crate::model::Risk::cisa_kev].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Risk;
+    /// use google_cloud_grafeas_v1::model::CISAKnownExploitedVulnerabilities;
+    /// let x = Risk::new().set_or_clear_cisa_kev(Some(CISAKnownExploitedVulnerabilities::default()/* use setters */));
+    /// let x = Risk::new().set_or_clear_cisa_kev(None::<CISAKnownExploitedVulnerabilities>);
+    /// ```
+    pub fn set_or_clear_cisa_kev<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CISAKnownExploitedVulnerabilities>,
+    {
+        self.cisa_kev = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [epss][crate::model::Risk::epss].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Risk;
+    /// use google_cloud_grafeas_v1::model::ExploitPredictionScoringSystem;
+    /// let x = Risk::new().set_epss(ExploitPredictionScoringSystem::default()/* use setters */);
+    /// ```
+    pub fn set_epss<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExploitPredictionScoringSystem>,
+    {
+        self.epss = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [epss][crate::model::Risk::epss].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::Risk;
+    /// use google_cloud_grafeas_v1::model::ExploitPredictionScoringSystem;
+    /// let x = Risk::new().set_or_clear_epss(Some(ExploitPredictionScoringSystem::default()/* use setters */));
+    /// let x = Risk::new().set_or_clear_epss(None::<ExploitPredictionScoringSystem>);
+    /// ```
+    pub fn set_or_clear_epss<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExploitPredictionScoringSystem>,
+    {
+        self.epss = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for Risk {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.Risk"
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CISAKnownExploitedVulnerabilities {
+    /// Whether the vulnerability is known to have been leveraged as part of a
+    /// ransomware campaign.
+    pub known_ransomware_campaign_use: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CISAKnownExploitedVulnerabilities {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [known_ransomware_campaign_use][crate::model::CISAKnownExploitedVulnerabilities::known_ransomware_campaign_use].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::CISAKnownExploitedVulnerabilities;
+    /// let x = CISAKnownExploitedVulnerabilities::new().set_known_ransomware_campaign_use("example");
+    /// ```
+    pub fn set_known_ransomware_campaign_use<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.known_ransomware_campaign_use = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CISAKnownExploitedVulnerabilities {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.CISAKnownExploitedVulnerabilities"
+    }
+}
+
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExploitPredictionScoringSystem {
+    /// The percentile of the current score, the proportion of all scored
+    /// vulnerabilities with the same or a lower EPSS score
+    pub percentile: f64,
+
+    /// The EPSS score representing the probability [0-1] of exploitation in the
+    /// wild in the next 30 days
+    pub score: f64,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExploitPredictionScoringSystem {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [percentile][crate::model::ExploitPredictionScoringSystem::percentile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ExploitPredictionScoringSystem;
+    /// let x = ExploitPredictionScoringSystem::new().set_percentile(42.0);
+    /// ```
+    pub fn set_percentile<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.percentile = v.into();
+        self
+    }
+
+    /// Sets the value of [score][crate::model::ExploitPredictionScoringSystem::score].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::ExploitPredictionScoringSystem;
+    /// let x = ExploitPredictionScoringSystem::new().set_score(42.0);
+    /// ```
+    pub fn set_score<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.score = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExploitPredictionScoringSystem {
+    fn typename() -> &'static str {
+        "type.googleapis.com/grafeas.v1.ExploitPredictionScoringSystem"
+    }
+}
+
 /// The note representing an SBOM reference.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -13546,6 +13889,13 @@ pub struct SecretOccurrence {
     /// Status of the secret.
     pub statuses: std::vec::Vec<crate::model::SecretStatus>,
 
+    /// Scan result of the secret.
+    pub data: std::option::Option<wkt::Any>,
+
+    /// Hash value, typically a digest for the secret data, that allows unique
+    /// identification of a specific secret.
+    pub digest: std::option::Option<crate::model::Digest>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13562,6 +13912,7 @@ impl SecretOccurrence {
     /// use google_cloud_grafeas_v1::model::SecretKind;
     /// let x0 = SecretOccurrence::new().set_kind(SecretKind::Unknown);
     /// let x1 = SecretOccurrence::new().set_kind(SecretKind::GcpServiceAccountKey);
+    /// let x2 = SecretOccurrence::new().set_kind(SecretKind::GcpApiKey);
     /// ```
     pub fn set_kind<T: std::convert::Into<crate::model::SecretKind>>(mut self, v: T) -> Self {
         self.kind = v.into();
@@ -13609,6 +13960,72 @@ impl SecretOccurrence {
     {
         use std::iter::Iterator;
         self.statuses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [data][crate::model::SecretOccurrence::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use wkt::Any;
+    /// let x = SecretOccurrence::new().set_data(Any::default()/* use setters */);
+    /// ```
+    pub fn set_data<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.data = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data][crate::model::SecretOccurrence::data].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use wkt::Any;
+    /// let x = SecretOccurrence::new().set_or_clear_data(Some(Any::default()/* use setters */));
+    /// let x = SecretOccurrence::new().set_or_clear_data(None::<Any>);
+    /// ```
+    pub fn set_or_clear_data<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Any>,
+    {
+        self.data = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [digest][crate::model::SecretOccurrence::digest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use google_cloud_grafeas_v1::model::Digest;
+    /// let x = SecretOccurrence::new().set_digest(Digest::default()/* use setters */);
+    /// ```
+    pub fn set_digest<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Digest>,
+    {
+        self.digest = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [digest][crate::model::SecretOccurrence::digest].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::SecretOccurrence;
+    /// use google_cloud_grafeas_v1::model::Digest;
+    /// let x = SecretOccurrence::new().set_or_clear_digest(Some(Digest::default()/* use setters */));
+    /// let x = SecretOccurrence::new().set_or_clear_digest(None::<Digest>);
+    /// ```
+    pub fn set_or_clear_digest<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Digest>,
+    {
+        self.digest = v.map(|x| x.into());
         self
     }
 }
@@ -18061,6 +18478,9 @@ pub struct VulnerabilityOccurrence {
     /// Occurrence-specific extra details about the vulnerability.
     pub extra_details: std::string::String,
 
+    /// Risk information about the vulnerability, such as CISA, EPSS, etc.
+    pub risk: std::option::Option<crate::model::Risk>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -18337,6 +18757,39 @@ impl VulnerabilityOccurrence {
     /// ```
     pub fn set_extra_details<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.extra_details = v.into();
+        self
+    }
+
+    /// Sets the value of [risk][crate::model::VulnerabilityOccurrence::risk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Risk;
+    /// let x = VulnerabilityOccurrence::new().set_risk(Risk::default()/* use setters */);
+    /// ```
+    pub fn set_risk<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::Risk>,
+    {
+        self.risk = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [risk][crate::model::VulnerabilityOccurrence::risk].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::VulnerabilityOccurrence;
+    /// use google_cloud_grafeas_v1::model::Risk;
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_risk(Some(Risk::default()/* use setters */));
+    /// let x = VulnerabilityOccurrence::new().set_or_clear_risk(None::<Risk>);
+    /// ```
+    pub fn set_or_clear_risk<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::Risk>,
+    {
+        self.risk = v.map(|x| x.into());
         self
     }
 }
@@ -19314,9 +19767,52 @@ pub enum SecretKind {
     Unspecified,
     /// The secret kind is unknown.
     Unknown,
-    /// A GCP service account key per:
+    /// A Google Cloud service account key per:
     /// <https://cloud.google.com/iam/docs/creating-managing-service-account-keys>
     GcpServiceAccountKey,
+    /// A Google Cloud API key per:
+    /// <https://cloud.google.com/docs/authentication/api-keys>
+    GcpApiKey,
+    /// A Google Cloud OAuth2 client credentials per:
+    /// <https://developers.google.com/identity/protocols/oauth2>
+    GcpOauth2ClientCredentials,
+    /// A Google Cloud OAuth2 access token per:
+    /// <https://cloud.google.com/docs/authentication/token-types#access>
+    GcpOauth2AccessToken,
+    /// An Anthropic Admin API key.
+    AnthropicAdminApiKey,
+    /// An Anthropic API key.
+    AnthropicApiKey,
+    /// An Azure access token.
+    AzureAccessToken,
+    /// An Azure Identity Platform ID token.
+    AzureIdentityToken,
+    /// A Docker Hub personal access token.
+    DockerHubPersonalAccessToken,
+    /// A GitHub App refresh token.
+    GithubAppRefreshToken,
+    /// A GitHub App server-to-server token.
+    GithubAppServerToServerToken,
+    /// A GitHub App user-to-server token.
+    GithubAppUserToServerToken,
+    /// A GitHub personal access token (classic).
+    GithubClassicPersonalAccessToken,
+    /// A GitHub fine-grained personal access token.
+    GithubFineGrainedPersonalAccessToken,
+    /// A GitHub OAuth token.
+    GithubOauthToken,
+    /// A Hugging Face API key.
+    HuggingfaceApiKey,
+    /// An OpenAI API key.
+    OpenaiApiKey,
+    /// A Perplexity API key.
+    PerplexityApiKey,
+    /// A Stripe secret key.
+    StripeSecretKey,
+    /// A Stripe restricted key.
+    StripeRestrictedKey,
+    /// A Stripe webhook secret.
+    StripeWebhookSecret,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [SecretKind::value] or
@@ -19342,6 +19838,26 @@ impl SecretKind {
             Self::Unspecified => std::option::Option::Some(0),
             Self::Unknown => std::option::Option::Some(1),
             Self::GcpServiceAccountKey => std::option::Option::Some(2),
+            Self::GcpApiKey => std::option::Option::Some(3),
+            Self::GcpOauth2ClientCredentials => std::option::Option::Some(4),
+            Self::GcpOauth2AccessToken => std::option::Option::Some(5),
+            Self::AnthropicAdminApiKey => std::option::Option::Some(6),
+            Self::AnthropicApiKey => std::option::Option::Some(7),
+            Self::AzureAccessToken => std::option::Option::Some(8),
+            Self::AzureIdentityToken => std::option::Option::Some(9),
+            Self::DockerHubPersonalAccessToken => std::option::Option::Some(10),
+            Self::GithubAppRefreshToken => std::option::Option::Some(11),
+            Self::GithubAppServerToServerToken => std::option::Option::Some(12),
+            Self::GithubAppUserToServerToken => std::option::Option::Some(13),
+            Self::GithubClassicPersonalAccessToken => std::option::Option::Some(14),
+            Self::GithubFineGrainedPersonalAccessToken => std::option::Option::Some(15),
+            Self::GithubOauthToken => std::option::Option::Some(16),
+            Self::HuggingfaceApiKey => std::option::Option::Some(17),
+            Self::OpenaiApiKey => std::option::Option::Some(18),
+            Self::PerplexityApiKey => std::option::Option::Some(19),
+            Self::StripeSecretKey => std::option::Option::Some(20),
+            Self::StripeRestrictedKey => std::option::Option::Some(21),
+            Self::StripeWebhookSecret => std::option::Option::Some(22),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -19356,6 +19872,50 @@ impl SecretKind {
             Self::Unknown => std::option::Option::Some("SECRET_KIND_UNKNOWN"),
             Self::GcpServiceAccountKey => {
                 std::option::Option::Some("SECRET_KIND_GCP_SERVICE_ACCOUNT_KEY")
+            }
+            Self::GcpApiKey => std::option::Option::Some("SECRET_KIND_GCP_API_KEY"),
+            Self::GcpOauth2ClientCredentials => {
+                std::option::Option::Some("SECRET_KIND_GCP_OAUTH2_CLIENT_CREDENTIALS")
+            }
+            Self::GcpOauth2AccessToken => {
+                std::option::Option::Some("SECRET_KIND_GCP_OAUTH2_ACCESS_TOKEN")
+            }
+            Self::AnthropicAdminApiKey => {
+                std::option::Option::Some("SECRET_KIND_ANTHROPIC_ADMIN_API_KEY")
+            }
+            Self::AnthropicApiKey => std::option::Option::Some("SECRET_KIND_ANTHROPIC_API_KEY"),
+            Self::AzureAccessToken => std::option::Option::Some("SECRET_KIND_AZURE_ACCESS_TOKEN"),
+            Self::AzureIdentityToken => {
+                std::option::Option::Some("SECRET_KIND_AZURE_IDENTITY_TOKEN")
+            }
+            Self::DockerHubPersonalAccessToken => {
+                std::option::Option::Some("SECRET_KIND_DOCKER_HUB_PERSONAL_ACCESS_TOKEN")
+            }
+            Self::GithubAppRefreshToken => {
+                std::option::Option::Some("SECRET_KIND_GITHUB_APP_REFRESH_TOKEN")
+            }
+            Self::GithubAppServerToServerToken => {
+                std::option::Option::Some("SECRET_KIND_GITHUB_APP_SERVER_TO_SERVER_TOKEN")
+            }
+            Self::GithubAppUserToServerToken => {
+                std::option::Option::Some("SECRET_KIND_GITHUB_APP_USER_TO_SERVER_TOKEN")
+            }
+            Self::GithubClassicPersonalAccessToken => {
+                std::option::Option::Some("SECRET_KIND_GITHUB_CLASSIC_PERSONAL_ACCESS_TOKEN")
+            }
+            Self::GithubFineGrainedPersonalAccessToken => {
+                std::option::Option::Some("SECRET_KIND_GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN")
+            }
+            Self::GithubOauthToken => std::option::Option::Some("SECRET_KIND_GITHUB_OAUTH_TOKEN"),
+            Self::HuggingfaceApiKey => std::option::Option::Some("SECRET_KIND_HUGGINGFACE_API_KEY"),
+            Self::OpenaiApiKey => std::option::Option::Some("SECRET_KIND_OPENAI_API_KEY"),
+            Self::PerplexityApiKey => std::option::Option::Some("SECRET_KIND_PERPLEXITY_API_KEY"),
+            Self::StripeSecretKey => std::option::Option::Some("SECRET_KIND_STRIPE_SECRET_KEY"),
+            Self::StripeRestrictedKey => {
+                std::option::Option::Some("SECRET_KIND_STRIPE_RESTRICTED_KEY")
+            }
+            Self::StripeWebhookSecret => {
+                std::option::Option::Some("SECRET_KIND_STRIPE_WEBHOOK_SECRET")
             }
             Self::UnknownValue(u) => u.0.name(),
         }
@@ -19381,6 +19941,26 @@ impl std::convert::From<i32> for SecretKind {
             0 => Self::Unspecified,
             1 => Self::Unknown,
             2 => Self::GcpServiceAccountKey,
+            3 => Self::GcpApiKey,
+            4 => Self::GcpOauth2ClientCredentials,
+            5 => Self::GcpOauth2AccessToken,
+            6 => Self::AnthropicAdminApiKey,
+            7 => Self::AnthropicApiKey,
+            8 => Self::AzureAccessToken,
+            9 => Self::AzureIdentityToken,
+            10 => Self::DockerHubPersonalAccessToken,
+            11 => Self::GithubAppRefreshToken,
+            12 => Self::GithubAppServerToServerToken,
+            13 => Self::GithubAppUserToServerToken,
+            14 => Self::GithubClassicPersonalAccessToken,
+            15 => Self::GithubFineGrainedPersonalAccessToken,
+            16 => Self::GithubOauthToken,
+            17 => Self::HuggingfaceApiKey,
+            18 => Self::OpenaiApiKey,
+            19 => Self::PerplexityApiKey,
+            20 => Self::StripeSecretKey,
+            21 => Self::StripeRestrictedKey,
+            22 => Self::StripeWebhookSecret,
             _ => Self::UnknownValue(secret_kind::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -19395,6 +19975,30 @@ impl std::convert::From<&str> for SecretKind {
             "SECRET_KIND_UNSPECIFIED" => Self::Unspecified,
             "SECRET_KIND_UNKNOWN" => Self::Unknown,
             "SECRET_KIND_GCP_SERVICE_ACCOUNT_KEY" => Self::GcpServiceAccountKey,
+            "SECRET_KIND_GCP_API_KEY" => Self::GcpApiKey,
+            "SECRET_KIND_GCP_OAUTH2_CLIENT_CREDENTIALS" => Self::GcpOauth2ClientCredentials,
+            "SECRET_KIND_GCP_OAUTH2_ACCESS_TOKEN" => Self::GcpOauth2AccessToken,
+            "SECRET_KIND_ANTHROPIC_ADMIN_API_KEY" => Self::AnthropicAdminApiKey,
+            "SECRET_KIND_ANTHROPIC_API_KEY" => Self::AnthropicApiKey,
+            "SECRET_KIND_AZURE_ACCESS_TOKEN" => Self::AzureAccessToken,
+            "SECRET_KIND_AZURE_IDENTITY_TOKEN" => Self::AzureIdentityToken,
+            "SECRET_KIND_DOCKER_HUB_PERSONAL_ACCESS_TOKEN" => Self::DockerHubPersonalAccessToken,
+            "SECRET_KIND_GITHUB_APP_REFRESH_TOKEN" => Self::GithubAppRefreshToken,
+            "SECRET_KIND_GITHUB_APP_SERVER_TO_SERVER_TOKEN" => Self::GithubAppServerToServerToken,
+            "SECRET_KIND_GITHUB_APP_USER_TO_SERVER_TOKEN" => Self::GithubAppUserToServerToken,
+            "SECRET_KIND_GITHUB_CLASSIC_PERSONAL_ACCESS_TOKEN" => {
+                Self::GithubClassicPersonalAccessToken
+            }
+            "SECRET_KIND_GITHUB_FINE_GRAINED_PERSONAL_ACCESS_TOKEN" => {
+                Self::GithubFineGrainedPersonalAccessToken
+            }
+            "SECRET_KIND_GITHUB_OAUTH_TOKEN" => Self::GithubOauthToken,
+            "SECRET_KIND_HUGGINGFACE_API_KEY" => Self::HuggingfaceApiKey,
+            "SECRET_KIND_OPENAI_API_KEY" => Self::OpenaiApiKey,
+            "SECRET_KIND_PERPLEXITY_API_KEY" => Self::PerplexityApiKey,
+            "SECRET_KIND_STRIPE_SECRET_KEY" => Self::StripeSecretKey,
+            "SECRET_KIND_STRIPE_RESTRICTED_KEY" => Self::StripeRestrictedKey,
+            "SECRET_KIND_STRIPE_WEBHOOK_SECRET" => Self::StripeWebhookSecret,
             _ => Self::UnknownValue(secret_kind::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -19411,6 +20015,26 @@ impl serde::ser::Serialize for SecretKind {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::Unknown => serializer.serialize_i32(1),
             Self::GcpServiceAccountKey => serializer.serialize_i32(2),
+            Self::GcpApiKey => serializer.serialize_i32(3),
+            Self::GcpOauth2ClientCredentials => serializer.serialize_i32(4),
+            Self::GcpOauth2AccessToken => serializer.serialize_i32(5),
+            Self::AnthropicAdminApiKey => serializer.serialize_i32(6),
+            Self::AnthropicApiKey => serializer.serialize_i32(7),
+            Self::AzureAccessToken => serializer.serialize_i32(8),
+            Self::AzureIdentityToken => serializer.serialize_i32(9),
+            Self::DockerHubPersonalAccessToken => serializer.serialize_i32(10),
+            Self::GithubAppRefreshToken => serializer.serialize_i32(11),
+            Self::GithubAppServerToServerToken => serializer.serialize_i32(12),
+            Self::GithubAppUserToServerToken => serializer.serialize_i32(13),
+            Self::GithubClassicPersonalAccessToken => serializer.serialize_i32(14),
+            Self::GithubFineGrainedPersonalAccessToken => serializer.serialize_i32(15),
+            Self::GithubOauthToken => serializer.serialize_i32(16),
+            Self::HuggingfaceApiKey => serializer.serialize_i32(17),
+            Self::OpenaiApiKey => serializer.serialize_i32(18),
+            Self::PerplexityApiKey => serializer.serialize_i32(19),
+            Self::StripeSecretKey => serializer.serialize_i32(20),
+            Self::StripeRestrictedKey => serializer.serialize_i32(21),
+            Self::StripeWebhookSecret => serializer.serialize_i32(22),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

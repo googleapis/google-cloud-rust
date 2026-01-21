@@ -617,6 +617,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
         assert!(default_endpoint_address.is_ok());
@@ -626,6 +627,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -665,6 +667,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn access_token_success() -> TestResult {
         let server = Server::run();
         let response = MDSTokenResponse {
@@ -689,6 +692,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
@@ -703,6 +707,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn error_message_with_adc() {
         let provider = MDSAccessTokenProvider::builder()
             .endpoint("http://127.0.0.1")
@@ -1091,6 +1096,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
@@ -1098,6 +1104,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_mds_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
         use serde_json::json;

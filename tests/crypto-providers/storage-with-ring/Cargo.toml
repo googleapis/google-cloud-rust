@@ -31,7 +31,7 @@ rust-version = "1.92.0"
 
 [dependencies]
 anyhow        = { default-features = false, version = "1", features = ["std"] }
-rustls        = { default-features = false, version = "0.23", features = ["aws-lc-rs"] }
+rustls        = { default-features = false, version = "0.23", features = ["ring"] }
 tokio         = { default-features = false, version = "1", features = ["test-util"] }
 test-metadata = { path = "../test-metadata" }
 test-storage  = { path = "../test-storage" }

@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() -> anyhow::Result<()> {
-    test_metadata::has_default_crypto_provider()
+#[tokio::main]
+async fn main() -> anyhow::Result<()> {
+    test_metadata::has_default_crypto_provider(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
+
+    // Verify `google-cloud-auth` leaves the `reqwest` crate with a
+    // working TLS configuration.
+    test_auth::run().await
 }

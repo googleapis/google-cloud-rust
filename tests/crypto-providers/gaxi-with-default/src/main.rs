@@ -14,6 +14,6 @@
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    test_metadata::has_default_crypto_provider()?;
+    test_metadata::has_default_crypto_provider(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
     test_gaxi::run().await
 }

@@ -377,6 +377,42 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn restore_backup_files(
+        &self,
+        req: crate::model::RestoreBackupFilesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_host_groups(
+        &self,
+        req: crate::model::ListHostGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListHostGroupsResponse>>;
+
+    async fn get_host_group(
+        &self,
+        req: crate::model::GetHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::HostGroup>>;
+
+    async fn create_host_group(
+        &self,
+        req: crate::model::CreateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_host_group(
+        &self,
+        req: crate::model::UpdateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_host_group(
+        &self,
+        req: crate::model::DeleteHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -965,6 +1001,60 @@ impl<T: super::NetApp> NetApp for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_quota_rule(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn restore_backup_files(
+        &self,
+        req: crate::model::RestoreBackupFilesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::restore_backup_files(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_host_groups(
+        &self,
+        req: crate::model::ListHostGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListHostGroupsResponse>> {
+        T::list_host_groups(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_host_group(
+        &self,
+        req: crate::model::GetHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::HostGroup>> {
+        T::get_host_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_host_group(
+        &self,
+        req: crate::model::CreateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_host_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_host_group(
+        &self,
+        req: crate::model::UpdateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_host_group(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_host_group(
+        &self,
+        req: crate::model::DeleteHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_host_group(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

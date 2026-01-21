@@ -13727,6 +13727,100 @@ impl<T: super::ReservationBlocks> ReservationBlocks for T {
     }
 }
 
+/// A dyn-compatible, crate-private version of [super::ReservationSlots].
+#[cfg(feature = "reservation-slots")]
+#[async_trait::async_trait]
+pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
+    async fn get(
+        &self,
+        req: crate::model::reservation_slots::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>>;
+
+    async fn list(
+        &self,
+        req: crate::model::reservation_slots::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationSlotsListResponse>>;
+
+    async fn update(
+        &self,
+        req: crate::model::reservation_slots::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
+}
+
+/// All implementations of [super::ReservationSlots] also implement [ReservationSlots].
+#[cfg(feature = "reservation-slots")]
+#[async_trait::async_trait]
+impl<T: super::ReservationSlots> ReservationSlots for T {
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get(
+        &self,
+        req: crate::model::reservation_slots::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>> {
+        T::get(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list(
+        &self,
+        req: crate::model::reservation_slots::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ReservationSlotsListResponse>> {
+        T::list(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update(
+        &self,
+        req: crate::model::reservation_slots::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::update(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::Operation>> {
+        T::get_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
+    }
+}
+
 /// A dyn-compatible, crate-private version of [super::ReservationSubBlocks].
 #[cfg(feature = "reservation-sub-blocks")]
 #[async_trait::async_trait]

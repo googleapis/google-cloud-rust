@@ -35,7 +35,7 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
-    use serial_test::serial;
+    use serial_test::{parallel, serial};
     use std::error::Error;
     use std::fmt;
     use test_case::test_case;
@@ -258,6 +258,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn create_api_key_credentials_success() {
         let creds = ApiKeyCredentialsBuilder::new("test-api-key").build();
         let fmt = format!("{creds:?}");
@@ -416,6 +417,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn mocking_with_default_values() -> Result<()> {
         let mut mock = MockCredentials::new();
         mock.expect_headers().return_once(|_extensions| {
@@ -443,6 +445,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn mocking_access_token_credentials() -> Result<()> {
         let mut mock = MockCredentials::new();
         mock.expect_access_token().return_once(|| {
@@ -459,6 +462,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn mocking_with_custom_header() -> Result<()> {
         let mut mock = MockCredentials::new();
         let headers = HeaderMap::from_iter([(
@@ -485,6 +489,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn mocking_with_custom_universe_domain() -> Result<()> {
         let mut mock = MockCredentials::new();
 
@@ -515,6 +520,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_mds_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let mdcs = MdsBuilder::default()
@@ -527,6 +533,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let service_account_info_json = json!({
@@ -546,6 +553,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_mds_access_token_credentials_from_builder() -> Result<()> {
         let server = Server::run();
         let response = json!({
@@ -576,6 +584,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_service_account_access_token_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let service_account_info_json = json!({
@@ -595,6 +604,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_user_account_access_token_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let authorized_user = serde_json::json!({
@@ -613,6 +623,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_impersonated_access_token_credentials_from_builder() -> Result<()> {
         let contents = json!({
             "type": "impersonated_service_account",
@@ -639,6 +650,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_user_account_credentials_from_builder() -> Result<()> {
         let test_quota_project = "test-quota-project";
         let authorized_user = serde_json::json!({
@@ -754,6 +766,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn create_programmatic_token_provider_user_error() -> TestResult {
         let provider = FailingSubjectTokenProvider;
         let creds = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
