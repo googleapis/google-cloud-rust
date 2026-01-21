@@ -395,7 +395,7 @@ tokio-stream      = { default-features = false, version = "0.1" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
-auth                          = { version = "1.45, path = "src/auth", package = "google-cloud-auth" }
+auth                          = { version = "1.5", path = "src/auth", package = "google-cloud-auth" }
 google-cloud-auth             = { default-features = false, version = "1.5", path = "src/auth" }
 gax                           = { version = "1.6", path = "src/gax", package = "google-cloud-gax" }
 google-cloud-gax              = { version = "1.6", path = "src/gax" }
