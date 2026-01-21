@@ -851,11 +851,12 @@ impl Iam {
     /// # use google_cloud_iam_admin_v1::client::Iam;
     /// use google_cloud_iam_admin_v1::Result;
     /// async fn sample(
-    ///    client: &Iam
+    ///    client: &Iam,
+    ///    resource_name: &str
     /// ) -> Result<()> {
     ///     let response = client
     ///         .delete_role()
-    ///         /* set fields */
+    ///         .set_name(resource_name)
     ///         .send()
     ///         .await?;
     ///     println!("response {:?}", response);
