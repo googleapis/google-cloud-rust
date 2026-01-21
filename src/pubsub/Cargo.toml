@@ -41,6 +41,7 @@ reqwest.workspace      = true
 serde.workspace        = true
 serde_json.workspace   = true
 serde_with.workspace   = true
+thiserror.workspace    = true
 tonic.workspace        = true
 tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
