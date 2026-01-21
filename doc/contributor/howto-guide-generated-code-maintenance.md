@@ -100,7 +100,7 @@ If the version bumps include any of:
 - `src/gax-internal/Cargo.toml`
 - `src/lro/Cargo.toml`
 
-You need to manually bump the corresponding versions in the top-level 
+You need to manually bump the corresponding versions in the top-level
 `Cargo.toml` file.
 
 ## Refreshing the code
