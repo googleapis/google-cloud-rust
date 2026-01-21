@@ -122,6 +122,9 @@ impl Session {
             max_outstanding_messages: builder.max_outstanding_messages,
             max_outstanding_bytes: builder.max_outstanding_bytes,
             client_id: builder.client_id,
+            // `protocol_version == 1` means we support receiving heartbeats
+            // (empty `StreamingPullResponse`s) from the server.
+            protocol_version: 1,
             ..Default::default()
         };
 
@@ -361,6 +364,11 @@ mod tests {
         assert_eq!(initial_req.max_outstanding_messages, 2000);
         assert_eq!(initial_req.max_outstanding_bytes, 200 * MIB);
         assert!(!initial_req.client_id.is_empty());
+        assert!(
+            initial_req.protocol_version >= 1,
+            "protocol_version={}",
+            initial_req.protocol_version
+        );
 
         Ok(())
     }
