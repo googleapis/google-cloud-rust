@@ -74,11 +74,6 @@ once. Note that this includes `showcase` and `protojson-conformance`, though.
 
 ## Bump all version numbers
 
-Manually bump the version of `google-cloud-gax-internal`, if necessary, in:
-
-- `Cargo.toml`
-- `src/gax-internal/Cargo.toml`
-
 Run:
 
 ```bash
@@ -87,14 +82,26 @@ git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
 V=$(cat .librarian-version.txt)
 go run github.com/googleapis/librarian/cmd/librarian@${V} bump --all
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-git add Cargo.lock librarian.yaml '*Cargo.toml' '*README.md'
-git restore . # Effectively a `cargo fmt`, but much faster.
-git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)"
+# It is safe to commit everything because `bump` stops you from updating a
+# dirty workspace.
+git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
 ```
 
 When running on Cloudtop, you might need to set
 `CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt` in order for crates.io to
 accept your certs.
+
+### Update top-level Cargo.toml
+
+If the version bumps include any of:
+
+- `src/auth/Cargo.toml`
+- `src/gax/Cargo.toml`
+- `src/gax-internal/Cargo.toml`
+- `src/lro/Cargo.toml`
+
+You need to manually bump the corresponding versions in the top-level 
+`Cargo.toml` file.
 
 ## Refreshing the code
 
