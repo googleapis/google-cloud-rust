@@ -400,7 +400,7 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-auth
-    version: 1.4.0
+    version: 1.5.0
     copyright_year: "2025"
     output: src/auth
     veneer: true
@@ -710,12 +710,12 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     output: src/gax
     veneer: true
   - name: google-cloud-gax-internal
-    version: 0.7.7
+    version: 0.7.8
     copyright_year: "2025"
     output: src/gax-internal
     veneer: true
@@ -1070,7 +1070,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 0.32.1-preview
+    version: 0.32.2-preview
     copyright_year: "2025"
     output: src/pubsub
     veneer: true
@@ -1297,7 +1297,7 @@ libraries:
         - id: .google.cloud.sql.v1.SqlInstancesService.List
           item_field: items
   - name: google-cloud-storage
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2025"
     output: src/storage
     veneer: true
