@@ -86,7 +86,8 @@ git fetch upstream
 git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
 V=$(cat .librarian-version.txt)
 go run github.com/googleapis/librarian/cmd/librarian@${V} bump --all
-git add Cargo.lock '*Cargo.toml' '*README.md'
+go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
+git add Cargo.lock librarian.yaml '*Cargo.toml' '*README.md'
 git restore . # Effectively a `cargo fmt`, but much faster.
 git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)"
 ```
