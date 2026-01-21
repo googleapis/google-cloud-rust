@@ -1015,7 +1015,7 @@ mod tests {
             });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
@@ -1112,7 +1112,7 @@ mod tests {
             });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
             .build();
 
@@ -1194,7 +1194,7 @@ mod tests {
             });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::from_millis(10))
