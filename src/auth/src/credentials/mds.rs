@@ -617,6 +617,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
         assert!(default_endpoint_address.is_ok());
@@ -706,6 +707,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn error_message_with_adc() {
         let provider = MDSAccessTokenProvider::builder()
             .endpoint("http://127.0.0.1")
