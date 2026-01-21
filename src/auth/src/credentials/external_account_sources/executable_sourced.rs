@@ -241,7 +241,7 @@ mod tests {
     use crate::constants::JWT_TOKEN_TYPE;
     use scoped_env::ScopedEnv;
     use serde_json::json;
-    use serial_test::serial;
+    use serial_test::{parallel, serial};
     use std::error::Error;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     use test_case::test_case;
@@ -323,7 +323,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial]
+    #[parallel]
     async fn read_valid_token_from_output_file() -> TestResult {
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
