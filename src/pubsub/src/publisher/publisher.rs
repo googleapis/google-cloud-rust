@@ -30,14 +30,14 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// A `Publisher` sends messages to a specific topic. It manages message batching
 /// and sending in a background task.
 ///
-/// Publishers are created via a [`Client`](crate::client::Client).
+/// Publishers are created via a [`BasePublisher`](crate::client::BasePublisher).
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use client::Client;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// # use model::PubsubMessage;
-/// let client = Client::builder().build().await?;
+/// let client = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
@@ -122,27 +122,26 @@ impl Publisher {
 
 /// Creates `Publisher`s.
 ///
-/// Publishers are created via a [`Client`][crate::client::Client].
+/// Publishers are created via a [`BasePublisher`][crate::client::BasePublisher].
 ///
 /// # Example
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
-/// # use client::Client;
-/// let client = Client::builder().build().await?;
+/// # use google_cloud_pubsub::client::BasePublisher;
+/// let client = BasePublisher::builder().build().await?;
 /// let publisher = client.publisher("projects/my-project/topics/topic").build();
 /// # Ok(()) }
 /// ```
 #[derive(Clone, Debug)]
-pub struct PublisherBuilder {
+pub struct PublisherPartialBuilder {
     pub(crate) inner: GapicPublisher,
     topic: String,
     batching_options: BatchingOptions,
 }
 
-impl PublisherBuilder {
+impl PublisherPartialBuilder {
     /// Creates a new Pub/Sub publisher builder for topic.
     pub(crate) fn new(client: GapicPublisher, topic: String) -> Self {
         Self {
@@ -159,15 +158,15 @@ impl PublisherBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::Client;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = Client::builder().build().await?;
+    /// # let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic")
     ///     .set_message_count_threshold(100)
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn set_message_count_threshold(mut self, threshold: u32) -> PublisherBuilder {
+    pub fn set_message_count_threshold(mut self, threshold: u32) -> PublisherPartialBuilder {
         self.batching_options = self.batching_options.set_message_count_threshold(threshold);
         self
     }
@@ -177,15 +176,15 @@ impl PublisherBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::Client;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = Client::builder().build().await?;
+    /// # let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic")
     ///     .set_byte_threshold(100)
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn set_byte_threshold(mut self, threshold: u32) -> PublisherBuilder {
+    pub fn set_byte_threshold(mut self, threshold: u32) -> PublisherPartialBuilder {
         self.batching_options = self.batching_options.set_byte_threshold(threshold);
         self
     }
@@ -196,16 +195,16 @@ impl PublisherBuilder {
     ///
     /// # Example
     /// ```
-    /// # use google_cloud_pubsub::client::Client;
+    /// # use google_cloud_pubsub::client::BasePublisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// # let client = Client::builder().build().await?;
+    /// # let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic")
     ///     .set_delay_threshold(Duration::from_millis(50))
     ///     .build();
     /// # Ok(()) }
     /// ```
-    pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherBuilder {
+    pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherPartialBuilder {
         self.batching_options = self.batching_options.set_delay_threshold(threshold);
         self
     }
@@ -248,7 +247,8 @@ impl PublisherBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::{client::Client, publisher::options::BatchingOptions};
+    use crate::client::BasePublisher;
+    use crate::publisher::options::BatchingOptions;
     use crate::{
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
@@ -294,7 +294,7 @@ mod tests {
             .times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
@@ -333,7 +333,7 @@ mod tests {
             }
         });
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
             .build();
@@ -372,7 +372,7 @@ mod tests {
             .times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
@@ -410,7 +410,7 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             // Set a long delay.
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
@@ -466,7 +466,7 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             // Set a long delay.
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
@@ -490,7 +490,7 @@ mod tests {
         let mock = MockGapicPublisher::new();
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string()).build();
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string()).build();
 
         let start = tokio::time::Instant::now();
         publisher.flush().await;
@@ -516,7 +516,7 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -552,7 +552,7 @@ mod tests {
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -595,7 +595,7 @@ mod tests {
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
         let byte_threshold = "my-topic".len() + "hello".len() + 1;
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(byte_threshold as u32)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -636,7 +636,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         let delay = std::time::Duration::from_millis(10);
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(u32::MAX)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(delay)
@@ -701,7 +701,7 @@ mod tests {
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
         let message_count_threshold = 2_u32;
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(message_count_threshold)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -757,7 +757,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -838,7 +838,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -917,7 +917,7 @@ mod tests {
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
             .set_message_count_threshold(1_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -947,7 +947,7 @@ mod tests {
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = Client::builder().build().await?;
+        let client = BasePublisher::builder().build().await?;
         let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
         let publisher = builder.set_message_count_threshold(1_u32).build();
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
@@ -956,7 +956,7 @@ mod tests {
 
     #[tokio::test]
     async fn default_batching() -> anyhow::Result<()> {
-        let client = Client::builder().build().await?;
+        let client = BasePublisher::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .build();
@@ -984,7 +984,7 @@ mod tests {
             .set_message_count_threshold(MAX_MESSAGES + 1)
             .set_byte_threshold(MAX_BYTES + 1);
 
-        let client = Client::builder().build().await?;
+        let client = BasePublisher::builder().build().await?;
         let publisher = client
             .publisher("projects/my-project/topics/my-topic".to_string())
             .set_delay_threshold(oversized_options.delay_threshold)
