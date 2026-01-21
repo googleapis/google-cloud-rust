@@ -126,11 +126,11 @@ libraries:
   - name: common
     copyright_year: "2025"
     output: src/wkt/tests/common
-    roots:
-      - src/wkt/tests/protos
     skip_publish: true
     veneer: true
     rust:
+      roots:
+        - src/wkt/tests/protos
       modules:
         - disabled_rustdoc_warnings: []
           generate_setter_samples: "false"
@@ -521,11 +521,11 @@ libraries:
     keep:
       - src/errors.rs
       - src/operation.rs
-    roots:
-      - discovery
-      - googleapis
     specification_format: discovery
     rust:
+      roots:
+        - discovery
+        - googleapis
       package_dependencies:
         - name: lro
           package: google-cloud-lro
@@ -1231,12 +1231,12 @@ libraries:
       - path: schema/google/showcase/v1beta1
     copyright_year: "2025"
     output: src/generated/showcase
-    roots:
-      - showcase
-      - googleapis
     skip_publish: true
     rust:
       detailed_tracing_attributes: true
+      roots:
+        - showcase
+        - googleapis
   - name: google-cloud-spanner
     copyright_year: "2025"
     output: src/spanner
@@ -1518,10 +1518,10 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/wkt
-    roots:
-      - protobuf-src
     veneer: true
     rust:
+      roots:
+        - protobuf-src
       modules:
         - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
           module_path: crate
@@ -1551,11 +1551,11 @@ libraries:
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
-    roots:
-      - conformance
     skip_publish: true
     veneer: true
     rust:
+      roots:
+        - conformance
       modules:
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
