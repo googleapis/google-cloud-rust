@@ -13,7 +13,6 @@
 # limitations under the License.
 
 options:
-  machineType: E2_HIGHCPU_8
   dynamic_substitutions: true
   substitutionOption: 'ALLOW_LOOSE'
   logging: CLOUD_LOGGING_ONLY
