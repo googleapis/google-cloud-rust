@@ -306,7 +306,7 @@ impl<F, Cr> ClientBuilder<F, Cr> {
     /// customize the default retry throtler.
     ///
     /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
-    /// [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// ```
     /// # use google_cloud_gax::client_builder::examples;

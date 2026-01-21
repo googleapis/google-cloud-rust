@@ -523,7 +523,7 @@ impl ClientBuilder {
     /// customize the default retry throtler.
     ///
     /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
-    /// [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// # Example
     /// ```
