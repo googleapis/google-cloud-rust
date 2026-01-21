@@ -336,39 +336,40 @@ impl BatchWorker {
                         break;
                     }
                 }
-            }
-            tokio::select! {
-                join = inflight.join_next(), if !inflight.is_empty() => {
-                    self.handle_inflight_join(join);
-                    self.move_to_batch();
-                    if self.at_batch_threshold() {
-                        self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+            } else {
+                tokio::select! {
+                    join = inflight.join_next(), if !inflight.is_empty() => {
+                        self.handle_inflight_join(join);
+                        self.move_to_batch();
+                        if self.at_batch_threshold() {
+                            self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                        }
                     }
-                }
-                msg = self.rx.recv() => {
-                    match msg {
-                        Some(ToBatchWorker::Publish(msg)) => {
-                            self.pending_msgs.push_back(msg);
-                            if inflight.is_empty() {
-                                self.move_to_batch();
-                                if self.at_batch_threshold() {
-                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                    msg = self.rx.recv() => {
+                        match msg {
+                            Some(ToBatchWorker::Publish(msg)) => {
+                                self.pending_msgs.push_back(msg);
+                                if inflight.is_empty() {
+                                    self.move_to_batch();
+                                    if self.at_batch_threshold() {
+                                        self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                    }
                                 }
-                            }
-                        },
-                        Some(ToBatchWorker::Flush(tx)) => {
-                            // Send batches sequentially.
-                            self.handle_inflight_join(inflight.join_next().await);
-                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                self.move_to_batch();
-                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            },
+                            Some(ToBatchWorker::Flush(tx)) => {
+                                // Send batches sequentially.
                                 self.handle_inflight_join(inflight.join_next().await);
+                                while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+                                    self.move_to_batch();
+                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                    self.handle_inflight_join(inflight.join_next().await);
+                                }
+                                let _ = tx.send(());
+                            },
+                            None => {
+                                // TODO(#4012): Add shutdown procedure for BatchWorker.
+                                break;
                             }
-                            let _ = tx.send(());
-                        },
-                        None => {
-                            // TODO(#4012): Add shutdown procedure for BatchWorker.
-                            break;
                         }
                     }
                 }
