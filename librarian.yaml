@@ -129,8 +129,6 @@ libraries:
     skip_publish: true
     veneer: true
     rust:
-      roots:
-        - src/wkt/tests/protos
       modules:
         - disabled_rustdoc_warnings: []
           generate_setter_samples: "false"
@@ -138,6 +136,8 @@ libraries:
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
+      roots:
+        - src/wkt/tests/protos
   - name: google-cloud-accessapproval-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -523,9 +523,6 @@ libraries:
       - src/operation.rs
     specification_format: discovery
     rust:
-      roots:
-        - discovery
-        - googleapis
       package_dependencies:
         - name: lro
           package: google-cloud-lro
@@ -539,6 +536,9 @@ libraries:
         - redundant_explicit_links
       per_service_features: true
       package_name_override: google-cloud-compute-v1
+      roots:
+        - discovery
+        - googleapis
       default_features:
         - instances
         - projects
@@ -1233,10 +1233,10 @@ libraries:
     output: src/generated/showcase
     skip_publish: true
     rust:
-      detailed_tracing_attributes: true
       roots:
         - showcase
         - googleapis
+      detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2025"
     output: src/spanner
@@ -1520,14 +1520,14 @@ libraries:
     output: src/wkt
     veneer: true
     rust:
-      roots:
-        - protobuf-src
       modules:
         - include_list: api.proto,source_context.proto,type.proto,descriptor.proto
           module_path: crate
           output: src/wkt/src/generated
           source: google/protobuf
           template: mod
+      roots:
+        - protobuf-src
   - name: google-cloud-workflows-executions-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -1554,8 +1554,6 @@ libraries:
     skip_publish: true
     veneer: true
     rust:
-      roots:
-        - conformance
       modules:
         - include_list: conformance.proto
           module_path: crate::generated::gapic::model
@@ -1580,6 +1578,8 @@ libraries:
           output: tests/protojson-conformance/src/generated/test_protos
           source: src/google/protobuf
           template: mod
+      roots:
+        - conformance
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
