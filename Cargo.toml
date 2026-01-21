@@ -395,11 +395,11 @@ tokio-stream      = { default-features = false, version = "0.1" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
-auth                          = { version = "1.4", path = "src/auth", package = "google-cloud-auth" }
-google-cloud-auth             = { default-features = false, version = "1.4", path = "src/auth" }
-gax                           = { version = "1.5", path = "src/gax", package = "google-cloud-gax" }
-google-cloud-gax              = { version = "1.5", path = "src/gax" }
-gaxi                          = { version = "0.7.7", path = "src/gax-internal", package = "google-cloud-gax-internal" }
+auth                          = { version = "1.45, path = "src/auth", package = "google-cloud-auth" }
+google-cloud-auth             = { default-features = false, version = "1.5", path = "src/auth" }
+gax                           = { version = "1.6", path = "src/gax", package = "google-cloud-gax" }
+google-cloud-gax              = { version = "1.6", path = "src/gax" }
+gaxi                          = { version = "0.7.8", path = "src/gax-internal", package = "google-cloud-gax-internal" }
 iam_v1                        = { version = "1", path = "src/generated/iam/v1", package = "google-cloud-iam-v1" }
 google-cloud-iam-v1           = { version = "1", path = "src/generated/iam/v1" }
 location                      = { version = "1", path = "src/generated/cloud/location", package = "google-cloud-location" }
