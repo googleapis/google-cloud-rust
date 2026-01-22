@@ -18,6 +18,8 @@ use reqwest::{Client as ReqwestClient, RequestBuilder};
 use std::time::Duration;
 use tokio::time::Instant;
 
+/// A client for GCP Compute Engine Metadata Service (MDS).
+#[allow(dead_code)]
 #[derive(Clone, Debug)]
 pub(crate) struct Client {
     endpoint: String,
@@ -35,6 +37,8 @@ pub(crate) struct MDSTokenResponse {
 }
 
 impl Client {
+    #[allow(dead_code)]
+    /// Creates a new client for the Metadata Service.
     pub(crate) fn new(endpoint_override: Option<String>) -> Self {
         let (endpoint, is_default_endpoint) = Self::resolve_endpoint(endpoint_override);
         let endpoint = endpoint.trim_end_matches('/').to_string();
