@@ -80,7 +80,7 @@ where
         let builder = self
             .inner
             .client
-            .request(reqwest::Method::PUT, url_ref)
+            .builder_with_url(reqwest::Method::PUT, url_ref)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
@@ -142,9 +142,9 @@ where
         let builder = self
             .inner
             .client
-            .request(
+            .builder(
                 reqwest::Method::POST,
-                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+                format!("/upload/storage/v1/b/{bucket_id}/o"),
             )
             .query(&[("uploadType", "multipart")])
             .query(&[("name", object)])

@@ -458,13 +458,9 @@ impl Reader {
         let builder = self
             .inner
             .client
-            .request(
+            .builder(
                 reqwest::Method::GET,
-                format!(
-                    "{}/storage/v1/b/{bucket_id}/o/{}",
-                    &self.inner.endpoint,
-                    enc(object)
-                ),
+                format!("/storage/v1/b/{bucket_id}/o/{}", enc(object)),
             )
             .query(&[("alt", "media")])
             .header(
