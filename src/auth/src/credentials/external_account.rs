@@ -125,6 +125,7 @@ use crate::headers_util::build_cacheable_headers;
 use crate::retry::Builder as RetryTokenProviderBuilder;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::trust_boundary::TrustBoundary;
 use crate::{BuildResult, Result};
 use gax::backoff_policy::BackoffPolicyArg;
 use gax::retry_policy::RetryPolicyArg;
@@ -359,16 +360,21 @@ impl ExternalAccountConfig {
     where
         T: dynamic::SubjectTokenProvider + 'static,
     {
+        let trust_boundary_url =
+            crate::trust_boundary::external_account_lookup_url(&config.audience);
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
             config,
         };
         let token_provider_with_retry = retry_builder.build(token_provider);
         let cache = TokenCache::new(token_provider_with_retry);
+        let trust_boundary =
+            trust_boundary_url.map(|url| Arc::new(TrustBoundary::new(cache.clone(), url)));
         AccessTokenCredentials {
             inner: Arc::new(ExternalAccountCredentials {
                 token_provider: cache,
                 quota_project_id,
+                trust_boundary,
             }),
         }
     }
@@ -457,6 +463,7 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+    trust_boundary: Option<Arc<TrustBoundary>>,
 }
 
 /// A builder for external account [Credentials] instances.
@@ -1279,7 +1286,12 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&token, &self.quota_project_id)
+        let trust_boundary_header = self
+            .trust_boundary
+            .as_ref()
+            .and_then(|tb| tb.header_value());
+
+        build_cacheable_headers(&token, &self.quota_project_id, &trust_boundary_header)
     }
 }
 

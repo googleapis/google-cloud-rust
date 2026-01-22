@@ -74,4 +74,6 @@ pub(crate) mod retry;
 /// [Credentials]: https://cloud.google.com/docs/authentication#credentials
 pub(crate) mod headers_util;
 
+pub(crate) mod trust_boundary;
+
 pub mod signer;

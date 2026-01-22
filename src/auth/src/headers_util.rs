@@ -16,6 +16,7 @@ use crate::Result;
 use crate::credentials::{CacheableResource, QUOTA_PROJECT_KEY};
 use crate::errors;
 use crate::token::Token;
+use crate::trust_boundary::TRUST_BOUNDARY_HEADER;
 
 use http::HeaderMap;
 use http::header::{AUTHORIZATION, HeaderName, HeaderValue};
@@ -51,11 +52,12 @@ const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
 pub(crate) fn build_cacheable_headers(
     cached_token: &CacheableResource<Token>,
     quota_project_id: &Option<String>,
+    trust_boundary_header: &Option<String>,
 ) -> Result<CacheableResource<HeaderMap>> {
     match cached_token {
         CacheableResource::NotModified => Ok(CacheableResource::NotModified),
         CacheableResource::New { entity_tag, data } => {
-            let headers = build_bearer_headers(data, quota_project_id)?;
+            let headers = build_bearer_headers(data, quota_project_id, trust_boundary_header)?;
             Ok(CacheableResource::New {
                 entity_tag: entity_tag.clone(),
                 data: headers,
@@ -68,11 +70,18 @@ pub(crate) fn build_cacheable_headers(
 fn build_bearer_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
+    trust_boundary_header: &Option<String>,
 ) -> Result<HeaderMap> {
-    build_headers(token, quota_project_id, AUTHORIZATION, |token| {
-        HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
-            .map_err(errors::non_retryable)
-    })
+    build_headers(
+        token,
+        quota_project_id,
+        trust_boundary_header,
+        AUTHORIZATION,
+        |token| {
+            HeaderValue::from_str(&format!("{} {}", token.token_type, token.token))
+                .map_err(errors::non_retryable)
+        },
+    )
 }
 
 pub(crate) fn build_cacheable_api_key_headers(
@@ -95,6 +104,7 @@ fn build_api_key_headers(token: &crate::token::Token) -> Result<HeaderMap> {
     build_headers(
         token,
         &None,
+        &None,
         HeaderName::from_static(API_KEY_HEADER_KEY),
         |token| HeaderValue::from_str(&token.token).map_err(errors::non_retryable),
     )
@@ -104,6 +114,7 @@ fn build_api_key_headers(token: &crate::token::Token) -> Result<HeaderMap> {
 fn build_headers(
     token: &crate::token::Token,
     quota_project_id: &Option<String>,
+    trust_boundary_header: &Option<String>,
     header_name: HeaderName,
     build_header_value: impl FnOnce(&crate::token::Token) -> Result<HeaderValue>,
 ) -> Result<HeaderMap> {
@@ -117,6 +128,13 @@ fn build_headers(
         header_map.insert(
             HeaderName::from_static(QUOTA_PROJECT_KEY),
             HeaderValue::from_str(project).map_err(errors::non_retryable)?,
+        );
+    }
+
+    if let Some(trust_boundary) = trust_boundary_header {
+        header_map.insert(
+            HeaderName::from_static(TRUST_BOUNDARY_HEADER),
+            HeaderValue::from_str(trust_boundary).map_err(errors::non_retryable)?,
         );
     }
 
@@ -147,7 +165,7 @@ mod tests {
             data: token,
         };
 
-        let result = build_cacheable_headers(&cacheable_token, &None);
+        let result = build_cacheable_headers(&cacheable_token, &None, &None);
 
         assert!(result.is_ok());
         let cached_headers = result.unwrap();
@@ -169,7 +187,7 @@ mod tests {
     fn build_cacheable_headers_basic_not_modified() {
         let cacheable_token = CacheableResource::NotModified;
 
-        let result = build_cacheable_headers(&cacheable_token, &None);
+        let result = build_cacheable_headers(&cacheable_token, &None, &None);
 
         assert!(result.is_ok());
         let cached_headers = result.unwrap();
@@ -188,7 +206,7 @@ mod tests {
         };
 
         let quota_project_id = Some("test-project-123".to_string());
-        let result = build_cacheable_headers(&cacheable_token, &quota_project_id);
+        let result = build_cacheable_headers(&cacheable_token, &quota_project_id, &None);
 
         assert!(result.is_ok());
         let cached_headers = result.unwrap();
@@ -211,10 +229,44 @@ mod tests {
     }
 
     #[test]
+    fn build_cacheable_headers_with_trust_boundary_success() {
+        let token = create_test_token("test_token", "Bearer");
+        let cacheable_token = CacheableResource::New {
+            entity_tag: EntityTag::default(),
+            data: token,
+        };
+
+        let trust_boundary = Some("test-trust-boundary".to_string());
+        let result = build_cacheable_headers(&cacheable_token, &None, &trust_boundary);
+
+        assert!(result.is_ok());
+        let cached_headers = result.unwrap();
+        let headers = match cached_headers {
+            CacheableResource::New { data, .. } => data,
+            CacheableResource::NotModified => unreachable!("expecting new headers"),
+        };
+        assert_eq!(headers.len(), 2, "{headers:?}");
+
+        let token = headers
+            .get(HeaderName::from_static("authorization"))
+            .unwrap();
+        assert_eq!(token, HeaderValue::from_static("Bearer test_token"));
+        assert!(token.is_sensitive());
+
+        let trust_boundary = headers
+            .get(HeaderName::from_static(TRUST_BOUNDARY_HEADER))
+            .unwrap();
+        assert_eq!(
+            trust_boundary,
+            HeaderValue::from_static("test-trust-boundary")
+        );
+    }
+
+    #[test]
     fn build_bearer_headers_different_token_type() {
         let token = create_test_token("special_token", "MAC");
 
-        let result = build_bearer_headers(&token, &None);
+        let result = build_bearer_headers(&token, &None, &None);
 
         assert!(result.is_ok());
         let headers = result.unwrap();
@@ -233,7 +285,7 @@ mod tests {
     fn build_bearer_headers_invalid_token() {
         let token = create_test_token("token with \n invalid chars", "Bearer");
 
-        let result = build_bearer_headers(&token, &None);
+        let result = build_bearer_headers(&token, &None, &None);
 
         assert!(result.is_err());
         let error = result.unwrap_err();
