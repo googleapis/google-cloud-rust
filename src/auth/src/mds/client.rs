@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use reqwest::Client as ReqwestClient;
+use crate::errors::{self, CredentialsError};
+use reqwest::{Client as ReqwestClient, RequestBuilder};
 
 /// A client for GCP Compute Engine Metadata Service (MDS).
 #[allow(dead_code)]
@@ -51,13 +52,91 @@ impl Client {
             (super::METADATA_ROOT.to_string(), true)
         }
     }
+
+    /// Creates a GET request to the MDS service with the correct headers.
+    fn get(&self, path: &str) -> RequestBuilder {
+        let url = format!("{}{}", self.endpoint, path);
+        self.inner
+            .get(url)
+            .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
+    }
+
+    pub(crate) async fn email(&self) -> crate::Result<String> {
+        let path = format!("{}/email", super::MDS_DEFAULT_URI);
+        let request = self.get(&path);
+        let error_message = "failed to fetch email";
+
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let email = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(email)
+    }
+
+    async fn check_response_status(
+        response: reqwest::Response,
+        error_message: &str,
+    ) -> crate::Result<reqwest::Response> {
+        if !response.status().is_success() {
+            let err = errors::from_http_response(response, error_message).await;
+            Err(err)
+        } else {
+            Ok(response)
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mds::MDS_DEFAULT_URI;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_email_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/email", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(200).body("test@example.com")),
+        );
+
+        let email = client.email().await.unwrap();
+        assert_eq!(email, "test@example.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_email_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/email", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.email().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch email"));
+    }
 
     #[test]
     #[parallel]
