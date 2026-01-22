@@ -1431,7 +1431,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-auth"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -2781,7 +2781,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "anyhow",
  "base64",
@@ -2804,7 +2804,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gax-internal"
-version = "0.7.7"
+version = "0.7.8"
 dependencies = [
  "anyhow",
  "bytes",
@@ -4105,7 +4105,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-pubsub"
-version = "0.32.1-preview"
+version = "0.32.2-preview"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -4126,6 +4126,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serde_with",
+ "thiserror",
  "tokio",
  "tokio-stream",
  "tokio-test",
@@ -4662,7 +4663,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "1.6.0"
+version = "1.7.0"
 dependencies = [
  "anyhow",
  "async-trait",

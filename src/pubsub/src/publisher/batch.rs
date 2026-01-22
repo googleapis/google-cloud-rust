@@ -14,6 +14,7 @@
 
 use tokio::task::JoinSet;
 
+use crate::error::PublishError;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::worker::BundledMessage;
 use std::sync::Arc;
@@ -72,7 +73,7 @@ impl Batch {
         &mut self,
         client: GapicPublisher,
         topic: String,
-        inflight: &mut JoinSet<()>,
+        inflight: &mut JoinSet<Result<(), gax::error::Error>>,
     ) {
         let batch_to_send = Self {
             initial_size: self.initial_size,
@@ -84,7 +85,7 @@ impl Batch {
     }
 
     /// Send the batch to the service and process the results.
-    async fn send(self, client: GapicPublisher, topic: String) {
+    async fn send(self, client: GapicPublisher, topic: String) -> Result<(), gax::error::Error> {
         let (msgs, txs): (Vec<_>, Vec<_>) = self
             .messages
             .into_iter()
@@ -100,10 +101,9 @@ impl Batch {
                 let e = Arc::new(e);
                 for tx in txs {
                     // The user may have dropped the handle, so it is ok if this fails.
-                    // TODO(#3689): The error type for this is incorrect, will need to handle
-                    // this error propagation more fully.
-                    let _ = tx.send(Err(gax::error::Error::io(e.clone())));
+                    let _ = tx.send(Err(PublishError::SendError(e.clone())));
                 }
+                Err(gax::error::Error::io(e))
             }
             Ok(result) => {
                 txs.into_iter()
@@ -112,6 +112,7 @@ impl Batch {
                         // The user may have dropped the handle, so it is ok if this fails.
                         let _ = tx.send(Ok(result));
                     });
+                Ok(())
             }
         }
     }
@@ -213,7 +214,7 @@ mod tests {
         data: T,
     ) -> (
         BundledMessage,
-        tokio::sync::oneshot::Receiver<crate::Result<String>>,
+        tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
     ) {
         create_bundled_message_from_pubsub_message(PubsubMessage::new().set_data(data.into()))
     }
@@ -222,7 +223,7 @@ mod tests {
         msg: PubsubMessage,
     ) -> (
         BundledMessage,
-        tokio::sync::oneshot::Receiver<crate::Result<String>>,
+        tokio::sync::oneshot::Receiver<std::result::Result<String, crate::error::PublishError>>,
     ) {
         let (tx, rx) = tokio::sync::oneshot::channel();
         (BundledMessage { tx, msg }, rx)

@@ -126,8 +126,6 @@ libraries:
   - name: common
     copyright_year: "2025"
     output: src/wkt/tests/common
-    roots:
-      - src/wkt/tests/protos
     skip_publish: true
     veneer: true
     rust:
@@ -138,6 +136,8 @@ libraries:
           output: src/wkt/tests/common/src/generated
           source: src/wkt/tests/protos
           template: mod
+      roots:
+        - src/wkt/tests/protos
   - name: google-cloud-accessapproval-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -400,7 +400,7 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-auth
-    version: 1.4.0
+    version: 1.5.0
     copyright_year: "2025"
     output: src/auth
     veneer: true
@@ -521,9 +521,6 @@ libraries:
     keep:
       - src/errors.rs
       - src/operation.rs
-    roots:
-      - discovery
-      - googleapis
     specification_format: discovery
     rust:
       package_dependencies:
@@ -539,6 +536,9 @@ libraries:
         - redundant_explicit_links
       per_service_features: true
       package_name_override: google-cloud-compute-v1
+      roots:
+        - discovery
+        - googleapis
       default_features:
         - instances
         - projects
@@ -710,12 +710,12 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-gax
-    version: 1.5.0
+    version: 1.6.0
     copyright_year: "2025"
     output: src/gax
     veneer: true
   - name: google-cloud-gax-internal
-    version: 0.7.7
+    version: 0.7.8
     copyright_year: "2025"
     output: src/gax-internal
     veneer: true
@@ -1070,7 +1070,7 @@ libraries:
     rust:
       package_name_override: google-cloud-profiler-v2
   - name: google-cloud-pubsub
-    version: 0.32.1-preview
+    version: 0.32.2-preview
     copyright_year: "2025"
     output: src/pubsub
     veneer: true
@@ -1231,11 +1231,11 @@ libraries:
       - path: schema/google/showcase/v1beta1
     copyright_year: "2025"
     output: src/generated/showcase
-    roots:
-      - showcase
-      - googleapis
     skip_publish: true
     rust:
+      roots:
+        - showcase
+        - googleapis
       detailed_tracing_attributes: true
   - name: google-cloud-spanner
     copyright_year: "2025"
@@ -1297,7 +1297,7 @@ libraries:
         - id: .google.cloud.sql.v1.SqlInstancesService.List
           item_field: items
   - name: google-cloud-storage
-    version: 1.6.0
+    version: 1.7.0
     copyright_year: "2025"
     output: src/storage
     veneer: true
@@ -1518,8 +1518,6 @@ libraries:
     version: 1.2.0
     copyright_year: "2025"
     output: src/wkt
-    roots:
-      - protobuf-src
     veneer: true
     rust:
       modules:
@@ -1528,6 +1526,8 @@ libraries:
           output: src/wkt/src/generated
           source: google/protobuf
           template: mod
+      roots:
+        - protobuf-src
   - name: google-cloud-workflows-executions-v1
     version: 1.3.0
     copyright_year: "2025"
@@ -1551,8 +1551,6 @@ libraries:
   - name: protojson-conformance
     copyright_year: "2025"
     output: tests/protojson-conformance
-    roots:
-      - conformance
     skip_publish: true
     veneer: true
     rust:
@@ -1580,6 +1578,8 @@ libraries:
           output: tests/protojson-conformance/src/generated/test_protos
           source: src/google/protobuf
           template: mod
+      roots:
+        - conformance
   - name: pubsub-grpc-mock
     copyright_year: "2025"
     output: src/pubsub/grpc-mock
@@ -1593,7 +1593,7 @@ libraries:
   - name: secretmanager-openapi-v1
     version: 1.0.0
     channels:
-      - path: google/cloud/secretmanager/v1
+      - path: testdata/secretmanager_openapi_v1.json
     copyright_year: "2024"
     output: src/generated/openapi-validation
     skip_publish: true

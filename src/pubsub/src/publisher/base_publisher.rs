@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::publisher::PublisherBuilder;
+use crate::publisher::publisher::PublisherPartialBuilder;
 
 /// Creates [`Publisher`](super::publisher::Publisher) instances.
 ///
-/// This is the main entry point for the publisher API. A single `Client`
+/// This is the main entry point for the publisher API. A single `BasePublisher`
 /// can be used to create multiple `Publisher` clients for different topics.
 /// It manages the underlying gRPC connection and authentication.
 ///
@@ -24,11 +24,11 @@ use crate::publisher::publisher::PublisherBuilder;
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// # use google_cloud_pubsub::client::Client;
+/// # use google_cloud_pubsub::client::BasePublisher;
 /// # use google_cloud_pubsub::model::PubsubMessage;
 ///
 /// // Create a client.
-/// let client = Client::builder().build().await?;
+/// let client = BasePublisher::builder().build().await?;
 ///
 /// // Create a publisher for a specific topic.
 /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
@@ -41,32 +41,32 @@ use crate::publisher::publisher::PublisherBuilder;
 /// # }
 /// ```
 #[derive(Clone, Debug)]
-pub struct Client {
+pub struct BasePublisher {
     pub(crate) inner: crate::generated::gapic_dataplane::client::Publisher,
 }
 
-/// A builder for [Client].
+/// A builder for [BasePublisher].
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use builder::publisher::ClientBuilder;
-/// # use client::Client;
-/// let builder: ClientBuilder = Client::builder();
+/// # use builder::publisher::BasePublisherBuilder;
+/// # use client::BasePublisher;
+/// let builder: BasePublisherBuilder = BasePublisher::builder();
 /// let client = builder
 ///     .with_endpoint("https://pubsub.googleapis.com")
 ///     .build().await?;
 /// # Ok(()) }
 /// ```
-pub type ClientBuilder =
+pub type BasePublisherBuilder =
     gax::client_builder::ClientBuilder<client_builder::Factory, gaxi::options::Credentials>;
 
 pub(crate) mod client_builder {
-    use super::Client;
+    use super::BasePublisher;
 
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
-        type Client = Client;
+        type Client = BasePublisher;
         type Credentials = gaxi::options::Credentials;
         #[allow(unused_mut)]
         async fn build(
@@ -79,16 +79,16 @@ pub(crate) mod client_builder {
     }
 }
 
-impl Client {
-    /// Returns a builder for [Client].
+impl BasePublisher {
+    /// Returns a builder for [BasePublisher].
     ///
     /// ```no_run
     /// # tokio_test::block_on(async {
-    /// # use google_cloud_pubsub::client::Client;
-    /// let client = Client::builder().build().await?;
+    /// # use google_cloud_pubsub::client::BasePublisher;
+    /// let client = BasePublisher::builder().build().await?;
     /// # gax::client_builder::Result::<()>::Ok(()) });
     /// ```
-    pub fn builder() -> ClientBuilder {
+    pub fn builder() -> BasePublisherBuilder {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
 
@@ -105,29 +105,29 @@ impl Client {
     /// ```
     /// # async fn sample() -> anyhow::Result<()> {
     /// # use google_cloud_pubsub::*;
-    /// # use builder::publisher::ClientBuilder;
-    /// # use client::Client;
+    /// # use builder::publisher::BasePublisherBuilder;
+    /// # use client::BasePublisher;
     /// # use model::PubsubMessage;
-    /// let client = Client::builder().build().await?;
+    /// let client = BasePublisher::builder().build().await?;
     /// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
     /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World")).await?;
     /// # Ok(()) }
     /// ```
-    pub fn publisher<T>(&self, topic: T) -> PublisherBuilder
+    pub fn publisher<T>(&self, topic: T) -> PublisherPartialBuilder
     where
         T: Into<String>,
     {
-        PublisherBuilder::new(self.inner.clone(), topic.into())
+        PublisherPartialBuilder::new(self.inner.clone(), topic.into())
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::Client;
+    use super::BasePublisher;
 
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
-        let client = Client::builder()
+        let client = BasePublisher::builder()
             .with_credentials(auth::credentials::anonymous::Builder::new().build())
             .build()
             .await?;

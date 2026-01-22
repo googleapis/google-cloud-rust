@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-version     = "0.32.1-preview"
+version     = "0.32.2-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -41,6 +41,7 @@ reqwest.workspace      = true
 serde.workspace        = true
 serde_json.workspace   = true
 serde_with.workspace   = true
+thiserror.workspace    = true
 tonic.workspace        = true
 tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
