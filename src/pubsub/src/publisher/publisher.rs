@@ -1095,19 +1095,17 @@ mod tests {
     async fn test_ordering_error_pause_batch_errors() {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .times(1)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 2);
-                    Err(gax::error::Error::service(
-                        gax::error::rpc::Status::default()
-                            .set_code(gax::error::rpc::Code::Unknown)
-                            .set_message("unknown error has occurred"),
-                    ))
-                }
-            });
+        mock.expect_publish().times(1).returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                Err(gax::error::Error::service(
+                    gax::error::rpc::Status::default()
+                        .set_code(gax::error::rpc::Code::Unknown)
+                        .set_message("unknown error has occurred"),
+                ))
+            }
+        });
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
