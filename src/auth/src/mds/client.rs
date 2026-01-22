@@ -61,6 +61,7 @@ impl Client {
             .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
     }
 
+    /// Fetches the email address of the service account from the Metadata Service.
     pub(crate) async fn email(&self) -> crate::Result<String> {
         let path = format!("{}/email", super::MDS_DEFAULT_URI);
         let request = self.get(&path);
