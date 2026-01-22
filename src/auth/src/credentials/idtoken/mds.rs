@@ -66,11 +66,11 @@
 
 use crate::Result;
 use crate::credentials::CacheableResource;
-use crate::credentials::mds::{
+use crate::errors::CredentialsError;
+use crate::mds::{
     GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
     METADATA_ROOT,
 };
-use crate::errors::CredentialsError;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{
@@ -309,6 +309,7 @@ mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::find_source_error;
+    use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI};
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
@@ -365,14 +366,14 @@ mod tests {
         );
 
         let addr = server.addr().to_string();
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, &addr);
 
         let creds = Builder::new(audience).build()?;
 
         let id_token = creds.id_token().await?;
         assert_eq!(id_token, token_string);
 
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
         Ok(())
     }
 

@@ -58,6 +58,8 @@ pub mod credentials;
 
 pub(crate) mod constants;
 
+pub(crate) mod mds;
+
 pub(crate) mod token;
 
 /// The token cache

@@ -78,6 +78,10 @@ use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsPro
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
+use crate::mds::{
+    GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
+    METADATA_ROOT,
+};
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -93,11 +97,6 @@ use std::sync::Arc;
 use std::time::Duration;
 use tokio::time::Instant;
 
-pub(crate) const METADATA_FLAVOR_VALUE: &str = "Google";
-pub(crate) const METADATA_FLAVOR: &str = "metadata-flavor";
-pub(crate) const METADATA_ROOT: &str = "http://metadata.google.internal";
-pub(crate) const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
-pub(crate) const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
 // TODO(#2235) - Improve this message by talking about retries when really running with MDS
 const MDS_NOT_FOUND_ERROR: &str = concat!(
     "Could not fetch an auth token to authenticate with Google Cloud. ",
@@ -518,6 +517,7 @@ mod tests {
     };
     use crate::errors;
     use crate::errors::CredentialsError;
+    use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_ROOT};
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -755,7 +755,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn adc_overridden_mds() -> TestResult {
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
 
         let err = Builder::from_adc()
             .build_token_provider()
@@ -763,7 +763,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
 
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
@@ -813,13 +813,13 @@ mod tests {
         );
 
         let addr = server.addr().to_string();
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, &addr);
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
             .build()
             .unwrap();
         let headers = mdsc.headers(Extensions::new()).await.unwrap();
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(
             get_token_from_headers(headers).unwrap(),

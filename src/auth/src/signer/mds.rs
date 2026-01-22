@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use crate::credentials::Credentials;
-use crate::credentials::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE};
+use crate::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE};
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
 use http::HeaderValue;
 use reqwest::Client;
@@ -96,6 +96,7 @@ mod tests {
     use super::*;
     use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use crate::errors::CredentialsError;
+    use crate::mds::MDS_DEFAULT_URI;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
