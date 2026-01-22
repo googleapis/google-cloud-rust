@@ -12,7 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use reqwest::Client as ReqwestClient;
+use crate::errors::{self, CredentialsError};
+use reqwest::{Client as ReqwestClient, RequestBuilder};
 
 /// A client for GCP Compute Engine Metadata Service (MDS).
 #[allow(dead_code)]
@@ -51,13 +52,116 @@ impl Client {
             (super::METADATA_ROOT.to_string(), true)
         }
     }
+
+    /// Creates a GET request to the MDS service with the correct headers.
+    fn get(&self, path: &str) -> RequestBuilder {
+        let url = format!("{}{}", self.endpoint, path);
+        self.inner
+            .get(url)
+            .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
+    }
+
+    /// Fetches an ID token for the default service account.
+    /// Used by idtoken feature.
+    #[allow(dead_code)]
+    pub(crate) async fn id_token(
+        &self,
+        target_audience: &str,
+        format: Option<String>,
+        licenses: Option<String>,
+    ) -> crate::Result<String> {
+        let path = format!("{}/identity", super::MDS_DEFAULT_URI);
+        let request = self.get(&path).query(&[("audience", target_audience)]);
+        let request = format.iter().fold(request, |builder, format| {
+            builder.query(&[("format", format)])
+        });
+        let request = licenses.iter().fold(request, |builder, licenses| {
+            builder.query(&[("licenses", licenses)])
+        });
+
+        let error_message = "failed to fetch id token";
+
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let token = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(token)
+    }
+
+    async fn check_response_status(
+        response: reqwest::Response,
+        error_message: &str,
+    ) -> crate::Result<reqwest::Response> {
+        if !response.status().is_success() {
+            let err = errors::from_http_response(response, error_message).await;
+            Err(err)
+        } else {
+            Ok(response)
+        }
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mds::MDS_DEFAULT_URI;
+    use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_id_token_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/identity", MDS_DEFAULT_URI)),
+                request::query(url_decoded(contains(("audience", "test-aud".to_string())))),
+                request::query(url_decoded(contains(("format", "full".to_string())))),
+                request::query(url_decoded(contains(("licenses", "TRUE".to_string())))),
+            ])
+            .respond_with(status_code(200).body("test-id-token")),
+        );
+
+        let token = client
+            .id_token(
+                "test-aud",
+                Some("full".to_string()),
+                Some("TRUE".to_string()),
+            )
+            .await
+            .unwrap();
+        assert_eq!(token, "test-id-token");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_id_token_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/identity", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.id_token("test-aud", None, None).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch id token"));
+    }
 
     #[test]
     #[parallel]
