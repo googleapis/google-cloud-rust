@@ -279,6 +279,7 @@ members = [
   "tests/crypto-providers/test-metadata",
   "tests/crypto-providers/test-secret-manager",
   "tests/crypto-providers/test-storage",
+  "tests/dns",
   "tests/endurance",
   "tests/integration",
   "tests/integration-auth",
@@ -452,6 +453,7 @@ google-cloud-iam-credentials-v1 = { default-features = false, version = "1", pat
 iamcredentials                  = { default-features = false, version = "1", path = "src/generated/iam/credentials/v1", package = "google-cloud-iam-credentials-v1" }
 google-cloud-language-v2        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2" }
 language                        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
+google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { path = "src/test-utils" }

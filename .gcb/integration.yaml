@@ -47,6 +47,8 @@ steps:
         --package user-guide-samples \
         --package storage-samples \
         --package pubsub-samples
+      cargo test --features run-integration-tests \
+        --package integration-tests-dns-v1
       cargo build --package storage-samples --profile=test --all-features
       cargo build --package pubsub-samples --profile=test --all-features
   - id: Validate default crypto provider behavior

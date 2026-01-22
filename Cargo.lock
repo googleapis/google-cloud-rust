@@ -5823,6 +5823,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-dns-v1"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "futures",
+ "google-cloud-dns-v1",
+ "google-cloud-gax",
+ "rand 0.9.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "ipnet"
 version = "2.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
