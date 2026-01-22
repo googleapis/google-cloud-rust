@@ -1052,13 +1052,13 @@ mod tests {
         // Assert that new publish messages return errors because the Publisher is paused.
         let paused_messages = [
             PubsubMessage::new()
-                .set_data("hello pause 0".to_string())
+                .set_data("hello pause 0")
                 .set_ordering_key("ordering key with error"),
             PubsubMessage::new()
-                .set_data("hello pause 1".to_string())
+                .set_data("hello pause 1")
                 .set_ordering_key("ordering key with error"),
             PubsubMessage::new()
-                .set_data("hello pause 2".to_string())
+                .set_data("hello pause 2")
                 .set_ordering_key("ordering key with error"),
         ];
         for msg in paused_messages {
@@ -1094,22 +1094,18 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_ordering_error_pause_batch_errors() {
         // Verify that all messages in the same batch receives the Send error for that batch.
-        let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 2);
-                    Err(gax::error::Error::service(
-                        gax::error::rpc::Status::default()
-                            .set_code(gax::error::rpc::Code::Unknown)
-                            .set_message("unknown error has occurred"),
-                    ))
-                }
-            });
+        mock.expect_publish().times(1).returning({
+            |r, _| {
+                assert_eq!(r.topic, "my-topic");
+                assert_eq!(r.messages.len(), 2);
+                Err(gax::error::Error::service(
+                    gax::error::rpc::Status::default()
+                        .set_code(gax::error::rpc::Code::Unknown)
+                        .set_message("unknown error has occurred"),
+                ))
+            }
+        });
 
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
