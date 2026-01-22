@@ -642,6 +642,8 @@ libraries:
     copyright_year: "2025"
     rust:
       per_service_features: true
+  - name: google-cloud-dns-v1
+    copyright_year: "2026"
   - name: google-cloud-documentai-v1
     version: 1.5.0
     copyright_year: "2025"
