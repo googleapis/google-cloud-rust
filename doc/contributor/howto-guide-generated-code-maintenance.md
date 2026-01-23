@@ -93,15 +93,27 @@ accept your certs.
 
 ### Update top-level Cargo.toml
 
-If the version bumps include any of:
+Sometimes the top-level `Cargo.toml` file may need manual updates. Changes to
+GAPICs never trigger the need for such updates, or at least have never triggered
+such need. But changes to core crates, including `google-cloud-auth`,
+`google-cloud-gax`, `google-cloud-lro`, and `google-cloud-gax-internal` may
+trigger the need for manual updates.
 
-- `src/auth/Cargo.toml`
-- `src/gax/Cargo.toml`
-- `src/gax-internal/Cargo.toml`
-- `src/lro/Cargo.toml`
+You can rely on the CI build to detect when such an update is needed, or you
+could run some local tests first:
 
-You need to manually bump the corresponding versions in the top-level
-`Cargo.toml` file.
+```bash
+cargo install --locked cargo-minimal-versions
+# Make sure a veneer works.
+cargo minimal-versions check --package google-cloud-storage
+# Make sure a GAPIC (with the locations and iam mixins) works:
+cargo minimal-versions check --package google-cloud-secretmanager-v1
+# Make sure a GAPIC (with the longrunning mixin) works:
+cargo minimal-versions check --package google-cloud-workflows-v1
+```
+
+Alternatively, consider
+[this feature request](https://github.com/googleapis/librarian/issues/3720).
 
 ## Refreshing the code
 
