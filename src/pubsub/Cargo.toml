@@ -53,6 +53,7 @@ wkt.workspace          = true
 [dev-dependencies]
 anyhow.workspace     = true
 mockall.workspace    = true
+rand.workspace       = true
 tokio-test.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true
