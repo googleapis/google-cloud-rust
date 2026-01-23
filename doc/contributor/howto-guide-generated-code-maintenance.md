@@ -22,8 +22,22 @@ instructions in [Set Up Development Environment].
 
 ## Generate new library
 
-First define the library's name. Note this should match the directory path where
-the code lives delimited by "-" e.g. google-cloud-kms-v1:
+### Verify `librarian` knows about the library
+
+`librarian` has a hard-coded list of APIs. If librarian does not have the API in
+its list it does not find the service config yaml file. As a result, the title,
+description, and mixins (IAM, location, longrunning) may be missing.
+
+You need to look at the [API list] for the pinned version of librarian, if the
+API is not in the list:
+
+1. Send a PR adding the API to librarian.
+1. Send a PR to update `.librarian-version.txt`.
+
+### Generate
+
+Define the library's name. Note this should match the directory path where the
+code lives delimited by "-" e.g. google-cloud-kms-v1:
 
 ```bash
 library=... 
@@ -249,5 +263,6 @@ Now add the library back (get the library name from librarian yaml):
 go run github.com/googleapis/librarian/cmd/librarian@main generate google-cloud-websecurityscanner-v1
 ```
 
+[api list]: https://github.com/googleapis/librarian/blob/main/internal/serviceconfig/api.go
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
 [set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md

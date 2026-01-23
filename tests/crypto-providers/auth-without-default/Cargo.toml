@@ -31,7 +31,7 @@ rust-version = "1.92.0"
 
 [dependencies]
 anyhow        = { default-features = false, version = "1", features = ["std"] }
-rustls        = { default-features = false, version = "0.23", features = ["ring"] }
+rustls        = { default-features = false, version = "0.23" }
 tokio         = { default-features = false, version = "1", features = ["test-util"] }
 test-metadata = { default-features = false, path = "../test-metadata" }
 test-auth     = { default-features = false, path = "../test-auth" }
