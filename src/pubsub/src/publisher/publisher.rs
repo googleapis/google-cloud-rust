@@ -1316,22 +1316,23 @@ mod tests {
         assert_eq!(got.expect("expected message id"), "msg 1");
 
         // Test resume and publish before the BatchWorker has been created.
-        publisher.resume_publish("ordering key without error").await;
+        let key = "ordering key without error";
+        publisher.resume_publish(key).await;
         let got = publisher
             .publish(
                 PubsubMessage::new()
-                    .set_ordering_key("ordering key with error")
+                    .set_ordering_key(key)
                     .set_data("msg 2"),
             )
             .await;
         assert_eq!(got.expect("expected message id"), "msg 2");
 
         // Test resume and publish after the BatchWorker has been created.
-        publisher.resume_publish("ordering key without error").await;
+        publisher.resume_publish(key).await;
         let got = publisher
             .publish(
                 PubsubMessage::new()
-                    .set_ordering_key("ordering key with error")
+                    .set_ordering_key(key)
                     .set_data("msg 3"),
             )
             .await;
