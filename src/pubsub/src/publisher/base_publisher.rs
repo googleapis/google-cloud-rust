@@ -16,8 +16,8 @@ use crate::publisher::publisher::PublisherPartialBuilder;
 
 /// Creates [`Publisher`](super::publisher::Publisher) instances.
 ///
-/// This is the main entry point for the publisher API. A single `BasePublisher`
-/// can be used to create multiple `Publisher` clients for different topics.
+/// A single `BasePublisher` can be used to create multiple `Publisher`
+/// clients for different topics.
 /// It manages the underlying gRPC connection and authentication.
 ///
 /// # Example
@@ -64,6 +64,7 @@ pub type BasePublisherBuilder =
 pub(crate) mod client_builder {
     use super::BasePublisher;
 
+    #[derive(Clone, Debug)]
     pub struct Factory;
     impl gax::client_builder::internal::ClientFactory for Factory {
         type Client = BasePublisher;
