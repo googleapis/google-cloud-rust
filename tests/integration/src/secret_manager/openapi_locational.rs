@@ -62,13 +62,17 @@ pub async fn run() -> Result<()> {
     println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
+    let mut body = smo::model::Secret::new().set_labels(new_labels);
+    if let Some(etag) = &get.etag {
+        body = body.set_etag(etag);
+    }
     let update = client
         .update_secret_by_project_and_location_and_secret()
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(body)
         .with_idempotency(true)
         .send()
         .await?;
