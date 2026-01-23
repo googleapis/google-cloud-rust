@@ -119,6 +119,21 @@ mod tests {
         ));
     }
 
+    #[test]
+    fn retry_serde() {
+        let err = Error::ser("fail");
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Permanent(_)
+        ));
+
+        let err = Error::deser("fail");
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Permanent(_)
+        ));
+    }
+
     #[test_case(Code::ResourceExhausted)]
     #[test_case(Code::Aborted)]
     #[test_case(Code::Internal)]
@@ -138,6 +153,23 @@ mod tests {
     #[test_case(Code::DataLoss)]
     fn non_retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("fail"));
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Permanent(_)
+        ));
+    }
+
+    #[test]
+    fn non_retryable_h2_error() {
+        let inner = h2::Error::from(h2::Reason::PROTOCOL_ERROR);
+        let err = Error::service_full(
+            Status::default()
+                .set_code(Code::Unknown)
+                .set_message("fail"),
+            None,
+            None,
+            Some(Box::new(inner)),
+        );
         assert!(matches!(
             StreamRetryPolicy::is_transient(err),
             RetryResult::Permanent(_)
