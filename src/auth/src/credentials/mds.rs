@@ -86,6 +86,7 @@ use crate::mds::{
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
+use crate::trust_boundary::TrustBoundary;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use gax::backoff_policy::BackoffPolicyArg;
@@ -114,6 +115,7 @@ where
 {
     quota_project_id: Option<String>,
     token_provider: T,
+    trust_boundary: Arc<TrustBoundary>,
 }
 
 /// Creates [Credentials] instances backed by the [Metadata Service].
@@ -312,9 +314,20 @@ impl Builder {
     /// # });
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
+        let quota_project_id = self.quota_project_id.clone();
+        let (final_endpoint, _) = self.resolve_endpoint();
+        let mds_client = MDSClient::new(Some(final_endpoint.clone()));
+        let token_provider = TokenCache::new(self.build_token_provider());
+
+        let trust_boundary = Arc::new(TrustBoundary::new_for_mds(
+            token_provider.clone(),
+            mds_client.clone(),
+        ));
+
         let mdsc = MDSCredentials {
-            quota_project_id: self.quota_project_id.clone(),
-            token_provider: TokenCache::new(self.build_token_provider()),
+            quota_project_id,
+            token_provider,
+            trust_boundary,
         };
         Ok(AccessTokenCredentials {
             inner: Arc::new(mdsc),
@@ -368,7 +381,12 @@ where
 {
     async fn headers(&self, extensions: Extensions) -> Result<CacheableResource<HeaderMap>> {
         let cached_token = self.token_provider.token(extensions).await?;
-        build_cacheable_headers(&cached_token, &self.quota_project_id, &None)
+        let trust_boundary_header_value = self.trust_boundary.header_value();
+        build_cacheable_headers(
+            &cached_token,
+            &self.quota_project_id,
+            &trust_boundary_header_value,
+        )
     }
 }
 
@@ -640,9 +658,11 @@ mod tests {
         let mut mock = MockTokenProvider::new();
         mock.expect_token().times(1).return_once(|| Ok(token));
 
+        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
+            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
 
         let mut extensions = Extensions::new();
@@ -700,9 +720,11 @@ mod tests {
             .times(1)
             .return_once(|| Err(errors::non_retryable_from_str("fail")));
 
+        let cache = TokenCache::new(mock);
         let mdsc = MDSCredentials {
             quota_project_id: None,
-            token_provider: TokenCache::new(mock),
+            token_provider: cache.clone(),
+            trust_boundary: Arc::new(TrustBoundary::new(cache, "http://localhost".to_string())),
         };
         assert!(mdsc.headers(Extensions::new()).await.is_err());
     }

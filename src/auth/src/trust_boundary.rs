@@ -15,6 +15,7 @@
 use crate::credentials::CacheableResource;
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
+use crate::mds::client::Client as MDSClient;
 use crate::token::CachedTokenProvider;
 use http::Extensions;
 use reqwest::Client;
@@ -42,9 +43,7 @@ impl TrustBoundary {
     where
         T: CachedTokenProvider + 'static,
     {
-        let enabled = std::env::var(TRUST_BOUNDARIES_ENV_VAR)
-            .map(|v| v.to_lowercase() == "true")
-            .unwrap_or(false);
+        let enabled = Self::is_trust_boundaries_enabled();
         let (tx_header, rx_header) = watch::channel(None);
 
         if enabled {
@@ -52,6 +51,26 @@ impl TrustBoundary {
         }
 
         Self { rx_header }
+    }
+
+    pub(crate) fn new_for_mds<T>(token_provider: T, mds_client: MDSClient) -> Self
+    where
+        T: CachedTokenProvider + 'static,
+    {
+        let enabled = Self::is_trust_boundaries_enabled();
+        let (tx_header, rx_header) = watch::channel(None);
+
+        if enabled {
+            tokio::spawn(refresh_task_mds(token_provider, mds_client, tx_header));
+        }
+
+        Self { rx_header }
+    }
+
+    fn is_trust_boundaries_enabled() -> bool {
+        std::env::var(TRUST_BOUNDARIES_ENV_VAR)
+            .map(|v| v.to_lowercase() == "true")
+            .unwrap_or(false)
     }
 
     pub(crate) fn header_value(&self) -> Option<String> {
@@ -118,20 +137,59 @@ where
     Ok(None)
 }
 
+async fn refresh_task_mds<T>(
+    token_provider: T,
+    mds_client: MDSClient,
+    tx_header: watch::Sender<Option<String>>,
+) where
+    T: CachedTokenProvider,
+{
+    let mut url: Option<String> = None;
+
+    loop {
+        if url.is_none() {
+            let res = mds_client.email().await;
+            match res {
+                Ok(email) => {
+                    url = Some(service_account_lookup_url(&email));
+                }
+                Err(_e) => {
+                    sleep(ERROR_RETRY_INTERVAL).await;
+                    continue;
+                }
+            }
+        }
+
+        if let Some(ref url) = url {
+            fetch_and_update(&token_provider, url, &tx_header).await;
+        }
+    }
+}
+
 async fn refresh_task<T>(token_provider: T, url: String, tx_header: watch::Sender<Option<String>>)
 where
     T: CachedTokenProvider,
 {
     loop {
-        match fetch_trust_boundary(&token_provider, &url).await {
-            Ok(val) => {
-                let _ = tx_header.send(val);
-                sleep(REFRESH_INTERVAL).await;
-            }
-            Err(_e) => {
-                // TODO: better error handling - default fallback ?
-                sleep(ERROR_RETRY_INTERVAL).await;
-            }
+        fetch_and_update(&token_provider, &url, &tx_header).await;
+    }
+}
+
+async fn fetch_and_update<T>(
+    token_provider: &T,
+    url: &str,
+    tx_header: &watch::Sender<Option<String>>,
+) where
+    T: CachedTokenProvider,
+{
+    match fetch_trust_boundary(token_provider, url).await {
+        Ok(val) => {
+            let _ = tx_header.send(val);
+            sleep(REFRESH_INTERVAL).await;
+        }
+        Err(_e) => {
+            // TODO: better error handling - default fallback ?
+            sleep(ERROR_RETRY_INTERVAL).await;
         }
     }
 }
