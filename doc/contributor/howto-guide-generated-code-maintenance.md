@@ -24,11 +24,11 @@ instructions in [Set Up Development Environment].
 
 ### Verify `librarian` knows about the library
 
-`librarian` has a hard-coded list of apis. If librarian does not have the API in
-its list it does not find the service config yaml file, and the title,
+`librarian` has a hard-coded list of APIs. If librarian does not have the API in
+its list it does not find the service config yaml file. As a result, the title,
 description, and mixins (IAM, location, longrunning) may be missing.
 
-You need to look at the [api list] for the pinned version of librarian, if the
+You need to look at the [API list] for the pinned version of librarian, if the
 API is not in the list:
 
 1. Send a PR adding the API to librarian.
