@@ -37,23 +37,14 @@ pub(crate) struct TrustBoundary {
     rx_header: watch::Receiver<Option<String>>,
 }
 
-impl Clone for TrustBoundary {
-    fn clone(&self) -> Self {
-        Self {
-            rx_header: self.rx_header.clone(),
-        }
-    }
-}
-
 impl TrustBoundary {
     pub(crate) fn new<T>(token_provider: T, url: String) -> Self
     where
-        T: CachedTokenProvider + Clone + 'static,
+        T: CachedTokenProvider + 'static,
     {
         let enabled = std::env::var(TRUST_BOUNDARIES_ENV_VAR)
             .map(|v| v.to_lowercase() == "true")
             .unwrap_or(false);
-        
         let (tx_header, rx_header) = watch::channel(None);
 
         if enabled {
@@ -77,7 +68,6 @@ impl TrustBoundary {
 async fn fetch_trust_boundary<T>(
     token_provider: &T,
     url: &str,
-    client: &Client,
 ) -> Result<Option<String>, CredentialsError>
 where
     T: CachedTokenProvider,
@@ -91,6 +81,9 @@ where
         }
     };
 
+    let client = Client::new();
+
+    // TODO: retries ?
     let resp = client
         .get(url)
         .headers(headers)
@@ -127,17 +120,16 @@ where
 
 async fn refresh_task<T>(token_provider: T, url: String, tx_header: watch::Sender<Option<String>>)
 where
-    T: CachedTokenProvider + Clone + 'static,
+    T: CachedTokenProvider,
 {
-    let client = Client::new();
     loop {
-        match fetch_trust_boundary(&token_provider, &url, &client).await {
+        match fetch_trust_boundary(&token_provider, &url).await {
             Ok(val) => {
                 let _ = tx_header.send(val);
                 sleep(REFRESH_INTERVAL).await;
             }
             Err(_e) => {
-                // TODO: add error handling - default fallback ?
+                // TODO: better error handling - default fallback ?
                 sleep(ERROR_RETRY_INTERVAL).await;
             }
         }
