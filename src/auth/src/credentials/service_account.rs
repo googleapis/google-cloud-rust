@@ -399,9 +399,20 @@ impl ServiceAccountKey {
     // Creates a signer using the private key stored in the service account file.
     pub(crate) fn signer(&self) -> Result<Box<dyn Signer>> {
         let private_key = self.private_key.clone();
-        let key_provider = CryptoProvider::get_default().map_or_else(
-            || rustls::crypto::ring::default_provider().key_provider,
-            |p| p.key_provider,
+        let key_provider = CryptoProvider::get_default().map(|p| p.key_provider);
+        #[cfg(feature = "default-rustls-provider")]
+        let key_provider =
+            key_provider.unwrap_or_else(|| rustls::crypto::ring::default_provider().key_provider);
+        #[cfg(not(feature = "default-rustls-provider"))]
+        let key_provider = key_provider.expect(
+            r###"
+The default rustls::CryptoProvider should be configured by the application. The
+`google-cloud-auth` crate was compiled without the `default-rustls-provider`
+feature. Without this feature the crate expects the application to initialize
+the rustls crypto provider using `rustls::CryptoProvider::install_default()`.
+
+Note that the application must use the exact same version of `rustls` as the
+`google-cloud-auth` crate does. Otherwise `install_default()` has no effect."###,
         );
 
         let key_der = PrivateKeyDer::from_pem_slice(private_key.as_bytes()).map_err(|e| {
