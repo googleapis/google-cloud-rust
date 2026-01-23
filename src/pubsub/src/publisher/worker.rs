@@ -25,8 +25,8 @@ pub(crate) enum ToWorker {
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
     Flush(oneshot::Sender<()>),
-    // TODO(#4015): Add a resume function to allow resume Publishing on a ordering key after a
-    // failure.
+    /// A request to resume publishing on an ordering key.
+    ResumePublish(String),
 }
 
 /// A command sent from the `Worker` to the background `batch` worker.
@@ -35,8 +35,8 @@ pub(crate) enum ToBatchWorker {
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
     Flush(oneshot::Sender<()>),
-    // TODO(#4015): Add a resume function to allow resume Publishing on a ordering key after a
-    // failure.
+    /// A request to resume publishing.
+    ResumePublish(),
 }
 
 /// Object that is passed to the worker task over the
@@ -154,6 +154,15 @@ impl Worker {
                             flush_set.join_all().await;
                             let _ = tx.send(());
                         },
+                        Some(ToWorker::ResumePublish(ordering_key)) => {
+                            if let Some(batch_worker) = batch_workers.get_mut(&ordering_key) {
+                                // Send down the same tx for the BatchWorker to directly signal completion
+                                // instead of spawning a new task.
+                                batch_worker
+                                    .send(ToBatchWorker::ResumePublish())
+                                    .expect(batch_worker_error_msg);
+                            }
+                        }
                         None => {
                             // The sender has been dropped send batch and stop running.
                             // This isn't guaranteed to execute if a user does not .await on the
@@ -287,6 +296,9 @@ impl BatchWorker {
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
+                        Some(ToBatchWorker::ResumePublish()) => {
+                            // Nothing to resume as we do not pause without ordering key.
+                        }
                         None => {
                             // TODO(#4012): Add shutdown procedure for BatchWorker.
                             break;
@@ -331,6 +343,9 @@ impl BatchWorker {
                         // it was already handled when this was paused.
                         let _ = tx.send(());
                     }
+                    Some(ToBatchWorker::ResumePublish()) => {
+                        self.paused = false;
+                    }
                     None => {
                         // TODO(#4012): Add shutdown procedure for BatchWorker.
                         break;
@@ -366,6 +381,9 @@ impl BatchWorker {
                                 self.handle_inflight_join(inflight.join_next().await);
                             }
                             let _ = tx.send(());
+                        },
+                        Some(ToBatchWorker::ResumePublish()) => {
+                            // Nothing to resume as we are not paused.
                         },
                         None => {
                             // TODO(#4012): Add shutdown procedure for BatchWorker.
