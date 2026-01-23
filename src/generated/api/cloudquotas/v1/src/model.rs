@@ -741,7 +741,7 @@ pub struct QuotaInfo {
     /// `projects/123/locations/global/services/compute.googleapis.com/quotaInfos/CpusPerProjectPerRegion`
     pub name: std::string::String,
 
-    /// The id of the quota, which is unquie within the service.
+    /// The id of the quota, which is unique within the service.
     /// Example: `CpusPerProjectPerRegion`
     pub quota_id: std::string::String,
 
