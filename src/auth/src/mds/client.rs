@@ -94,6 +94,27 @@ impl Client {
         Ok(token)
     }
 
+    /// Fetches the email address of the service account from the Metadata Service.
+    pub(crate) async fn email(&self) -> crate::Result<String> {
+        let path = format!("{}/email", super::MDS_DEFAULT_URI);
+        let request = self.get(&path);
+        let error_message = "failed to fetch email";
+
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let email = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(email)
+    }
+
     async fn check_response_status(
         response: reqwest::Response,
         error_message: &str,
@@ -159,6 +180,42 @@ mod tests {
 
         let err = client.id_token("test-aud", None, None).await.unwrap_err();
         assert!(err.to_string().contains("failed to fetch id token"));
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_email_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/email", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(200).body("test@example.com")),
+        );
+
+        let email = client.email().await.unwrap();
+        assert_eq!(email, "test@example.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_email_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/email", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.email().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch email"));
     }
 
     #[test]
