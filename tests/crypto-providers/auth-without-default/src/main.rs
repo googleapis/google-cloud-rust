@@ -16,7 +16,7 @@ use rustls::crypto::{ring::default_provider, CryptoProvider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    test_metadata::only_ring(env!("CARGO"), env!("CARGO_MANIFEST_DIR"))?;
+    test_metadata::only_ring(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), true)?;
 
     // Install a default crypto provider.
     CryptoProvider::install_default(default_provider())
