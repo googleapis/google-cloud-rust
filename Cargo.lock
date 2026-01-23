@@ -1235,6 +1235,7 @@ dependencies = [
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
