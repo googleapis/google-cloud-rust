@@ -13,16 +13,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-set -ev
+set -euv
 
-echo "==== Install go compiler ===="
-export PATH=$($(dirname $0)/install-go.sh)
+URL="https://go.dev/dl/go{_GO_VERSION}.linux-amd64.tar.gz"
+curl -fsSL --retry 5 --retry-delay 15  -o /tmp/go.tar.gz
+sha256sum -c <(echo "${_GO_SHA256}" /tmp/go.tar.gz)
+tar -C /usr/local -zxf /tmp/go.tar.gz --strip-components=1
+rm -f /tmp/go.tar.gz
 
-cargo version
-rustup show active-toolchain -v
-
-cargo test -p integration-tests --features run-showcase-tests
-
-echo "==== DONE ===="
-
-/workspace/.bin/sccache --show-stats
+echo ${PATH}:/usr/local/go/bin

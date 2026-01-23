@@ -44,9 +44,14 @@ steps:
       - _SCCACHE_SHA256=${_SCCACHE_SHA256}
   - name: 'rust:${_RUST_VERSION}-bookworm'
     args: ['.gcb/scripts/${_SCRIPT}.sh']
+    env:
+      - _GO_VERSION=${_GO_VERSION}
+      - _GO_SHA256=${_GO_SHA256}
 substitutions:
   _SCCACHE_VERSION: 'v0.12.0'
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
   _RUST_VERSION: '1.92'
+  _GO_VERSION: '1.25.4'
+  _GO_SHA256SUM: '9fa5ffeda4170de60f67f3aa0f824e426421ba724c21e133c1e35d6159ca1bec'
