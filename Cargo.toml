@@ -128,6 +128,7 @@ members = [
   "src/generated/cloud/dialogflow/cx/v3",
   "src/generated/cloud/dialogflow/v2",
   "src/generated/cloud/discoveryengine/v1",
+  "src/generated/cloud/dns/v1",
   "src/generated/cloud/documentai/v1",
   "src/generated/cloud/domains/v1",
   "src/generated/cloud/edgecontainer/v1",

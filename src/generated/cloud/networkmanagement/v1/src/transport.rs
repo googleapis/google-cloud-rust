@@ -812,8 +812,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
+                            Segment::Literal("/locations/global")
                         ]
                     )?,
                 );
@@ -850,11 +849,10 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/global"),
                         ],
                         "name",
-                        "organizations/*/locations/*",
+                        "organizations/*/locations/global",
                     );
                     paths.push(builder.build());
                 }
@@ -908,9 +906,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -944,13 +940,11 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1004,9 +998,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -1040,13 +1032,11 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -1105,9 +1095,7 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -1141,13 +1129,11 @@ impl super::stub::ReachabilityService for ReachabilityService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2062,8 +2048,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
+                            Segment::Literal("/locations/global")
                         ]
                     )?,
                 );
@@ -2100,11 +2085,10 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/global"),
                         ],
                         "name",
-                        "organizations/*/locations/*",
+                        "organizations/*/locations/global",
                     );
                     paths.push(builder.build());
                 }
@@ -2158,9 +2142,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -2194,13 +2176,11 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2254,9 +2234,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -2290,13 +2268,11 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -2355,9 +2331,7 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -2391,13 +2365,11 @@ impl super::stub::VpcFlowLogsService for VpcFlowLogsService {
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3187,8 +3159,7 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard
+                            Segment::Literal("/locations/global")
                         ]
                     )?,
                 );
@@ -3225,11 +3196,10 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
+                            Segment::Literal("/locations/global"),
                         ],
                         "name",
-                        "organizations/*/locations/*",
+                        "organizations/*/locations/global",
                     );
                     paths.push(builder.build());
                 }
@@ -3283,9 +3253,7 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -3319,13 +3287,11 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3379,9 +3345,7 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -3415,13 +3379,11 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
@@ -3480,9 +3442,7 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard
                         ]
                     )?,
@@ -3516,13 +3476,11 @@ impl super::stub::OrganizationVpcFlowLogsService for OrganizationVpcFlowLogsServ
                         &[
                             Segment::Literal("organizations/"),
                             Segment::SingleWildcard,
-                            Segment::Literal("/locations/"),
-                            Segment::SingleWildcard,
-                            Segment::Literal("/operations/"),
+                            Segment::Literal("/locations/global/operations/"),
                             Segment::SingleWildcard,
                         ],
                         "name",
-                        "organizations/*/locations/*/operations/*",
+                        "organizations/*/locations/global/operations/*",
                     );
                     paths.push(builder.build());
                 }
