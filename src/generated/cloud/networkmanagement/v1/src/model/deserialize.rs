@@ -297,6 +297,7 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
             __cloud_sql_instance,
             __redis_instance,
             __redis_cluster,
+            __gke_pod,
             __cloud_function,
             __app_engine_version,
             __cloud_run_revision,
@@ -344,6 +345,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                             "redis_instance" => Ok(__FieldTag::__redis_instance),
                             "redisCluster" => Ok(__FieldTag::__redis_cluster),
                             "redis_cluster" => Ok(__FieldTag::__redis_cluster),
+                            "gkePod" => Ok(__FieldTag::__gke_pod),
+                            "gke_pod" => Ok(__FieldTag::__gke_pod),
                             "cloudFunction" => Ok(__FieldTag::__cloud_function),
                             "cloud_function" => Ok(__FieldTag::__cloud_function),
                             "appEngineVersion" => Ok(__FieldTag::__app_engine_version),
@@ -506,6 +509,16 @@ impl<'de> serde::de::Deserialize<'de> for super::Endpoint {
                                 ));
                             }
                             result.redis_cluster = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__gke_pod => {
+                            if !fields.insert(__FieldTag::__gke_pod) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gke_pod",
+                                ));
+                            }
+                            result.gke_pod = map
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
@@ -2613,6 +2626,8 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
             __load_balancer,
             __network,
             __gke_master,
+            __gke_pod,
+            __ip_masquerading_skipped,
             __cloud_sql_instance,
             __redis_instance,
             __redis_cluster,
@@ -2689,6 +2704,10 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                             "network" => Ok(__FieldTag::__network),
                             "gkeMaster" => Ok(__FieldTag::__gke_master),
                             "gke_master" => Ok(__FieldTag::__gke_master),
+                            "gkePod" => Ok(__FieldTag::__gke_pod),
+                            "gke_pod" => Ok(__FieldTag::__gke_pod),
+                            "ipMasqueradingSkipped" => Ok(__FieldTag::__ip_masquerading_skipped),
+                            "ip_masquerading_skipped" => Ok(__FieldTag::__ip_masquerading_skipped),
                             "cloudSqlInstance" => Ok(__FieldTag::__cloud_sql_instance),
                             "cloud_sql_instance" => Ok(__FieldTag::__cloud_sql_instance),
                             "redisInstance" => Ok(__FieldTag::__redis_instance),
@@ -3171,6 +3190,45 @@ impl<'de> serde::de::Deserialize<'de> for super::Step {
                                     >>()?
                                     .unwrap_or_default(),
                                 ));
+                        }
+                        __FieldTag::__gke_pod => {
+                            if !fields.insert(__FieldTag::__gke_pod) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gke_pod",
+                                ));
+                            }
+                            if result.step_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `step_info`, a oneof with full ID .google.cloud.networkmanagement.v1.Step.gke_pod, latest field was gkePod",
+                                ));
+                            }
+                            result.step_info =
+                                std::option::Option::Some(crate::model::step::StepInfo::GkePod(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::GkePodInfo>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ));
+                        }
+                        __FieldTag::__ip_masquerading_skipped => {
+                            if !fields.insert(__FieldTag::__ip_masquerading_skipped) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_masquerading_skipped",
+                                ));
+                            }
+                            if result.step_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `step_info`, a oneof with full ID .google.cloud.networkmanagement.v1.Step.ip_masquerading_skipped, latest field was ipMasqueradingSkipped",
+                                ));
+                            }
+                            result.step_info = std::option::Option::Some(
+                                crate::model::step::StepInfo::IpMasqueradingSkipped(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
                         }
                         __FieldTag::__cloud_sql_instance => {
                             if !fields.insert(__FieldTag::__cloud_sql_instance) {
@@ -6406,6 +6464,208 @@ impl<'de> serde::de::Deserialize<'de> for super::GKEMasterInfo {
 }
 
 #[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::GkePodInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __pod_uri,
+            __ip_address,
+            __network_uri,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GkePodInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "podUri" => Ok(__FieldTag::__pod_uri),
+                            "pod_uri" => Ok(__FieldTag::__pod_uri),
+                            "ipAddress" => Ok(__FieldTag::__ip_address),
+                            "ip_address" => Ok(__FieldTag::__ip_address),
+                            "networkUri" => Ok(__FieldTag::__network_uri),
+                            "network_uri" => Ok(__FieldTag::__network_uri),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::GkePodInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GkePodInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__pod_uri => {
+                            if !fields.insert(__FieldTag::__pod_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pod_uri",
+                                ));
+                            }
+                            result.pod_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ip_address => {
+                            if !fields.insert(__FieldTag::__ip_address) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ip_address",
+                                ));
+                            }
+                            result.ip_address = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__network_uri => {
+                            if !fields.insert(__FieldTag::__network_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for network_uri",
+                                ));
+                            }
+                            result.network_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::IpMasqueradingSkippedInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __reason,
+            __non_masquerade_range,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for IpMasqueradingSkippedInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "reason" => Ok(__FieldTag::__reason),
+                            "nonMasqueradeRange" => Ok(__FieldTag::__non_masquerade_range),
+                            "non_masquerade_range" => Ok(__FieldTag::__non_masquerade_range),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::IpMasqueradingSkippedInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct IpMasqueradingSkippedInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__reason => {
+                            if !fields.insert(__FieldTag::__reason) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reason",
+                                ));
+                            }
+                            result.reason = map
+                                .next_value::<std::option::Option<
+                                    crate::model::ip_masquerading_skipped_info::Reason,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__non_masquerade_range => {
+                            if !fields.insert(__FieldTag::__non_masquerade_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for non_masquerade_range",
+                                ));
+                            }
+                            result.non_masquerade_range = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
 impl<'de> serde::de::Deserialize<'de> for super::CloudSQLInstanceInfo {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -7548,6 +7808,7 @@ impl<'de> serde::de::Deserialize<'de> for super::NatInfo {
             __new_destination_port,
             __router_uri,
             __nat_gateway_name,
+            __cloud_nat_gateway_type,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -7592,6 +7853,8 @@ impl<'de> serde::de::Deserialize<'de> for super::NatInfo {
                             "router_uri" => Ok(__FieldTag::__router_uri),
                             "natGatewayName" => Ok(__FieldTag::__nat_gateway_name),
                             "nat_gateway_name" => Ok(__FieldTag::__nat_gateway_name),
+                            "cloudNatGatewayType" => Ok(__FieldTag::__cloud_nat_gateway_type),
+                            "cloud_nat_gateway_type" => Ok(__FieldTag::__cloud_nat_gateway_type),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -7785,6 +8048,18 @@ impl<'de> serde::de::Deserialize<'de> for super::NatInfo {
                             }
                             result.nat_gateway_name = map
                                 .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cloud_nat_gateway_type => {
+                            if !fields.insert(__FieldTag::__cloud_nat_gateway_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cloud_nat_gateway_type",
+                                ));
+                            }
+                            result.cloud_nat_gateway_type =
+                                map.next_value::<std::option::Option<
+                                    crate::model::nat_info::CloudNatGatewayType,
+                                >>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {

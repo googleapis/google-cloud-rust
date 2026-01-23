@@ -955,6 +955,42 @@ pub mod cluster_manager {
             self.0.request.boot_disk = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [node_drain_config][crate::model::UpdateNodePoolRequest::node_drain_config].
+        pub fn set_node_drain_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+        {
+            self.0.request.node_drain_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [node_drain_config][crate::model::UpdateNodePoolRequest::node_drain_config].
+        pub fn set_or_clear_node_drain_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+        {
+            self.0.request.node_drain_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [consolidation_delay][crate::model::UpdateNodePoolRequest::consolidation_delay].
+        pub fn set_consolidation_delay<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.consolidation_delay = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [consolidation_delay][crate::model::UpdateNodePoolRequest::consolidation_delay].
+        pub fn set_or_clear_consolidation_delay<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.consolidation_delay = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
