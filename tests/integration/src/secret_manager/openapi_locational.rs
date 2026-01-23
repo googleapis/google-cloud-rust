@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use gax::options::RequestOptionsBuilder;
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run() -> Result<()> {
@@ -41,6 +42,7 @@ pub async fn run() -> Result<()> {
         .set_location(&location_id)
         .set_secret_id(&secret_id)
         .set_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -60,13 +62,18 @@ pub async fn run() -> Result<()> {
     println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
+    let mut body = smo::model::Secret::new().set_labels(new_labels);
+    if let Some(etag) = &get.etag {
+        body = body.set_etag(etag);
+    }
     let update = client
         .update_secret_by_project_and_location_and_secret()
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(body)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -90,6 +97,7 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DELETE = {response:?}");
@@ -125,6 +133,7 @@ async fn run_iam(
             smo::model::TestIamPermissionsRequest::new()
                 .set_permissions(["secretmanager.versions.access"]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -160,6 +169,7 @@ async fn run_iam(
                 .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
                 .set_policy(new_policy),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -188,6 +198,7 @@ async fn run_secret_versions(
                     .set_data_crc_32_c(checksum as i64),
             ),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE_SECRET_VERSION = {create:?}");
@@ -251,6 +262,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
@@ -262,6 +274,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
@@ -273,6 +286,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -390,6 +404,7 @@ async fn cleanup_stale_secrets(
                 .set_project(project_id)
                 .set_location(location_id)
                 .set_secret(secret_id)
+                .with_idempotency(true)
                 .send()
         })
         .collect::<Vec<_>>();
