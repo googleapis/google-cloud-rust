@@ -1319,22 +1319,14 @@ mod tests {
         let key = "ordering key without error";
         publisher.resume_publish(key).await;
         let got = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key(key)
-                    .set_data("msg 2"),
-            )
+            .publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 2"))
             .await;
         assert_eq!(got.expect("expected message id"), "msg 2");
 
         // Test resume and publish after the BatchWorker has been created.
         publisher.resume_publish(key).await;
         let got = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key(key)
-                    .set_data("msg 3"),
-            )
+            .publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 3"))
             .await;
         assert_eq!(got.expect("expected message id"), "msg 3");
     }
