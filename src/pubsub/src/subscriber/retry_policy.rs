@@ -160,8 +160,23 @@ mod tests {
     }
 
     #[test]
-    fn non_retryable_h2_error() {
-        let inner = h2::Error::from(h2::Reason::PROTOCOL_ERROR);
+    fn non_retryable_unknown_errors() {
+        let inner =
+            tonic::Status::from_error(Box::new(h2::Error::from(h2::Reason::PROTOCOL_ERROR)));
+        let err = Error::service_full(
+            Status::default()
+                .set_code(Code::Unknown)
+                .set_message("fail"),
+            None,
+            None,
+            Some(Box::new(inner)),
+        );
+        assert!(matches!(
+            StreamRetryPolicy::is_transient(err),
+            RetryResult::Permanent(_)
+        ));
+
+        let inner = tonic::Status::unknown("fail");
         let err = Error::service_full(
             Status::default()
                 .set_code(Code::Unknown)
