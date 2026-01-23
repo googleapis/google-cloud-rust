@@ -141,14 +141,7 @@ impl Publisher {
     /// # }
     /// ```
     pub fn resume_publish<T: std::convert::Into<std::string::String>>(&self, ordering_key: T) {
-        let (tx, _) = oneshot::channel();
-        if self
-            .tx
-            .send(ToWorker::ResumePublish(tx, ordering_key.into()))
-            .is_err()
-        {
-            // `tx` is dropped here if the send errors.
-        }
+        let _ = self.tx.send(ToWorker::ResumePublish(ordering_key.into()));
     }
 }
 
