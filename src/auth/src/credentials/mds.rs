@@ -78,6 +78,7 @@ use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsPro
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
 use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
+use crate::mds::client::Client as MDSClient;
 use crate::mds::{
     GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
     METADATA_ROOT,
@@ -346,9 +347,9 @@ impl Builder {
         self,
         iam_endpoint: Option<String>,
     ) -> BuildResult<crate::signer::Signer> {
-        let (endpoint, _) = self.resolve_endpoint();
+        let client = MDSClient::new(self.endpoint.clone());
         let credentials = self.build()?;
-        let signing_provider = crate::signer::mds::MDSSigner::new(endpoint, credentials);
+        let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
         let signing_provider = iam_endpoint
             .iter()
             .fold(signing_provider, |signing_provider, endpoint| {
