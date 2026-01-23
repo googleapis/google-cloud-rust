@@ -16,14 +16,14 @@
 #![allow(rustdoc::redundant_explicit_links)]
 #![allow(rustdoc::broken_intra_doc_links)]
 
-/// Implements a client for the .
+/// Implements a client for the Cloud API Registry API.
 ///
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_apiregistry_v1::client::CloudApiRegistry;
 /// let client = CloudApiRegistry::builder().build().await?;
-/// // use `client` to make requests to the .
+/// // use `client` to make requests to the Cloud API Registry API.
 /// # Ok(()) }
 /// ```
 ///
@@ -140,5 +140,15 @@ impl CloudApiRegistry {
     /// Lists McpTools in a given McpServer.
     pub fn list_mcp_tools(&self) -> super::builder::cloud_api_registry::ListMcpTools {
         super::builder::cloud_api_registry::ListMcpTools::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::cloud_api_registry::ListLocations {
+        super::builder::cloud_api_registry::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::cloud_api_registry::GetLocation {
+        super::builder::cloud_api_registry::GetLocation::new(self.inner.clone())
     }
 }

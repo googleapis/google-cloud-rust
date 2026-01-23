@@ -22,6 +22,7 @@ extern crate bytes;
 extern crate gax;
 extern crate gaxi;
 extern crate lazy_static;
+extern crate location;
 extern crate reqwest;
 extern crate serde;
 extern crate serde_json;

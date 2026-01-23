@@ -40,6 +40,18 @@ pub trait CloudApiRegistry: std::fmt::Debug + Send + Sync {
         req: crate::model::ListMcpToolsRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListMcpToolsResponse>>;
+
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>>;
+
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>>;
 }
 
 /// All implementations of [super::CloudApiRegistry] also implement [CloudApiRegistry].
@@ -79,5 +91,23 @@ impl<T: super::CloudApiRegistry> CloudApiRegistry for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::ListMcpToolsResponse>> {
         T::list_mcp_tools(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        T::list_locations(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<location::model::Location>> {
+        T::get_location(self, req, options).await
     }
 }

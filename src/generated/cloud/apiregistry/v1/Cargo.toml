@@ -17,7 +17,7 @@
 [package]
 name                   = "google-cloud-apiregistry-v1"
 version                = "0.0.0"
-description            = "Google Cloud Client Libraries for Rust - "
+description            = "Google Cloud Client Libraries for Rust - Cloud API Registry API"
 edition.workspace      = true
 authors.workspace      = true
 license.workspace      = true
@@ -32,6 +32,7 @@ bytes.workspace       = true
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
+location.workspace    = true
 reqwest.workspace     = true
 serde.workspace       = true
 serde_json.workspace  = true
