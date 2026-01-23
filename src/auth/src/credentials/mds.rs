@@ -76,27 +76,20 @@
 
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
 use crate::mds::client::Client as MDSClient;
-use crate::mds::{
-    GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
-    METADATA_ROOT,
-};
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
 use gax::backoff_policy::BackoffPolicyArg;
+use gax::error::CredentialsError;
 use gax::retry_policy::RetryPolicyArg;
 use gax::retry_throttler::RetryThrottlerArg;
-use http::{Extensions, HeaderMap, HeaderValue};
-use reqwest::Client;
+use http::{Extensions, HeaderMap};
 use std::default::Default;
 use std::sync::Arc;
-use std::time::Duration;
-use tokio::time::Instant;
 
 // TODO(#2235) - Improve this message by talking about retries when really running with MDS
 const MDS_NOT_FOUND_ERROR: &str = concat!(
@@ -258,33 +251,10 @@ impl Builder {
         }
     }
 
-    fn resolve_endpoint(&self) -> (String, bool) {
-        let final_endpoint: String;
-        let endpoint_overridden: bool;
-        // Determine the endpoint and whether it was overridden
-        if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            // Check GCE_METADATA_HOST environment variable first
-            final_endpoint = format!("http://{host_from_env}");
-            endpoint_overridden = true;
-        } else if let Some(builder_endpoint) = self.endpoint.clone() {
-            // Else, check if an endpoint was provided to the mds::Builder
-            final_endpoint = builder_endpoint;
-            endpoint_overridden = true;
-        } else {
-            // Else, use the default metadata root
-            final_endpoint = METADATA_ROOT.to_string();
-            endpoint_overridden = false;
-        };
-        (final_endpoint, endpoint_overridden)
-    }
-
     fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
-        let (final_endpoint, endpoint_overridden) = self.resolve_endpoint();
-
         let tp = MDSAccessTokenProvider::builder()
-            .endpoint(final_endpoint)
+            .endpoint(self.endpoint)
             .maybe_scopes(self.scopes)
-            .endpoint_overridden(endpoint_overridden)
             .created_by_adc(self.created_by_adc)
             .build();
         self.retry_builder.build(tp)
@@ -383,53 +353,45 @@ where
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct MDSTokenResponse {
-    access_token: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    expires_in: Option<u64>,
-    token_type: String,
-}
-
 #[derive(Debug, Default)]
 struct MDSAccessTokenProviderBuilder {
-    target: MDSAccessTokenProvider,
+    scopes: Option<Vec<String>>,
+    endpoint: Option<String>,
+    created_by_adc: bool,
 }
 
 impl MDSAccessTokenProviderBuilder {
     fn build(self) -> MDSAccessTokenProvider {
-        self.target
+        MDSAccessTokenProvider {
+            client: MDSClient::new(self.endpoint),
+            scopes: self.scopes,
+            created_by_adc: self.created_by_adc,
+        }
     }
 
     fn maybe_scopes(mut self, v: Option<Vec<String>>) -> Self {
-        self.target.scopes = v;
+        self.scopes = v;
         self
     }
 
-    fn endpoint<T>(mut self, v: T) -> Self
+    fn endpoint<T>(mut self, v: Option<T>) -> Self
     where
         T: Into<String>,
     {
-        self.target.endpoint = v.into();
-        self
-    }
-
-    fn endpoint_overridden(mut self, v: bool) -> Self {
-        self.target.endpoint_overridden = v;
+        self.endpoint = v.map(Into::into);
         self
     }
 
     fn created_by_adc(mut self, v: bool) -> Self {
-        self.target.created_by_adc = v;
+        self.created_by_adc = v;
         self
     }
 }
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 struct MDSAccessTokenProvider {
     scopes: Option<Vec<String>>,
-    endpoint: String,
-    endpoint_overridden: bool,
+    client: MDSClient,
     created_by_adc: bool,
 }
 
@@ -454,55 +416,17 @@ impl MDSAccessTokenProvider {
     }
 
     fn use_adc_message(&self) -> bool {
-        self.created_by_adc && !self.endpoint_overridden
+        self.created_by_adc && self.client.is_default_endpoint
     }
 }
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
-        let request = client
-            .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-        // Use the `scopes` option if set, otherwise let the MDS use the default
-        // scopes.
-        let scopes = self.scopes.as_ref().map(|v| v.join(","));
-        let request = scopes
-            .into_iter()
-            .fold(request, |r, s| r.query(&[("scopes", s)]));
-
-        // If the connection to MDS was not successful, it is useful to retry when really
-        // running on MDS environments and not useful if there is no MDS. We will mark the error
-        // as retryable and let the retry policy determine whether to retry or not. Whenever we
-        // define a default retry policy, we can skip retrying this case.
-        let response = request
-            .send()
+        self.client
+            .access_token(self.scopes.clone())
             .await
-            .map_err(|e| crate::errors::from_http_error(e, self.error_message()))?;
-        // Process the response
-        if !response.status().is_success() {
-            let err = crate::errors::from_http_response(response, self.error_message()).await;
-            return Err(err);
-        }
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-            // Decoding errors are not transient. Typically they indicate a badly
-            // configured MDS endpoint, or DNS redirecting the request to a random
-            // server, e.g., ISPs that redirect unknown services to HTTP.
-            CredentialsError::from_source(!e.is_decode(), e)
-        })?;
-        let token = Token {
-            token: response.access_token,
-            token_type: response.token_type,
-            expires_at: response
-                .expires_in
-                .map(|d| Instant::now() + Duration::from_secs(d)),
-            metadata: None,
-        };
-        Ok(token)
+            .map_err(|e| CredentialsError::new(e.is_transient(), self.error_message(), e))
     }
 }
 
@@ -518,6 +442,7 @@ mod tests {
     };
     use crate::errors;
     use crate::errors::CredentialsError;
+    use crate::mds::client::MDSTokenResponse;
     use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_ROOT};
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
@@ -530,7 +455,9 @@ mod tests {
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
     use std::error::Error;
+    use std::time::Duration;
     use test_case::test_case;
+    use tokio::time::Instant;
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
@@ -711,9 +638,7 @@ mod tests {
     #[parallel]
     fn error_message_with_adc() {
         let provider = MDSAccessTokenProvider::builder()
-            .endpoint("http://127.0.0.1")
             .created_by_adc(true)
-            .endpoint_overridden(false)
             .build();
 
         let want = MDS_NOT_FOUND_ERROR;
@@ -725,10 +650,14 @@ mod tests {
     #[test_case(false, true)]
     #[test_case(true, true)]
     fn error_message_without_adc(adc: bool, overridden: bool) {
+        let endpoint = if overridden {
+            Some("http://127.0.0.1")
+        } else {
+            None
+        };
         let provider = MDSAccessTokenProvider::builder()
-            .endpoint("http://127.0.0.1")
+            .endpoint(endpoint)
             .created_by_adc(adc)
-            .endpoint_overridden(overridden)
             .build();
 
         let not_want = MDS_NOT_FOUND_ERROR;
