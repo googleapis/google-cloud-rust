@@ -16,7 +16,7 @@ also describes the common terminology used with authentication, such as
 
 # Features
 
-- `default-rustls-provider`: enabled by default. This feature select a default
+- `default-rustls-provider`: enabled by default. This feature selects a default
   crypto provider and trusted root certificate selection for TLS. Applications
   that have specific requirements for TLS (such as exclusively using the
   [aws-lc-rs], or [ring] crates) should disable this default and configure the
@@ -30,7 +30,7 @@ also describes the common terminology used with authentication, such as
   for this backend should not rely on the current default. To control the
   backend selection:
   - Configure this crate with `default-features = false`, and
-    `features = ["jsonwebtoken"]`
+    `features = ["idtoken"]`
   - Select the desired backend for `jsonwebtoken`.
 
 [authentication methods at google]: https://cloud.google.com/docs/authentication
