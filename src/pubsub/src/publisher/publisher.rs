@@ -125,7 +125,8 @@ impl Publisher {
 
     /// Resume accepting publish for a paused ordering key.
     ///
-    /// If there is no ordering key or the ordering key is not currently paused, then this function is no-op.
+    /// Publishing using an ordering key might be paused if an error is encountered while publishing, to prevent messages from being published out of order.
+    /// If the ordering key is not currently paused, this function is a no-op.
     ///
     /// # Example
     ///
@@ -133,7 +134,7 @@ impl Publisher {
     /// # use google_cloud_pubsub::model::PubsubMessage;
     /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
     /// if let Err(_) = publisher.publish(PubsubMessage::new().set_data("foo").set_ordering_key("bar")).await {
-    ///     // Handle the error.
+    ///     // Error handling code can go here.
     ///     publisher.resume_publish("bar");
     /// }
     /// # Ok(())
@@ -1382,7 +1383,6 @@ mod tests {
                 .set_ordering_key("ordering key with error")
                 .set_data("msg 0"),
         );
-        publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
         let mut got_err = handle.await.unwrap_err();
         // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
