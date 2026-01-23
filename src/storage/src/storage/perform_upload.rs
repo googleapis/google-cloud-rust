@@ -83,9 +83,9 @@ impl<S> PerformUpload<S> {
         let builder = self
             .inner
             .client
-            .request(
+            .builder(
                 reqwest::Method::POST,
-                format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
+                format!("/upload/storage/v1/b/{bucket_id}/o"),
             )
             .query(&[("uploadType", "resumable")])
             .query(&[("name", object)])
@@ -109,7 +109,7 @@ impl<S> PerformUpload<S> {
         let builder = self
             .inner
             .client
-            .request(reqwest::Method::PUT, upload_url)
+            .builder_with_url(reqwest::Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", "bytes */*")
             .header("content-length", 0)

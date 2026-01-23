@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Headers utility functions to work with Google Cloud authentication [Credentials].
+//!
+//! [Credentials]: https://cloud.google.com/docs/authentication#credentials
+
 use crate::Result;
 use crate::credentials::{CacheableResource, QUOTA_PROJECT_KEY};
 use crate::errors;

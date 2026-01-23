@@ -303,7 +303,7 @@ mod tests {
     async fn error_starting_stream() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Err(tonic::Status::internal("fail")));
+            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = test_client(endpoint).await?;
         let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
@@ -314,7 +314,7 @@ mod tests {
             .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -341,7 +341,7 @@ mod tests {
                         .expect("forwarding writes always succeeds");
                 }
             });
-            Err(tonic::Status::internal("fail"))
+            Err(tonic::Status::failed_precondition("fail"))
         });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
@@ -673,7 +673,7 @@ mod tests {
 
         response_tx.send(Ok(test_response(1..4))).await?;
         response_tx
-            .send(Err(tonic::Status::internal("fail")))
+            .send(Err(tonic::Status::failed_precondition("fail")))
             .await?;
         drop(response_tx);
 
@@ -690,7 +690,7 @@ mod tests {
             .expect_err("expected an error from stream");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
         assert_eq!(status.message, "fail");
 
         Ok(())
@@ -775,7 +775,7 @@ mod tests {
                             .expect("forwarding writes always succeeds");
                     }
                 });
-                Err(tonic::Status::internal("fail"))
+                Err(tonic::Status::failed_precondition("fail"))
             });
 
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;

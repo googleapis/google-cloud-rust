@@ -61,7 +61,7 @@ impl ReqwestClient {
         // TODO(#4298): Remove after adding HTTP2 support.
         builder = builder.http1_only();
         if config.disable_automatic_decompression {
-            builder = builder.no_gzip().no_brotli().no_deflate();
+            builder = builder.no_gzip().no_brotli().no_deflate().no_zstd();
         }
         if config.disable_follow_redirects {
             builder = builder.redirect(reqwest::redirect::Policy::none());
@@ -114,6 +114,16 @@ impl ReqwestClient {
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
         self.inner
             .request(method, format!("{}{path}", &self.endpoint))
+    }
+
+    /// Creates a builder for a complete URL.
+    ///
+    /// Most clients use a single endpoint for all requests. Therefore, the
+    /// [builder()][Self::builder()] prepends the endpoint to a request path.
+    /// The most notable exception is the storage client, which receives the URL
+    /// for uploads dynamically, and needs to make requests to arbitrary URLs.
+    pub fn builder_with_url(&self, method: Method, url: &str) -> reqwest::RequestBuilder {
+        self.inner.request(method, url)
     }
 
     pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
