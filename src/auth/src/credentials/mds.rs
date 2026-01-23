@@ -285,8 +285,7 @@ impl Builder {
     /// ```
     pub fn build_access_token_credentials(self) -> BuildResult<AccessTokenCredentials> {
         let quota_project_id = self.quota_project_id.clone();
-        let (final_endpoint, _) = self.resolve_endpoint();
-        let mds_client = MDSClient::new(Some(final_endpoint.clone()));
+        let mds_client = MDSClient::new(self.endpoint.clone());
         let token_provider = TokenCache::new(self.build_token_provider());
 
         let trust_boundary = Arc::new(TrustBoundary::new_for_mds(
