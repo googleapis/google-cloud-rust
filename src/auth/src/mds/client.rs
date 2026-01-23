@@ -20,7 +20,6 @@ use reqwest::{Client as ReqwestClient, RequestBuilder};
 #[derive(Clone, Debug)]
 pub(crate) struct Client {
     endpoint: String,
-    inner: ReqwestClient,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
 }
@@ -34,7 +33,6 @@ impl Client {
 
         Self {
             endpoint,
-            inner: ReqwestClient::new(),
             is_default_endpoint,
         }
     }
@@ -56,7 +54,7 @@ impl Client {
     /// Creates a GET request to the MDS service with the correct headers.
     fn get(&self, path: &str) -> RequestBuilder {
         let url = format!("{}{}", self.endpoint, path);
-        self.inner
+        ReqwestClient::new()
             .get(url)
             .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
     }
