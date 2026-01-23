@@ -140,11 +140,8 @@ impl Publisher {
     /// # Ok(())
     /// # }
     /// ```
-    pub async fn resume_publish<T: std::convert::Into<std::string::String>>(
-        &self,
-        ordering_key: T,
-    ) {
-        let (tx, rx) = oneshot::channel();
+    pub fn resume_publish<T: std::convert::Into<std::string::String>>(&self, ordering_key: T) {
+        let (tx, _) = oneshot::channel();
         if self
             .tx
             .send(ToWorker::ResumePublish(tx, ordering_key.into()))
@@ -152,8 +149,6 @@ impl Publisher {
         {
             // `tx` is dropped here if the send errors.
         }
-        rx.await
-            .expect("the client library should not release the sender");
     }
 }
 
@@ -1302,14 +1297,14 @@ mod tests {
         let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string()).build();
 
         // Test resume and publish for empty ordering key.
-        publisher.resume_publish("").await;
+        publisher.resume_publish("");
         let got = publisher
             .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 0"))
             .await;
         assert_eq!(got.expect("expected message id"), "msg 0");
 
         // Test resume and publish after the BatchWorker has been created for the empty ordering key.
-        publisher.resume_publish("").await;
+        publisher.resume_publish("");
         let got = publisher
             .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 1"))
             .await;
@@ -1317,14 +1312,14 @@ mod tests {
 
         // Test resume and publish before the BatchWorker has been created.
         let key = "ordering key without error";
-        publisher.resume_publish(key).await;
+        publisher.resume_publish(key);
         let got = publisher
             .publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 2"))
             .await;
         assert_eq!(got.expect("expected message id"), "msg 2");
 
         // Test resume and publish after the BatchWorker has been created.
-        publisher.resume_publish(key).await;
+        publisher.resume_publish(key);
         let got = publisher
             .publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 3"))
             .await;
@@ -1401,7 +1396,7 @@ mod tests {
             "{got_err:?}"
         );
 
-        publisher.resume_publish("ordering key with error").await;
+        publisher.resume_publish("ordering key with error");
         let got = publisher
             .publish(
                 PubsubMessage::new()
@@ -1500,8 +1495,8 @@ mod tests {
         );
 
         // Resume twice on the paused ordering key.
-        publisher.resume_publish("ordering key with error").await;
-        publisher.resume_publish("ordering key with error").await;
+        publisher.resume_publish("ordering key with error");
+        publisher.resume_publish("ordering key with error");
         let got = publisher
             .publish(
                 PubsubMessage::new()
@@ -1610,7 +1605,7 @@ mod tests {
         );
 
         // Resume on one of the ordering key.
-        publisher.resume_publish("ordering key with error 0").await;
+        publisher.resume_publish("ordering key with error 0");
 
         // Validate that only the correct ordering key is resumed.
         let got = publisher
