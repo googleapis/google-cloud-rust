@@ -84,6 +84,14 @@ impl TrustBoundary {
     }
 }
 
+#[derive(serde::Deserialize)]
+struct AllowedLocationsResponse {
+    #[allow(dead_code)]
+    locations: Vec<String>,
+    #[serde(rename = "encodedLocations")]
+    encoded_locations: String,
+}
+
 async fn fetch_trust_boundary<T>(
     token_provider: &T,
     url: &str,
@@ -118,20 +126,13 @@ where
         ));
     }
 
-    let json: serde_json::Value = resp
+    let response: AllowedLocationsResponse = resp
         .json()
         .await
         .map_err(|e| CredentialsError::from_msg(true, e.to_string()))?;
 
-    if let Some(locations) = json.get("locations").and_then(|l| l.as_array()).map(|arr| {
-        arr.iter()
-            .filter_map(|v| v.as_str())
-            .collect::<Vec<_>>()
-            .join(",")
-    }) {
-        if !locations.is_empty() {
-            return Ok(Some(locations));
-        }
+    if !response.encoded_locations.is_empty() {
+        return Ok(Some(response.encoded_locations));
     }
 
     Ok(None)
