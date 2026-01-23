@@ -30,6 +30,7 @@ async-trait.workspace  = true
 auth.workspace         = true
 bytes.workspace        = true
 futures.workspace      = true
+h2.workspace           = true
 gax.workspace          = true
 gaxi                   = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-client"] }
 http.workspace         = true
@@ -63,6 +64,7 @@ default-rustls-provider = ["gaxi/_default-rustls-provider"]
 anyhow.workspace     = true
 mockall.workspace    = true
 rand.workspace       = true
+test-case.workspace  = true
 tokio-test.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true
