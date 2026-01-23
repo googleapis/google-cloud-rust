@@ -16,7 +16,7 @@
 set -euv
 
 URL="https://go.dev/dl/go{_GO_VERSION}.linux-amd64.tar.gz"
-curl -fsSL --retry 5 --retry-delay 15  -o /tmp/go.tar.gz
+curl -fsSL --retry 5 --retry-delay 15 "${URL}" -o /tmp/go.tar.gz
 sha256sum -c <(echo "${_GO_SHA256}" /tmp/go.tar.gz)
 tar -C /usr/local -zxf /tmp/go.tar.gz --strip-components=1
 rm -f /tmp/go.tar.gz
