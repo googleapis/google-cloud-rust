@@ -59,6 +59,41 @@ impl Client {
             .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
     }
 
+    /// Fetches an ID token for the default service account.
+    /// Used by idtoken feature.
+    #[allow(dead_code)]
+    pub(crate) async fn id_token(
+        &self,
+        target_audience: &str,
+        format: Option<String>,
+        licenses: Option<String>,
+    ) -> crate::Result<String> {
+        let path = format!("{}/identity", super::MDS_DEFAULT_URI);
+        let request = self.get(&path).query(&[("audience", target_audience)]);
+        let request = format.iter().fold(request, |builder, format| {
+            builder.query(&[("format", format)])
+        });
+        let request = licenses.iter().fold(request, |builder, licenses| {
+            builder.query(&[("licenses", licenses)])
+        });
+
+        let error_message = "failed to fetch id token";
+
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let token = response
+            .text()
+            .await
+            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+
+        Ok(token)
+    }
+
     /// Fetches the email address of the service account from the Metadata Service.
     pub(crate) async fn email(&self) -> crate::Result<String> {
         let path = format!("{}/email", super::MDS_DEFAULT_URI);
@@ -100,6 +135,52 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_id_token_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/identity", MDS_DEFAULT_URI)),
+                request::query(url_decoded(contains(("audience", "test-aud".to_string())))),
+                request::query(url_decoded(contains(("format", "full".to_string())))),
+                request::query(url_decoded(contains(("licenses", "TRUE".to_string())))),
+            ])
+            .respond_with(status_code(200).body("test-id-token")),
+        );
+
+        let token = client
+            .id_token(
+                "test-aud",
+                Some("full".to_string()),
+                Some("TRUE".to_string()),
+            )
+            .await
+            .unwrap();
+        assert_eq!(token, "test-id-token");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_id_token_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/identity", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.id_token("test-aud", None, None).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch id token"));
+    }
 
     #[tokio::test]
     #[parallel]
