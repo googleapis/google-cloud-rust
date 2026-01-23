@@ -211,10 +211,10 @@ pub struct Document {
     /// entity extraction results at different stages of the processing.
     pub entities_revisions: std::vec::Vec<crate::model::document::EntitiesRevision>,
 
-    /// The entity revision id that `document.entities` field is based on.
+    /// The entity revision ID that `document.entities` field is based on.
     /// If this field is set and `entities_revisions` is not empty, the entities in
     /// `document.entities` field are the entities in the entity revision with this
-    /// id and `document.entity_validation_output` field is the
+    /// ID and `document.entity_validation_output` field is the
     /// `entity_validation_output` field in this entity revision.
     pub entities_revision_id: std::string::String,
 
