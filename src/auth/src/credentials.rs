@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Types and functions to work with Google Cloud authentication [Credentials].
+//!
+//! [Credentials]: https://cloud.google.com/docs/authentication#credentials
+
 use crate::build_errors::Error as BuilderError;
 use crate::constants::GOOGLE_CLOUD_QUOTA_PROJECT_VAR;
 use crate::errors::{self, CredentialsError};
