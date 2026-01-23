@@ -13,7 +13,10 @@
 // limitations under the License.
 
 use crate::errors::{self, CredentialsError};
+use crate::token::Token;
 use reqwest::{Client as ReqwestClient, RequestBuilder};
+use std::time::Duration;
+use tokio::time::Instant;
 
 /// A client for GCP Compute Engine Metadata Service (MDS).
 #[allow(dead_code)]
@@ -22,6 +25,14 @@ pub(crate) struct Client {
     endpoint: String,
     /// True if the endpoint was NOT overridden by env var or constructor arg.
     pub(crate) is_default_endpoint: bool,
+}
+
+#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+pub(crate) struct MDSTokenResponse {
+    pub(crate) access_token: String,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub(crate) expires_in: Option<u64>,
+    pub(crate) token_type: String,
 }
 
 impl Client {
@@ -57,6 +68,48 @@ impl Client {
         ReqwestClient::new()
             .get(url)
             .header(super::METADATA_FLAVOR, super::METADATA_FLAVOR_VALUE)
+    }
+
+    /// Fetches an access token for the default service account.
+    pub(crate) async fn access_token(&self, scopes: Option<Vec<String>>) -> crate::Result<Token> {
+        let path = format!("{}/token", super::MDS_DEFAULT_URI);
+        let request = self.get(&path);
+
+        // Use the `scopes` option if set, otherwise let the MDS use the default
+        // scopes.
+        let scopes = scopes.as_ref().map(|v| v.join(","));
+        let request = scopes
+            .into_iter()
+            .fold(request, |r, s| r.query(&[("scopes", s)]));
+
+        let error_message = "failed to fetch access token";
+
+        // If the connection to MDS was not successful, it is useful to retry when really
+        // running on MDS environments and not useful if there is no MDS. We will mark the error
+        // as retryable and let the retry policy determine whether to retry or not. Whenever we
+        // define a default retry policy, we can skip retrying this case.
+        let response = request
+            .send()
+            .await
+            .map_err(|e| errors::from_http_error(e, error_message))?;
+
+        let response = Self::check_response_status(response, error_message).await?;
+
+        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
+            // Decoding errors are not transient. Typically they indicate a badly
+            // configured MDS endpoint, or DNS redirecting the request to a random
+            // server, e.g., ISPs that redirect unknown services to HTTP.
+            CredentialsError::from_source(!e.is_decode(), e)
+        })?;
+
+        Ok(Token {
+            token: response.access_token,
+            token_type: response.token_type,
+            expires_at: response
+                .expires_in
+                .map(|d| Instant::now() + Duration::from_secs(d)),
+            metadata: None,
+        })
     }
 
     /// Fetches an ID token for the default service account.
@@ -135,6 +188,59 @@ mod tests {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_access_token_success() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+        let response = MDSTokenResponse {
+            access_token: "test-token".to_string(),
+            expires_in: Some(3600),
+            token_type: "Bearer".to_string(),
+        };
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/token", MDS_DEFAULT_URI)),
+                request::query(url_decoded(contains((
+                    "scopes",
+                    "scope1,scope2".to_string()
+                )))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .insert_header("Content-Type", "application/json")
+                    .body(serde_json::to_string(&response).unwrap()),
+            ),
+        );
+
+        let token = client
+            .access_token(Some(vec!["scope1".to_string(), "scope2".to_string()]))
+            .await
+            .unwrap();
+        assert_eq!(token.token, "test-token");
+        assert_eq!(token.token_type, "Bearer");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_access_token_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/token", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.access_token(None).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch access token"));
+    }
 
     #[tokio::test]
     #[parallel]
