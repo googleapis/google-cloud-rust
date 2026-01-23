@@ -43,6 +43,12 @@
 //!     `features = ["idtoken"]`
 //!   - Select the desired backend for `jsonwebtoken`.
 //!
+//! # Manual
+//!
+//! The [google-cloud-auth manual][manual] contains documentation about crate
+//! limitations, caveats, migration guides between versions, and in general any
+//! documentation that is too large to include here.
+//!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [ring]: https://crates.io/crates/ring
 //! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
@@ -57,6 +63,7 @@ pub(crate) mod constants;
 pub mod credentials;
 pub mod errors;
 pub(crate) mod headers_util;
+pub mod manual;
 pub(crate) mod mds;
 pub(crate) mod retry;
 pub mod signer;

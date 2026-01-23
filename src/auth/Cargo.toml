@@ -56,6 +56,7 @@ httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem"] }
+rustls                = { workspace = true, features = ["aws_lc_rs", "ring"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
