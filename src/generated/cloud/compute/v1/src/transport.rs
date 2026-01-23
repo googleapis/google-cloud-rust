@@ -54308,7 +54308,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     )?,
                     try_match(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
+                        &[Segment::MultiWildcard]
                     )?,
                     try_match(
                         Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()),
@@ -54338,9 +54338,9 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     );
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
+                        &[Segment::MultiWildcard],
                         "parent_name",
-                        "*",
+                        "**",
                     );
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()),
@@ -54387,7 +54387,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     )?,
                     try_match(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
+                        &[Segment::MultiWildcard]
                     )?,
                 );
 
@@ -54435,9 +54435,9 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     );
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
+                        &[Segment::MultiWildcard],
                         "parent_name",
-                        "*",
+                        "**",
                     );
                     paths.push(builder.build());
                 }
@@ -54478,7 +54478,7 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     )?,
                     try_match(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard]
+                        &[Segment::MultiWildcard]
                     )?,
                     try_match(
                         Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()),
@@ -54520,9 +54520,9 @@ impl super::stub::ReservationSlots for ReservationSlots {
                     );
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.parent_name).map(|s| s.as_str()),
-                        &[Segment::SingleWildcard],
+                        &[Segment::MultiWildcard],
                         "parent_name",
-                        "*",
+                        "**",
                     );
                     let builder = builder.maybe_add(
                         Some(&req).map(|m| &m.reservation_slot).map(|s| s.as_str()),

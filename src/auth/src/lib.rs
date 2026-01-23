@@ -26,6 +26,11 @@
 //!
 //! # Features
 //!
+//! - `default-rustls-provider`: enabled by default. This feature selects a default
+//!   crypto provider and trusted root certificate selection for TLS. Applications
+//!   that have specific requirements for TLS (such as exclusively using the
+//!   [aws-lc-rs], or [ring] crates) should disable this default and configure the
+//!   `reqwest` crate features to fit their needs.
 //! - `idtoken`: disabled by default, this feature enables support to create and
 //!   verify [OIDC ID Tokens].
 //! - `default-idtoken-backend`: enabled by default, this feature enables a default
@@ -36,8 +41,10 @@
 //!   backend selection:
 //!   - Configure this crate with `default-features = false`, and
 //!     `features = ["idtoken"]`
-//!   - Configure the `jsonwebtoken` crate to use the desired backend.
+//!   - Select the desired backend for `jsonwebtoken`.
 //!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 //! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
 //! [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Authentication methods at Google]: https://cloud.google.com/docs/authentication
@@ -46,34 +53,18 @@
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
 pub mod build_errors;
+pub(crate) mod constants;
+pub mod credentials;
 pub mod errors;
+pub(crate) mod headers_util;
+pub(crate) mod mds;
+pub(crate) mod retry;
+pub mod signer;
+pub(crate) mod token;
+pub(crate) mod token_cache;
 
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
 
-/// Types and functions to work with Google Cloud authentication [Credentials].
-///
-/// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub mod credentials;
-
-pub(crate) mod constants;
-
-pub(crate) mod mds;
-
-pub(crate) mod token;
-
-/// The token cache
-pub(crate) mod token_cache;
-
 /// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
 pub(crate) type Result<T> = std::result::Result<T, errors::CredentialsError>;
-
-/// The retry module
-pub(crate) mod retry;
-
-/// Headers utility functions to work with Google Cloud authentication [Credentials].
-///
-/// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub(crate) mod headers_util;
-
-pub mod signer;

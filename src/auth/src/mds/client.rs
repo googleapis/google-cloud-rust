@@ -113,6 +113,8 @@ impl Client {
     }
 
     /// Fetches an ID token for the default service account.
+    /// Used by idtoken feature.
+    #[allow(dead_code)]
     pub(crate) async fn id_token(
         &self,
         target_audience: &str,
@@ -145,6 +147,7 @@ impl Client {
         Ok(token)
     }
 
+    /// Fetches the email address of the service account from the Metadata Service.
     pub(crate) async fn email(&self) -> crate::Result<String> {
         let path = format!("{}/email", super::MDS_DEFAULT_URI);
         let request = self.get(&path);
@@ -269,6 +272,24 @@ mod tests {
 
     #[tokio::test]
     #[parallel]
+    async fn test_id_token_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/identity", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.id_token("test-aud", None, None).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch id token"));
+    }
+
+    #[tokio::test]
+    #[parallel]
     async fn test_email_success() {
         let server = Server::run();
         let client = Client::new(Some(format!("http://{}", server.addr())));
@@ -283,6 +304,24 @@ mod tests {
 
         let email = client.email().await.unwrap();
         assert_eq!(email, "test@example.com");
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_email_failure() {
+        let server = Server::run();
+        let client = Client::new(Some(format!("http://{}", server.addr())));
+
+        server.expect(
+            Expectation::matching(all_of![
+                request::method("GET"),
+                request::path(format!("{}/email", MDS_DEFAULT_URI)),
+            ])
+            .respond_with(status_code(404).body("Not Found")),
+        );
+
+        let err = client.email().await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch email"));
     }
 
     #[test]
