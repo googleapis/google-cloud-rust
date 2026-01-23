@@ -50,6 +50,10 @@ tracing.workspace      = true
 uuid.workspace         = true
 wkt.workspace          = true
 
+[features]
+default                 = ["default-rustls-provider"]
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
 [dev-dependencies]
 anyhow.workspace     = true
 mockall.workspace    = true
