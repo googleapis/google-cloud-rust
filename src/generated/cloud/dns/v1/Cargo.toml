@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dns-v1"
-version                = "0.0.0"
+version                = "1.0.0"
 description            = "Google Cloud Client Libraries for Rust - Cloud DNS API"
 edition.workspace      = true
 authors.workspace      = true
@@ -25,7 +25,6 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
-publish                = false
 
 [features]
 default = ["default-rustls-provider"]
@@ -44,6 +43,7 @@ bytes.workspace       = true
 gax.workspace         = true
 gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 lazy_static.workspace = true
+lro.workspace         = true
 reqwest.workspace     = true
 serde.workspace       = true
 serde_json.workspace  = true

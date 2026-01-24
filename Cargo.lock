@@ -2517,12 +2517,13 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dns-v1"
-version = "0.0.0"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -5831,6 +5832,7 @@ dependencies = [
  "futures",
  "google-cloud-dns-v1",
  "google-cloud-gax",
+ "google-cloud-lro",
  "google-cloud-test-utils",
  "rand 0.9.2",
  "tokio",

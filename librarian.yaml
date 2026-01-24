@@ -645,13 +645,24 @@ libraries:
     rust:
       per_service_features: true
   - name: google-cloud-dns-v1
+    version: 1.0.0
     copyright_year: "2026"
-    skip_publish: true
+    keep:
+      - src/operation.rs
     specification_format: discovery
     rust:
+      package_dependencies:
+        - name: lro
+          package: google-cloud-lro
+          force_used: true
       roots:
         - discovery
         - googleapis
+      discovery:
+        operation_id: ..Operation
+        pollers:
+          - prefix: dns/v1/projects/{project}/managedZones/{managedZone}
+            method_id: ..managedZoneOperations.get
   - name: google-cloud-documentai-v1
     version: 1.5.0
     copyright_year: "2025"
