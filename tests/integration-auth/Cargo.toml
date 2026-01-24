@@ -13,14 +13,14 @@
 # limitations under the License.
 
 [package]
-name              = "auth-integration-tests"
+name              = "integration-tests-auth"
 description       = "Integration tests for google-cloud-auth."
 version           = "0.0.0"
 edition.workspace = true
 publish           = false
 
 [features]
-run-integration-tests       = []
+run-auth-integration-tests  = []
 run-byoid-integration-tests = []
 
 [dependencies]
