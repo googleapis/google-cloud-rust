@@ -240,6 +240,7 @@ mod tests {
     use super::super::client::Subscriber;
     use super::super::keepalive::KEEPALIVE_PERIOD;
     use super::super::lease_state::tests::{test_id, test_ids};
+    use super::super::stream::{INITIAL_DELAY, MAXIMUM_DELAY};
     use super::*;
     use auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
@@ -820,6 +821,52 @@ mod tests {
         let _ = tokio::time::timeout(TEST_TIMEOUT, session.next())
             .await
             .expect_err("next() should never yield.");
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn retry_transient_when_starting_stream() -> anyhow::Result<()> {
+        const NUM_RETRIES: u32 = 20;
+
+        let start_time = tokio::time::Instant::now();
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+
+        for _ in 0..NUM_RETRIES {
+            // Simulate N transient errors
+            mock.expect_streaming_pull()
+                .times(1)
+                .in_sequence(&mut seq)
+                .return_once(|_| Err(tonic::Status::unavailable("try again")));
+        }
+        // Simulate a permanent error. Otherwise, we would retry forever.
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+        let err = session
+            .next()
+            .await
+            .expect("stream should not be empty")
+            .expect_err("the first streamed item should be an error");
+        assert!(err.status().is_some(), "{err:?}");
+        let status = err.status().unwrap();
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(status.message, "fail");
+
+        let elapsed = start_time.elapsed();
+        assert!(
+            elapsed <= MAXIMUM_DELAY * NUM_RETRIES,
+            "elapsed={elapsed:?}"
+        );
+        assert!(
+            elapsed >= INITIAL_DELAY * NUM_RETRIES,
+            "elapsed={elapsed:?}"
+        );
 
         Ok(())
     }
