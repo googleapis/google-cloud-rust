@@ -444,7 +444,7 @@ google-cloud-secretmanager-v1   = { default-features = false, version = "1", pat
 secretmanager                   = { default-features = false, version = "1", path = "src/generated/cloud/secretmanager/v1", package = "google-cloud-secretmanager-v1" }
 google-cloud-aiplatform-v1      = { default-features = false, version = "1", path = "src/generated/cloud/aiplatform/v1" }
 google-cloud-compute-v1         = { default-features = false, version = "2", path = "src/generated/cloud/compute/v1" }
-google-cloud-storage            = { default-features = false, version = "1", path = "src/storage" }
+google-cloud-storage            = { default-features = false, version = "1.7", path = "src/storage" }
 google-cloud-pubsub             = { default-features = false, path = "src/pubsub" }
 google-cloud-bigquery-v2        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2" }
 bigquery                        = { default-features = false, version = "1", path = "src/generated/cloud/bigquery/v2", package = "google-cloud-bigquery-v2" }
