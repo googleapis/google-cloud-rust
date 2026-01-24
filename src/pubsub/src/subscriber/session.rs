@@ -17,8 +17,8 @@ use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
-use super::stream::open_stream;
-use super::stub::{Stub, TonicStreaming};
+use super::stream::Stream;
+use super::stub::TonicStreaming as _;
 use super::transport::Transport;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::model::PubsubMessage;
@@ -28,7 +28,6 @@ use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
 use std::sync::Arc;
 use tokio::sync::mpsc::UnboundedSender;
-use tokio_util::sync::{CancellationToken, DropGuard};
 
 /// Represents an open subscribe session.
 ///
@@ -65,7 +64,7 @@ pub struct Session {
     /// of `Session` is blocked on the first message being available.
     ///
     /// [^1]: <https://github.com/hyperium/tonic/issues/515>
-    stream: Option<<Transport as Stub>::Stream>,
+    stream: Option<Stream<Transport>>,
 
     /// Applications ask for messages one at a time. Individual stream responses
     /// can contain multiple messages. We use `pool` to hold the extra messages
@@ -82,15 +81,6 @@ pub struct Session {
     /// management task. Each `Handler` holds a clone of this.
     ack_tx: UnboundedSender<AckResult>,
 
-    /// A cancellation token for signalling a shutdown to the task sending
-    /// keepalive pings.
-    shutdown: CancellationToken,
-
-    /// A guard which signals a shutdown to the task sending keepalive pings
-    /// when it is dropped. It is more convenient to hold a `DropGuard` than to
-    /// have a custom `impl Drop for Session`.
-    _keepalive_guard: DropGuard,
-
     /// A handle on the lease loop task.
     ///
     /// We hold onto this handle so we can await pending lease operations. While awaiting pending
@@ -101,7 +91,6 @@ pub struct Session {
 
 impl Session {
     pub(super) fn new(builder: StreamingPull) -> Self {
-        let shutdown = CancellationToken::new();
         let inner = builder.inner;
         let subscription = builder.subscription;
 
@@ -135,8 +124,6 @@ impl Session {
             pool: VecDeque::new(),
             message_tx,
             ack_tx,
-            shutdown: shutdown.clone(),
-            _keepalive_guard: shutdown.drop_guard(),
             _lease_loop,
         }
     }
@@ -170,6 +157,7 @@ impl Session {
             }
             // Otherwise, read more messages from the stream.
             if let Err(e) = self.stream_next().await? {
+                // TODO(#4097) - support stream resumes.
                 return Some(Err(e));
             }
         }
@@ -178,14 +166,10 @@ impl Session {
     /// Returns a mutable reference to the underlying stream.
     ///
     /// If a stream is not yet open, this method opens the stream.
-    async fn mut_stream(&mut self) -> Result<&mut <Transport as Stub>::Stream> {
+    async fn mut_stream(&mut self) -> Result<&mut Stream<Transport>> {
         if self.stream.is_none() {
-            let stream = open_stream(
-                self.inner.clone(),
-                self.initial_req.clone(),
-                self.shutdown.clone(),
-            )
-            .await?;
+            let stream =
+                Stream::<Transport>::new(self.inner.clone(), self.initial_req.clone()).await?;
             self.stream = Some(stream);
         }
         Ok(self
@@ -198,7 +182,6 @@ impl Session {
         let resp = {
             let stream = match self.mut_stream().await {
                 Ok(s) => s,
-                // TODO(#4097) - support stream retries / resumes.
                 Err(e) => return Some(Err(e)),
             };
 
@@ -239,8 +222,8 @@ impl Session {
     ///
     /// This is a useful method for setting clean test expectations.
     async fn close(self) -> anyhow::Result<()> {
-        // Signal a shutdown to the keepalive task.
-        drop(self._keepalive_guard);
+        // Shutdown the stream and its keepalive task.
+        drop(self.stream);
 
         // Signal a shutdown to the lease management background task.
         drop(self.message_tx);
