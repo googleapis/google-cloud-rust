@@ -42,38 +42,20 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      cargo test --features run-integration-tests \
-        --package integration-tests \
-        --package user-guide-samples \
-        --package storage-samples \
-        --package pubsub-samples
-      cargo test --features run-integration-tests \
-        --package integration-tests-dns-v1
-      cargo build --package storage-samples --profile=test --all-features
-      cargo build --package pubsub-samples --profile=test --all-features
+      cargo test --features run-integration-tests --workspace --tests
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
+    # For these tests, we need to run them one package at a time. Otherwise all
+    # the features are unified, and these tests are trying to test one feature
+    # at a time.
     script: |
       #!/usr/bin/env bash
       set -e
       rustup component add clippy
       echo "Verify crypto providers behavior"
-      directories=(
-        tests/crypto-providers/auth-with-default
-        tests/crypto-providers/auth-without-default
-        tests/crypto-providers/idtoken-with-default
-        tests/crypto-providers/idtoken-with-aws-lc-rs
-        tests/crypto-providers/idtoken-with-rust-crypto
-        tests/crypto-providers/gaxi-with-default
-        tests/crypto-providers/gaxi-with-aws-lc-rs
-        tests/crypto-providers/gaxi-with-ring
-        tests/crypto-providers/secret-manager-with-default
-        tests/crypto-providers/secret-manager-with-aws-lc-rs
-        tests/crypto-providers/secret-manager-with-ring
-        tests/crypto-providers/storage-with-default
-        tests/crypto-providers/storage-with-aws-lc-rs
-        tests/crypto-providers/storage-with-ring
-      )
+      mapfile -t directories < <(git ls-files -- 'tests/crypto-providers/**Cargo.toml' |
+          xargs -I{} dirname {} |
+          grep -v test-)
       for dir in "${directories[@]}"; do
         echo "Running test in ${dir}"
         # Handle problems updating the `Cargo.lock` files. The first
