@@ -30,10 +30,10 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-binaryauthorization-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-binaryauthorization-v1/1.4.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[BinauthzManagementServiceV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.3.0/google_cloud_binaryauthorization_v1/client/struct.BinauthzManagementServiceV1.html
-[SystemPolicyV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.3.0/google_cloud_binaryauthorization_v1/client/struct.SystemPolicyV1.html
-[ValidationHelperV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.3.0/google_cloud_binaryauthorization_v1/client/struct.ValidationHelperV1.html
+[BinauthzManagementServiceV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.4.0/google_cloud_binaryauthorization_v1/client/struct.BinauthzManagementServiceV1.html
+[SystemPolicyV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.4.0/google_cloud_binaryauthorization_v1/client/struct.SystemPolicyV1.html
+[ValidationHelperV1]: https://docs.rs/google-cloud-binaryauthorization-v1/1.4.0/google_cloud_binaryauthorization_v1/client/struct.ValidationHelperV1.html

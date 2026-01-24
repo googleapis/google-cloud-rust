@@ -27,9 +27,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Environments]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.4.0/google_cloud_orchestration_airflow_service_v1/client/struct.Environments.html
-[ImageVersions]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.4.0/google_cloud_orchestration_airflow_service_v1/client/struct.ImageVersions.html
+[Environments]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.5.0/google_cloud_orchestration_airflow_service_v1/client/struct.Environments.html
+[ImageVersions]: https://docs.rs/google-cloud-orchestration-airflow-service-v1/1.5.0/google_cloud_orchestration_airflow_service_v1/client/struct.ImageVersions.html

@@ -26,8 +26,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-clouddms-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-clouddms-v1/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[DataMigrationService]: https://docs.rs/google-cloud-clouddms-v1/1.4.0/google_cloud_clouddms_v1/client/struct.DataMigrationService.html
+[DataMigrationService]: https://docs.rs/google-cloud-clouddms-v1/1.5.0/google_cloud_clouddms_v1/client/struct.DataMigrationService.html

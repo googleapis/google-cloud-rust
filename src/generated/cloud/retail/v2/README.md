@@ -47,19 +47,19 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/2.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/2.4.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[AnalyticsService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.AnalyticsService.html
-[CatalogService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.CatalogService.html
-[CompletionService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.CompletionService.html
-[ControlService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ControlService.html
-[ConversationalSearchService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ConversationalSearchService.html
-[GenerativeQuestionService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.GenerativeQuestionService.html
-[ModelService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ModelService.html
-[PredictionService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.PredictionService.html
-[ProductService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ProductService.html
-[SearchService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.SearchService.html
-[ServingConfigService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ServingConfigService.html
-[UserEventService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.UserEventService.html
+[AnalyticsService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.AnalyticsService.html
+[CatalogService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.CatalogService.html
+[CompletionService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.CompletionService.html
+[ControlService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.ControlService.html
+[ConversationalSearchService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.ConversationalSearchService.html
+[GenerativeQuestionService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.GenerativeQuestionService.html
+[ModelService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.ModelService.html
+[PredictionService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.PredictionService.html
+[ProductService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.ProductService.html
+[SearchService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.SearchService.html
+[ServingConfigService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.ServingConfigService.html
+[UserEventService]: https://docs.rs/google-cloud-retail-v2/2.4.0/google_cloud_retail_v2/client/struct.UserEventService.html

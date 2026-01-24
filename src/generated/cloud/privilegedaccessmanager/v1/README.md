@@ -38,8 +38,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-privilegedaccessmanager-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-privilegedaccessmanager-v1/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[PrivilegedAccessManager]: https://docs.rs/google-cloud-privilegedaccessmanager-v1/1.4.0/google_cloud_privilegedaccessmanager_v1/client/struct.PrivilegedAccessManager.html
+[PrivilegedAccessManager]: https://docs.rs/google-cloud-privilegedaccessmanager-v1/1.5.0/google_cloud_privilegedaccessmanager_v1/client/struct.PrivilegedAccessManager.html

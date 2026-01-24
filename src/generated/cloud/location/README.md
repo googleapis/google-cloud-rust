@@ -28,8 +28,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-location/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-location/1.4.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[Locations]: https://docs.rs/google-cloud-location/1.3.0/google_cloud_location/client/struct.Locations.html
+[Locations]: https://docs.rs/google-cloud-location/1.4.0/google_cloud_location/client/struct.Locations.html
