@@ -4153,7 +4153,6 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-wkt",
- "h2",
  "http",
  "lazy_static",
  "mockall",

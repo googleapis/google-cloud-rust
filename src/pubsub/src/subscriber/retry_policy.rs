@@ -36,7 +36,7 @@ impl StreamRetryPolicy {
                 Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
                     RetryResult::Continue(error)
                 }
-                Code::Unknown if is_rst_stream(&error) => RetryResult::Continue(error),
+                // TODO(#4097) - handle RST_STREAM frames.
                 _ => RetryResult::Permanent(error),
             };
         }
@@ -48,49 +48,6 @@ impl RetryPolicy for StreamRetryPolicy {
     fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
         Self::is_transient(error)
     }
-}
-
-// Tonic surfaces [RST_STREAM] errors with an UNKNOWN status code. While UNKNOWN
-// errors are not typically retry-able, RST_STREAM frames always are.
-//
-// We have seen a stream die with this error:
-//
-// ```
-// tonic::Status {
-//   code: Unknown,
-//   message: "error reading a body from connection",
-//   source: Some(hyper::Error(
-//     Body,
-//     h2::Error {
-//       kind: Reset(StreamId(1), INTERNAL_ERROR, Remote)
-//     }
-//   ))
-// }
-// ```
-//
-// [RST_STREAM]: https://datatracker.ietf.org/doc/html/rfc7540#section-6.4
-fn is_rst_stream(s: &Error) -> bool {
-    // Sadly, there is no unit test coverage for this variant as
-    // `h2::Error::is_reset()` is too difficult to trigger/fake.
-    as_inner::<h2::Error, Error>(s).is_some_and(|e| e.is_reset())
-}
-
-fn as_inner<T, E>(error: &E) -> Option<&T>
-where
-    T: std::error::Error + 'static,
-    E: std::error::Error,
-{
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<T>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
 }
 
 #[cfg(test)]
@@ -153,38 +110,6 @@ mod tests {
     #[test_case(Code::DataLoss)]
     fn non_retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("fail"));
-        assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
-            RetryResult::Permanent(_)
-        ));
-    }
-
-    #[test]
-    fn non_retryable_unknown_errors() {
-        let inner =
-            tonic::Status::from_error(Box::new(h2::Error::from(h2::Reason::PROTOCOL_ERROR)));
-        let err = Error::service_full(
-            Status::default()
-                .set_code(Code::Unknown)
-                .set_message("fail"),
-            None,
-            None,
-            Some(Box::new(inner)),
-        );
-        assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
-            RetryResult::Permanent(_)
-        ));
-
-        let inner = tonic::Status::unknown("fail");
-        let err = Error::service_full(
-            Status::default()
-                .set_code(Code::Unknown)
-                .set_message("fail"),
-            None,
-            None,
-            Some(Box::new(inner)),
-        );
         assert!(matches!(
             StreamRetryPolicy::is_transient(err),
             RetryResult::Permanent(_)
