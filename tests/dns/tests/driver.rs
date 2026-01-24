@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// #[cfg(all(test, feature = "run-integration-tests"))]
+#[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
     #[tokio::test]
     async fn run_all() -> anyhow::Result<()> {

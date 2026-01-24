@@ -1,4 +1,4 @@
-# Copyright 2024 Google LLC
+# Copyright 2026 Google LLC
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ chrono                        = { workspace = true, features = ["now"] }
 futures.workspace             = true
 google-cloud-dns-v1.workspace = true
 google-cloud-gax.workspace    = true
+google-cloud-test-utils       = { workspace = true }
 rand.workspace                = true
 tokio.workspace               = true
 tracing.workspace             = true
