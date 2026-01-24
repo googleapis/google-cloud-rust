@@ -33,7 +33,13 @@ cargo minimal-versions check --package google-cloud-storage
 cargo minimal-versions check --package google-cloud-gax-internal
 cargo minimal-versions check --package google-cloud-auth
 cargo minimal-versions check --package google-cloud-gax
+cargo minimal-versions check --package google-cloud-lro
 cargo minimal-versions check --package google-cloud-wkt
+
+# This generated client uses several mixins, but not LROs.
+cargo minimal-versions check --package google-cloud-secretmanager-v1
+# This generated client uses LROs.
+cargo minimal-versions check --package google-cloud-workflows-v1
 
 echo "==== DONE ===="
 
