@@ -19,6 +19,8 @@ use gax::retry_result::RetryResult;
 use gax::retry_state::RetryState;
 
 /// The subscriber's retry policy, specifically for StreamingPull RPCs.
+///
+/// This same policy applies to both starting and resuming a stream.
 #[derive(Debug)]
 pub(super) struct StreamRetryPolicy;
 
