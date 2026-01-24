@@ -52,9 +52,8 @@ default = [
 ]
 # Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
 # and authentication. Applications with specific requirements for cryptography
-# (such as exclusively using the [aws-lc-rs], or [ring] crates) should disable
-# this default and install the default crypto provider in `rustls` to fit their
-# requirements.
+# (such as exclusively using the [aws-lc-rs]) should disable this default and
+# call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
