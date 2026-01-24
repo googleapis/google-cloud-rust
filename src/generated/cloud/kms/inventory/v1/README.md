@@ -15,9 +15,19 @@ The main types to work with this crate are the clients:
 - [KeyDashboardService]
 - [KeyTrackingService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-kms-inventory-v1/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [KeyDashboardService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyDashboardService.html
 [KeyTrackingService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyTrackingService.html

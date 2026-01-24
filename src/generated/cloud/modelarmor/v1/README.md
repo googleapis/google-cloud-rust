@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [ModelArmor]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-modelarmor-v1/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [ModelArmor]: https://docs.rs/google-cloud-modelarmor-v1/1.3.0/google_cloud_modelarmor_v1/client/struct.ModelArmor.html

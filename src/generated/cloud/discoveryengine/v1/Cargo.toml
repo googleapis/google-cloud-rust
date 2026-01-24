@@ -34,6 +34,7 @@ default = [
   "control-service",
   "conversational-search-service",
   "data-store-service",
+  "default-rustls-provider",
   "document-service",
   "engine-service",
   "grounded-generation-service",
@@ -50,6 +51,11 @@ default = [
   "user-event-service",
   "user-license-service",
 ]
+# Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
+# and authentication. Applications with specific requirements for cryptography
+# (such as exclusively using the [aws-lc-rs]) should disable this default and
+# call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::AssistantService` and all the types it depends on.
 assistant-service = []
 # Enables `client::CmekConfigService` and all the types it depends on.

@@ -17,9 +17,19 @@ The main types to work with this crate are the clients:
 - [ManagedKafka]
 - [ManagedKafkaConnect]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-managedkafka-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [ManagedKafka]: https://docs.rs/google-cloud-managedkafka-v1/1.4.0/google_cloud_managedkafka_v1/client/struct.ManagedKafka.html
 [ManagedKafkaConnect]: https://docs.rs/google-cloud-managedkafka-v1/1.4.0/google_cloud_managedkafka_v1/client/struct.ManagedKafkaConnect.html

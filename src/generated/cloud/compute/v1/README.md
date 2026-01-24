@@ -129,10 +129,22 @@ The main types to work with this crate are the clients:
 - [ZoneOperations]: enabled by the `zone-operations` feature.
 - [Zones]: enabled by the `zones` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/2.0.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AcceleratorTypes]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.AcceleratorTypes.html
 [Addresses]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Addresses.html
 [Advice]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Advice.html

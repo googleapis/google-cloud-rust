@@ -43,10 +43,22 @@ The main types to work with this crate are the clients:
 - [Versions]: enabled by the `versions` feature.
 - [Webhooks]: enabled by the `webhooks` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Agents]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Agents.html
 [Changelogs]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Changelogs.html
 [Deployments]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Deployments.html

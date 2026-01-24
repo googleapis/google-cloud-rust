@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [ServiceManager]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-api-servicemanagement-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [ServiceManager]: https://docs.rs/google-cloud-api-servicemanagement-v1/1.4.0/google_cloud_api_servicemanagement_v1/client/struct.ServiceManager.html

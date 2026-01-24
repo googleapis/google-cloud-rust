@@ -22,10 +22,20 @@ The main types to work with this crate are the clients:
 - [RowAccessPolicyService]
 - [TableService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-bigquery-v2/1.0.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [DatasetService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.DatasetService.html
 [JobService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.JobService.html
 [ModelService]: https://docs.rs/google-cloud-bigquery-v2/1.0.0/google_cloud_bigquery_v2/client/struct.ModelService.html

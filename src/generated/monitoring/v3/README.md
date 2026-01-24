@@ -23,10 +23,20 @@ The main types to work with this crate are the clients:
 - [SnoozeService]
 - [UptimeCheckService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-monitoring-v3/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AlertPolicyService]: https://docs.rs/google-cloud-monitoring-v3/1.3.0/google_cloud_monitoring_v3/client/struct.AlertPolicyService.html
 [GroupService]: https://docs.rs/google-cloud-monitoring-v3/1.3.0/google_cloud_monitoring_v3/client/struct.GroupService.html
 [MetricService]: https://docs.rs/google-cloud-monitoring-v3/1.3.0/google_cloud_monitoring_v3/client/struct.MetricService.html

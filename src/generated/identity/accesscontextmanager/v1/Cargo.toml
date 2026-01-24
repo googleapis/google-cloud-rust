@@ -26,6 +26,17 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
+# and authentication. Applications with specific requirements for cryptography
+# (such as exclusively using the [aws-lc-rs]) should disable this default and
+# call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 accesscontextmanager_type.workspace = true
 async-trait.workspace               = true

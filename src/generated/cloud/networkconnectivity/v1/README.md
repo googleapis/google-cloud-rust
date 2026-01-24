@@ -20,10 +20,20 @@ The main types to work with this crate are the clients:
 - [InternalRangeService]
 - [PolicyBasedRoutingService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-networkconnectivity-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [CrossNetworkAutomationService]: https://docs.rs/google-cloud-networkconnectivity-v1/1.4.0/google_cloud_networkconnectivity_v1/client/struct.CrossNetworkAutomationService.html
 [DataTransferService]: https://docs.rs/google-cloud-networkconnectivity-v1/1.4.0/google_cloud_networkconnectivity_v1/client/struct.DataTransferService.html
 [HubService]: https://docs.rs/google-cloud-networkconnectivity-v1/1.4.0/google_cloud_networkconnectivity_v1/client/struct.HubService.html

@@ -56,10 +56,22 @@ The main types to work with this crate are the clients:
 - [VertexRagService]: enabled by the `vertex-rag-service` feature.
 - [VizierService]: enabled by the `vizier-service` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [DataFoundryService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DataFoundryService.html
 [DatasetService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DatasetService.html
 [DeploymentResourcePoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DeploymentResourcePoolService.html

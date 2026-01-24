@@ -19,9 +19,19 @@ The main types to work with this crate are the clients:
 - [ImageAnnotator]
 - [ProductSearch]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs])
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-vision-v1/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ImageAnnotator.html
 [ProductSearch]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ProductSearch.html
