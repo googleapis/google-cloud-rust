@@ -16,6 +16,14 @@ The main types to work with this crate are the clients:
 - [OrganizationAddressGroupService]
 - [NetworkSecurity]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/1.4.0)
@@ -23,3 +31,6 @@ The main types to work with this crate are the clients:
 [AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
 [OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
 [NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

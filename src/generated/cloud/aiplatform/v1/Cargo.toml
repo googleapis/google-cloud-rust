@@ -30,6 +30,7 @@ rust-version.workspace = true
 default = [
   "data-foundry-service",
   "dataset-service",
+  "default-rustls-provider",
   "deployment-resource-pool-service",
   "endpoint-service",
   "evaluation-service",
@@ -62,6 +63,12 @@ default = [
   "vertex-rag-service",
   "vizier-service",
 ]
+# Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
+# and authentication. Applications with specific requirements for cryptography
+# (such as exclusively using the [aws-lc-rs], or [ring] crates) should disable
+# this default and install the default crypto provider in `rustls` to fit their
+# requirements.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::DataFoundryService` and all the types it depends on.
 data-foundry-service = []
 # Enables `client::DatasetService` and all the types it depends on.

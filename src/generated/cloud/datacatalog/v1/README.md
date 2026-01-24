@@ -19,6 +19,14 @@ The main types to work with this crate are the clients:
 - [PolicyTagManager]
 - [PolicyTagManagerSerialization]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-v1/1.4.0)
@@ -26,3 +34,6 @@ The main types to work with this crate are the clients:
 [DataCatalog]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.DataCatalog.html
 [PolicyTagManager]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.PolicyTagManager.html
 [PolicyTagManagerSerialization]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.PolicyTagManagerSerialization.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

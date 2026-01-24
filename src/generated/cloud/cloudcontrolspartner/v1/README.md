@@ -18,9 +18,20 @@ The main types to work with this crate are the clients:
 - [CloudControlsPartnerCore]
 - [CloudControlsPartnerMonitoring]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0)
 
 [CloudControlsPartnerCore]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerCore.html
 [CloudControlsPartnerMonitoring]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerMonitoring.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

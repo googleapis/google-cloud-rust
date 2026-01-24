@@ -54,6 +54,19 @@
 //! * [TransitionRouteGroups](client/struct.TransitionRouteGroups.html)
 //! * [Versions](client/struct.Versions.html)
 //! * [Webhooks](client/struct.Webhooks.html)
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto
+//!   provider ([ring]) for TLS and authentication. Applications with specific
+//!   requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+//!   [ring] crates) should disable this default and install the default crypto
+//!   provider in `rustls` to fit their requirements.
+//! - Each client can be enabled using its own feature. Use the client's name
+//!   in `kebab-case` to enable the client.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(deprecated)]

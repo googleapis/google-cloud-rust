@@ -25,6 +25,14 @@ The main types to work with this crate are the clients:
 - [SqlTiersService]
 - [SqlUsersService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/2.0.0)
@@ -39,3 +47,6 @@ The main types to work with this crate are the clients:
 [SqlSslCertsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlSslCertsService.html
 [SqlTiersService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlTiersService.html
 [SqlUsersService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlUsersService.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

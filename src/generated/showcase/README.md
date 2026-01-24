@@ -29,6 +29,14 @@ The main types to work with this crate are the clients:
 - [SequenceService]
 - [Testing]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-showcase-v1beta1/1.0.0)
@@ -39,3 +47,6 @@ The main types to work with this crate are the clients:
 [Messaging]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Messaging.html
 [SequenceService]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.SequenceService.html
 [Testing]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Testing.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

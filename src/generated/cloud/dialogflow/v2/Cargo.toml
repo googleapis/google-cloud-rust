@@ -35,6 +35,7 @@ default = [
   "conversation-models",
   "conversation-profiles",
   "conversations",
+  "default-rustls-provider",
   "documents",
   "encryption-spec-service",
   "entity-types",
@@ -51,6 +52,12 @@ default = [
   "tools",
   "versions",
 ]
+# Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
+# and authentication. Applications with specific requirements for cryptography
+# (such as exclusively using the [aws-lc-rs], or [ring] crates) should disable
+# this default and install the default crypto provider in `rustls` to fit their
+# requirements.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
 # Enables `client::AnswerRecords` and all the types it depends on.

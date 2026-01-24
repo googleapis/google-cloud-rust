@@ -43,6 +43,16 @@ The main types to work with this crate are the clients:
 - [UserEventService]: enabled by the `user-event-service` feature.
 - [UserLicenseService]: enabled by the `user-license-service` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.4.0)
@@ -68,3 +78,6 @@ The main types to work with this crate are the clients:
 [SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
 [UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
 [UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

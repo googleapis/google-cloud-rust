@@ -16,8 +16,19 @@ The main types to work with this crate are the clients:
 
 - [Executions]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-workflows-executions-v1/1.3.0)
 
 [Executions]: https://docs.rs/google-cloud-workflows-executions-v1/1.3.0/google_cloud_workflows_executions_v1/client/struct.Executions.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

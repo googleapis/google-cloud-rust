@@ -30,6 +30,18 @@ publish                = false
 [lints]
 workspace = true
 
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([ring]) for TLS
+# and authentication. Applications with specific requirements for cryptography
+# (such as exclusively using the [aws-lc-rs], or [ring] crates) should disable
+# this default and install the default crypto provider in `rustls` to fit their
+# requirements.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
+[package.metadata.docs.rs]
+all-features = true
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace       = true

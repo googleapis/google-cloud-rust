@@ -17,9 +17,20 @@ The main types to work with this crate are the clients:
 - [BigtableInstanceAdmin]
 - [BigtableTableAdmin]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([ring]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+  [ring] crates) should disable this default and install the default crypto
+  provider in `rustls` to fit their requirements.
+
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-bigtable-admin-v2/1.4.0)
 
 [BigtableInstanceAdmin]: https://docs.rs/google-cloud-bigtable-admin-v2/1.4.0/google_cloud_bigtable_admin_v2/client/struct.BigtableInstanceAdmin.html
 [BigtableTableAdmin]: https://docs.rs/google-cloud-bigtable-admin-v2/1.4.0/google_cloud_bigtable_admin_v2/client/struct.BigtableTableAdmin.html
+
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring

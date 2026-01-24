@@ -29,6 +29,17 @@
 //!
 //! * [LicenseManagementService](client/struct.LicenseManagementService.html)
 //! * [ConsumerProcurementService](client/struct.ConsumerProcurementService.html)
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto
+//!   provider ([ring]) for TLS and authentication. Applications with specific
+//!   requirements for cryptography (such as exclusively using the [aws-lc-rs], or
+//!   [ring] crates) should disable this default and install the default crypto
+//!   provider in `rustls` to fit their requirements.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 
 /// The messages and enums that are part of this client library.
 #[allow(clippy::module_inception)]
