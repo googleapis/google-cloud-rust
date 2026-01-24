@@ -827,6 +827,9 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     async fn retry_transient_when_starting_stream() -> anyhow::Result<()> {
+        // The policy should retry forever. Our default retry policies have an
+        // attempt limit of 10. So we arbitrarily pick a number greater than 10
+        // for this test.
         const NUM_RETRIES: u32 = 20;
 
         let start_time = tokio::time::Instant::now();
