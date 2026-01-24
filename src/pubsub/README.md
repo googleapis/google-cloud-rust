@@ -14,7 +14,7 @@ Receiving messages is not yet supported by this crate.
 > surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate
 > name to Google. Their crate continues to live as [gcloud-pubsub].
 
-# Features
+## Features
 
 - `default-rustls-provider`: enabled by default. Use the default rustls crypto
   provider ([ring]) for TLS and authentication. Applications with specific
