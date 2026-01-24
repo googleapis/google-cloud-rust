@@ -509,6 +509,11 @@ impl ManagedZones {
     pub fn update(&self) -> super::builder::managed_zones::Update {
         super::builder::managed_zones::Update::new(self.inner.clone())
     }
+
+    /// Fetches the representation of an existing Operation.
+    pub fn get_operation(&self) -> super::builder::managed_zones::GetOperation {
+        super::builder::managed_zones::GetOperation::new(self.inner.clone())
+    }
 }
 
 /// Implements a client for the Cloud DNS API.

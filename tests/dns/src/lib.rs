@@ -14,6 +14,7 @@
 
 use google_cloud_dns_v1::{client::ManagedZones, model::ManagedZone};
 use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_lro::Poller as _;
 use google_cloud_test_utils::random_chars::RandomChars;
 use std::time::Duration;
 
@@ -51,6 +52,34 @@ pub async fn run_all() -> anyhow::Result<()> {
         .send()
         .await?;
     tracing::info!("successfully fetched zone IAM policy: {get:?}");
+
+    let mut update = zone.clone();
+    update
+        .labels
+        .insert("updated".to_string(), "true".to_string());
+    let updated = client
+        .update()
+        .set_project(&project)
+        .set_managed_zone(&zone_id)
+        .set_body(update.clone())
+        .poller()
+        .until_done()
+        .await?;
+    tracing::info!("successfully updated zone: {updated:?}");
+    assert_eq!(
+        updated
+            .zone_context
+            .as_ref()
+            .and_then(|c| c.old_value.clone()),
+        Some(zone)
+    );
+    assert_eq!(
+        updated
+            .zone_context
+            .as_ref()
+            .and_then(|c| c.new_value.clone()),
+        Some(update)
+    );
 
     client
         .delete()
