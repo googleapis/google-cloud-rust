@@ -19,7 +19,7 @@ libraries are designed to preserve backwards compatibility when the service
 changes in compatible ways. For example, adding RPCs, or fields to messages
 should not introduce breaking changes to the client libraries.
 
-# Features
+## Features
 
 - `default-rustls-provider`: enabled by default. Use the default rustls crypto
   provider ([ring]) for TLS and authentication. Applications with specific
@@ -29,7 +29,7 @@ should not introduce breaking changes to the client libraries.
 - `unstable-stream`: enable the (unstable) features to convert several types to
   a `future::Stream`.
 
-# More Information
+## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-storage/latest)
 
