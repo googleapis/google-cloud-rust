@@ -38,7 +38,4 @@ default-features = false
 path             = "../../../src/storage"
 
 [features]
-with-default = [
-  # TODO(#4170) - enable when storage is ready
-  # "google-cloud-storage/default"
-]
+with-default = ["google-cloud-storage/default"]
