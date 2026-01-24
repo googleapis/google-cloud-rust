@@ -36,6 +36,7 @@ google-cloud-lro.workspace    = true
 google-cloud-storage          = { workspace = true, features = ["default"] }
 google-cloud-type.workspace   = true
 google-cloud-wkt.workspace    = true
+google-cloud-test-utils       = { workspace = true }
 rand.workspace                = true
 tempfile.workspace            = true
 tokio                         = { workspace = true, features = ["macros"] }
