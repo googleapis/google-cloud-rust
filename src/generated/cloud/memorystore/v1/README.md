@@ -26,7 +26,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-memorystore-v1/1.4.0)
 
-[Memorystore]: https://docs.rs/google-cloud-memorystore-v1/1.4.0/google_cloud_memorystore_v1/client/struct.Memorystore.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[Memorystore]: https://docs.rs/google-cloud-memorystore-v1/1.4.0/google_cloud_memorystore_v1/client/struct.Memorystore.html

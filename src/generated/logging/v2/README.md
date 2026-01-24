@@ -37,9 +37,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-logging-v2/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [LoggingServiceV2]: https://docs.rs/google-cloud-logging-v2/1.4.0/google_cloud_logging_v2/client/struct.LoggingServiceV2.html
 [ConfigServiceV2]: https://docs.rs/google-cloud-logging-v2/1.4.0/google_cloud_logging_v2/client/struct.ConfigServiceV2.html
 [MetricsServiceV2]: https://docs.rs/google-cloud-logging-v2/1.4.0/google_cloud_logging_v2/client/struct.MetricsServiceV2.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

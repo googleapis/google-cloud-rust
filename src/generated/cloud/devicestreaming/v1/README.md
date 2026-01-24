@@ -35,7 +35,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-devicestreaming-v1/1.3.0)
 
-[DirectAccessService]: https://docs.rs/google-cloud-devicestreaming-v1/1.3.0/google_cloud_devicestreaming_v1/client/struct.DirectAccessService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DirectAccessService]: https://docs.rs/google-cloud-devicestreaming-v1/1.3.0/google_cloud_devicestreaming_v1/client/struct.DirectAccessService.html

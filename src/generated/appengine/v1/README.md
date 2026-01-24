@@ -35,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-appengine-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Applications]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.Applications.html
 [Services]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.Services.html
 [Versions]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.Versions.html
@@ -43,6 +45,3 @@ The main types to work with this crate are the clients:
 [AuthorizedDomains]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.AuthorizedDomains.html
 [AuthorizedCertificates]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.AuthorizedCertificates.html
 [DomainMappings]: https://docs.rs/google-cloud-appengine-v1/1.4.0/google_cloud_appengine_v1/client/struct.DomainMappings.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-gkeconnect-gateway-v1/1.3.0)
 
-[GatewayControl]: https://docs.rs/google-cloud-gkeconnect-gateway-v1/1.3.0/google_cloud_gkeconnect_gateway_v1/client/struct.GatewayControl.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[GatewayControl]: https://docs.rs/google-cloud-gkeconnect-gateway-v1/1.3.0/google_cloud_gkeconnect_gateway_v1/client/struct.GatewayControl.html

@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-videointelligence-v1/1.4.0)
 
-[VideoIntelligenceService]: https://docs.rs/google-cloud-videointelligence-v1/1.4.0/google_cloud_videointelligence_v1/client/struct.VideoIntelligenceService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[VideoIntelligenceService]: https://docs.rs/google-cloud-videointelligence-v1/1.4.0/google_cloud_videointelligence_v1/client/struct.VideoIntelligenceService.html

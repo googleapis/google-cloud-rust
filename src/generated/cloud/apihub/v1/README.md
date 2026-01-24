@@ -35,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-apihub-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [ApiHub]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.ApiHub.html
 [ApiHubDependencies]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.ApiHubDependencies.html
 [ApiHubCollect]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.ApiHubCollect.html
@@ -45,6 +47,3 @@ The main types to work with this crate are the clients:
 [ApiHubPlugin]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.ApiHubPlugin.html
 [Provisioning]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.Provisioning.html
 [RuntimeProjectAttachmentService]: https://docs.rs/google-cloud-apihub-v1/1.4.0/google_cloud_apihub_v1/client/struct.RuntimeProjectAttachmentService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

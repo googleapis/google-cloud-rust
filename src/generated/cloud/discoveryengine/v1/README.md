@@ -57,6 +57,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
 [CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
 [CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
@@ -78,6 +80,3 @@ The main types to work with this crate are the clients:
 [SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
 [UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
 [UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

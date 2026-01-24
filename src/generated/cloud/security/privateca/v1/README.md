@@ -31,7 +31,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-security-privateca-v1/1.4.0)
 
-[CertificateAuthorityService]: https://docs.rs/google-cloud-security-privateca-v1/1.4.0/google_cloud_security_privateca_v1/client/struct.CertificateAuthorityService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CertificateAuthorityService]: https://docs.rs/google-cloud-security-privateca-v1/1.4.0/google_cloud_security_privateca_v1/client/struct.CertificateAuthorityService.html

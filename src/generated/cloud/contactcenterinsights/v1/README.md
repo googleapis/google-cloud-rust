@@ -26,7 +26,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-contactcenterinsights-v1/1.4.0)
 
-[ContactCenterInsights]: https://docs.rs/google-cloud-contactcenterinsights-v1/1.4.0/google_cloud_contactcenterinsights_v1/client/struct.ContactCenterInsights.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ContactCenterInsights]: https://docs.rs/google-cloud-contactcenterinsights-v1/1.4.0/google_cloud_contactcenterinsights_v1/client/struct.ContactCenterInsights.html

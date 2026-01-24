@@ -37,7 +37,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-biglake-v1/1.1.0)
 
-[IcebergCatalogService]: https://docs.rs/google-cloud-biglake-v1/1.1.0/google_cloud_biglake_v1/client/struct.IcebergCatalogService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[IcebergCatalogService]: https://docs.rs/google-cloud-biglake-v1/1.1.0/google_cloud_biglake_v1/client/struct.IcebergCatalogService.html

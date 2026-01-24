@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-gkebackup-v1/1.4.0)
 
-[BackupForGKE]: https://docs.rs/google-cloud-gkebackup-v1/1.4.0/google_cloud_gkebackup_v1/client/struct.BackupForGKE.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[BackupForGKE]: https://docs.rs/google-cloud-gkebackup-v1/1.4.0/google_cloud_gkebackup_v1/client/struct.BackupForGKE.html

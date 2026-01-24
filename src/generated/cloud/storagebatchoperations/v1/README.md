@@ -26,7 +26,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-storagebatchoperations-v1/1.4.0)
 
-[StorageBatchOperations]: https://docs.rs/google-cloud-storagebatchoperations-v1/1.4.0/google_cloud_storagebatchoperations_v1/client/struct.StorageBatchOperations.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[StorageBatchOperations]: https://docs.rs/google-cloud-storagebatchoperations-v1/1.4.0/google_cloud_storagebatchoperations_v1/client/struct.StorageBatchOperations.html

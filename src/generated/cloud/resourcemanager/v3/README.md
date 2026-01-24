@@ -35,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-resourcemanager-v3/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Folders]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.Folders.html
 [Organizations]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.Organizations.html
 [Projects]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.Projects.html
@@ -42,6 +44,3 @@ The main types to work with this crate are the clients:
 [TagHolds]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.TagHolds.html
 [TagKeys]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.TagKeys.html
 [TagValues]: https://docs.rs/google-cloud-resourcemanager-v3/1.3.0/google_cloud_resourcemanager_v3/client/struct.TagValues.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

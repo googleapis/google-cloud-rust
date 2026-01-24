@@ -35,7 +35,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-speech-v2/1.4.0)
 
-[Speech]: https://docs.rs/google-cloud-speech-v2/1.4.0/google_cloud_speech_v2/client/struct.Speech.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[Speech]: https://docs.rs/google-cloud-speech-v2/1.4.0/google_cloud_speech_v2/client/struct.Speech.html

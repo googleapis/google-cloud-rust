@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.3.0)
 
-[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.3.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.3.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html

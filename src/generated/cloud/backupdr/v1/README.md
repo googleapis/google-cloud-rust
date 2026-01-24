@@ -27,8 +27,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-backupdr-v1/1.4.0)
 
-[BackupDR]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDR.html
-[BackupDrProtectionSummary]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDrProtectionSummary.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[BackupDR]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDR.html
+[BackupDrProtectionSummary]: https://docs.rs/google-cloud-backupdr-v1/1.4.0/google_cloud_backupdr_v1/client/struct.BackupDrProtectionSummary.html

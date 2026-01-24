@@ -59,6 +59,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Agents]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Agents.html
 [AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html
 [Contexts]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Contexts.html
@@ -81,6 +83,3 @@ The main types to work with this crate are the clients:
 [SipTrunks]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.SipTrunks.html
 [Tools]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Tools.html
 [Versions]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Versions.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

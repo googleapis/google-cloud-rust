@@ -28,7 +28,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-iam-credentials-v1/1.3.0)
 
-[IAMCredentials]: https://docs.rs/google-cloud-iam-credentials-v1/1.3.0/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[IAMCredentials]: https://docs.rs/google-cloud-iam-credentials-v1/1.3.0/google_cloud_iam_credentials_v1/client/struct.IAMCredentials.html

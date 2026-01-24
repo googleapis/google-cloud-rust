@@ -28,9 +28,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-networksecurity-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.AddressGroupService.html
 [OrganizationAddressGroupService]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.OrganizationAddressGroupService.html
 [NetworkSecurity]: https://docs.rs/google-cloud-networksecurity-v1/1.4.0/google_cloud_networksecurity_v1/client/struct.NetworkSecurity.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

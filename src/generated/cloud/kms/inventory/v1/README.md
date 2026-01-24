@@ -27,8 +27,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-kms-inventory-v1/1.3.0)
 
-[KeyDashboardService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyDashboardService.html
-[KeyTrackingService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyTrackingService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[KeyDashboardService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyDashboardService.html
+[KeyTrackingService]: https://docs.rs/google-cloud-kms-inventory-v1/1.3.0/google_cloud_kms_inventory_v1/client/struct.KeyTrackingService.html

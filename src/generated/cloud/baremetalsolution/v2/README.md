@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-baremetalsolution-v2/1.3.0)
 
-[BareMetalSolution]: https://docs.rs/google-cloud-baremetalsolution-v2/1.3.0/google_cloud_baremetalsolution_v2/client/struct.BareMetalSolution.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[BareMetalSolution]: https://docs.rs/google-cloud-baremetalsolution-v2/1.3.0/google_cloud_baremetalsolution_v2/client/struct.BareMetalSolution.html

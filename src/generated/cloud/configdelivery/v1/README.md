@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-configdelivery-v1/1.4.0)
 
-[ConfigDelivery]: https://docs.rs/google-cloud-configdelivery-v1/1.4.0/google_cloud_configdelivery_v1/client/struct.ConfigDelivery.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ConfigDelivery]: https://docs.rs/google-cloud-configdelivery-v1/1.4.0/google_cloud_configdelivery_v1/client/struct.ConfigDelivery.html

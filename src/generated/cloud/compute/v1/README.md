@@ -143,6 +143,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-compute-v1/2.0.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AcceleratorTypes]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.AcceleratorTypes.html
 [Addresses]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Addresses.html
 [Advice]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Advice.html
@@ -255,6 +257,3 @@ The main types to work with this crate are the clients:
 [WireGroups]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.WireGroups.html
 [ZoneOperations]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.ZoneOperations.html
 [Zones]: https://docs.rs/google-cloud-compute-v1/2.0.0/google_cloud_compute_v1/client/struct.Zones.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

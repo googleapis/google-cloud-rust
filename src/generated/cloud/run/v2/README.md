@@ -38,6 +38,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Builds]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Builds.html
 [Executions]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Executions.html
 [Instances]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Instances.html
@@ -46,6 +48,3 @@ The main types to work with this crate are the clients:
 [Services]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Services.html
 [Tasks]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Tasks.html
 [WorkerPools]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.WorkerPools.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

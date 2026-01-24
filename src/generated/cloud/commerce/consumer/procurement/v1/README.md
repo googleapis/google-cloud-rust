@@ -29,8 +29,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-commerce-consumer-procurement-v1/1.3.0)
 
-[LicenseManagementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/1.3.0/google_cloud_commerce_consumer_procurement_v1/client/struct.LicenseManagementService.html
-[ConsumerProcurementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/1.3.0/google_cloud_commerce_consumer_procurement_v1/client/struct.ConsumerProcurementService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[LicenseManagementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/1.3.0/google_cloud_commerce_consumer_procurement_v1/client/struct.LicenseManagementService.html
+[ConsumerProcurementService]: https://docs.rs/google-cloud-commerce-consumer-procurement-v1/1.3.0/google_cloud_commerce_consumer_procurement_v1/client/struct.ConsumerProcurementService.html

@@ -31,8 +31,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-vision-v1/1.3.0)
 
-[ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ImageAnnotator.html
-[ProductSearch]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ProductSearch.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ImageAnnotator]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ImageAnnotator.html
+[ProductSearch]: https://docs.rs/google-cloud-vision-v1/1.3.0/google_cloud_vision_v1/client/struct.ProductSearch.html

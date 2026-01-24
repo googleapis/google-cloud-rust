@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-grafeas-v1/1.3.0)
 
-[Grafeas]: https://docs.rs/google-cloud-grafeas-v1/1.3.0/google_cloud_grafeas_v1/client/struct.Grafeas.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[Grafeas]: https://docs.rs/google-cloud-grafeas-v1/1.3.0/google_cloud_grafeas_v1/client/struct.Grafeas.html

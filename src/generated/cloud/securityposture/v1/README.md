@@ -28,7 +28,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-securityposture-v1/1.4.0)
 
-[SecurityPosture]: https://docs.rs/google-cloud-securityposture-v1/1.4.0/google_cloud_securityposture_v1/client/struct.SecurityPosture.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[SecurityPosture]: https://docs.rs/google-cloud-securityposture-v1/1.4.0/google_cloud_securityposture_v1/client/struct.SecurityPosture.html

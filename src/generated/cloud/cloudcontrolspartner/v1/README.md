@@ -30,8 +30,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0)
 
-[CloudControlsPartnerCore]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerCore.html
-[CloudControlsPartnerMonitoring]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerMonitoring.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudControlsPartnerCore]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerCore.html
+[CloudControlsPartnerMonitoring]: https://docs.rs/google-cloud-cloudcontrolspartner-v1/1.3.0/google_cloud_cloudcontrolspartner_v1/client/struct.CloudControlsPartnerMonitoring.html

@@ -49,6 +49,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-retail-v2/2.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AnalyticsService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.AnalyticsService.html
 [CatalogService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.CatalogService.html
 [CompletionService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.CompletionService.html
@@ -61,6 +63,3 @@ The main types to work with this crate are the clients:
 [SearchService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.SearchService.html
 [ServingConfigService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.ServingConfigService.html
 [UserEventService]: https://docs.rs/google-cloud-retail-v2/2.3.0/google_cloud_retail_v2/client/struct.UserEventService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

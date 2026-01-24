@@ -31,9 +31,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-datacatalog-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [DataCatalog]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.DataCatalog.html
 [PolicyTagManager]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.PolicyTagManager.html
 [PolicyTagManagerSerialization]: https://docs.rs/google-cloud-datacatalog-v1/1.4.0/google_cloud_datacatalog_v1/client/struct.PolicyTagManagerSerialization.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

@@ -36,6 +36,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dns-v1/0.0.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Changes]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.Changes.html
 [DnsKeys]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.DnsKeys.html
 [ManagedZoneOperations]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ManagedZoneOperations.html
@@ -45,6 +47,3 @@ The main types to work with this crate are the clients:
 [ResourceRecordSets]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResourceRecordSets.html
 [ResponsePolicies]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResponsePolicies.html
 [ResponsePolicyRules]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResponsePolicyRules.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

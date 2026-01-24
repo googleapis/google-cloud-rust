@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-privacy-dlp-v2/1.4.0)
 
-[DlpService]: https://docs.rs/google-cloud-privacy-dlp-v2/1.4.0/google_cloud_privacy_dlp_v2/client/struct.DlpService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DlpService]: https://docs.rs/google-cloud-privacy-dlp-v2/1.4.0/google_cloud_privacy_dlp_v2/client/struct.DlpService.html

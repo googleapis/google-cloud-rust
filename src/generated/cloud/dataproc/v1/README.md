@@ -35,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [AutoscalingPolicyService]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html
 [BatchController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.BatchController.html
 [ClusterController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.ClusterController.html
@@ -43,6 +45,3 @@ The main types to work with this crate are the clients:
 [SessionTemplateController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.SessionTemplateController.html
 [SessionController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.SessionController.html
 [WorkflowTemplateService]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.WorkflowTemplateService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

@@ -27,8 +27,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-networkservices-v1/1.4.0)
 
-[DepService]: https://docs.rs/google-cloud-networkservices-v1/1.4.0/google_cloud_networkservices_v1/client/struct.DepService.html
-[NetworkServices]: https://docs.rs/google-cloud-networkservices-v1/1.4.0/google_cloud_networkservices_v1/client/struct.NetworkServices.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DepService]: https://docs.rs/google-cloud-networkservices-v1/1.4.0/google_cloud_networkservices_v1/client/struct.DepService.html
+[NetworkServices]: https://docs.rs/google-cloud-networkservices-v1/1.4.0/google_cloud_networkservices_v1/client/struct.NetworkServices.html

@@ -35,6 +35,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dataplex-v1/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [BusinessGlossaryService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.BusinessGlossaryService.html
 [CatalogService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.CatalogService.html
 [CmekService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.CmekService.html
@@ -43,6 +45,3 @@ The main types to work with this crate are the clients:
 [DataScanService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.DataScanService.html
 [MetadataService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.MetadataService.html
 [DataplexService]: https://docs.rs/google-cloud-dataplex-v1/1.5.0/google_cloud_dataplex_v1/client/struct.DataplexService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

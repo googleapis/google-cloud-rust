@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-spanner-admin-database-v1/1.4.0)
 
-[DatabaseAdmin]: https://docs.rs/google-cloud-spanner-admin-database-v1/1.4.0/google_cloud_spanner_admin_database_v1/client/struct.DatabaseAdmin.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DatabaseAdmin]: https://docs.rs/google-cloud-spanner-admin-database-v1/1.4.0/google_cloud_spanner_admin_database_v1/client/struct.DatabaseAdmin.html

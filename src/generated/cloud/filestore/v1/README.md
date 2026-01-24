@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-filestore-v1/1.4.0)
 
-[CloudFilestoreManager]: https://docs.rs/google-cloud-filestore-v1/1.4.0/google_cloud_filestore_v1/client/struct.CloudFilestoreManager.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudFilestoreManager]: https://docs.rs/google-cloud-filestore-v1/1.4.0/google_cloud_filestore_v1/client/struct.CloudFilestoreManager.html

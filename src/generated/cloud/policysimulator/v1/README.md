@@ -38,8 +38,7 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-policysimulator-v1/1.4.0)
 
-[OrgPolicyViolationsPreviewService]: https://docs.rs/google-cloud-policysimulator-v1/1.4.0/google_cloud_policysimulator_v1/client/struct.OrgPolicyViolationsPreviewService.html
-[Simulator]: https://docs.rs/google-cloud-policysimulator-v1/1.4.0/google_cloud_policysimulator_v1/client/struct.Simulator.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[OrgPolicyViolationsPreviewService]: https://docs.rs/google-cloud-policysimulator-v1/1.4.0/google_cloud_policysimulator_v1/client/struct.OrgPolicyViolationsPreviewService.html
+[Simulator]: https://docs.rs/google-cloud-policysimulator-v1/1.4.0/google_cloud_policysimulator_v1/client/struct.Simulator.html

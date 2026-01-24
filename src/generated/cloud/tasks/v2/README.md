@@ -28,7 +28,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-tasks-v2/1.3.0)
 
-[CloudTasks]: https://docs.rs/google-cloud-tasks-v2/1.3.0/google_cloud_tasks_v2/client/struct.CloudTasks.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudTasks]: https://docs.rs/google-cloud-tasks-v2/1.3.0/google_cloud_tasks_v2/client/struct.CloudTasks.html

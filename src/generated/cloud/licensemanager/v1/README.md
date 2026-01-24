@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-licensemanager-v1/1.4.0)
 
-[LicenseManager]: https://docs.rs/google-cloud-licensemanager-v1/1.4.0/google_cloud_licensemanager_v1/client/struct.LicenseManager.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[LicenseManager]: https://docs.rs/google-cloud-licensemanager-v1/1.4.0/google_cloud_licensemanager_v1/client/struct.LicenseManager.html

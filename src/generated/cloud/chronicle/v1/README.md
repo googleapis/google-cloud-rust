@@ -34,11 +34,10 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-chronicle-v1/1.4.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [DataAccessControlService]: https://docs.rs/google-cloud-chronicle-v1/1.4.0/google_cloud_chronicle_v1/client/struct.DataAccessControlService.html
 [EntityService]: https://docs.rs/google-cloud-chronicle-v1/1.4.0/google_cloud_chronicle_v1/client/struct.EntityService.html
 [InstanceService]: https://docs.rs/google-cloud-chronicle-v1/1.4.0/google_cloud_chronicle_v1/client/struct.InstanceService.html
 [ReferenceListService]: https://docs.rs/google-cloud-chronicle-v1/1.4.0/google_cloud_chronicle_v1/client/struct.ReferenceListService.html
 [RuleService]: https://docs.rs/google-cloud-chronicle-v1/1.4.0/google_cloud_chronicle_v1/client/struct.RuleService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

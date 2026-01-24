@@ -31,7 +31,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/1.4.0)
 
-[ClientGatewaysService]: https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/1.4.0/google_cloud_beyondcorp_clientgateways_v1/client/struct.ClientGatewaysService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ClientGatewaysService]: https://docs.rs/google-cloud-beyondcorp-clientgateways-v1/1.4.0/google_cloud_beyondcorp_clientgateways_v1/client/struct.ClientGatewaysService.html

@@ -70,6 +70,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-aiplatform-v1/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [DataFoundryService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DataFoundryService.html
 [DatasetService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DatasetService.html
 [DeploymentResourcePoolService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.DeploymentResourcePoolService.html
@@ -103,6 +105,3 @@ The main types to work with this crate are the clients:
 [VertexRagDataService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VertexRagDataService.html
 [VertexRagService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VertexRagService.html
 [VizierService]: https://docs.rs/google-cloud-aiplatform-v1/1.5.0/google_cloud_aiplatform_v1/client/struct.VizierService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

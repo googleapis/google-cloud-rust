@@ -28,7 +28,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-edgenetwork-v1/1.4.0)
 
-[EdgeNetwork]: https://docs.rs/google-cloud-edgenetwork-v1/1.4.0/google_cloud_edgenetwork_v1/client/struct.EdgeNetwork.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[EdgeNetwork]: https://docs.rs/google-cloud-edgenetwork-v1/1.4.0/google_cloud_edgenetwork_v1/client/struct.EdgeNetwork.html

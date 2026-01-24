@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-documentai-v1/1.5.0)
 
-[DocumentProcessorService]: https://docs.rs/google-cloud-documentai-v1/1.5.0/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DocumentProcessorService]: https://docs.rs/google-cloud-documentai-v1/1.5.0/google_cloud_documentai_v1/client/struct.DocumentProcessorService.html

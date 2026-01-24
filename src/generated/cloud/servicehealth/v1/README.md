@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-servicehealth-v1/1.3.0)
 
-[ServiceHealth]: https://docs.rs/google-cloud-servicehealth-v1/1.3.0/google_cloud_servicehealth_v1/client/struct.ServiceHealth.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ServiceHealth]: https://docs.rs/google-cloud-servicehealth-v1/1.3.0/google_cloud_servicehealth_v1/client/struct.ServiceHealth.html

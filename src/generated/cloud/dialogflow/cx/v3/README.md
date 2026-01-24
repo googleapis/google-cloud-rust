@@ -57,6 +57,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Agents]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Agents.html
 [Changelogs]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Changelogs.html
 [Deployments]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Deployments.html
@@ -77,6 +79,3 @@ The main types to work with this crate are the clients:
 [TransitionRouteGroups]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.TransitionRouteGroups.html
 [Versions]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Versions.html
 [Webhooks]: https://docs.rs/google-cloud-dialogflow-cx-v3/1.5.0/google_cloud_dialogflow_cx_v3/client/struct.Webhooks.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

@@ -32,7 +32,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-ids-v1/1.4.0)
 
-[Ids]: https://docs.rs/google-cloud-ids-v1/1.4.0/google_cloud_ids_v1/client/struct.Ids.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[Ids]: https://docs.rs/google-cloud-ids-v1/1.4.0/google_cloud_ids_v1/client/struct.Ids.html

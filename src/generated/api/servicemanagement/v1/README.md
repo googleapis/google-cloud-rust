@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-api-servicemanagement-v1/1.4.0)
 
-[ServiceManager]: https://docs.rs/google-cloud-api-servicemanagement-v1/1.4.0/google_cloud_api_servicemanagement_v1/client/struct.ServiceManager.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ServiceManager]: https://docs.rs/google-cloud-api-servicemanagement-v1/1.4.0/google_cloud_api_servicemanagement_v1/client/struct.ServiceManager.html

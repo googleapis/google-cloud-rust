@@ -41,12 +41,11 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-showcase-v1beta1/1.0.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [Compliance]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Compliance.html
 [Echo]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Echo.html
 [Identity]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Identity.html
 [Messaging]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Messaging.html
 [SequenceService]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.SequenceService.html
 [Testing]: https://docs.rs/google-cloud-showcase-v1beta1/1.0.0/google_cloud_showcase_v1beta1/client/struct.Testing.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

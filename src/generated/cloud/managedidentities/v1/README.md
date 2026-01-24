@@ -30,7 +30,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/1.4.0)
 
-[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.4.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.4.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html

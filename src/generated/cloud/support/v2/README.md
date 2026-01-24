@@ -31,9 +31,8 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-support-v2/1.3.0)
 
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
 [CaseAttachmentService]: https://docs.rs/google-cloud-support-v2/1.3.0/google_cloud_support_v2/client/struct.CaseAttachmentService.html
 [CaseService]: https://docs.rs/google-cloud-support-v2/1.3.0/google_cloud_support_v2/client/struct.CaseService.html
 [CommentService]: https://docs.rs/google-cloud-support-v2/1.3.0/google_cloud_support_v2/client/struct.CommentService.html
-
-[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
-[ring]: https://crates.io/crates/ring

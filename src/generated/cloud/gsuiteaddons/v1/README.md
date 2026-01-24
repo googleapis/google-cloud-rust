@@ -26,7 +26,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-gsuiteaddons-v1/1.3.0)
 
-[GSuiteAddOns]: https://docs.rs/google-cloud-gsuiteaddons-v1/1.3.0/google_cloud_gsuiteaddons_v1/client/struct.GSuiteAddOns.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[GSuiteAddOns]: https://docs.rs/google-cloud-gsuiteaddons-v1/1.3.0/google_cloud_gsuiteaddons_v1/client/struct.GSuiteAddOns.html

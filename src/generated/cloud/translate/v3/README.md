@@ -28,7 +28,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-translation-v3/1.4.0)
 
-[TranslationService]: https://docs.rs/google-cloud-translation-v3/1.4.0/google_cloud_translation_v3/client/struct.TranslationService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[TranslationService]: https://docs.rs/google-cloud-translation-v3/1.4.0/google_cloud_translation_v3/client/struct.TranslationService.html

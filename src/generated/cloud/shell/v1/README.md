@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-shell-v1/1.3.0)
 
-[CloudShellService]: https://docs.rs/google-cloud-shell-v1/1.3.0/google_cloud_shell_v1/client/struct.CloudShellService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudShellService]: https://docs.rs/google-cloud-shell-v1/1.3.0/google_cloud_shell_v1/client/struct.CloudShellService.html

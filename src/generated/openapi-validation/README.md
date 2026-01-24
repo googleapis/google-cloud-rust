@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/secretmanager-openapi-v1/1.0.0)
 
-[SecretManagerService]: https://docs.rs/secretmanager-openapi-v1/1.0.0/secretmanager_openapi_v1/client/struct.SecretManagerService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[SecretManagerService]: https://docs.rs/secretmanager-openapi-v1/1.0.0/secretmanager_openapi_v1/client/struct.SecretManagerService.html

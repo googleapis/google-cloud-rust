@@ -26,7 +26,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-deploy-v1/1.4.0)
 
-[CloudDeploy]: https://docs.rs/google-cloud-deploy-v1/1.4.0/google_cloud_deploy_v1/client/struct.CloudDeploy.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[CloudDeploy]: https://docs.rs/google-cloud-deploy-v1/1.4.0/google_cloud_deploy_v1/client/struct.CloudDeploy.html

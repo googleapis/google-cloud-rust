@@ -29,7 +29,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-datastore-admin-v1/1.4.0)
 
-[DatastoreAdmin]: https://docs.rs/google-cloud-datastore-admin-v1/1.4.0/google_cloud_datastore_admin_v1/client/struct.DatastoreAdmin.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[DatastoreAdmin]: https://docs.rs/google-cloud-datastore-admin-v1/1.4.0/google_cloud_datastore_admin_v1/client/struct.DatastoreAdmin.html

@@ -31,7 +31,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-beyondcorp-clientconnectorservices-v1/1.4.0)
 
-[ClientConnectorServicesService]: https://docs.rs/google-cloud-beyondcorp-clientconnectorservices-v1/1.4.0/google_cloud_beyondcorp_clientconnectorservices_v1/client/struct.ClientConnectorServicesService.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[ClientConnectorServicesService]: https://docs.rs/google-cloud-beyondcorp-clientconnectorservices-v1/1.4.0/google_cloud_beyondcorp_clientconnectorservices_v1/client/struct.ClientConnectorServicesService.html

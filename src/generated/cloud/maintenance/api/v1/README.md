@@ -32,7 +32,6 @@ The main types to work with this crate are the clients:
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-maintenance-api-v1/1.1.0)
 
-[Maintenance]: https://docs.rs/google-cloud-maintenance-api-v1/1.1.0/google_cloud_maintenance_api_v1/client/struct.Maintenance.html
-
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
+[Maintenance]: https://docs.rs/google-cloud-maintenance-api-v1/1.1.0/google_cloud_maintenance_api_v1/client/struct.Maintenance.html
