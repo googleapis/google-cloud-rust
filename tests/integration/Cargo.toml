@@ -33,7 +33,7 @@ bytes.workspace                   = true
 crc32c.workspace                  = true
 flate2                            = { workspace = true, features = ["zlib-rs"] }
 futures.workspace                 = true
-auth.workspace                    = true
+auth                              = { workspace = true, features = ["default"] }
 gax                               = { workspace = true, features = ["unstable-stream"] }
 gaxi                              = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-test-utils.workspace = true
