@@ -25,7 +25,7 @@ pub(super) trait TonicStreaming: std::fmt::Debug + Send + 'static {
 /// An internal trait for mocking the transport layer.
 #[async_trait::async_trait]
 pub(super) trait Stub: std::fmt::Debug + Send + Sync {
-    type Stream: Sized;
+    type Stream: Sized + std::fmt::Debug;
     async fn streaming_pull(
         &self,
         request_rx: Receiver<StreamingPullRequest>,
