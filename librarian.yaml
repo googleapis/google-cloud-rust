@@ -934,7 +934,7 @@ libraries:
           ignore: true
           package: ""
   - name: google-cloud-lro
-    version: 1.2.0
+    version: 1.3.0
     copyright_year: "2025"
     output: src/lro
     veneer: true
