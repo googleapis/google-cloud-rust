@@ -162,7 +162,7 @@ impl Session {
             // likely populate the message pool.
             //
             // Note that a successful read does not necessarily mean there is a
-            // message in the pool. The server occassionally sends heartbeats
+            // message in the pool. The server occasionally sends heartbeats
             // (responses with an empty message list). Hence the loop.
             if let Err(e) = self.read_from_stream().await? {
                 // Handle errors opening or reading from the stream.
