@@ -296,7 +296,8 @@ mod tests {
         let mut mock_stub = MockStub::new();
         let mut mock_backoff = MockBackoffPolicy::new();
         for attempt in 1..20 {
-            // Simulate N transient errors + N backoffs.
+            // Simulate N transient errors + N backoffs. We arbitrarily pick an
+            // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
                 .times(1)
@@ -338,7 +339,8 @@ mod tests {
         let mut mock_stub = MockStub::new();
         let mut mock_backoff = MockBackoffPolicy::new();
         for attempt in 1..20 {
-            // Simulate N transient errors + N backoffs.
+            // Simulate N transient errors + N backoffs. We arbitrarily pick an
+            // N > 10 (the default attempt limit for GAPICs).
             mock_stub
                 .expect_streaming_pull()
                 .times(1)
