@@ -27,8 +27,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-servicecontrol-v2/1.4.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v2/1.3.0/google_cloud_api_servicecontrol_v2/client/struct.ServiceController.html
+[ServiceController]: https://docs.rs/google-cloud-api-servicecontrol-v2/1.4.0/google_cloud_api_servicecontrol_v2/client/struct.ServiceController.html

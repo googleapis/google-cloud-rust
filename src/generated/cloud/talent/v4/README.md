@@ -31,12 +31,12 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-talent-v4/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-talent-v4/1.4.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[CompanyService]: https://docs.rs/google-cloud-talent-v4/1.3.0/google_cloud_talent_v4/client/struct.CompanyService.html
-[Completion]: https://docs.rs/google-cloud-talent-v4/1.3.0/google_cloud_talent_v4/client/struct.Completion.html
-[EventService]: https://docs.rs/google-cloud-talent-v4/1.3.0/google_cloud_talent_v4/client/struct.EventService.html
-[JobService]: https://docs.rs/google-cloud-talent-v4/1.3.0/google_cloud_talent_v4/client/struct.JobService.html
-[TenantService]: https://docs.rs/google-cloud-talent-v4/1.3.0/google_cloud_talent_v4/client/struct.TenantService.html
+[CompanyService]: https://docs.rs/google-cloud-talent-v4/1.4.0/google_cloud_talent_v4/client/struct.CompanyService.html
+[Completion]: https://docs.rs/google-cloud-talent-v4/1.4.0/google_cloud_talent_v4/client/struct.Completion.html
+[EventService]: https://docs.rs/google-cloud-talent-v4/1.4.0/google_cloud_talent_v4/client/struct.EventService.html
+[JobService]: https://docs.rs/google-cloud-talent-v4/1.4.0/google_cloud_talent_v4/client/struct.JobService.html
+[TenantService]: https://docs.rs/google-cloud-talent-v4/1.4.0/google_cloud_talent_v4/client/struct.TenantService.html

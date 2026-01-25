@@ -35,17 +35,17 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/2.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-sql-v1/2.1.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[SqlBackupRunsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html
-[SqlBackupsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlBackupsService.html
-[SqlConnectService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlConnectService.html
-[SqlDatabasesService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlDatabasesService.html
-[SqlFlagsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlFlagsService.html
-[SqlInstancesService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlInstancesService.html
-[SqlOperationsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlOperationsService.html
-[SqlSslCertsService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlSslCertsService.html
-[SqlTiersService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlTiersService.html
-[SqlUsersService]: https://docs.rs/google-cloud-sql-v1/2.0.0/google_cloud_sql_v1/client/struct.SqlUsersService.html
+[SqlBackupRunsService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlBackupRunsService.html
+[SqlBackupsService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlBackupsService.html
+[SqlConnectService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlConnectService.html
+[SqlDatabasesService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlDatabasesService.html
+[SqlFlagsService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlFlagsService.html
+[SqlInstancesService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlInstancesService.html
+[SqlOperationsService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlOperationsService.html
+[SqlSslCertsService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlSslCertsService.html
+[SqlTiersService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlTiersService.html
+[SqlUsersService]: https://docs.rs/google-cloud-sql-v1/2.1.0/google_cloud_sql_v1/client/struct.SqlUsersService.html

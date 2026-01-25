@@ -28,8 +28,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-serviceusage-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-serviceusage-v1/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[ServiceUsage]: https://docs.rs/google-cloud-api-serviceusage-v1/1.4.0/google_cloud_api_serviceusage_v1/client/struct.ServiceUsage.html
+[ServiceUsage]: https://docs.rs/google-cloud-api-serviceusage-v1/1.5.0/google_cloud_api_serviceusage_v1/client/struct.ServiceUsage.html

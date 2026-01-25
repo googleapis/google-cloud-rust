@@ -27,8 +27,8 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-securitycenter-v2/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-securitycenter-v2/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[SecurityCenter]: https://docs.rs/google-cloud-securitycenter-v2/1.4.0/google_cloud_securitycenter_v2/client/struct.SecurityCenter.html
+[SecurityCenter]: https://docs.rs/google-cloud-securitycenter-v2/1.5.0/google_cloud_securitycenter_v2/client/struct.SecurityCenter.html

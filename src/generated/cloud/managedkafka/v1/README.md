@@ -27,9 +27,9 @@ The main types to work with this crate are the clients:
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-managedkafka-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-managedkafka-v1/1.5.0)
 
 [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [ring]: https://crates.io/crates/ring
-[ManagedKafka]: https://docs.rs/google-cloud-managedkafka-v1/1.4.0/google_cloud_managedkafka_v1/client/struct.ManagedKafka.html
-[ManagedKafkaConnect]: https://docs.rs/google-cloud-managedkafka-v1/1.4.0/google_cloud_managedkafka_v1/client/struct.ManagedKafkaConnect.html
+[ManagedKafka]: https://docs.rs/google-cloud-managedkafka-v1/1.5.0/google_cloud_managedkafka_v1/client/struct.ManagedKafka.html
+[ManagedKafkaConnect]: https://docs.rs/google-cloud-managedkafka-v1/1.5.0/google_cloud_managedkafka_v1/client/struct.ManagedKafkaConnect.html
