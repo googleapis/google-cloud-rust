@@ -56,6 +56,27 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 
 [[package]]
+name = "auth-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-auth",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "auth-without-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-auth",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -763,6 +784,38 @@ dependencies = [
  "pin-project-lite",
  "pin-utils",
  "slab",
+]
+
+[[package]]
+name = "gaxi-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "gaxi-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "gaxi-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
 ]
 
 [[package]]
@@ -7016,6 +7069,38 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "490dcfcbfef26be6800d11870ff2df8774fa6e86d047e3e8c8a76b25655e41ca"
 
 [[package]]
+name = "secret-manager-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
+]
+
+[[package]]
+name = "secret-manager-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
+]
+
+[[package]]
+name = "secret-manager-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
+]
+
+[[package]]
 name = "secretmanager-openapi-v1"
 version = "1.0.0"
 dependencies = [
@@ -7416,6 +7501,38 @@ dependencies = [
  "tracing",
  "tracing-log",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "storage-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-storage",
+ "tokio",
+]
+
+[[package]]
+name = "storage-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-metadata",
+ "test-storage",
+ "tokio",
+]
+
+[[package]]
+name = "storage-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-storage",
+ "tokio",
 ]
 
 [[package]]
