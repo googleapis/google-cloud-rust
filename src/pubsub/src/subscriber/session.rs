@@ -157,8 +157,15 @@ impl Session {
             if let Some(item) = self.pool.pop_front() {
                 return Some(Ok(item));
             }
-            // Otherwise, read more messages from the stream.
-            if let Err(e) = self.stream_next().await? {
+
+            // Otherwise, read the next response from the stream, which will
+            // likely populate the message pool.
+            //
+            // Note that a successful read does not necessarily mean there is a
+            // message in the pool. The server occassionally sends heartbeats
+            // (responses with an empty message list). Hence the loop.
+            if let Err(e) = self.read_from_stream().await? {
+                // Handle errors opening or reading from the stream.
                 match StreamRetryPolicy::is_transient(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
@@ -189,7 +196,13 @@ impl Session {
             .expect("`self.stream.is_some()` must be true"))
     }
 
-    async fn stream_next(&mut self) -> Option<Result<()>> {
+    /// Reads the next response from the stream.
+    ///
+    /// If we receive a response, we store the messages in `self.pool` and
+    /// forward the ack IDs to the lease management task.
+    ///
+    /// If we receive an error reading from the stream, we return it.
+    async fn read_from_stream(&mut self) -> Option<Result<()>> {
         let resp = {
             let stream = match self.mut_stream().await {
                 Ok(s) => s,
