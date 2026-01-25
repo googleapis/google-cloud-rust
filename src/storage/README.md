@@ -22,10 +22,10 @@ should not introduce breaking changes to the client libraries.
 ## Features
 
 - `default-rustls-provider`: enabled by default. Use the default rustls crypto
-  provider ([ring]) for TLS and authentication. Applications with specific
-  requirements for cryptography (such as exclusively using the [aws-lc-rs], or
-  [ring] crates) should disable this default and install the default crypto
-  provider in `rustls` to fit their requirements.
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
 - `unstable-stream`: enable the (unstable) features to convert several types to
   a `future::Stream`.
 

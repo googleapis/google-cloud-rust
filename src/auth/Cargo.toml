@@ -70,13 +70,18 @@ default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
 idtoken = ["dep:jsonwebtoken"]
-# By default this crate enables the `rust_crypto` backend. Applications can
-# link `google-cloud-auth` with `default-features = false, feature = ["idtoken"]
-# to select the backend themselves.
+# By default this crate enables the `aws_lc_rs` backend. Applications can
+# link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
+# and then directly configure the `jsonwebtoken` features to select the
+# `rust_crypto` backend.
 default-idtoken-backend = ["jsonwebtoken?/aws_lc_rs"]
-# Enable a default TLS configuration for `reqwest`.
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
 default-rustls-provider = ["reqwest/default-tls", "rustls/aws-lc-rs"]
-# Do not use, this was a mistake in the 1.3 release.
+# Do not use, this was a mistake in the 1.3 release. We accidentally introduced
+# this feature. The intent was to only introduce `idtoken`.
 jsonwebtoken = ["dep:jsonwebtoken"]
 
 [lints]
