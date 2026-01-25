@@ -17,12 +17,14 @@ use super::handler::{AckResult, AtLeastOnce, Handler};
 use super::lease_loop::LeaseLoop;
 use super::lease_state::LeaseOptions;
 use super::leaser::DefaultLeaser;
+use super::retry_policy::StreamRetryPolicy;
 use super::stream::Stream;
 use super::stub::TonicStreaming as _;
 use super::transport::Transport;
 use crate::google::pubsub::v1::StreamingPullRequest;
 use crate::model::PubsubMessage;
 use crate::{Error, Result};
+use gax::retry_result::RetryResult;
 use gaxi::grpc::from_status::to_gax_error;
 use gaxi::prost::FromProto as _;
 use std::collections::VecDeque;
@@ -157,8 +159,17 @@ impl Session {
             }
             // Otherwise, read more messages from the stream.
             if let Err(e) = self.stream_next().await? {
-                // TODO(#4097) - support stream resumes.
-                return Some(Err(e));
+                match StreamRetryPolicy::is_transient(e) {
+                    RetryResult::Continue(_) => {
+                        // The stream failed with a transient error. Reset the stream.
+                        self.stream = None;
+                        continue;
+                    }
+                    RetryResult::Permanent(e) | RetryResult::Exhausted(e) => {
+                        // The stream failed with a permanent error. Return the error.
+                        return Some(Err(e));
+                    }
+                }
             }
         }
     }
@@ -247,7 +258,7 @@ mod tests {
     use pubsub_grpc_mock::{MockSubscriber, start};
     use tokio::sync::mpsc::{channel, unbounded_channel};
     use tokio::task::JoinHandle;
-    use tokio::time::Duration;
+    use tokio::time::{Duration, Instant};
 
     fn sorted(mut v: Vec<String>) -> Vec<String> {
         v.sort();
@@ -829,17 +840,15 @@ mod tests {
     async fn retry_transient_when_starting_stream() -> anyhow::Result<()> {
         const NUM_RETRIES: u32 = 20;
 
-        let start_time = tokio::time::Instant::now();
+        let start_time = Instant::now();
         let mut seq = mockall::Sequence::new();
         let mut mock = MockSubscriber::new();
 
-        for _ in 0..NUM_RETRIES {
-            // Simulate N transient errors
-            mock.expect_streaming_pull()
-                .times(1)
-                .in_sequence(&mut seq)
-                .return_once(|_| Err(tonic::Status::unavailable("try again")));
-        }
+        // Simulate N transient errors
+        mock.expect_streaming_pull()
+            .times(NUM_RETRIES as usize)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(tonic::Status::unavailable("try again")));
         // Simulate a permanent error. Otherwise, we would retry forever.
         mock.expect_streaming_pull()
             .times(1)
@@ -867,6 +876,148 @@ mod tests {
             elapsed >= INITIAL_DELAY * NUM_RETRIES,
             "elapsed={elapsed:?}"
         );
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn resume_midstream_success() -> anyhow::Result<()> {
+        let (response_tx_1, response_rx_1) = channel(10);
+        let (response_tx_2, response_rx_2) = channel(10);
+        let (response_tx_3, response_rx_3) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(tonic::Response::from(response_rx_1)));
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(move |_| Ok(tonic::Response::from(response_rx_2)));
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(tonic::Response::from(response_rx_3)));
+        mock.expect_acknowledge().times(1..).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(tonic::Response::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+
+        response_tx_1.send(Ok(test_response(0..10))).await?;
+        response_tx_1.send(Ok(test_response(10..20))).await?;
+        response_tx_1
+            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .await?;
+        drop(response_tx_1);
+        response_tx_2.send(Ok(test_response(20..30))).await?;
+        response_tx_2.send(Ok(test_response(30..40))).await?;
+        response_tx_2
+            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .await?;
+        drop(response_tx_2);
+        response_tx_3.send(Ok(test_response(40..50))).await?;
+        drop(response_tx_3);
+
+        for i in 0..50 {
+            let (m, h) = session
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/50", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        let end = session.next().await.transpose()?;
+        assert!(end.is_none(), "Received extra message: {end:?}");
+
+        // Wait for the session to join its background tasks.
+        session.close().await?;
+
+        // Verify the acks went through.
+        let mut got = Vec::new();
+        while let Ok(ack_req) = ack_rx.try_recv() {
+            assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+            got.extend(ack_req.ack_ids);
+        }
+        assert_eq!(sorted(got), test_ids(0..50));
+
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn resume_midstream_hits_permanent_error() -> anyhow::Result<()> {
+        let (response_tx, response_rx) = channel(10);
+        let (ack_tx, mut ack_rx) = unbounded_channel();
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockSubscriber::new();
+        // Start a successful stream, which will eventually disconnect.
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Ok(tonic::Response::from(response_rx)));
+        // Simulate transient errors attempting to resume the stream.
+        mock.expect_streaming_pull()
+            .times(3)
+            .in_sequence(&mut seq)
+            .returning(|_| Err(tonic::Status::unavailable("try again")));
+        // Simulate a permanent error attempting to resume the stream.
+        mock.expect_streaming_pull()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
+        mock.expect_acknowledge().times(1..).returning(move |r| {
+            ack_tx
+                .send(r.into_inner())
+                .expect("sending on channel always succeeds");
+            Ok(tonic::Response::from(()))
+        });
+        let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
+        let client = test_client(endpoint).await?;
+        let mut session = client.streaming_pull("projects/p/subscriptions/s").start();
+
+        response_tx.send(Ok(test_response(0..10))).await?;
+        response_tx.send(Ok(test_response(10..20))).await?;
+        response_tx
+            .send(Err(tonic::Status::unavailable("GFE disconnect. try again")))
+            .await?;
+        drop(response_tx);
+
+        for i in 0..20 {
+            let (m, h) = session
+                .next()
+                .await
+                .unwrap_or_else(|| panic!("expected message {}/20", i + 1))?;
+            assert_eq!(m.data, test_data(i));
+            h.ack();
+        }
+        let err = session
+            .next()
+            .await
+            .transpose()
+            .expect_err("expected an error from stream");
+        assert!(err.status().is_some(), "{err:?}");
+        let status = err.status().unwrap();
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
+        assert_eq!(status.message, "fail");
+
+        // Wait for the session to join its background tasks.
+        session.close().await?;
+
+        // Verify the acks went through.
+        let mut got = Vec::new();
+        while let Ok(ack_req) = ack_rx.try_recv() {
+            assert_eq!(ack_req.subscription, "projects/p/subscriptions/s");
+            got.extend(ack_req.ack_ids);
+        }
+        assert_eq!(sorted(got), test_ids(0..20));
 
         Ok(())
     }
