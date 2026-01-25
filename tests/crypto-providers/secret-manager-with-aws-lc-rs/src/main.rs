@@ -16,8 +16,7 @@ use rustls::crypto::{CryptoProvider, aws_lc_rs::default_provider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // TODO(#4170) - use `pruned == true`.
-    test_metadata::only_aws_lc_rs(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), false)?;
+    test_metadata::only_aws_lc_rs(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), true)?;
 
     // Install a default crypto provider and verify the secret manager client
     // library works.

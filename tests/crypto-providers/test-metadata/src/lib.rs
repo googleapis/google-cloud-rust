@@ -20,10 +20,8 @@ use semver::{Comparator, Op};
 
 const RING_CRATE_NAME: &str = "ring";
 const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
-// TODO(#4170) - will become "default-tls" with reqwest 0.13.0
-const REQWEST_DEFAULT_FEATURE: &str = "rustls-tls";
-// TODO(#4170) - will become aws-lc-rs
-const RUSTLS_DEFAULT_FEATURE: &str = "ring";
+const REQWEST_DEFAULT_FEATURE: &str = "default-tls";
+const RUSTLS_DEFAULT_FEATURE: &str = "aws-lc-rs";
 // Use `google-cloud-auth` to find the versions of key dependencies. Changing
 // this test code as we update the dependency requirements (via renovatebot)
 // it would be tedious to manual update this code too.
@@ -39,8 +37,7 @@ pub fn has_default_crypto_provider(cargo: &str, dir: &str) -> anyhow::Result<()>
     if !features.contains(&FeatureName::new(RUSTLS_DEFAULT_FEATURE.to_string())) {
         bail!("rustls should have {RUSTLS_DEFAULT_FEATURE} enabled")
     }
-    // TODO(#4170) - use `true` for the pruned parameter.
-    only_ring(cargo, dir, false)
+    only_aws_lc_rs(cargo, dir, true)
 }
 
 pub fn only_aws_lc_rs(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
@@ -89,7 +86,7 @@ pub fn only_ring(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
 /// This function returns an error if the jsonwebtoken crate is not configured
 /// with the default backend.
 pub fn idtoken_has_default_backend() -> anyhow::Result<()> {
-    idtoken_has_rust_crypto_backend()
+    idtoken_has_aws_lc_rs_backend()
 }
 
 /// This function returns an error if the jsonwebtoken crate is not configured
