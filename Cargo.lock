@@ -5687,6 +5687,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "idtoken-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "jsonwebtoken",
+ "test-metadata",
+]
+
+[[package]]
+name = "idtoken-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "google-cloud-auth",
+ "test-metadata",
+]
+
+[[package]]
 name = "indexmap"
 version = "1.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
