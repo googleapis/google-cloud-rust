@@ -407,7 +407,7 @@ serial_test       = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
 tempfile          = { default-features = false, version = "3.24" }
 test-case         = { default-features = false, version = "3.3" }
-tokio-stream      = { default-features = false, version = "0.1" }
+tokio-stream      = { default-features = false, version = "0.1.1" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies
