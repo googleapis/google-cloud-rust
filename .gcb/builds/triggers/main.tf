@@ -87,6 +87,10 @@ locals {
       config = "complex.yaml"
       script = "minimal-versions"
     }
+    minimal-versions-direct = {
+      config = "complex.yaml"
+      script = "minimal-versions-direct"
+    }
     protojson-conformance = {
       config = "complex.yaml"
       script = "protojson-conformance"
