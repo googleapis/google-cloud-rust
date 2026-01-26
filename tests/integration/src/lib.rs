@@ -14,6 +14,7 @@
 
 use anyhow::Error;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use google_cloud_test_utils::resource_names::random_bucket_id;
 use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
@@ -30,8 +31,6 @@ pub mod showcase;
 pub mod storage;
 pub mod workflows;
 pub mod workflows_executions;
-
-use storage_samples::random_bucket_id;
 
 pub const SECRET_ID_LENGTH: usize = 64;
 
