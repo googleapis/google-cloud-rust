@@ -68,6 +68,20 @@ impl Distribution<u8> for LowercaseAlphanumeric {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use anyhow::bail;
+
+    #[test]
+    fn bucket_id() {
+        let got = random_bucket_id();
+        assert!(
+            got.len() <= BUCKET_ID_LENGTH,
+            "{got} has more than {BUCKET_ID_LENGTH} characters"
+        );
+        let suffix = got.strip_prefix(PREFIX);
+        assert!(suffix.is_some(), "{got} should start with {PREFIX}");
+        let test = is_ascii_lowercase_alphanumeric(suffix.unwrap());
+        assert!(test.is_ok(), "{test:?}");
+    }
 
     #[test]
     fn lowercase() {
@@ -76,31 +90,27 @@ mod tests {
             .take(128)
             .map(char::from)
             .collect();
-        for (idx, c) in got.chars().enumerate() {
-            assert!(
-                c.is_ascii(),
-                "character at {idx} ({c}) is not ASCII in {got}"
-            );
-            assert!(
-                c.is_ascii_lowercase() || c.is_ascii_digit(),
-                "character at {idx} ({c}) is not in expected character class in {got}"
-            );
-        }
+        let test = is_ascii_lowercase_alphanumeric(&got);
+        assert!(test.is_ok(), "{test:?}");
     }
 
     #[test]
     fn lowercase_string() {
         let got = LowercaseAlphanumeric.random_string(32);
         assert_eq!(got.len(), 32, "{got:?}");
+        let test = is_ascii_lowercase_alphanumeric(&got);
+        assert!(test.is_ok(), "{test:?}");
+    }
+
+    fn is_ascii_lowercase_alphanumeric(got: &str) -> anyhow::Result<()> {
         for (idx, c) in got.chars().enumerate() {
-            assert!(
-                c.is_ascii(),
-                "character at {idx} ({c}) is not ASCII in {got}"
-            );
-            assert!(
-                c.is_ascii_lowercase() || c.is_ascii_digit(),
-                "character at {idx} ({c}) is not in expected character class in {got}"
-            );
+            if !c.is_ascii() {
+                bail!("character at {idx} ({c}) is not ASCII in {got}")
+            }
+            if !c.is_ascii_lowercase() && !c.is_ascii_digit() {
+                bail!("character at {idx} ({c}) is not in expected character class in {got}");
+            }
         }
+        Ok(())
     }
 }

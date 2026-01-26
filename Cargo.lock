@@ -4885,6 +4885,7 @@ dependencies = [
 name = "google-cloud-test-utils"
 version = "0.0.0"
 dependencies = [
+ "anyhow",
  "once_cell",
  "opentelemetry-semantic-conventions",
  "rand 0.9.2",
