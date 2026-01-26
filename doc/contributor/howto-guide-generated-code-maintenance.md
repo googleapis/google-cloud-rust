@@ -88,11 +88,6 @@ once. Note that this includes `showcase` and `protojson-conformance`, though.
 
 ## Bump all version numbers
 
-Manually bump the version of `google-cloud-gax-internal`, if necessary, in:
-
-- `Cargo.toml`
-- `src/gax-internal/Cargo.toml`
-
 Run:
 
 ```bash
@@ -101,14 +96,38 @@ git checkout -b chore-bump-version-numbers-circa-$(date +%Y-%m-%d)
 V=$(cat .librarian-version.txt)
 go run github.com/googleapis/librarian/cmd/librarian@${V} bump --all
 go run github.com/googleapis/librarian/cmd/librarian@${V} generate --all
-git add Cargo.lock librarian.yaml '*Cargo.toml' '*README.md'
-git restore . # Effectively a `cargo fmt`, but much faster.
-git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)"
+# It is safe to commit everything because `bump` stops you from updating a
+# dirty workspace.
+git commit -m"chore: bump version numbers circa $(date +%Y-%m-%d)" .
 ```
 
 When running on Cloudtop, you might need to set
 `CARGO_HTTP_CAINFO=/etc/ssl/certs/ca-certificates.crt` in order for crates.io to
 accept your certs.
+
+### Update top-level Cargo.toml
+
+Sometimes the top-level `Cargo.toml` file may need manual updates. Changes to
+GAPICs never trigger the need for such updates, or at least have never triggered
+such need. But changes to core crates, including `google-cloud-auth`,
+`google-cloud-gax`, `google-cloud-lro`, and `google-cloud-gax-internal` may
+trigger the need for manual updates.
+
+You can rely on the CI build to detect when such an update is needed, or you
+could run some local tests first:
+
+```bash
+cargo install --locked cargo-minimal-versions
+# Make sure a veneer works.
+cargo minimal-versions check --package google-cloud-storage
+# Make sure a GAPIC (with the locations and iam mixins) works:
+cargo minimal-versions check --package google-cloud-secretmanager-v1
+# Make sure a GAPIC (with the longrunning mixin) works:
+cargo minimal-versions check --package google-cloud-workflows-v1
+```
+
+Alternatively, consider
+[this feature request](https://github.com/googleapis/librarian/issues/3720).
 
 ## Refreshing the code
 
