@@ -528,8 +528,9 @@ impl SignedUrlBuilder {
             for (k, v) in &query_parameters {
                 canonical_query.append_pair(k, v);
             }
-    
-            canonical_query.finish()
+
+            canonical_query
+                .finish()
                 .replace("%7E", "~") // rollback to ~
                 .replace("+", "%20") // missing %20 in +
         };
@@ -718,6 +719,24 @@ mod tests {
 
         assert!(err.is_invalid_parameter());
         assert!(err.to_string().contains("malformed bucket name"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn sign_with_is_send() -> TestResult {
+        fn assert_send<T: Send>(_t: &T) {}
+
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Err(SigningError::from_msg("test".to_string())));
+
+        let signer = Signer::from(mock);
+        let fut = SignedUrlBuilder::for_object("projects/_/buckets/b", "o").sign_with(&signer);
+
+        assert_send(&fut);
 
         Ok(())
     }
