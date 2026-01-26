@@ -43,13 +43,12 @@ rustls                = { workspace = true, features = ["logging", "std", "tls12
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
 serde_json.workspace  = true
+# TODO: move new deps to workspace
+pkcs1                 = { version = "0.7", optional = true, features = ["alloc"] }
+spki                  = { version = "0.7", optional = true, features = ["alloc"] }
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
-rsa                   = { workspace = true, optional = true, features = ["pem", "sha2"] }
-# We do not use this directly, but without it the minimal-versions build breaks.
-# See: https://github.com/Keats/jsonwebtoken/pull/481
-aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
 gax.workspace = true
 
@@ -58,7 +57,7 @@ anyhow.workspace      = true
 httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
-rsa                   = { workspace = true, features = ["pem"] }
+rsa                   = { workspace = true, features = ["pem", "sha2"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
@@ -72,7 +71,7 @@ mutants.workspace     = true
 default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
-idtoken = ["dep:rsa", "jsonwebtoken"]
+idtoken = ["dep:pkcs1", "dep:spki", "jsonwebtoken"]
 # By default this crate enables the `aws_lc_rs` backend. Applications can
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the

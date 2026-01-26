@@ -39,8 +39,7 @@
 use crate::credentials::internal::jwk_client::JwkClient;
 use crate::credentials::service_account::jws::JwsHeader;
 use base64::Engine;
-use rsa::Pkcs1v15Sign;
-use rsa::sha2::{Digest, Sha256};
+use rustls::crypto::CryptoProvider;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
 /// Represents a claim value in an ID token.
@@ -203,17 +202,45 @@ impl Verifier {
         let expected_email = self.email.clone();
         let jwks_url = self.jwks_url.clone();
 
-        let cert = self
+        let spki = self
             .jwk_client
             .get_or_load_cert(key_id.to_string(), header.alg, jwks_url)
             .await
             .map_err(Error::load_cert)?;
 
         let message = format!("{}.{}", parts[0], parts[1]);
-        let hashed = Sha256::digest(message.as_bytes());
+        #[cfg(feature = "default-rustls-provider")]
+        let provider_arc = CryptoProvider::get_default()
+            .cloned()
+            .unwrap_or_else(|| std::sync::Arc::new(rustls::crypto::aws_lc_rs::default_provider()));
+        #[cfg(feature = "default-rustls-provider")]
+        let provider = &provider_arc;
 
-        cert.verify(Pkcs1v15Sign::new::<Sha256>(), &hashed, &signature)
-            .map_err(|e| Error::invalid(format!("Invalid signature: {}", e)))?;
+        #[cfg(not(feature = "default-rustls-provider"))]
+        let provider = CryptoProvider::get_default().expect(
+            r###"
+The default rustls::CryptoProvider should be configured by the application. The
+`google-cloud-auth` crate was compiled without the `default-rustls-provider`
+feature. Without this feature the crate expects the application to initialize
+the rustls crypto provider using `rustls::CryptoProvider::install_default()`.
+
+Note that the application must use the exact same version of `rustls` as the
+`google-cloud-auth` crate does. Otherwise `install_default()` has no effect."###,
+        );
+
+        // spki is already SubjectPublicKeyInfoDer
+        let algs = provider.signature_verification_algorithms;
+        let mapping = algs.mapping;
+        let alg = mapping
+            .iter()
+            .find(|(scheme, _)| *scheme == rustls::SignatureScheme::RSA_PKCS1_SHA256)
+            .map(|(_, candidates)| candidates[0])
+            .ok_or_else(|| Error::invalid("RSA_PKCS1_SHA256 not supported by current provider"))?;
+
+        // Check compatibility is handled by verify_signature
+
+        alg.verify_signature(&spki, message.as_bytes(), &signature)
+            .map_err(|e| Error::invalid(format!("Invalid signature: {:?}", e)))?;
 
         // Validate Payload claims
         let now = SystemTime::now()

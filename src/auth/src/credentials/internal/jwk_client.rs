@@ -15,8 +15,14 @@
 use crate::Result;
 use crate::errors::CredentialsError;
 use base64::Engine;
-use rsa::{BigUint, RsaPublicKey};
+use pkcs1::RsaPublicKey;
+use rustls::pki_types::SubjectPublicKeyInfoDer;
 use serde::Deserialize;
+use spki::der::{
+    Encode,
+    asn1::{BitString, Null, UintRef},
+};
+use spki::{AlgorithmIdentifier, SubjectPublicKeyInfo};
 use std::{
     collections::HashMap,
     sync::Arc,
@@ -48,7 +54,7 @@ impl JwkSet {
 
 #[derive(Clone, Debug)]
 struct CacheEntry {
-    key: RsaPublicKey,
+    key: SubjectPublicKeyInfoDer<'static>,
     expires_at: Instant,
 }
 
@@ -79,7 +85,7 @@ impl JwkClient {
         key_id: String,
         alg: &str,
         jwks_url: Option<String>,
-    ) -> Result<RsaPublicKey> {
+    ) -> Result<SubjectPublicKeyInfoDer<'static>> {
         let key_id_str = key_id.as_str();
         let mut cache = self.cache.try_write().map_err(|_e| {
             CredentialsError::from_msg(false, "failed to obtain lock to read certificate cache")
@@ -96,17 +102,7 @@ impl JwkClient {
             CredentialsError::from_msg(false, "JWKS did not contain a matching `kid`")
         })?;
 
-        let n_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
-            .decode(&jwk.n)
-            .map_err(|e| CredentialsError::from_msg(false, format!("Invalid n in JWK: {}", e)))?;
-        let e_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
-            .decode(&jwk.e)
-            .map_err(|e| CredentialsError::from_msg(false, format!("Invalid e in JWK: {}", e)))?;
-
-        let n = BigUint::from_bytes_be(&n_bytes);
-        let e = BigUint::from_bytes_be(&e_bytes);
-        let key = RsaPublicKey::new(n, e)
-            .map_err(|e| CredentialsError::from_msg(false, format!("Invalid RSA key: {}", e)))?;
+        let key = create_der(&jwk)?;
 
         let entry = CacheEntry {
             key: key.clone(),
@@ -154,6 +150,43 @@ impl JwkClient {
 
         Ok(jwk_set)
     }
+}
+
+// Creates a DER-encoded SubjectPublicKeyInfo from a JWK.
+fn create_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
+    let n_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(&jwk.n)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid n in JWK: {}", e)))?;
+    let e_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(&jwk.e)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid e in JWK: {}", e)))?;
+
+    let rsa_pub_key = RsaPublicKey {
+        modulus: UintRef::new(&n_bytes).map_err(|e| {
+            CredentialsError::from_msg(false, format!("invalid modulus in JWK: {}", e))
+        })?,
+        public_exponent: UintRef::new(&e_bytes).map_err(|e| {
+            CredentialsError::from_msg(false, format!("invalid public exponent in JWK: {}", e))
+        })?,
+    };
+    let rsa_pub_key_der = rsa_pub_key.to_der().map_err(|e| {
+        CredentialsError::from_msg(false, format!("failed to encode RSA public key: {}", e))
+    })?;
+
+    let spki = SubjectPublicKeyInfo {
+        algorithm: AlgorithmIdentifier::<Null> {
+            oid: pkcs1::ALGORITHM_OID,
+            parameters: Some(Null),
+        },
+        subject_public_key: BitString::from_bytes(&rsa_pub_key_der).map_err(|e| {
+            CredentialsError::from_msg(false, format!("failed to create public key bitstring: {}", e))
+        })?,
+    };
+
+    let der_bytes = spki
+        .to_der()
+        .map_err(|e| CredentialsError::from_msg(false, format!("Failed to encode SPKI: {}", e)))?;
+    Ok(SubjectPublicKeyInfoDer::from(der_bytes))
 }
 
 #[cfg(test)]
