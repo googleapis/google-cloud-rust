@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rustls::crypto::{ring::default_provider, CryptoProvider};
+use rustls::crypto::{CryptoProvider, ring::default_provider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
