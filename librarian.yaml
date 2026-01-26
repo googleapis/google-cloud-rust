@@ -630,7 +630,7 @@ libraries:
     version: 1.4.0
     copyright_year: "2025"
   - name: google-cloud-dialogflow-cx-v3
-    version: 1.6.0
+    version: 2.0.0
     copyright_year: "2025"
     rust:
       per_service_features: true
