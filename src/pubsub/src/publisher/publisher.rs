@@ -340,37 +340,45 @@ mod tests {
             .collect()
     }
 
-    async fn assert_publish(publisher: &Publisher, ordering_key: &str) {
-        let msg = generate_random_data();
-        let got = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key(ordering_key)
-                    .set_data(msg.clone()),
-            )
-            .await;
-        assert_eq!(got.expect("expected message id"), msg);
+    macro_rules! assert_publishing_is_ok {
+        ($publisher:ident, $($ordering_key:expr),+) => {
+            $(
+                let msg = generate_random_data();
+                let got = $publisher
+                    .publish(
+                        PubsubMessage::new()
+                            .set_ordering_key($ordering_key)
+                            .set_data(msg.clone()),
+                    )
+                    .await;
+                assert_eq!(got.expect("expected message id"), msg);
+            )+
+        };
     }
 
-    async fn assert_publishing_is_paused(publisher: &Publisher, ordering_key: &str) {
-        let got_err = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key(ordering_key)
-                    .set_data(generate_random_data()),
-            )
-            .await
-            .unwrap_err();
-        let source = got_err
-            .source()
-            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
-        assert!(
-            matches!(
-                source,
-                Some(crate::error::PublishError::OrderingKeyPaused(()))
-            ),
-            "{got_err:?}"
-        );
+    macro_rules! assert_publishing_is_paused {
+        ($publisher:ident, $($ordering_key:expr),+) => {
+            $(
+                let got_err = $publisher
+                    .publish(
+                        PubsubMessage::new()
+                            .set_ordering_key($ordering_key)
+                            .set_data(generate_random_data()),
+                    )
+                    .await
+                    .unwrap_err();
+                let source = got_err
+                    .source()
+                    .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+                assert!(
+                    matches!(
+                        source,
+                        Some(crate::error::PublishError::OrderingKeyPaused(()))
+                    ),
+                    "{got_err:?}"
+                );
+            )+
+        };
     }
 
     #[tokio::test]
@@ -1009,12 +1017,11 @@ mod tests {
 
         // Assert that new publish messages return errors because the Publisher is paused.
         for _ in 0..3 {
-            assert_publishing_is_paused(&publisher, key).await;
+            assert_publishing_is_paused!(publisher, key);
         }
 
         // Verify that the other ordering keys are not paused.
-        assert_publish(&publisher, "").await;
-        assert_publish(&publisher, "without_error").await;
+        assert_publishing_is_ok!(publisher, "", "without_error");
     }
 
     #[tokio::test(start_paused = true)]
@@ -1048,7 +1055,7 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Assert that new publish messages returns an error because the Publisher is paused.
-        assert_publishing_is_paused(&publisher, key).await;
+        assert_publishing_is_paused!(publisher, key);
     }
 
     #[tokio::test(start_paused = true)]
@@ -1080,11 +1087,10 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Validate that new Publish on the paused ordering key will result in an error.
-        assert_publishing_is_paused(&publisher, key).await;
+        assert_publishing_is_paused!(publisher, key);
 
         // Verify that the other ordering keys are not paused.
-        assert_publish(&publisher, "").await;
-        assert_publish(&publisher, "without_error").await;
+        assert_publishing_is_ok!(publisher, "", "without_error");
     }
 
     #[tokio::test(start_paused = true)]
@@ -1097,20 +1103,20 @@ mod tests {
 
         // Test resume and publish for empty ordering key.
         publisher.resume_publish("");
-        assert_publish(&publisher, "").await;
+        assert_publishing_is_ok!(publisher, "");
 
         // Test resume and publish after the BatchWorker has been created for the empty ordering key.
         publisher.resume_publish("");
-        assert_publish(&publisher, "").await;
+        assert_publishing_is_ok!(publisher, "");
 
         // Test resume and publish before the BatchWorker has been created.
         let key = "without_error";
         publisher.resume_publish(key);
-        assert_publish(&publisher, key).await;
+        assert_publishing_is_ok!(publisher, key);
 
         // Test resume and publish after the BatchWorker has been created.
         publisher.resume_publish(key);
-        assert_publish(&publisher, key).await;
+        assert_publishing_is_ok!(publisher, key);
     }
 
     #[tokio::test(start_paused = true)]
@@ -1140,15 +1146,14 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Validate that new Publish on the paused ordering key will result in an error.
-        assert_publishing_is_paused(&publisher, key).await;
+        assert_publishing_is_paused!(publisher, key);
 
         // Resume and validate the key is no longer paused.
         publisher.resume_publish(key);
-        assert_publish(&publisher, key).await;
+        assert_publishing_is_ok!(publisher, key);
 
         // Verify that the other ordering keys continue to work as expected.
-        assert_publish(&publisher, "").await;
-        assert_publish(&publisher, "without_error").await;
+        assert_publishing_is_ok!(publisher, "", "without_error");
     }
 
     #[tokio::test(start_paused = true)]
@@ -1180,12 +1185,12 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Validate that new Publish on the paused ordering key will result in an error.
-        assert_publishing_is_paused(&publisher, key).await;
+        assert_publishing_is_paused!(publisher, key);
 
         // Resume twice on the paused ordering key.
         publisher.resume_publish(key);
         publisher.resume_publish(key);
-        assert_publish(&publisher, key).await;
+        assert_publishing_is_ok!(publisher, key);
     }
 
     #[tokio::test(start_paused = true)]
@@ -1228,17 +1233,16 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Assert that both ordering keys are paused.
-        assert_publishing_is_paused(&publisher, key_0).await;
-        assert_publishing_is_paused(&publisher, key_1).await;
+        assert_publishing_is_paused!(publisher, key_0, key_1);
 
         // Resume on one of the ordering key.
         publisher.resume_publish(key_0);
 
         // Validate that only the correct ordering key is resumed.
-        assert_publish(&publisher, key_0).await;
+        assert_publishing_is_ok!(publisher, key_0);
 
         // Validate the other ordering key is still paused.
-        assert_publishing_is_paused(&publisher, key_1).await;
+        assert_publishing_is_paused!(publisher, key_1);
     }
 
     #[tokio::test]
