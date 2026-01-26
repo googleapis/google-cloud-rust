@@ -72,7 +72,7 @@ mutants.workspace     = true
 default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
-idtoken = ["dep:rsa"]
+idtoken = ["dep:rsa", "jsonwebtoken"]
 # By default this crate enables the `aws_lc_rs` backend. Applications can
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the
