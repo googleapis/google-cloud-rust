@@ -20,6 +20,7 @@ publish           = false
 version           = "0.0.0"
 
 [dependencies]
+anyhow.workspace                             = true
 once_cell.workspace                          = true
 opentelemetry-semantic-conventions.workspace = true
 rand                                         = { workspace = true, features = ["thread_rng"] }
