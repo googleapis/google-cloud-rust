@@ -21,7 +21,7 @@ use rand::{
 
 /// A common prefix for resource ids.
 ///
-/// Where possible, we use this prefix for randomly generate resource ids.
+/// Where possible, we use this prefix for randomly generated resource ids.
 pub const PREFIX: &str = "rust-sdk-testing-";
 
 const BUCKET_ID_LENGTH: usize = 63;
