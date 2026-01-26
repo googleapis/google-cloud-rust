@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use anyhow::Error;
-use google_cloud_test_utils::random_chars::RandomChars;
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
@@ -83,23 +83,21 @@ pub(crate) fn random_workflow_id() -> String {
     format!("{PREFIX}{workflow_id}")
 }
 
-const CHARSET: &str = "abcdefghijklmnopqrstuvwxyz0123456789";
-
 pub(crate) fn random_image_name() -> String {
     const PREFIX: &str = "img-";
-    let image_id = RandomChars::new(CHARSET).sample(VM_ID_LENGTH - PREFIX.len());
+    let image_id = LowercaseAlphanumeric.random_string(VM_ID_LENGTH - PREFIX.len());
     format!("{PREFIX}{image_id}")
 }
 
 pub fn random_vm_id() -> String {
     const PREFIX: &str = "vm-";
-    let vm_id = RandomChars::new(CHARSET).sample(VM_ID_LENGTH - PREFIX.len());
+    let vm_id = LowercaseAlphanumeric.random_string(VM_ID_LENGTH - PREFIX.len());
     format!("{PREFIX}{vm_id}")
 }
 
 pub(crate) fn random_vm_prefix(len: usize) -> String {
     const PREFIX: &str = "vm-";
-    let vm_id = RandomChars::new(CHARSET).sample(len);
+    let vm_id = LowercaseAlphanumeric.random_string(len);
     format!("{PREFIX}{vm_id}")
 }
 
