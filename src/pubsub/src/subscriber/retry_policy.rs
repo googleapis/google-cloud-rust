@@ -25,8 +25,18 @@ use gax::retry_state::RetryState;
 pub(super) struct StreamRetryPolicy;
 
 impl StreamRetryPolicy {
-    /// Whether a stream error is transient (retry-able).
-    pub(super) fn is_transient(error: Error) -> RetryResult {
+    pub(super) fn on_midstream_error(error: Error) -> RetryResult {
+        if error.is_transport() {
+            // Resume streams that fail with transport errors.
+            return RetryResult::Continue(error);
+        }
+        let s = Self;
+        s.on_error(&RetryState::default(), error)
+    }
+}
+
+impl RetryPolicy for StreamRetryPolicy {
+    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
         if error.is_transient_and_before_rpc() {
             return RetryResult::Continue(error);
         }
@@ -38,17 +48,10 @@ impl StreamRetryPolicy {
                 Code::ResourceExhausted | Code::Aborted | Code::Internal | Code::Unavailable => {
                     RetryResult::Continue(error)
                 }
-                // TODO(#4097) - handle RST_STREAM frames.
                 _ => RetryResult::Permanent(error),
             };
         }
         RetryResult::Permanent(error)
-    }
-}
-
-impl RetryPolicy for StreamRetryPolicy {
-    fn on_error(&self, _state: &RetryState, error: Error) -> RetryResult {
-        Self::is_transient(error)
     }
 }
 
@@ -58,13 +61,14 @@ mod tests {
     use gax::error::CredentialsError;
     use gax::error::rpc::Status;
     use gax::throttle_result::ThrottleResult;
+    use http::HeaderMap;
     use test_case::test_case;
 
     #[test]
     fn retry_transient_before_rpc() {
         let err = Error::authentication(CredentialsError::from_msg(true, "try again"));
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
             RetryResult::Continue(_)
         ));
     }
@@ -73,7 +77,7 @@ mod tests {
     fn retry_io() {
         let err = Error::io("try again");
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
             RetryResult::Continue(_)
         ));
     }
@@ -82,13 +86,29 @@ mod tests {
     fn retry_serde() {
         let err = Error::ser("fail");
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
             RetryResult::Permanent(_)
         ));
 
         let err = Error::deser("fail");
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
+            RetryResult::Permanent(_)
+        ));
+    }
+
+    #[test]
+    fn retry_transport_errors() {
+        let midstream_err = Error::transport(HeaderMap::new(), "RST_STREAM");
+        assert!(matches!(
+            StreamRetryPolicy::on_midstream_error(midstream_err),
+            RetryResult::Continue(_)
+        ));
+
+        let retry = StreamRetryPolicy;
+        let open_stream_err = Error::transport(HeaderMap::new(), "bad endpoint");
+        assert!(matches!(
+            retry.on_error(&RetryState::default(), open_stream_err),
             RetryResult::Permanent(_)
         ));
     }
@@ -100,7 +120,7 @@ mod tests {
     fn retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("try again"));
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
             RetryResult::Continue(_)
         ));
     }
@@ -113,7 +133,7 @@ mod tests {
     fn non_retryable_status_codes(code: Code) {
         let err = Error::service(Status::default().set_code(code).set_message("fail"));
         assert!(matches!(
-            StreamRetryPolicy::is_transient(err),
+            StreamRetryPolicy::on_midstream_error(err),
             RetryResult::Permanent(_)
         ));
     }
