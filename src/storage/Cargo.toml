@@ -57,8 +57,6 @@ tracing.workspace          = true
 uuid.workspace             = true
 url.workspace              = true
 hex                        = { workspace = true, features = ["std"] }
-# Transitive dependencies. Used for minimal version selection.
-mime.workspace = true
 # Local crates
 google-cloud-auth     = { workspace = true }
 gax.workspace         = true

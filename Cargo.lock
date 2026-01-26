@@ -4703,7 +4703,6 @@ dependencies = [
  "hyper",
  "lazy_static",
  "md5",
- "mime",
  "mockall",
  "multer",
  "pastey",

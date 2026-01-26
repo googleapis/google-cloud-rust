@@ -385,7 +385,6 @@ opentelemetry-semantic-conventions = { default-features = false, version = "0.31
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
-mime      = { default-features = false, version = "0.3.17" }
 aws-lc-rs = { default-features = false, version = "1.15.4" }
 
 # Test packages
