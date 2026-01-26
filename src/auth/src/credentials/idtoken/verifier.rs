@@ -250,7 +250,7 @@ impl Verifier {
             Value::String(s) => self.audiences.contains(s),
             Value::Array(arr) => arr.iter().any(|v| {
                 v.as_str()
-                    .map_or(false, |s| self.audiences.contains(&s.to_string()))
+                    .is_some_and(|s| self.audiences.contains(&s.to_string()))
             }),
             _ => return Err(Error::invalid_field("aud", "Invalid aud format")),
         };
