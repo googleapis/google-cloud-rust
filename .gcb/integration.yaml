@@ -69,7 +69,7 @@ steps:
       done
 
 substitutions:
-  _RUST_VERSION: '1.92'
+  _RUST_VERSION: '1.93'
   _SCCACHE_VERSION: 'v0.12.0'
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
