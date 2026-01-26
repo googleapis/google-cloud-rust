@@ -317,7 +317,7 @@ pub async fn instances() -> Result<()> {
     // Automatically shutdown and delete the instance after 15m.
     let body = body.set_scheduling(
         Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_provisioning_model(ProvisioningModel::Standard)
             .set_instance_termination_action(InstanceTerminationAction::Delete)
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
@@ -437,7 +437,7 @@ pub async fn region_instances() -> Result<()> {
     // Automatically shutdown and delete the instance after 15m.
     let instance_properties = instance_properties.set_scheduling(
         Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_provisioning_model(ProvisioningModel::Standard)
             .set_instance_termination_action(InstanceTerminationAction::Delete)
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
