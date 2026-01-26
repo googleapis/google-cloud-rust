@@ -12,12 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Helper functions to generate random resource names.
+//! Helper functions and types to generate random resource names.
 
 use rand::{
     Rng,
     distr::{Distribution, Uniform},
 };
+
+/// A common prefix for resource ids.
+///
+/// Where possible, we use this prefix for randomly generate resource ids.
+pub const PREFIX: &str = "rust-sdk-testing-";
+
+const BUCKET_ID_LENGTH: usize = 63;
+
+/// Generate a random bucket id
+pub fn random_bucket_id() -> String {
+    let id = LowercaseAlphanumeric.random_string(BUCKET_ID_LENGTH - PREFIX.len());
+    format!("{PREFIX}{id}")
+}
 
 const LOWERCASE_ALPHANUMERIC_CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
 

@@ -8176,6 +8176,7 @@ dependencies = [
  "google-cloud-secretmanager-v1",
  "google-cloud-speech-v2",
  "google-cloud-storage",
+ "google-cloud-test-utils",
  "google-cloud-wkt",
  "httptest",
  "integration-tests",
