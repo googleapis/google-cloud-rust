@@ -33,7 +33,7 @@ use google_cloud_storage::model::bucket::{
 };
 use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
-use google_cloud_test_utils::random_chars::RandomChars;
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::time::Duration;
 
 pub const BUCKET_ID_LENGTH: usize = 63;
@@ -877,12 +877,9 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
 }
 
 pub fn random_bucket_id() -> String {
-    const CHARSET: &str = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-    let chars = RandomChars::new(CHARSET);
     const PREFIX: &str = "rust-sdk-testing-";
-    let bucket_id = chars.sample(BUCKET_ID_LENGTH - PREFIX.len());
-    format!("{PREFIX}{bucket_id}")
+    let id = LowercaseAlphanumeric.random_string(BUCKET_ID_LENGTH - PREFIX.len());
+    format!("{PREFIX}{id}")
 }
 
 trait RetryPolicyExt2: Sized {
