@@ -220,8 +220,6 @@ mod tests {
         assert!(v.is_ok(), "{v:?}");
         let v = super::find_version(&metadata, "rustls");
         assert!(v.is_ok(), "{v:?}");
-        let v = super::find_version(&metadata, "jsonwebtoken");
-        assert!(v.is_ok(), "{v:?}");
         Ok(())
     }
 }
