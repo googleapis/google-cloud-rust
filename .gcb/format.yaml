@@ -131,7 +131,7 @@ substitutions:
   _SCCACHE_SHA256: 'b0e89ead6899224a4ba2b90e9073bf1ce036d95bab30f3dc33c1e1468bc4ad44'
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool
-  _RUST_VERSION: '1.92'
+  _RUST_VERSION: '1.93'
   _GO_VERSION: '1.25.5'
   _PYTHON_VERSION: '3.14'
   _TERRAFORM_VERSION: '1.14.0'
