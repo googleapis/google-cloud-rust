@@ -390,7 +390,7 @@ aws-lc-rs = { default-features = false, version = "1.15.4" }
 # Test packages
 anyhow            = { default-features = false, version = "1.0.100", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
-flate2            = { default-features = false, version = "1" }
+flate2            = { default-features = false, version = "1.0.29" }
 httptest          = { default-features = false, version = "0.16.4" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.14" }
