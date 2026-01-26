@@ -15,7 +15,7 @@
 use google_cloud_dns_v1::{client::ManagedZones, model::ManagedZone};
 use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_lro::Poller as _;
-use google_cloud_test_utils::random_chars::RandomChars;
+use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use std::time::Duration;
 
 const MAX_STALE: Duration = Duration::from_secs(48 * 3600);
@@ -124,9 +124,8 @@ async fn cleanup_stale_zones(client: &ManagedZones, project: &str) -> anyhow::Re
 
 fn random_zone_id() -> String {
     const ZONE_ID_LENGTH: usize = 63;
-    const CHARSET: &str = "abcdefghijklmnopqrstuvwxyz0123456789";
     const PREFIX: &str = "rust-sdk-testing-";
-    let id: String = RandomChars::new(CHARSET).sample(ZONE_ID_LENGTH - PREFIX.len());
+    let id: String = LowercaseAlphanumeric.random_string(ZONE_ID_LENGTH - PREFIX.len());
     format!("{PREFIX}{id}")
 }
 
