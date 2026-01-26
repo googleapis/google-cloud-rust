@@ -21,25 +21,25 @@ rustup show active-toolchain -v
 
 set -e
 echo "Check key libraries against minimum versions of external packages."
-cargo minimal-versions test --package google-cloud-storage
-cargo minimal-versions check --package google-cloud-storage
-cargo minimal-versions test --package google-cloud-gax-internal
-cargo minimal-versions check --package google-cloud-gax-internal
+cargo minimal-versions test --all-features --package google-cloud-storage
+cargo minimal-versions check --all-features --package google-cloud-storage
+cargo minimal-versions test --all-features --package google-cloud-gax-internal
+cargo minimal-versions check --all-features --package google-cloud-gax-internal
 
 echo "Prepare workspace to run minimal version tool."
 cargo run --release --package minimal-version-helper prepare
-cargo minimal-versions test --package google-cloud-storage
-cargo minimal-versions check --package google-cloud-storage
-cargo minimal-versions check --package google-cloud-gax-internal
-cargo minimal-versions check --package google-cloud-auth
-cargo minimal-versions check --package google-cloud-gax
-cargo minimal-versions check --package google-cloud-lro
-cargo minimal-versions check --package google-cloud-wkt
+cargo minimal-versions test --all-features --package google-cloud-storage
+cargo minimal-versions check --all-features --package google-cloud-storage
+cargo minimal-versions check --all-features --package google-cloud-gax-internal
+cargo minimal-versions check --all-features --package google-cloud-auth
+cargo minimal-versions check --all-features --package google-cloud-gax
+cargo minimal-versions check --all-features --package google-cloud-lro
+cargo minimal-versions check --all-features --package google-cloud-wkt
 
 # This generated client uses several mixins, but not LROs.
-cargo minimal-versions check --package google-cloud-secretmanager-v1
+cargo minimal-versions check --all-features --package google-cloud-secretmanager-v1
 # This generated client uses LROs.
-cargo minimal-versions check --package google-cloud-workflows-v1
+cargo minimal-versions check --all-features --package google-cloud-workflows-v1
 
 echo "==== DONE ===="
 
