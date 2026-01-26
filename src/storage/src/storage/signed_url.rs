@@ -523,15 +523,16 @@ impl SignedUrlBuilder {
         );
         query_parameters.insert("X-Goog-SignedHeaders".to_string(), signed_headers.clone());
 
-        let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
-        for (k, v) in &query_parameters {
-            canonical_query.append_pair(k, v);
-        }
-
-        let canonical_query = canonical_query.finish();
-        let canonical_query = canonical_query
-            .replace("%7E", "~") // rollback to ~
-            .replace("+", "%20"); // missing %20 in +
+        let canonical_query = {
+            let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
+            for (k, v) in &query_parameters {
+                canonical_query.append_pair(k, v);
+            }
+    
+            canonical_query.finish()
+                .replace("%7E", "~") // rollback to ~
+                .replace("+", "%20") // missing %20 in +
+        };
 
         let canonical_headers = headers.iter().fold("".to_string(), |acc, (k, v)| {
             let header_value = Self::canonicalize_header_value(v);
