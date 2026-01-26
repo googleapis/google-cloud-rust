@@ -344,7 +344,7 @@ serde_json            = { default-features = false, version = "1.0.148", feature
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
 sha2                  = { default-features = false, version = "0.10" }
 thiserror             = { default-features = false, version = "2" }
-time                  = { default-features = false, version = "0.3.45" }
+time                  = { default-features = false, version = "0.3.46" }
 tokio                 = { default-features = false, version = "1" }
 tokio-metrics         = { default-features = false, version = "0.4.5" }
 tokio-util            = { default-features = false, version = "0.7" }
