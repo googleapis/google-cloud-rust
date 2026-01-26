@@ -68,16 +68,15 @@ pub async fn run() -> Result<()> {
 
 async fn install() -> Result<String> {
     for backoff in [Some(5), Some(10), Some(20), None] {
-        match install_attempt().await {
+        let error = match install_attempt().await {
             Ok(path) => return Ok(path),
-            Err(e) => {
-                let Some(delay) = backoff else {
-                    return Err(e);
-                };
-                tracing::info!("install failed trying again in {backoff:?} seconds: {e:?}");
-                tokio::time::sleep(Duration::from_secs(delay)).await;
-            }
-        }
+            Err(e) => e,
+        };
+        let Some(delay) = backoff.map(Duration::from_secs) else {
+            return Err(error);
+        };
+        tracing::info!("install failed trying again in {backoff:?} seconds: {error:?}");
+        tokio::time::sleep(delay).await;
     }
     unreachable!("the retry loop should return");
 }
