@@ -47,6 +47,9 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 jsonwebtoken          = { workspace = true, optional = true }
+# We do not use this directly, but without it the minimal-versions build breaks.
+# See: https://github.com/Keats/jsonwebtoken/pull/481
+aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
 gax.workspace = true
 
@@ -74,7 +77,7 @@ idtoken = ["dep:jsonwebtoken"]
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the
 # `rust_crypto` backend.
-default-idtoken-backend = ["jsonwebtoken?/aws_lc_rs"]
+default-idtoken-backend = ["dep:aws-lc-rs", "jsonwebtoken?/aws_lc_rs"]
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
