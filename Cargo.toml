@@ -346,7 +346,7 @@ sha2                  = { default-features = false, version = "0.10" }
 thiserror             = { default-features = false, version = "2" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1" }
-tokio-metrics         = { default-features = false, version = "0.4.5" }
+tokio-metrics         = { default-features = false, version = "0.4.7" }
 tokio-util            = { default-features = false, version = "0.7" }
 toml_edit             = { default-features = false, version = "0.24" }
 tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots"] }
