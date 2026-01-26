@@ -102,7 +102,7 @@ impl JwkClient {
             CredentialsError::from_msg(false, "JWKS did not contain a matching `kid`")
         })?;
 
-        let key = create_der(&jwk)?;
+        let key = create_der(jwk)?;
 
         let entry = CacheEntry {
             key: key.clone(),
@@ -179,7 +179,10 @@ fn create_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
             parameters: Some(Null),
         },
         subject_public_key: BitString::from_bytes(&rsa_pub_key_der).map_err(|e| {
-            CredentialsError::from_msg(false, format!("failed to create public key bitstring: {}", e))
+            CredentialsError::from_msg(
+                false,
+                format!("failed to create public key bitstring: {}", e),
+            )
         })?,
     };
 
