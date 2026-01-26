@@ -56,25 +56,23 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1505bd5d3d116872e7271a6d4e16d81d0c8570876c8de68093a09ac269d8aac0"
 
 [[package]]
-name = "auth-integration-tests"
+name = "auth-with-default"
 version = "0.0.0"
 dependencies = [
  "anyhow",
- "base64",
- "bytes",
- "google-cloud-auth",
- "google-cloud-bigquery-v2",
- "google-cloud-gax",
- "google-cloud-iam-credentials-v1",
- "google-cloud-language-v2",
- "google-cloud-secretmanager-v1",
- "httptest",
- "reqwest",
- "scoped-env",
- "serde_json",
- "serial_test",
- "tempfile",
- "test-case",
+ "test-auth",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "auth-without-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-auth",
+ "test-metadata",
  "tokio",
 ]
 
@@ -83,6 +81,29 @@ name = "autocfg"
 version = "1.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
+
+[[package]]
+name = "aws-lc-rs"
+version = "1.15.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7b7b6141e96a8c160799cc2d5adecd5cbbe5054cb8c7c4af53da0f83bb7ad256"
+dependencies = [
+ "aws-lc-sys",
+ "untrusted 0.7.1",
+ "zeroize",
+]
+
+[[package]]
+name = "aws-lc-sys"
+version = "0.37.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5c34dda4df7017c8db52132f0f8a2e0f8161649d15723ed63fc00c82d0f2081a"
+dependencies = [
+ "cc",
+ "cmake",
+ "dunce",
+ "fs_extra",
+]
 
 [[package]]
 name = "axum"
@@ -133,12 +154,6 @@ dependencies = [
  "tower-layer",
  "tower-service",
 ]
-
-[[package]]
-name = "base16ct"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4c7f02d4ea65f2c1853089ffd8d2787bdbc63de2f0d29dedbcf8ccdfa0ccd4cf"
 
 [[package]]
 name = "base64"
@@ -223,7 +238,7 @@ dependencies = [
  "semver",
  "serde",
  "serde_json",
- "thiserror",
+ "thiserror 2.0.18",
 ]
 
 [[package]]
@@ -233,8 +248,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cd4932aefd12402b36c60956a4fe0035421f544799057659ff86f923657aada3"
 dependencies = [
  "find-msvc-tools",
+ "jobserver",
+ "libc",
  "shlex",
 ]
+
+[[package]]
+name = "cesu8"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6d43a04d8753f35258c91f8ec639f792891f748a1edbd759cf1dcea3382ad83c"
 
 [[package]]
 name = "cfg-if"
@@ -306,6 +329,25 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c3e64b0cc0439b12df2fa678eae89a1c56a529fd067a9115f7827f1fffd22b32"
 
 [[package]]
+name = "cmake"
+version = "0.1.57"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "75443c44cd6b379beb8c5b45d85d0773baf31cce901fe7bb252f4eff3008ef7d"
+dependencies = [
+ "cc",
+]
+
+[[package]]
+name = "combine"
+version = "4.6.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba5a308b75df32fe02788e748662718f03fde005016435c444eea572398219fd"
+dependencies = [
+ "bytes",
+ "memchr",
+]
+
+[[package]]
 name = "common"
 version = "0.0.0"
 dependencies = [
@@ -365,7 +407,7 @@ checksum = "b9d129ea9f4e6581cdda525c0b939e4b1753a9873543e4b409971b473f5c27db"
 dependencies = [
  "chrono",
  "futures",
- "reqwest",
+ "reqwest 0.12.28",
  "serde",
  "serde_derive",
  "serde_json",
@@ -408,18 +450,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0a5c400df2834b80a4c3327b3aad3a4c4cd4de0629063962b03235697506a28"
 
 [[package]]
-name = "crypto-bigint"
-version = "0.5.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0dc92fb57ca44df6db8059111ab3af99a63d5d0f8375d9972e319a379c6bab76"
-dependencies = [
- "generic-array",
- "rand_core 0.6.4",
- "subtle",
- "zeroize",
-]
-
-[[package]]
 name = "crypto-common"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -427,33 +457,6 @@ checksum = "1bfb12502f3fc46cca1bb51ac28df9d618d813cdc3d2f25b9fe775a34af26bb3"
 dependencies = [
  "generic-array",
  "typenum",
-]
-
-[[package]]
-name = "curve25519-dalek"
-version = "4.1.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "97fb8b7c4503de7d6ae7b42ab72a5a59857b4c937ec27a3d4539dba95b5ab2be"
-dependencies = [
- "cfg-if",
- "cpufeatures",
- "curve25519-dalek-derive",
- "digest",
- "fiat-crypto",
- "rustc_version",
- "subtle",
- "zeroize",
-]
-
-[[package]]
-name = "curve25519-dalek-derive"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f46882e17999c6cc590af592290432be3bce0428cb0d5f8b6715e4dc7b383eb3"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]
@@ -527,7 +530,6 @@ dependencies = [
  "block-buffer",
  "const-oid",
  "crypto-common",
- "subtle",
 ]
 
 [[package]]
@@ -548,24 +550,16 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1435fa1053d8b2fbbe9be7e97eca7f33d37b28409959813daefc1446a14247f1"
 
 [[package]]
+name = "dunce"
+version = "1.0.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92773504d58c093f6de2459af4af33faa518c13451eb8f2b5698ed3d36e7c813"
+
+[[package]]
 name = "dyn-clone"
 version = "1.0.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d0881ea181b1df73ff77ffaaf9c7544ecc11e82fba9b5f27b262a3c73a332555"
-
-[[package]]
-name = "ecdsa"
-version = "0.16.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ee27f32b5c5292967d2d4a9d7f1e0b0aed2c15daded5a60300e4abb9d8020bca"
-dependencies = [
- "der",
- "digest",
- "elliptic-curve",
- "rfc6979",
- "signature",
- "spki",
-]
 
 [[package]]
 name = "echo-server"
@@ -582,55 +576,10 @@ dependencies = [
 ]
 
 [[package]]
-name = "ed25519"
-version = "2.2.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "115531babc129696a58c64a4fef0a8bf9e9698629fb97e9e40767d235cfbcd53"
-dependencies = [
- "pkcs8",
- "signature",
-]
-
-[[package]]
-name = "ed25519-dalek"
-version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "70e796c081cee67dc755e1a36a0a172b897fab85fc3f6bc48307991f64e4eca9"
-dependencies = [
- "curve25519-dalek",
- "ed25519",
- "serde",
- "sha2",
- "subtle",
- "zeroize",
-]
-
-[[package]]
 name = "either"
 version = "1.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "48c757948c5ede0e46177b7add2e67155f70e33c07fea8284df6576da70b3719"
-
-[[package]]
-name = "elliptic-curve"
-version = "0.13.8"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5e6043086bf7973472e0c7dff2142ea0b680d30e18d9cc40f267efbf222bd47"
-dependencies = [
- "base16ct",
- "crypto-bigint",
- "digest",
- "ff",
- "generic-array",
- "group",
- "hkdf",
- "pem-rfc7468",
- "pkcs8",
- "rand_core 0.6.4",
- "sec1",
- "subtle",
- "zeroize",
-]
 
 [[package]]
 name = "encoding_rs"
@@ -676,22 +625,6 @@ name = "fastrand"
 version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
-
-[[package]]
-name = "ff"
-version = "0.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c0b50bfb653653f9ca9095b427bed08ab8d75a137839d9ad64eb11810d5b6393"
-dependencies = [
- "rand_core 0.6.4",
- "subtle",
-]
-
-[[package]]
-name = "fiat-crypto"
-version = "0.2.9"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "28dea519a9695b9977216879a3ebfddf92f1c08c05d984f8996aecd6ecdc811d"
 
 [[package]]
 name = "find-msvc-tools"
@@ -757,6 +690,12 @@ name = "fragile"
 version = "2.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "28dd6caf6059519a65843af8fe2a3ae298b14b80179855aeb4adc2c1934ee619"
+
+[[package]]
+name = "fs_extra"
+version = "1.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "42703706b716c37f96a77aea830392ad231f44c9e9a67872fa5548707e11b11c"
 
 [[package]]
 name = "futures"
@@ -848,6 +787,38 @@ dependencies = [
 ]
 
 [[package]]
+name = "gaxi-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "gaxi-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
+name = "gaxi-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-gaxi",
+ "test-metadata",
+ "tokio",
+]
+
+[[package]]
 name = "gcp-sdk"
 version = "0.0.0"
 
@@ -859,7 +830,6 @@ checksum = "4bb6743198531e02858aeaea5398fcc883e71851fcbcb5a2f773e2fb6cb1edf2"
 dependencies = [
  "typenum",
  "version_check",
- "zeroize",
 ]
 
 [[package]]
@@ -891,7 +861,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-accessapproval-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -899,7 +869,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -909,7 +879,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-advisorynotifications-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -917,7 +887,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -927,7 +897,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-aiplatform-v1"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -942,7 +912,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1012,7 +982,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-alloydb-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1025,7 +995,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1047,7 +1017,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-cloudquotas-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1055,7 +1025,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1065,7 +1035,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicecontrol-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1076,7 +1046,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1086,7 +1056,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicecontrol-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1096,7 +1066,7 @@ dependencies = [
  "google-cloud-rpc-context",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1106,7 +1076,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-servicemanagement-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1118,7 +1088,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1128,7 +1098,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-api-serviceusage-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1139,7 +1109,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1149,7 +1119,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apigateway-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1159,7 +1129,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1169,7 +1139,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apigeeconnect-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1178,7 +1148,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1188,7 +1158,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apihub-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1199,7 +1169,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1209,7 +1179,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apikeys-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1219,7 +1189,26 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-apiregistry-v1"
+version = "0.0.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1229,7 +1218,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-appengine-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1239,7 +1228,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1249,7 +1238,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-apphub-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1261,7 +1250,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1361,7 +1350,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-artifactregistry-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1375,7 +1364,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1385,7 +1374,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-asset-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1401,7 +1390,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1411,7 +1400,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-assuredworkloads-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1421,7 +1410,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1435,6 +1424,7 @@ version = "1.5.0"
 dependencies = [
  "anyhow",
  "async-trait",
+ "aws-lc-rs",
  "base64",
  "bytes",
  "google-cloud-gax",
@@ -1444,7 +1434,7 @@ dependencies = [
  "mockall",
  "mutants",
  "regex",
- "reqwest",
+ "reqwest 0.13.1",
  "rsa",
  "rustc_version",
  "rustls",
@@ -1455,7 +1445,7 @@ dependencies = [
  "serial_test",
  "tempfile",
  "test-case",
- "thiserror",
+ "thiserror 2.0.18",
  "time",
  "tokio",
  "tokio-test",
@@ -1464,7 +1454,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-backupdr-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1478,7 +1468,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1488,7 +1478,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-baremetalsolution-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1499,7 +1489,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1513,7 +1503,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-beyondcorp-appconnections-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1525,7 +1515,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1535,7 +1525,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-appconnectors-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1547,7 +1537,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1557,7 +1547,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-appgateways-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1569,7 +1559,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1579,7 +1569,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-clientconnectorservices-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1591,7 +1581,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1601,7 +1591,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-beyondcorp-clientgateways-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1613,7 +1603,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1623,7 +1613,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-biglake-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1632,7 +1622,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1646,7 +1636,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-bigquery-analyticshub-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1657,7 +1647,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1667,7 +1657,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-connection-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1676,7 +1666,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1686,7 +1676,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-datapolicies-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1695,7 +1685,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1705,7 +1695,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-datapolicies-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1714,7 +1704,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1724,7 +1714,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-datatransfer-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1734,7 +1724,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1744,7 +1734,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-migration-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1754,7 +1744,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1764,7 +1754,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-bigquery-reservation-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1774,7 +1764,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1793,7 +1783,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1807,7 +1797,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-bigtable-admin-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1819,7 +1809,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1829,7 +1819,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-billing-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1839,7 +1829,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1849,7 +1839,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-binaryauthorization-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1858,7 +1848,7 @@ dependencies = [
  "google-cloud-grafeas-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1868,7 +1858,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-build-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1879,7 +1869,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1889,7 +1879,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-build-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1901,7 +1891,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1911,7 +1901,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-certificatemanager-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1922,7 +1912,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1932,7 +1922,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-chronicle-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1943,7 +1933,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1953,7 +1943,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-cloudcontrolspartner-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1962,7 +1952,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1972,7 +1962,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-clouddms-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -1985,7 +1975,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -1995,7 +1985,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-cloudsecuritycompliance-v1"
-version = "2.3.0"
+version = "2.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2007,7 +1997,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2017,7 +2007,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-commerce-consumer-procurement-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2027,7 +2017,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2049,7 +2039,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-compute-v1"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2059,7 +2049,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2069,7 +2059,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-confidentialcomputing-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2079,7 +2069,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2089,7 +2079,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-config-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2102,7 +2092,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2112,7 +2102,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-configdelivery-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2123,7 +2113,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2133,173 +2123,6 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-connectors-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-contactcenterinsights-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-container-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-containeranalysis-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-grafeas-v1",
- "google-cloud-iam-v1",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-datacatalog-lineage-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-datacatalog-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-dataform-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-rpc",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-datafusion-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-dataplex-v1"
 version = "1.5.0"
 dependencies = [
  "async-trait",
@@ -2312,7 +2135,174 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-contactcenterinsights-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-container-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-containeranalysis-v1"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-grafeas-v1",
+ "google-cloud-iam-v1",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-datacatalog-lineage-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-datacatalog-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-dataform-v1"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-datafusion-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-dataplex-v1"
+version = "1.6.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2322,7 +2312,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dataproc-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2334,7 +2324,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2348,7 +2338,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-datastore-admin-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2358,7 +2348,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2368,7 +2358,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-datastream-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2379,7 +2369,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2389,7 +2379,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-deploy-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2402,7 +2392,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2412,7 +2402,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-developerconnect-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2424,7 +2414,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2434,7 +2424,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-devicestreaming-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2442,7 +2432,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2452,7 +2442,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dialogflow-cx-v3"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2465,7 +2455,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2475,7 +2465,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dialogflow-v2"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2488,7 +2478,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2498,7 +2488,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-discoveryengine-v1"
-version = "2.4.0"
+version = "2.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2511,7 +2501,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2521,15 +2511,16 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-dns-v1"
-version = "0.0.0"
+version = "1.0.0"
 dependencies = [
  "async-trait",
  "bytes",
  "google-cloud-gax",
  "google-cloud-gax-internal",
+ "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2539,7 +2530,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-documentai-v1"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2553,7 +2544,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2563,7 +2554,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-domains-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2574,7 +2565,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2584,7 +2575,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-edgecontainer-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2596,7 +2587,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2606,7 +2597,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-edgenetwork-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2617,7 +2608,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2627,7 +2618,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-essentialcontacts-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2635,7 +2626,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2645,7 +2636,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-eventarc-publishing-v1"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2653,7 +2644,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2663,7 +2654,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-eventarc-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2676,7 +2667,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2686,7 +2677,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-filestore-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2698,7 +2689,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2708,7 +2699,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-financialservices-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2720,7 +2711,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2755,7 +2746,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-firestore-admin-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2766,7 +2757,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2776,7 +2767,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-functions-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2789,7 +2780,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2815,7 +2806,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "test-case",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tokio-test",
 ]
@@ -2830,6 +2821,7 @@ dependencies = [
  "futures",
  "google-cloud-auth",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-rpc",
  "google-cloud-test-utils",
  "google-cloud-wkt",
@@ -2846,7 +2838,7 @@ dependencies = [
  "pin-project",
  "prost",
  "prost-types",
- "reqwest",
+ "reqwest 0.13.1",
  "rustc_version",
  "scoped-env",
  "serde",
@@ -2854,7 +2846,7 @@ dependencies = [
  "serde_with",
  "serial_test",
  "test-case",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
  "tonic",
@@ -2866,7 +2858,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkebackup-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2879,7 +2871,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2889,7 +2881,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkeconnect-gateway-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2897,7 +2889,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2931,7 +2923,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkehub-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2943,7 +2935,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2953,7 +2945,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkemulticloud-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2964,7 +2956,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2974,7 +2966,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gkerecommender-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -2982,7 +2974,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -2992,7 +2984,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-grafeas-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3001,7 +2993,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3011,7 +3003,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-gsuiteaddons-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3026,7 +3018,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3036,7 +3028,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-admin-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3046,7 +3038,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3056,7 +3048,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-credentials-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3064,7 +3056,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3074,7 +3066,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3083,7 +3075,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3093,7 +3085,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3104,7 +3096,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3114,7 +3106,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iam-v3"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3125,7 +3117,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3135,7 +3127,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-iap-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3144,7 +3136,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3166,7 +3158,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-identity-accesscontextmanager-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3179,7 +3171,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3189,7 +3181,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-ids-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3199,7 +3191,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3209,7 +3201,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-kms-inventory-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3218,7 +3210,7 @@ dependencies = [
  "google-cloud-kms-v1",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3228,7 +3220,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-kms-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3240,7 +3232,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3250,7 +3242,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-language-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3258,7 +3250,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3268,7 +3260,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-licensemanager-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3279,7 +3271,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3289,7 +3281,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-location"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3297,7 +3289,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3307,7 +3299,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-locationfinder-v1"
-version = "1.2.0"
+version = "1.3.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3316,7 +3308,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3338,7 +3330,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-logging-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3351,7 +3343,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3361,7 +3353,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-longrunning"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3370,7 +3362,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3380,7 +3372,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lro"
-version = "1.2.0"
+version = "1.3.0"
 dependencies = [
  "anyhow",
  "futures",
@@ -3393,7 +3385,7 @@ dependencies = [
  "google-cloud-wkt",
  "httptest",
  "pin-project",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "tokio",
@@ -3402,7 +3394,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-lustre-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3414,7 +3406,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3424,7 +3416,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-maintenance-api-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3433,7 +3425,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3443,7 +3435,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-managedidentities-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3453,7 +3445,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3463,7 +3455,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-managedkafka-schemaregistry-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3474,7 +3466,7 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3484,7 +3476,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-managedkafka-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3495,7 +3487,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3505,329 +3497,6 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-memcache-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-memorystore-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-metastore-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-migrationcenter-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-modelarmor-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-location",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-monitoring-dashboard-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-api",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-monitoring-metricsscope-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-monitoring-v3"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-api",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-rpc",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-netapp-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-networkconnectivity-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-networkmanagement-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-networksecurity-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-networkservices-v1"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-notebooks-v2"
-version = "1.4.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-location",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-optimization-v1"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-oracledatabase-v1"
 version = "1.5.0"
 dependencies = [
  "async-trait",
@@ -3840,7 +3509,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3849,7 +3518,287 @@ dependencies = [
 ]
 
 [[package]]
-name = "google-cloud-orchestration-airflow-service-v1"
+name = "google-cloud-memorystore-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-metastore-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-migrationcenter-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-modelarmor-v1"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-monitoring-dashboard-v1"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-monitoring-metricsscope-v1"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-monitoring-v3"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-netapp-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-networkconnectivity-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-networkmanagement-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-networksecurity-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-networkservices-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-notebooks-v2"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-iam-v1",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-optimization-v1"
 version = "1.4.0"
 dependencies = [
  "async-trait",
@@ -3861,7 +3810,50 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-oracledatabase-v1"
+version = "1.6.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-orchestration-airflow-service-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3883,7 +3875,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-orgpolicy-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3892,7 +3884,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3902,7 +3894,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-osconfig-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3913,7 +3905,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3935,7 +3927,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-oslogin-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3944,7 +3936,7 @@ dependencies = [
  "google-cloud-oslogin-common",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3954,7 +3946,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-parallelstore-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3966,7 +3958,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3976,7 +3968,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-parametermanager-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -3986,7 +3978,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -3996,7 +3988,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policysimulator-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4010,7 +4002,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4020,7 +4012,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policytroubleshooter-iam-v3"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4032,7 +4024,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4042,7 +4034,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-policytroubleshooter-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4053,7 +4045,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4063,7 +4055,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-privacy-dlp-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4073,7 +4065,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4083,7 +4075,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-privilegedaccessmanager-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4095,7 +4087,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4105,7 +4097,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-profiler-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4113,7 +4105,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4140,11 +4132,13 @@ dependencies = [
  "prost",
  "prost-types",
  "pubsub-grpc-mock",
- "reqwest",
+ "rand 0.9.2",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
- "thiserror",
+ "test-case",
+ "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
  "tokio-test",
@@ -4156,7 +4150,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-rapidmigrationassessment-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4167,7 +4161,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4177,7 +4171,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recaptchaenterprise-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4186,7 +4180,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4209,7 +4203,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-recommender-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4218,7 +4212,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4228,7 +4222,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-redis-cluster-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4240,7 +4234,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4250,7 +4244,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-redis-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4262,7 +4256,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4272,7 +4266,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-resourcemanager-v3"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4283,7 +4277,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4293,7 +4287,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-retail-v2"
-version = "2.3.0"
+version = "2.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4306,7 +4300,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4340,7 +4334,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-run-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4353,7 +4347,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4363,7 +4357,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-scheduler-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4373,7 +4367,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4383,7 +4377,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-secretmanager-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4393,7 +4387,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4403,7 +4397,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securesourcemanager-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4415,7 +4409,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4425,7 +4419,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-security-privateca-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4438,7 +4432,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4448,7 +4442,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-security-publicca-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4456,7 +4450,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4466,7 +4460,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securitycenter-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4477,7 +4471,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4487,7 +4481,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-securityposture-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4499,7 +4493,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4509,7 +4503,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-servicedirectory-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4519,7 +4513,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4529,7 +4523,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-servicehealth-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4538,7 +4532,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4548,7 +4542,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-shell-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4558,7 +4552,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4581,7 +4575,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4596,7 +4590,7 @@ version = "0.0.0"
 
 [[package]]
 name = "google-cloud-spanner-admin-database-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4608,7 +4602,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4618,7 +4612,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-spanner-admin-instance-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4629,7 +4623,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4639,7 +4633,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-speech-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4651,7 +4645,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4661,7 +4655,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-sql-v1"
-version = "2.0.0"
+version = "2.1.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4671,7 +4665,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4718,7 +4712,7 @@ dependencies = [
  "pretty_assertions",
  "prost",
  "prost-types",
- "reqwest",
+ "reqwest 0.13.1",
  "scoped-env",
  "serde",
  "serde_json",
@@ -4729,7 +4723,7 @@ dependencies = [
  "storage-grpc-mock",
  "tempfile",
  "test-case",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
  "tokio-test",
@@ -4741,7 +4735,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storagebatchoperations-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4753,7 +4747,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4763,7 +4757,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storageinsights-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4776,7 +4770,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4786,6 +4780,46 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-storagetransfer-v1"
+version = "1.5.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-type",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-support-v2"
+version = "1.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-talent-v4"
 version = "1.4.0"
 dependencies = [
  "async-trait",
@@ -4798,47 +4832,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-support-v2"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
- "serde",
- "serde_json",
- "serde_with",
- "tokio-test",
- "tracing",
-]
-
-[[package]]
-name = "google-cloud-talent-v4"
-version = "1.3.0"
-dependencies = [
- "async-trait",
- "bytes",
- "google-cloud-gax",
- "google-cloud-gax-internal",
- "google-cloud-longrunning",
- "google-cloud-lro",
- "google-cloud-rpc",
- "google-cloud-type",
- "google-cloud-wkt",
- "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4848,7 +4842,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-tasks-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4859,7 +4853,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4869,7 +4863,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-telcoautomation-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4880,7 +4874,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4894,6 +4888,7 @@ version = "0.0.0"
 dependencies = [
  "once_cell",
  "opentelemetry-semantic-conventions",
+ "rand 0.9.2",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -4902,7 +4897,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-texttospeech-v1"
-version = "1.5.0"
+version = "1.6.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4912,7 +4907,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4922,7 +4917,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-timeseriesinsights-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4931,7 +4926,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4941,7 +4936,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-tpu-v2"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4954,7 +4949,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4964,7 +4959,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-trace-v1"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4972,7 +4967,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -4982,7 +4977,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-trace-v2"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -4991,7 +4986,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5001,7 +4996,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-translation-v3"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5013,7 +5008,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5035,7 +5030,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-livestream-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5048,7 +5043,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5058,7 +5053,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-stitcher-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5068,7 +5063,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5078,7 +5073,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-video-transcoder-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5087,7 +5082,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5097,7 +5092,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-videointelligence-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5108,7 +5103,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5118,7 +5113,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vision-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5130,7 +5125,7 @@ dependencies = [
  "google-cloud-type",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5140,7 +5135,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vmmigration-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5152,7 +5147,7 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5162,7 +5157,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vmwareengine-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5174,7 +5169,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5184,7 +5179,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-vpcaccess-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5195,7 +5190,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5205,7 +5200,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-webrisk-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5215,7 +5210,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5225,7 +5220,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-websecurityscanner-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5233,7 +5228,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5255,14 +5250,14 @@ dependencies = [
  "serde_json",
  "serde_with",
  "test-case",
- "thiserror",
+ "thiserror 2.0.18",
  "time",
  "url",
 ]
 
 [[package]]
 name = "google-cloud-workflows-executions-v1"
-version = "1.3.0"
+version = "1.4.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5270,7 +5265,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5280,7 +5275,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-workflows-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5291,7 +5286,7 @@ dependencies = [
  "google-cloud-lro",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -5301,7 +5296,7 @@ dependencies = [
 
 [[package]]
 name = "google-cloud-workstations-v1"
-version = "1.4.0"
+version = "1.5.0"
 dependencies = [
  "async-trait",
  "bytes",
@@ -5313,23 +5308,12 @@ dependencies = [
  "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
  "tokio-test",
  "tracing",
-]
-
-[[package]]
-name = "group"
-version = "0.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f0f9ef7462f7c099f518d754361858f86d8a07af53ba9af0fe635bbccb151a63"
-dependencies = [
- "ff",
- "rand_core 0.6.4",
- "subtle",
 ]
 
 [[package]]
@@ -5402,24 +5386,6 @@ name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7f24254aa9a54b5c858eaee2f5bccdb46aaf0e486a595ed5fd8f86ba55232a70"
-
-[[package]]
-name = "hkdf"
-version = "0.12.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7b5f8eb2ad728638ea2c7d47a21db23b7b58a72ed6a38256b8a1849f15fbbdf7"
-dependencies = [
- "hmac",
-]
-
-[[package]]
-name = "hmac"
-version = "0.12.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c49c37c09c17a53d937dfbb742eb3a961d65a994e6bcdcf37e7399d0cc8ab5e"
-dependencies = [
- "digest",
-]
 
 [[package]]
 name = "http"
@@ -5533,7 +5499,6 @@ dependencies = [
  "tokio",
  "tokio-rustls",
  "tower-service",
- "webpki-roots",
 ]
 
 [[package]]
@@ -5782,7 +5747,7 @@ dependencies = [
  "opentelemetry_sdk",
  "pubsub-samples",
  "rand 0.9.2",
- "reqwest",
+ "reqwest 0.13.1",
  "secretmanager-openapi-v1",
  "serde",
  "serde_json",
@@ -5798,6 +5763,46 @@ dependencies = [
  "tracing-opentelemetry",
  "tracing-subscriber",
  "uuid",
+]
+
+[[package]]
+name = "integration-tests-auth"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "base64",
+ "bytes",
+ "google-cloud-auth",
+ "google-cloud-bigquery-v2",
+ "google-cloud-gax",
+ "google-cloud-iam-credentials-v1",
+ "google-cloud-language-v2",
+ "google-cloud-secretmanager-v1",
+ "httptest",
+ "reqwest 0.13.1",
+ "scoped-env",
+ "serde_json",
+ "serial_test",
+ "tempfile",
+ "test-case",
+ "tokio",
+]
+
+[[package]]
+name = "integration-tests-dns-v1"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "futures",
+ "google-cloud-dns-v1",
+ "google-cloud-gax",
+ "google-cloud-lro",
+ "google-cloud-test-utils",
+ "rand 0.9.2",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]
@@ -5832,6 +5837,38 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "92ecc6618181def0457392ccd0ee51198e065e016d1d527a7ac1b6dc7c1f09d2"
 
 [[package]]
+name = "jni"
+version = "0.21.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1a87aa2bb7d2af34197c04845522473242e1aa17c12f4935d5856491a7fb8c97"
+dependencies = [
+ "cesu8",
+ "cfg-if",
+ "combine",
+ "jni-sys",
+ "log",
+ "thiserror 1.0.69",
+ "walkdir",
+ "windows-sys 0.45.0",
+]
+
+[[package]]
+name = "jni-sys"
+version = "0.3.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8eaf4bc02d17cbdd7ff4c7438cafcdf7fb9a4613313ad11b4f8fefe7d3fa0130"
+
+[[package]]
+name = "jobserver"
+version = "0.1.34"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9afb3de4395d6b3e67a780b6de64b51c978ecf11cb9a462c66be7d4ca9039d33"
+dependencies = [
+ "getrandom 0.3.4",
+ "libc",
+]
+
+[[package]]
 name = "js-sys"
 version = "0.3.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5847,18 +5884,12 @@ version = "10.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c76e1c7d7df3e34443b3621b459b066a7b79644f059fc8b2db7070c825fd417e"
 dependencies = [
+ "aws-lc-rs",
  "base64",
- "ed25519-dalek",
  "getrandom 0.2.17",
- "hmac",
  "js-sys",
- "p256",
- "p384",
- "rand 0.8.5",
- "rsa",
  "serde",
  "serde_json",
- "sha2",
  "signature",
 ]
 
@@ -6191,7 +6222,7 @@ dependencies = [
  "futures-sink",
  "js-sys",
  "pin-project-lite",
- "thiserror",
+ "thiserror 2.0.18",
 ]
 
 [[package]]
@@ -6205,7 +6236,7 @@ dependencies = [
  "opentelemetry-proto",
  "opentelemetry_sdk",
  "prost",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tonic",
 ]
@@ -6241,33 +6272,9 @@ dependencies = [
  "opentelemetry",
  "percent-encoding",
  "rand 0.9.2",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tokio-stream",
-]
-
-[[package]]
-name = "p256"
-version = "0.13.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9863ad85fa8f4460f9c48cb909d38a0d689dba1f6f6988a5e3e0d31071bcd4b"
-dependencies = [
- "ecdsa",
- "elliptic-curve",
- "primeorder",
- "sha2",
-]
-
-[[package]]
-name = "p384"
-version = "0.13.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fe42f1670a52a47d448f14b6a5c61dd78fce51856e68edaa38f7ae3a46b8d6b6"
-dependencies = [
- "ecdsa",
- "elliptic-curve",
- "primeorder",
- "sha2",
 ]
 
 [[package]]
@@ -6461,15 +6468,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "primeorder"
-version = "0.13.6"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "353e1ca18966c16d9deb1c69278edbc5f194139612772bd9537af60ac231e1e6"
-dependencies = [
- "elliptic-curve",
-]
-
-[[package]]
 name = "proc-macro2"
 version = "1.0.105"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -6597,7 +6595,7 @@ dependencies = [
  "rustc-hash",
  "rustls",
  "socket2",
- "thiserror",
+ "thiserror 2.0.18",
  "tokio",
  "tracing",
  "web-time",
@@ -6609,6 +6607,7 @@ version = "0.11.13"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f1906b49b0c3bc04b5fe5d86a77925ae6524a19b816ae38ce1e426255f1d8a31"
 dependencies = [
+ "aws-lc-rs",
  "bytes",
  "getrandom 0.3.4",
  "lru-slab",
@@ -6618,7 +6617,7 @@ dependencies = [
  "rustls",
  "rustls-pki-types",
  "slab",
- "thiserror",
+ "thiserror 2.0.18",
  "tinyvec",
  "tracing",
  "web-time",
@@ -6659,7 +6658,6 @@ version = "0.8.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "34af8d1a0e25924bc5b7c43c079c942339d8f0a8b57c39049bef581b46327404"
 dependencies = [
- "libc",
  "rand_chacha 0.3.1",
  "rand_core 0.6.4",
 ]
@@ -6785,17 +6783,13 @@ dependencies = [
  "http-body",
  "http-body-util",
  "hyper",
- "hyper-rustls",
  "hyper-tls",
  "hyper-util",
  "js-sys",
  "log",
- "mime_guess",
  "native-tls",
  "percent-encoding",
  "pin-project-lite",
- "quinn",
- "rustls",
  "rustls-pki-types",
  "serde",
  "serde_json",
@@ -6803,6 +6797,45 @@ dependencies = [
  "sync_wrapper",
  "tokio",
  "tokio-native-tls",
+ "tower",
+ "tower-http",
+ "tower-service",
+ "url",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
+]
+
+[[package]]
+name = "reqwest"
+version = "0.13.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "04e9018c9d814e5f30cc16a0f03271aeab3571e609612d9fe78c1aa8d11c2f62"
+dependencies = [
+ "base64",
+ "bytes",
+ "futures-core",
+ "futures-util",
+ "http",
+ "http-body",
+ "http-body-util",
+ "hyper",
+ "hyper-rustls",
+ "hyper-util",
+ "js-sys",
+ "log",
+ "mime_guess",
+ "percent-encoding",
+ "pin-project-lite",
+ "quinn",
+ "rustls",
+ "rustls-pki-types",
+ "rustls-platform-verifier",
+ "serde",
+ "serde_json",
+ "serde_urlencoded",
+ "sync_wrapper",
+ "tokio",
  "tokio-rustls",
  "tokio-util",
  "tower",
@@ -6813,17 +6846,6 @@ dependencies = [
  "wasm-bindgen-futures",
  "wasm-streams",
  "web-sys",
- "webpki-roots",
-]
-
-[[package]]
-name = "rfc6979"
-version = "0.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f8dd2a808d456c4a54e300a23e9f5a67e122c3024119acbfd73e3bf664491cb2"
-dependencies = [
- "hmac",
- "subtle",
 ]
 
 [[package]]
@@ -6836,7 +6858,7 @@ dependencies = [
  "cfg-if",
  "getrandom 0.2.17",
  "libc",
- "untrusted",
+ "untrusted 0.9.0",
  "windows-sys 0.52.0",
 ]
 
@@ -6894,6 +6916,7 @@ version = "0.23.36"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c665f33d38cea657d9614f766881e4d510e0eda4239891eea56b4cadcf01801b"
 dependencies = [
+ "aws-lc-rs",
  "log",
  "once_cell",
  "ring",
@@ -6926,14 +6949,42 @@ dependencies = [
 ]
 
 [[package]]
+name = "rustls-platform-verifier"
+version = "0.6.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d99feebc72bae7ab76ba994bb5e121b8d83d910ca40b36e0921f53becc41784"
+dependencies = [
+ "core-foundation 0.10.1",
+ "core-foundation-sys",
+ "jni",
+ "log",
+ "once_cell",
+ "rustls",
+ "rustls-native-certs",
+ "rustls-platform-verifier-android",
+ "rustls-webpki",
+ "security-framework 3.5.1",
+ "security-framework-sys",
+ "webpki-root-certs",
+ "windows-sys 0.61.2",
+]
+
+[[package]]
+name = "rustls-platform-verifier-android"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f87165f0995f63a9fbeea62b64d10b4d9d8e78ec6d7d51fb2125fda7bb36788f"
+
+[[package]]
 name = "rustls-webpki"
 version = "0.103.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2ffdfa2f5286e2247234e03f680868ac2815974dc39e00ea15adc445d0aafe52"
 dependencies = [
+ "aws-lc-rs",
  "ring",
  "rustls-pki-types",
- "untrusted",
+ "untrusted 0.9.0",
 ]
 
 [[package]]
@@ -6947,6 +6998,15 @@ name = "ryu"
 version = "1.0.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a50f4cf475b65d88e057964e0e9bb1f0aa9bbb2036dc65c64596b42932536984"
+
+[[package]]
+name = "same-file"
+version = "1.0.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "93fc1dc3aaa9bfed95e02e6eadabb4baf7e3078b0bd1b4d7b6b0b68378900502"
+dependencies = [
+ "winapi-util",
+]
 
 [[package]]
 name = "scc"
@@ -7009,17 +7069,35 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "490dcfcbfef26be6800d11870ff2df8774fa6e86d047e3e8c8a76b25655e41ca"
 
 [[package]]
-name = "sec1"
-version = "0.7.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d3e97a565f76233a6003f9f5c54be1d9c5bdfa3eccfb189469f11ec4901c47dc"
+name = "secret-manager-with-aws-lc-rs"
+version = "0.0.0"
 dependencies = [
- "base16ct",
- "der",
- "generic-array",
- "pkcs8",
- "subtle",
- "zeroize",
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
+]
+
+[[package]]
+name = "secret-manager-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
+]
+
+[[package]]
+name = "secret-manager-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-secret-manager",
+ "tokio",
 ]
 
 [[package]]
@@ -7032,7 +7110,7 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-wkt",
  "lazy_static",
- "reqwest",
+ "reqwest 0.13.1",
  "serde",
  "serde_json",
  "serde_with",
@@ -7367,6 +7445,7 @@ dependencies = [
  "google-cloud-iam-v1",
  "google-cloud-lro",
  "google-cloud-storage",
+ "google-cloud-test-utils",
  "google-cloud-type",
  "google-cloud-wkt",
  "rand 0.9.2",
@@ -7422,6 +7501,38 @@ dependencies = [
  "tracing",
  "tracing-log",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "storage-with-aws-lc-rs"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-storage",
+ "tokio",
+]
+
+[[package]]
+name = "storage-with-default"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "test-metadata",
+ "test-storage",
+ "tokio",
+]
+
+[[package]]
+name = "storage-with-ring"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "rustls",
+ "test-metadata",
+ "test-storage",
+ "tokio",
 ]
 
 [[package]]
@@ -7492,7 +7603,7 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "google-cloud-auth",
- "reqwest",
+ "reqwest 0.13.1",
 ]
 
 [[package]]
@@ -7569,11 +7680,31 @@ dependencies = [
 
 [[package]]
 name = "thiserror"
+version = "1.0.69"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
+dependencies = [
+ "thiserror-impl 1.0.69",
+]
+
+[[package]]
+name = "thiserror"
 version = "2.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4288b5bcbc7920c07a1149a35cf9590a2aa808e0bc1eafaade0b80947865fbc4"
 dependencies = [
- "thiserror-impl",
+ "thiserror-impl 2.0.18",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "1.0.69"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -7682,9 +7813,9 @@ dependencies = [
 
 [[package]]
 name = "tokio-metrics"
-version = "0.4.6"
+version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a34e87dd30650518a4e041bca77c931f3f5a19621eecdcd794f5c1813bca9e98"
+checksum = "f4c2ca6283a34abc77cb58ea83d4a3c40e0162b0095d7a674172a2eed5415197"
 dependencies = [
  "futures-util",
  "pin-project-lite",
@@ -8004,6 +8135,12 @@ checksum = "9312f7c4f6ff9069b165498234ce8be658059c6728633667c526e27dc2cf1df5"
 
 [[package]]
 name = "untrusted"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a156c684c91ea7d62626509bce3cb4e1d9ed5c4d978f7b4352658f96a4c26b4a"
+
+[[package]]
+name = "untrusted"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ecb6da28b8a351d773b68d5825ac39017e680750f980f3a1a85cd8dd28a47c1"
@@ -8045,7 +8182,7 @@ dependencies = [
  "integration-tests",
  "mockall",
  "rand 0.9.2",
- "reqwest",
+ "reqwest 0.13.1",
  "serde_json",
  "storage-samples",
  "tempfile",
@@ -8062,9 +8199,9 @@ checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
 name = "uuid"
-version = "1.19.0"
+version = "1.20.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "e2e054861b4bd027cd373e18e8d8d8e6548085000e41290d95ce0c373a654b4a"
+checksum = "ee48d38b119b0cd71fe4141b30f5ba9c7c5d9f4e7a3a8b4a674e4b6ef789976f"
 dependencies = [
  "getrandom 0.3.4",
  "js-sys",
@@ -8088,6 +8225,16 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "walkdir"
+version = "2.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "29790946404f91d9c5d06f9874efddea1dc06c5efe94541a7d6863108e3a5e4b"
+dependencies = [
+ "same-file",
+ "winapi-util",
+]
 
 [[package]]
 name = "want"
@@ -8205,12 +8352,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "webpki-roots"
+name = "webpki-root-certs"
 version = "1.0.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "12bed680863276c63889429bfd6cab3b99943659923822de1c8a39c49e4d722c"
+checksum = "36a29fc0408b113f68cf32637857ab740edfafdf460c326cd2afaa2d84cc05dc"
 dependencies = [
  "rustls-pki-types",
+]
+
+[[package]]
+name = "winapi-util"
+version = "0.1.11"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c2a7b1c03c876122aa43f3020e6c3c3ee5c05081c9a00739faf7503aeba10d22"
+dependencies = [
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -8274,6 +8430,15 @@ dependencies = [
 
 [[package]]
 name = "windows-sys"
+version = "0.45.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "75283be5efb2831d37ea142365f009c02ec203cd29a3ebecbc093d52315b66d0"
+dependencies = [
+ "windows-targets 0.42.2",
+]
+
+[[package]]
+name = "windows-sys"
 version = "0.52.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "282be5f36a8ce781fad8c8ae18fa3f9beff57ec1b52cb3de0789201425d9a33d"
@@ -8297,6 +8462,21 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ae137229bcbd6cdf0f7b80a31df61766145077ddf49416a728b02cb3921ff3fc"
 dependencies = [
  "windows-link",
+]
+
+[[package]]
+name = "windows-targets"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8e5180c00cd44c9b1c88adb3693291f1cd93605ded80c250a75d472756b4d071"
+dependencies = [
+ "windows_aarch64_gnullvm 0.42.2",
+ "windows_aarch64_msvc 0.42.2",
+ "windows_i686_gnu 0.42.2",
+ "windows_i686_msvc 0.42.2",
+ "windows_x86_64_gnu 0.42.2",
+ "windows_x86_64_gnullvm 0.42.2",
+ "windows_x86_64_msvc 0.42.2",
 ]
 
 [[package]]
@@ -8334,6 +8514,12 @@ dependencies = [
 
 [[package]]
 name = "windows_aarch64_gnullvm"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "597a5118570b68bc08d8d59125332c54f1ba9d9adeedeef5b99b02ba2b0698f8"
+
+[[package]]
+name = "windows_aarch64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32a4622180e7a0ec044bb555404c800bc9fd9ec262ec147edd5989ccd0c02cd3"
@@ -8346,6 +8532,12 @@ checksum = "a9d8416fa8b42f5c947f8482c43e7d89e73a173cead56d044f6a56104a6d1b53"
 
 [[package]]
 name = "windows_aarch64_msvc"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e08e8864a60f06ef0d0ff4ba04124db8b0fb3be5776a5cd47641e942e58c4d43"
+
+[[package]]
+name = "windows_aarch64_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "09ec2a7bb152e2252b53fa7803150007879548bc709c039df7627cabbd05d469"
@@ -8355,6 +8547,12 @@ name = "windows_aarch64_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9d782e804c2f632e395708e99a94275910eb9100b2114651e04744e9b125006"
+
+[[package]]
+name = "windows_i686_gnu"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c61d927d8da41da96a81f029489353e68739737d3beca43145c8afec9a31a84f"
 
 [[package]]
 name = "windows_i686_gnu"
@@ -8382,6 +8580,12 @@ checksum = "fa7359d10048f68ab8b09fa71c3daccfb0e9b559aed648a8f95469c27057180c"
 
 [[package]]
 name = "windows_i686_msvc"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "44d840b6ec649f480a41c8d80f9c65108b92d89345dd94027bfe06ac444d1060"
+
+[[package]]
+name = "windows_i686_msvc"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "240948bc05c5e7c6dabba28bf89d89ffce3e303022809e73deaefe4f6ec56c66"
@@ -8391,6 +8595,12 @@ name = "windows_i686_msvc"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1e7ac75179f18232fe9c285163565a57ef8d3c89254a30685b57d83a38d326c2"
+
+[[package]]
+name = "windows_x86_64_gnu"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8de912b8b8feb55c064867cf047dda097f92d51efad5b491dfb98f6bbb70cb36"
 
 [[package]]
 name = "windows_x86_64_gnu"
@@ -8406,6 +8616,12 @@ checksum = "9c3842cdd74a865a8066ab39c8a7a473c0778a3f29370b5fd6b4b9aa7df4a499"
 
 [[package]]
 name = "windows_x86_64_gnullvm"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26d41b46a36d453748aedef1486d5c7a85db22e56aff34643984ea85514e94a3"
+
+[[package]]
+name = "windows_x86_64_gnullvm"
 version = "0.52.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "24d5b23dc417412679681396f2b49f3de8c1473deb516bd34410872eff51ed0d"
@@ -8415,6 +8631,12 @@ name = "windows_x86_64_gnullvm"
 version = "0.53.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0ffa179e2d07eee8ad8f57493436566c7cc30ac536a3379fdf008f47f6bb7ae1"
+
+[[package]]
+name = "windows_x86_64_msvc"
+version = "0.42.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9aec5da331524158c6d1a4ac0ab1541149c0b9505fde06423b02f5ef0106b9f0"
 
 [[package]]
 name = "windows_x86_64_msvc"

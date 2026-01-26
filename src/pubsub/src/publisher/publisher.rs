@@ -52,6 +52,10 @@ pub struct Publisher {
 impl Publisher {
     /// Publishes a message to the topic.
     ///
+    /// When this method encounters a non-recoverable error publishing for an ordering key,
+    /// it will pause publishing on all new messages on that ordering key. Any outstanding
+    /// messages that have not yet been published may return an error.
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample(publisher: Publisher) -> anyhow::Result<()> {
@@ -117,6 +121,27 @@ impl Publisher {
         }
         rx.await
             .expect("the client library should not release the sender");
+    }
+
+    /// Resume accepting publish for a paused ordering key.
+    ///
+    /// Publishing using an ordering key might be paused if an error is encountered while publishing, to prevent messages from being published out of order.
+    /// If the ordering key is not currently paused, this function is a no-op.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::model::PubsubMessage;
+    /// # async fn sample(publisher: google_cloud_pubsub::client::Publisher) -> anyhow::Result<()> {
+    /// if let Err(_) = publisher.publish(PubsubMessage::new().set_data("foo").set_ordering_key("bar")).await {
+    ///     // Error handling code can go here.
+    ///     publisher.resume_publish("bar");
+    /// }
+    /// # Ok(())
+    /// # }
+    /// ```
+    pub fn resume_publish<T: std::convert::Into<std::string::String>>(&self, ordering_key: T) {
+        let _ = self.tx.send(ToWorker::ResumePublish(ordering_key.into()));
     }
 }
 
@@ -254,7 +279,10 @@ mod tests {
         model::{PublishResponse, PubsubMessage},
     };
     use mockall::Sequence;
+    use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;
+
+    static TOPIC: &str = "my-topic";
 
     mockall::mock! {
         #[derive(Debug)]
@@ -278,28 +306,92 @@ mod tests {
         }
     }
 
+    fn publish_ok(
+        req: crate::model::PublishRequest,
+        _options: gax::options::RequestOptions,
+    ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
+        assert_eq!(req.topic, TOPIC);
+        let ids = req
+            .messages
+            .iter()
+            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
+        Ok(gax::response::Response::from(
+            PublishResponse::new().set_message_ids(ids),
+        ))
+    }
+
+    fn publish_err(
+        req: crate::model::PublishRequest,
+        _options: gax::options::RequestOptions,
+    ) -> gax::Result<gax::response::Response<crate::model::PublishResponse>> {
+        assert_eq!(req.topic, TOPIC);
+        Err(gax::error::Error::service(
+            gax::error::rpc::Status::default()
+                .set_code(gax::error::rpc::Code::Unknown)
+                .set_message("unknown error has occurred"),
+        ))
+    }
+
+    fn generate_random_data() -> String {
+        rand::rng()
+            .sample_iter(&Alphanumeric)
+            .take(16)
+            .map(char::from)
+            .collect()
+    }
+
+    macro_rules! assert_publishing_is_ok {
+        ($publisher:ident, $($ordering_key:expr),+) => {
+            $(
+                let msg = generate_random_data();
+                let got = $publisher
+                    .publish(
+                        PubsubMessage::new()
+                            .set_ordering_key($ordering_key)
+                            .set_data(msg.clone()),
+                    )
+                    .await;
+                assert_eq!(got.expect("expected message id"), msg);
+            )+
+        };
+    }
+
+    macro_rules! assert_publishing_is_paused {
+        ($publisher:ident, $($ordering_key:expr),+) => {
+            $(
+                let got_err = $publisher
+                    .publish(
+                        PubsubMessage::new()
+                            .set_ordering_key($ordering_key)
+                            .set_data(generate_random_data()),
+                    )
+                    .await
+                    .unwrap_err();
+                let source = got_err
+                    .source()
+                    .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
+                assert!(
+                    matches!(
+                        source,
+                        Some(crate::error::PublishError::OrderingKeyPaused(()))
+                    ),
+                    "{got_err:?}"
+                );
+            )+
+        };
+    }
+
     #[tokio::test]
     async fn test_worker_success() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    let id = String::from_utf8(r.messages[0].data.to_vec()).unwrap();
-                    Ok(gax::response::Response::from(
-                        PublishResponse::new().set_message_ids(vec![id]),
-                    ))
-                }
-            })
-            .times(2);
+        mock.expect_publish().returning(publish_ok).times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -321,26 +413,15 @@ mod tests {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
-            }
-        });
+        mock.expect_publish().return_once(publish_ok);
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
             .build();
 
         let start = tokio::time::Instant::now();
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -362,22 +443,14 @@ mod tests {
     #[tokio::test]
     async fn test_worker_error() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish()
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    Err(gax::error::Error::io("io error"))
-                }
-            })
-            .times(2);
+        mock.expect_publish().returning(publish_err).times(2);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -397,28 +470,17 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_worker_flush() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
-            }
-        });
+        mock.expect_publish().returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             // Set a long delay.
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
             .build();
 
         let start = tokio::time::Instant::now();
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -451,30 +513,28 @@ mod tests {
     async fn test_worker_drop_handles() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
-            move |r, _| {
-                assert_eq!(r.topic, "my-topic");
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                assert_eq!(ids.len(), 2);
-                let ids = ids.collect::<Vec<_>>();
-                assert_eq!(ids.clone(), vec!["hello", "world"]);
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
+            move |r, o| {
+                assert_eq!(r.messages.len(), 2);
+                assert_eq!(
+                    r.messages,
+                    vec![
+                        PubsubMessage::new().set_data("hello"),
+                        PubsubMessage::new().set_data("world")
+                    ]
+                );
+                publish_ok(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             // Set a long delay.
             .set_message_count_threshold(1000_u32)
             .set_delay_threshold(Duration::from_secs(60))
             .build();
 
         let start = tokio::time::Instant::now();
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -491,7 +551,7 @@ mod tests {
         let mock = MockGapicPublisher::new();
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string()).build();
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
 
         let start = tokio::time::Instant::now();
         publisher.flush().await;
@@ -503,27 +563,20 @@ mod tests {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
+                publish_ok(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -545,21 +598,20 @@ mod tests {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
-                Err(gax::error::Error::io("io error"))
+                publish_err(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -580,29 +632,22 @@ mod tests {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
+                publish_ok(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
         // Ensure that the first message does not pass the threshold.
-        let byte_threshold = "my-topic".len() + "hello".len() + 1;
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let byte_threshold = TOPIC.len() + "hello".len() + 1;
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(MAX_MESSAGES)
             .set_byte_threshold(byte_threshold as u32)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
         ];
@@ -622,22 +667,11 @@ mod tests {
     #[tokio::test(start_paused = true)]
     async fn test_batching_send_on_delay_threshold() {
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().returning({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
-            }
-        });
+        mock.expect_publish().returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
         let delay = std::time::Duration::from_millis(10);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(u32::MAX)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(delay)
@@ -646,7 +680,7 @@ mod tests {
         // Test that messages send after delay.
         for _ in 0..3 {
             let start = tokio::time::Instant::now();
-            let messages = vec![
+            let messages = [
                 PubsubMessage::new().set_data("hello 0"),
                 PubsubMessage::new().set_data("hello 1"),
                 PubsubMessage::new()
@@ -682,27 +716,20 @@ mod tests {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
                 assert_eq!(
                     r.messages.get(0).unwrap().ordering_key,
                     r.messages.get(1).unwrap().ordering_key
                 );
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
+                publish_ok(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
         let message_count_threshold = 2_u32;
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(message_count_threshold)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -739,32 +766,25 @@ mod tests {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
                 assert_eq!(
                     r.messages.get(0).unwrap().ordering_key,
                     r.messages.get(1).unwrap().ordering_key
                 );
-                let ids = r
-                    .messages
-                    .iter()
-                    .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                Ok(gax::response::Response::from(
-                    PublishResponse::new().set_message_ids(ids),
-                ))
+                publish_ok(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(2_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
             .build();
 
-        let messages = vec![
+        let messages = [
             PubsubMessage::new().set_data("hello 1"),
             PubsubMessage::new()
                 .set_data("hello 2")
@@ -802,18 +822,11 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning({
-                |r, _| {
+                |r, o| {
                     Box::pin(async move {
                         tokio::time::sleep(Duration::from_millis(10)).await;
-                        assert_eq!(r.topic, "my-topic");
                         assert_eq!(r.messages.len(), 1);
-                        let ids = r
-                            .messages
-                            .iter()
-                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                        Ok(gax::response::Response::from(
-                            PublishResponse::new().set_message_ids(ids),
-                        ))
+                        publish_ok(r, o)
                     })
                 }
             });
@@ -822,24 +835,17 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning({
-                |r, _| {
+                |r, o| {
                     Box::pin(async move {
-                        assert_eq!(r.topic, "my-topic");
                         assert_eq!(r.messages.len(), 1);
-                        let ids = r
-                            .messages
-                            .iter()
-                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                        Ok(gax::response::Response::from(
-                            PublishResponse::new().set_message_ids(ids),
-                        ))
+                        publish_ok(r, o)
                     })
                 }
             });
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -881,18 +887,11 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning({
-                |r, _| {
+                |r, o| {
                     Box::pin(async move {
                         tokio::time::sleep(Duration::from_millis(10)).await;
-                        assert_eq!(r.topic, "my-topic");
                         assert_eq!(r.messages.len(), 1);
-                        let ids = r
-                            .messages
-                            .iter()
-                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                        Ok(gax::response::Response::from(
-                            PublishResponse::new().set_message_ids(ids),
-                        ))
+                        publish_ok(r, o)
                     })
                 }
             });
@@ -901,24 +900,18 @@ mod tests {
             .times(1)
             .in_sequence(&mut seq)
             .returning({
-                |r, _| {
+                |r, o| {
                     Box::pin(async move {
-                        assert_eq!(r.topic, "my-topic");
+                        assert_eq!(r.topic, TOPIC);
                         assert_eq!(r.messages.len(), 1);
-                        let ids = r
-                            .messages
-                            .iter()
-                            .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                        Ok(gax::response::Response::from(
-                            PublishResponse::new().set_message_ids(ids),
-                        ))
+                        publish_ok(r, o)
                     })
                 }
             });
 
         let client = GapicPublisher::from_stub(mock);
         // Use a low message count to trigger batch sends.
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1_u32)
             .set_byte_threshold(MAX_BYTES)
             .set_delay_threshold(std::time::Duration::MAX)
@@ -985,51 +978,24 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    Err(gax::error::Error::service(
-                        gax::error::rpc::Status::default()
-                            .set_code(gax::error::rpc::Code::Unknown)
-                            .set_message("unknown error has occurred"),
-                    ))
-                }
-            });
+            .returning(publish_err);
 
         mock.expect_publish()
             .times(2)
             .in_sequence(&mut seq)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    let ids = r
-                        .messages
-                        .iter()
-                        .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                    Ok(gax::response::Response::from(
-                        PublishResponse::new().set_message_ids(ids),
-                    ))
-                }
-            });
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1_u32)
             .build();
 
-        let msg_0_handle = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 0"),
-        );
+        let key = "ordering_key";
+        let msg_0_handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
         // Publish an additional message so that there's an additional pending message in the worker.
-        let msg_1_handle = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 1"),
-        );
+        let msg_1_handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 1"));
 
         // Assert the error is caused by the Publish send operation.
         let mut got_err = msg_0_handle.await.unwrap_err();
@@ -1050,45 +1016,12 @@ mod tests {
         );
 
         // Assert that new publish messages return errors because the Publisher is paused.
-        let paused_messages = [
-            PubsubMessage::new()
-                .set_data("hello pause 0")
-                .set_ordering_key("ordering key with error"),
-            PubsubMessage::new()
-                .set_data("hello pause 1")
-                .set_ordering_key("ordering key with error"),
-            PubsubMessage::new()
-                .set_data("hello pause 2")
-                .set_ordering_key("ordering key with error"),
-        ];
-        for msg in paused_messages {
-            got_err = publisher.publish(msg.clone()).await.unwrap_err();
-            let source = got_err
-                .source()
-                .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
-            assert!(
-                matches!(
-                    source,
-                    Some(crate::error::PublishError::OrderingKeyPaused(()))
-                ),
-                "{got_err:?}"
-            );
+        for _ in 0..3 {
+            assert_publishing_is_paused!(publisher, key);
         }
 
         // Verify that the other ordering keys are not paused.
-        let mut got = publisher
-            .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 3"))
-            .await;
-        assert_eq!(got.expect("expected message id"), "msg 3");
-
-        got = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key("ordering key without error")
-                    .set_data("msg 4"),
-            )
-            .await;
-        assert_eq!(got.expect("expected message id"), "msg 4");
+        assert_publishing_is_ok!(publisher, "", "without_error");
     }
 
     #[tokio::test(start_paused = true)]
@@ -1096,33 +1029,23 @@ mod tests {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().times(1).returning({
-            |r, _| {
-                assert_eq!(r.topic, "my-topic");
+            |r, o| {
                 assert_eq!(r.messages.len(), 2);
-                Err(gax::error::Error::service(
-                    gax::error::rpc::Status::default()
-                        .set_code(gax::error::rpc::Code::Unknown)
-                        .set_message("unknown error has occurred"),
-                ))
+                publish_err(r, o)
             }
         });
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(2_u32)
             .build();
 
+        let key = "ordering_key";
         // Publish 2 messages so they are in the same batch.
-        let msg_0_handle = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 0"),
-        );
-        let msg_1_handle = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 1"),
-        );
+        let msg_0_handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        let msg_1_handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 1"));
 
         // Validate that they both receives the Send error.
         // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
@@ -1132,24 +1055,7 @@ mod tests {
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Assert that new publish messages returns an error because the Publisher is paused.
-        got_err = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key("ordering key with error")
-                    .set_data("msg 2"),
-            )
-            .await
-            .unwrap_err();
-        let source = got_err
-            .source()
-            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
-        assert!(
-            matches!(
-                source,
-                Some(crate::error::PublishError::OrderingKeyPaused(()))
-            ),
-            "{got_err:?}"
-        );
+        assert_publishing_is_paused!(publisher, key);
     }
 
     #[tokio::test(start_paused = true)]
@@ -1160,88 +1066,183 @@ mod tests {
         mock.expect_publish()
             .times(1)
             .in_sequence(&mut seq)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    Err(gax::error::Error::service(
-                        gax::error::rpc::Status::default()
-                            .set_code(gax::error::rpc::Code::Unknown)
-                            .set_message("unknown error has occurred"),
-                    ))
-                }
-            });
+            .returning(publish_err);
 
         mock.expect_publish()
             .times(2)
             .in_sequence(&mut seq)
-            .returning({
-                |r, _| {
-                    assert_eq!(r.topic, "my-topic");
-                    assert_eq!(r.messages.len(), 1);
-                    let ids = r
-                        .messages
-                        .iter()
-                        .map(|m| String::from_utf8(m.data.to_vec()).unwrap());
-                    Ok(gax::response::Response::from(
-                        PublishResponse::new().set_message_ids(ids),
-                    ))
-                }
-            });
+            .returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
-        let publisher = PublisherPartialBuilder::new(client, "my-topic".to_string())
-            .set_message_count_threshold(MAX_MESSAGES)
-            .set_byte_threshold(MAX_BYTES)
-            .set_delay_threshold(std::time::Duration::from_millis(10))
-            .build();
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
 
-        // Cause "ordering key with error" ordering key to pause.
-        let handle = publisher.publish(
-            PubsubMessage::new()
-                .set_ordering_key("ordering key with error")
-                .set_data("msg 0"),
-        );
+        let key = "ordering_key";
+        // Cause an ordering key to be paused.
+        let handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
         publisher.flush().await;
         // Assert the error is caused by the Publish send operation.
-        let mut got_err = handle.await.unwrap_err();
+        let got_err = handle.await.unwrap_err();
         // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
         assert!(got_err.is_transport(), "{got_err:?}");
 
         // Validate that new Publish on the paused ordering key will result in an error.
-        got_err = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key("ordering key with error")
-                    .set_data("msg 1"),
-            )
-            .await
-            .unwrap_err();
-        let source = got_err
-            .source()
-            .and_then(|e| e.downcast_ref::<crate::error::PublishError>());
-        assert!(
-            matches!(
-                source,
-                Some(crate::error::PublishError::OrderingKeyPaused(()))
-            ),
-            "{got_err:?}"
-        );
+        assert_publishing_is_paused!(publisher, key);
 
         // Verify that the other ordering keys are not paused.
-        let mut got = publisher
-            .publish(PubsubMessage::new().set_ordering_key("").set_data("msg 2"))
-            .await;
-        assert_eq!(got.expect("expected message id"), "msg 2");
+        assert_publishing_is_ok!(publisher, "", "without_error");
+    }
 
-        got = publisher
-            .publish(
-                PubsubMessage::new()
-                    .set_ordering_key("ordering key without error")
-                    .set_data("msg 3"),
-            )
-            .await;
-        assert_eq!(got.expect("expected message id"), "msg 3");
+    #[tokio::test(start_paused = true)]
+    async fn test_ordering_resume_without_error() {
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish().times(4).returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
+
+        // Test resume and publish for empty ordering key.
+        publisher.resume_publish("");
+        assert_publishing_is_ok!(publisher, "");
+
+        // Test resume and publish after the BatchWorker has been created for the empty ordering key.
+        publisher.resume_publish("");
+        assert_publishing_is_ok!(publisher, "");
+
+        // Test resume and publish before the BatchWorker has been created.
+        let key = "without_error";
+        publisher.resume_publish(key);
+        assert_publishing_is_ok!(publisher, key);
+
+        // Test resume and publish after the BatchWorker has been created.
+        publisher.resume_publish(key);
+        assert_publishing_is_ok!(publisher, key);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_ordering_resume_publish() {
+        let mut seq = Sequence::new();
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(publish_err);
+
+        mock.expect_publish()
+            .times(3)
+            .in_sequence(&mut seq)
+            .returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
+
+        let key = "ordering_key";
+        // Cause an ordering key to be paused.
+        let handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        // Assert the error is caused by the Publish send operation.
+        let got_err = handle.await.unwrap_err();
+        // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
+        assert!(got_err.is_transport(), "{got_err:?}");
+
+        // Validate that new Publish on the paused ordering key will result in an error.
+        assert_publishing_is_paused!(publisher, key);
+
+        // Resume and validate the key is no longer paused.
+        publisher.resume_publish(key);
+        assert_publishing_is_ok!(publisher, key);
+
+        // Verify that the other ordering keys continue to work as expected.
+        assert_publishing_is_ok!(publisher, "", "without_error");
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_ordering_resume_twice() {
+        // Validate that resuming twice sequentially does not have bad side effects.
+        let mut seq = Sequence::new();
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(publish_err);
+
+        mock.expect_publish()
+            .times(3)
+            .in_sequence(&mut seq)
+            .returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
+
+        let key = "ordering_key";
+        // Cause an ordering key to be paused.
+        let handle =
+            publisher.publish(PubsubMessage::new().set_ordering_key(key).set_data("msg 0"));
+        publisher.flush().await;
+        // Assert the error is caused by the Publish send operation.
+        let got_err = handle.await.unwrap_err();
+        // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
+        assert!(got_err.is_transport(), "{got_err:?}");
+
+        // Validate that new Publish on the paused ordering key will result in an error.
+        assert_publishing_is_paused!(publisher, key);
+
+        // Resume twice on the paused ordering key.
+        publisher.resume_publish(key);
+        publisher.resume_publish(key);
+        assert_publishing_is_ok!(publisher, key);
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn test_ordering_resume_isolated() {
+        // Validate that resume_publish only resumes the paused ordering key .
+        let mut seq = Sequence::new();
+        let mut mock = MockGapicPublisher::new();
+        mock.expect_publish()
+            .times(2)
+            .in_sequence(&mut seq)
+            .returning(publish_err);
+
+        mock.expect_publish()
+            .times(1)
+            .in_sequence(&mut seq)
+            .returning(publish_ok);
+
+        let client = GapicPublisher::from_stub(mock);
+        let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string()).build();
+
+        let key_0 = "ordering_key_0";
+        let key_1 = "ordering_key_1";
+        // Cause both ordering keys to pause.
+        let handle_0 = publisher.publish(
+            PubsubMessage::new()
+                .set_ordering_key(key_0)
+                .set_data("msg 0"),
+        );
+        let handle_1 = publisher.publish(
+            PubsubMessage::new()
+                .set_ordering_key(key_1)
+                .set_data("msg 1"),
+        );
+        publisher.flush().await;
+        let mut got_err = handle_0.await.unwrap_err();
+        // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
+        assert!(got_err.is_transport(), "{got_err:?}");
+        got_err = handle_1.await.unwrap_err();
+        // TODO(#3689): Validate the error structure when Publisher error structure is better defined.
+        assert!(got_err.is_transport(), "{got_err:?}");
+
+        // Assert that both ordering keys are paused.
+        assert_publishing_is_paused!(publisher, key_0, key_1);
+
+        // Resume on one of the ordering key.
+        publisher.resume_publish(key_0);
+
+        // Validate that only the correct ordering key is resumed.
+        assert_publishing_is_ok!(publisher, key_0);
+
+        // Validate the other ordering key is still paused.
+        assert_publishing_is_paused!(publisher, key_1);
     }
 
     #[tokio::test]

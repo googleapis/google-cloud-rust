@@ -45,29 +45,41 @@ The main types to work with this crate are the clients:
 - [Tools]: enabled by the `tools` feature.
 - [Versions]: enabled by the `versions` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/1.5.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dialogflow-v2/1.6.0)
 
-[Agents]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Agents.html
-[AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html
-[Contexts]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Contexts.html
-[Conversations]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Conversations.html
-[ConversationDatasets]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.ConversationDatasets.html
-[ConversationModels]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.ConversationModels.html
-[ConversationProfiles]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.ConversationProfiles.html
-[Documents]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Documents.html
-[EncryptionSpecService]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.EncryptionSpecService.html
-[EntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.EntityTypes.html
-[Environments]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Environments.html
-[Fulfillments]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Fulfillments.html
-[Generators]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Generators.html
-[GeneratorEvaluations]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.GeneratorEvaluations.html
-[Intents]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Intents.html
-[KnowledgeBases]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.KnowledgeBases.html
-[Participants]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Participants.html
-[Sessions]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Sessions.html
-[SessionEntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.SessionEntityTypes.html
-[SipTrunks]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.SipTrunks.html
-[Tools]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Tools.html
-[Versions]: https://docs.rs/google-cloud-dialogflow-v2/1.5.0/google_cloud_dialogflow_v2/client/struct.Versions.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[Agents]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Agents.html
+[AnswerRecords]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.AnswerRecords.html
+[Contexts]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Contexts.html
+[Conversations]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Conversations.html
+[ConversationDatasets]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.ConversationDatasets.html
+[ConversationModels]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.ConversationModels.html
+[ConversationProfiles]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.ConversationProfiles.html
+[Documents]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Documents.html
+[EncryptionSpecService]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.EncryptionSpecService.html
+[EntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.EntityTypes.html
+[Environments]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Environments.html
+[Fulfillments]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Fulfillments.html
+[Generators]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Generators.html
+[GeneratorEvaluations]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.GeneratorEvaluations.html
+[Intents]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Intents.html
+[KnowledgeBases]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.KnowledgeBases.html
+[Participants]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Participants.html
+[Sessions]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Sessions.html
+[SessionEntityTypes]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.SessionEntityTypes.html
+[SipTrunks]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.SipTrunks.html
+[Tools]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Tools.html
+[Versions]: https://docs.rs/google-cloud-dialogflow-v2/1.6.0/google_cloud_dialogflow_v2/client/struct.Versions.html

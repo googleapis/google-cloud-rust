@@ -24,16 +24,26 @@ The main types to work with this crate are the clients:
 - [ResponsePolicies]
 - [ResponsePolicyRules]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-dns-v1/0.0.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dns-v1/1.0.0)
 
-[Changes]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.Changes.html
-[DnsKeys]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.DnsKeys.html
-[ManagedZoneOperations]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ManagedZoneOperations.html
-[ManagedZones]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ManagedZones.html
-[Policies]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.Policies.html
-[Projects]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.Projects.html
-[ResourceRecordSets]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResourceRecordSets.html
-[ResponsePolicies]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResponsePolicies.html
-[ResponsePolicyRules]: https://docs.rs/google-cloud-dns-v1/0.0.0/google_cloud_dns_v1/client/struct.ResponsePolicyRules.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[Changes]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.Changes.html
+[DnsKeys]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.DnsKeys.html
+[ManagedZoneOperations]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.ManagedZoneOperations.html
+[ManagedZones]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.ManagedZones.html
+[Policies]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.Policies.html
+[Projects]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.Projects.html
+[ResourceRecordSets]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.ResourceRecordSets.html
+[ResponsePolicies]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.ResponsePolicies.html
+[ResponsePolicyRules]: https://docs.rs/google-cloud-dns-v1/1.0.0/google_cloud_dns_v1/client/struct.ResponsePolicyRules.html

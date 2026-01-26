@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [Locations]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-location/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-location/1.4.0)
 
-[Locations]: https://docs.rs/google-cloud-location/1.3.0/google_cloud_location/client/struct.Locations.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[Locations]: https://docs.rs/google-cloud-location/1.4.0/google_cloud_location/client/struct.Locations.html

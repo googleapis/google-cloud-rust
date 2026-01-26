@@ -26,15 +26,25 @@ The main types to work with this crate are the clients:
 - [Tasks]
 - [WorkerPools]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-run-v2/1.5.0)
 
-[Builds]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Builds.html
-[Executions]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Executions.html
-[Instances]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Instances.html
-[Jobs]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Jobs.html
-[Revisions]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Revisions.html
-[Services]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Services.html
-[Tasks]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.Tasks.html
-[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.4.0/google_cloud_run_v2/client/struct.WorkerPools.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[Builds]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Builds.html
+[Executions]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Executions.html
+[Instances]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Instances.html
+[Jobs]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Jobs.html
+[Revisions]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Revisions.html
+[Services]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Services.html
+[Tasks]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.Tasks.html
+[WorkerPools]: https://docs.rs/google-cloud-run-v2/1.5.0/google_cloud_run_v2/client/struct.WorkerPools.html

@@ -12,4 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod random_chars;
 pub mod test_layer;

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::as_inner::as_inner;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
@@ -337,26 +338,8 @@ impl ReqwestClient {
     }
 }
 
-fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
-where
-    E: std::error::Error + 'static,
-{
-    use std::error::Error as _;
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<E>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
-}
-
 pub fn map_send_error(err: reqwest::Error) -> Error {
-    if let Some(e) = as_inner::<hyper::Error>(&err) {
+    if let Some(e) = as_inner::<hyper::Error, _>(&err) {
         if e.is_user() {
             return Error::ser(err);
         }

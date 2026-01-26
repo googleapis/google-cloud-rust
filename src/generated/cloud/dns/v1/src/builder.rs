@@ -1641,6 +1641,42 @@ pub mod managed_zones {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `patch`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let managed_zone = self.0.request.managed_zone.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                let managed_zone = managed_zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_managed_zone(managed_zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [client_operation_id][crate::model::managed_zones::PatchRequest::client_operation_id].
         pub fn set_client_operation_id<T>(mut self, v: T) -> Self
         where
@@ -1910,6 +1946,42 @@ pub mod managed_zones {
                 .map(gax::response::Response::into_body)
         }
 
+        /// Creates a [Poller][lro::Poller] to work with `update`.
+        pub fn poller(self) -> impl lro::Poller<crate::model::Operation, crate::model::Operation> {
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let project = self.0.request.project.clone();
+            let managed_zone = self.0.request.managed_zone.clone();
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                let project = project.clone();
+                let managed_zone = managed_zone.clone();
+                async {
+                    GetOperation::new(stub)
+                        .set_project(project)
+                        .set_managed_zone(managed_zone)
+                        .set_operation(name)
+                        .with_options(options)
+                        .send()
+                        .await
+                }
+            };
+
+            let start = move || async { self.send().await };
+
+            lro::internal::new_discovery_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
         /// Sets the value of [client_operation_id][crate::model::managed_zones::UpdateRequest::client_operation_id].
         pub fn set_client_operation_id<T>(mut self, v: T) -> Self
         where
@@ -1961,6 +2033,99 @@ pub mod managed_zones {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for Update {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ManagedZones::get_operation][crate::client::ManagedZones::get_operation] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_dns_v1::builder::managed_zones::GetOperation;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetOperation {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetOperation(RequestBuilder<crate::model::managed_zone_operations::GetRequest>);
+
+    impl GetOperation {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ManagedZones>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::managed_zone_operations::GetRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::Operation> {
+            (*self.0.stub)
+                .get_operation(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [client_operation_id][crate::model::managed_zone_operations::GetRequest::client_operation_id].
+        pub fn set_client_operation_id<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.client_operation_id = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [client_operation_id][crate::model::managed_zone_operations::GetRequest::client_operation_id].
+        pub fn set_or_clear_client_operation_id<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<std::string::String>,
+        {
+            self.0.request.client_operation_id = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [managed_zone][crate::model::managed_zone_operations::GetRequest::managed_zone].
+        pub fn set_managed_zone<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.managed_zone = v.into();
+            self
+        }
+
+        /// Sets the value of [operation][crate::model::managed_zone_operations::GetRequest::operation].
+        pub fn set_operation<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.operation = v.into();
+            self
+        }
+
+        /// Sets the value of [project][crate::model::managed_zone_operations::GetRequest::project].
+        pub fn set_project<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.project = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetOperation {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

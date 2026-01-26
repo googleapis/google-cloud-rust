@@ -20,10 +20,8 @@ use semver::{Comparator, Op};
 
 const RING_CRATE_NAME: &str = "ring";
 const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
-// TODO(#4170) - will become "default-tls" with reqwest 0.13.0
-const REQWEST_DEFAULT_FEATURE: &str = "rustls-tls";
-// TODO(#4170) - will become aws-lc-rs
-const RUSTLS_DEFAULT_FEATURE: &str = "ring";
+const REQWEST_DEFAULT_FEATURE: &str = "default-tls";
+const RUSTLS_DEFAULT_FEATURE: &str = "aws-lc-rs";
 // Use `google-cloud-auth` to find the versions of key dependencies. Changing
 // this test code as we update the dependency requirements (via renovatebot)
 // it would be tedious to manual update this code too.
@@ -39,10 +37,10 @@ pub fn has_default_crypto_provider(cargo: &str, dir: &str) -> anyhow::Result<()>
     if !features.contains(&FeatureName::new(RUSTLS_DEFAULT_FEATURE.to_string())) {
         bail!("rustls should have {RUSTLS_DEFAULT_FEATURE} enabled")
     }
-    only_ring(cargo, dir)
+    only_aws_lc_rs(cargo, dir, true)
 }
 
-pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
+pub fn only_aws_lc_rs(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
     use std::process::Stdio;
     let output = std::process::Command::new(cargo)
         .args(["tree"])
@@ -53,11 +51,9 @@ pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
         bail!("cargo tree failed: {output:?}")
     }
     let stdout = String::try_from(output.stdout)?;
-    // TODO(#4170) - enable this code
-    // if stdout.contains(format!(" {RING_CRATE_NAME} ").as_str())
-    // {
-    //     bail!("{RING_CRATE_NAME} should **not** be a dependency")
-    // }
+    if pruned && stdout.contains(format!(" {RING_CRATE_NAME} ").as_str()) {
+        bail!("{RING_CRATE_NAME} should **not** be a dependency")
+    }
     if !stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
         bail!(
             "{AWS_LC_RS_CRATE_NAME} should be a dependency: {}",
@@ -67,7 +63,7 @@ pub fn only_aws_lc_rs(cargo: &str, dir: &str) -> anyhow::Result<()> {
     Ok(())
 }
 
-pub fn only_ring(cargo: &str, dir: &str) -> anyhow::Result<()> {
+pub fn only_ring(cargo: &str, dir: &str, pruned: bool) -> anyhow::Result<()> {
     use std::process::Stdio;
     let output = std::process::Command::new(cargo)
         .args(["tree"])
@@ -81,18 +77,16 @@ pub fn only_ring(cargo: &str, dir: &str) -> anyhow::Result<()> {
     if !stdout.contains(format!(" {RING_CRATE_NAME} ").as_str()) {
         bail!("{RING_CRATE_NAME} should be a dependency")
     }
-    // TODO(#4170) - enable this code
-    // if stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str())
-    // {
-    //     bail!("{AWS_LC_RS_CRATE_NAME} should **not** be a dependency")
-    // }
+    if pruned && stdout.contains(format!(" {AWS_LC_RS_CRATE_NAME} ").as_str()) {
+        bail!("{AWS_LC_RS_CRATE_NAME} should **not** be a dependency")
+    }
     Ok(())
 }
 
 /// This function returns an error if the jsonwebtoken crate is not configured
 /// with the default backend.
 pub fn idtoken_has_default_backend() -> anyhow::Result<()> {
-    idtoken_has_rust_crypto_backend()
+    idtoken_has_aws_lc_rs_backend()
 }
 
 /// This function returns an error if the jsonwebtoken crate is not configured

@@ -19,7 +19,7 @@ name        = "google-cloud-lro"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version = "1.2.0"
+version = "1.3.0"
 # Inherit other attributes from the workspace.
 authors.workspace      = true
 categories.workspace   = true
@@ -64,5 +64,9 @@ tokio                = { workspace = true, features = ["test-util"] }
 tokio-test.workspace = true
 # Local dependencies
 auth.workspace = true
-gaxi.workspace = true
-lro            = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
+# reqwest panics if (1) configured to support TLS and (2) no default crypto
+# provider is configured via features or installed at runtime. Even if reqwest
+# is being used without TLS. Enabling the default provider in tests to
+# workaround this issue.
+gaxi = { workspace = true, features = ["_default-rustls-provider"] }
+lro  = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }

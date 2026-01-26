@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dialogflow-cx-v3"
-version                = "1.5.0"
+version                = "1.6.0"
 description            = "Google Cloud Client Libraries for Rust - Dialogflow API"
 edition.workspace      = true
 authors.workspace      = true
@@ -30,6 +30,7 @@ rust-version.workspace = true
 default = [
   "agents",
   "changelogs",
+  "default-rustls-provider",
   "deployments",
   "entity-types",
   "environments",
@@ -49,6 +50,11 @@ default = [
   "versions",
   "webhooks",
 ]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
 # Enables `client::Changelogs` and all the types it depends on.
