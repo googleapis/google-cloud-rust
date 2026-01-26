@@ -35,17 +35,13 @@
 //!   verify [OIDC ID Tokens].
 //! - `default-idtoken-backend`: enabled by default, this feature enables a default
 //!   backend for the `idtoken` feature. Currently the feature is implemented using
-//!   the [jsonwebtoken] crate and uses `aws-lc-rs` as its default backend. We may
-//!   change the default backend at any time, applications that have specific needs
-//!   for this backend should not rely on the current default. To control the
-//!   backend selection:
+//!   the [rsa] crate.
 //!   - Configure this crate with `default-features = false`, and
 //!     `features = ["idtoken"]`
-//!   - Select the desired backend for `jsonwebtoken`.
 //!
 //! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [ring]: https://crates.io/crates/ring
-//! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
+//! [rsa]: https://crates.io/crates/rsa
 //! [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Authentication methods at Google]: https://cloud.google.com/docs/authentication
 //! [Principals]: https://cloud.google.com/docs/authentication#principal

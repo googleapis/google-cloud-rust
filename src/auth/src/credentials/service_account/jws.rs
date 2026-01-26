@@ -14,7 +14,7 @@
 
 use crate::credentials::Result;
 use crate::errors;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::time::Duration;
 use time::OffsetDateTime;
 
@@ -69,12 +69,12 @@ impl JwsClaims {
 }
 
 /// The header that describes who, what, and how a token was created.
-#[derive(Serialize)]
+#[derive(Serialize, Deserialize, Debug)]
 pub struct JwsHeader<'a> {
     pub alg: &'a str,
     pub typ: &'a str,
-    #[serde(skip_serializing_if = "str::is_empty")]
-    pub kid: &'a str,
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub kid: Option<String>,
 }
 
 impl JwsHeader<'_> {
@@ -210,7 +210,7 @@ mod tests {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: "some_key_id",
+            kid: Some("some_key_id".to_string()),
         };
         let encoded = header.encode().unwrap();
         let decoded = String::from_utf8(
@@ -231,7 +231,7 @@ mod tests {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: "",
+            kid: None,
         };
         let encoded = header.encode().unwrap();
         let decoded = String::from_utf8(
