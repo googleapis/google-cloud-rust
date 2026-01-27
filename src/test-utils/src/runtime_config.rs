@@ -14,28 +14,92 @@
 
 use anyhow::Result;
 
+const PROJECT_VAR: &str = "GOOGLE_CLOUD_PROJECT";
+const ACCOUNT_VAR: &str = "GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT";
+const REGION_VAR: &str = "GOOGLE_CLOUD_RUST_TEST_REGION";
+const ZONE_VAR: &str = "GOOGLE_CLOUD_RUST_TEST_ZONE";
+const DEFAULT_REGION: &str = "us-central1";
+const DEFAULT_ZONE: &str = "us-central1-a";
+
 /// Returns the project id used for the integration tests.
 pub fn project_id() -> Result<String> {
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-    Ok(project_id)
+    std::env::var(PROJECT_VAR).map_err(anyhow::Error::from)
 }
 
 /// Returns an existing, but disabled service account.
 pub fn test_service_account() -> Result<String> {
-    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
-    Ok(value)
+    std::env::var(ACCOUNT_VAR).map_err(anyhow::Error::from)
 }
 
 /// Returns the preferred region id used for the integration tests.
 pub fn region_id() -> String {
-    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+    std::env::var(REGION_VAR)
         .ok()
-        .unwrap_or("us-central1".to_string())
+        .unwrap_or(DEFAULT_REGION.to_string())
 }
 
 /// Returns the preferred zone id used for the integration tests.
 pub fn zone_id() -> String {
-    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
+    std::env::var(ZONE_VAR)
         .ok()
-        .unwrap_or("us-central1-a".to_string())
+        .unwrap_or(DEFAULT_ZONE.to_string())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use scoped_env::ScopedEnv;
+    use serial_test::serial;
+
+    #[serial]
+    #[test]
+    fn project() {
+        let _env = ScopedEnv::remove(PROJECT_VAR);
+        let got = project_id();
+        assert!(got.is_err(), "{got:?}");
+        let _env = ScopedEnv::set(PROJECT_VAR, "abc");
+        let got = project_id();
+        assert!(got.as_ref().is_ok_and(|v| v == "abc"), "{got:?}");
+    }
+
+    #[serial]
+    #[test]
+    fn account() {
+        let _env = ScopedEnv::remove(ACCOUNT_VAR);
+        let got = test_service_account();
+        assert!(got.is_err(), "{got:?}");
+        let _env = ScopedEnv::set(ACCOUNT_VAR, "abc");
+        let got = test_service_account();
+        assert!(got.as_ref().is_ok_and(|v| v == "abc"), "{got:?}");
+    }
+
+    #[test]
+    fn region_is_prefix() {
+        assert!(
+            DEFAULT_ZONE.strip_prefix(DEFAULT_REGION).is_some(),
+            "default region ({DEFAULT_REGION}) should be a prefix of the default zone ({DEFAULT_ZONE})"
+        );
+    }
+
+    #[serial]
+    #[test]
+    fn region() {
+        let _env = ScopedEnv::remove(REGION_VAR);
+        let got = region_id();
+        assert_eq!(got, DEFAULT_REGION);
+        let _env = ScopedEnv::set(REGION_VAR, "abc");
+        let got = region_id();
+        assert_eq!(got, "abc");
+    }
+
+    #[serial]
+    #[test]
+    fn zone() {
+        let _env = ScopedEnv::remove(ZONE_VAR);
+        let got = zone_id();
+        assert_eq!(got, DEFAULT_ZONE);
+        let _env = ScopedEnv::set(ZONE_VAR, "abc");
+        let got = zone_id();
+        assert_eq!(got, "abc");
+    }
 }
