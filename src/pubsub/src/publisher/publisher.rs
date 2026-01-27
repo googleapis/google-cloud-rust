@@ -413,7 +413,6 @@ mod tests {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
-        // mock.expect_publish().returning(publish_ok);
         mock.expect_publish().times(2).returning(publish_ok);
 
         let client = GapicPublisher::from_stub(mock);
