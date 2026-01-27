@@ -12,7 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_tracing)]
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+#[cfg(google_cloud_unstable_tracing)]
 use google_cloud_showcase_v1beta1::client::Echo;
 
 /// Validates that HTTP tracing makes it all the way to OTLP collectors like
