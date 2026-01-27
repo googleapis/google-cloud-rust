@@ -70,7 +70,7 @@
 //! [Service Account]: https://cloud.google.com/iam/docs/service-account-overview
 //! [service account key]: https://cloud.google.com/iam/docs/keys-create-delete#creating
 
-mod jws;
+pub(crate) mod jws;
 
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
@@ -549,7 +549,7 @@ impl ServiceAccountTokenGenerator {
         let header = JwsHeader {
             alg: "RS256",
             typ: "JWT",
-            kid: &self.service_account_key.private_key_id,
+            kid: Some(self.service_account_key.private_key_id.clone()),
         };
         let encoded_header_claims = format!("{}.{}", header.encode()?, claims.encode()?);
         let sig = signer
