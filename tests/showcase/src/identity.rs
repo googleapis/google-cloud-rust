@@ -12,14 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use super::{Anonymous, NeverRetry};
 use crate::Result;
-use showcase::model::*;
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_showcase_v1beta1::client::Identity;
+use google_cloud_showcase_v1beta1::model::*;
+use google_cloud_wkt::FieldMask;
 
 pub async fn run() -> Result<()> {
-    let client = showcase::client::Identity::builder()
+    let client = Identity::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
-        .with_retry_policy(gax::retry_policy::NeverRetry)
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(NeverRetry)
         .with_tracing()
         .build()
         .await?;
@@ -33,7 +37,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn create_user(client: &showcase::client::Identity) -> Result<User> {
+async fn create_user(client: &Identity) -> Result<User> {
     let response = client
         .create_user()
         .set_user(
@@ -47,13 +51,13 @@ async fn create_user(client: &showcase::client::Identity) -> Result<User> {
     Ok(response)
 }
 
-async fn get_user(client: &showcase::client::Identity, user: &User) -> Result<()> {
+async fn get_user(client: &Identity, user: &User) -> Result<()> {
     let response = client.get_user().set_name(&user.name).send().await?;
     assert_eq!(&response, user);
     Ok(())
 }
 
-async fn update_user(client: &showcase::client::Identity, user: &User) -> Result<()> {
+async fn update_user(client: &Identity, user: &User) -> Result<()> {
     let response = client
         .update_user()
         .set_user(
@@ -61,7 +65,7 @@ async fn update_user(client: &showcase::client::Identity, user: &User) -> Result
                 .set_display_name("should not change")
                 .set_or_clear_age(user.age.map(|x| x + 1)),
         )
-        .set_update_mask(wkt::FieldMask::default().set_paths(["age"]))
+        .set_update_mask(FieldMask::default().set_paths(["age"]))
         .send()
         .await?;
     assert_ne!(response.update_time, user.update_time);
@@ -70,8 +74,7 @@ async fn update_user(client: &showcase::client::Identity, user: &User) -> Result
     Ok(())
 }
 
-async fn list_users(client: &showcase::client::Identity, user: &User) -> Result<()> {
-    use gax::paginator::ItemPaginator;
+async fn list_users(client: &Identity, user: &User) -> Result<()> {
     let mut items = client.list_users().by_item();
     while let Some(u) = items.next().await {
         let u = u?;
@@ -84,7 +87,7 @@ async fn list_users(client: &showcase::client::Identity, user: &User) -> Result<
     )))
 }
 
-async fn delete_user(client: &showcase::client::Identity, user: &User) -> Result<()> {
+async fn delete_user(client: &Identity, user: &User) -> Result<()> {
     client.delete_user().set_name(&user.name).send().await?;
     Ok(())
 }

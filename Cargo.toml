@@ -301,6 +301,7 @@ members = [
   "tests/o11y",
   "tests/protojson-conformance",
   "tests/pubsub",
+  "tests/showcase",
   "tools/check-copyright",
   "tools/minimal-version-helper",
 ]

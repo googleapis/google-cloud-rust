@@ -24,9 +24,6 @@ version           = "0.0.0"
 log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
 # These are normally disabled because they run against production.
 run-integration-tests = []
-# These are normally disabled because they require installing the golang
-# toolchain.
-run-showcase-tests = []
 
 [dependencies]
 anyhow.workspace        = true
@@ -73,10 +70,6 @@ path    = "../../src/generated/cloud/bigquery/v2"
 [dependencies.firestore]
 package = "google-cloud-firestore"
 path    = "../../src/firestore"
-
-[dependencies.showcase]
-package = "google-cloud-showcase-v1beta1"
-path    = "../../src/generated/showcase"
 
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"

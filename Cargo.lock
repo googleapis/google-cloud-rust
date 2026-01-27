@@ -5834,7 +5834,6 @@ dependencies = [
  "google-cloud-longrunning",
  "google-cloud-lro",
  "google-cloud-secretmanager-v1",
- "google-cloud-showcase-v1beta1",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
  "google-cloud-test-utils",
@@ -5944,6 +5943,26 @@ dependencies = [
  "tokio",
  "tracing",
  "tracing-subscriber",
+]
+
+[[package]]
+name = "integration-tests-showcase"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "chrono",
+ "futures",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-lro",
+ "google-cloud-showcase-v1beta1",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+ "uuid",
 ]
 
 [[package]]
