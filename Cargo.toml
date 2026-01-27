@@ -279,6 +279,10 @@ members = [
   "tests/crypto-providers/gaxi-with-aws-lc-rs",
   "tests/crypto-providers/gaxi-with-default",
   "tests/crypto-providers/gaxi-with-ring",
+  "tests/crypto-providers/idtoken-with-aws-lc-rs",
+  "tests/crypto-providers/idtoken-with-default",
+  # excluded because jsonwebtoken cannot have two backends:
+  # "tests/crypto-providers/idtoken-with-rust-crypto",
   "tests/crypto-providers/secret-manager-with-aws-lc-rs",
   "tests/crypto-providers/secret-manager-with-default",
   "tests/crypto-providers/secret-manager-with-ring",
