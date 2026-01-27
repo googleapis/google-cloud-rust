@@ -22,8 +22,6 @@ pub mod bigquery;
 pub mod compute;
 pub mod error_details;
 pub mod firestore;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod observability;
 pub mod secret_manager;
 pub mod showcase;
 pub mod storage;

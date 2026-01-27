@@ -298,6 +298,7 @@ members = [
   "tests/endurance",
   "tests/integration",
   "tests/integration-auth",
+  "tests/o11y",
   "tests/protojson-conformance",
   "tests/pubsub",
   "tools/check-copyright",
@@ -473,6 +474,8 @@ iamcredentials                  = { default-features = false, version = "1", pat
 google-cloud-language-v2        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2" }
 language                        = { default-features = false, version = "1", path = "src/generated/cloud/language/v2", package = "google-cloud-language-v2" }
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
+google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
+google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { default-features = false, path = "src/test-utils" }
