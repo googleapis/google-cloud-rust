@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /// Enables tracing for the application.
-pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
+pub fn enable_tracing() -> ::tracing::subscriber::DefaultGuard {
     use tracing_subscriber::fmt::format::FmtSpan;
     #[cfg(feature = "log-integration-tests")]
     let max_level = tracing::Level::INFO;
@@ -28,4 +28,19 @@ pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
     let subscriber = builder.finish();
 
     tracing::subscriber::set_default(subscriber)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn check_default() {
+        let _guard = enable_tracing();
+        let default = tracing::Dispatch::default();
+        assert!(
+            default.is::<tracing_subscriber::FmtSubscriber>(),
+            "{default:?}"
+        );
+    }
 }
