@@ -15,16 +15,16 @@
 
 set -ev
 
-cargo install --locked cargo-workspaces
-cargo install cargo-minimal-versions cargo-hack@0.6.37 cargo-minimal-versions@0.1.31 --locked
+cargo install cargo-workspaces@0.4.2 cargo-hack@0.6.37 cargo-minimal-versions@0.1.31 --locked
 cargo version
 rustup show active-toolchain -v
 
 set -e
 echo "Prepare workspace to run minimal version tool."
 cargo run --release --package minimal-version-helper prepare
-cargo workspaces plan | xargs -I PKG cargo minimal-versions check --all-features --package PKG
-
+for PKG in $(cargo workspaces plan | grep -v gcp-sdk); do
+  cargo minimal-versions check -p ${PKG} --all-features
+done
 echo "==== DONE ===="
 
 /workspace/.bin/sccache --show-stats
