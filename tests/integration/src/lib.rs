@@ -14,6 +14,7 @@
 
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_test_utils::resource_names::random_bucket_id;
+use google_cloud_test_utils::tracing::enable_tracing;
 use rand::{Rng, distr::Alphanumeric};
 
 pub type Result<T> = anyhow::Result<T>;
@@ -70,8 +71,4 @@ pub(crate) fn random_vm_prefix(len: usize) -> String {
     const PREFIX: &str = "vm-";
     let vm_id = LowercaseAlphanumeric.random_string(len);
     format!("{PREFIX}{vm_id}")
-}
-
-pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
-    google_cloud_test_utils::tracing::enable_tracing()
 }
