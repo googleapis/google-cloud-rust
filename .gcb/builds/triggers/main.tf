@@ -138,6 +138,11 @@ locals {
       config = "complex.yaml"
       script = "workspace"
     }
+    workspace-minimal-versions = {
+      config = "complex.yaml"
+      script = "workspace-minimal-versions"
+    }
+
     # Runs doctest for samples marked ignore.
     # These are mostly generated samples which are many and take a long time to build.
     ignored-samples = {
