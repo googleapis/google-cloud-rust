@@ -51,7 +51,7 @@ tracing-opentelemetry         = { workspace = true }
 
 [dev-dependencies]
 opentelemetry_sdk = { workspace = true, features = ["testing"] }
-tower                       = { workspace = true, features = ["util"] }
+tower             = { workspace = true, features = ["util"] }
 
 [lints]
 workspace = true
