@@ -370,6 +370,10 @@ impl std::fmt::Debug for super::DiscoveryOccurrence {
         debug_struct.field("sbom_status", &self.sbom_status);
         debug_struct.field("vulnerability_attestation", &self.vulnerability_attestation);
         debug_struct.field("files", &self.files);
+        debug_struct.field(
+            "last_vulnerability_update_time",
+            &self.last_vulnerability_update_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

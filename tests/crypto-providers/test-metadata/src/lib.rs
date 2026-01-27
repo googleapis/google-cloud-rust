@@ -21,7 +21,7 @@ use semver::{Comparator, Op};
 const RING_CRATE_NAME: &str = "ring";
 const AWS_LC_RS_CRATE_NAME: &str = "aws-lc-rs";
 const REQWEST_DEFAULT_FEATURE: &str = "default-tls";
-const RUSTLS_DEFAULT_FEATURE: &str = "aws-lc-rs";
+const RUSTLS_DEFAULT_FEATURE: &str = "aws_lc_rs";
 // Use `google-cloud-auth` to find the versions of key dependencies. Changing
 // this test code as we update the dependency requirements (via renovatebot)
 // it would be tedious to manual update this code too.

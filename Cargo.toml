@@ -385,13 +385,12 @@ opentelemetry-semantic-conventions = { default-features = false, version = "0.31
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
 # version requirements in the minimal-versions build.
-mime      = { default-features = false, version = "0.3.17" }
 aws-lc-rs = { default-features = false, version = "1.15.4" }
 
 # Test packages
 anyhow            = { default-features = false, version = "1.0.100", features = ["std"] }
 axum              = { default-features = false, version = "0.8" }
-flate2            = { default-features = false, version = "1" }
+flate2            = { default-features = false, version = "1.0.29" }
 httptest          = { default-features = false, version = "0.16.4" }
 md5               = { default-features = false, version = "0.8" }
 mockall           = { default-features = false, version = "0.14" }
@@ -408,7 +407,7 @@ serial_test       = { default-features = false, version = "3" }
 static_assertions = { default-features = false, version = "1.1" }
 tempfile          = { default-features = false, version = "3.24" }
 test-case         = { default-features = false, version = "3.3" }
-tokio-stream      = { default-features = false, version = "0.1" }
+tokio-stream      = { default-features = false, version = "0.1.1" }
 tokio-test        = { default-features = false, version = "0.4" }
 
 # Local packages used as dependencies

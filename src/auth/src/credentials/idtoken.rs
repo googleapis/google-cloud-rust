@@ -335,11 +335,9 @@ fn instant_from_epoch_seconds(secs: u64, now: SystemTime) -> Option<Instant> {
 pub(crate) mod tests {
     use super::*;
     use crate::credentials::service_account::jws::JwsHeader;
-    use crate::credentials::tests::PKCS8_PK;
     use mds::Format;
-    use rsa::pkcs8::DecodePrivateKey;
+    use rsa::Pkcs1v15Sign;
     use rsa::sha2::{Digest, Sha256};
-    use rsa::{Pkcs1v15Sign, RsaPrivateKey};
     use serde_json::json;
     use serial_test::parallel;
     use std::collections::HashMap;
@@ -386,8 +384,7 @@ pub(crate) mod tests {
             claims.insert(k, v);
         }
 
-        let key =
-            RsaPrivateKey::from_pkcs8_pem(&PKCS8_PK).expect("Failed to parse private key PEM");
+        let key = crate::credentials::tests::RSA_PRIVATE_KEY.clone();
 
         let encoded_header = header.encode().unwrap();
         let encoded_claims = URL_SAFE_NO_PAD.encode(serde_json::to_string(&claims).unwrap());

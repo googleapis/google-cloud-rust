@@ -33,10 +33,8 @@ use google_cloud_storage::model::bucket::{
 };
 use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
-use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
+use google_cloud_test_utils::resource_names::random_bucket_id;
 use std::time::Duration;
-
-pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = {
@@ -874,12 +872,6 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
 
     client.delete_bucket().set_name(&name).send().await?;
     Ok(())
-}
-
-pub fn random_bucket_id() -> String {
-    const PREFIX: &str = "rust-sdk-testing-";
-    let id = LowercaseAlphanumeric.random_string(BUCKET_ID_LENGTH - PREFIX.len());
-    format!("{PREFIX}{id}")
 }
 
 trait RetryPolicyExt2: Sized {

@@ -166,7 +166,7 @@ impl Session {
             // (responses with an empty message list). Hence the loop.
             if let Err(e) = self.read_from_stream().await? {
                 // Handle errors opening or reading from the stream.
-                match StreamRetryPolicy::is_transient(e) {
+                match StreamRetryPolicy::on_midstream_error(e) {
                     RetryResult::Continue(_) => {
                         // The stream failed with a transient error. Reset the stream.
                         self.stream = None;

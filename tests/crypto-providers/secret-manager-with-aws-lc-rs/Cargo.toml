@@ -28,7 +28,7 @@ rust-version.workspace = true
 
 [dependencies]
 anyhow              = { workspace = true, features = ["std"] }
-rustls              = { workspace = true, features = ["aws-lc-rs"] }
+rustls              = { workspace = true, features = ["aws_lc_rs"] }
 tokio               = { workspace = true, features = ["test-util"] }
 test-metadata       = { path = "../test-metadata" }
 test-secret-manager = { path = "../test-secret-manager" }

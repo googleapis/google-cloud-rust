@@ -13,16 +13,17 @@
 # limitations under the License.
 
 language: rust
+version: v0.8.1-0.20260126214935-241bbc34f41f
 sources:
   conformance:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
   discovery:
-    commit: 4fa4a37d72bf986e6393130f74b03fbd6fd557e1
-    sha256: 5eeff697442e25d6069faf5648644fefb3738c2392b83079c5e1ed6d81e3159a
+    commit: 85aa2660a9a62faa9e80e0d100b8dca4138ce249
+    sha256: b5f0d6364c8b731dde2a9b9fbb19a31a9e16a662c4d0d2b08bffe09e5b429154
   googleapis:
-    commit: 2ac88973cbafba24e4fb6f31038e0c76174ae704
-    sha256: 5eb3069583a29511194e2a868fc2d73098c6951e202364a7fa800800b17103aa
+    commit: 4ba4d6d3b5e81359f508fb19db492b97bbb01fe6
+    sha256: 9e7a21571368eac7c454b06136b41aab3848721be6970eec35eaff2096f033eb
   protobuf:
     commit: b407e8416e3893036aee5af9a12bd9b6a0e2b2e6
     sha256: 55912546338433f465a552e9ef09930c63b9eb697053937416890cff83a8622d
@@ -177,7 +178,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-api
     version: 1.2.0
-    channels:
+    apis:
       - path: google/api
     copyright_year: "2025"
     output: src/generated/api/types
@@ -246,17 +247,17 @@ libraries:
                     - request_id
   - name: google-cloud-api-cloudquotas-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/api/cloudquotas/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/api/servicecontrol/v1
     copyright_year: "2025"
   - name: google-cloud-api-servicecontrol-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/api/servicecontrol/v2
     copyright_year: "2025"
     rust:
@@ -271,12 +272,12 @@ libraries:
 
   - name: google-cloud-api-servicemanagement-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/api/servicemanagement/v1
     copyright_year: "2025"
   - name: google-cloud-api-serviceusage-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/api/serviceusage/v1
     copyright_year: "2025"
   - name: google-cloud-apigateway-v1
@@ -290,7 +291,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-apikeys-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/api/apikeys/v2
     copyright_year: "2025"
     rust:
@@ -299,7 +300,7 @@ libraries:
     copyright_year: "2026"
   - name: google-cloud-appengine-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/appengine/v1
     copyright_year: "2025"
   - name: google-cloud-apphub-v1
@@ -307,13 +308,13 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-apps-script-type
     version: 1.2.0
-    channels:
+    apis:
       - path: google/apps/script/type
     copyright_year: "2025"
     output: src/generated/apps/script/gtype
   - name: google-cloud-apps-script-type-calendar
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/calendar
     copyright_year: "2025"
     output: src/generated/apps/script/calendar
@@ -324,7 +325,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-docs
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/docs
     copyright_year: "2025"
     output: src/generated/apps/script/docs
@@ -335,7 +336,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-drive
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/drive
     copyright_year: "2025"
     output: src/generated/apps/script/drive
@@ -346,7 +347,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-gmail
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/gmail
     copyright_year: "2025"
     output: src/generated/apps/script/gmail
@@ -357,7 +358,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-sheets
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/sheets
     copyright_year: "2025"
     output: src/generated/apps/script/sheets
@@ -368,7 +369,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-apps-script-type-slides
     version: 1.3.0
-    channels:
+    apis:
       - path: google/apps/script/type/slides
     copyright_year: "2025"
     output: src/generated/apps/script/slides
@@ -379,7 +380,7 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-artifactregistry-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/artifactregistry/v1
     copyright_year: "2025"
     rust:
@@ -473,7 +474,7 @@ libraries:
     veneer: true
   - name: google-cloud-bigtable-admin-v2
     version: 1.5.0
-    channels:
+    apis:
       - path: google/bigtable/admin/v2
     copyright_year: "2025"
   - name: google-cloud-billing-v1
@@ -484,14 +485,14 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-build-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/cloudbuild/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-build-v1
   - name: google-cloud-build-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/cloudbuild/v2
     copyright_year: "2025"
     rust:
@@ -574,12 +575,12 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-container-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/container/v1
     copyright_year: "2025"
   - name: google-cloud-containeranalysis-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/containeranalysis/v1
     copyright_year: "2025"
     rust:
@@ -609,7 +610,7 @@ libraries:
     veneer: true
   - name: google-cloud-datastore-admin-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/datastore/admin/v1
     copyright_year: "2025"
   - name: google-cloud-datastream-v1
@@ -724,7 +725,7 @@ libraries:
           template: prost
   - name: google-cloud-firestore-admin-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/firestore/admin/v1
     copyright_year: "2025"
   - name: google-cloud-functions-v2
@@ -759,13 +760,13 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-gkehub-configmanagement-v1
     version: 1.2.0
-    channels:
+    apis:
       - path: google/cloud/gkehub/v1/configmanagement
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/configmanagement/v1
   - name: google-cloud-gkehub-multiclusteringress-v1
     version: 1.2.0
-    channels:
+    apis:
       - path: google/cloud/gkehub/v1/multiclusteringress
     copyright_year: "2025"
     output: src/generated/cloud/gkehub/multiclusteringress/v1
@@ -788,7 +789,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-grafeas-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: grafeas/v1
     copyright_year: "2025"
   - name: google-cloud-gsuiteaddons-v1
@@ -819,29 +820,29 @@ libraries:
           source: google.apps.script.type
   - name: google-cloud-iam-admin-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/iam/admin/v1
     copyright_year: "2025"
     rust:
       generate_rpc_samples: "true"
   - name: google-cloud-iam-credentials-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/iam/credentials/v1
     copyright_year: "2025"
   - name: google-cloud-iam-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/iam/v1
     copyright_year: "2024"
   - name: google-cloud-iam-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/iam/v2
     copyright_year: "2025"
   - name: google-cloud-iam-v3
     version: 1.4.0
-    channels:
+    apis:
       - path: google/iam/v3
     copyright_year: "2025"
   - name: google-cloud-iap-v1
@@ -849,14 +850,14 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-identity-accesscontextmanager-type
     version: 1.2.0
-    channels:
+    apis:
       - path: google/identity/accesscontextmanager/type
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-identity-accesscontextmanager-type
   - name: google-cloud-identity-accesscontextmanager-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/identity/accesscontextmanager/v1
     copyright_year: "2025"
     rust:
@@ -897,19 +898,19 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-logging-type
     version: 1.2.0
-    channels:
+    apis:
       - path: google/logging/type
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-logging-type
   - name: google-cloud-logging-v2
     version: 1.5.0
-    channels:
+    apis:
       - path: google/logging/v2
     copyright_year: "2025"
   - name: google-cloud-longrunning
     version: 1.5.0
-    channels:
+    apis:
       - path: google/longrunning
     copyright_year: "2024"
     description_override: |-
@@ -970,17 +971,17 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-monitoring-dashboard-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/monitoring/dashboard/v1
     copyright_year: "2025"
   - name: google-cloud-monitoring-metricsscope-v1
     version: 1.4.0
-    channels:
+    apis:
       - path: google/monitoring/metricsscope/v1
     copyright_year: "2025"
   - name: google-cloud-monitoring-v3
     version: 1.4.0
-    channels:
+    apis:
       - path: google/monitoring/v3
     copyright_year: "2025"
   - name: google-cloud-netapp-v1
@@ -1077,7 +1078,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-privacy-dlp-v2
     version: 1.5.0
-    channels:
+    apis:
       - path: google/privacy/dlp/v2
     copyright_year: "2025"
   - name: google-cloud-privilegedaccessmanager-v1
@@ -1085,7 +1086,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-profiler-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/cloudprofiler/v2
     copyright_year: "2025"
     rust:
@@ -1198,7 +1199,7 @@ libraries:
           replace: Duplicate
   - name: google-cloud-rpc
     version: 1.2.0
-    channels:
+    apis:
       - path: google/rpc
     copyright_year: "2024"
     output: src/generated/rpc/types
@@ -1206,7 +1207,7 @@ libraries:
       package_name_override: google-cloud-rpc
   - name: google-cloud-rpc-context
     version: 1.2.0
-    channels:
+    apis:
       - path: google/rpc/context
     copyright_year: "2025"
     rust:
@@ -1248,7 +1249,7 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-showcase-v1beta1
     version: 1.0.0
-    channels:
+    apis:
       - path: schema/google/showcase/v1beta1
     copyright_year: "2025"
     output: src/generated/showcase
@@ -1265,7 +1266,7 @@ libraries:
     veneer: true
   - name: google-cloud-spanner-admin-database-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/spanner/admin/database/v1
     copyright_year: "2025"
     rust:
@@ -1302,7 +1303,7 @@ libraries:
                 "daily" in its name.
   - name: google-cloud-spanner-admin-instance-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/spanner/admin/instance/v1
     copyright_year: "2025"
   - name: google-cloud-speech-v2
@@ -1450,7 +1451,7 @@ libraries:
       name_overrides: .google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_buckets=CloudStorageBucketsOneOf,.google.cloud.storageinsights.v1.DatasetConfig.cloud_storage_locations=CloudStorageLocationsOneOf
   - name: google-cloud-storagetransfer-v1
     version: 1.5.0
-    channels:
+    apis:
       - path: google/storagetransfer/v1
     copyright_year: "2025"
   - name: google-cloud-support-v2
@@ -1481,26 +1482,26 @@ libraries:
     copyright_year: "2025"
   - name: google-cloud-trace-v1
     version: 1.2.0
-    channels:
+    apis:
       - path: google/devtools/cloudtrace/v1
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-trace-v1
   - name: google-cloud-trace-v2
     version: 1.4.0
-    channels:
+    apis:
       - path: google/devtools/cloudtrace/v2
     copyright_year: "2025"
     rust:
       package_name_override: google-cloud-trace-v2
   - name: google-cloud-translation-v3
     version: 1.5.0
-    channels:
+    apis:
       - path: google/cloud/translate/v3
     copyright_year: "2025"
   - name: google-cloud-type
     version: 1.2.0
-    channels:
+    apis:
       - path: google/type
     copyright_year: "2024"
     rust:
@@ -1613,7 +1614,7 @@ libraries:
     veneer: true
   - name: secretmanager-openapi-v1
     version: 1.0.0
-    channels:
+    apis:
       - path: testdata/secretmanager_openapi_v1.json
     copyright_year: "2024"
     output: src/generated/openapi-validation

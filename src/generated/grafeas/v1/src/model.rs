@@ -4327,6 +4327,9 @@ pub struct DiscoveryOccurrence {
     /// Files that make up the resource described by the occurrence.
     pub files: std::vec::Vec<crate::model::discovery_occurrence::File>,
 
+    /// The last time vulnerability scan results changed.
+    pub last_vulnerability_update_time: std::option::Option<wkt::Timestamp>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4625,6 +4628,42 @@ impl DiscoveryOccurrence {
     {
         use std::iter::Iterator;
         self.files = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [last_vulnerability_update_time][crate::model::DiscoveryOccurrence::last_vulnerability_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_last_vulnerability_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_vulnerability_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_vulnerability_update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_vulnerability_update_time][crate::model::DiscoveryOccurrence::last_vulnerability_update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_grafeas_v1::model::DiscoveryOccurrence;
+    /// use wkt::Timestamp;
+    /// let x = DiscoveryOccurrence::new().set_or_clear_last_vulnerability_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = DiscoveryOccurrence::new().set_or_clear_last_vulnerability_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_vulnerability_update_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_vulnerability_update_time = v.map(|x| x.into());
         self
     }
 }

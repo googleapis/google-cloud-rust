@@ -81,7 +81,7 @@ default-idtoken-backend = []
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
 # default and call `rustls::CryptoProvider::install_default()`.
-default-rustls-provider = ["reqwest/default-tls", "rustls/aws-lc-rs"]
+default-rustls-provider = ["reqwest/default-tls", "rustls/aws_lc_rs"]
 # Do not use, this was a mistake in the 1.3 release. We accidentally introduced
 # this feature. The intent was to only introduce `idtoken`.
 jsonwebtoken = []

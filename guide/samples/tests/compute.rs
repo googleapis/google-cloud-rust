@@ -16,6 +16,7 @@
 mod tests {
     use google_cloud_compute_v1::client::{Images, Instances, Projects};
     use google_cloud_lro::Poller;
+    use google_cloud_test_utils::resource_names::random_bucket_id;
     use integration_tests::random_vm_id;
     use user_guide_samples::compute::{compute_usage_report_set, *};
 
@@ -67,7 +68,7 @@ mod tests {
         let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
 
         let control = StorageControl::builder().build().await?;
-        let bucket_id = storage_samples::random_bucket_id();
+        let bucket_id = random_bucket_id();
         create_reports_bucket(&control, &project_id, &bucket_id).await?;
 
         let result = usage_report_samples_impl(&project_id, &bucket_id).await;
