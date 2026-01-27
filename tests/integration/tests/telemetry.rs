@@ -14,6 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
 mod telemetry {
+    use google_cloud_test_utils::runtime_config::project_id;
     use google_cloud_trace_v1::client::TraceService;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use integration_tests::observability::otlp::CloudTelemetryTracerProviderBuilder;
@@ -36,7 +37,7 @@ mod telemetry {
 
         // 2. Setup Telemetry (Real Google Cloud Destination)
         // This requires GOOGLE_CLOUD_PROJECT to be set.
-        let project_id = integration_tests::project_id()?;
+        let project_id = project_id()?;
         let service_name = "e2e-telemetry-test";
 
         // Configure OTLP provider (sends to telemetry.googleapis.com)

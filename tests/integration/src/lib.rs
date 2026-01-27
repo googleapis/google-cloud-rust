@@ -38,32 +38,6 @@ pub const VM_ID_LENGTH: usize = 63;
 
 pub const WORKFLOW_ID_LENGTH: usize = 64;
 
-/// Returns the project id used for the integration tests.
-pub fn project_id() -> Result<String> {
-    let project_id = std::env::var("GOOGLE_CLOUD_PROJECT")?;
-    Ok(project_id)
-}
-
-/// Returns an existing, but disabled service account.
-pub fn test_service_account() -> Result<String> {
-    let value = std::env::var("GOOGLE_CLOUD_RUST_TEST_SERVICE_ACCOUNT")?;
-    Ok(value)
-}
-
-/// Returns the preferred region id used for the integration tests.
-pub fn region_id() -> String {
-    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
-        .ok()
-        .unwrap_or("us-central1".to_string())
-}
-
-/// Returns the preferred zone id used for the integration tests.
-pub fn zone_id() -> String {
-    std::env::var("GOOGLE_CLOUD_RUST_TEST_REGION")
-        .ok()
-        .unwrap_or("us-central1-a".to_string())
-}
-
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
     tracing::error!("ERROR {e:?}");

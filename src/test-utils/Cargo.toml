@@ -29,4 +29,6 @@ tracing-subscriber                           = { workspace = true, features = ["
 uuid                                         = { workspace = true, features = ["std", "v4"] }
 
 [dev-dependencies]
-tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+scoped-env.workspace  = true
+serial_test.workspace = true
+tokio                 = { workspace = true, features = ["macros", "rt-multi-thread"] }

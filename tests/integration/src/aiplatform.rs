@@ -13,9 +13,10 @@
 // limitations under the License.
 
 use crate::Result;
+use google_cloud_test_utils::runtime_config::project_id;
 
 pub async fn locational_endpoint() -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let location_id = "us-central1";
     let client = aiplatform::client::ModelService::builder()
         .with_endpoint(format!("https://{location_id}-aiplatform.googleapis.com"))

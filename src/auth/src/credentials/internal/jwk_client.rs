@@ -193,12 +193,13 @@ fn create_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use super::*;
     use base64::Engine;
     use httptest::matchers::{all_of, request};
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
+    use p256::elliptic_curve::sec1::ToEncodedPoint;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
 
@@ -206,7 +207,7 @@ mod tests {
 
     const TEST_KEY_ID: &str = "test-key-id";
 
-    fn create_jwk_set_response() -> serde_json::Value {
+    pub(crate) fn create_rsa256_jwk_set_response() -> serde_json::Value {
         let pub_cert = crate::credentials::tests::RSA_PRIVATE_KEY.to_public_key();
         serde_json::json!({
             "keys": [
@@ -222,11 +223,29 @@ mod tests {
         })
     }
 
+    pub(crate) fn create_es256_jwk_set_response() -> serde_json::Value {
+        let pk = crate::credentials::tests::ES256_PRIVATE_KEY.public_key();
+        let encoded_point = pk.to_encoded_point(false);
+        serde_json::json!({
+            "keys": [
+                {
+                    "kid": TEST_KEY_ID,
+                    "use": "sig",
+                    "kty": "EC",
+                    "crv": "P-256",
+                    "x": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(encoded_point.x().unwrap()),
+                    "y": base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(encoded_point.y().unwrap()),
+                    "alg": "ES256"
+                }
+            ]
+        })
+    }
+
     #[tokio::test]
     #[parallel]
     async fn test_get_or_load_cert_success() -> TestResult {
         let server = Server::run();
-        let response = create_jwk_set_response();
+        let response = create_rsa256_jwk_set_response();
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
@@ -253,7 +272,7 @@ mod tests {
     #[parallel]
     async fn test_get_or_load_cert_kid_not_found() -> TestResult {
         let server = Server::run();
-        let response = create_jwk_set_response();
+        let response = create_rsa256_jwk_set_response();
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(1)
@@ -333,7 +352,7 @@ mod tests {
     #[parallel]
     async fn test_get_or_load_cert_cache_expiration() -> TestResult {
         let server = Server::run();
-        let response = create_jwk_set_response();
+        let response = create_rsa256_jwk_set_response();
         server.expect(
             Expectation::matching(all_of![request::path("/certs"),])
                 .times(2)
@@ -359,6 +378,37 @@ mod tests {
         // This call should fetch from URL again.
         let _key = client
             .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url))
+            .await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    #[parallel]
+    async fn test_get_or_load_cert_es256_success() -> TestResult {
+        let server = Server::run();
+        let response = create_es256_jwk_set_response();
+        server.expect(
+            Expectation::matching(all_of![request::path("/certs"),])
+                .times(1)
+                .respond_with(json_encoded(response.clone())),
+        );
+
+        let client = JwkClient::new();
+        let jwks_url = format!("http://{}/certs", server.addr());
+
+        // First call, should fetch from URL
+        let _key = client
+            .get_or_load_cert(
+                TEST_KEY_ID.to_string(),
+                "ES256",
+                Some(jwks_url.clone()),
+            )
+            .await?;
+
+        // Second call, should use cache
+        let _key = client
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "ES256", Some(jwks_url))
             .await?;
 
         Ok(())
