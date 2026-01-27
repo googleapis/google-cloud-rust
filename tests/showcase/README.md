@@ -4,4 +4,4 @@
 generated client libraries. We use generated and unpublished library in these
 tests.
 
-[GAPIC Showcase]: https://github.com/googleapis/gapic-showcase
+[gapic showcase]: https://github.com/googleapis/gapic-showcase
