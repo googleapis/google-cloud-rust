@@ -4889,6 +4889,8 @@ dependencies = [
  "once_cell",
  "opentelemetry-semantic-conventions",
  "rand 0.9.2",
+ "scoped-env",
+ "serial_test",
  "tokio",
  "tracing",
  "tracing-subscriber",

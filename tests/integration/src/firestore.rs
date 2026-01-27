@@ -16,6 +16,7 @@ use crate::Result;
 use firestore::client::Firestore;
 use firestore::model;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_test_utils::runtime_config::project_id;
 use rand::{Rng, distr::Alphanumeric};
 
 pub const COLLECTION_ID_LENGTH: usize = 32;
@@ -34,7 +35,7 @@ pub async fn basic() -> Result<()> {
     let client = Firestore::builder().with_tracing().build().await?;
     cleanup_stale_documents(&client).await?;
 
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let collection_id = new_collection_id();
     let response = client
         .create_document()
@@ -110,7 +111,7 @@ async fn cleanup_stale_documents(client: &Firestore) -> Result<()> {
 
     let mut stale_documents = Vec::new();
 
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let mut documents = client
         .list_documents()
         .set_parent(format!(

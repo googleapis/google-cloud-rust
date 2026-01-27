@@ -14,10 +14,11 @@
 
 use crate::Result;
 use gax::paginator::{ItemPaginator, Paginator};
+use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(crate::SECRET_ID_LENGTH)
@@ -174,7 +175,7 @@ async fn run_locations(client: &sm::client::SecretManagerService, project_id: &s
 }
 
 async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -> Result<()> {
-    let service_account = crate::test_service_account()?;
+    let service_account = test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client
