@@ -26,7 +26,6 @@ mod keepalive;
 mod lease_loop;
 mod lease_state;
 mod leaser;
-#[allow(dead_code)] // TODO(#4097) - use the retry policy
 mod retry_policy;
 mod stream;
 mod stub;
