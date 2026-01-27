@@ -12,7 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod auth;
-pub mod mock_collector;
-pub mod otlp;
-pub mod tracing;
+#[cfg(all(test, feature = "run-integration-tests", google_cloud_unstable_tracing))]
+mod telemetry {
+    #[tokio::test(flavor = "multi_thread")]
+    async fn run() -> anyhow::Result<()> {
+        integration_tests_o11y::e2e::run().await
+    }
+}

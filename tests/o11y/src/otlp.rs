@@ -13,7 +13,7 @@
 // limitations under the License.
 
 use super::auth::CloudTelemetryAuthInterceptor;
-use auth::credentials::{Builder, Credentials};
+use google_cloud_auth::credentials::{Builder, Credentials};
 use opentelemetry_otlp::{WithExportConfig, WithTonicConfig};
 use opentelemetry_sdk::trace::{SdkTracerProvider, TraceError};
 use tonic::transport::ClientTlsConfig;
@@ -141,6 +141,10 @@ impl CloudTelemetryTracerProviderBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::mock_collector::MockCollector;
+    use google_cloud_auth::credentials::testing::error_credentials;
+    use google_cloud_auth::credentials::{CacheableResource, CredentialsProvider, EntityTag};
+    use google_cloud_auth::errors::CredentialsError;
     use opentelemetry::trace::{Tracer, TracerProvider as _};
 
     /// A test credentials provider that returns static, known values.
@@ -150,19 +154,16 @@ mod tests {
     /// authorization header and "test-project" project header.
     #[derive(Debug)]
     pub struct TestTokenProvider;
-    impl ::auth::credentials::CredentialsProvider for TestTokenProvider {
+    impl CredentialsProvider for TestTokenProvider {
         async fn headers(
             &self,
             _: http::Extensions,
-        ) -> Result<
-            ::auth::credentials::CacheableResource<http::HeaderMap>,
-            ::auth::errors::CredentialsError,
-        > {
+        ) -> Result<CacheableResource<http::HeaderMap>, CredentialsError> {
             let mut map = http::HeaderMap::new();
             map.insert("authorization", "Bearer test-token".parse().unwrap());
             map.insert("x-goog-user-project", "test-project".parse().unwrap());
-            Ok(::auth::credentials::CacheableResource::New {
-                entity_tag: ::auth::credentials::EntityTag::new(),
+            Ok(CacheableResource::New {
+                entity_tag: EntityTag::new(),
                 data: map,
             })
         }
@@ -173,7 +174,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_builder_configuration() {
-        let credentials = auth::credentials::testing::error_credentials(false);
+        let credentials = error_credentials(false);
         let project_id = "builder-project-id";
         let service_name = "builder-service-name";
         let endpoint = "https://custom-endpoint.example.com";
@@ -194,8 +195,6 @@ mod tests {
     /// collector.
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn test_otlp_export_with_mock_collector() {
-        use crate::observability::mock_collector::MockCollector;
-
         let mock_collector = MockCollector::default();
         let endpoint = mock_collector.start().await;
 

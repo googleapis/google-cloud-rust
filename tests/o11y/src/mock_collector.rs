@@ -54,7 +54,7 @@ impl MockCollector {
                 .add_service(TraceServiceServer::new(server_collector))
                 .serve_with_incoming(tokio_stream::wrappers::TcpListenerStream::new(listener))
                 .await
-                .unwrap();
+                .unwrap()
         });
 
         endpoint

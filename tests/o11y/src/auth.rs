@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::{CacheableResource, Credentials, EntityTag};
+use google_cloud_auth::credentials::{CacheableResource, Credentials, EntityTag};
 use tokio::sync::watch;
 use tokio::time::{Duration, sleep};
 use tonic::metadata::MetadataMap;
@@ -141,8 +141,8 @@ async fn refresh_task(credentials: Credentials, tx: watch::Sender<Option<Metadat
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::{CredentialsProvider, EntityTag};
-    use auth::errors::CredentialsError;
+    use google_cloud_auth::credentials::{CredentialsProvider, EntityTag};
+    use google_cloud_auth::errors::CredentialsError;
     use http::{Extensions, HeaderMap, HeaderValue};
     use std::sync::{Arc, Mutex};
 
