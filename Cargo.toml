@@ -360,7 +360,7 @@ semver                = { default-features = false, version = "1.0.26" }
 serde                 = { default-features = false, version = "1.0.228", features = ["serde_derive"] }
 serde_json            = { default-features = false, version = "1.0.148", features = ["std"] }
 serde_with            = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
-sha2                  = { default-features = false, version = "0.10" }
+sha2                  = { default-features = false, version = "0.10.6" }
 thiserror             = { default-features = false, version = "2.0.12" }
 time                  = { default-features = false, version = "0.3.45" }
 tokio                 = { default-features = false, version = "1.45.1" }
