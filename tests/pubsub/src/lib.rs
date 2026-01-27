@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{Error, Result};
-
+use anyhow::Result;
 use bytes::Bytes;
 use futures::future::join_all;
-use pubsub::client::{BasePublisher, Subscriber};
-use pubsub::model::PubsubMessage;
+use google_cloud_pubsub::client::{BasePublisher, Subscriber};
+use google_cloud_pubsub::model::PubsubMessage;
 use pubsub_samples::{cleanup_test_topic, create_test_topic};
 use std::collections::HashSet;
 
@@ -38,8 +37,7 @@ pub async fn basic_publisher(topic_name: String) -> Result<()> {
     let results = join_all(handles).await;
     let message_ids: Vec<_> = results
         .into_iter()
-        .collect::<std::result::Result<Vec<_>, _>>()
-        .map_err(Error::from)?;
+        .collect::<std::result::Result<Vec<_>, _>>()?;
     tracing::info!("successfully published messages: {:#?}", message_ids);
 
     Ok(())

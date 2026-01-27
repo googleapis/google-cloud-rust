@@ -14,6 +14,7 @@
 
 #[cfg(all(test, feature = "run-integration-tests"))]
 mod driver {
+    use google_cloud_test_utils::tracing::enable_tracing;
     use storage::client::{Storage, StorageControl};
     use test_case::test_case;
 
@@ -27,7 +28,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_aiplatform() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::aiplatform::locational_endpoint()
             .await
             .map_err(integration_tests::report_error)
@@ -35,7 +36,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::bigquery::dataset_admin()
             .await
             .map_err(integration_tests::report_error)
@@ -43,7 +44,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_job_service() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::bigquery::job_service()
             .await
             .map_err(integration_tests::report_error)
@@ -51,7 +52,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_zones() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::zones()
             .await
             .map_err(integration_tests::report_error)
@@ -59,7 +60,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_errors() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::errors()
             .await
             .map_err(integration_tests::report_error)
@@ -67,7 +68,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_lro_errors() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::lro_errors()
             .await
             .map_err(integration_tests::report_error)
@@ -75,7 +76,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_machine_types() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::machine_types()
             .await
             .map_err(integration_tests::report_error)
@@ -83,7 +84,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_images() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::images()
             .await
             .map_err(integration_tests::report_error)
@@ -91,7 +92,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_instances() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::instances()
             .await
             .map_err(integration_tests::report_error)
@@ -100,7 +101,7 @@ mod driver {
     #[ignore = "TODO(#3691) - disabled because it was flaky"]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_compute_region_instances() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::compute::region_instances()
             .await
             .map_err(integration_tests::report_error)
@@ -108,40 +109,10 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::firestore::basic()
             .await
             .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_pubsub_basic_topic() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        integration_tests::pubsub::basic_topic()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_pubsub_basic_roundtrip() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
-        let (topic_admin, topic) = pubsub_samples::create_test_topic().await?;
-        let (sub_admin, sub) = pubsub_samples::create_test_subscription(topic.name.clone()).await?;
-
-        integration_tests::pubsub::basic_publisher(topic.name.clone())
-            .await
-            .map_err(integration_tests::report_error)?;
-        integration_tests::pubsub::basic_subscriber(sub.name.clone())
-            .await
-            .map_err(integration_tests::report_error)?;
-
-        if let Err(e) = pubsub_samples::cleanup_test_subscription(&sub_admin, sub.name).await {
-            tracing::info!("Error cleaning up test subscription: {e:?}");
-        }
-        if let Err(e) = pubsub_samples::cleanup_test_topic(&topic_admin, topic.name).await {
-            tracing::info!("Error cleaning up test topic: {e:?}");
-        }
-        Ok(())
     }
 
     #[test_case(sm::client::SecretManagerService::builder(); "default")]
@@ -152,7 +123,7 @@ mod driver {
     async fn run_secretmanager_protobuf(
         builder: sm::builder::secret_manager_service::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::secret_manager::protobuf::run(builder)
             .await
             .map_err(integration_tests::report_error)
@@ -160,7 +131,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::secret_manager::openapi::run()
             .await
             .map_err(integration_tests::report_error)
@@ -168,7 +139,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::secret_manager::openapi_locational::run()
             .await
             .map_err(integration_tests::report_error)
@@ -180,7 +151,7 @@ mod driver {
     async fn run_storage_control_buckets(
         builder: storage::builder::storage_control::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::storage::buckets(builder)
             .await
             .map_err(integration_tests::report_error)
@@ -188,7 +159,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
         let variants = || async {
             tracing::info!("default builder");
@@ -217,7 +188,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_signed_urls() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
 
         let signer = auth::credentials::Builder::default().build_signer();
         let signer = match signer {
@@ -254,7 +225,7 @@ mod driver {
     async fn run_storage_read_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
         let result = integration_tests::storage::read_object::run(builder, &bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
@@ -268,7 +239,7 @@ mod driver {
     async fn run_storage_write_object(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
         let result = integration_tests::storage::write_object::run(builder, &bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
@@ -282,7 +253,7 @@ mod driver {
     async fn run_storage_object_names(
         builder: storage::builder::storage::ClientBuilder,
     ) -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_bucket().await?;
         let result =
             integration_tests::storage::object_names(builder, control.clone(), &bucket.name)
@@ -294,7 +265,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_bidi() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
         let result = integration_tests::storage::bidi_read::run(&bucket.name).await;
         if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
@@ -305,7 +276,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_http() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::error_details::error_details_http()
             .await
             .map_err(integration_tests::report_error)
@@ -313,7 +284,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details_grpc() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::error_details::error_details_grpc()
             .await
             .map_err(integration_tests::report_error)
@@ -321,7 +292,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_http() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::error_details::check_code_for_http()
             .await
             .map_err(integration_tests::report_error)
@@ -329,7 +300,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_check_code_for_grpc() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::error_details::check_code_for_grpc()
             .await
             .map_err(integration_tests::report_error)
@@ -337,7 +308,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_until_done() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
@@ -345,7 +316,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_explicit() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::workflows::explicit_loop()
             .await
             .map_err(integration_tests::report_error)
@@ -353,7 +324,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_manual() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
@@ -361,7 +332,7 @@ mod driver {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn workflows_executions() -> integration_tests::Result<()> {
-        let _guard = integration_tests::enable_tracing();
+        let _guard = enable_tracing();
         integration_tests::workflows_executions::list()
             .await
             .map_err(integration_tests::report_error)
