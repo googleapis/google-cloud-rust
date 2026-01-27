@@ -59,6 +59,7 @@ httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
 rsa                   = { workspace = true, features = ["pem", "sha2"] }
+p256                  = { workspace = true, features = ["pem", "ecdsa"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
