@@ -299,6 +299,7 @@ members = [
   "tests/integration",
   "tests/integration-auth",
   "tests/protojson-conformance",
+  "tests/pubsub",
   "tools/check-copyright",
   "tools/minimal-version-helper",
 ]
@@ -473,7 +474,7 @@ language                        = { default-features = false, version = "1", pat
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
 
 # Local test packages (never add a version)
-google-cloud-test-utils = { path = "src/test-utils" }
+google-cloud-test-utils = { default-features = false, path = "src/test-utils" }
 integration-tests       = { path = "tests/integration" }
 pubsub-samples          = { path = "src/pubsub/examples" }
 storage-samples         = { path = "src/storage/examples" }
