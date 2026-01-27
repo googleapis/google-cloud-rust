@@ -310,7 +310,7 @@ impl BatchWorker {
                         }
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles for the batch and the program ends.
+                            // corresponding PublishHandles.
                             self.flush_concurrent(inflight).await;
                             break;
                         }
@@ -394,7 +394,7 @@ impl BatchWorker {
                         },
                         None => {
                             // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles for the batch and the program ends.
+                            // corresponding PublishHandles.
                             self.flush_sequential(inflight).await;
                             break;
                         }
