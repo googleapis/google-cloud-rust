@@ -46,6 +46,7 @@ serde_json.workspace  = true
 # TODO: move new deps to workspace
 pkcs1                 = { version = "0.7", optional = true, features = ["alloc"] }
 spki                  = { version = "0.7", optional = true, features = ["alloc"] }
+p256                  = { workspace = true, optional = true, features = ["ecdsa"] }
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
@@ -72,7 +73,7 @@ mutants.workspace     = true
 default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
-idtoken = ["dep:pkcs1", "dep:spki", "jsonwebtoken"]
+idtoken = ["dep:pkcs1", "dep:spki", "dep:p256", "jsonwebtoken"]
 # By default this crate enables the `aws_lc_rs` backend. Applications can
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the

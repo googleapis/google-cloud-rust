@@ -39,6 +39,7 @@
 use crate::credentials::internal::jwk_client::JwkClient;
 use crate::credentials::service_account::jws::JwsHeader;
 use base64::Engine;
+use p256::ecdsa::Signature;
 use rustls::crypto::CryptoProvider;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
@@ -182,26 +183,30 @@ impl Verifier {
             .kid
             .ok_or_else(|| Error::invalid_field("kid", "kid header is missing"))?;
 
-        if header.alg != "RS256" {
-            return Err(Error::invalid_field(
-                "alg",
-                format!("Unsupported algorithm: {}", header.alg),
-            ));
-        }
-
-        let claims_json = base64::engine::general_purpose::URL_SAFE_NO_PAD
-            .decode(parts[1])
-            .map_err(Error::decode)?;
-        let claims: Map<String, Value> =
-            serde_json::from_slice(&claims_json).map_err(Error::decode)?;
+        let scheme = match header.alg {
+            "RS256" => rustls::SignatureScheme::RSA_PKCS1_SHA256,
+            "ES256" => rustls::SignatureScheme::ECDSA_NISTP256_SHA256,
+            _ => {
+                return Err(Error::invalid_field(
+                    "alg",
+                    format!("Unsupported algorithm: {}", header.alg),
+                ));
+            }
+        };
 
         let signature = base64::engine::general_purpose::URL_SAFE_NO_PAD
             .decode(parts[2])
             .map_err(Error::decode)?;
 
-        let expected_email = self.email.clone();
-        let jwks_url = self.jwks_url.clone();
+        let signature = if header.alg == "ES256" {
+            let sig = Signature::from_slice(&signature)
+                .map_err(|_| Error::invalid("invalid ECDSA signature format"))?;
+            sig.to_der().as_bytes().to_vec()
+        } else {
+            signature
+        };
 
+        let jwks_url = self.jwks_url.clone();
         let spki = self
             .jwk_client
             .get_or_load_cert(key_id.to_string(), header.alg, jwks_url)
@@ -230,16 +235,26 @@ Note that the application must use the exact same version of `rustls` as the
         let mapping = algs.mapping;
         let alg = mapping
             .iter()
-            .find(|(scheme, _)| *scheme == rustls::SignatureScheme::RSA_PKCS1_SHA256)
+            .find(|(candidate_scheme, _)| *candidate_scheme == scheme)
             .map(|(_, candidates)| candidates[0])
             .ok_or_else(|| {
-                Error::invalid("RSA_PKCS1_SHA256 not supported by current crypto provider")
+                Error::invalid(format!(
+                    "{:?} not supported by current crypto provider",
+                    scheme
+                ))
             })?;
 
         alg.verify_signature(&spki, message.as_bytes(), &signature)
             .map_err(|e| Error::invalid(format!("Invalid signature: {:?}", e)))?;
 
-        // Validate Payload claims
+        // claims validation
+        let expected_email = self.email.clone();
+        let claims_json = base64::engine::general_purpose::URL_SAFE_NO_PAD
+            .decode(parts[1])
+            .map_err(Error::decode)?;
+        let claims: Map<String, Value> =
+            serde_json::from_slice(&claims_json).map_err(Error::decode)?;
+
         let now = SystemTime::now()
             .duration_since(UNIX_EPOCH)
             .unwrap()
