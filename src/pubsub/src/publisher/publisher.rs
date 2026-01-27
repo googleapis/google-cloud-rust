@@ -413,7 +413,9 @@ mod tests {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
-        mock.expect_publish().return_once(publish_ok);
+        // mock.expect_publish().returning(publish_ok);
+        mock.expect_publish().times(2).returning(publish_ok);
+
         let client = GapicPublisher::from_stub(mock);
         let publisher = PublisherPartialBuilder::new(client, TOPIC.to_string())
             .set_message_count_threshold(1000_u32)
@@ -424,13 +426,19 @@ mod tests {
         let messages = [
             PubsubMessage::new().set_data("hello"),
             PubsubMessage::new().set_data("world"),
+            PubsubMessage::new()
+                .set_data("hello")
+                .set_ordering_key("key"),
+            PubsubMessage::new()
+                .set_data("world")
+                .set_ordering_key("key"),
         ];
         let mut handles = Vec::new();
         for msg in messages {
             let handle = publisher.publish(msg.clone());
             handles.push((msg, handle));
         }
-        drop(publisher); // This should trigger the batch to send, no delay.
+        drop(publisher); // This should trigger the publisher to send all pending messages.
 
         for (id, rx) in handles.into_iter() {
             let got = rx.await.expect("expected message id");

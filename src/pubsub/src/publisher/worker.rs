@@ -164,18 +164,8 @@ impl Worker {
                             }
                         }
                         None => {
-                            // The sender has been dropped send batch and stop running.
-                            // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles for the batch and the program ends.
-                            let mut flush_set = JoinSet::new();
-                            for (_, batch_worker) in batch_workers.iter_mut() {
-                                let (tx, rx) = oneshot::channel();
-                                batch_worker
-                                    .send(ToBatchWorker::Flush(tx))
-                                    .expect(batch_worker_error_msg);
-                                flush_set.spawn(rx);
-                            }
-                            flush_set.join_all().await;
+                            // By dropping the BatchWorker Senders, they will individually handle the
+                            // shutdown procedures.
                             break;
                         }
                     }
@@ -247,6 +237,29 @@ impl BatchWorker {
         }
     }
 
+    // Flush the pending batch and pending messages by sending and awaiting Publish
+    // sequentially.
+    async fn flush_sequential(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
+        self.handle_inflight_join(inflight.join_next().await);
+        while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+            self.move_to_batch();
+            self.pending_batch
+                .flush(self.client.clone(), self.topic.clone(), &mut inflight);
+            self.handle_inflight_join(inflight.join_next().await);
+        }
+    }
+
+    // Flush the pending batch and pending messages by sending Publish
+    // concurrent.
+    async fn flush_concurrent(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
+        while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+            self.move_to_batch();
+            self.pending_batch
+                .flush(self.client.clone(), self.topic.clone(), &mut inflight);
+        }
+        inflight.join_all().await;
+    }
+
     /// The main loop of the batch worker.
     ///
     /// This method concurrently handles the following events:
@@ -288,11 +301,7 @@ impl BatchWorker {
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
                             // Send all the batches concurrently.
-                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                self.move_to_batch();
-                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                            }
-                            inflight.join_all().await;
+                            self.flush_concurrent(inflight).await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
@@ -300,7 +309,9 @@ impl BatchWorker {
                             // Nothing to resume as we do not pause without ordering key.
                         }
                         None => {
-                            // TODO(#4012): Add shutdown procedure for BatchWorker.
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishHandles for the batch and the program ends.
+                            self.flush_concurrent(inflight).await;
                             break;
                         }
                     }
@@ -347,7 +358,8 @@ impl BatchWorker {
                         self.paused = false;
                     }
                     None => {
-                        // TODO(#4012): Add shutdown procedure for BatchWorker.
+                        // There should be no pending messages and messages in the pending batch as
+                        // it was already handled when this was paused.
                         break;
                     }
                 }
@@ -373,20 +385,17 @@ impl BatchWorker {
                             }
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
-                            // Send batches sequentially.
-                            self.handle_inflight_join(inflight.join_next().await);
-                            while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                self.move_to_batch();
-                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                self.handle_inflight_join(inflight.join_next().await);
-                            }
+                            self.flush_sequential(inflight).await;
+                            inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
                         Some(ToBatchWorker::ResumePublish()) => {
                             // Nothing to resume as we are not paused.
                         },
                         None => {
-                            // TODO(#4012): Add shutdown procedure for BatchWorker.
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishHandles for the batch and the program ends.
+                            self.flush_sequential(inflight).await;
                             break;
                         }
                     }
