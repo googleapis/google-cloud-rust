@@ -23,7 +23,7 @@ use crate::read_object::ReadObjectResponse;
 use crate::read_resume_policy::ReadResumePolicy;
 use crate::storage::checksum::details::Md5;
 use crate::storage::request_options::RequestOptions;
-use gaxi::http::map_send_error;
+use gaxi::http::{ReqwestBuilder, ReqwestResponse, map_send_error};
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
 ///
@@ -416,7 +416,7 @@ pub(crate) struct Reader {
 }
 
 impl Reader {
-    async fn read(self) -> Result<reqwest::Response> {
+    async fn read(self) -> Result<ReqwestResponse> {
         let throttler = self.options.retry_throttler.clone();
         let retry = self.options.retry_policy.clone();
         let backoff = self.options.backoff_policy.clone();
@@ -432,7 +432,7 @@ impl Reader {
         .await
     }
 
-    async fn read_attempt(&self) -> Result<reqwest::Response> {
+    async fn read_attempt(&self) -> Result<ReqwestResponse> {
         let builder = self.http_request_builder().await?;
         let response = builder.send().await.map_err(map_send_error)?;
         if !response.status().is_success() {
@@ -441,7 +441,7 @@ impl Reader {
         Ok(response)
     }
 
-    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
+    async fn http_request_builder(&self) -> Result<ReqwestBuilder> {
         // Collect the required bucket and object parameters.
         let bucket = &self.request.bucket;
         let bucket_id = bucket
@@ -459,13 +459,13 @@ impl Reader {
             .inner
             .client
             .builder(
-                reqwest::Method::GET,
+                gaxi::http::Method::GET,
                 format!("/storage/v1/b/{bucket_id}/o/{}", enc(object)),
             )
             .query(&[("alt", "media")])
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
+                gaxi::http::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = if self.options.automatic_decompression {
@@ -478,7 +478,7 @@ impl Reader {
             // with a different `contentEncoding` value.
             builder.header(
                 "accept-encoding",
-                reqwest::header::HeaderValue::from_static("gzip"),
+                gaxi::http::HeaderValue::from_static("gzip"),
             )
         };
 
@@ -539,7 +539,7 @@ impl Reader {
         self.inner.apply_auth_headers(builder).await
     }
 
-    fn is_gunzipped(response: &reqwest::Response) -> bool {
+    fn is_gunzipped(response: &ReqwestResponse) -> bool {
         // Cloud Storage automatically [decompresses gzip-compressed][transcoding]
         // objects. Reading such objects comes with a number of restrictions:
         // - Ranged reads do not work.
@@ -605,7 +605,7 @@ mod tests {
     async fn http_request_builder(
         inner: Arc<StorageInner>,
         builder: ReadObject,
-    ) -> crate::Result<reqwest::RequestBuilder> {
+    ) -> crate::Result<ReqwestBuilder> {
         let reader = Reader {
             inner,
             request: builder.request,
@@ -962,7 +962,7 @@ mod tests {
         );
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         assert_eq!(
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
@@ -1016,7 +1016,7 @@ mod tests {
         .set_if_metageneration_not_match(40);
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         let want_pairs: HashMap<String, String> = [
             ("alt", "media"),
             ("generation", "5"),
@@ -1051,7 +1051,7 @@ mod tests {
         );
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         assert_eq!(
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
@@ -1083,7 +1083,7 @@ mod tests {
         .with_automatic_decompression(true);
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         assert_eq!(
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
@@ -1111,7 +1111,7 @@ mod tests {
         .set_key(KeyAes256::new(&key)?);
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         assert_eq!(
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
@@ -1151,7 +1151,7 @@ mod tests {
         .set_read_range(input.clone());
         let request = http_request_builder(inner, builder).await?.build()?;
 
-        assert_eq!(request.method(), reqwest::Method::GET);
+        assert_eq!(request.method(), gaxi::http::Method::GET);
         assert_eq!(
             request.url().as_str(),
             "http://private.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
@@ -1199,7 +1199,7 @@ mod tests {
             .status(200)
             .header(name, value)
             .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
+        let response = ReqwestResponse::from(response);
         let got = Reader::is_gunzipped(&response);
         assert_eq!(got, want, "{response:?}");
         Ok(())

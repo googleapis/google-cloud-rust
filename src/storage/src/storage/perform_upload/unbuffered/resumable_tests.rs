@@ -80,6 +80,7 @@ use crate::model_ext::{KeyAes256, tests::create_key_helper};
 use crate::storage::client::{Storage, tests::test_builder};
 use crate::streaming_source::{BytesSource, SizeHint, tests::UnknownSize};
 use gax::retry_policy::RetryPolicyExt;
+use gaxi::http::ReqwestResponse;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use serde_json::{Value, json};
@@ -848,7 +849,7 @@ async fn resumable_upload_handle_response_success() -> Result {
     let response = http::Response::builder()
         .status(200)
         .body(response_body().to_string())?;
-    let response = reqwest::Response::from(response);
+    let response = ReqwestResponse::from(response);
     let object = super::handle_object_response(response).await?;
     assert_eq!(object.name, "test-object");
     assert_eq!(object.bucket, "projects/_/buckets/test-bucket");
@@ -862,7 +863,7 @@ async fn resumable_upload_handle_response_success() -> Result {
 #[tokio::test]
 async fn resumable_upload_handle_response_http_error() -> Result {
     let response = http::Response::builder().status(429).body("try-again")?;
-    let response = reqwest::Response::from(response);
+    let response = ReqwestResponse::from(response);
     let err = super::handle_object_response(response)
         .await
         .expect_err("HTTP error should return errors");
@@ -875,7 +876,7 @@ async fn resumable_upload_handle_response_deser() -> Result {
     let response = http::Response::builder()
         .status(200)
         .body("a string is not an object")?;
-    let response = reqwest::Response::from(response);
+    let response = ReqwestResponse::from(response);
     let err = super::handle_object_response(response)
         .await
         .expect_err("bad format should return errors");

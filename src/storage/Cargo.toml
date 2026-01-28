@@ -44,7 +44,6 @@ percent-encoding.workspace = true
 pin-project.workspace      = true
 prost.workspace            = true
 prost-types.workspace      = true
-reqwest                    = { workspace = true, features = ["multipart", "stream"] }
 serde.workspace            = true
 serde_json.workspace       = true
 serde_with.workspace       = true
@@ -60,7 +59,7 @@ hex                        = { workspace = true, features = ["std"] }
 # Local crates
 google-cloud-auth     = { workspace = true }
 gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
+gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-multipart", "_internal-http-stream"] }
 gtype.workspace       = true
 iam_v1.workspace      = true
 longrunning.workspace = true
@@ -70,7 +69,7 @@ wkt.workspace         = true
 
 [features]
 default         = ["default-rustls-provider"]
-unstable-stream = ["reqwest/stream"]
+unstable-stream = []
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this

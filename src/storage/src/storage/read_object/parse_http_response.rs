@@ -17,7 +17,8 @@ use crate::error::ReadError;
 use crate::model_ext::ObjectHighlights;
 use crate::storage::v1;
 use base64::Engine;
-use reqwest::header::HeaderMap;
+use gaxi::http::ReqwestResponse;
+use http::HeaderMap;
 use serde_with::DeserializeAs;
 
 pub fn object_highlights(generation: i64, headers: &HeaderMap) -> Result<ObjectHighlights> {
@@ -77,7 +78,7 @@ pub(crate) fn headers_to_md5_hash(headers: &HeaderMap) -> Vec<u8> {
 }
 
 pub(crate) fn response_generation(
-    response: &reqwest::Response,
+    response: &ReqwestResponse,
 ) -> std::result::Result<i64, ReadError> {
     let header = required_header(response, "x-goog-generation")?;
     header
@@ -86,7 +87,7 @@ pub(crate) fn response_generation(
 }
 
 pub(crate) fn required_header<'a>(
-    response: &'a reqwest::Response,
+    response: &'a ReqwestResponse,
     name: &'static str,
 ) -> std::result::Result<&'a str, ReadError> {
     let header = response
@@ -214,7 +215,7 @@ mod tests {
             .status(200)
             .header("x-goog-generation", value)
             .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
+        let response = ReqwestResponse::from(response);
         let got = response_generation(&response)?;
         assert_eq!(got, value);
         Ok(())
@@ -223,7 +224,7 @@ mod tests {
     #[test]
     fn response_generation_missing() -> Result {
         let response = http::Response::builder().status(200).body(Vec::new())?;
-        let response = reqwest::Response::from(response);
+        let response = ReqwestResponse::from(response);
         let err =
             response_generation(&response).expect_err("missing header should result in an error");
         assert!(
@@ -240,7 +241,7 @@ mod tests {
             .status(200)
             .header("x-goog-generation", value)
             .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
+        let response = ReqwestResponse::from(response);
         let err =
             response_generation(&response).expect_err("header value should result in an error");
         assert!(
@@ -258,7 +259,7 @@ mod tests {
             .status(200)
             .header(name, http::HeaderValue::from_bytes(b"invalid\xfa")?)
             .body(Vec::new())?;
-        let response = reqwest::Response::from(response);
+        let response = ReqwestResponse::from(response);
         let err =
             required_header(&response, name).expect_err("header value should result in an error");
         assert!(

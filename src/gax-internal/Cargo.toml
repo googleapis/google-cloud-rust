@@ -72,6 +72,8 @@ _internal-grpc-client = [
   "dep:tracing",
   "dep:wkt",
 ]
+_internal-http-multipart = ["reqwest?/multipart"]
+_internal-http-stream    = ["reqwest?/stream"]
 _internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
 

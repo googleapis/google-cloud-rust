@@ -30,11 +30,21 @@ use gax::retry_throttler::SharedRetryThrottler;
 use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
-use http::{Extensions, Method};
+use http::Extensions;
 use std::sync::Arc;
 use std::time::Duration;
 #[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
+
+pub use reqwest::Body as ReqwestBody;
+pub use reqwest::Method;
+pub use reqwest::Request as Reqwest;
+pub use reqwest::RequestBuilder as ReqwestBuilder;
+pub use reqwest::Response as ReqwestResponse;
+pub use reqwest::StatusCode;
+pub use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
+#[cfg(feature = "_internal-http-multipart")]
+pub use reqwest::multipart;
 
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {

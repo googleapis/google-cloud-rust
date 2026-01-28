@@ -18,7 +18,7 @@ use super::{
     handle_object_response, v1,
 };
 use futures::stream::unfold;
-use gaxi::http::map_send_error;
+use gaxi::http::{ReqwestBody, ReqwestBuilder, map_send_error, multipart};
 use std::sync::Arc;
 
 impl<S> PerformUpload<S>
@@ -80,12 +80,12 @@ where
         let builder = self
             .inner
             .client
-            .builder_with_url(reqwest::Method::PUT, url_ref)
+            .builder_with_url(gaxi::http::Method::PUT, url_ref)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                gaxi::http::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
@@ -131,7 +131,7 @@ where
         self.validate_response_object(object).await
     }
 
-    async fn single_shot_builder(&self, hint: SizeHint) -> Result<reqwest::RequestBuilder> {
+    async fn single_shot_builder(&self, hint: SizeHint) -> Result<ReqwestBuilder> {
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -143,21 +143,21 @@ where
             .inner
             .client
             .builder(
-                reqwest::Method::POST,
+                gaxi::http::Method::POST,
                 format!("/upload/storage/v1/b/{bucket_id}/o"),
             )
             .query(&[("uploadType", "multipart")])
             .query(&[("name", object)])
             .header(
                 "x-goog-api-client",
-                reqwest::header::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                gaxi::http::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = self.apply_preconditions(builder);
         let builder = apply_customer_supplied_encryption_headers(builder, &self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
-        let metadata = reqwest::multipart::Part::text(v1::insert_body(self.resource()).to_string())
+        let metadata = multipart::Part::text(v1::insert_body(self.resource()).to_string())
             .mime_str("application/json; charset=UTF-8")
             .map_err(Error::ser)?;
         self.payload
@@ -167,24 +167,21 @@ where
             .await
             .map_err(Error::ser)?;
         let payload = self.payload_to_body().await?;
-        let form = reqwest::multipart::Form::new().part("metadata", metadata);
+        let form = multipart::Form::new().part("metadata", metadata);
         let form = if let Some(exact) = hint.exact() {
-            form.part(
-                "media",
-                reqwest::multipart::Part::stream_with_length(payload, exact),
-            )
+            form.part("media", multipart::Part::stream_with_length(payload, exact))
         } else {
-            form.part("media", reqwest::multipart::Part::stream(payload))
+            form.part("media", multipart::Part::stream(payload))
         };
 
         let builder = builder.header(
             "content-type",
             format!("multipart/related; boundary={}", form.boundary()),
         );
-        Ok(builder.body(reqwest::Body::wrap_stream(form.into_stream())))
+        Ok(builder.body(ReqwestBody::wrap_stream(form.into_stream())))
     }
 
-    async fn payload_to_body(&self) -> Result<reqwest::Body> {
+    async fn payload_to_body(&self) -> Result<ReqwestBody> {
         let payload = self.payload.clone();
         let stream = Box::pin(unfold(Some(payload), move |state| async move {
             if let Some(payload) = state {
@@ -196,7 +193,7 @@ where
             }
             None
         }));
-        Ok(reqwest::Body::wrap_stream(stream))
+        Ok(ReqwestBody::wrap_stream(stream))
     }
 }
 

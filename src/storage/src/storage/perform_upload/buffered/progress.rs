@@ -18,6 +18,7 @@ use crate::Error;
 use crate::Result;
 use crate::error::WriteError;
 use futures::stream::unfold;
+use gaxi::http::ReqwestBody;
 use std::collections::VecDeque;
 
 #[derive(Clone, Default)]
@@ -171,7 +172,7 @@ impl InProgressUpload {
         }
     }
 
-    pub fn put_body(&self) -> reqwest::Body {
+    pub fn put_body(&self) -> ReqwestBody {
         let stream = unfold(Some(self.buffer.clone()), move |state| async move {
             if let Some(mut payload) = state {
                 if let Some(next) = payload.pop_front() {
@@ -180,7 +181,7 @@ impl InProgressUpload {
             }
             None
         });
-        reqwest::Body::wrap_stream(stream)
+        ReqwestBody::wrap_stream(stream)
     }
 
     pub fn handle_partial(&mut self, persisted_size: u64) -> Result<()> {

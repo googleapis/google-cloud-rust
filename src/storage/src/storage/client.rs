@@ -23,6 +23,7 @@ use crate::streaming_source::Payload;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use gax::client_builder::{Error as BuilderError, Result as BuilderResult};
+use gaxi::http::ReqwestBuilder;
 use gaxi::options::{ClientConfig, Credentials};
 use google_cloud_auth::credentials::{Builder as CredentialsBuilder, CacheableResource};
 use http::Extensions;
@@ -334,8 +335,8 @@ impl StorageInner {
     // Helper method to apply authentication headers to the request builder.
     pub async fn apply_auth_headers(
         &self,
-        builder: reqwest::RequestBuilder,
-    ) -> crate::Result<reqwest::RequestBuilder> {
+        builder: ReqwestBuilder,
+    ) -> crate::Result<ReqwestBuilder> {
         let cached_auth_headers = self
             .cred
             .headers(Extensions::new())
@@ -726,9 +727,9 @@ pub(crate) fn enc(value: &str) -> String {
 }
 
 pub(crate) fn apply_customer_supplied_encryption_headers(
-    builder: reqwest::RequestBuilder,
+    builder: ReqwestBuilder,
     common_object_request_params: &Option<crate::model::CommonObjectRequestParams>,
-) -> reqwest::RequestBuilder {
+) -> ReqwestBuilder {
     common_object_request_params.iter().fold(builder, |b, v| {
         b.header(
             "x-goog-encryption-algorithm",
