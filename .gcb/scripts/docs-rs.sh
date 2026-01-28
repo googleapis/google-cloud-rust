@@ -21,7 +21,7 @@ cargo install --locked cargo-workspaces
 cargo version
 rustup show active-toolchain -v
 
-mapfile -t all_packages < <(cargo workspaces plan 2>/dev/null')
+mapfile -t all_packages < <(cargo workspaces plan 2>/dev/null)
 packages=("${all_packages[@]:0:20}")
 if [[ "${TRIGGER_NAME:-}" == "gcb-pm-*" ]]; then
     packages=("${all_packages[@]}")
