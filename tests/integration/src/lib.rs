@@ -26,8 +26,6 @@ pub mod secret_manager;
 pub mod storage;
 pub mod workflows;
 
-pub const SECRET_ID_LENGTH: usize = 64;
-
 pub const VM_ID_LENGTH: usize = 63;
 
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {

@@ -75,10 +75,6 @@ path    = "../../src/firestore"
 package = "google-cloud-secretmanager-v1"
 path    = "../../src/generated/cloud/secretmanager/v1"
 
-[dependencies.smo]
-package = "secretmanager-openapi-v1"
-path    = "../../src/generated/openapi-validation"
-
 [dependencies.storage]
 package  = "google-cloud-storage"
 path     = "../../src/storage"

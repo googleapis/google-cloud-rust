@@ -24,6 +24,9 @@ use rand::{
 /// Where possible, we use this prefix for randomly generated resource ids.
 pub const PREFIX: &str = "rust-sdk-testing-";
 
+/// The maximum length for a secret ID.
+const SECRET_ID_LENGTH: usize = 64;
+
 const BUCKET_ID_LENGTH: usize = 63;
 
 const WORKFLOW_ID_LENGTH: usize = 64;
@@ -39,6 +42,16 @@ pub fn random_workflow_id() -> String {
     let id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(WORKFLOW_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
+    format!("{PREFIX}{id}")
+}
+
+/// Generate a random secret id.
+pub fn random_secret_id() -> String {
+    let id: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(SECRET_ID_LENGTH - PREFIX.len())
         .map(char::from)
         .collect();
     format!("{PREFIX}{id}")
@@ -84,6 +97,11 @@ mod tests {
 
     #[test]
     fn bucket_id() {
+        assert!(
+            PREFIX.len() < BUCKET_ID_LENGTH,
+            "{PREFIX} length ({}) should be smaller than {BUCKET_ID_LENGTH}",
+            PREFIX.len()
+        );
         let got = random_bucket_id();
         assert!(
             got.len() <= BUCKET_ID_LENGTH,
@@ -97,10 +115,36 @@ mod tests {
 
     #[test]
     fn workflow_id() {
+        assert!(
+            PREFIX.len() < WORKFLOW_ID_LENGTH,
+            "{PREFIX} length ({}) should be smaller than {WORKFLOW_ID_LENGTH}",
+            PREFIX.len()
+        );
         let got = random_workflow_id();
         assert!(
             got.len() <= WORKFLOW_ID_LENGTH,
             "{got} has more than {WORKFLOW_ID_LENGTH} characters"
+        );
+        let suffix = got
+            .strip_prefix(PREFIX)
+            .expect("{got} should start with {PREFIX}");
+        assert!(
+            suffix.chars().all(|c| c.is_alphanumeric()),
+            "the suffix should be alphanumeric: {suffix}"
+        );
+    }
+
+    #[test]
+    fn secret_id() {
+        assert!(
+            PREFIX.len() < SECRET_ID_LENGTH,
+            "{PREFIX} length ({}) should be smaller than {SECRET_ID_LENGTH}",
+            PREFIX.len()
+        );
+        let got = random_workflow_id();
+        assert!(
+            got.len() <= SECRET_ID_LENGTH,
+            "{got} has more than {SECRET_ID_LENGTH} characters"
         );
         let suffix = got
             .strip_prefix(PREFIX)

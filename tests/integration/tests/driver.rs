@@ -129,22 +129,6 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::secret_manager::openapi::run()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::secret_manager::openapi_locational::run()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]

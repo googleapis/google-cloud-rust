@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,4 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod protobuf;
+#[cfg(all(test, feature = "run-integration-tests"))]
+mod openapi {
+    use google_cloud_test_utils::tracing::enable_tracing;
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn run_global() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_openapi::global::run().await
+    }
+
+    #[tokio::test(flavor = "multi_thread")]
+    async fn run_locational() -> anyhow::Result<()> {
+        let _guard = enable_tracing();
+        integration_tests_openapi::locational::run().await
+    }
+}

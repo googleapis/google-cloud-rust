@@ -296,6 +296,7 @@ members = [
   "tests/integration",
   "tests/integration-auth",
   "tests/o11y",
+  "tests/openapi",
   "tests/protojson-conformance",
   "tests/pubsub",
   "tests/showcase",
@@ -474,9 +475,11 @@ language                        = { default-features = false, version = "1", pat
 google-cloud-dns-v1             = { default-features = false, path = "src/generated/cloud/dns/v1" }
 google-cloud-showcase-v1beta1   = { default-features = false, path = "src/generated/showcase" }
 google-cloud-trace-v1           = { default-features = false, path = "src/generated/devtools/cloudtrace/v1" }
+secretmanager-openapi-v1        = { default-features = false, path = "src/generated/openapi-validation" }
 # The names on these are too long, I do not want to reformat the whole file for them.
 google-cloud-workflows-v1            = { default-features = false, path = "src/generated/cloud/workflows/v1" }
 google-cloud-workflows-executions-v1 = { default-features = false, path = "src/generated/cloud/workflows/executions/v1" }
+
 
 # Local test packages (never add a version)
 google-cloud-test-utils = { default-features = false, path = "src/test-utils" }
