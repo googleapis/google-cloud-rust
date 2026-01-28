@@ -398,19 +398,18 @@ async fn cleanup_stale_secrets(
         page_token = response.next_page_token;
     }
 
-    let pending = stale_secrets
-        .iter()
-        .map(|name| {
-            let (project, location, secret) = extract(name).unwrap();
-            client
-                .delete_secret_by_project_and_location_and_secret()
-                .set_project(project)
-                .set_location(location)
-                .set_secret(secret)
-                .with_idempotency(true)
-                .send()
-        })
-        .collect::<Vec<_>>();
+    let pending = stale_secrets.iter().map(|name| async move {
+        let (project, location, secret) = parse_secret_name(name)?;
+        client
+            .delete_secret_by_project_and_location_and_secret()
+            .set_project(project)
+            .set_location(location)
+            .set_secret(secret)
+            .with_idempotency(true)
+            .send()
+            .await?;
+        Ok::<(), anyhow::Error>(())
+    });
 
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
@@ -422,18 +421,11 @@ async fn cleanup_stale_secrets(
     Ok(())
 }
 
-fn extract(name: &str) -> Result<(&str, &str, &str)> {
+fn parse_secret_name(name: &str) -> Result<(&str, &str, &str)> {
     // format: projects/{project}/locations/{location}/secrets/{secret}
     let parts: Vec<&str> = name.split('/').collect();
     match parts[..] {
-        [
-            "projects",
-            p,
-            "locations",
-            l,
-            "secrets",
-            s,
-        ] => Ok((p, l, s)),
+        ["projects", p, "locations", l, "secrets", s] => Ok((p, l, s)),
         _ => Err(anyhow!("invalid secret name: {}", name)),
     }
 }
@@ -441,24 +433,24 @@ fn extract(name: &str) -> Result<(&str, &str, &str)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use test_case::test_case;
 
     #[test]
     fn test_extract_valid_name() {
         let name = "projects/my-project/locations/us-central1/secrets/my-secret";
-        let (project, location, secret) = extract(name).unwrap();
+        let (project, location, secret) = parse_secret_name(name).unwrap();
         assert_eq!(project, "my-project");
         assert_eq!(location, "us-central1");
         assert_eq!(secret, "my-secret");
     }
 
-    #[test]
-    fn test_extract_invalid_name() {
-        let name = "invalid/format";
-        assert!(extract(name).is_err());
-    }
-
-    #[test]
-    fn test_extract_missing_parts() {
-        assert!(extract("projects/only-one").is_err());
+    #[test_case("invalid/format")]
+    #[test_case("projects/only-one")]
+    #[test_case("projects/p/locations/l/bad/s")]
+    #[test_case("projects/p/bad/l/secrets/s")]
+    #[test_case("bad/p/locations/l/secrets/s")]
+    fn test_extract_invalid_name(input: &str) {
+        let result = parse_secret_name(input);
+        assert!(result.is_err(), "{result:?}");
     }
 }
