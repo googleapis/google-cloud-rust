@@ -505,7 +505,6 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
     };
-    use gax::retry_policy::AlwaysRetry;
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;
