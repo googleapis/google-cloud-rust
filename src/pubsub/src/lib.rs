@@ -114,14 +114,11 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::BasePublisher;
+/// use google_cloud_pubsub::client::Publisher;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a client for creating publishers.
-/// let client = BasePublisher::builder().build().await?;
-///
 /// // Create a publisher that handles batching for a specific topic.
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.

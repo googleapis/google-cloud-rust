@@ -14,9 +14,13 @@
 
 use super::options::BatchingOptions;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
+use crate::publisher::base_publisher::{BasePublisher, BasePublisherBuilder};
 use crate::publisher::worker::BundledMessage;
 use crate::publisher::worker::ToWorker;
 use crate::publisher::worker::Worker;
+use gax::backoff_policy::BackoffPolicyArg;
+use gax::retry_policy::RetryPolicyArg;
+use gax::retry_throttler::RetryThrottlerArg;
 use std::time::Duration;
 use tokio::sync::mpsc::UnboundedSender;
 use tokio::sync::oneshot;
@@ -30,15 +34,12 @@ const MAX_BYTES: u32 = 1e7 as u32; // 10MB
 /// A `Publisher` sends messages to a specific topic. It manages message batching
 /// and sending in a background task.
 ///
-/// Publishers are created via a [`BasePublisher`](crate::client::BasePublisher).
-///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
 /// # use google_cloud_pubsub::*;
-/// # use google_cloud_pubsub::client::BasePublisher;
+/// # use google_cloud_pubsub::client::Publisher;
 /// # use model::PubsubMessage;
-/// let client = BasePublisher::builder().build().await?;
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
 /// let message_id = publisher.publish(PubsubMessage::new().set_data("Hello, World"));
 /// # Ok(()) }
 /// ```
@@ -50,6 +51,21 @@ pub struct Publisher {
 }
 
 impl Publisher {
+    /// Returns a builder for [Publisher].
+    ///  
+    /// # Example
+    ///
+    /// ```
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// # use google_cloud_pubsub::*;
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// let publisher = Publisher::builder("projects/my-project/topics/topic").build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder(topic: impl Into<String>) -> PublisherBuilder {
+        PublisherBuilder::new(topic.into())
+    }
+
     /// Publishes a message to the topic.
     ///
     /// When this method encounters a non-recoverable error publishing for an ordering key,
@@ -145,9 +161,245 @@ impl Publisher {
     }
 }
 
-/// Creates `Publisher`s.
-///
-/// Publishers are created via a [`BasePublisher`][crate::client::BasePublisher].
+/// A builder for a `Publisher`.
+#[derive(Clone, Debug)]
+pub struct PublisherBuilder {
+    topic: String,
+    batching_options: BatchingOptions,
+    base_builder: BasePublisherBuilder,
+}
+
+impl PublisherBuilder {
+    pub(crate) fn new(topic: String) -> Self {
+        Self {
+            topic,
+            batching_options: BatchingOptions::default(),
+            base_builder: BasePublisher::builder(),
+        }
+    }
+
+    /// Creates a new [`Publisher`] from the builder's configuration.
+    pub async fn build(self) -> Result<Publisher, gax::client_builder::Error> {
+        let base_publisher = self.base_builder.build().await?;
+        let publisher = base_publisher
+            .publisher(&self.topic)
+            .set_message_count_threshold(self.batching_options.message_count_threshold)
+            .set_byte_threshold(self.batching_options.byte_threshold)
+            .set_delay_threshold(self.batching_options.delay_threshold)
+            .build();
+        Ok(publisher)
+    }
+
+    /// Sets the maximum number of messages to be batched together for a single `Publish` call.
+    /// When this number is reached, the batch is sent.
+    ///
+    /// Setting this to `1` disables batching by message count.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .set_message_count_threshold(100)
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_message_count_threshold(mut self, threshold: u32) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_message_count_threshold(threshold);
+        self
+    }
+
+    /// Sets the byte threshold for batching in a single `Publish` call.
+    /// When this many bytes are accumulated, the batch is sent.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .set_byte_threshold(100)
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_byte_threshold(mut self, threshold: u32) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_byte_threshold(threshold);
+        self
+    }
+
+    /// Sets the maximum amount of time the publisher will wait before sending a
+    /// batch. When this delay is reached, the current batch is sent, regardless
+    /// of the number of messages or total byte size.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # use std::time::Duration;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .set_delay_threshold(Duration::from_millis(50))
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherBuilder {
+        self.batching_options = self.batching_options.set_delay_threshold(threshold);
+        self
+    }
+
+    /// Sets the endpoint.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_endpoint("http://private.googleapis.com")
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
+        self.base_builder = self.base_builder.with_endpoint(v);
+        self
+    }
+
+    /// Enables tracing.
+    ///
+    /// The client libraries can be dynamically instrumented with the Tokio
+    /// [tracing] framework. Setting this flag enables this instrumentation.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_tracing()
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [tracing]: https://docs.rs/tracing/latest/tracing/
+    pub fn with_tracing(mut self) -> Self {
+        self.base_builder = self.base_builder.with_tracing();
+        self
+    }
+
+    /// Configure the authentication credentials.
+    ///
+    /// Most Google Cloud services require authentication, though some services
+    /// allow for anonymous access, and some services provide emulators where
+    /// no authentication is required. More information about valid credentials
+    /// types can be found in the [google-cloud-auth] crate documentation.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use auth::credentials::mds;
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_credentials(
+    ///         mds::Builder::default()
+    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .build()?)
+    ///     .build().await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
+    pub fn with_credentials<T: Into<gaxi::options::Credentials>>(mut self, v: T) -> Self {
+        self.base_builder = self.base_builder.with_credentials(v);
+        self
+    }
+
+    /// Configure the retry policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// retry policy controls what errors are considered retryable, sets limits
+    /// on the number of attempts or the time trying to make attempts.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+    ///     .build().await?;
+    /// # Ok(()) };
+    /// ```
+    pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
+        self.base_builder = self.base_builder.with_retry_policy(v);
+        self
+    }
+
+    /// Configure the retry backoff policy.
+    ///
+    /// The client libraries can automatically retry operations that fail. The
+    /// backoff policy controls how long to wait in between retry attempts.
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::exponential_backoff::ExponentialBackoff;
+    /// use std::time::Duration;
+    /// let policy = ExponentialBackoff::default();
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_backoff_policy(policy)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
+        self.base_builder = self.base_builder.with_backoff_policy(v);
+        self
+    }
+
+    /// Configure the retry throttler.
+    ///
+    /// Advanced applications may want to configure a retry throttler to
+    /// [Address Cascading Failures] and when [Handling Overload] conditions.
+    /// The client libraries throttle their retry loop, using a policy to
+    /// control the throttling algorithm. Use this method to fine tune or
+    /// customize the default retry throtler.
+    ///
+    /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    ///
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use gax::retry_throttler::AdaptiveThrottler;
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_retry_throttler(AdaptiveThrottler::default())
+    ///     .build().await?;
+    /// # Ok(()) };
+    /// ```
+    pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
+        self.base_builder = self.base_builder.with_retry_throttler(v);
+        self
+    }
+
+    /// Configure the number of gRPC subchannels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_grpc_subchannel_count(4)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in
+    /// gRPC).
+    ///
+    /// Consider using more subchannels if your application makes many
+    /// concurrent requests. Consider using fewer subchannels if your
+    /// application needs the file descriptors for other purposes.
+    pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
+        self.base_builder = self.base_builder.with_grpc_subchannel_count(v);
+        self
+    }
+}
+
+/// Creates `Publisher`s with a preconfigured client.
 ///
 /// # Example
 ///
@@ -278,6 +530,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
     };
+    use auth::credentials::anonymous::Builder as Anonymous;
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;
@@ -949,32 +1202,104 @@ mod tests {
     #[tokio::test]
     async fn builder() -> anyhow::Result<()> {
         let client = BasePublisher::builder().build().await?;
-        let builder = client.publisher("projects/my-project/topics/my-topic".to_string());
+        let builder = client.publisher("projects/my-project/topics/my-topic");
         let publisher = builder.set_message_count_threshold(1_u32).build();
+        assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
+
+        let publisher = Publisher::builder("projects/my-project/topics/my-topic")
+            .set_message_count_threshold(1_u32)
+            .build()
+            .await?;
         assert_eq!(publisher.batching_options.message_count_threshold, 1_u32);
         Ok(())
     }
 
     #[tokio::test]
     async fn default_batching() -> anyhow::Result<()> {
-        let client = BasePublisher::builder().build().await?;
-        let publisher = client
-            .publisher("projects/my-project/topics/my-topic".to_string())
-            .build();
+        // Test that default values for BasePublisher and Publisher are the same.
+        let topic_name = "projects/my-project/topics/my-topic";
+        let publishers = vec![
+            BasePublisher::builder()
+                .build()
+                .await?
+                .publisher(topic_name)
+                .build(),
+            Publisher::builder(topic_name).build().await?,
+        ];
 
-        assert_eq!(
-            publisher.batching_options.message_count_threshold,
-            BatchingOptions::default().message_count_threshold
-        );
-        assert_eq!(
-            publisher.batching_options.byte_threshold,
-            BatchingOptions::default().byte_threshold
-        );
-        assert_eq!(
-            publisher.batching_options.delay_threshold,
-            BatchingOptions::default().delay_threshold
-        );
+        for publisher in publishers {
+            assert_eq!(
+                publisher.batching_options.message_count_threshold,
+                BatchingOptions::default().message_count_threshold
+            );
+            assert_eq!(
+                publisher.batching_options.byte_threshold,
+                BatchingOptions::default().byte_threshold
+            );
+            assert_eq!(
+                publisher.batching_options.delay_threshold,
+                BatchingOptions::default().delay_threshold
+            );
+        }
         Ok(())
+    }
+
+    fn assert_eq_client_config(
+        pub_config: &gaxi::options::ClientConfig,
+        base_config: &gaxi::options::ClientConfig,
+    ) {
+        assert_eq!(pub_config.endpoint, base_config.endpoint);
+        assert_eq!(pub_config.cred.is_some(), base_config.cred.is_some());
+        assert_eq!(pub_config.tracing, base_config.tracing);
+        assert_eq!(
+            pub_config.retry_policy.is_some(),
+            base_config.retry_policy.is_some()
+        );
+        assert_eq!(
+            pub_config.backoff_policy.is_some(),
+            base_config.backoff_policy.is_some()
+        );
+        assert_eq!(
+            pub_config.grpc_subchannel_count,
+            base_config.grpc_subchannel_count
+        );
+    }
+
+    #[test]
+    fn defaults_client() {
+        let pub_builder = Publisher::builder("projects/my-project/topics/my-topic");
+        let base_builder = BasePublisher::builder();
+        let pub_config = &pub_builder.base_builder.config;
+        let base_config = &base_builder.config;
+
+        assert_eq_client_config(pub_config, base_config);
+    }
+
+    #[tokio::test]
+    async fn setters_client() {
+        use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        let throttler = gax::retry_throttler::CircuitBreaker::default();
+        let pub_builder = Publisher::builder("projects/my-project/topics/my-topic")
+            .with_endpoint("test-endpoint.com")
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_retry_throttler(throttler.clone())
+            .with_grpc_subchannel_count(16);
+        let base_builder = BasePublisher::builder()
+            .with_endpoint("test-endpoint.com")
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_retry_throttler(throttler)
+            .with_grpc_subchannel_count(16);
+
+        let pub_config = &pub_builder.base_builder.config;
+        let base_config = &base_builder.config;
+
+        assert_eq_client_config(pub_config, base_config);
     }
 
     #[tokio::test(start_paused = true)]
@@ -1260,18 +1585,29 @@ mod tests {
             .set_message_count_threshold(MAX_MESSAGES + 1)
             .set_byte_threshold(MAX_BYTES + 1);
 
-        let client = BasePublisher::builder().build().await?;
-        let publisher = client
-            .publisher("projects/my-project/topics/my-topic".to_string())
-            .set_delay_threshold(oversized_options.delay_threshold)
-            .set_message_count_threshold(oversized_options.message_count_threshold)
-            .set_byte_threshold(oversized_options.byte_threshold)
-            .build();
-        let got = publisher.batching_options;
+        let publishers = vec![
+            BasePublisher::builder()
+                .build()
+                .await?
+                .publisher("projects/my-project/topics/my-topic")
+                .set_delay_threshold(oversized_options.delay_threshold)
+                .set_message_count_threshold(oversized_options.message_count_threshold)
+                .set_byte_threshold(oversized_options.byte_threshold)
+                .build(),
+            Publisher::builder("projects/my-project/topics/my-topic".to_string())
+                .set_delay_threshold(oversized_options.delay_threshold)
+                .set_message_count_threshold(oversized_options.message_count_threshold)
+                .set_byte_threshold(oversized_options.byte_threshold)
+                .build()
+                .await?,
+        ];
 
-        assert_eq!(got.delay_threshold, MAX_DELAY);
-        assert_eq!(got.message_count_threshold, MAX_MESSAGES);
-        assert_eq!(got.byte_threshold, MAX_BYTES);
+        for publisher in publishers {
+            let got = publisher.batching_options;
+            assert_eq!(got.delay_threshold, MAX_DELAY);
+            assert_eq!(got.message_count_threshold, MAX_MESSAGES);
+            assert_eq!(got.byte_threshold, MAX_BYTES);
+        }
 
         // Test values that are within limits and should not be changed.
         let normal_options = BatchingOptions::new()
@@ -1279,21 +1615,33 @@ mod tests {
             .set_message_count_threshold(10_u32)
             .set_byte_threshold(100_u32);
 
-        let publisher = client
-            .publisher("projects/my-project/topics/my-topic".to_string())
-            .set_delay_threshold(normal_options.delay_threshold)
-            .set_message_count_threshold(normal_options.message_count_threshold)
-            .set_byte_threshold(normal_options.byte_threshold)
-            .build();
-        let got = publisher.batching_options;
+        let publishers = vec![
+            BasePublisher::builder()
+                .build()
+                .await?
+                .publisher("projects/my-project/topics/my-topic")
+                .set_delay_threshold(normal_options.delay_threshold)
+                .set_message_count_threshold(normal_options.message_count_threshold)
+                .set_byte_threshold(normal_options.byte_threshold)
+                .build(),
+            Publisher::builder("projects/my-project/topics/my-topic".to_string())
+                .set_delay_threshold(normal_options.delay_threshold)
+                .set_message_count_threshold(normal_options.message_count_threshold)
+                .set_byte_threshold(normal_options.byte_threshold)
+                .build()
+                .await?,
+        ];
 
-        assert_eq!(got.delay_threshold, normal_options.delay_threshold);
-        assert_eq!(
-            got.message_count_threshold,
-            normal_options.message_count_threshold
-        );
-        assert_eq!(got.byte_threshold, normal_options.byte_threshold);
+        for publisher in publishers {
+            let got = publisher.batching_options;
 
+            assert_eq!(got.delay_threshold, normal_options.delay_threshold);
+            assert_eq!(
+                got.message_count_threshold,
+                normal_options.message_count_threshold
+            );
+            assert_eq!(got.byte_threshold, normal_options.byte_threshold);
+        }
         Ok(())
     }
 }
