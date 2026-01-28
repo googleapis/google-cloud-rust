@@ -399,12 +399,18 @@ async fn cleanup_stale_secrets(
 
     let pending = stale_secrets
         .iter()
-        .map(|secret_id| {
+        .map(|name| {
+            // format: projects/{project}/locations/{location}/secrets/{secret}
+            let parts: Vec<&str> = name.split('/').collect();
+            let project = parts[1];
+            let location = parts[3];
+            let secret = parts[5];
+
             client
                 .delete_secret_by_project_and_location_and_secret()
-                .set_project(project_id)
-                .set_location(location_id)
-                .set_secret(secret_id)
+                .set_project(project)
+                .set_location(location)
+                .set_secret(secret)
                 .with_idempotency(true)
                 .send()
         })
