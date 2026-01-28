@@ -175,7 +175,7 @@ impl ClientBuilder {
     /// [Address Cascading Failures] and when [Handling Overload] conditions.
     /// The client libraries throttle their retry loop, using a policy to
     /// control the throttling algorithm. Use this method to fine tune or
-    /// customize the default retry throtler.
+    /// customize the default retry throttler.
     ///
     /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
     /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/

@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::publisher::publisher::PublisherPartialBuilder;
+use crate::publisher::builder::PublisherPartialBuilder;
 
 /// Creates [`Publisher`](super::publisher::Publisher) instances.
 ///
