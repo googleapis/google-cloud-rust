@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use super::{Anonymous, NeverRetry, Result};
+use google_cloud_gax::error::rpc::{Code, StatusDetails};
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_showcase_v1beta1::client::Echo;
+use google_cloud_showcase_v1beta1::model::PoetryError;
 
 const CONTENT: &str = r#"
 Four score and seven years ago our fathers brought forth on this continent a new
@@ -40,10 +44,10 @@ perish from the earth.
 "#;
 
 pub async fn run() -> Result<()> {
-    let client = showcase::client::Echo::builder()
+    let client = Echo::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
-        .with_retry_policy(gax::retry_policy::NeverRetry)
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(NeverRetry)
         .with_tracing()
         .build()
         .await?;
@@ -62,9 +66,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn echo_error_details(client: &showcase::client::Echo) -> Result<()> {
-    use gax::error::rpc::StatusDetails;
-
+async fn echo_error_details(client: &Echo) -> Result<()> {
     const TEXT: &str = "the quick brown fox jumps over the lazy dog";
     let response = client
         .echo_error_details()
@@ -83,8 +85,7 @@ async fn echo_error_details(client: &showcase::client::Echo) -> Result<()> {
     Ok(())
 }
 
-async fn fail_echo_with_details(client: &showcase::client::Echo) -> Result<()> {
-    use gax::error::rpc::{Code, StatusDetails};
+async fn fail_echo_with_details(client: &Echo) -> Result<()> {
     const LINE: &str =
         "It matters not how strait the gate, How charged with punishments the scroll,";
     let result = client
@@ -107,7 +108,7 @@ async fn fail_echo_with_details(client: &showcase::client::Echo) -> Result<()> {
         match detail {
             StatusDetails::Other(any) => {
                 let poetry = any
-                    .to_msg::<showcase::model::PoetryError>()
+                    .to_msg::<PoetryError>()
                     .expect("extraction should succeed");
                 assert_eq!(poetry.poem, LINE);
             }
@@ -136,8 +137,7 @@ async fn fail_echo_with_details(client: &showcase::client::Echo) -> Result<()> {
     Ok(())
 }
 
-async fn paged_expand(client: &showcase::client::Echo) -> Result<()> {
-    use gax::paginator::ItemPaginator;
+async fn paged_expand(client: &Echo) -> Result<()> {
     let mut words = Vec::new();
     let mut items = client.paged_expand().set_content(CONTENT).by_item();
     while let Some(w) = items.next().await {
@@ -147,8 +147,7 @@ async fn paged_expand(client: &showcase::client::Echo) -> Result<()> {
     Ok(())
 }
 
-async fn paged_expand_legacy(client: &showcase::client::Echo) -> Result<()> {
-    use gax::paginator::ItemPaginator;
+async fn paged_expand_legacy(client: &Echo) -> Result<()> {
     let mut words = Vec::new();
     let mut items = client.paged_expand_legacy().set_content(CONTENT).by_item();
     while let Some(w) = items.next().await {
@@ -158,7 +157,7 @@ async fn paged_expand_legacy(client: &showcase::client::Echo) -> Result<()> {
     Ok(())
 }
 
-async fn paged_expand_mapped(client: &showcase::client::Echo) -> Result<()> {
+async fn paged_expand_mapped(client: &Echo) -> Result<()> {
     let response = client
         .paged_expand_legacy_mapped()
         .set_content(CONTENT)
@@ -169,7 +168,7 @@ async fn paged_expand_mapped(client: &showcase::client::Echo) -> Result<()> {
 }
 
 // Verify that the library auto-populates request IDs
-async fn request_id_unset(client: &showcase::client::Echo) -> Result<()> {
+async fn request_id_unset(client: &Echo) -> Result<()> {
     let response = client.echo().set_content(CONTENT).send().await?;
     let uuid1 = uuid::Uuid::try_parse(&response.request_id)?;
     let uuid2 = uuid::Uuid::try_parse(&response.other_request_id)?;
@@ -179,7 +178,7 @@ async fn request_id_unset(client: &showcase::client::Echo) -> Result<()> {
 }
 
 // Verify that the library preserves user-supplied request IDs
-async fn request_id_custom(client: &showcase::client::Echo) -> Result<()> {
+async fn request_id_custom(client: &Echo) -> Result<()> {
     let uuid1 = "92500ce6-fba2-4fc5-92ad-b7250282c2fc";
     let uuid2 = "7289ea3a-7f36-44e7-ac2f-3d906f199c3c";
 

@@ -15,9 +15,7 @@
 #[cfg(all(test, feature = "run-showcase-tests"))]
 mod showcase {
     #[tokio::test]
-    async fn run_showcase() -> integration_tests::Result<()> {
-        integration_tests::showcase::run()
-            .await
-            .map_err(integration_tests::report_error)
+    async fn run() -> anyhow::Result<()> {
+        integration_tests_showcase::run().await
     }
 }

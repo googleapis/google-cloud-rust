@@ -23,7 +23,6 @@ pub mod compute;
 pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
-pub mod showcase;
 pub mod storage;
 pub mod workflows;
 

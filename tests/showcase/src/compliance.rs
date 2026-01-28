@@ -12,17 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use gax::error::binding::{BindingError, SubstitutionFail};
-use showcase::model::compliance_data::LifeKingdom;
-use showcase::model::*;
+use crate::{Anonymous, NeverRetry, Result};
+use google_cloud_gax::error::binding::{BindingError, SubstitutionFail};
+use google_cloud_showcase_v1beta1::client::Compliance;
+use google_cloud_showcase_v1beta1::model::compliance_data::LifeKingdom;
+use google_cloud_showcase_v1beta1::model::*;
 use std::error::Error as _;
 
 pub async fn run() -> Result<()> {
-    let client = showcase::client::Compliance::builder()
+    let client = Compliance::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
-        .with_retry_policy(gax::retry_policy::NeverRetry)
+        .with_credentials(Anonymous::new().build())
+        .with_retry_policy(NeverRetry)
         .with_tracing()
         .build()
         .await?;
@@ -46,7 +47,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn repeat_data_bootstrap(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_bootstrap(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new()
         .set_f_int32(1)
         .set_f_int64(2)
@@ -66,7 +67,7 @@ async fn repeat_data_bootstrap(client: &showcase::client::Compliance) -> Result<
     Ok(())
 }
 
-async fn repeat_data_body(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_body(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_body()
@@ -80,7 +81,7 @@ async fn repeat_data_body(client: &showcase::client::Compliance) -> Result<()> {
     Ok(())
 }
 
-async fn repeat_data_body_info(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_body_info(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_body_info()
@@ -93,7 +94,7 @@ async fn repeat_data_body_info(client: &showcase::client::Compliance) -> Result<
     Ok(())
 }
 
-async fn repeat_data_query(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_query(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_query()
@@ -107,7 +108,7 @@ async fn repeat_data_query(client: &showcase::client::Compliance) -> Result<()> 
     Ok(())
 }
 
-async fn repeat_data_simple_path(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_simple_path(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_simple_path()
@@ -130,7 +131,7 @@ async fn repeat_data_simple_path(client: &showcase::client::Compliance) -> Resul
     Ok(())
 }
 
-async fn repeat_data_path_resource(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_path_resource(client: &Compliance) -> Result<()> {
     let mut request = new_request();
     request.info = request.info.map(|i| i.set_f_string("first/f-string-value"));
     let response = client
@@ -148,7 +149,7 @@ async fn repeat_data_path_resource(client: &showcase::client::Compliance) -> Res
     Ok(())
 }
 
-async fn repeat_data_path_trailing_resource(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_path_trailing_resource(client: &Compliance) -> Result<()> {
     let mut request = new_request();
     request.info = request.info.map(|i| i.set_f_string("first/f-string-value"));
     let response = client
@@ -166,7 +167,7 @@ async fn repeat_data_path_trailing_resource(client: &showcase::client::Complianc
     Ok(())
 }
 
-async fn repeat_data_body_put(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_body_put(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_body_put()
@@ -179,7 +180,7 @@ async fn repeat_data_body_put(client: &showcase::client::Compliance) -> Result<(
     Ok(())
 }
 
-async fn repeat_data_body_patch(client: &showcase::client::Compliance) -> Result<()> {
+async fn repeat_data_body_patch(client: &Compliance) -> Result<()> {
     let request = new_request();
     let response = client
         .repeat_data_body_patch()
@@ -192,7 +193,7 @@ async fn repeat_data_body_patch(client: &showcase::client::Compliance) -> Result
     Ok(())
 }
 
-async fn unknown_enum(client: &showcase::client::Compliance) -> Result<()> {
+async fn unknown_enum(client: &Compliance) -> Result<()> {
     let response = client.get_enum().set_unknown_enum(true).send().await?;
     tracing::info!("response: {response:?}");
     let verify = client
@@ -205,7 +206,7 @@ async fn unknown_enum(client: &showcase::client::Compliance) -> Result<()> {
     Ok(())
 }
 
-async fn binding_success(client: &showcase::client::Compliance) -> Result<()> {
+async fn binding_success(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new().set_info(
         ComplianceData::new()
             .set_f_string("string")
@@ -231,7 +232,7 @@ async fn binding_success(client: &showcase::client::Compliance) -> Result<()> {
     Ok(())
 }
 
-async fn binding_error_unset(client: &showcase::client::Compliance) -> Result<()> {
+async fn binding_error_unset(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new(); // `info` is unset
     let e = client
         .repeat_data_simple_path()
@@ -260,7 +261,7 @@ async fn binding_error_unset(client: &showcase::client::Compliance) -> Result<()
     Ok(())
 }
 
-async fn binding_error_unset_expecting(client: &showcase::client::Compliance) -> Result<()> {
+async fn binding_error_unset_expecting(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new().set_info(ComplianceData::new()); // `info` is set, but `info.f_string` is empty.
     let e = client
         .repeat_data_simple_path()
@@ -284,7 +285,7 @@ async fn binding_error_unset_expecting(client: &showcase::client::Compliance) ->
     Ok(())
 }
 
-async fn binding_error_mismatch_expecting(client: &showcase::client::Compliance) -> Result<()> {
+async fn binding_error_mismatch_expecting(client: &Compliance) -> Result<()> {
     let request =
         RepeatRequest::new().set_info(ComplianceData::new().set_f_string("invalid/format")); // `info.f_string` is set, but invalid.
     let e = client
@@ -309,7 +310,7 @@ async fn binding_error_mismatch_expecting(client: &showcase::client::Compliance)
     Ok(())
 }
 
-async fn additional_binding_used(client: &showcase::client::Compliance) -> Result<()> {
+async fn additional_binding_used(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new().set_info(
         ComplianceData::new()
             .set_f_string("second/b")
@@ -334,7 +335,7 @@ async fn additional_binding_used(client: &showcase::client::Compliance) -> Resul
     Ok(())
 }
 
-async fn binding_error_has_all_failed_paths(client: &showcase::client::Compliance) -> Result<()> {
+async fn binding_error_has_all_failed_paths(client: &Compliance) -> Result<()> {
     let request = RepeatRequest::new();
     let e = client
         .repeat_data_path_resource()

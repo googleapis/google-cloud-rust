@@ -12,10 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use anyhow::Error;
-use gax::options::RequestOptionsBuilder;
-use gax::retry_policy::RetryPolicyExt;
+use anyhow::{Error, Result};
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::retry_policy::{AlwaysRetry, NeverRetry, RetryPolicyExt};
+use google_cloud_showcase_v1beta1::client::Testing;
 use std::path::PathBuf;
 use std::process::Stdio;
 use std::time::Duration;
@@ -28,17 +29,7 @@ mod identity;
 const SHOWCASE_NAME: &str = "github.com/googleapis/gapic-showcase/cmd/gapic-showcase@v0.36.2";
 
 pub async fn run() -> Result<()> {
-    #[cfg(feature = "log-integration-tests")]
-    let _guard = {
-        use tracing_subscriber::fmt::format::FmtSpan;
-        let subscriber = tracing_subscriber::fmt()
-            .with_level(true)
-            .with_thread_ids(true)
-            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-            .finish();
-
-        tracing::subscriber::set_default(subscriber)
-    };
+    let _guard = google_cloud_test_utils::tracing::enable_tracing();
 
     let path = install().await?;
     let showcase: PathBuf = [path.as_str(), "bin", "gapic-showcase"].iter().collect();
@@ -112,16 +103,16 @@ async fn install_attempt() -> Result<String> {
 }
 
 async fn wait_until_ready() -> Result<()> {
-    let client = showcase::client::Testing::builder()
+    let client = Testing::builder()
         .with_endpoint("http://localhost:7469")
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .with_tracing()
         .build()
         .await?;
 
     let _list = client
         .list_sessions()
-        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(10))
+        .with_retry_policy(AlwaysRetry.with_attempt_limit(10))
         .with_attempt_timeout(Duration::from_secs(1))
         .send()
         .await?;
