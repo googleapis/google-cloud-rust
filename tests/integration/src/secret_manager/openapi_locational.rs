@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use anyhow::anyhow;
 use gax::options::RequestOptionsBuilder;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use rand::{Rng, distr::Alphanumeric};
@@ -400,12 +401,7 @@ async fn cleanup_stale_secrets(
     let pending = stale_secrets
         .iter()
         .map(|name| {
-            // format: projects/{project}/locations/{location}/secrets/{secret}
-            let parts: Vec<&str> = name.split('/').collect();
-            let project = parts[1];
-            let location = parts[3];
-            let secret = parts[5];
-
+            let (project, location, secret) = extract(name).unwrap();
             client
                 .delete_secret_by_project_and_location_and_secret()
                 .set_project(project)
@@ -424,4 +420,45 @@ async fn cleanup_stale_secrets(
         .for_each(|(r, name)| println!("{name:?} = {r:?}"));
 
     Ok(())
+}
+
+fn extract(name: &str) -> Result<(&str, &str, &str)> {
+    // format: projects/{project}/locations/{location}/secrets/{secret}
+    let parts: Vec<&str> = name.split('/').collect();
+    match parts[..] {
+        [
+            "projects",
+            p,
+            "locations",
+            l,
+            "secrets",
+            s,
+        ] => Ok((p, l, s)),
+        _ => Err(anyhow!("invalid secret name: {}", name)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_extract_valid_name() {
+        let name = "projects/my-project/locations/us-central1/secrets/my-secret";
+        let (project, location, secret) = extract(name).unwrap();
+        assert_eq!(project, "my-project");
+        assert_eq!(location, "us-central1");
+        assert_eq!(secret, "my-secret");
+    }
+
+    #[test]
+    fn test_extract_invalid_name() {
+        let name = "invalid/format";
+        assert!(extract(name).is_err());
+    }
+
+    #[test]
+    fn test_extract_missing_parts() {
+        assert!(extract("projects/only-one").is_err());
+    }
 }
