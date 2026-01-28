@@ -59,13 +59,19 @@ hex                        = { workspace = true, features = ["std"] }
 # Local crates
 google-cloud-auth     = { workspace = true }
 gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-common", "_internal-grpc-client", "_internal-http-multipart", "_internal-http-stream"] }
 gtype.workspace       = true
 iam_v1.workspace      = true
 longrunning.workspace = true
 lro.workspace         = true
 rpc.workspace         = true
 wkt.workspace         = true
+# We use a lot of features from gaxi.
+gaxi = { workspace = true, features = [
+  "_internal-common",
+  "_internal-grpc-client",
+  "_internal-http-multipart",
+  "_internal-http-stream",
+] }
 
 [features]
 default         = ["default-rustls-provider"]
