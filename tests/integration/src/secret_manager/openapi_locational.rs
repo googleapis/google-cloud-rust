@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use anyhow::anyhow;
 use gax::options::RequestOptionsBuilder;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use rand::{Rng, distr::Alphanumeric};
@@ -397,18 +398,18 @@ async fn cleanup_stale_secrets(
         page_token = response.next_page_token;
     }
 
-    let pending = stale_secrets
-        .iter()
-        .map(|secret_id| {
-            client
-                .delete_secret_by_project_and_location_and_secret()
-                .set_project(project_id)
-                .set_location(location_id)
-                .set_secret(secret_id)
-                .with_idempotency(true)
-                .send()
-        })
-        .collect::<Vec<_>>();
+    let pending = stale_secrets.iter().map(|name| async move {
+        let (project, location, secret) = parse_secret_name(name)?;
+        client
+            .delete_secret_by_project_and_location_and_secret()
+            .set_project(project)
+            .set_location(location)
+            .set_secret(secret)
+            .with_idempotency(true)
+            .send()
+            .await?;
+        Ok::<(), anyhow::Error>(())
+    });
 
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
@@ -418,4 +419,38 @@ async fn cleanup_stale_secrets(
         .for_each(|(r, name)| println!("{name:?} = {r:?}"));
 
     Ok(())
+}
+
+fn parse_secret_name(name: &str) -> Result<(&str, &str, &str)> {
+    // format: projects/{project}/locations/{location}/secrets/{secret}
+    let parts: Vec<&str> = name.split('/').collect();
+    match parts[..] {
+        ["projects", p, "locations", l, "secrets", s] => Ok((p, l, s)),
+        _ => Err(anyhow!("invalid secret name: {}", name)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    #[test]
+    fn test_extract_valid_name() {
+        let name = "projects/my-project/locations/us-central1/secrets/my-secret";
+        let (project, location, secret) = parse_secret_name(name).unwrap();
+        assert_eq!(project, "my-project");
+        assert_eq!(location, "us-central1");
+        assert_eq!(secret, "my-secret");
+    }
+
+    #[test_case("invalid/format")]
+    #[test_case("projects/only-one")]
+    #[test_case("projects/p/locations/l/bad/s")]
+    #[test_case("projects/p/bad/l/secrets/s")]
+    #[test_case("bad/p/locations/l/secrets/s")]
+    fn test_extract_invalid_name(input: &str) {
+        let result = parse_secret_name(input);
+        assert!(result.is_err(), "{result:?}");
+    }
 }
