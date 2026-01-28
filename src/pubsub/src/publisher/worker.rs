@@ -237,8 +237,7 @@ impl BatchWorker {
         }
     }
 
-    // Flush the pending batch and pending messages by sending and awaiting Publish
-    // sequentially.
+    // Flush the pending messages by sending the messages in sequential batches.
     async fn flush_sequential(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
         self.handle_inflight_join(inflight.join_next().await);
         while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
@@ -249,8 +248,8 @@ impl BatchWorker {
         }
     }
 
-    // Flush the pending batch and pending messages by sending Publish
-    // concurrent.
+    // Flush the pending batch and pending messages by sending remaining
+    // messages in concurrent batches.
     async fn flush_concurrent(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
         while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
             self.move_to_batch();
