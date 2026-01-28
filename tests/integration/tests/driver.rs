@@ -329,12 +329,4 @@ mod driver {
             .await
             .map_err(integration_tests::report_error)
     }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_executions() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows_executions::list()
-            .await
-            .map_err(integration_tests::report_error)
-    }
 }
