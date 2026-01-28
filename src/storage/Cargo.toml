@@ -60,7 +60,7 @@ hex                        = { workspace = true, features = ["std"] }
 # Local crates
 google-cloud-auth     = { workspace = true }
 gax.workspace         = true
-gaxi                  = { workspace = true, features = ["_internal-http-client", "_internal-grpc-client"] }
+gaxi                  = { workspace = true, features = ["_internal-grpc-client", "_internal-http-client"] }
 gtype.workspace       = true
 iam_v1.workspace      = true
 longrunning.workspace = true
