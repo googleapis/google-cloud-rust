@@ -372,6 +372,31 @@ impl PublisherBuilder {
         self.base_builder = self.base_builder.with_retry_throttler(v);
         self
     }
+
+    /// Configure the number of gRPC subchannels.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
+    ///     .with_grpc_subchannel_count(4)
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
+    /// ```
+    ///
+    /// gRPC-based clients may exhibit high latency if many requests need to be
+    /// demuxed over a single HTTP/2 connection (often called a *subchannel* in
+    /// gRPC).
+    ///
+    /// Consider using more subchannels if your application makes many
+    /// concurrent requests. Consider using fewer subchannels if your
+    /// application needs the file descriptors for other purposes.
+    pub fn with_grpc_subchannel_count(mut self, v: usize) -> Self {
+        self.base_builder = self.base_builder.with_grpc_subchannel_count(v);
+        self
+    }
 }
 
 /// Creates `Publisher`s with a preconfigured client.
@@ -505,6 +530,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
     };
+    use auth::credentials::anonymous::Builder as Anonymous;
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;
@@ -1209,6 +1235,64 @@ mod tests {
             );
         }
         Ok(())
+    }
+
+    fn assert_eq_client_config(
+        pub_config: &gaxi::options::ClientConfig,
+        base_config: &gaxi::options::ClientConfig,
+    ) {
+        assert_eq!(pub_config.endpoint, base_config.endpoint);
+        assert_eq!(pub_config.cred.is_some(), base_config.cred.is_some());
+        assert_eq!(pub_config.tracing, base_config.tracing);
+        assert_eq!(
+            pub_config.retry_policy.is_some(),
+            base_config.retry_policy.is_some()
+        );
+        assert_eq!(
+            pub_config.backoff_policy.is_some(),
+            base_config.backoff_policy.is_some()
+        );
+        assert_eq!(
+            pub_config.grpc_subchannel_count,
+            base_config.grpc_subchannel_count
+        );
+    }
+
+    #[test]
+    fn defaults_client() {
+        let pub_builder = Publisher::builder("projects/my-project/topics/my-topic");
+        let base_builder = BasePublisher::builder();
+        let pub_config = &pub_builder.base_builder.config;
+        let base_config = &base_builder.config;
+
+        assert_eq_client_config(pub_config, base_config);
+    }
+
+    #[tokio::test]
+    async fn setters_client() {
+        use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+        let throttler = gax::retry_throttler::CircuitBreaker::default();
+        let pub_builder = Publisher::builder("projects/my-project/topics/my-topic")
+            .with_endpoint("test-endpoint.com")
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_retry_throttler(throttler.clone())
+            .with_grpc_subchannel_count(16);
+        let base_builder = BasePublisher::builder()
+            .with_endpoint("test-endpoint.com")
+            .with_credentials(Anonymous::new().build())
+            .with_tracing()
+            .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
+            .with_backoff_policy(gax::exponential_backoff::ExponentialBackoff::default())
+            .with_retry_throttler(throttler)
+            .with_grpc_subchannel_count(16);
+
+        let pub_config = &pub_builder.base_builder.config;
+        let base_config = &base_builder.config;
+
+        assert_eq_client_config(pub_config, base_config);
     }
 
     #[tokio::test(start_paused = true)]
