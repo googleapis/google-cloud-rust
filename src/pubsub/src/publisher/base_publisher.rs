@@ -74,8 +74,11 @@ impl BasePublisher {
     }
 
     /// Creates a new Pub/Sub publisher client with the given configuration.
-    pub(crate) async fn new(builder: BasePublisherBuilder) -> Result<Self, gax::client_builder::Error> {
-        let inner = crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
+    pub(crate) async fn new(
+        builder: BasePublisherBuilder,
+    ) -> Result<Self, gax::client_builder::Error> {
+        let inner =
+            crate::generated::gapic_dataplane::client::Publisher::new(builder.config).await?;
         std::result::Result::Ok(Self { inner })
     }
 
