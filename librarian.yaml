@@ -413,7 +413,6 @@ libraries:
   - name: google-cloud-baremetalsolution-v2
     version: 1.4.0
     copyright_year: "2025"
-
     veneer: true
   - name: google-cloud-beyondcorp-appconnections-v1
     version: 1.5.0
