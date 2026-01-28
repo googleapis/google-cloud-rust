@@ -881,10 +881,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "gcp-sdk"
-version = "0.0.0"
-
-[[package]]
 name = "generic-array"
 version = "0.14.9"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1560,10 +1556,6 @@ dependencies = [
  "tokio-test",
  "tracing",
 ]
-
-[[package]]
-name = "google-cloud-base"
-version = "0.0.0"
 
 [[package]]
 name = "google-cloud-beyondcorp-appconnections-v1"

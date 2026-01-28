@@ -42,7 +42,7 @@ import (
 )
 
 // crateDenyList enumerates the crates which do not get documents at cloud.google.com
-var crateDenyList = []string{"gcp-sdk", "google-cloud-base", "google-cloud-gax-internal"}
+var crateDenyList = []string{"google-cloud-gax-internal"}
 
 func main() {
 	out := flag.String("out", "docfx", "Output directory within project-root (default docfx)")

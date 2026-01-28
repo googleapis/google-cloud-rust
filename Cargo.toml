@@ -18,7 +18,6 @@ resolver = "2"
 default-members = [
   "guide/samples",
   "src/auth",
-  "src/base",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
@@ -27,7 +26,6 @@ default-members = [
   "src/gax-internal",
   "src/lro",
   "src/pubsub",
-  "src/root",
   "src/spanner",
   "src/storage",
   "src/wkt",
@@ -46,7 +44,6 @@ default-members = [
 members = [
   "guide/samples",
   "src/auth",
-  "src/base",
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
@@ -266,7 +263,6 @@ members = [
   "src/lro",
   "src/pubsub",
   "src/pubsub/examples",
-  "src/root",
   "src/spanner",
   "src/storage",
   "src/storage/benchmarks/random",
