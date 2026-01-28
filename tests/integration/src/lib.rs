@@ -14,7 +14,7 @@
 
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_test_utils::resource_names::random_bucket_id;
-use rand::{Rng, distr::Alphanumeric};
+pub(crate) use google_cloud_test_utils::resource_names::random_workflow_id;
 
 pub type Result<T> = anyhow::Result<T>;
 pub mod aiplatform;
@@ -26,30 +26,15 @@ pub mod secret_manager;
 pub mod showcase;
 pub mod storage;
 pub mod workflows;
-pub mod workflows_executions;
 
 pub const SECRET_ID_LENGTH: usize = 64;
 
 pub const VM_ID_LENGTH: usize = 63;
 
-pub const WORKFLOW_ID_LENGTH: usize = 64;
-
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
     tracing::error!("ERROR {e:?}");
     e
-}
-
-pub(crate) fn random_workflow_id() -> String {
-    // Workflow ids must start with a letter, we use `wf-` as a prefix to
-    // meet this requirement.
-    const PREFIX: &str = "wf-";
-    let workflow_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(WORKFLOW_ID_LENGTH - PREFIX.len())
-        .map(char::from)
-        .collect();
-    format!("{PREFIX}{workflow_id}")
 }
 
 pub(crate) fn random_image_name() -> String {

@@ -16,7 +16,7 @@
 
 use rand::{
     Rng,
-    distr::{Distribution, Uniform},
+    distr::{Alphanumeric, Distribution, Uniform},
 };
 
 /// A common prefix for resource ids.
@@ -26,9 +26,21 @@ pub const PREFIX: &str = "rust-sdk-testing-";
 
 const BUCKET_ID_LENGTH: usize = 63;
 
-/// Generate a random bucket id
+const WORKFLOW_ID_LENGTH: usize = 64;
+
+/// Generate a random bucket id.
 pub fn random_bucket_id() -> String {
     let id = LowercaseAlphanumeric.random_string(BUCKET_ID_LENGTH - PREFIX.len());
+    format!("{PREFIX}{id}")
+}
+
+/// Generate a random workflow id.
+pub fn random_workflow_id() -> String {
+    let id: String = rand::rng()
+        .sample_iter(&Alphanumeric)
+        .take(WORKFLOW_ID_LENGTH - PREFIX.len())
+        .map(char::from)
+        .collect();
     format!("{PREFIX}{id}")
 }
 
@@ -81,6 +93,22 @@ mod tests {
         assert!(suffix.is_some(), "{got} should start with {PREFIX}");
         let test = is_ascii_lowercase_alphanumeric(suffix.unwrap());
         assert!(test.is_ok(), "{test:?}");
+    }
+
+    #[test]
+    fn workflow_id() {
+        let got = random_workflow_id();
+        assert!(
+            got.len() <= WORKFLOW_ID_LENGTH,
+            "{got} has more than {WORKFLOW_ID_LENGTH} characters"
+        );
+        let suffix = got
+            .strip_prefix(PREFIX)
+            .expect("{got} should start with {PREFIX}");
+        assert!(
+            suffix.chars().all(|c| c.is_alphanumeric()),
+            "the suffix should be alphanumeric: {suffix}"
+        );
     }
 
     #[test]

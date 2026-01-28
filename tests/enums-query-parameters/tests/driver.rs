@@ -1,4 +1,4 @@
-// Copyright 2024 Google LLC
+// Copyright 2026 Google LLC
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,6 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-fn main() {
-    println!("Coming Soon: Google Cloud Client Libraries for Rust")
+#[cfg(all(test, feature = "run-integration-tests"))]
+mod enums_query_parameters {
+    #[tokio::test]
+    async fn run() -> anyhow::Result<()> {
+        integration_tests_enums_query_parameters::run().await
+    }
 }

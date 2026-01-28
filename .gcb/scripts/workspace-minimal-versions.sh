@@ -22,7 +22,7 @@ rustup show active-toolchain -v
 set -e
 echo "Prepare workspace to run minimal version tool."
 cargo run --release --package minimal-version-helper prepare
-for PKG in $(cargo workspaces plan | grep -v gcp-sdk); do
+for PKG in $(cargo workspaces plan 2>/dev/null); do
   cargo minimal-versions check -p ${PKG} --all-features
 done
 echo "==== DONE ===="

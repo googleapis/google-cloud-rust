@@ -13,30 +13,32 @@
 // limitations under the License.
 
 use anyhow::Result;
-use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::options::RequestOptionsBuilder;
-use gax::paginator::ItemPaginator as _;
-use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_lro::Poller;
+use google_cloud_test_utils::resource_names::random_workflow_id;
 use google_cloud_test_utils::runtime_config::{project_id, region_id, test_service_account};
-use lro::Poller;
+use google_cloud_workflows_executions_v1::{
+    client::Executions, model::Execution, model::ExecutionView,
+};
+use google_cloud_workflows_v1::{client::Workflows, model::Workflow, model::workflow::SourceCode};
 use std::time::Duration;
 
 // Verify enum query parameters are serialized correctly.
-pub async fn list() -> Result<()> {
+pub async fn run() -> Result<()> {
     // Create a workflow so we can list its executions. We rely on the other
     // workflows integration tests to delete it if something fails or crashes
     // in this test.
     let parent = create_test_workflow().await?;
-    let client = wfe::client::Executions::builder()
-        .with_tracing()
-        .build()
-        .await?;
+    let client = Executions::builder().with_tracing().build().await?;
 
     // Create an execution with a label. The label is not returned for the `BASIC` view.
     let start = client
         .create_execution()
         .set_parent(&parent)
-        .set_execution(wfe::model::Execution::new().set_labels([("test-label", "test-value")]))
+        .set_execution(Execution::new().set_labels([("test-label", "test-value")]))
         .send()
         .await?;
     tracing::info!("start was successful={start:?}");
@@ -45,7 +47,7 @@ pub async fn list() -> Result<()> {
     let mut executions = client
         .list_executions()
         .set_parent(&parent)
-        .set_view(wfe::model::ExecutionView::Basic)
+        .set_view(ExecutionView::Basic)
         .by_item();
 
     while let Some(execution) = executions.next().await {
@@ -58,7 +60,7 @@ pub async fn list() -> Result<()> {
     let mut executions = client
         .list_executions()
         .set_parent(&parent)
-        .set_view(wfe::model::ExecutionView::Full)
+        .set_view(ExecutionView::Full)
         .by_item();
 
     while let Some(execution) = executions.next().await {
@@ -93,8 +95,8 @@ main:
         - sayHello:
             return: Hello World
 "###;
-    let source_code = wf::model::workflow::SourceCode::SourceContents(source_contents.to_string());
-    let workflow_id = crate::random_workflow_id();
+    let source_code = SourceCode::SourceContents(source_contents.to_string());
+    let workflow_id = random_workflow_id();
 
     tracing::info!("Start create_workflow() LRO and poll it to completion");
     let response = client
@@ -102,7 +104,7 @@ main:
         .set_parent(format!("projects/{project_id}/locations/{location_id}"))
         .set_workflow_id(&workflow_id)
         .set_workflow(
-            wf::model::Workflow::new()
+            Workflow::new()
                 .set_labels([("integration-test", "true")])
                 .set_service_account(&workflows_runner)
                 .set_source_code(source_code),
@@ -116,8 +118,8 @@ main:
     Ok(response.name)
 }
 
-async fn workflow_client() -> Result<wf::client::Workflows> {
-    let client = wf::client::Workflows::builder()
+async fn workflow_client() -> Result<Workflows> {
+    let client = Workflows::builder()
         .with_retry_policy(
             AlwaysRetry
                 .with_time_limit(Duration::from_secs(15))

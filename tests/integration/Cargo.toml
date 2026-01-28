@@ -102,10 +102,6 @@ path    = "../../src/generated/cloud/telcoautomation/v1"
 package = "google-cloud-workflows-v1"
 path    = "../../src/generated/cloud/workflows/v1"
 
-[dependencies.wfe]
-package = "google-cloud-workflows-executions-v1"
-path    = "../../src/generated/cloud/workflows/executions/v1"
-
 [dev-dependencies]
 anyhow.workspace            = true
 httptest.workspace          = true
