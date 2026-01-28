@@ -12,21 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/// Handlers for acknowledging or rejecting messages.
-pub mod handler;
+#[cfg(google_cloud_unstable_tracing)]
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
-/// Defines the return interface for
-/// [Subscriber::streaming_pull][crate::client::Subscriber::streaming_pull].
-pub mod session;
-
-pub(super) mod builder;
-pub(super) mod client;
-pub(super) mod client_builder;
-mod keepalive;
-mod lease_loop;
-mod lease_state;
-mod leaser;
-mod retry_policy;
-mod stream;
-mod stub;
-mod transport;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod auth;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod e2e;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod mock_collector;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod otlp;
+#[cfg(google_cloud_unstable_tracing)]
+pub mod tracing;

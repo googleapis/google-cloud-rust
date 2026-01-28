@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use anyhow::Error;
 use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_test_utils::resource_names::random_bucket_id;
 use rand::{Rng, distr::Alphanumeric};
@@ -23,9 +22,6 @@ pub mod bigquery;
 pub mod compute;
 pub mod error_details;
 pub mod firestore;
-#[cfg(google_cloud_unstable_tracing)]
-pub mod observability;
-pub mod pubsub;
 pub mod secret_manager;
 pub mod showcase;
 pub mod storage;
@@ -72,18 +68,4 @@ pub(crate) fn random_vm_prefix(len: usize) -> String {
     const PREFIX: &str = "vm-";
     let vm_id = LowercaseAlphanumeric.random_string(len);
     format!("{PREFIX}{vm_id}")
-}
-
-pub fn enable_tracing() -> tracing::subscriber::DefaultGuard {
-    use tracing_subscriber::fmt::format::FmtSpan;
-    let builder = tracing_subscriber::fmt()
-        .with_level(true)
-        .with_thread_ids(true)
-        .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
-        .with_max_level(tracing::Level::WARN);
-    #[cfg(feature = "log-integration-tests")]
-    let builder = builder.with_max_level(tracing::Level::INFO);
-    let subscriber = builder.finish();
-
-    tracing::subscriber::set_default(subscriber)
 }

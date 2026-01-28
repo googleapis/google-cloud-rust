@@ -12,6 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#[cfg(google_cloud_unstable_tracing)]
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+#[cfg(google_cloud_unstable_tracing)]
+use google_cloud_showcase_v1beta1::client::Echo;
+
 /// Validates that HTTP tracing makes it all the way to OTLP collectors like
 /// Cloud Telemetry.
 ///
@@ -24,10 +29,10 @@
 /// works as intended, value types are preserved, etc.
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_http_tracing_to_otlp() -> anyhow::Result<()> {
+async fn http_tracing_to_otlp() -> anyhow::Result<()> {
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
-    use integration_tests::observability::mock_collector::MockCollector;
-    use integration_tests::observability::otlp::CloudTelemetryTracerProviderBuilder;
+    use integration_tests_o11y::mock_collector::MockCollector;
+    use integration_tests_o11y::otlp::CloudTelemetryTracerProviderBuilder;
     use tracing_subscriber::layer::SubscriberExt;
     use tracing_subscriber::util::SubscriberInitExt;
 
@@ -38,15 +43,13 @@ async fn test_http_tracing_to_otlp() -> anyhow::Result<()> {
     // 2. Configure OTel Provider
     let provider = CloudTelemetryTracerProviderBuilder::new("test-project", "integration-tests")
         .with_endpoint(otlp_endpoint)
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .build()
         .await?;
 
     // 3. Install Tracing Subscriber
     let _guard = tracing_subscriber::Registry::default()
-        .with(integration_tests::observability::tracing::layer(
-            provider.clone(),
-        ))
+        .with(integration_tests_o11y::tracing::layer(provider.clone()))
         .set_default();
 
     // 4. Start Mock HTTP Server (Showcase Echo)
@@ -62,9 +65,9 @@ async fn test_http_tracing_to_otlp() -> anyhow::Result<()> {
     // 5. Configure Client
     let endpoint = echo_server.url("/").to_string();
     let endpoint = endpoint.trim_end_matches('/');
-    let client = showcase::client::Echo::builder()
+    let client = Echo::builder()
         .with_endpoint(endpoint)
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .with_tracing()
         .build()
         .await?;
@@ -130,7 +133,7 @@ async fn test_http_tracing_to_otlp() -> anyhow::Result<()> {
 async fn setup_echo_client() -> (
     google_cloud_test_utils::test_layer::TestLayerGuard,
     httptest::Server,
-    showcase::client::Echo,
+    Echo,
     u16,
 ) {
     use google_cloud_test_utils::test_layer::TestLayer;
@@ -140,9 +143,9 @@ async fn setup_echo_client() -> (
     let server = Server::run();
     let endpoint = server.url("/").to_string();
     let endpoint = endpoint.trim_end_matches('/');
-    let client = showcase::client::Echo::builder()
+    let client = Echo::builder()
         .with_endpoint(endpoint)
-        .with_credentials(auth::credentials::anonymous::Builder::new().build())
+        .with_credentials(Anonymous::new().build())
         .with_tracing()
         .build()
         .await
@@ -154,7 +157,7 @@ async fn setup_echo_client() -> (
 
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
+async fn http_tracing_success_testlayer() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -229,7 +232,7 @@ async fn test_http_tracing_success_testlayer() -> anyhow::Result<()> {
 
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
+async fn http_tracing_parse_error() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
@@ -312,7 +315,7 @@ async fn test_http_tracing_parse_error() -> anyhow::Result<()> {
 
 #[cfg(google_cloud_unstable_tracing)]
 #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
-async fn test_http_tracing_api_error() -> anyhow::Result<()> {
+async fn http_tracing_api_error() -> anyhow::Result<()> {
     use google_cloud_test_utils::test_layer::{AttributeValue, TestLayer};
     use httptest::{Expectation, matchers::*, responders::status_code};
     use std::collections::HashMap;
