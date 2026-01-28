@@ -141,7 +141,7 @@ mod tests {
             "{PREFIX} length ({}) should be smaller than {SECRET_ID_LENGTH}",
             PREFIX.len()
         );
-        let got = random_workflow_id();
+        let got = random_secret_id();
         assert!(
             got.len() <= SECRET_ID_LENGTH,
             "{got} has more than {SECRET_ID_LENGTH} characters"
