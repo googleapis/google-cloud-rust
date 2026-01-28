@@ -190,18 +190,20 @@ impl PublisherBuilder {
         Ok(publisher)
     }
 
-    /// Sets the maximum number of messages to be batched together for a single `Publish` call.
-    /// When this number is reached, the batch is sent.
+    /// Sets the message count threshold for batching.
     ///
-    /// Setting this to `1` disables batching by message count.
+    /// The publisher will send a batch of messages when the number of messages
+    /// in the batch reaches this threshold.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .set_message_count_threshold(100)
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # Ok(()) }
     /// ```
     pub fn set_message_count_threshold(mut self, threshold: u32) -> PublisherBuilder {
@@ -209,16 +211,20 @@ impl PublisherBuilder {
         self
     }
 
-    /// Sets the byte threshold for batching in a single `Publish` call.
-    /// When this many bytes are accumulated, the batch is sent.
+    /// Sets the byte threshold for batching.
+    ///
+    /// The publisher will send a batch of messages when the total size of the
+    /// messages in the batch reaches this threshold.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
-    ///     .set_byte_threshold(100)
-    ///     .build().await?;
+    ///     .set_byte_threshold(1024) // 1 KiB
+    ///     .build()
+    ///     .await?;
     /// # Ok(()) }
     /// ```
     pub fn set_byte_threshold(mut self, threshold: u32) -> PublisherBuilder {
@@ -226,18 +232,21 @@ impl PublisherBuilder {
         self
     }
 
-    /// Sets the maximum amount of time the publisher will wait before sending a
-    /// batch. When this delay is reached, the current batch is sent, regardless
-    /// of the number of messages or total byte size.
+    /// Sets the delay threshold for batching.
+    ///
+    /// The publisher will wait a maximum of this amount of time before
+    /// sending a batch of messages.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
     /// let publisher = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .set_delay_threshold(Duration::from_millis(50))
-    ///     .build().await?;
+    ///     .build()
+    ///     .await?;
     /// # Ok(()) }
     /// ```
     pub fn set_delay_threshold(mut self, threshold: Duration) -> PublisherBuilder {
@@ -428,17 +437,19 @@ impl PublisherPartialBuilder {
         }
     }
 
-    /// Sets the maximum number of messages to be batched together for a single `Publish` call.
-    /// When this number is reached, the batch is sent.
+    /// Sets the message count threshold for batching.
     ///
-    /// Setting this to `1` disables batching by message count.
+    /// The publisher will send a batch of messages when the number of messages
+    /// in the batch reaches this threshold.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
+    /// let publisher = client
+    ///     .publisher("projects/my-project/topics/my-topic")
     ///     .set_message_count_threshold(100)
     ///     .build();
     /// # Ok(()) }
@@ -448,16 +459,20 @@ impl PublisherPartialBuilder {
         self
     }
 
-    /// Sets the byte threshold for batching in a single `Publish` call.
-    /// When this many bytes are accumulated, the batch is sent.
+    /// Sets the byte threshold for batching.
+    ///
+    /// The publisher will send a batch of messages when the total size of the
+    /// messages in the batch reaches this threshold.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
-    ///     .set_byte_threshold(100)
+    /// let publisher = client
+    ///     .publisher("projects/my-project/topics/my-topic")
+    ///     .set_byte_threshold(1024) // 1 KiB
     ///     .build();
     /// # Ok(()) }
     /// ```
@@ -466,17 +481,20 @@ impl PublisherPartialBuilder {
         self
     }
 
-    /// Sets the maximum amount of time the publisher will wait before sending a
-    /// batch. When this delay is reached, the current batch is sent, regardless
-    /// of the number of messages or total byte size.
+    /// Sets the delay threshold for batching.
+    ///
+    /// The publisher will wait a maximum of this amount of time before
+    /// sending a batch of messages.
     ///
     /// # Example
+    ///
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # use std::time::Duration;
     /// # async fn sample() -> anyhow::Result<()> {
     /// # let client = BasePublisher::builder().build().await?;
-    /// let publisher = client.publisher("projects/my-project/topics/my-topic")
+    /// let publisher = client
+    ///     .publisher("projects/my-project/topics/my-topic")
     ///     .set_delay_threshold(Duration::from_millis(50))
     ///     .build();
     /// # Ok(()) }
