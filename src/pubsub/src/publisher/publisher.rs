@@ -51,8 +51,8 @@ pub struct Publisher {
 }
 
 impl Publisher {
-    /// Creates `Publisher`.
-    ///
+    /// Returns a builder for [Publisher].
+    ///  
     /// # Example
     ///
     /// ```
@@ -190,8 +190,6 @@ impl PublisherBuilder {
         Ok(publisher)
     }
 
-    // Configure the batching options.
-
     /// Sets the maximum number of messages to be batched together for a single `Publish` call.
     /// When this number is reached, the batch is sent.
     ///
@@ -247,19 +245,15 @@ impl PublisherBuilder {
         self
     }
 
-    // Configure the client.
-
     /// Sets the endpoint.
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
-    /// let client = Client::builder()
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_endpoint("http://private.googleapis.com")
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     pub fn with_endpoint<V: Into<String>>(mut self, v: V) -> Self {
         self.base_builder = self.base_builder.with_endpoint(v);
@@ -272,14 +266,12 @@ impl PublisherBuilder {
     /// [tracing] framework. Setting this flag enables this instrumentation.
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
-    /// let client = Client::builder()
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_tracing()
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [tracing]: https://docs.rs/tracing/latest/tracing/
@@ -296,19 +288,16 @@ impl PublisherBuilder {
     /// types can be found in the [google-cloud-auth] crate documentation.
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
-    /// // Placeholder, normally use google_cloud_auth::credentials
-    /// use examples::credentials;
-    /// let client = Client::builder()
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
+    /// use auth::credentials::mds;
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_credentials(
-    ///         credentials::mds::Builder::new()
-    ///             .scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
-    ///             .build())
+    ///         mds::Builder::default()
+    ///             .with_scopes(["https://www.googleapis.com/auth/cloud-platform.read-only"])
+    ///             .build()?)
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) }
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
@@ -324,15 +313,13 @@ impl PublisherBuilder {
     /// on the number of attempts or the time trying to make attempts.
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
-    /// let client = Client::builder()
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) };
     /// ```
     pub fn with_retry_policy<V: Into<RetryPolicyArg>>(mut self, v: V) -> Self {
         self.base_builder = self.base_builder.with_retry_policy(v);
@@ -345,18 +332,16 @@ impl PublisherBuilder {
     /// backoff policy controls how long to wait in between retry attempts.
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax as gax;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::exponential_backoff::ExponentialBackoff;
     /// use std::time::Duration;
     /// let policy = ExponentialBackoff::default();
-    /// let client = Client::builder()
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_backoff_policy(policy)
-    ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    ///     .build()
+    ///     .await?;
+    /// # Ok(()) }
     /// ```
     pub fn with_backoff_policy<V: Into<BackoffPolicyArg>>(mut self, v: V) -> Self {
         self.base_builder = self.base_builder.with_backoff_policy(v);
@@ -375,16 +360,13 @@ impl PublisherBuilder {
     /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// ```
-    /// # use gax::client_builder::examples;
-    /// # use gax as gax;
-    /// # use gax::client_builder::Result;
-    /// # tokio_test::block_on(async {
-    /// use examples::Client; // Placeholder for examples
+    /// # use google_cloud_pubsub::client::Publisher;
+    /// # async fn sample() -> anyhow::Result<()> {
     /// use gax::retry_throttler::AdaptiveThrottler;
-    /// let client = Client::builder()
+    /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_retry_throttler(AdaptiveThrottler::default())
     ///     .build().await?;
-    /// # Result::<()>::Ok(()) });
+    /// # Ok(()) };
     /// ```
     pub fn with_retry_throttler<V: Into<RetryThrottlerArg>>(mut self, v: V) -> Self {
         self.base_builder = self.base_builder.with_retry_throttler(v);
@@ -523,6 +505,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
     };
+    use gax::retry_policy::AlwaysRetry;
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;
