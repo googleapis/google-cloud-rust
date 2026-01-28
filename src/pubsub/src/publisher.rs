@@ -14,6 +14,7 @@
 
 pub mod base_publisher;
 pub(crate) mod batch;
+pub(crate) mod client_builder;
 pub mod model_ext;
 pub mod options;
 #[allow(clippy::module_inception)]
