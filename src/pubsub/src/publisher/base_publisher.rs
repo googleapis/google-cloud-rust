@@ -14,7 +14,7 @@
 
 use crate::publisher::builder::PublisherPartialBuilder;
 
-/// Creates [`Publisher`](super::publisher::Publisher) instances.
+/// Creates [`Publisher`](super::client::Publisher) instances.
 ///
 /// A single `BasePublisher` can be used to create multiple `Publisher` clients
 /// for different topics. It manages the underlying gRPC connection and
