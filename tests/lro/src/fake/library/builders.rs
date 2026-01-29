@@ -43,7 +43,7 @@ impl CreateResource {
         self
     }
 
-    pub async fn send(self) -> gax::Result<longrunning::model::Operation> {
+    pub async fn send(self) -> gax::Result<google_cloud_longrunning::model::Operation> {
         let builder = self
             .stub
             .builder(reqwest::Method::POST, "/create".to_string())
@@ -101,7 +101,7 @@ impl CreateResource {
 
 pub struct GetOperation {
     inner: ReqwestClient,
-    request: longrunning::model::GetOperationRequest,
+    request: google_cloud_longrunning::model::GetOperationRequest,
     options: gax::options::RequestOptions,
 }
 
@@ -109,7 +109,7 @@ impl GetOperation {
     pub fn new(inner: ReqwestClient) -> Self {
         Self {
             inner,
-            request: longrunning::model::GetOperationRequest::default(),
+            request: google_cloud_longrunning::model::GetOperationRequest::default(),
             options: gax::options::RequestOptions::default(),
         }
     }
@@ -124,7 +124,7 @@ impl GetOperation {
         self
     }
 
-    pub async fn send(self) -> gax::Result<longrunning::model::Operation> {
+    pub async fn send(self) -> gax::Result<google_cloud_longrunning::model::Operation> {
         let builder = self
             .inner
             .builder(reqwest::Method::GET, "/poll".to_string())

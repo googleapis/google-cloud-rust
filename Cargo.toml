@@ -295,6 +295,7 @@ members = [
   "tests/enums-query-parameters",
   "tests/integration",
   "tests/integration-auth",
+  "tests/lro",
   "tests/o11y",
   "tests/openapi",
   "tests/protojson-conformance",
