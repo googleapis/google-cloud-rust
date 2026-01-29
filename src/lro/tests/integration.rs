@@ -23,12 +23,13 @@ mod tests {
     use super::fake::service::*;
     use anyhow::Result;
     use gax::error::rpc::Code;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_lro as lro;
     use lro::Poller;
 
     async fn new_client(endpoint: String) -> Result<client::Client> {
         let client = client::Client::builder()
-            .with_credentials(auth::credentials::anonymous::Builder::new().build())
+            .with_credentials(Anonymous::new().build())
             .with_endpoint(endpoint)
             .build()
             .await?;

@@ -151,8 +151,8 @@ impl StreamingPull {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
     use gaxi::options::ClientConfig;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     const KIB: i64 = 1024;
 

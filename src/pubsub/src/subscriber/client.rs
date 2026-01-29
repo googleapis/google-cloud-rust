@@ -137,7 +137,7 @@ impl Subscriber {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::{MockSubscriber, start};
 
     #[tokio::test]

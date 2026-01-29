@@ -14,6 +14,8 @@
 
 use super::*;
 use gaxi::http::ReqwestClient;
+use google_cloud_auth::credentials::Credentials;
+
 pub struct Client {
     // A sidekick-generated client contains a `Arc<dyn T>`. The code
     // in this test skips some layers of abstraction.
@@ -45,12 +47,11 @@ impl Client {
     }
 }
 
-pub type ClientBuilder =
-    gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials>;
+pub type ClientBuilder = gax::client_builder::ClientBuilder<Factory, Credentials>;
 pub struct Factory;
 impl gax::client_builder::internal::ClientFactory for Factory {
     type Client = Client;
-    type Credentials = auth::credentials::Credentials;
+    type Credentials = Credentials;
     async fn build(
         self,
         config: gaxi::options::ClientConfig,

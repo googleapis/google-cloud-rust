@@ -27,7 +27,7 @@ rust-version.workspace = true
 
 [dependencies]
 async-trait.workspace  = true
-auth.workspace         = true
+google-cloud-auth      = { workspace = true }
 bytes.workspace        = true
 futures.workspace      = true
 gax.workspace          = true

@@ -34,9 +34,9 @@ tokio-stream          = { workspace = true }
 tonic                 = { workspace = true, default-features = true }
 tonic-prost.workspace = true
 # Local dependencies
-auth.workspace = true
-gax.workspace  = true
-gaxi           = { workspace = true, features = ["_internal-grpc-client"] }
+google-cloud-auth.workspace = true
+gax.workspace               = true
+gaxi                        = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
 tonic-prost-build = { workspace = true, optional = true }

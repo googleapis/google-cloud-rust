@@ -34,7 +34,7 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-auth                     = { workspace = true, features = ["default", "idtoken"] }
+google-cloud-auth        = { workspace = true, features = ["default", "idtoken"] }
 gax.workspace            = true
 language.workspace       = true
 secretmanager.workspace  = true
