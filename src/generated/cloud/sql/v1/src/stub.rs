@@ -83,6 +83,74 @@ pub trait SqlBackupRunsService: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::SqlBackupsService].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::SqlBackupsService`.  In other use-cases, application developers only
+/// use `client::SqlBackupsService` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+pub trait SqlBackupsService: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::SqlBackupsService::create_backup].
+    fn create_backup(
+        &self,
+        _req: crate::model::CreateBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlBackupsService::get_backup].
+    fn get_backup(
+        &self,
+        _req: crate::model::GetBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Backup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlBackupsService::list_backups].
+    fn list_backups(
+        &self,
+        _req: crate::model::ListBackupsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListBackupsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlBackupsService::update_backup].
+    fn update_backup(
+        &self,
+        _req: crate::model::UpdateBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlBackupsService::delete_backup].
+    fn delete_backup(
+        &self,
+        _req: crate::model::DeleteBackupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+}
+
 /// Defines the trait used to implement [super::client::SqlConnectService].
 ///
 /// Application developers may need to implement this trait to mock
@@ -246,6 +314,28 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlInstancesService::add_server_certificate].
+    fn add_server_certificate(
+        &self,
+        _req: crate::model::SqlInstancesAddServerCertificateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::add_entra_id_certificate].
+    fn add_entra_id_certificate(
+        &self,
+        _req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlInstancesService::clone].
     fn clone(
         &self,
@@ -380,6 +470,32 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlInstancesService::list_server_certificates].
+    fn list_server_certificates(
+        &self,
+        _req: crate::model::SqlInstancesListServerCertificatesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstancesListServerCertificatesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::list_entra_id_certificates].
+    fn list_entra_id_certificates(
+        &self,
+        _req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlInstancesService::patch].
     fn patch(
         &self,
@@ -450,6 +566,28 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
     fn rotate_server_ca(
         &self,
         _req: crate::model::SqlInstancesRotateServerCaRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::rotate_server_certificate].
+    fn rotate_server_certificate(
+        &self,
+        _req: crate::model::SqlInstancesRotateServerCertificateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::rotate_entra_id_certificate].
+    fn rotate_entra_id_certificate(
+        &self,
+        _req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
@@ -595,6 +733,19 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::SqlInstancesService::execute_sql].
+    fn execute_sql(
+        &self,
+        _req: crate::model::SqlInstancesExecuteSqlRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::SqlInstancesService::acquire_ssrs_lease].
     fn acquire_ssrs_lease(
         &self,
@@ -617,6 +768,28 @@ pub trait SqlInstancesService: std::fmt::Debug + Send + Sync {
         Output = crate::Result<
             gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>,
         >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::pre_check_major_version_upgrade].
+    fn pre_check_major_version_upgrade(
+        &self,
+        _req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::SqlInstancesService::point_in_time_restore].
+    fn point_in_time_restore(
+        &self,
+        _req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

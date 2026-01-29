@@ -19,8 +19,8 @@ use crate::read_object::ReadObjectResponse;
 use crate::storage::request_options::RequestOptions;
 use crate::streaming_source::{Seek, StreamingSource};
 use crate::{
+    http::HeaderMap,
     model_ext::{OpenObjectRequest, ReadRange},
-    object_descriptor::HeaderMap,
     object_descriptor::ObjectDescriptor as Descriptor,
 };
 use gaxi::unimplemented::UNIMPLEMENTED;

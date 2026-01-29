@@ -191,6 +191,17 @@ impl std::fmt::Debug for super::SpeakerDiarizationConfig {
     }
 }
 
+impl std::fmt::Debug for super::CustomPromptConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CustomPromptConfig");
+        debug_struct.field("custom_prompt", &self.custom_prompt);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::RecognitionFeatures {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("RecognitionFeatures");
@@ -206,6 +217,7 @@ impl std::fmt::Debug for super::RecognitionFeatures {
         debug_struct.field("multi_channel_mode", &self.multi_channel_mode);
         debug_struct.field("diarization_config", &self.diarization_config);
         debug_struct.field("max_alternatives", &self.max_alternatives);
+        debug_struct.field("custom_prompt_config", &self.custom_prompt_config);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -320,6 +332,7 @@ impl std::fmt::Debug for super::RecognitionResponseMetadata {
         let mut debug_struct = f.debug_struct("RecognitionResponseMetadata");
         debug_struct.field("request_id", &self.request_id);
         debug_struct.field("total_billed_duration", &self.total_billed_duration);
+        debug_struct.field("prompt", &self.prompt);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

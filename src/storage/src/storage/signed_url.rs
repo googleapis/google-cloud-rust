@@ -285,14 +285,14 @@ impl SignedUrlBuilder {
         self
     }
 
-    /// Sets the HTTP method for the signed URL. The default is [GET][crate::signed_url::http::Method::GET].
+    /// Sets the HTTP method for the signed URL. The default is [GET][crate::http::Method::GET].
     ///
     /// # Example
     ///
     /// ```
     /// # use google_cloud_storage::builder::storage::SignedUrlBuilder;
     /// # use google_cloud_auth::signer::Signer;
-    /// use google_cloud_storage::signed_url::http;
+    /// use google_cloud_storage::http;
     ///
     /// async fn run(signer: &Signer) -> anyhow::Result<()> {
     ///     let url = SignedUrlBuilder::for_object("projects/_/buckets/my-bucket", "my-object.txt")
@@ -523,15 +523,17 @@ impl SignedUrlBuilder {
         );
         query_parameters.insert("X-Goog-SignedHeaders".to_string(), signed_headers.clone());
 
-        let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
-        for (k, v) in &query_parameters {
-            canonical_query.append_pair(k, v);
-        }
+        let canonical_query = {
+            let mut canonical_query = url::form_urlencoded::Serializer::new("".to_string());
+            for (k, v) in &query_parameters {
+                canonical_query.append_pair(k, v);
+            }
 
-        let canonical_query = canonical_query.finish();
-        let canonical_query = canonical_query
-            .replace("%7E", "~") // rollback to ~
-            .replace("+", "%20"); // missing %20 in +
+            canonical_query
+                .finish()
+                .replace("%7E", "~") // rollback to ~
+                .replace("+", "%20") // missing %20 in +
+        };
 
         let canonical_headers = headers.iter().fold("".to_string(), |acc, (k, v)| {
             let header_value = Self::canonicalize_header_value(v);
@@ -717,6 +719,24 @@ mod tests {
 
         assert!(err.is_invalid_parameter());
         assert!(err.to_string().contains("malformed bucket name"));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn sign_with_is_send() -> TestResult {
+        fn assert_send<T: Send>(_t: &T) {}
+
+        let mut mock = MockSigner::new();
+        mock.expect_client_email()
+            .return_once(|| Ok("test@example.com".to_string()));
+        mock.expect_sign()
+            .return_once(|_content| Err(SigningError::from_msg("test".to_string())));
+
+        let signer = Signer::from(mock);
+        let fut = SignedUrlBuilder::for_object("projects/_/buckets/b", "o").sign_with(&signer);
+
+        assert_send(&fut);
 
         Ok(())
     }

@@ -74,6 +74,74 @@ where
     }
 }
 
+/// Implements a [SqlBackupsService](super::stub::SqlBackupsService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct SqlBackupsService<T>
+where
+    T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> SqlBackupsService<T>
+where
+    T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::SqlBackupsService for SqlBackupsService<T>
+where
+    T: super::stub::SqlBackupsService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_backup(
+        &self,
+        req: crate::model::CreateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.create_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_backup(
+        &self,
+        req: crate::model::GetBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Backup>> {
+        self.inner.get_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_backups(
+        &self,
+        req: crate::model::ListBackupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListBackupsResponse>> {
+        self.inner.list_backups(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_backup(
+        &self,
+        req: crate::model::UpdateBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.update_backup(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_backup(
+        &self,
+        req: crate::model::DeleteBackupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.delete_backup(req, options).await
+    }
+}
+
 /// Implements a [SqlConnectService](super::stub::SqlConnectService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct SqlConnectService<T>
@@ -256,6 +324,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn add_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.add_server_certificate(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn add_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesAddEntraIdCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.add_entra_id_certificate(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn clone(
         &self,
         req: crate::model::SqlInstancesCloneRequest,
@@ -364,6 +450,26 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_server_certificates(
+        &self,
+        req: crate::model::SqlInstancesListServerCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::InstancesListServerCertificatesResponse>>
+    {
+        self.inner.list_server_certificates(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_entra_id_certificates(
+        &self,
+        req: crate::model::SqlInstancesListEntraIdCertificatesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::InstancesListEntraIdCertificatesResponse>>
+    {
+        self.inner.list_entra_id_certificates(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn patch(
         &self,
         req: crate::model::SqlInstancesPatchRequest,
@@ -424,6 +530,24 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.rotate_server_ca(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn rotate_server_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateServerCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.rotate_server_certificate(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn rotate_entra_id_certificate(
+        &self,
+        req: crate::model::SqlInstancesRotateEntraIdCertificateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.rotate_entra_id_certificate(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -538,6 +662,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn execute_sql(
+        &self,
+        req: crate::model::SqlInstancesExecuteSqlRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SqlInstancesExecuteSqlResponse>> {
+        self.inner.execute_sql(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn acquire_ssrs_lease(
         &self,
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
@@ -553,6 +686,26 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
         self.inner.release_ssrs_lease(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn pre_check_major_version_upgrade(
+        &self,
+        req: crate::model::SqlInstancesPreCheckMajorVersionUpgradeRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner
+            .pre_check_major_version_upgrade(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn point_in_time_restore(
+        &self,
+        req: crate::model::SqlInstancesPointInTimeRestoreRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.point_in_time_restore(req, options).await
     }
 }
 

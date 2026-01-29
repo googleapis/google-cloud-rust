@@ -20,6 +20,7 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use lro::Poller;
 use std::time::Duration;
 use storage::client::StorageControl;
@@ -86,6 +87,7 @@ pub async fn objects(
 
 pub async fn signed_urls(
     builder: storage::builder::storage::ClientBuilder,
+    signer: &auth::signer::Signer,
     bucket_name: &str,
     prefix: &str,
 ) -> anyhow::Result<()> {
@@ -101,13 +103,12 @@ pub async fn signed_urls(
         .await?;
 
     tracing::info!("testing signed_url()");
-    let signer = auth::credentials::Builder::default().build_signer()?;
     let signed_url =
         storage::builder::storage::SignedUrlBuilder::for_object(bucket_name, &insert.name)
             .with_method(http::Method::GET)
             .with_expiration(Duration::from_secs(60))
             .with_header("Content-Type", "text/plain")
-            .sign_with(&signer)
+            .sign_with(signer)
             .await?;
 
     tracing::info!("signed_url={signed_url}");
@@ -223,7 +224,7 @@ pub async fn object_names(
 }
 
 pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let client = builder.build().await?;
 
     cleanup_stale_buckets(&client, &project_id).await?;
@@ -290,7 +291,7 @@ pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) 
 }
 
 async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
-    let service_account = crate::test_service_account()?;
+    let service_account = test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
     let policy = client

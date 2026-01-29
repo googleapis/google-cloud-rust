@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::as_inner::as_inner;
 use crate::grpc::status::status_from_proto;
 use gax::error::Error;
 use gax::error::rpc::Status;
@@ -26,28 +27,11 @@ fn to_gax_status(status: &tonic::Status) -> Status {
         .into()
 }
 
-fn as_inner<T>(status: &tonic::Status) -> Option<&T>
-where
-    T: std::error::Error + 'static,
-{
-    let mut e = status.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<T>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
-}
-
 pub fn to_gax_error(status: tonic::Status) -> Error {
-    if as_inner::<tonic::TimeoutExpired>(&status).is_some() {
+    if as_inner::<tonic::TimeoutExpired, _>(&status).is_some() {
         return Error::timeout(status);
     }
-    if as_inner::<tonic::ConnectError>(&status).is_some() {
+    if as_inner::<tonic::ConnectError, _>(&status).is_some() {
         return Error::connect(status);
     }
     let headers = status.metadata().clone().into_headers();

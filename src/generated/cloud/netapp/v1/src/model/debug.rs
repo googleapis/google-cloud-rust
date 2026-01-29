@@ -336,6 +336,12 @@ impl std::fmt::Debug for super::BackupVault {
         debug_struct.field("source_backup_vault", &self.source_backup_vault);
         debug_struct.field("destination_backup_vault", &self.destination_backup_vault);
         debug_struct.field("backup_retention_policy", &self.backup_retention_policy);
+        debug_struct.field("kms_config", &self.kms_config);
+        debug_struct.field("encryption_state", &self.encryption_state);
+        debug_struct.field(
+            "backups_crypto_key_version",
+            &self.backups_crypto_key_version,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -462,6 +468,7 @@ impl std::fmt::Debug for super::LocationMetadata {
             &self.supported_flex_performance,
         );
         debug_struct.field("has_vcp", &self.has_vcp);
+        debug_struct.field("has_ontap_proxy", &self.has_ontap_proxy);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -473,6 +480,99 @@ impl std::fmt::Debug for super::UserCommands {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("UserCommands");
         debug_struct.field("commands", &self.commands);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListHostGroupsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHostGroupsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListHostGroupsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListHostGroupsResponse");
+        debug_struct.field("host_groups", &self.host_groups);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetHostGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetHostGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateHostGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateHostGroupRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("host_group", &self.host_group);
+        debug_struct.field("host_group_id", &self.host_group_id);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateHostGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateHostGroupRequest");
+        debug_struct.field("host_group", &self.host_group);
+        debug_struct.field("update_mask", &self.update_mask);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteHostGroupRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteHostGroupRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::HostGroup {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("HostGroup");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("r#type", &self.r#type);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("hosts", &self.hosts);
+        debug_struct.field("os_type", &self.os_type);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("labels", &self.labels);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1143,6 +1243,7 @@ impl std::fmt::Debug for super::StoragePool {
         );
         debug_struct.field("cold_tier_size_used_gib", &self.cold_tier_size_used_gib);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
+        debug_struct.field("r#type", &self.r#type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1295,7 +1396,9 @@ impl std::fmt::Debug for super::Volume {
             &self.hybrid_replication_parameters,
         );
         debug_struct.field("throughput_mibps", &self.throughput_mibps);
+        debug_struct.field("cache_parameters", &self.cache_parameters);
         debug_struct.field("hot_tier_size_used_gib", &self.hot_tier_size_used_gib);
+        debug_struct.field("block_devices", &self.block_devices);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1478,6 +1581,99 @@ impl std::fmt::Debug for super::HybridReplicationParameters {
             "large_volume_constituent_count",
             &self.large_volume_constituent_count,
         );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CacheParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CacheParameters");
+        debug_struct.field("peer_volume_name", &self.peer_volume_name);
+        debug_struct.field("peer_cluster_name", &self.peer_cluster_name);
+        debug_struct.field("peer_svm_name", &self.peer_svm_name);
+        debug_struct.field("peer_ip_addresses", &self.peer_ip_addresses);
+        debug_struct.field("enable_global_file_lock", &self.enable_global_file_lock);
+        debug_struct.field("cache_config", &self.cache_config);
+        debug_struct.field("cache_state", &self.cache_state);
+        debug_struct.field("command", &self.command);
+        debug_struct.field(
+            "peering_command_expiry_time",
+            &self.peering_command_expiry_time,
+        );
+        debug_struct.field("passphrase", &self.passphrase);
+        debug_struct.field("state_details", &self.state_details);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CacheConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CacheConfig");
+        debug_struct.field("cache_pre_populate", &self.cache_pre_populate);
+        debug_struct.field("writeback_enabled", &self.writeback_enabled);
+        debug_struct.field(
+            "cifs_change_notify_enabled",
+            &self.cifs_change_notify_enabled,
+        );
+        debug_struct.field("cache_pre_populate_state", &self.cache_pre_populate_state);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CachePrePopulate {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CachePrePopulate");
+        debug_struct.field("path_list", &self.path_list);
+        debug_struct.field("exclude_path_list", &self.exclude_path_list);
+        debug_struct.field("recursion", &self.recursion);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::BlockDevice {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("BlockDevice");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("host_groups", &self.host_groups);
+        debug_struct.field("identifier", &self.identifier);
+        debug_struct.field("size_gib", &self.size_gib);
+        debug_struct.field("os_type", &self.os_type);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RestoreBackupFilesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreBackupFilesRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("backup", &self.backup);
+        debug_struct.field("file_list", &self.file_list);
+        debug_struct.field("restore_destination_path", &self.restore_destination_path);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::RestoreBackupFilesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RestoreBackupFilesResponse");
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -15,7 +15,7 @@
 
 set -ev
 
-cargo install --locked cargo-semver-checks@0.44.0
+cargo install --locked cargo-semver-checks@0.46.0
 cargo version
 rustup show active-toolchain -v
 

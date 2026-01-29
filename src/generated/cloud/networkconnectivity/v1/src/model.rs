@@ -14615,10 +14615,10 @@ pub struct InternalRange {
     /// See: <https://google.aip.dev/122#fields-representing-resource-names>
     pub name: std::string::String,
 
-    /// Time when the internal range was created.
+    /// Output only. Time when the internal range was created.
     pub create_time: std::option::Option<wkt::Timestamp>,
 
-    /// Time when the internal range was updated.
+    /// Output only. Time when the internal range was updated.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// User-defined labels.
@@ -14660,10 +14660,11 @@ pub struct InternalRange {
     pub prefix_length: i32,
 
     /// Optional. Can be set to narrow down or pick a different address space while
-    /// searching for a free range. If not set, defaults to the "10.0.0.0/8"
-    /// address space. This can be used to search in other rfc-1918 address
-    /// spaces like "172.16.0.0/12" and "192.168.0.0/16" or non-rfc-1918
-    /// address spaces used in the VPC.
+    /// searching for a free range. If not set, defaults to the ["10.0.0.0/8",
+    /// "172.16.0.0/12", "192.168.0.0/16"] address space (for auto-mode networks,
+    /// the "10.0.0.0/9" range is used instead of "10.0.0.0/8"). This can be used
+    /// to target the search in other rfc-1918 address spaces like "172.16.0.0/12"
+    /// and "192.168.0.0/16" or non-rfc-1918 address spaces used in the VPC.
     pub target_cidr_range: std::vec::Vec<std::string::String>,
 
     /// Output only. The list of resources that refer to this internal range.

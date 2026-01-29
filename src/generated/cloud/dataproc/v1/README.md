@@ -23,15 +23,25 @@ The main types to work with this crate are the clients:
 - [SessionController]
 - [WorkflowTemplateService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-dataproc-v1/1.5.0)
 
-[AutoscalingPolicyService]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html
-[BatchController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.BatchController.html
-[ClusterController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.ClusterController.html
-[JobController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.JobController.html
-[NodeGroupController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.NodeGroupController.html
-[SessionTemplateController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.SessionTemplateController.html
-[SessionController]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.SessionController.html
-[WorkflowTemplateService]: https://docs.rs/google-cloud-dataproc-v1/1.4.0/google_cloud_dataproc_v1/client/struct.WorkflowTemplateService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[AutoscalingPolicyService]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.AutoscalingPolicyService.html
+[BatchController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.BatchController.html
+[ClusterController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.ClusterController.html
+[JobController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.JobController.html
+[NodeGroupController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.NodeGroupController.html
+[SessionTemplateController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.SessionTemplateController.html
+[SessionController]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.SessionController.html
+[WorkflowTemplateService]: https://docs.rs/google-cloud-dataproc-v1/1.5.0/google_cloud_dataproc_v1/client/struct.WorkflowTemplateService.html

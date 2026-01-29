@@ -46,6 +46,14 @@ gtype.workspace = true
 rpc.workspace   = true
 wkt.workspace   = true
 
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
 [dev-dependencies]
 anyhow.workspace     = true
 tokio                = { workspace = true, features = ["full", "macros"] }

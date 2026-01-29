@@ -335,6 +335,28 @@ pub trait Config: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Config::get_auto_migration_config].
+    fn get_auto_migration_config(
+        &self,
+        _req: crate::model::GetAutoMigrationConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AutoMigrationConfig>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Config::update_auto_migration_config].
+    fn update_auto_migration_config(
+        &self,
+        _req: crate::model::UpdateAutoMigrationConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Config::list_locations].
     fn list_locations(
         &self,

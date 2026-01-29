@@ -16,7 +16,7 @@
 
 //! Google Cloud Client Libraries for Rust - Google Compute Engine API
 //!
-//! This client library was generated from the "20251210" revision of the API.
+//! This client library was generated from the "20260113" revision of the API.
 //!
 //! This crate contains traits, types, and functions to interact with Google Compute Engine API
 //! Most applications will use the structs defined in the [client] module.
@@ -112,6 +112,7 @@
 //! * [RegionZones](client/struct.RegionZones.html)
 //! * [Regions](client/struct.Regions.html)
 //! * [ReservationBlocks](client/struct.ReservationBlocks.html)
+//! * [ReservationSlots](client/struct.ReservationSlots.html)
 //! * [ReservationSubBlocks](client/struct.ReservationSubBlocks.html)
 //! * [Reservations](client/struct.Reservations.html)
 //! * [ResourcePolicies](client/struct.ResourcePolicies.html)
@@ -140,6 +141,19 @@
 //! * [WireGroups](client/struct.WireGroups.html)
 //! * [ZoneOperations](client/struct.ZoneOperations.html)
 //! * [Zones](client/struct.Zones.html)
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//! - Each client can be enabled using its own feature. Use the client's name
+//!   in `kebab-case` to enable the client.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(deprecated)]
@@ -252,6 +266,7 @@ pub(crate) mod transport;
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -367,6 +382,7 @@ const DEFAULT_HOST: &str = "https://compute.googleapis.com/";
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",

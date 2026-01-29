@@ -142,6 +142,23 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .create_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn create_secret(&self) -> super::builder::secret_manager_service::CreateSecret {
         super::builder::secret_manager_service::CreateSecret::new(self.inner.clone())
     }
@@ -152,6 +169,23 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .add_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn add_secret_version(&self) -> super::builder::secret_manager_service::AddSecretVersion {
         super::builder::secret_manager_service::AddSecretVersion::new(self.inner.clone())
     }
@@ -159,6 +193,24 @@ impl SecretManagerService {
     /// Gets metadata for a given [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .get_secret()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret(&self) -> super::builder::secret_manager_service::GetSecret {
         super::builder::secret_manager_service::GetSecret::new(self.inner.clone())
     }
@@ -167,6 +219,23 @@ impl SecretManagerService {
     /// [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .update_secret()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn update_secret(&self) -> super::builder::secret_manager_service::UpdateSecret {
         super::builder::secret_manager_service::UpdateSecret::new(self.inner.clone())
     }
@@ -174,6 +243,23 @@ impl SecretManagerService {
     /// Deletes a [Secret][google.cloud.secretmanager.v1.Secret].
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    resource_name: &str
+    /// ) -> Result<()> {
+    ///     client
+    ///         .delete_secret()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn delete_secret(&self) -> super::builder::secret_manager_service::DeleteSecret {
         super::builder::secret_manager_service::DeleteSecret::new(self.inner.clone())
     }
@@ -195,6 +281,24 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService,
+    ///    resource_name: &str
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .get_secret_version()
+    ///         .set_name(resource_name)
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_secret_version(&self) -> super::builder::secret_manager_service::GetSecretVersion {
         super::builder::secret_manager_service::GetSecretVersion::new(self.inner.clone())
     }
@@ -206,6 +310,23 @@ impl SecretManagerService {
     /// created [SecretVersion][google.cloud.secretmanager.v1.SecretVersion].
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .access_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn access_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::AccessSecretVersion {
@@ -221,6 +342,23 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DISABLED]: crate::model::secret_version::State::Disabled
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .disable_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn disable_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::DisableSecretVersion {
@@ -236,6 +374,23 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.ENABLED]: crate::model::secret_version::State::Enabled
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .enable_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn enable_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::EnableSecretVersion {
@@ -252,6 +407,23 @@ impl SecretManagerService {
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     /// [google.cloud.secretmanager.v1.SecretVersion.State.DESTROYED]: crate::model::secret_version::State::Destroyed
     /// [google.cloud.secretmanager.v1.SecretVersion.state]: crate::model::SecretVersion::state
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .destroy_secret_version()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn destroy_secret_version(
         &self,
     ) -> super::builder::secret_manager_service::DestroySecretVersion {
@@ -268,12 +440,46 @@ impl SecretManagerService {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .set_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn set_iam_policy(&self) -> super::builder::secret_manager_service::SetIamPolicy {
         super::builder::secret_manager_service::SetIamPolicy::new(self.inner.clone())
     }
 
     /// Gets the access control policy for a secret.
     /// Returns empty policy if the secret exists and does not have a policy set.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .get_iam_policy()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_iam_policy(&self) -> super::builder::secret_manager_service::GetIamPolicy {
         super::builder::secret_manager_service::GetIamPolicy::new(self.inner.clone())
     }
@@ -285,6 +491,23 @@ impl SecretManagerService {
     /// Note: This operation is designed to be used for building permission-aware
     /// UIs and command-line tools, not for authorization checking. This operation
     /// may "fail open" without warning.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .test_iam_permissions()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn test_iam_permissions(
         &self,
     ) -> super::builder::secret_manager_service::TestIamPermissions {
@@ -297,6 +520,23 @@ impl SecretManagerService {
     }
 
     /// Gets information about a location.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_secretmanager_v1::client::SecretManagerService;
+    /// use google_cloud_secretmanager_v1::Result;
+    /// async fn sample(
+    ///    client: &SecretManagerService
+    /// ) -> Result<()> {
+    ///     let response = client
+    ///         .get_location()
+    ///         /* set fields */
+    ///         .send()
+    ///         .await?;
+    ///     println!("response {:?}", response);
+    ///     Ok(())
+    /// }
+    /// ```
     pub fn get_location(&self) -> super::builder::secret_manager_service::GetLocation {
         super::builder::secret_manager_service::GetLocation::new(self.inner.clone())
     }

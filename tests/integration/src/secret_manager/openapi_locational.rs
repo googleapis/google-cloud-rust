@@ -13,10 +13,13 @@
 // limitations under the License.
 
 use crate::Result;
+use anyhow::anyhow;
+use gax::options::RequestOptionsBuilder;
+use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run() -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let secret_id: String = rand::rng()
         .sample_iter(&Alphanumeric)
         .take(crate::SECRET_ID_LENGTH)
@@ -41,6 +44,7 @@ pub async fn run() -> Result<()> {
         .set_location(&location_id)
         .set_secret_id(&secret_id)
         .set_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE = {create:?}");
@@ -60,13 +64,18 @@ pub async fn run() -> Result<()> {
     println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
+    let mut body = smo::model::Secret::new().set_labels(new_labels);
+    if let Some(etag) = &get.etag {
+        body = body.set_etag(etag);
+    }
     let update = client
         .update_secret_by_project_and_location_and_secret()
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
         .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_body(body)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -90,6 +99,7 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DELETE = {response:?}");
@@ -103,7 +113,7 @@ async fn run_iam(
     location_id: &str,
     secret_id: &str,
 ) -> Result<()> {
-    let service_account = crate::test_service_account()?;
+    let service_account = test_service_account()?;
 
     println!("\nTesting get_iam_policy_by_project_and_location_and_secret()");
     let policy = client
@@ -125,6 +135,7 @@ async fn run_iam(
             smo::model::TestIamPermissionsRequest::new()
                 .set_permissions(["secretmanager.versions.access"]),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -160,6 +171,7 @@ async fn run_iam(
                 .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
                 .set_policy(new_policy),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {response:?}");
@@ -188,6 +200,7 @@ async fn run_secret_versions(
                     .set_data_crc_32_c(checksum as i64),
             ),
         )
+        .with_idempotency(true)
         .send()
         .await?;
     println!("CREATE_SECRET_VERSION = {create:?}");
@@ -251,6 +264,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("DISABLE_SECRET_VERSION = {disable:?}");
@@ -262,6 +276,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("ENABLE_SECRET_VERSION = {enable:?}");
@@ -273,6 +288,7 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_version(version_id)
+        .with_idempotency(true)
         .send()
         .await?;
     println!("RESPONSE = {delete:?}");
@@ -382,17 +398,18 @@ async fn cleanup_stale_secrets(
         page_token = response.next_page_token;
     }
 
-    let pending = stale_secrets
-        .iter()
-        .map(|secret_id| {
-            client
-                .delete_secret_by_project_and_location_and_secret()
-                .set_project(project_id)
-                .set_location(location_id)
-                .set_secret(secret_id)
-                .send()
-        })
-        .collect::<Vec<_>>();
+    let pending = stale_secrets.iter().map(|name| async move {
+        let (project, location, secret) = parse_secret_name(name)?;
+        client
+            .delete_secret_by_project_and_location_and_secret()
+            .set_project(project)
+            .set_location(location)
+            .set_secret(secret)
+            .with_idempotency(true)
+            .send()
+            .await?;
+        Ok::<(), anyhow::Error>(())
+    });
 
     // Print the errors, but otherwise ignore them.
     futures::future::join_all(pending)
@@ -402,4 +419,38 @@ async fn cleanup_stale_secrets(
         .for_each(|(r, name)| println!("{name:?} = {r:?}"));
 
     Ok(())
+}
+
+fn parse_secret_name(name: &str) -> Result<(&str, &str, &str)> {
+    // format: projects/{project}/locations/{location}/secrets/{secret}
+    let parts: Vec<&str> = name.split('/').collect();
+    match parts[..] {
+        ["projects", p, "locations", l, "secrets", s] => Ok((p, l, s)),
+        _ => Err(anyhow!("invalid secret name: {}", name)),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use test_case::test_case;
+
+    #[test]
+    fn test_extract_valid_name() {
+        let name = "projects/my-project/locations/us-central1/secrets/my-secret";
+        let (project, location, secret) = parse_secret_name(name).unwrap();
+        assert_eq!(project, "my-project");
+        assert_eq!(location, "us-central1");
+        assert_eq!(secret, "my-secret");
+    }
+
+    #[test_case("invalid/format")]
+    #[test_case("projects/only-one")]
+    #[test_case("projects/p/locations/l/bad/s")]
+    #[test_case("projects/p/bad/l/secrets/s")]
+    #[test_case("bad/p/locations/l/secrets/s")]
+    fn test_extract_invalid_name(input: &str) {
+        let result = parse_secret_name(input);
+        assert!(result.is_err(), "{result:?}");
+    }
 }

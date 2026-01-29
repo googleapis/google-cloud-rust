@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-dialogflow-cx-v3"
-version                = "1.5.0"
+version                = "2.0.0"
 description            = "Google Cloud Client Libraries for Rust - Dialogflow API"
 edition.workspace      = true
 authors.workspace      = true
@@ -30,22 +30,31 @@ rust-version.workspace = true
 default = [
   "agents",
   "changelogs",
+  "default-rustls-provider",
   "deployments",
   "entity-types",
   "environments",
+  "examples",
   "experiments",
   "flows",
   "generators",
   "intents",
   "pages",
+  "playbooks",
   "security-settings-service",
   "session-entity-types",
   "sessions",
   "test-cases",
+  "tools",
   "transition-route-groups",
   "versions",
   "webhooks",
 ]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::Agents` and all the types it depends on.
 agents = []
 # Enables `client::Changelogs` and all the types it depends on.
@@ -56,6 +65,8 @@ deployments = []
 entity-types = []
 # Enables `client::Environments` and all the types it depends on.
 environments = []
+# Enables `client::Examples` and all the types it depends on.
+examples = []
 # Enables `client::Experiments` and all the types it depends on.
 experiments = []
 # Enables `client::Flows` and all the types it depends on.
@@ -66,6 +77,8 @@ generators = []
 intents = []
 # Enables `client::Pages` and all the types it depends on.
 pages = []
+# Enables `client::Playbooks` and all the types it depends on.
+playbooks = []
 # Enables `client::SecuritySettingsService` and all the types it depends on.
 security-settings-service = []
 # Enables `client::Sessions` and all the types it depends on.
@@ -74,6 +87,8 @@ sessions = []
 session-entity-types = []
 # Enables `client::TestCases` and all the types it depends on.
 test-cases = []
+# Enables `client::Tools` and all the types it depends on.
+tools = []
 # Enables `client::TransitionRouteGroups` and all the types it depends on.
 transition-route-groups = []
 # Enables `client::Versions` and all the types it depends on.

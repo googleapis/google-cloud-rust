@@ -56,6 +56,19 @@
 //! * [SipTrunks](client/struct.SipTrunks.html)
 //! * [Tools](client/struct.Tools.html)
 //! * [Versions](client/struct.Versions.html)
+//!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//! - Each client can be enabled using its own feature. Use the client's name
+//!   in `kebab-case` to enable the client.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
 
 #![cfg_attr(docsrs, feature(doc_cfg))]
 #![allow(deprecated)]

@@ -29,8 +29,7 @@ use std::sync::Arc;
 /// let client = Subscriber::builder().build().await?;
 /// let mut session = client
 ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-///     .start()
-///     .await?;
+///     .start();
 /// while let Some((m, h)) = session.next().await.transpose()? {
 ///     println!("Received message m={m:?}");
 ///     h.ack();
@@ -60,8 +59,17 @@ use std::sync::Arc;
 /// an [Rc](std::rc::Rc) or [Arc] to reuse it, because it already uses an `Arc`
 /// internally.
 ///
+/// # Troubleshooting
+///
+/// At the moment, the `Subscriber` is opaque. It is not possible to locally
+/// examine the performance (e.g. successful acknowledgements per second).
+///
+/// The best view into its performance is via the Cloud Console. There, you can
+/// [monitor subscriptions within Pub/Sub].
+///
 /// [application default credentials]: https://cloud.google.com/docs/authentication#adc
 /// [cloud pub/sub]: https://docs.cloud.google.com/pubsub/docs/overview
+/// [monitor subscriptions within pub/sub]: https://docs.cloud.google.com/pubsub/docs/monitor-subscription
 /// [private google access with vpc service controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
 /// [pull subscription]: https://docs.cloud.google.com/pubsub/docs/pull
 /// [with_endpoint()]: ClientBuilder::with_endpoint
@@ -97,8 +105,7 @@ impl Subscriber {
     /// # async fn sample(client: Subscriber) -> anyhow::Result<()> {
     /// let mut session = client
     ///     .streaming_pull("projects/my-project/subscriptions/my-subscription")
-    ///     .start()
-    ///     .await?;
+    ///     .start();
     /// while let Some((m, h)) = session.next().await.transpose()? {
     ///     println!("Received message m={m:?}");
     ///     h.ack();
@@ -143,7 +150,7 @@ mod tests {
     async fn streaming_pull() -> anyhow::Result<()> {
         let mut mock = MockSubscriber::new();
         mock.expect_streaming_pull()
-            .return_once(|_| Err(tonic::Status::internal("fail")));
+            .return_once(|_| Err(tonic::Status::failed_precondition("fail")));
         let (endpoint, _server) = start("0.0.0.0:0", mock).await?;
         let client = Subscriber::builder()
             .with_endpoint(endpoint)
@@ -153,11 +160,13 @@ mod tests {
         let err = client
             .streaming_pull("projects/p/subscriptions/s")
             .start()
+            .next()
             .await
-            .expect_err("Session should not be created.");
+            .expect("stream should not be empty")
+            .expect_err("the first streamed item should be an error");
         assert!(err.status().is_some(), "{err:?}");
         let status = err.status().unwrap();
-        assert_eq!(status.code, gax::error::rpc::Code::Internal);
+        assert_eq!(status.code, gax::error::rpc::Code::FailedPrecondition);
         assert_eq!(status.message, "fail");
 
         Ok(())

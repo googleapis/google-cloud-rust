@@ -24,38 +24,47 @@
 //! guide also describes the common terminology used with authentication, such
 //! as [Principals], [Tokens], and [Credentials].
 //!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls
+//!   crypto provider ([aws-lc-rs]) for TLS and authentication. Applications
+//!   with specific requirements for cryptography (such as exclusively using the
+//!   [ring] crate) should disable this default and call
+//!   `rustls::CryptoProvider::install_default()`.
+//! - `idtoken`: disabled by default, this feature enables support to create and
+//!   verify [OIDC ID Tokens].
+//! - `default-idtoken-backend`: enabled by default, this feature enables a default
+//!   backend for the `idtoken` feature. Currently the feature is implemented using
+//!   the [jsonwebtoken] crate and uses `aws-lc-rs` as its default backend. We may
+//!   change the default backend at any time, applications that have specific needs
+//!   for this backend should not rely on the current default. To control the
+//!   backend selection:
+//!   - Configure this crate with `default-features = false`, and
+//!     `features = ["idtoken"]`
+//!   - Select the desired backend for `jsonwebtoken`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+//! [ring]: https://crates.io/crates/ring
+//! [jsonwebtoken]: https://crates.io/crates/jsonwebtoken
+//! [oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 //! [Authentication methods at Google]: https://cloud.google.com/docs/authentication
 //! [Principals]: https://cloud.google.com/docs/authentication#principal
 //! [Tokens]: https://cloud.google.com/docs/authentication#token
 //! [Credentials]: https://cloud.google.com/docs/authentication#credentials
 
 pub mod build_errors;
+pub(crate) mod constants;
+pub mod credentials;
 pub mod errors;
+pub(crate) mod headers_util;
+pub(crate) mod mds;
+pub(crate) mod retry;
+pub mod signer;
+pub(crate) mod token;
+pub(crate) mod token_cache;
 
 /// A `Result` alias where the `Err` case is [BuildCredentialsError].
 pub(crate) type BuildResult<T> = std::result::Result<T, build_errors::Error>;
 
-/// Types and functions to work with Google Cloud authentication [Credentials].
-///
-/// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub mod credentials;
-
-pub(crate) mod constants;
-
-pub(crate) mod token;
-
-/// The token cache
-pub(crate) mod token_cache;
-
 /// A `Result` alias where the `Err` case is [CredentialsError][errors::CredentialsError].
 pub(crate) type Result<T> = std::result::Result<T, errors::CredentialsError>;
-
-/// The retry module
-pub(crate) mod retry;
-
-/// Headers utility functions to work with Google Cloud authentication [Credentials].
-///
-/// [Credentials]: https://cloud.google.com/docs/authentication#credentials
-pub(crate) mod headers_util;
-
-pub mod signer;

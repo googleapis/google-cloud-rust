@@ -16,13 +16,14 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_test_utils::runtime_config::{project_id, region_id, test_service_account};
 use lro::Poller;
 use std::time::Duration;
 
 pub async fn until_done() -> Result<()> {
-    let project_id = crate::project_id()?;
-    let location_id = crate::region_id();
-    let workflows_runner = crate::test_service_account()?;
+    let project_id = project_id()?;
+    let location_id = region_id();
+    let workflows_runner = test_service_account()?;
 
     let client = wf::client::Workflows::builder()
         .with_tracing()
@@ -71,9 +72,9 @@ main:
 }
 
 pub async fn explicit_loop() -> Result<()> {
-    let project_id = crate::project_id()?;
-    let location_id = crate::region_id();
-    let workflows_runner = crate::test_service_account()?;
+    let project_id = project_id()?;
+    let location_id = region_id();
+    let workflows_runner = test_service_account()?;
 
     let client = wf::client::Workflows::builder()
         .with_tracing()

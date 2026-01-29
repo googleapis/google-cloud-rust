@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! The retry module
+
 use crate::errors::CredentialsError;
 use crate::token::{Token, TokenProvider};
 use crate::{Result, constants};
