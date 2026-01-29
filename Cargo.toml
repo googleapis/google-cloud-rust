@@ -296,6 +296,7 @@ members = [
   "tests/integration",
   "tests/integration-auth",
   "tests/lro",
+  "tests/locational-endpoints",
   "tests/o11y",
   "tests/openapi",
   "tests/protojson-conformance",

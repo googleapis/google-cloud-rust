@@ -5906,6 +5906,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-locational-endpoints"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "futures",
+ "google-cloud-aiplatform-v1",
+ "google-cloud-test-utils",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "integration-tests-lro"
 version = "0.0.0"
 dependencies = [
