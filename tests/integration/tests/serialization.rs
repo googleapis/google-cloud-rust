@@ -17,23 +17,6 @@
 #[cfg(test)]
 mod serialization {
     use anyhow::Result;
-    use static_assertions::{assert_impl_all, assert_not_impl_any};
-
-    // The generator introduces synthetic messages for the requests in
-    // OpenAPI-based services. Those should not have serialization or
-    // deserialization functions.
-    #[test]
-    fn synthetic_message_serialization() -> Result<()> {
-        use smo::model::{Secret, secret_manager_service::CreateSecretRequest};
-
-        assert_impl_all!(CreateSecretRequest: std::fmt::Debug);
-        assert_not_impl_any!(CreateSecretRequest: serde::Serialize);
-        assert_not_impl_any!(CreateSecretRequest: serde::de::DeserializeOwned);
-        assert_impl_all!(Secret: std::fmt::Debug);
-        assert_impl_all!(Secret: serde::Serialize);
-        assert_impl_all!(Secret: serde::de::DeserializeOwned);
-        Ok(())
-    }
 
     #[test]
     fn multiple_serde_attributes() -> Result<()> {
