@@ -14,10 +14,10 @@
 
 pub mod base_publisher;
 pub(crate) mod batch;
-pub(crate) mod constants;
 pub mod builder;
 pub mod client;
 pub(crate) mod client_builder;
+pub(crate) mod constants;
 pub mod model_ext;
 pub mod options;
 pub(crate) mod worker;

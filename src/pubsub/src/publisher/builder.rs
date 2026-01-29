@@ -17,7 +17,10 @@ use crate::client::Publisher;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
 use crate::publisher::base_publisher::{BasePublisher, BasePublisherBuilder};
 use crate::publisher::worker::Worker;
-use gax::{backoff_policy::BackoffPolicyArg, retry_policy::RetryPolicyArg, retry_throttler::RetryThrottlerArg};
+use gax::{
+    backoff_policy::BackoffPolicyArg, retry_policy::RetryPolicyArg,
+    retry_throttler::RetryThrottlerArg,
+};
 use std::time::Duration;
 
 /// A builder for a `Publisher`.

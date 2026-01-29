@@ -75,8 +75,8 @@ pub mod builder {
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
         pub use crate::publisher::base_publisher::BasePublisherBuilder;
-        pub use crate::publisher::builder::PublisherPartialBuilder;
         pub use crate::publisher::builder::PublisherBuilder;
+        pub use crate::publisher::builder::PublisherPartialBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
