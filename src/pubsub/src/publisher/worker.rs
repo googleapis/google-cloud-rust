@@ -118,20 +118,19 @@ impl Worker {
                     match msg {
                         Some(ToWorker::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let batch_worker =
-                                batch_workers
-                                    .entry(ordering_key.clone())
-                                    .or_insert({
-                                        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-                                        let batch_worker = BatchWorker::new(
-                                                        self.topic_name.clone(),
-                                                        ordering_key,
-                                                        self.client.clone(),
-                                                        self.batching_options.clone(),
-                                                        rx,
-                                                );
-                                        tokio::spawn(batch_worker.run());
-                                        tx
+                            let batch_worker = batch_workers
+                                .entry(ordering_key.clone())
+                                .or_insert_with(|| {
+                                    let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+                                    let batch_worker = BatchWorker::new(
+                                        self.topic_name.clone(),
+                                        ordering_key,
+                                        self.client.clone(),
+                                        self.batching_options.clone(),
+                                        rx,
+                                    );
+                                    tokio::spawn(batch_worker.run());
+                                    tx
                                 });
                             batch_worker
                                 .send(ToBatchWorker::Publish(msg))
