@@ -174,7 +174,7 @@ mod driver {
     async fn run_storage_signed_urls() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
 
-        let signer = auth::credentials::Builder::default().build_signer();
+        let signer = google_cloud_auth::credentials::Builder::default().build_signer();
         let signer = match signer {
             Ok(s) => s,
             Err(err) if err.is_not_supported() => {

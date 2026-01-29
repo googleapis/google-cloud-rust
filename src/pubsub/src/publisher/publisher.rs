@@ -52,7 +52,7 @@ pub struct Publisher {
 
 impl Publisher {
     /// Returns a builder for [Publisher].
-    ///  
+    ///
     /// # Example
     ///
     /// ```
@@ -299,7 +299,7 @@ impl PublisherBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::Publisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use auth::credentials::mds;
+    /// use google_cloud_auth::credentials::mds;
     /// let client = Publisher::builder("projects/my-project/topics/my-topic")
     ///     .with_credentials(
     ///         mds::Builder::default()
@@ -548,7 +548,7 @@ mod tests {
         generated::gapic_dataplane::client::Publisher as GapicPublisher,
         model::{PublishResponse, PubsubMessage},
     };
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use mockall::Sequence;
     use rand::{Rng, distr::Alphanumeric};
     use std::error::Error;

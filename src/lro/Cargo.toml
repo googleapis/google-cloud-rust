@@ -63,7 +63,7 @@ serde_json.workspace = true
 tokio                = { workspace = true, features = ["test-util"] }
 tokio-test.workspace = true
 # Local dependencies
-auth.workspace = true
+google-cloud-auth.workspace = true
 # reqwest panics if (1) configured to support TLS and (2) no default crypto
 # provider is configured via features or installed at runtime. Even if reqwest
 # is being used without TLS. Enabling the default provider in tests to
