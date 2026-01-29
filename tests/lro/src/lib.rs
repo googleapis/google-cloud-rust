@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#[cfg(test)]
-mod fake;
+pub mod fake;
 
 #[cfg(test)]
 mod tests {
@@ -24,6 +23,7 @@ mod tests {
     use anyhow::Result;
     use gax::error::rpc::Code;
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_longrunning::model::operation::Result as OperationResult;
     use google_cloud_lro as lro;
     use lro::Poller;
 
@@ -76,7 +76,7 @@ mod tests {
             poll: poll.into(),
         })?;
 
-        async fn task(client: client::Client) -> gax::Result<()> {
+        async fn task(client: client::Client) -> Result<()> {
             let mut poller = client.create_resource("test-p", "r-001").poller();
             while let Some(status) = poller.poll().await {
                 match status {
@@ -387,10 +387,9 @@ mod tests {
             Some(model::CreateResourceMetadata { percent: 100 })
         );
 
-        use longrunning::model::operation;
         match op.result.unwrap() {
-            operation::Result::Error(e) => panic!("unexpected error {e:?}"),
-            operation::Result::Response(any) => {
+            OperationResult::Error(e) => panic!("unexpected error {e:?}"),
+            OperationResult::Response(any) => {
                 let response = any.to_msg::<model::Resource>()?;
                 assert_eq!(
                     response,
@@ -457,10 +456,9 @@ mod tests {
             Some(model::CreateResourceMetadata { percent: 100 })
         );
 
-        use longrunning::model::operation;
         match op.result.unwrap() {
-            operation::Result::Error(e) => panic!("unexpected error {e:?}"),
-            operation::Result::Response(any) => {
+            OperationResult::Error(e) => panic!("unexpected error {e:?}"),
+            OperationResult::Response(any) => {
                 let response = any.to_msg::<model::Resource>()?;
                 assert_eq!(
                     response,

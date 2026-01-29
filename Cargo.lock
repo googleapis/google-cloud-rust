@@ -5906,6 +5906,31 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-lro"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "chrono",
+ "futures",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-longrunning",
+ "google-cloud-lro",
+ "google-cloud-rpc",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "httptest",
+ "rand 0.9.2",
+ "reqwest 0.13.1",
+ "serde",
+ "serde_json",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "integration-tests-o11y"
 version = "0.0.0"
 dependencies = [

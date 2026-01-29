@@ -14,6 +14,7 @@
 
 use super::library::model;
 use anyhow::Result;
+use google_cloud_longrunning as longrunning;
 use reqwest::StatusCode;
 
 pub fn success(
