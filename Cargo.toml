@@ -350,7 +350,6 @@ prost                 = { default-features = false, version = "0.14", features =
 prost-build           = { default-features = false, version = "0.14" }
 prost-types           = { default-features = false, version = "0.14" }
 rand                  = { default-features = false, version = "0.9.2" }
-reqwest               = { default-features = false, version = "0.13.0" }
 p256                  = { default-features = false, version = "0.13" }
 rustls                = { default-features = false, version = "0.23.27" }
 rustls-pki-types      = { default-features = false, version = "1.14" }
@@ -365,9 +364,6 @@ tokio                 = { default-features = false, version = "1.45.1" }
 tokio-metrics         = { default-features = false, version = "0.4.7" }
 tokio-util            = { default-features = false, version = "0.7.9" }
 toml_edit             = { default-features = false, version = "0.24" }
-tonic                 = { default-features = false, version = "0.14.1", features = ["tls-native-roots"] }
-tonic-prost           = { default-features = false, version = "0.14.2" }
-tonic-prost-build     = { default-features = false, version = "0.14.1" }
 tower                 = { default-features = false, version = "0.5.2", features = ["util"] }
 tracing               = { default-features = false, version = "0.1.44", features = ["attributes"] }
 tracing-log           = { default-features = false, version = "0.2" }
@@ -386,6 +382,12 @@ opentelemetry-semantic-conventions = { default-features = false, version = "0.31
   "semconv_experimental",
 ] }
 
+# WARNING: When this changes to 0.14 we need to bump the google-cloud-gax-internal major version.
+reqwest = { default-features = false, version = "0.13.0" }
+# WARNING: When this changes to 0.15 we need to bump the google-cloud-gax-internal major version.
+tonic             = { default-features = false, version = "0.14.1", features = ["tls-native-roots"] }
+tonic-prost       = { default-features = false, version = "0.14.2" }
+tonic-prost-build = { default-features = false, version = "0.14.1" }
 
 # Some of our direct dependencies fail to declare the minimum version
 # requirements correctly. Force a higher version so we can test our own minimum
