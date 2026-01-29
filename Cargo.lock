@@ -1503,6 +1503,7 @@ dependencies = [
  "serde",
  "serde_json",
  "serial_test",
+ "static_assertions",
  "tempfile",
  "test-case",
  "thiserror 2.0.18",

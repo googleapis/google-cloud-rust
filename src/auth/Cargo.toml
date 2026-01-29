@@ -68,6 +68,7 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 tokio-test.workspace  = true
 url.workspace         = true
 mutants.workspace     = true
+static_assertions     = { workspace = true }
 
 [features]
 default = ["default-idtoken-backend", "default-rustls-provider"]
