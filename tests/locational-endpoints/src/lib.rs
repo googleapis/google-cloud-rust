@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_test_utils::runtime_config::{project_id, region_id};
 use google_cloud_aiplatform_v1::client::ModelService;
+use google_cloud_test_utils::runtime_config::{project_id, region_id};
 
 pub async fn run() -> anyhow::Result<()> {
     let project_id = project_id()?;
