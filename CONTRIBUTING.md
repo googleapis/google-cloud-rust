@@ -24,10 +24,77 @@ information on using pull requests.
 
 ## Commit Messages
 
-This repository follows the
-[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
-specification. Typically, the package name should be included in parentheses
-after the commit type (e.g., `feat(storage):`).
+Commit messages for `google-cloud-rust` follow the conventions below.
+
+Here is an example:
+
+```
+feat(storage): add support for inter-dimensional object teleportation
+
+This change introduces the `teleport_object` method, allowing users to move
+objects between different dimensional planes. This is an experimental feature
+and may cause temporal paradoxes.
+
+The `destination_dimension` parameter is required and must be a valid
+dimensional identifier. The `safety_precautions` field in TeleportOptions
+is highly recommended.
+
+Fixes #12345
+```
+
+### First line
+
+The first line of the change description is a short one-line summary of the
+change, following the structure `<type>(<scope>): <description>`:
+
+#### type
+
+A structural element defined by the conventions at
+[https://www.conventionalcommits.org/en/v1.0.0/#summary](https://www.conventionalcommits.org/en/v1.0.0/#summary).
+
+Conventional commits are parsed by our release tooling to generate release
+notes. See [Guidelines for Commit Types](#guidelines-for-commit-types) for more
+details.
+
+#### scope
+
+The name of the crate affected by the change, which should be provided in
+parentheses before the colon. Please omit the `google-cloud-` prefix (e.g., use
+`storage` instead of `google-cloud-storage`).
+
+#### description
+
+A short one-line summary of the change, that it should be written so to complete
+the sentence "This change modifies the crate to ..." That means it does not
+start with a capital letter, is not a complete sentence, and actually summarizes
+the result of the change. Note that the verb after the colon is lowercase, and
+there is no trailing period
+
+The first line should be kept as short as possible (many git viewing tools
+prefer under ~76 characters).
+
+Follow the first line by a blank line.
+
+### Main content
+
+The rest of the commit message should provide context for the change and explain
+what it does. Write in complete sentences with correct punctuation.
+
+Add any relevant information, such as benchmark data if the change affects
+performance.
+
+### Referencing issues
+
+The special notation "Fixes #12345" associates the change with issue 12345 in
+the `google-cloud-rust` issue tracker. When this change is eventually applied,
+the issue tracker will automatically mark the issue as fixed.
+
+If the change is a partial step towards the resolution of the issue, write "For
+#12345" instead. This will leave a comment in the issue linking back to the pull
+request, but it will not close the issue when the change is applied.
+
+Please don’t use alternate GitHub-supported aliases like Close or Resolves
+instead of Fixes.
 
 ### Guidelines for Commit Types
 
