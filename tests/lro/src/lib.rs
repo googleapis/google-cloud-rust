@@ -16,8 +16,6 @@ pub mod fake;
 
 #[cfg(test)]
 mod tests {
-    use super::fake::library::client;
-    use super::fake::library::model;
     use super::fake::responses;
     use super::fake::service::*;
     use anyhow::Result;
@@ -25,10 +23,12 @@ mod tests {
     use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use google_cloud_longrunning::model::operation::Result as OperationResult;
     use google_cloud_lro as lro;
+    use google_cloud_workflows_v1::client::Workflows;
+    use google_cloud_workflows_v1::model::{OperationMetadata, Workflow};
     use lro::Poller;
 
-    async fn new_client(endpoint: String) -> Result<client::Client> {
-        let client = client::Client::builder()
+    async fn new_client(endpoint: String) -> Result<Workflows> {
+        let client = Workflows::builder()
             .with_credentials(Anonymous::new().build())
             .with_endpoint(endpoint)
             .build()
@@ -38,24 +38,27 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_is_send() -> Result<()> {
-        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success(
+            "op001",
+            "projects/p/locations/l/workflows/w01",
+        )?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
         })?;
 
-        async fn task(client: client::Client) -> Result<()> {
+        async fn task(client: Workflows) -> Result<()> {
             let response = client
-                .create_resource("test-p", "r-001")
+                .create_workflow()
+                .set_parent("projects/p/locations/l")
+                .set_workflow_id("w01")
                 .poller()
                 .until_done()
                 .await?;
             assert_eq!(
                 response,
-                model::Resource {
-                    name: "p/test-p/r/r-001".into()
-                }
+                Workflow::new().set_name("projects/p/locations/l/workflows/w01")
             );
             Ok(())
         }
@@ -69,15 +72,22 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_is_send() -> Result<()> {
-        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success(
+            "op001",
+            "projects/p/locations/l/workflows/w01",
+        )?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
             poll: poll.into(),
         })?;
 
-        async fn task(client: client::Client) -> Result<()> {
-            let mut poller = client.create_resource("test-p", "r-001").poller();
+        async fn task(client: Workflows) -> Result<()> {
+            let mut poller = client
+                .create_workflow()
+                .set_parent("projects/p/locations/l")
+                .set_workflow_id("w01")
+                .poller();
             while let Some(status) = poller.poll().await {
                 match status {
                     lro::PollingResult::InProgress(_) => {
@@ -88,9 +98,7 @@ mod tests {
                         let response = result?;
                         assert_eq!(
                             response,
-                            model::Resource {
-                                name: "p/test-p/r/r-001".into()
-                            }
+                            Workflow::new().set_name("projects/p/locations/l/workflows/w01")
                         );
                     }
                 }
@@ -107,7 +115,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_success() -> Result<()> {
-        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success(
+            "op001",
+            "projects/p/locations/l/workflows/w01",
+        )?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -116,15 +127,15 @@ mod tests {
 
         let client = new_client(endpoint).await?;
         let response = client
-            .create_resource("test-p", "r-001")
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
             .poller()
             .until_done()
             .await?;
         assert_eq!(
             response,
-            model::Resource {
-                name: "p/test-p/r/r-001".into()
-            }
+            Workflow::new().set_name("projects/p/locations/l/workflows/w01")
         );
 
         Ok(())
@@ -132,7 +143,7 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_immediate_error() -> Result<()> {
-        let create = vec![responses::operation_error("op/001")?];
+        let create = vec![responses::operation_error("op001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -141,7 +152,9 @@ mod tests {
 
         let client = new_client(endpoint).await?;
         let result = client
-            .create_resource("test-p", "r-001")
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
             .poller()
             .until_done()
             .await;
@@ -153,10 +166,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_success() -> Result<()> {
-        let create = vec![responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op001", 25)?];
         let poll = vec![
-            responses::pending("op/001", 75)?,
-            responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op001", 75)?,
+            responses::success("op001", "projects/p/locations/l/workflows/w01")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -165,15 +178,15 @@ mod tests {
 
         let client = new_client(endpoint).await?;
         let response = client
-            .create_resource("test-p", "r-001")
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
             .poller()
             .until_done()
             .await?;
         assert_eq!(
             response,
-            model::Resource {
-                name: "p/test-p/r/r-001".to_string()
-            }
+            Workflow::new().set_name("projects/p/locations/l/workflows/w01")
         );
 
         Ok(())
@@ -181,10 +194,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn until_done_error() -> Result<()> {
-        let create = vec![responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op001", 25)?];
         let poll = vec![
-            responses::pending("op/001", 75)?,
-            responses::operation_error("op/001")?,
+            responses::pending("op001", 75)?,
+            responses::operation_error("op001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -193,7 +206,9 @@ mod tests {
 
         let client = new_client(endpoint).await?;
         let result = client
-            .create_resource("test-p", "r-001")
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
             .poller()
             .until_done()
             .await;
@@ -205,7 +220,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_immediate_success() -> Result<()> {
-        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success(
+            "op001",
+            "projects/p/locations/l/workflows/w01",
+        )?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -213,7 +231,11 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let mut poller = client.create_resource("test-p", "r-001").poller();
+        let mut poller = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .poller();
         while let Some(status) = poller.poll().await {
             match status {
                 lro::PollingResult::InProgress(_) => {
@@ -224,9 +246,7 @@ mod tests {
                     let response = result?;
                     assert_eq!(
                         response,
-                        model::Resource {
-                            name: "p/test-p/r/r-001".into()
-                        }
+                        Workflow::new().set_name("projects/p/locations/l/workflows/w01")
                     );
                 }
             }
@@ -237,7 +257,7 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_immediate_error() -> Result<()> {
-        let create = vec![responses::operation_error("op/001")?];
+        let create = vec![responses::operation_error("op001")?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -245,7 +265,11 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let mut poller = client.create_resource("test-p", "r-001").poller();
+        let mut poller = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .poller();
         while let Some(status) = poller.poll().await {
             match status {
                 lro::PollingResult::InProgress(_) => {
@@ -266,10 +290,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_success() -> Result<()> {
-        let create = vec![responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op001", 25)?];
         let poll = vec![
-            responses::pending("op/001", 75)?,
-            responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op001", 75)?,
+            responses::success("op001", "projects/p/locations/l/workflows/w01")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -277,12 +301,16 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let mut poller = client.create_resource("test-p", "r-001").poller();
+        let mut poller = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .poller();
         let status = poller.poll().await.unwrap();
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(model::CreateResourceMetadata { percent: 25 }))
+                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=25"
             ),
             "{status:?}"
         );
@@ -291,7 +319,7 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(model::CreateResourceMetadata { percent: 75 }))
+                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=75"
             ),
             "{status:?}"
         );
@@ -307,9 +335,7 @@ mod tests {
         };
         assert_eq!(
             response,
-            Some(model::Resource {
-                name: "p/test-p/r/r-001".to_string()
-            })
+            Some(Workflow::new().set_name("projects/p/locations/l/workflows/w01"))
         );
 
         let status = poller.poll().await;
@@ -320,10 +346,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn poller_error() -> Result<()> {
-        let create = vec![responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op001", 25)?];
         let poll = vec![
-            responses::pending("op/001", 75)?,
-            responses::operation_error("op/001")?,
+            responses::pending("op001", 75)?,
+            responses::operation_error("op001")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -331,12 +357,16 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let mut poller = client.create_resource("test-p", "r-001").poller();
+        let mut poller = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .poller();
         let status = poller.poll().await.unwrap();
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(model::CreateResourceMetadata { percent: 25 }))
+                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=25"
             ),
             "{status:?}"
         );
@@ -345,7 +375,7 @@ mod tests {
         assert!(
             matches!(
                 &status,
-                lro::PollingResult::InProgress(Some(model::CreateResourceMetadata { percent: 75 }))
+                lro::PollingResult::InProgress(Some(m)) if m.target == "percent=75"
             ),
             "{status:?}"
         );
@@ -366,7 +396,10 @@ mod tests {
     // The manual tests are here to validate all the test infrastructure.
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn manual_immediate_success() -> Result<()> {
-        let create = vec![responses::success("op/001", "p/test-p/r/r-001")?];
+        let create = vec![responses::success(
+            "op001",
+            "projects/p/locations/l/workflows/w01",
+        )?];
         let poll = vec![];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -374,28 +407,31 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let op = client.create_resource("test-p", "r-001").send().await?;
-        assert_eq!(op.name, "op/001", "{op:?}");
+        let op = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .send()
+            .await?;
+        assert!(op.name.ends_with("/operations/op001"), "{op:?}");
         assert!(op.done, "{op:?}");
 
         let metadata = op
             .metadata
-            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<OperationMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
-            Some(model::CreateResourceMetadata { percent: 100 })
+            Some(OperationMetadata::new().set_target("percent=100"))
         );
 
         match op.result.unwrap() {
             OperationResult::Error(e) => panic!("unexpected error {e:?}"),
             OperationResult::Response(any) => {
-                let response = any.to_msg::<model::Resource>()?;
+                let response = any.to_msg::<Workflow>()?;
                 assert_eq!(
                     response,
-                    model::Resource {
-                        name: "p/test-p/r/r-001".into()
-                    }
+                    Workflow::new().set_name("projects/p/locations/l/workflows/w01")
                 );
             }
             _ => panic!("longrunning::model::operation::Result has an unexpected branch"),
@@ -406,10 +442,10 @@ mod tests {
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn manual_success() -> Result<()> {
-        let create = vec![responses::pending("op/001", 25)?];
+        let create = vec![responses::pending("op001", 25)?];
         let poll = vec![
-            responses::pending("op/001", 50)?,
-            responses::success("op/001", "p/test-p/r/r-001")?,
+            responses::pending("op001", 50)?,
+            responses::success("op001", "projects/p/locations/l/workflows/w01")?,
         ];
         let (endpoint, _server) = start(ServerState {
             create: create.into(),
@@ -417,54 +453,57 @@ mod tests {
         })?;
 
         let client = new_client(endpoint).await?;
-        let op = client.create_resource("test-p", "r-001").send().await?;
-        assert_eq!(op.name, "op/001", "{op:?}");
+        let op = client
+            .create_workflow()
+            .set_parent("projects/p/locations/l")
+            .set_workflow_id("w01")
+            .send()
+            .await?;
+        assert!(op.name.ends_with("/operations/op001"), "{op:?}");
         assert!(!op.done, "{op:?}");
 
         let metadata = op
             .metadata
-            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<OperationMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
-            Some(model::CreateResourceMetadata { percent: 25 })
+            Some(OperationMetadata::new().set_target("percent=25"))
         );
 
         let name = op.name;
 
-        let op = client.get_operation(&name).send().await?;
-        assert_eq!(op.name, "op/001", "{op:?}");
+        let op = client.get_operation().set_name(&name).send().await?;
+        assert!(op.name.ends_with("/operations/op001"), "{op:?}");
         assert!(!op.done, "{op:?}");
         let metadata = op
             .metadata
-            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<OperationMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
-            Some(model::CreateResourceMetadata { percent: 50 })
+            Some(OperationMetadata::new().set_target("percent=50"))
         );
 
-        let op = client.get_operation(&name).send().await?;
-        assert_eq!(op.name, "op/001", "{op:?}");
+        let op = client.get_operation().set_name(&name).send().await?;
+        assert!(op.name.ends_with("/operations/op001"), "{op:?}");
         assert!(op.done, "{op:?}");
         let metadata = op
             .metadata
-            .map(|any| any.to_msg::<model::CreateResourceMetadata>())
+            .map(|any| any.to_msg::<OperationMetadata>())
             .transpose()?;
         assert_eq!(
             metadata,
-            Some(model::CreateResourceMetadata { percent: 100 })
+            Some(OperationMetadata::new().set_target("percent=100"))
         );
 
         match op.result.unwrap() {
             OperationResult::Error(e) => panic!("unexpected error {e:?}"),
             OperationResult::Response(any) => {
-                let response = any.to_msg::<model::Resource>()?;
+                let response = any.to_msg::<Workflow>()?;
                 assert_eq!(
                     response,
-                    model::Resource {
-                        name: "p/test-p/r/r-001".into()
-                    }
+                    Workflow::new().set_name("projects/p/locations/l/workflows/w01")
                 );
             }
             _ => panic!("longrunning::model::operation::Result has an unexpected branch"),
