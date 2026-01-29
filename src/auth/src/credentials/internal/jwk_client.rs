@@ -14,7 +14,15 @@
 
 use crate::Result;
 use crate::errors::CredentialsError;
-use jsonwebtoken::{Algorithm, DecodingKey, jwk::JwkSet};
+use base64::Engine;
+use pkcs1::RsaPublicKey;
+use rustls::pki_types::SubjectPublicKeyInfoDer;
+use serde::Deserialize;
+use spki::der::{
+    Encode,
+    asn1::{BitString, Null, UintRef},
+};
+use spki::{AlgorithmIdentifier, SubjectPublicKeyInfo};
 use std::{
     collections::HashMap,
     sync::Arc,
@@ -26,9 +34,31 @@ const IAP_JWK_URL: &str = "https://www.gstatic.com/iap/verify/public_key-jwk";
 const OAUTH2_JWK_URL: &str = "https://www.googleapis.com/oauth2/v3/certs";
 const CACHE_TTL: Duration = Duration::from_secs(3600);
 
+#[derive(Clone, Debug, Deserialize)]
+struct Jwk {
+    pub n: Option<String>,
+    pub e: Option<String>,
+    pub x: Option<String>,
+    pub y: Option<String>,
+    pub crv: Option<String>,
+    pub kty: String,
+    pub kid: String,
+}
+
+#[derive(Clone, Debug, Deserialize)]
+struct JwkSet {
+    keys: Vec<Jwk>,
+}
+
+impl JwkSet {
+    fn find(&self, kid: &str) -> Option<&Jwk> {
+        self.keys.iter().find(|k| k.kid == kid)
+    }
+}
+
 #[derive(Clone, Debug)]
 struct CacheEntry {
-    key: DecodingKey,
+    key: SubjectPublicKeyInfoDer<'static>,
     expires_at: Instant,
 }
 
@@ -57,9 +87,9 @@ impl JwkClient {
     pub async fn get_or_load_cert(
         &self,
         key_id: String,
-        alg: Algorithm,
+        alg: &str,
         jwks_url: Option<String>,
-    ) -> Result<DecodingKey> {
+    ) -> Result<SubjectPublicKeyInfoDer<'static>> {
         let key_id_str = key_id.as_str();
         let mut cache = self.cache.try_write().map_err(|_e| {
             CredentialsError::from_msg(false, "failed to obtain lock to read certificate cache")
@@ -76,8 +106,7 @@ impl JwkClient {
             CredentialsError::from_msg(false, "JWKS did not contain a matching `kid`")
         })?;
 
-        let key = DecodingKey::from_jwk(jwk)
-            .map_err(|e| CredentialsError::new(false, "failed to parse JWK", e))?;
+        let key = create_der(jwk)?;
 
         let entry = CacheEntry {
             key: key.clone(),
@@ -88,13 +117,13 @@ impl JwkClient {
         Ok(key)
     }
 
-    fn resolve_jwks_url(&self, alg: Algorithm, jwks_url: Option<String>) -> Result<String> {
+    fn resolve_jwks_url(&self, alg: &str, jwks_url: Option<String>) -> Result<String> {
         if let Some(jwks_url) = jwks_url {
             return Ok(jwks_url);
         }
         match alg {
-            Algorithm::RS256 => Ok(OAUTH2_JWK_URL.to_string()),
-            Algorithm::ES256 => Ok(IAP_JWK_URL.to_string()),
+            "RS256" => Ok(OAUTH2_JWK_URL.to_string()),
+            "ES256" => Ok(IAP_JWK_URL.to_string()),
             _ => Err(CredentialsError::from_msg(
                 false,
                 format!(
@@ -127,6 +156,98 @@ impl JwkClient {
     }
 }
 
+// Creates a DER-encoded SubjectPublicKeyInfo from a JWK.
+fn create_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
+    match jwk.kty.as_str() {
+        "RSA" => create_rsa_der(jwk),
+        "EC" => create_ec_der(jwk),
+        _ => Err(CredentialsError::from_msg(
+            false,
+            format!("unsupported key type: {}", jwk.kty),
+        )),
+    }
+}
+
+fn create_rsa_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
+    let n = jwk
+        .n
+        .as_ref()
+        .ok_or_else(|| CredentialsError::from_msg(false, "missing n in RSA JWK"))?;
+    let e = jwk
+        .e
+        .as_ref()
+        .ok_or_else(|| CredentialsError::from_msg(false, "missing e in RSA JWK"))?;
+
+    let n_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(n)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid n in JWK: {}", e)))?;
+    let e_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(e)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid e in JWK: {}", e)))?;
+
+    let rsa_pub_key = RsaPublicKey {
+        modulus: UintRef::new(&n_bytes).map_err(|e| {
+            CredentialsError::from_msg(false, format!("invalid modulus in JWK: {}", e))
+        })?,
+        public_exponent: UintRef::new(&e_bytes).map_err(|e| {
+            CredentialsError::from_msg(false, format!("invalid public exponent in JWK: {}", e))
+        })?,
+    };
+    let rsa_pub_key_der = rsa_pub_key.to_der().map_err(|e| {
+        CredentialsError::from_msg(false, format!("failed to encode RSA public key: {}", e))
+    })?;
+
+    let spki = SubjectPublicKeyInfo {
+        algorithm: AlgorithmIdentifier::<Null> {
+            oid: pkcs1::ALGORITHM_OID,
+            parameters: Some(Null),
+        },
+        subject_public_key: BitString::from_bytes(&rsa_pub_key_der).map_err(|e| {
+            CredentialsError::from_msg(
+                false,
+                format!("failed to create public key bitstring: {}", e),
+            )
+        })?,
+    };
+
+    let der_bytes = spki
+        .to_der()
+        .map_err(|e| CredentialsError::from_msg(false, format!("Failed to encode SPKI: {}", e)))?;
+    Ok(SubjectPublicKeyInfoDer::from(der_bytes))
+}
+
+fn create_ec_der(jwk: &Jwk) -> Result<SubjectPublicKeyInfoDer<'static>> {
+    let x = jwk
+        .x
+        .as_ref()
+        .ok_or_else(|| CredentialsError::from_msg(false, "missing x in EC JWK"))?;
+    let y = jwk
+        .y
+        .as_ref()
+        .ok_or_else(|| CredentialsError::from_msg(false, "missing y in EC JWK"))?;
+    if jwk.crv.as_deref() != Some("P-256") {
+        return Err(CredentialsError::from_msg(
+            false,
+            format!("unsupported curve: {:?}", jwk.crv),
+        ));
+    }
+
+    let x_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(x)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid x in JWK: {}", e)))?;
+    let y_bytes = base64::engine::general_purpose::URL_SAFE_NO_PAD
+        .decode(y)
+        .map_err(|e| CredentialsError::from_msg(false, format!("invalid y in JWK: {}", e)))?;
+
+    // Uncompressed point format: 0x04 || x || y
+    let mut public_key_bytes = Vec::with_capacity(1 + x_bytes.len() + y_bytes.len());
+    public_key_bytes.push(0x04);
+    public_key_bytes.extend_from_slice(&x_bytes);
+    public_key_bytes.extend_from_slice(&y_bytes);
+
+    Ok(SubjectPublicKeyInfoDer::from(public_key_bytes))
+}
+
 #[cfg(test)]
 pub(crate) mod tests {
     use super::*;
@@ -134,7 +255,6 @@ pub(crate) mod tests {
     use httptest::matchers::{all_of, request};
     use httptest::responders::json_encoded;
     use httptest::{Expectation, Server};
-    use jsonwebtoken::Algorithm;
     use p256::elliptic_curve::sec1::ToEncodedPoint;
     use rsa::traits::PublicKeyParts;
     use serial_test::parallel;
@@ -193,16 +313,12 @@ pub(crate) mod tests {
 
         // First call, should fetch from URL
         let _key = client
-            .get_or_load_cert(
-                TEST_KEY_ID.to_string(),
-                Algorithm::RS256,
-                Some(jwks_url.clone()),
-            )
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url.clone()))
             .await?;
 
         // Second call, should use cache
         let _key = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url))
             .await?;
 
         Ok(())
@@ -223,7 +339,7 @@ pub(crate) mod tests {
         let jwks_url = format!("http://{}/certs", server.addr());
 
         let result = client
-            .get_or_load_cert("unknown-kid".to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_cert("unknown-kid".to_string(), "RS256", Some(jwks_url))
             .await;
 
         assert!(result.is_err());
@@ -250,7 +366,7 @@ pub(crate) mod tests {
         let jwks_url = format!("http://{}/certs", server.addr());
 
         let result = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url))
             .await;
 
         assert!(result.is_err());
@@ -268,26 +384,21 @@ pub(crate) mod tests {
         // Custom URL
         let url = "https://example.com/jwks".to_string();
         assert_eq!(
-            client
-                .resolve_jwks_url(Algorithm::RS256, Some(url.clone()))
-                .unwrap(),
+            client.resolve_jwks_url("RS256", Some(url.clone())).unwrap(),
             url
         );
 
         // Default for RS256
         assert_eq!(
-            client.resolve_jwks_url(Algorithm::RS256, None).unwrap(),
+            client.resolve_jwks_url("RS256", None).unwrap(),
             OAUTH2_JWK_URL
         );
 
         // Default for ES256
-        assert_eq!(
-            client.resolve_jwks_url(Algorithm::ES256, None).unwrap(),
-            IAP_JWK_URL
-        );
+        assert_eq!(client.resolve_jwks_url("ES256", None).unwrap(), IAP_JWK_URL);
 
         // Unsupported algorithm
-        let result = client.resolve_jwks_url(Algorithm::HS256, None);
+        let result = client.resolve_jwks_url("HS256", None);
         assert!(result.is_err());
 
         Ok(())
@@ -309,20 +420,12 @@ pub(crate) mod tests {
 
         // First call, should fetch from URL and cache it.
         let _key = client
-            .get_or_load_cert(
-                TEST_KEY_ID.to_string(),
-                Algorithm::RS256,
-                Some(jwks_url.clone()),
-            )
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url.clone()))
             .await?;
 
         // Second call, should still be cached.
         let _key = client
-            .get_or_load_cert(
-                TEST_KEY_ID.to_string(),
-                Algorithm::RS256,
-                Some(jwks_url.clone()),
-            )
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url.clone()))
             .await?;
 
         // Wait for the cache to expire.
@@ -330,7 +433,7 @@ pub(crate) mod tests {
 
         // This call should fetch from URL again.
         let _key = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::RS256, Some(jwks_url))
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "RS256", Some(jwks_url))
             .await?;
 
         Ok(())
@@ -352,17 +455,36 @@ pub(crate) mod tests {
 
         // First call, should fetch from URL
         let _key = client
-            .get_or_load_cert(
-                TEST_KEY_ID.to_string(),
-                Algorithm::ES256,
-                Some(jwks_url.clone()),
-            )
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "ES256", Some(jwks_url.clone()))
             .await?;
 
         // Second call, should use cache
         let _key = client
-            .get_or_load_cert(TEST_KEY_ID.to_string(), Algorithm::ES256, Some(jwks_url))
+            .get_or_load_cert(TEST_KEY_ID.to_string(), "ES256", Some(jwks_url))
             .await?;
+
+        Ok(())
+    }
+
+    // TODO: remove since this is probably gonna be flaky.
+    // Added just to make sure it works with real certs.
+    #[tokio::test]
+    async fn test_fetch_real_certs() -> TestResult {
+        let client = JwkClient::new();
+
+        println!("Fetching OAuth2 certs from {}", OAUTH2_JWK_URL);
+        let jwk_set = client.fetch_certs(OAUTH2_JWK_URL.to_string()).await?;
+        assert!(!jwk_set.keys.is_empty(), "OAuth2 keys should not be empty");
+        for key in &jwk_set.keys {
+            create_der(key).expect(&format!("failed to create DER for key {}", key.kid));
+        }
+
+        println!("Fetching IAP certs from {}", IAP_JWK_URL);
+        let jwk_set = client.fetch_certs(IAP_JWK_URL.to_string()).await?;
+        assert!(!jwk_set.keys.is_empty(), "IAP keys should not be empty");
+        for key in &jwk_set.keys {
+            create_der(key).expect(&format!("failed to create DER for key {}", key.kid));
+        }
 
         Ok(())
     }

@@ -37,12 +37,16 @@
 //! [OIDC ID Tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 
 use crate::credentials::internal::jwk_client::JwkClient;
-use jsonwebtoken::Validation;
+use crate::credentials::service_account::jws::JwsHeader;
+use base64::Engine;
+use p256::ecdsa::Signature;
+use rustls::crypto::CryptoProvider;
 /// Represents the claims in an ID token.
 pub use serde_json::Map;
 /// Represents a claim value in an ID token.
 pub use serde_json::Value;
 use std::time::Duration;
+use std::time::{SystemTime, UNIX_EPOCH};
 
 /// Builder is used construct a [Verifier] of id tokens.
 pub struct Builder {
@@ -165,38 +169,138 @@ pub struct Verifier {
 impl Verifier {
     /// Verifies the ID token and returns the claims.
     pub async fn verify(&self, token: &str) -> std::result::Result<Map<String, Value>, Error> {
-        let header = jsonwebtoken::decode_header(token).map_err(Error::decode)?;
+        let parts: Vec<&str> = token.split('.').collect();
+        if parts.len() != 3 {
+            return Err(Error::decode("token must have 3 parts"));
+        }
+
+        let header_json = base64::engine::general_purpose::URL_SAFE_NO_PAD
+            .decode(parts[0])
+            .map_err(Error::decode)?;
+        let header: JwsHeader = serde_json::from_slice(&header_json).map_err(Error::decode)?;
 
         let key_id = header
             .kid
             .ok_or_else(|| Error::invalid_field("kid", "kid header is missing"))?;
 
-        let mut validation = Validation::new(header.alg);
-        validation.leeway = self.clock_skew.as_secs();
-        // TODO(#3591): Support TPC/REP that can have different issuers
-        validation.set_issuer(&["https://accounts.google.com", "accounts.google.com"]);
-        validation.set_audience(&self.audiences);
+        let scheme = match header.alg {
+            "RS256" => rustls::SignatureScheme::RSA_PKCS1_SHA256,
+            "ES256" => rustls::SignatureScheme::ECDSA_NISTP256_SHA256,
+            _ => {
+                return Err(Error::invalid_field(
+                    "alg",
+                    format!("Unsupported algorithm: {}", header.alg),
+                ));
+            }
+        };
 
-        let expected_email = self.email.clone();
+        let signature = base64::engine::general_purpose::URL_SAFE_NO_PAD
+            .decode(parts[2])
+            .map_err(Error::decode)?;
+
+        let signature = if header.alg == "ES256" {
+            let sig = Signature::from_slice(&signature)
+                .map_err(|_| Error::invalid("invalid ECDSA signature format"))?;
+            sig.to_der().as_bytes().to_vec()
+        } else {
+            signature
+        };
+
         let jwks_url = self.jwks_url.clone();
-
-        let cert = self
+        let spki = self
             .jwk_client
-            .get_or_load_cert(key_id, header.alg, jwks_url)
+            .get_or_load_cert(key_id.to_string(), header.alg, jwks_url)
             .await
             .map_err(Error::load_cert)?;
 
-        let token = jsonwebtoken::decode::<Map<String, Value>>(&token, &cert, &validation)
-            .map_err(|e| match e.clone().into_kind() {
-                jsonwebtoken::errors::ErrorKind::InvalidIssuer => Error::invalid_field("iss", e),
-                jsonwebtoken::errors::ErrorKind::InvalidAudience => Error::invalid_field("aud", e),
-                jsonwebtoken::errors::ErrorKind::MissingRequiredClaim(field) => {
-                    Error::invalid_field(field.as_str(), e)
-                }
-                _ => Error::invalid(e),
+        let message = format!("{}.{}", parts[0], parts[1]);
+
+        let provider = CryptoProvider::get_default().cloned();
+        #[cfg(feature = "default-rustls-provider")]
+        let provider = provider
+            .unwrap_or_else(|| std::sync::Arc::new(rustls::crypto::aws_lc_rs::default_provider()));
+        #[cfg(not(feature = "default-rustls-provider"))]
+        let provider = provider.expect(
+            r###"
+The default rustls::CryptoProvider should be configured by the application. The
+`google-cloud-auth` crate was compiled without the `default-rustls-provider`
+feature. Without this feature the crate expects the application to initialize
+the rustls crypto provider using `rustls::CryptoProvider::install_default()`.
+
+Note that the application must use the exact same version of `rustls` as the
+`google-cloud-auth` crate does. Otherwise `install_default()` has no effect."###,
+        );
+
+        let algs = provider.signature_verification_algorithms;
+        let mapping = algs.mapping;
+        let alg = mapping
+            .iter()
+            .find(|(candidate_scheme, _)| *candidate_scheme == scheme)
+            .map(|(_, candidates)| candidates[0])
+            .ok_or_else(|| {
+                Error::invalid(format!(
+                    "{:?} not supported by current crypto provider",
+                    scheme
+                ))
             })?;
 
-        let claims = token.claims;
+        alg.verify_signature(&spki, message.as_bytes(), &signature)
+            .map_err(|e| Error::invalid(format!("Invalid signature: {:?}", e)))?;
+
+        // claims validation
+        let expected_email = self.email.clone();
+        let claims_json = base64::engine::general_purpose::URL_SAFE_NO_PAD
+            .decode(parts[1])
+            .map_err(Error::decode)?;
+        let claims: Map<String, Value> =
+            serde_json::from_slice(&claims_json).map_err(Error::decode)?;
+
+        let now = SystemTime::now()
+            .duration_since(UNIX_EPOCH)
+            .unwrap()
+            .as_secs();
+        let exp = claims
+            .get("exp")
+            .and_then(|v| v.as_u64())
+            .ok_or_else(|| Error::invalid_field("exp", "exp claim is missing"))?;
+
+        if now > exp + self.clock_skew.as_secs() {
+            return Err(Error::invalid_field("exp", "Token has expired"));
+        }
+
+        let iss = claims
+            .get("iss")
+            .and_then(|v| v.as_str())
+            .ok_or_else(|| Error::invalid_field("iss", "iss claim is missing"))?;
+
+        // TODO(#3591): Support TPC/REP that can have different issuers
+        let valid_issuers = ["https://accounts.google.com", "accounts.google.com"];
+        if !valid_issuers.contains(&iss) {
+            return Err(Error::invalid_field(
+                "iss",
+                format!("Invalid issuer: {}", iss),
+            ));
+        }
+
+        let aud_val = claims
+            .get("aud")
+            .ok_or_else(|| Error::invalid_field("aud", "aud claim is missing"))?;
+        let aud_match = match aud_val {
+            Value::String(s) => self.audiences.contains(s),
+            Value::Array(arr) => arr.iter().any(|v| {
+                v.as_str()
+                    .is_some_and(|s| self.audiences.contains(&s.to_string()))
+            }),
+            _ => return Err(Error::invalid_field("aud", "Invalid aud format")),
+        };
+
+        if !aud_match {
+            return Err(Error::invalid_field(
+                "aud",
+                format!("Invalid audience: {:?}", aud_val),
+            ));
+        }
+
         if let Some(email) = expected_email {
             let email_verified = claims["email_verified"]
                 .as_bool()
@@ -300,11 +404,12 @@ pub(crate) mod tests {
     use crate::credentials::internal::jwk_client::tests::{
         create_es256_jwk_set_response, create_rsa256_jwk_set_response,
     };
+    use crate::credentials::service_account::jws::JwsHeader;
+    use base64::Engine;
     use httptest::matchers::{all_of, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
-    use jsonwebtoken::{Algorithm, EncodingKey, Header};
-    use rsa::pkcs1::EncodeRsaPrivateKey;
+    use serde_json::json;
     use std::collections::HashMap;
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
 
@@ -566,17 +671,22 @@ pub(crate) mod tests {
 
     #[tokio::test]
     async fn test_verify_missing_kid() -> TestResult {
-        let header = Header::new(Algorithm::RS256);
-        let claims: HashMap<&str, Value> = HashMap::new();
+        let header = JwsHeader {
+            alg: "RS256",
+            typ: "JWT",
+            kid: None,
+        };
 
-        let private_cert = crate::credentials::tests::RSA_PRIVATE_KEY
-            .to_pkcs1_der()
-            .expect("Failed to encode private key to PKCS#1 DER");
+        let claims_json = json!({});
+        let encoded_claims =
+            base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(claims_json.to_string());
 
-        let private_key = EncodingKey::from_rsa_der(private_cert.as_bytes());
-
-        let token =
-            jsonwebtoken::encode(&header, &claims, &private_key).expect("failed to encode jwt");
+        let token = format!(
+            "{}.{}.{}",
+            header.encode()?,
+            encoded_claims,
+            "signature_placeholder"
+        );
 
         let verifier = Builder::new(["https://example.com"]).build();
 

@@ -43,13 +43,13 @@ rustls                = { workspace = true, features = ["logging", "std", "tls12
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
 serde_json.workspace  = true
+# TODO: move new deps to workspace
+pkcs1                 = { version = "0.7", optional = true, features = ["alloc"] }
+spki                  = { version = "0.7", optional = true, features = ["alloc"] }
+p256                  = { workspace = true, optional = true, features = ["ecdsa"] }
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
-jsonwebtoken          = { workspace = true, optional = true }
-# We do not use this directly, but without it the minimal-versions build breaks.
-# See: https://github.com/Keats/jsonwebtoken/pull/481
-aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
 gax.workspace = true
 
@@ -73,12 +73,12 @@ mutants.workspace     = true
 default = ["default-idtoken-backend", "default-rustls-provider"]
 # The `idtoken` feature enables support to create and validate OIDC ID Tokens.
 # See the create top-level documentation for more information.
-idtoken = ["dep:jsonwebtoken", "jsonwebtoken"]
+idtoken = ["dep:pkcs1", "dep:spki", "dep:p256", "jsonwebtoken"]
 # By default this crate enables the `aws_lc_rs` backend. Applications can
 # link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
 # and then directly configure the `jsonwebtoken` features to select the
 # `rust_crypto` backend.
-default-idtoken-backend = ["dep:aws-lc-rs", "jsonwebtoken?/aws_lc_rs"]
+default-idtoken-backend = []
 # Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
 # TLS and authentication. Applications with specific requirements for
 # cryptography (such as exclusively using the [ring] crate) should disable this
@@ -86,7 +86,7 @@ default-idtoken-backend = ["dep:aws-lc-rs", "jsonwebtoken?/aws_lc_rs"]
 default-rustls-provider = ["reqwest/default-tls", "rustls/aws_lc_rs"]
 # Do not use, this was a mistake in the 1.3 release. We accidentally introduced
 # this feature. The intent was to only introduce `idtoken`.
-jsonwebtoken = ["dep:jsonwebtoken"]
+jsonwebtoken = []
 
 [lints]
 workspace = true
