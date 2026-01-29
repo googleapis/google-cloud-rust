@@ -653,7 +653,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_worker_success() {
+    async fn worker_publishes_successfully() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_ok).times(2);
 
@@ -680,7 +680,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_drop_publisher() {
+    async fn dropping_publisher_flushes_pending_messages() {
         // If we hold on to the handles returned from the publisher, it should
         // be safe to drop the publisher and .await on the handles.
         let mut mock = MockGapicPublisher::new();
@@ -719,7 +719,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_worker_error() {
+    async fn worker_handles_publish_errors() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_err).times(2);
 
@@ -746,7 +746,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_worker_flush() {
+    async fn flush_sends_pending_messages_immediately() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_ok);
 
@@ -788,7 +788,7 @@ mod tests {
 
     // User's should be able to drop handles and the messages will still send.
     #[tokio::test(start_paused = true)]
-    async fn test_worker_drop_handles() {
+    async fn dropping_handles_does_not_prevent_publishing() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
             move |r, o| {
@@ -825,7 +825,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_empty_flush() {
+    async fn flush_with_no_messages_is_noop() {
         let mock = MockGapicPublisher::new();
 
         let client = GapicPublisher::from_stub(mock);
@@ -837,7 +837,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_batching_send_on_message_count_threshold_success() {
+    async fn batch_sends_on_message_count_threshold_success() {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -872,7 +872,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_batching_send_on_message_count_threshold_error() {
+    async fn batch_sends_on_message_count_threshold_error() {
         // Make sure all messages in a batch receive an error.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -906,7 +906,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_batching_send_on_byte_threshold() {
+    async fn batch_sends_on_byte_threshold() {
         // Make sure all messages in a batch receive the correct message ID.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().return_once({
@@ -943,7 +943,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_batching_send_on_delay_threshold() {
+    async fn batch_sends_on_delay_threshold() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning(publish_ok);
 
@@ -990,7 +990,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn test_batching_on_ordering_key() {
+    async fn batching_separates_by_ordering_key() {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
@@ -1040,7 +1040,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn test_batching_empty_ordering_key() {
+    async fn batching_handles_empty_ordering_key() {
         // Publish messages with different ordering key and validate that they are in different batches.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().returning({
@@ -1090,7 +1090,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn test_ordering_key_only_one_outstanding_batch() {
+    async fn ordering_key_limits_to_one_outstanding_batch() {
         // Verify that Publisher must only have 1 outstanding batch inflight at a time.
         // This is done by validating that the 2 expected publish calls are done in sequence
         // with a sleep delay in the first Publish reply.
@@ -1154,7 +1154,7 @@ mod tests {
 
     #[tokio::test(start_paused = true)]
     #[allow(clippy::get_first)]
-    async fn test_empty_ordering_key_concurrent_batches() {
+    async fn empty_ordering_key_allows_concurrent_batches() {
         // Verify that for empty ordering key, the Publisher will send multiple batches without
         // awaiting for the results.
         // This is done by adding a delay in the first Publish reply and validating that
@@ -1284,7 +1284,7 @@ mod tests {
     }
 
     #[test]
-    fn defaults_client() {
+    fn publisher_has_default_client_config() {
         let pub_builder = Publisher::builder("projects/my-project/topics/my-topic");
         let base_builder = BasePublisher::builder();
         let pub_config = &pub_builder.base_builder.config;
@@ -1294,7 +1294,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn setters_client() {
+    async fn publisher_builder_sets_client_config() {
         use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let throttler = gax::retry_throttler::CircuitBreaker::default();
         let pub_builder = Publisher::builder("projects/my-project/topics/my-topic")
@@ -1321,7 +1321,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_error_pause_publisher() {
+    async fn ordering_key_error_pauses_publisher() {
         // Verify that a Publish send error will pause the publisher for an ordering key.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1375,7 +1375,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_error_pause_batch_errors() {
+    async fn batch_error_pauses_ordering_key() {
         // Verify that all messages in the same batch receives the Send error for that batch.
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().times(1).returning({
@@ -1409,7 +1409,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_error_pause_then_flush() {
+    async fn flush_on_paused_ordering_key_returns_error() {
         // Verify that Flush on a paused ordering key returns an error.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1444,7 +1444,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_resume_without_error() {
+    async fn resuming_non_paused_ordering_key_is_noop() {
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish().times(4).returning(publish_ok);
 
@@ -1470,7 +1470,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_resume_publish() {
+    async fn resuming_paused_ordering_key_allows_publishing() {
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
         mock.expect_publish()
@@ -1507,7 +1507,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_resume_twice() {
+    async fn resuming_ordering_key_twice_is_safe() {
         // Validate that resuming twice sequentially does not have bad side effects.
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1544,7 +1544,7 @@ mod tests {
     }
 
     #[tokio::test(start_paused = true)]
-    async fn test_ordering_resume_isolated() {
+    async fn resuming_one_ordering_key_does_not_resume_others() {
         // Validate that resume_publish only resumes the paused ordering key .
         let mut seq = Sequence::new();
         let mut mock = MockGapicPublisher::new();
@@ -1596,7 +1596,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_builder_clamping() -> anyhow::Result<()> {
+    async fn publisher_builder_clamps_batching_options() -> anyhow::Result<()> {
         // Test values that are too high and should be clamped.
         let oversized_options = BatchingOptions::new()
             .set_delay_threshold(MAX_DELAY + Duration::from_secs(1))
