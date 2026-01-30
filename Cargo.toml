@@ -26,8 +26,10 @@ default-members = [
   "src/gax-internal",
   "src/lro",
   "src/pubsub",
+  "src/pubsub/examples",
   "src/spanner",
   "src/storage",
+  "src/storage/examples",
   "src/wkt",
   # We need `cargo test` to run at least some documentation tests for generated
   # libraries. These libraries are implicitly required by the integration tests
