@@ -12,24 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::library::model;
 use anyhow::Result;
 use google_cloud_longrunning as longrunning;
-use reqwest::StatusCode;
+use google_cloud_workflows_v1::model::{OperationMetadata, Workflow};
+use httptest::http::StatusCode;
 
-pub fn success(
-    name: impl Into<String>,
-    resource: impl Into<String>,
-) -> Result<(StatusCode, String)> {
-    let resource = model::Resource {
-        name: resource.into(),
-    };
-    let metadata = model::CreateResourceMetadata { percent: 100 };
+pub fn success<N, R>(name: N, resource: R) -> Result<(StatusCode, String)>
+where
+    N: std::fmt::Display,
+    R: Into<String>,
+{
+    let resource = Workflow::new().set_name(resource);
+    let metadata = OperationMetadata::new().set_target("percent=100");
     let metadata = wkt::Any::from_msg(&metadata)?;
     let result =
         longrunning::model::operation::Result::Response(wkt::Any::from_msg(&resource)?.into());
     let operation = longrunning::model::Operation::default()
-        .set_name(name)
+        .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_metadata(metadata)
         .set_done(true)
         .set_result(result);
@@ -37,23 +36,29 @@ pub fn success(
     Ok((StatusCode::OK, payload))
 }
 
-pub fn pending(name: impl Into<String>, percent: u32) -> Result<(StatusCode, String)> {
-    let metadata = model::CreateResourceMetadata { percent };
+pub fn pending<N>(name: N, percent: u32) -> Result<(StatusCode, String)>
+where
+    N: std::fmt::Display,
+{
+    let metadata = OperationMetadata::new().set_target(format!("percent={percent}"));
     let metadata = wkt::Any::from_msg(&metadata)?;
     let operation = longrunning::model::Operation::default()
-        .set_name(name)
+        .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_metadata(metadata);
     let payload = serde_json::to_string(&operation)?;
     Ok((StatusCode::OK, payload))
 }
 
-pub fn operation_error(name: impl Into<String>) -> Result<(StatusCode, String)> {
+pub fn operation_error<N>(name: N) -> Result<(StatusCode, String)>
+where
+    N: std::fmt::Display,
+{
     let error = rpc::model::Status::default()
         .set_code(gax::error::rpc::Code::AlreadyExists as i32)
         .set_message("The resource  already exists");
     let result = longrunning::model::operation::Result::Error(Box::new(error));
     let operation = longrunning::model::Operation::default()
-        .set_name(name)
+        .set_name(format!("projects/p/locations/l/operations/{name}"))
         .set_done(true)
         .set_result(result);
     let payload = serde_json::to_string(&operation)?;

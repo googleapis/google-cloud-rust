@@ -12,6 +12,5 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod library;
 pub mod responses;
 pub mod service;
