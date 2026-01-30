@@ -93,7 +93,7 @@ impl Stub for Transport {
 pub(super) mod tests {
     use super::*;
     use crate::google::pubsub::v1::ReceivedMessage;
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
     use pubsub_grpc_mock::google::pubsub::v1;
     use pubsub_grpc_mock::{MockSubscriber, start};
 

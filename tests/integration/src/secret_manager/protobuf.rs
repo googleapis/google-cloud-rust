@@ -14,16 +14,12 @@
 
 use crate::Result;
 use gax::paginator::{ItemPaginator, Paginator};
+use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
-use rand::{Rng, distr::Alphanumeric};
 
 pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) -> Result<()> {
     let project_id = project_id()?;
-    let secret_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(crate::SECRET_ID_LENGTH)
-        .map(char::from)
-        .collect();
+    let secret_id = random_secret_id();
 
     let client = builder.build().await?;
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;

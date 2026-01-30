@@ -27,14 +27,6 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_aiplatform() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::aiplatform::locational_endpoint()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_bigquery_dataset_service() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
         integration_tests::bigquery::dataset_admin()
@@ -129,22 +121,6 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::secret_manager::openapi::run()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_openapi_locational() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::secret_manager::openapi_locational::run()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
@@ -190,7 +166,7 @@ mod driver {
     async fn run_storage_signed_urls() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
 
-        let signer = auth::credentials::Builder::default().build_signer();
+        let signer = google_cloud_auth::credentials::Builder::default().build_signer();
         let signer = match signer {
             Ok(s) => s,
             Err(err) if err.is_not_supported() => {
@@ -302,30 +278,6 @@ mod driver {
     async fn run_check_code_for_grpc() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
         integration_tests::error_details::check_code_for_grpc()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_until_done() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::until_done()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_explicit() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::explicit_loop()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_manual() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::until_done()
             .await
             .map_err(integration_tests::report_error)
     }

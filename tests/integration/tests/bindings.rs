@@ -51,6 +51,7 @@ mod bindings {
     use gax::error::{Error, binding::BindingError};
     use gaxi::path_parameter::{PathMismatchBuilder, try_match};
     use gaxi::routing_parameter::Segment;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     /// A stand in for a generated request message.
     #[derive(Default, serde::Serialize)]
@@ -71,7 +72,7 @@ mod bindings {
     impl TestService {
         pub async fn new() -> Self {
             let mut config = gaxi::options::ClientConfig::default();
-            config.cred = auth::credentials::anonymous::Builder::new().build().into();
+            config.cred = Anonymous::new().build().into();
             let inner = gaxi::http::ReqwestClient::new(config, "https://test.googleapis.com")
                 .await
                 .expect("test credentials can never fail");

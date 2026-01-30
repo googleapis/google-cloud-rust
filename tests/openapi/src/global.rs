@@ -12,20 +12,22 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use gax::paginator::Paginator;
+use anyhow::Result;
+use google_cloud_gax::paginator::Paginator;
+use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
-use rand::{Rng, distr::Alphanumeric};
+use google_cloud_wkt::FieldMask;
+use secretmanager_openapi_v1::client::SecretManagerService;
+use secretmanager_openapi_v1::model::{
+    AddSecretVersionRequest, Automatic, Binding, Replication, Secret, SecretPayload,
+    SetIamPolicyRequest, TestIamPermissionsRequest,
+};
 
 pub async fn run() -> Result<()> {
     let project_id = project_id()?;
-    let secret_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(crate::SECRET_ID_LENGTH)
-        .map(char::from)
-        .collect();
+    let secret_id = random_secret_id();
 
-    let client = smo::client::SecretManagerService::builder()
+    let client = SecretManagerService::builder()
         .with_tracing()
         .build()
         .await?;
@@ -36,10 +38,8 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_secret_id(&secret_id)
         .set_body(
-            smo::model::Secret::new()
-                .set_replication(
-                    smo::model::Replication::new().set_automatic(smo::model::Automatic::new()),
-                )
+            Secret::new()
+                .set_replication(Replication::new().set_automatic(Automatic::new()))
                 .set_labels([("integration-test", "true")]),
         )
         .send()
@@ -72,8 +72,8 @@ pub async fn run() -> Result<()> {
         .update_secret()
         .set_project(&project_id)
         .set_secret(&secret_id)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
-        .set_body(smo::model::Secret::new().set_labels(new_labels))
+        .set_update_mask(FieldMask::default().set_paths(["labels"]))
+        .set_body(Secret::new().set_labels(new_labels))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -101,7 +101,7 @@ pub async fn run() -> Result<()> {
     Ok(())
 }
 
-async fn run_locations(client: &smo::client::SecretManagerService, project_id: &str) -> Result<()> {
+async fn run_locations(client: &SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
         .list_locations()
@@ -134,11 +134,7 @@ async fn run_locations(client: &smo::client::SecretManagerService, project_id: &
     Ok(())
 }
 
-async fn run_iam(
-    client: &smo::client::SecretManagerService,
-    project_id: &str,
-    secret_id: &str,
-) -> Result<()> {
+async fn run_iam(client: &SecretManagerService, project_id: &str, secret_id: &str) -> Result<()> {
     let service_account = test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
@@ -156,8 +152,7 @@ async fn run_iam(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::TestIamPermissionsRequest::new()
-                .set_permissions(["secretmanager.versions.access"]),
+            TestIamPermissionsRequest::new().set_permissions(["secretmanager.versions.access"]),
         )
         .send()
         .await?;
@@ -179,7 +174,7 @@ async fn run_iam(
     }
     if !found {
         new_policy.bindings.push(
-            smo::model::Binding::new()
+            Binding::new()
                 .set_role(ROLE.to_string())
                 .set_members([format!("serviceAccount:{service_account}")]),
         );
@@ -189,8 +184,8 @@ async fn run_iam(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::SetIamPolicyRequest::new()
-                .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+            SetIamPolicyRequest::new()
+                .set_update_mask(FieldMask::default().set_paths(["bindings"]))
                 .set_policy(new_policy),
         )
         .send()
@@ -201,7 +196,7 @@ async fn run_iam(
 }
 
 async fn run_secret_versions(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
@@ -213,8 +208,8 @@ async fn run_secret_versions(
         .set_project(project_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::AddSecretVersionRequest::new().set_payload(
-                smo::model::SecretPayload::new()
+            AddSecretVersionRequest::new().set_payload(
+                SecretPayload::new()
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc_32_c(checksum as i64),
             ),
@@ -306,7 +301,7 @@ async fn run_secret_versions(
 }
 
 async fn get_all_secret_version_names(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
 ) -> Result<Vec<String>> {
@@ -334,7 +329,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();

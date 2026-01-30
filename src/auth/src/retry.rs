@@ -46,10 +46,9 @@ pub(crate) struct Builder {
 // `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
 // are not `RefUnwindSafe` nor `UnwindSafe` by default.
 //
-// This solves that by manually implementing `RefUnwindSafe` and `UnwindSafe`, allowing us to add
-// retry functionality without triggering a semver-check failure. This is safe because
-// we control the implementation of the inner types and can ensure that they are
-// `RefUnwindSafe` and `UnwindSafe`.
+// This is safe because in the builder, we never call or use the retry policies. We just hold them
+// until we create the client. There is no opportunity for a panic to leave them in an inconsistent
+// state.
 impl RefUnwindSafe for Builder {}
 impl UnwindSafe for Builder {}
 

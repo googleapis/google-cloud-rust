@@ -107,7 +107,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::BasePublisher;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use auth::credentials::mds;
+    /// use google_cloud_auth::credentials::mds;
     /// let client = BasePublisher::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
@@ -225,7 +225,7 @@ impl ClientBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[test]
     fn defaults() {

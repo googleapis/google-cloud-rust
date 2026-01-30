@@ -14,6 +14,7 @@
 
 use crate::Result;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};
 use google_cloud_compute_v1::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
@@ -63,7 +64,7 @@ pub async fn errors() -> Result<()> {
     let project_id = project_id()?;
     let zone_id = zone_id();
 
-    let credentials = auth::credentials::anonymous::Builder::new().build();
+    let credentials = Anonymous::new().build();
     let client = Zones::builder()
         .with_credentials(credentials)
         .build()

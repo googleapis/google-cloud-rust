@@ -81,7 +81,7 @@ impl SubjectTokenProvider for FileSourcedCredentials {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use serde_json::json;
     use std::{error::Error, io::Write};

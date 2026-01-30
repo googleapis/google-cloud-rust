@@ -20,6 +20,7 @@ use crate::Result;
 use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
 use gax::options::RequestOptionsBuilder;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_auth::signer::Signer;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use lro::Poller;
 use std::time::Duration;
@@ -87,7 +88,7 @@ pub async fn objects(
 
 pub async fn signed_urls(
     builder: storage::builder::storage::ClientBuilder,
-    signer: &auth::signer::Signer,
+    signer: &Signer,
     bucket_name: &str,
     prefix: &str,
 ) -> anyhow::Result<()> {

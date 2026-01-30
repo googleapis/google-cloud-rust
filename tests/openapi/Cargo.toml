@@ -1,0 +1,49 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[package]
+description       = "Integration tests for an OpenAPI-based service."
+edition.workspace = true
+name              = "integration-tests-openapi"
+publish           = false
+version           = "0.0.0"
+
+[features]
+# These are normally disabled because they run against production.
+run-integration-tests = []
+# Enable additional logging in the integration tests.
+log-integration-tests = ["google-cloud-test-utils/log-integration-tests"]
+
+[dependencies]
+anyhow.workspace           = true
+bytes.workspace            = true
+chrono                     = { workspace = true, features = ["now"] }
+crc32c.workspace           = true
+futures.workspace          = true
+google-cloud-gax.workspace = true
+google-cloud-lro.workspace = true
+google-cloud-test-utils    = { workspace = true }
+google-cloud-wkt.workspace = true
+secretmanager-openapi-v1   = { workspace = true, features = ["default"] }
+serde.workspace            = true
+tokio.workspace            = true
+tracing.workspace          = true
+tracing-subscriber         = { workspace = true, features = ["fmt"] }
+
+[dev-dependencies]
+static_assertions.workspace = true
+test-case.workspace         = true
+
+[lints]
+workspace = true

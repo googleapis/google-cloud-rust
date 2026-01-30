@@ -12,24 +12,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
+use anyhow::Result;
 use anyhow::anyhow;
-use gax::options::RequestOptionsBuilder;
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
-use rand::{Rng, distr::Alphanumeric};
+use google_cloud_wkt::{FieldMask, Timestamp};
+use secretmanager_openapi_v1::client::SecretManagerService;
+use secretmanager_openapi_v1::model::{
+    AddSecretVersionRequest, Binding, Secret, SecretPayload, SetIamPolicyRequest,
+    TestIamPermissionsRequest,
+};
 
 pub async fn run() -> Result<()> {
     let project_id = project_id()?;
-    let secret_id: String = rand::rng()
-        .sample_iter(&Alphanumeric)
-        .take(crate::SECRET_ID_LENGTH)
-        .map(char::from)
-        .collect();
+    let secret_id = random_secret_id();
 
     // We must override the configuration to use a regional endpoint.
     let location_id = "us-central1".to_string();
     let endpoint = format!("https://secretmanager.{location_id}.rep.googleapis.com");
-    let client = smo::client::SecretManagerService::builder()
+    let client = SecretManagerService::builder()
         .with_tracing()
         .with_endpoint(endpoint)
         .build()
@@ -43,7 +45,7 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret_id(&secret_id)
-        .set_body(smo::model::Secret::new().set_labels([("integration-test", "true")]))
+        .set_body(Secret::new().set_labels([("integration-test", "true")]))
         .with_idempotency(true)
         .send()
         .await?;
@@ -64,7 +66,7 @@ pub async fn run() -> Result<()> {
     println!("\nTesting update_secret_by_project_and_location_and_secret()");
     let mut new_labels = get.labels.clone();
     new_labels.insert("updated".to_string(), "true".to_string());
-    let mut body = smo::model::Secret::new().set_labels(new_labels);
+    let mut body = Secret::new().set_labels(new_labels);
     if let Some(etag) = &get.etag {
         body = body.set_etag(etag);
     }
@@ -73,7 +75,7 @@ pub async fn run() -> Result<()> {
         .set_project(&project_id)
         .set_location(&location_id)
         .set_secret(&secret_id)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["labels"]))
+        .set_update_mask(FieldMask::default().set_paths(["labels"]))
         .set_body(body)
         .with_idempotency(true)
         .send()
@@ -108,7 +110,7 @@ pub async fn run() -> Result<()> {
 }
 
 async fn run_iam(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -132,8 +134,7 @@ async fn run_iam(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::TestIamPermissionsRequest::new()
-                .set_permissions(["secretmanager.versions.access"]),
+            TestIamPermissionsRequest::new().set_permissions(["secretmanager.versions.access"]),
         )
         .with_idempotency(true)
         .send()
@@ -156,7 +157,7 @@ async fn run_iam(
     }
     if !found {
         new_policy.bindings.push(
-            smo::model::Binding::new()
+            Binding::new()
                 .set_role(ROLE.to_string())
                 .set_members([format!("serviceAccount:{service_account}")]),
         );
@@ -167,8 +168,8 @@ async fn run_iam(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::SetIamPolicyRequest::new()
-                .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+            SetIamPolicyRequest::new()
+                .set_update_mask(FieldMask::default().set_paths(["bindings"]))
                 .set_policy(new_policy),
         )
         .with_idempotency(true)
@@ -180,7 +181,7 @@ async fn run_iam(
 }
 
 async fn run_secret_versions(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -194,8 +195,8 @@ async fn run_secret_versions(
         .set_location(location_id)
         .set_secret(secret_id)
         .set_body(
-            smo::model::AddSecretVersionRequest::new().set_payload(
-                smo::model::SecretPayload::default()
+            AddSecretVersionRequest::new().set_payload(
+                SecretPayload::default()
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc_32_c(checksum as i64),
             ),
@@ -297,7 +298,7 @@ async fn run_secret_versions(
 }
 
 async fn get_all_secret_version_names(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     location_id: &str,
     secret_id: &str,
@@ -327,7 +328,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     location_id: &str,
 ) -> Result<Vec<String>> {
@@ -355,14 +356,14 @@ async fn get_all_secret_names(
 }
 
 async fn cleanup_stale_secrets(
-    client: &smo::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     location_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut stale_secrets = Vec::new();
     let mut page_token = None::<String>;

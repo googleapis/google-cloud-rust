@@ -15,6 +15,7 @@
 use super::client::Subscriber;
 use gax::client_builder::Result as BuilderResult;
 use gaxi::options::ClientConfig;
+use google_cloud_auth::credentials::Credentials;
 
 /// A builder for [Subscriber].
 ///
@@ -79,7 +80,7 @@ impl ClientBuilder {
     /// ```
     /// # use google_cloud_pubsub::client::Subscriber;
     /// # async fn sample() -> anyhow::Result<()> {
-    /// use auth::credentials::mds;
+    /// use google_cloud_auth::credentials::mds;
     /// let client = Subscriber::builder()
     ///     .with_credentials(
     ///         mds::Builder::default()
@@ -91,7 +92,7 @@ impl ClientBuilder {
     /// ```
     ///
     /// [google-cloud-auth]: https://docs.rs/google-cloud-auth
-    pub fn with_credentials<V: Into<auth::credentials::Credentials>>(mut self, v: V) -> Self {
+    pub fn with_credentials<V: Into<Credentials>>(mut self, v: V) -> Self {
         self.config.cred = Some(v.into());
         self
     }
@@ -126,7 +127,7 @@ impl ClientBuilder {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use auth::credentials::anonymous::Builder as Anonymous;
+    use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
     #[test]
     fn defaults() {

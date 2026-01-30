@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use google_cloud_test_utils::runtime_config::project_id;
+use google_cloud_aiplatform_v1::client::ModelService;
+use google_cloud_test_utils::runtime_config::{project_id, region_id};
 
-pub async fn locational_endpoint() -> Result<()> {
+pub async fn run() -> anyhow::Result<()> {
     let project_id = project_id()?;
-    let location_id = "us-central1";
-    let client = aiplatform::client::ModelService::builder()
+    let location_id = region_id();
+    let client = ModelService::builder()
         .with_endpoint(format!("https://{location_id}-aiplatform.googleapis.com"))
         .with_tracing()
         .build()

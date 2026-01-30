@@ -12,7 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use gax::client_builder::ClientBuilder;
+use gax::client_builder::Result as ClientBuilderResult;
+use gax::client_builder::internal::{ClientFactory, new_builder};
 use google::test::v1::{EchoRequest, EchoResponse};
+use google_cloud_auth::credentials::Credentials;
 use std::collections::{HashMap, VecDeque};
 use std::sync::{Arc, Mutex};
 use tokio::task::JoinHandle;
@@ -78,20 +82,15 @@ where
     Ok((format!("http://{}:{}", addr.ip(), addr.port()), server))
 }
 
-pub fn builder(
-    default_endpoint: impl Into<String>,
-) -> gax::client_builder::ClientBuilder<Factory, auth::credentials::Credentials> {
-    gax::client_builder::internal::new_builder(Factory(default_endpoint.into()))
+pub fn builder(default_endpoint: impl Into<String>) -> ClientBuilder<Factory, Credentials> {
+    new_builder(Factory(default_endpoint.into()))
 }
 
 pub struct Factory(String);
-impl gax::client_builder::internal::ClientFactory for Factory {
+impl ClientFactory for Factory {
     type Client = gaxi::grpc::Client;
-    type Credentials = auth::credentials::Credentials;
-    async fn build(
-        self,
-        config: gaxi::options::ClientConfig,
-    ) -> gax::client_builder::Result<Self::Client> {
+    type Credentials = Credentials;
+    async fn build(self, config: gaxi::options::ClientConfig) -> ClientBuilderResult<Self::Client> {
         Self::Client::new(config, &self.0).await
     }
 }

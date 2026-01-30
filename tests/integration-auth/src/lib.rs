@@ -12,12 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use auth::credentials::idtoken::{
+use bigquery::client::DatasetService;
+use gax::error::rpc::Code;
+use google_cloud_auth::credentials::idtoken::{
     Builder as IDTokenCredentialBuilder, impersonated::Builder as ImpersonatedIDTokenBuilder,
     mds::Builder as IDTokenMDSBuilder, mds::Format,
     service_account::Builder as ServiceAccountIDTokenBuilder, verifier::Builder as VerifierBuilder,
 };
-use auth::credentials::{
+use google_cloud_auth::credentials::service_account::AccessSpecifier;
+use google_cloud_auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     external_account::{
@@ -28,9 +31,7 @@ use auth::credentials::{
     service_account::Builder as ServiceAccountCredentialsBuilder,
     subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
 };
-use auth::errors::SubjectTokenProviderError;
-use bigquery::client::DatasetService;
-use gax::error::rpc::Code;
+use google_cloud_auth::errors::SubjectTokenProviderError;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
@@ -81,11 +82,9 @@ pub async fn service_account_with_audience() -> anyhow::Result<()> {
 
     // Create credentials for the principal under test, but with an audience.
     let creds = ServiceAccountCredentialsBuilder::new(sa_json)
-        .with_access_specifier(
-            auth::credentials::service_account::AccessSpecifier::from_audience(
-                "https://secretmanager.googleapis.com/",
-            ),
-        )
+        .with_access_specifier(AccessSpecifier::from_audience(
+            "https://secretmanager.googleapis.com/",
+        ))
         .build_access_token_credentials()?;
 
     // Construct a new SecretManager client using the credentials.
