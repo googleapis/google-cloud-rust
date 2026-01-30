@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use gax::paginator::ItemPaginator as _;
+use anyhow::Result;
 use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};
 use google_cloud_compute_v1::model::{
@@ -21,10 +20,14 @@ use google_cloud_compute_v1::model::{
     NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
     scheduling::ProvisioningModel,
 };
+use google_cloud_gax::error::rpc::{Code, StatusDetails};
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_lro::Poller;
+use google_cloud_test_utils::resource_names::{random_image_name, random_vm_id, random_vm_prefix};
 use google_cloud_test_utils::runtime_config::{
     project_id, region_id, test_service_account, zone_id,
 };
-use lro::Poller;
+use google_cloud_wkt::Timestamp;
 
 pub async fn zones() -> Result<()> {
     let client = Zones::builder().with_tracing().build().await?;
@@ -58,9 +61,6 @@ pub async fn zones() -> Result<()> {
 }
 
 pub async fn errors() -> Result<()> {
-    use gax::error::rpc::Code;
-    use gax::error::rpc::StatusDetails;
-
     let project_id = project_id()?;
     let zone_id = zone_id();
 
@@ -200,7 +200,7 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut items = client.list().set_project(project_id).by_item();
     while let Some(item) = items.next().await.transpose()? {
@@ -213,7 +213,7 @@ pub async fn cleanup_stale_images(client: &Images, project_id: &str) -> Result<(
         }
         if item
             .creation_timestamp
-            .and_then(|v| wkt::Timestamp::try_from(&v).ok())
+            .and_then(|v| Timestamp::try_from(&v).ok())
             .is_none_or(|t| t > stale_deadline)
         {
             continue;
@@ -265,7 +265,7 @@ pub async fn images() -> Result<()> {
         .expect("at least one COS image should be available");
 
     tracing::info!("Testing Images::insert()");
-    let name = crate::random_image_name();
+    let name = random_image_name();
     let body = Image::new()
         .set_name(&name)
         .set_description("A test Image created by the Rust client library.")
@@ -302,7 +302,7 @@ pub async fn instances() -> Result<()> {
     let service_account = test_service_account()?;
     let zone_id = zone_id();
 
-    let id = crate::random_vm_id();
+    let id = random_vm_id();
     let body = Instance::new()
         .set_machine_type(format!("zones/{zone_id}/machineTypes/f1-micro"))
         .set_name(&id)
@@ -446,7 +446,7 @@ pub async fn region_instances() -> Result<()> {
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
 
-    let id = crate::random_vm_prefix(16);
+    let id = random_vm_prefix(16);
     let body = BulkInsertInstanceResource::new()
         .set_count(1)
         .set_name_pattern(format!("{id}-####"))

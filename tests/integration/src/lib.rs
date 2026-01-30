@@ -12,39 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use google_cloud_test_utils::resource_names::LowercaseAlphanumeric;
 use google_cloud_test_utils::resource_names::random_bucket_id;
 pub(crate) use google_cloud_test_utils::resource_names::random_workflow_id;
 
 pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
-pub mod compute;
 pub mod error_details;
 pub mod firestore;
 pub mod storage;
-
-pub const VM_ID_LENGTH: usize = 63;
 
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
     tracing::error!("ERROR {e:?}");
     e
-}
-
-pub(crate) fn random_image_name() -> String {
-    const PREFIX: &str = "img-";
-    let image_id = LowercaseAlphanumeric.random_string(VM_ID_LENGTH - PREFIX.len());
-    format!("{PREFIX}{image_id}")
-}
-
-pub fn random_vm_id() -> String {
-    const PREFIX: &str = "vm-";
-    let vm_id = LowercaseAlphanumeric.random_string(VM_ID_LENGTH - PREFIX.len());
-    format!("{PREFIX}{vm_id}")
-}
-
-pub(crate) fn random_vm_prefix(len: usize) -> String {
-    const PREFIX: &str = "vm-";
-    let vm_id = LowercaseAlphanumeric.random_string(len);
-    format!("{PREFIX}{vm_id}")
 }
