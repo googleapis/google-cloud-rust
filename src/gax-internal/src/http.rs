@@ -36,6 +36,7 @@ use std::time::Duration;
 #[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
 
+#[cfg(feature = "_internal-http-stream")]
 pub use reqwest::Body as ReqwestBody;
 pub use reqwest::Method;
 pub use reqwest::Request as Reqwest;
