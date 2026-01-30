@@ -16,8 +16,7 @@
 mod tests {
     use google_cloud_compute_v1::client::{Images, Instances, Projects};
     use google_cloud_lro::Poller;
-    use google_cloud_test_utils::resource_names::random_bucket_id;
-    use integration_tests::random_vm_id;
+    use google_cloud_test_utils::resource_names::{random_bucket_id, random_vm_id};
     use user_guide_samples::compute::{compute_usage_report_set, *};
 
     #[tokio::test]

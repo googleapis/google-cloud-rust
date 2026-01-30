@@ -43,63 +43,6 @@ mod driver {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_zones() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::zones()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_errors() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::errors()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_lro_errors() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::lro_errors()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_machine_types() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::machine_types()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_images() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::images()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_instances() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::instances()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[ignore = "TODO(#3691) - disabled because it was flaky"]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_compute_region_instances() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::compute::region_instances()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_firestore() -> integration_tests::Result<()> {
         let _guard = enable_tracing();
         integration_tests::firestore::basic()

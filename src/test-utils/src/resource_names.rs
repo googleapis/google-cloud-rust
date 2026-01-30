@@ -31,6 +31,10 @@ const BUCKET_ID_LENGTH: usize = 63;
 
 const WORKFLOW_ID_LENGTH: usize = 64;
 
+const IMAGE_ID_LENGTH: usize = 63;
+
+const VM_ID_LENGTH: usize = 63;
+
 /// Generate a random bucket id.
 pub fn random_bucket_id() -> String {
     let id = LowercaseAlphanumeric.random_string(BUCKET_ID_LENGTH - PREFIX.len());
@@ -54,6 +58,22 @@ pub fn random_secret_id() -> String {
         .take(SECRET_ID_LENGTH - PREFIX.len())
         .map(char::from)
         .collect();
+    format!("{PREFIX}{id}")
+}
+
+pub fn random_image_name() -> String {
+    let id = LowercaseAlphanumeric.random_string(IMAGE_ID_LENGTH - PREFIX.len());
+    format!("{PREFIX}{id}")
+}
+
+pub fn random_vm_id() -> String {
+    let id = LowercaseAlphanumeric.random_string(VM_ID_LENGTH - PREFIX.len());
+    format!("{PREFIX}{id}")
+}
+
+pub fn random_vm_prefix(len: usize) -> String {
+    let len = std::cmp::min(VM_ID_LENGTH - PREFIX.len(), len);
+    let id = LowercaseAlphanumeric.random_string(len);
     format!("{PREFIX}{id}")
 }
 
@@ -94,65 +114,49 @@ impl Distribution<u8> for LowercaseAlphanumeric {
 mod tests {
     use super::*;
     use anyhow::bail;
+    use test_case::test_case;
 
-    #[test]
-    fn bucket_id() {
+    #[test_case(random_workflow_id(), WORKFLOW_ID_LENGTH)]
+    #[test_case(random_secret_id(), SECRET_ID_LENGTH)]
+    fn random_alphanumeric(got: String, length: usize) {
         assert!(
-            PREFIX.len() < BUCKET_ID_LENGTH,
-            "{PREFIX} length ({}) should be smaller than {BUCKET_ID_LENGTH}",
+            PREFIX.len() < length,
+            "prefix length ({}, {PREFIX}) should be smaller than {length}",
             PREFIX.len()
         );
-        let got = random_bucket_id();
         assert!(
-            got.len() <= BUCKET_ID_LENGTH,
-            "{got} has more than {BUCKET_ID_LENGTH} characters"
+            got.len() <= length,
+            "{got} has more than {length} characters"
+        );
+        let suffix = got
+            .strip_prefix(PREFIX)
+            .expect("{got} should start with {PREFIX}");
+        assert!(
+            suffix.chars().all(|c| c.is_alphanumeric()),
+            "the suffix should be alphanumeric: {suffix}"
+        );
+    }
+
+    #[test_case(random_bucket_id(), BUCKET_ID_LENGTH)]
+    #[test_case(random_image_name(), IMAGE_ID_LENGTH)]
+    #[test_case(random_vm_id(), VM_ID_LENGTH)]
+    #[test_case(random_vm_prefix(1), VM_ID_LENGTH)]
+    #[test_case(random_vm_prefix(10), VM_ID_LENGTH)]
+    #[test_case(random_vm_prefix(128), VM_ID_LENGTH)]
+    fn random_lowercase_id(got: String, length: usize) {
+        assert!(
+            PREFIX.len() < length,
+            "prefix length ({}, {PREFIX}) should be < {length}",
+            PREFIX.len()
+        );
+        assert!(
+            got.len() <= length,
+            "{got} has more than {length} characters"
         );
         let suffix = got.strip_prefix(PREFIX);
         assert!(suffix.is_some(), "{got} should start with {PREFIX}");
         let test = is_ascii_lowercase_alphanumeric(suffix.unwrap());
         assert!(test.is_ok(), "{test:?}");
-    }
-
-    #[test]
-    fn workflow_id() {
-        assert!(
-            PREFIX.len() < WORKFLOW_ID_LENGTH,
-            "{PREFIX} length ({}) should be smaller than {WORKFLOW_ID_LENGTH}",
-            PREFIX.len()
-        );
-        let got = random_workflow_id();
-        assert!(
-            got.len() <= WORKFLOW_ID_LENGTH,
-            "{got} has more than {WORKFLOW_ID_LENGTH} characters"
-        );
-        let suffix = got
-            .strip_prefix(PREFIX)
-            .expect("{got} should start with {PREFIX}");
-        assert!(
-            suffix.chars().all(|c| c.is_alphanumeric()),
-            "the suffix should be alphanumeric: {suffix}"
-        );
-    }
-
-    #[test]
-    fn secret_id() {
-        assert!(
-            PREFIX.len() < SECRET_ID_LENGTH,
-            "{PREFIX} length ({}) should be smaller than {SECRET_ID_LENGTH}",
-            PREFIX.len()
-        );
-        let got = random_secret_id();
-        assert!(
-            got.len() <= SECRET_ID_LENGTH,
-            "{got} has more than {SECRET_ID_LENGTH} characters"
-        );
-        let suffix = got
-            .strip_prefix(PREFIX)
-            .expect("{got} should start with {PREFIX}");
-        assert!(
-            suffix.chars().all(|c| c.is_alphanumeric()),
-            "the suffix should be alphanumeric: {suffix}"
-        );
     }
 
     #[test]

@@ -47,15 +47,6 @@ tracing.workspace       = true
 tracing-subscriber      = { workspace = true, features = ["env-filter", "fmt", "std"] }
 uuid                    = { workspace = true, features = ["std", "v4"] }
 wkt.workspace           = true
-# Formatting trick: this comment preserves formatting in the preceding block.
-google-cloud-compute-v1 = { workspace = true, features = [
-  "images",
-  "instances",
-  "machine-types",
-  "region-instances",
-  "zone-operations",
-  "zones",
-] }
 
 [dependencies.aiplatform]
 package          = "google-cloud-aiplatform-v1"
