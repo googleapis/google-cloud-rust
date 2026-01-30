@@ -369,6 +369,11 @@ impl std::fmt::Debug for super::DiscoveryOccurrence {
         debug_struct.field("archive_time", &self.archive_time);
         debug_struct.field("sbom_status", &self.sbom_status);
         debug_struct.field("vulnerability_attestation", &self.vulnerability_attestation);
+        debug_struct.field("files", &self.files);
+        debug_struct.field(
+            "last_vulnerability_update_time",
+            &self.last_vulnerability_update_time,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -405,6 +410,18 @@ impl std::fmt::Debug for super::discovery_occurrence::VulnerabilityAttestation {
         debug_struct.field("last_attempt_time", &self.last_attempt_time);
         debug_struct.field("state", &self.state);
         debug_struct.field("error", &self.error);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::discovery_occurrence::File {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("File");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("digest", &self.digest);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -503,6 +520,7 @@ impl std::fmt::Debug for super::ListOccurrencesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -515,6 +533,7 @@ impl std::fmt::Debug for super::ListOccurrencesResponse {
         let mut debug_struct = f.debug_struct("ListOccurrencesResponse");
         debug_struct.field("occurrences", &self.occurrences);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -587,6 +606,7 @@ impl std::fmt::Debug for super::ListNotesRequest {
         debug_struct.field("filter", &self.filter);
         debug_struct.field("page_size", &self.page_size);
         debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("return_partial_success", &self.return_partial_success);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -599,6 +619,7 @@ impl std::fmt::Debug for super::ListNotesResponse {
         let mut debug_struct = f.debug_struct("ListNotesResponse");
         debug_struct.field("notes", &self.notes);
         debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("unreachable", &self.unreachable);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1215,6 +1236,44 @@ impl std::fmt::Debug for super::ProjectRepoId {
     }
 }
 
+impl std::fmt::Debug for super::Risk {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Risk");
+        debug_struct.field("cisa_kev", &self.cisa_kev);
+        debug_struct.field("epss", &self.epss);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CISAKnownExploitedVulnerabilities {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CISAKnownExploitedVulnerabilities");
+        debug_struct.field(
+            "known_ransomware_campaign_use",
+            &self.known_ransomware_campaign_use,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExploitPredictionScoringSystem {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExploitPredictionScoringSystem");
+        debug_struct.field("percentile", &self.percentile);
+        debug_struct.field("score", &self.score);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::SBOMReferenceNote {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("SBOMReferenceNote");
@@ -1284,6 +1343,8 @@ impl std::fmt::Debug for super::SecretOccurrence {
         debug_struct.field("kind", &self.kind);
         debug_struct.field("locations", &self.locations);
         debug_struct.field("statuses", &self.statuses);
+        debug_struct.field("data", &self.data);
+        debug_struct.field("digest", &self.digest);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1743,6 +1804,7 @@ impl std::fmt::Debug for super::VulnerabilityOccurrence {
         debug_struct.field("cvss_v2", &self.cvss_v2);
         debug_struct.field("vex_assessment", &self.vex_assessment);
         debug_struct.field("extra_details", &self.extra_details);
+        debug_struct.field("risk", &self.risk);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

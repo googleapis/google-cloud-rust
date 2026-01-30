@@ -411,6 +411,56 @@ impl serde::ser::Serialize for super::JavaScriptUDF {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::AIInference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.endpoint.is_empty() {
+            state.serialize_entry("endpoint", &self.endpoint)?;
+        }
+        if let Some(value) = self.unstructured_inference() {
+            state.serialize_entry("unstructuredInference", value)?;
+        }
+        if !self.service_account_email.is_empty() {
+            state.serialize_entry("serviceAccountEmail", &self.service_account_email)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ai_inference::UnstructuredInference {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.parameters.is_some() {
+            state.serialize_entry("parameters", &self.parameters)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::MessageTransform {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -422,6 +472,9 @@ impl serde::ser::Serialize for super::MessageTransform {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.javascript_udf() {
             state.serialize_entry("javascriptUdf", value)?;
+        }
+        if let Some(value) = self.ai_inference() {
+            state.serialize_entry("aiInference", value)?;
         }
         if !wkt::internal::is_default(&self.enabled) {
             state.serialize_entry("enabled", &self.enabled)?;

@@ -47,7 +47,7 @@ tar -C /usr/local -xzf /tmp/go.tar.gz
 export PATH=${PATH}:/usr/local/go/bin
 
 echo "==== integration-tests (UNSTABLE) ===="
-cargo test -p integration-tests --features run-showcase-tests
+cargo test -p integration-tests-showcase --features run-showcase-tests
 
 echo "==== DONE ===="
 

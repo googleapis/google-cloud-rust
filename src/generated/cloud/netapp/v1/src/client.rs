@@ -821,6 +821,77 @@ impl NetApp {
         super::builder::net_app::DeleteQuotaRule::new(self.inner.clone())
     }
 
+    /// Restore files from a backup to a volume.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn restore_backup_files(&self) -> super::builder::net_app::RestoreBackupFiles {
+        super::builder::net_app::RestoreBackupFiles::new(self.inner.clone())
+    }
+
+    /// Returns a list of host groups in a `location`. Use `-` as location to list
+    /// host groups across all locations.
+    pub fn list_host_groups(&self) -> super::builder::net_app::ListHostGroups {
+        super::builder::net_app::ListHostGroups::new(self.inner.clone())
+    }
+
+    /// Returns details of the specified host group.
+    pub fn get_host_group(&self) -> super::builder::net_app::GetHostGroup {
+        super::builder::net_app::GetHostGroup::new(self.inner.clone())
+    }
+
+    /// Creates a new host group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_host_group(&self) -> super::builder::net_app::CreateHostGroup {
+        super::builder::net_app::CreateHostGroup::new(self.inner.clone())
+    }
+
+    /// Updates an existing host group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_host_group(&self) -> super::builder::net_app::UpdateHostGroup {
+        super::builder::net_app::UpdateHostGroup::new(self.inner.clone())
+    }
+
+    /// Deletes a host group.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_host_group(&self) -> super::builder::net_app::DeleteHostGroup {
+        super::builder::net_app::DeleteHostGroup::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::net_app::ListLocations {
         super::builder::net_app::ListLocations::new(self.inner.clone())

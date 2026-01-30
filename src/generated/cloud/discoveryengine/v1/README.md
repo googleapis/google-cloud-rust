@@ -43,28 +43,40 @@ The main types to work with this crate are the clients:
 - [UserEventService]: enabled by the `user-event-service` feature.
 - [UserLicenseService]: enabled by the `user-license-service` feature.
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+- Each client can be enabled using its own feature. Use the client's name
+  in `kebab-case` to enable the client.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/2.5.0)
 
-[AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
-[CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
-[CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
-[ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.ControlService.html
-[ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
-[DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
-[DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
-[EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.EngineService.html
-[GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
-[IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
-[ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
-[RankService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.RankService.html
-[RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
-[SchemaService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SchemaService.html
-[SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SearchService.html
-[SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
-[ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
-[SessionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SessionService.html
-[SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
-[UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
-[UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.4.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[AssistantService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.AssistantService.html
+[CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
+[CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
+[ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.ControlService.html
+[ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
+[DataStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.DataStoreService.html
+[DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
+[EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.EngineService.html
+[GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
+[IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
+[ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
+[RankService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.RankService.html
+[RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
+[SchemaService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.SchemaService.html
+[SearchService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.SearchService.html
+[SearchTuningService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.SearchTuningService.html
+[ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
+[SessionService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.SessionService.html
+[SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
+[UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
+[UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/2.5.0/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html

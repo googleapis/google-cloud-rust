@@ -18,13 +18,25 @@ The main types to work with this crate are the clients:
 - [Autokey]
 - [AutokeyAdmin]
 - [EkmService]
+- [HsmManagement]
 - [KeyManagementService]
+
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
 
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-kms-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-kms-v1/1.4.0)
 
-[Autokey]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.Autokey.html
-[AutokeyAdmin]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.AutokeyAdmin.html
-[EkmService]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.EkmService.html
-[KeyManagementService]: https://docs.rs/google-cloud-kms-v1/1.3.0/google_cloud_kms_v1/client/struct.KeyManagementService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[Autokey]: https://docs.rs/google-cloud-kms-v1/1.4.0/google_cloud_kms_v1/client/struct.Autokey.html
+[AutokeyAdmin]: https://docs.rs/google-cloud-kms-v1/1.4.0/google_cloud_kms_v1/client/struct.AutokeyAdmin.html
+[EkmService]: https://docs.rs/google-cloud-kms-v1/1.4.0/google_cloud_kms_v1/client/struct.EkmService.html
+[HsmManagement]: https://docs.rs/google-cloud-kms-v1/1.4.0/google_cloud_kms_v1/client/struct.HsmManagement.html
+[KeyManagementService]: https://docs.rs/google-cloud-kms-v1/1.4.0/google_cloud_kms_v1/client/struct.KeyManagementService.html

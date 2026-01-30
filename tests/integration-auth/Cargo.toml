@@ -13,14 +13,14 @@
 # limitations under the License.
 
 [package]
-name              = "auth-integration-tests"
+name              = "integration-tests-auth"
 description       = "Integration tests for google-cloud-auth."
 version           = "0.0.0"
 edition.workspace = true
 publish           = false
 
 [features]
-run-integration-tests       = []
+run-auth-integration-tests  = []
 run-byoid-integration-tests = []
 
 [dependencies]
@@ -34,7 +34,7 @@ test-case.workspace  = true
 base64.workspace     = true
 reqwest.workspace    = true
 # Local dependencies
-auth                     = { workspace = true, features = ["idtoken"] }
+google-cloud-auth        = { workspace = true, features = ["default", "idtoken"] }
 gax.workspace            = true
 language.workspace       = true
 secretmanager.workspace  = true

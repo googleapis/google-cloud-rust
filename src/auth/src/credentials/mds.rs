@@ -76,29 +76,21 @@
 
 use crate::credentials::dynamic::{AccessTokenCredentialsProvider, CredentialsProvider};
 use crate::credentials::{AccessToken, AccessTokenCredentials, CacheableResource, Credentials};
-use crate::errors::CredentialsError;
 use crate::headers_util::build_cacheable_headers;
+use crate::mds::client::Client as MDSClient;
 use crate::retry::{Builder as RetryTokenProviderBuilder, TokenProviderWithRetry};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
 use async_trait::async_trait;
-use bon::Builder;
 use gax::backoff_policy::BackoffPolicyArg;
+use gax::error::CredentialsError;
 use gax::retry_policy::RetryPolicyArg;
 use gax::retry_throttler::RetryThrottlerArg;
-use http::{Extensions, HeaderMap, HeaderValue};
-use reqwest::Client;
+use http::{Extensions, HeaderMap};
 use std::default::Default;
 use std::sync::Arc;
-use std::time::Duration;
-use tokio::time::Instant;
 
-pub(crate) const METADATA_FLAVOR_VALUE: &str = "Google";
-pub(crate) const METADATA_FLAVOR: &str = "metadata-flavor";
-pub(crate) const METADATA_ROOT: &str = "http://metadata.google.internal";
-pub(crate) const MDS_DEFAULT_URI: &str = "/computeMetadata/v1/instance/service-accounts/default";
-pub(crate) const GCE_METADATA_HOST_ENV_VAR: &str = "GCE_METADATA_HOST";
 // TODO(#2235) - Improve this message by talking about retries when really running with MDS
 const MDS_NOT_FOUND_ERROR: &str = concat!(
     "Could not fetch an auth token to authenticate with Google Cloud. ",
@@ -140,7 +132,7 @@ pub struct Builder {
 impl Builder {
     /// Sets the endpoint for this credentials.
     ///
-    /// A trailing slash is significant, so specify the base URL without a trailing  
+    /// A trailing slash is significant, so specify the base URL without a trailing
     /// slash. If not set, the credentials use `http://metadata.google.internal`.
     ///
     /// # Example
@@ -259,33 +251,10 @@ impl Builder {
         }
     }
 
-    fn resolve_endpoint(&self) -> (String, bool) {
-        let final_endpoint: String;
-        let endpoint_overridden: bool;
-        // Determine the endpoint and whether it was overridden
-        if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            // Check GCE_METADATA_HOST environment variable first
-            final_endpoint = format!("http://{host_from_env}");
-            endpoint_overridden = true;
-        } else if let Some(builder_endpoint) = self.endpoint.clone() {
-            // Else, check if an endpoint was provided to the mds::Builder
-            final_endpoint = builder_endpoint;
-            endpoint_overridden = true;
-        } else {
-            // Else, use the default metadata root
-            final_endpoint = METADATA_ROOT.to_string();
-            endpoint_overridden = false;
-        };
-        (final_endpoint, endpoint_overridden)
-    }
-
     fn build_token_provider(self) -> TokenProviderWithRetry<MDSAccessTokenProvider> {
-        let (final_endpoint, endpoint_overridden) = self.resolve_endpoint();
-
         let tp = MDSAccessTokenProvider::builder()
-            .endpoint(final_endpoint)
+            .endpoint(self.endpoint)
             .maybe_scopes(self.scopes)
-            .endpoint_overridden(endpoint_overridden)
             .created_by_adc(self.created_by_adc)
             .build();
         self.retry_builder.build(tp)
@@ -348,9 +317,9 @@ impl Builder {
         self,
         iam_endpoint: Option<String>,
     ) -> BuildResult<crate::signer::Signer> {
-        let (endpoint, _) = self.resolve_endpoint();
+        let client = MDSClient::new(self.endpoint.clone());
         let credentials = self.build()?;
-        let signing_provider = crate::signer::mds::MDSSigner::new(endpoint, credentials);
+        let signing_provider = crate::signer::mds::MDSSigner::new(client, credentials);
         let signing_provider = iam_endpoint
             .iter()
             .fold(signing_provider, |signing_provider, endpoint| {
@@ -384,25 +353,53 @@ where
     }
 }
 
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-struct MDSTokenResponse {
-    access_token: String,
-    #[serde(skip_serializing_if = "Option::is_none")]
-    expires_in: Option<u64>,
-    token_type: String,
+#[derive(Debug, Default)]
+struct MDSAccessTokenProviderBuilder {
+    scopes: Option<Vec<String>>,
+    endpoint: Option<String>,
+    created_by_adc: bool,
 }
 
-#[derive(Debug, Clone, Default, Builder)]
+impl MDSAccessTokenProviderBuilder {
+    fn build(self) -> MDSAccessTokenProvider {
+        MDSAccessTokenProvider {
+            client: MDSClient::new(self.endpoint),
+            scopes: self.scopes,
+            created_by_adc: self.created_by_adc,
+        }
+    }
+
+    fn maybe_scopes(mut self, v: Option<Vec<String>>) -> Self {
+        self.scopes = v;
+        self
+    }
+
+    fn endpoint<T>(mut self, v: Option<T>) -> Self
+    where
+        T: Into<String>,
+    {
+        self.endpoint = v.map(Into::into);
+        self
+    }
+
+    fn created_by_adc(mut self, v: bool) -> Self {
+        self.created_by_adc = v;
+        self
+    }
+}
+
+#[derive(Debug, Clone)]
 struct MDSAccessTokenProvider {
-    #[builder(into)]
     scopes: Option<Vec<String>>,
-    #[builder(into)]
-    endpoint: String,
-    endpoint_overridden: bool,
+    client: MDSClient,
     created_by_adc: bool,
 }
 
 impl MDSAccessTokenProvider {
+    fn builder() -> MDSAccessTokenProviderBuilder {
+        MDSAccessTokenProviderBuilder::default()
+    }
+
     // During ADC, if no credentials are found in the well-known location and the GOOGLE_APPLICATION_CREDENTIALS
     // environment variable is not set, we default to MDS credentials without checking if the code is really
     // running in an environment with MDS. To help users who got to this state because of lack of credentials
@@ -419,55 +416,17 @@ impl MDSAccessTokenProvider {
     }
 
     fn use_adc_message(&self) -> bool {
-        self.created_by_adc && !self.endpoint_overridden
+        self.created_by_adc && self.client.is_default_endpoint
     }
 }
 
 #[async_trait]
 impl TokenProvider for MDSAccessTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
-        let request = client
-            .get(format!("{}{}/token", self.endpoint, MDS_DEFAULT_URI))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-        // Use the `scopes` option if set, otherwise let the MDS use the default
-        // scopes.
-        let scopes = self.scopes.as_ref().map(|v| v.join(","));
-        let request = scopes
-            .into_iter()
-            .fold(request, |r, s| r.query(&[("scopes", s)]));
-
-        // If the connection to MDS was not successful, it is useful to retry when really
-        // running on MDS environments and not useful if there is no MDS. We will mark the error
-        // as retryable and let the retry policy determine whether to retry or not. Whenever we
-        // define a default retry policy, we can skip retrying this case.
-        let response = request
-            .send()
+        self.client
+            .access_token(self.scopes.clone())
             .await
-            .map_err(|e| crate::errors::from_http_error(e, self.error_message()))?;
-        // Process the response
-        if !response.status().is_success() {
-            let err = crate::errors::from_http_response(response, self.error_message()).await;
-            return Err(err);
-        }
-        let response = response.json::<MDSTokenResponse>().await.map_err(|e| {
-            // Decoding errors are not transient. Typically they indicate a badly
-            // configured MDS endpoint, or DNS redirecting the request to a random
-            // server, e.g., ISPs that redirect unknown services to HTTP.
-            CredentialsError::from_source(!e.is_decode(), e)
-        })?;
-        let token = Token {
-            token: response.access_token,
-            token_type: response.token_type,
-            expires_at: response
-                .expires_in
-                .map(|d| Instant::now() + Duration::from_secs(d)),
-            metadata: None,
-        };
-        Ok(token)
+            .map_err(|e| CredentialsError::new(e.is_transient(), self.error_message(), e))
     }
 }
 
@@ -483,6 +442,8 @@ mod tests {
     };
     use crate::errors;
     use crate::errors::CredentialsError;
+    use crate::mds::client::MDSTokenResponse;
+    use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_ROOT};
     use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
@@ -494,7 +455,9 @@ mod tests {
     use scoped_env::ScopedEnv;
     use serial_test::{parallel, serial};
     use std::error::Error;
+    use std::time::Duration;
     use test_case::test_case;
+    use tokio::time::Instant;
     use url::Url;
 
     type TestResult = anyhow::Result<()>;
@@ -582,6 +545,7 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn validate_default_endpoint_urls() {
         let default_endpoint_address = Url::parse(&format!("{METADATA_ROOT}{MDS_DEFAULT_URI}"));
         assert!(default_endpoint_address.is_ok());
@@ -591,6 +555,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_success() -> TestResult {
         let token = Token {
             token: "test-token".to_string(),
@@ -630,6 +595,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn access_token_success() -> TestResult {
         let server = Server::run();
         let response = MDSTokenResponse {
@@ -654,6 +620,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn headers_failure() {
         let mut mock = MockTokenProvider::new();
         mock.expect_token()
@@ -668,11 +635,10 @@ mod tests {
     }
 
     #[test]
+    #[parallel]
     fn error_message_with_adc() {
         let provider = MDSAccessTokenProvider::builder()
-            .endpoint("http://127.0.0.1")
             .created_by_adc(true)
-            .endpoint_overridden(false)
             .build();
 
         let want = MDS_NOT_FOUND_ERROR;
@@ -684,10 +650,14 @@ mod tests {
     #[test_case(false, true)]
     #[test_case(true, true)]
     fn error_message_without_adc(adc: bool, overridden: bool) {
+        let endpoint = if overridden {
+            Some("http://127.0.0.1")
+        } else {
+            None
+        };
         let provider = MDSAccessTokenProvider::builder()
-            .endpoint("http://127.0.0.1")
+            .endpoint(endpoint)
             .created_by_adc(adc)
-            .endpoint_overridden(overridden)
             .build();
 
         let not_want = MDS_NOT_FOUND_ERROR;
@@ -715,7 +685,7 @@ mod tests {
     #[tokio::test]
     #[serial]
     async fn adc_overridden_mds() -> TestResult {
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, "metadata.overridden");
 
         let err = Builder::from_adc()
             .build_token_provider()
@@ -723,7 +693,7 @@ mod tests {
             .await
             .unwrap_err();
 
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
 
         let original_err = find_source_error::<CredentialsError>(&err).unwrap();
         assert!(original_err.is_transient());
@@ -773,13 +743,13 @@ mod tests {
         );
 
         let addr = server.addr().to_string();
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, &addr);
         let mdsc = Builder::default()
             .with_scopes(["scope1", "scope2"])
             .build()
             .unwrap();
         let headers = mdsc.headers(Extensions::new()).await.unwrap();
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
 
         assert_eq!(
             get_token_from_headers(headers).unwrap(),
@@ -1056,6 +1026,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_default_universe_domain_success() -> TestResult {
         let universe_domain_response = Builder::default().build()?.universe_domain().await.unwrap();
         assert_eq!(universe_domain_response, DEFAULT_UNIVERSE_DOMAIN);
@@ -1063,6 +1034,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn get_mds_signer() -> TestResult {
         use base64::{Engine, prelude::BASE64_STANDARD};
         use serde_json::json;

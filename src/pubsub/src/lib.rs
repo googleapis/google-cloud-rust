@@ -29,7 +29,7 @@
 //! * [SchemaService][client::SchemaService]
 //!
 //! For publishing messages:
-//! * [Client][client::Client] and [Publisher][client::Publisher]
+//! * [BasePublisher][client::BasePublisher] and [Publisher][client::Publisher]
 //!
 //! For receiving messages:
 //! * [Subscriber][client::Subscriber]
@@ -41,8 +41,20 @@
 //! donated the crate name to Google. Their crate continues to live as
 //! [gcloud-pubsub].
 //!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto
+//!   provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+//!   requirements for cryptography (such as exclusively using the [ring] crate)
+//!   should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//! - `unstable-stream`: enable the (unstable) features to convert several types to
+//!   a `future::Stream`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [pub/sub]: https://cloud.google.com/pubsub
 //! [gcloud-pubsub]: https://crates.io/crates/gcloud-pubsub
+//! [ring]: https://crates.io/crates/ring
 
 #[allow(rustdoc::broken_intra_doc_links)]
 pub(crate) mod generated;
@@ -62,8 +74,8 @@ pub mod builder {
         // TODO(#3959) - remove internal types from the public API.
         #[doc(hidden)]
         pub use crate::generated::gapic_dataplane::builder::publisher::*;
-        pub use crate::publisher::client::ClientBuilder;
-        pub use crate::publisher::publisher::PublisherBuilder;
+        pub use crate::publisher::base_publisher::BasePublisherBuilder;
+        pub use crate::publisher::publisher::PublisherPartialBuilder;
     }
     /// Request and client builders for the [SchemaService][crate::client::SchemaService] client.
     pub use crate::generated::gapic::builder::schema_service;
@@ -102,14 +114,11 @@ pub mod model_ext {
 ///
 /// ```
 /// # async fn sample() -> anyhow::Result<()> {
-/// use google_cloud_pubsub::client::Client;
+/// use google_cloud_pubsub::client::Publisher;
 /// use google_cloud_pubsub::model::PubsubMessage;
 ///
-/// // Create a client for creating publishers.
-/// let client = Client::builder().build().await?;
-///
 /// // Create a publisher that handles batching for a specific topic.
-/// let publisher = client.publisher("projects/my-project/topics/my-topic").build();
+/// let publisher = Publisher::builder("projects/my-project/topics/my-topic").build().await?;
 ///
 /// // Publish several messages.
 /// // The client will automatically batch them in the background.
@@ -131,10 +140,12 @@ pub mod model_ext {
 /// ```
 pub mod client {
     pub use crate::generated::gapic::client::*;
-    pub use crate::publisher::client::Client;
+    pub use crate::publisher::base_publisher::BasePublisher;
     pub use crate::publisher::publisher::Publisher;
     pub use crate::subscriber::client::Subscriber;
 }
+
+pub mod error;
 
 /// Traits to mock the clients in this library.
 pub mod stub {

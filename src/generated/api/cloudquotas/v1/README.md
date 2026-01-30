@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [CloudQuotas]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-api-cloudquotas-v1/1.4.0)
 
-[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.3.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[CloudQuotas]: https://docs.rs/google-cloud-api-cloudquotas-v1/1.4.0/google_cloud_api_cloudquotas_v1/client/struct.CloudQuotas.html

@@ -56,7 +56,12 @@ pub struct LinuxNodeConfig {
     /// net.ipv4.tcp_rmem
     /// net.ipv4.tcp_wmem
     /// net.ipv4.tcp_tw_reuse
+    /// net.ipv4.tcp_mtu_probing
     /// net.ipv4.tcp_max_orphans
+    /// net.ipv4.tcp_max_tw_buckets
+    /// net.ipv4.tcp_syn_retries
+    /// net.ipv4.tcp_ecn
+    /// net.ipv4.tcp_congestion_control
     /// net.netfilter.nf_conntrack_max
     /// net.netfilter.nf_conntrack_buckets
     /// net.netfilter.nf_conntrack_tcp_timeout_close_wait
@@ -66,14 +71,23 @@ pub struct LinuxNodeConfig {
     /// kernel.shmmni
     /// kernel.shmmax
     /// kernel.shmall
+    /// kernel.perf_event_paranoid
+    /// kernel.sched_rt_runtime_us
+    /// kernel.softlockup_panic
+    /// kernel.yama.ptrace_scope
+    /// kernel.kptr_restrict
+    /// kernel.dmesg_restrict
+    /// kernel.sysrq
     /// fs.aio-max-nr
     /// fs.file-max
     /// fs.inotify.max_user_instances
     /// fs.inotify.max_user_watches
     /// fs.nr_open
     /// vm.dirty_background_ratio
+    /// vm.dirty_background_bytes
     /// vm.dirty_expire_centisecs
     /// vm.dirty_ratio
+    /// vm.dirty_bytes
     /// vm.dirty_writeback_centisecs
     /// vm.max_map_count
     /// vm.overcommit_memory
@@ -107,6 +121,10 @@ pub struct LinuxNodeConfig {
     /// See <https://docs.kernel.org/admin-guide/mm/transhuge.html>
     /// for more details.
     pub transparent_hugepage_defrag: crate::model::linux_node_config::TransparentHugepageDefrag,
+
+    /// Optional. Enables and configures swap space on nodes.
+    /// If omitted, swap is disabled.
+    pub swap_config: std::option::Option<crate::model::linux_node_config::SwapConfig>,
 
     /// Optional. Configuration for kernel module loading on nodes.
     /// When enabled, the node pool will be provisioned with a Container-Optimized
@@ -230,6 +248,39 @@ impl LinuxNodeConfig {
         v: T,
     ) -> Self {
         self.transparent_hugepage_defrag = v.into();
+        self
+    }
+
+    /// Sets the value of [swap_config][crate::model::LinuxNodeConfig::swap_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+    /// let x = LinuxNodeConfig::new().set_swap_config(SwapConfig::default()/* use setters */);
+    /// ```
+    pub fn set_swap_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::SwapConfig>,
+    {
+        self.swap_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [swap_config][crate::model::LinuxNodeConfig::swap_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::LinuxNodeConfig;
+    /// use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+    /// let x = LinuxNodeConfig::new().set_or_clear_swap_config(Some(SwapConfig::default()/* use setters */));
+    /// let x = LinuxNodeConfig::new().set_or_clear_swap_config(None::<SwapConfig>);
+    /// ```
+    pub fn set_or_clear_swap_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::linux_node_config::SwapConfig>,
+    {
+        self.swap_config = v.map(|x| x.into());
         self
     }
 
@@ -362,6 +413,640 @@ pub mod linux_node_config {
     impl wkt::message::Message for HugepagesConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.LinuxNodeConfig.HugepagesConfig"
+        }
+    }
+
+    /// Configuration for swap memory on a node pool.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct SwapConfig {
+        /// Optional. Enables or disables swap for the node pool.
+        pub enabled: std::option::Option<bool>,
+
+        /// Optional. If omitted, swap space is encrypted by default.
+        pub encryption_config:
+            std::option::Option<crate::model::linux_node_config::swap_config::EncryptionConfig>,
+
+        /// Optional. Defines the backing storage for the swap space.
+        /// If omitted, defaults to the 'boot_disk_profile'.
+        pub performance_profile:
+            std::option::Option<crate::model::linux_node_config::swap_config::PerformanceProfile>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl SwapConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::linux_node_config::SwapConfig::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// let x = SwapConfig::new().set_enabled(true);
+        /// ```
+        pub fn set_enabled<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [enabled][crate::model::linux_node_config::SwapConfig::enabled].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// let x = SwapConfig::new().set_or_clear_enabled(Some(false));
+        /// let x = SwapConfig::new().set_or_clear_enabled(None::<bool>);
+        /// ```
+        pub fn set_or_clear_enabled<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.enabled = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [encryption_config][crate::model::linux_node_config::SwapConfig::encryption_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::EncryptionConfig;
+        /// let x = SwapConfig::new().set_encryption_config(EncryptionConfig::default()/* use setters */);
+        /// ```
+        pub fn set_encryption_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::linux_node_config::swap_config::EncryptionConfig>,
+        {
+            self.encryption_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [encryption_config][crate::model::linux_node_config::SwapConfig::encryption_config].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::EncryptionConfig;
+        /// let x = SwapConfig::new().set_or_clear_encryption_config(Some(EncryptionConfig::default()/* use setters */));
+        /// let x = SwapConfig::new().set_or_clear_encryption_config(None::<EncryptionConfig>);
+        /// ```
+        pub fn set_or_clear_encryption_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::linux_node_config::swap_config::EncryptionConfig>,
+        {
+            self.encryption_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile].
+        ///
+        /// Note that all the setters affecting `performance_profile` are mutually
+        /// exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::BootDiskProfile;
+        /// let x = SwapConfig::new().set_performance_profile(Some(
+        ///     google_cloud_container_v1::model::linux_node_config::swap_config::PerformanceProfile::BootDiskProfile(BootDiskProfile::default().into())));
+        /// ```
+        pub fn set_performance_profile<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::linux_node_config::swap_config::PerformanceProfile,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.performance_profile = v.into();
+            self
+        }
+
+        /// The value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// if it holds a `BootDiskProfile`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn boot_disk_profile(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<crate::model::linux_node_config::swap_config::BootDiskProfile>,
+        > {
+            #[allow(unreachable_patterns)]
+            self.performance_profile.as_ref().and_then(|v| match v {
+                crate::model::linux_node_config::swap_config::PerformanceProfile::BootDiskProfile(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// to hold a `BootDiskProfile`.
+        ///
+        /// Note that all the setters affecting `performance_profile` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::BootDiskProfile;
+        /// let x = SwapConfig::new().set_boot_disk_profile(BootDiskProfile::default()/* use setters */);
+        /// assert!(x.boot_disk_profile().is_some());
+        /// assert!(x.ephemeral_local_ssd_profile().is_none());
+        /// assert!(x.dedicated_local_ssd_profile().is_none());
+        /// ```
+        pub fn set_boot_disk_profile<
+            T: std::convert::Into<
+                    std::boxed::Box<crate::model::linux_node_config::swap_config::BootDiskProfile>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.performance_profile = std::option::Option::Some(
+                crate::model::linux_node_config::swap_config::PerformanceProfile::BootDiskProfile(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// if it holds a `EphemeralLocalSsdProfile`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn ephemeral_local_ssd_profile(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.performance_profile.as_ref().and_then(|v| match v {
+                crate::model::linux_node_config::swap_config::PerformanceProfile::EphemeralLocalSsdProfile(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// to hold a `EphemeralLocalSsdProfile`.
+        ///
+        /// Note that all the setters affecting `performance_profile` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::EphemeralLocalSsdProfile;
+        /// let x = SwapConfig::new().set_ephemeral_local_ssd_profile(EphemeralLocalSsdProfile::default()/* use setters */);
+        /// assert!(x.ephemeral_local_ssd_profile().is_some());
+        /// assert!(x.boot_disk_profile().is_none());
+        /// assert!(x.dedicated_local_ssd_profile().is_none());
+        /// ```
+        pub fn set_ephemeral_local_ssd_profile<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.performance_profile = std::option::Option::Some(
+                crate::model::linux_node_config::swap_config::PerformanceProfile::EphemeralLocalSsdProfile(
+                    v.into()
+                )
+            );
+            self
+        }
+
+        /// The value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// if it holds a `DedicatedLocalSsdProfile`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn dedicated_local_ssd_profile(
+            &self,
+        ) -> std::option::Option<
+            &std::boxed::Box<
+                crate::model::linux_node_config::swap_config::DedicatedLocalSsdProfile,
+            >,
+        > {
+            #[allow(unreachable_patterns)]
+            self.performance_profile.as_ref().and_then(|v| match v {
+                crate::model::linux_node_config::swap_config::PerformanceProfile::DedicatedLocalSsdProfile(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [performance_profile][crate::model::linux_node_config::SwapConfig::performance_profile]
+        /// to hold a `DedicatedLocalSsdProfile`.
+        ///
+        /// Note that all the setters affecting `performance_profile` are
+        /// mutually exclusive.
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::linux_node_config::SwapConfig;
+        /// use google_cloud_container_v1::model::linux_node_config::swap_config::DedicatedLocalSsdProfile;
+        /// let x = SwapConfig::new().set_dedicated_local_ssd_profile(DedicatedLocalSsdProfile::default()/* use setters */);
+        /// assert!(x.dedicated_local_ssd_profile().is_some());
+        /// assert!(x.boot_disk_profile().is_none());
+        /// assert!(x.ephemeral_local_ssd_profile().is_none());
+        /// ```
+        pub fn set_dedicated_local_ssd_profile<
+            T: std::convert::Into<
+                    std::boxed::Box<
+                        crate::model::linux_node_config::swap_config::DedicatedLocalSsdProfile,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.performance_profile = std::option::Option::Some(
+                crate::model::linux_node_config::swap_config::PerformanceProfile::DedicatedLocalSsdProfile(
+                    v.into()
+                )
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for SwapConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.LinuxNodeConfig.SwapConfig"
+        }
+    }
+
+    /// Defines additional types related to [SwapConfig].
+    pub mod swap_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Defines encryption settings for the swap space.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct EncryptionConfig {
+            /// Optional. If true, swap space will not be encrypted.
+            /// Defaults to false (encrypted).
+            pub disabled: std::option::Option<bool>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl EncryptionConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [disabled][crate::model::linux_node_config::swap_config::EncryptionConfig::disabled].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::EncryptionConfig;
+            /// let x = EncryptionConfig::new().set_disabled(true);
+            /// ```
+            pub fn set_disabled<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.disabled = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [disabled][crate::model::linux_node_config::swap_config::EncryptionConfig::disabled].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::EncryptionConfig;
+            /// let x = EncryptionConfig::new().set_or_clear_disabled(Some(false));
+            /// let x = EncryptionConfig::new().set_or_clear_disabled(None::<bool>);
+            /// ```
+            pub fn set_or_clear_disabled<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.disabled = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for EncryptionConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.LinuxNodeConfig.SwapConfig.EncryptionConfig"
+            }
+        }
+
+        /// Swap on the node's boot disk.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct BootDiskProfile {
+            /// Optional. Specifies the size of the swap space. If omitted, GKE
+            /// determines an optimal size based on node memory.
+            pub swap_size: std::option::Option<
+                crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl BootDiskProfile {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::BootDiskProfile::swap_size].
+            ///
+            /// Note that all the setters affecting `swap_size` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::BootDiskProfile;
+            /// use google_cloud_container_v1::model::linux_node_config::swap_config::boot_disk_profile::SwapSize;
+            /// let x = BootDiskProfile::new().set_swap_size(Some(SwapSize::SwapSizeGib(42)));
+            /// ```
+            pub fn set_swap_size<T: std::convert::Into<std::option::Option<crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize>>>(mut self, v: T) -> Self
+            {
+                self.swap_size = v.into();
+                self
+            }
+
+            /// The value of [swap_size][crate::model::linux_node_config::swap_config::BootDiskProfile::swap_size]
+            /// if it holds a `SwapSizeGib`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn swap_size_gib(&self) -> std::option::Option<&i64> {
+                #[allow(unreachable_patterns)]
+                self.swap_size.as_ref().and_then(|v| match v {
+                    crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize::SwapSizeGib(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::BootDiskProfile::swap_size]
+            /// to hold a `SwapSizeGib`.
+            ///
+            /// Note that all the setters affecting `swap_size` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::BootDiskProfile;
+            /// let x = BootDiskProfile::new().set_swap_size_gib(42);
+            /// assert!(x.swap_size_gib().is_some());
+            /// assert!(x.swap_size_percent().is_none());
+            /// ```
+            pub fn set_swap_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.swap_size = std::option::Option::Some(
+                    crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize::SwapSizeGib(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [swap_size][crate::model::linux_node_config::swap_config::BootDiskProfile::swap_size]
+            /// if it holds a `SwapSizePercent`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn swap_size_percent(&self) -> std::option::Option<&i32> {
+                #[allow(unreachable_patterns)]
+                self.swap_size.as_ref().and_then(|v| match v {
+                    crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize::SwapSizePercent(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::BootDiskProfile::swap_size]
+            /// to hold a `SwapSizePercent`.
+            ///
+            /// Note that all the setters affecting `swap_size` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::BootDiskProfile;
+            /// let x = BootDiskProfile::new().set_swap_size_percent(42);
+            /// assert!(x.swap_size_percent().is_some());
+            /// assert!(x.swap_size_gib().is_none());
+            /// ```
+            pub fn set_swap_size_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.swap_size = std::option::Option::Some(
+                    crate::model::linux_node_config::swap_config::boot_disk_profile::SwapSize::SwapSizePercent(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for BootDiskProfile {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.LinuxNodeConfig.SwapConfig.BootDiskProfile"
+            }
+        }
+
+        /// Defines additional types related to [BootDiskProfile].
+        pub mod boot_disk_profile {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Optional. Specifies the size of the swap space. If omitted, GKE
+            /// determines an optimal size based on node memory.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum SwapSize {
+                /// Specifies the size of the swap space in gibibytes (GiB).
+                SwapSizeGib(i64),
+                /// Specifies the size of the swap space as a percentage of the boot disk
+                /// size.
+                SwapSizePercent(i32),
+            }
+        }
+
+        /// Swap on the local SSD shared with pod ephemeral storage.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct EphemeralLocalSsdProfile {
+            /// Specifies the size of the swap space to be provisioned.
+            pub swap_size: std::option::Option<
+                crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl EphemeralLocalSsdProfile {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile::swap_size].
+            ///
+            /// Note that all the setters affecting `swap_size` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::EphemeralLocalSsdProfile;
+            /// use google_cloud_container_v1::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize;
+            /// let x = EphemeralLocalSsdProfile::new().set_swap_size(Some(SwapSize::SwapSizeGib(42)));
+            /// ```
+            pub fn set_swap_size<T: std::convert::Into<std::option::Option<crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize>>>(mut self, v: T) -> Self
+            {
+                self.swap_size = v.into();
+                self
+            }
+
+            /// The value of [swap_size][crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile::swap_size]
+            /// if it holds a `SwapSizeGib`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn swap_size_gib(&self) -> std::option::Option<&i64> {
+                #[allow(unreachable_patterns)]
+                self.swap_size.as_ref().and_then(|v| match v {
+                    crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize::SwapSizeGib(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile::swap_size]
+            /// to hold a `SwapSizeGib`.
+            ///
+            /// Note that all the setters affecting `swap_size` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::EphemeralLocalSsdProfile;
+            /// let x = EphemeralLocalSsdProfile::new().set_swap_size_gib(42);
+            /// assert!(x.swap_size_gib().is_some());
+            /// assert!(x.swap_size_percent().is_none());
+            /// ```
+            pub fn set_swap_size_gib<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.swap_size = std::option::Option::Some(
+                    crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize::SwapSizeGib(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [swap_size][crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile::swap_size]
+            /// if it holds a `SwapSizePercent`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn swap_size_percent(&self) -> std::option::Option<&i32> {
+                #[allow(unreachable_patterns)]
+                self.swap_size.as_ref().and_then(|v| match v {
+                    crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize::SwapSizePercent(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [swap_size][crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile::swap_size]
+            /// to hold a `SwapSizePercent`.
+            ///
+            /// Note that all the setters affecting `swap_size` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::EphemeralLocalSsdProfile;
+            /// let x = EphemeralLocalSsdProfile::new().set_swap_size_percent(42);
+            /// assert!(x.swap_size_percent().is_some());
+            /// assert!(x.swap_size_gib().is_none());
+            /// ```
+            pub fn set_swap_size_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+                self.swap_size = std::option::Option::Some(
+                    crate::model::linux_node_config::swap_config::ephemeral_local_ssd_profile::SwapSize::SwapSizePercent(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for EphemeralLocalSsdProfile {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.LinuxNodeConfig.SwapConfig.EphemeralLocalSsdProfile"
+            }
+        }
+
+        /// Defines additional types related to [EphemeralLocalSsdProfile].
+        pub mod ephemeral_local_ssd_profile {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Specifies the size of the swap space to be provisioned.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum SwapSize {
+                /// Specifies the size of the swap space in gibibytes (GiB).
+                SwapSizeGib(i64),
+                /// Specifies the size of the swap space as a percentage of the ephemeral
+                /// local SSD capacity.
+                SwapSizePercent(i32),
+            }
+        }
+
+        /// Provisions a new, separate local NVMe SSD exclusively for swap.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct DedicatedLocalSsdProfile {
+            /// The number of physical local NVMe SSD disks to attach.
+            pub disk_count: i64,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl DedicatedLocalSsdProfile {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [disk_count][crate::model::linux_node_config::swap_config::DedicatedLocalSsdProfile::disk_count].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::linux_node_config::swap_config::DedicatedLocalSsdProfile;
+            /// let x = DedicatedLocalSsdProfile::new().set_disk_count(42);
+            /// ```
+            pub fn set_disk_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.disk_count = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for DedicatedLocalSsdProfile {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.LinuxNodeConfig.SwapConfig.DedicatedLocalSsdProfile"
+            }
+        }
+
+        /// Optional. Defines the backing storage for the swap space.
+        /// If omitted, defaults to the 'boot_disk_profile'.
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PerformanceProfile {
+            /// Swap on the node's boot disk.
+            BootDiskProfile(
+                std::boxed::Box<crate::model::linux_node_config::swap_config::BootDiskProfile>,
+            ),
+            /// Swap on the local SSD shared with pod ephemeral storage.
+            EphemeralLocalSsdProfile(
+                std::boxed::Box<
+                    crate::model::linux_node_config::swap_config::EphemeralLocalSsdProfile,
+                >,
+            ),
+            /// Provisions a new, separate local NVMe SSD exclusively for swap.
+            DedicatedLocalSsdProfile(
+                std::boxed::Box<
+                    crate::model::linux_node_config::swap_config::DedicatedLocalSsdProfile,
+                >,
+            ),
         }
     }
 
@@ -1372,6 +2057,24 @@ pub struct NodeKubeletConfig {
     /// be OOM killed individually instead of as a group.
     pub single_process_oom_kill: std::option::Option<bool>,
 
+    /// Optional. shutdown_grace_period_seconds is the maximum allowed grace period
+    /// (in seconds) the total duration that the node should delay the shutdown
+    /// during a graceful shutdown. This is the total grace period for pod
+    /// termination for both regular and critical pods.
+    /// <https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/>
+    /// If set to 0, node will not enable the graceful node shutdown functionality.
+    /// This field is only valid for Spot VMs.
+    /// Allowed values: 0, 30, 120.
+    pub shutdown_grace_period_seconds: std::option::Option<i32>,
+
+    /// Optional. shutdown_grace_period_critical_pods_seconds is the maximum
+    /// allowed grace period (in seconds) used to terminate critical pods during a
+    /// node shutdown. This value should be <= shutdown_grace_period_seconds, and
+    /// is only valid if shutdown_grace_period_seconds is set.
+    /// <https://kubernetes.io/docs/concepts/cluster-administration/node-shutdown/>
+    /// Range: [0, 120].
+    pub shutdown_grace_period_critical_pods_seconds: std::option::Option<i32>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1807,6 +2510,74 @@ impl NodeKubeletConfig {
         T: std::convert::Into<bool>,
     {
         self.single_process_oom_kill = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [shutdown_grace_period_seconds][crate::model::NodeKubeletConfig::shutdown_grace_period_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_shutdown_grace_period_seconds(42);
+    /// ```
+    pub fn set_shutdown_grace_period_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shutdown_grace_period_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shutdown_grace_period_seconds][crate::model::NodeKubeletConfig::shutdown_grace_period_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_or_clear_shutdown_grace_period_seconds(Some(42));
+    /// let x = NodeKubeletConfig::new().set_or_clear_shutdown_grace_period_seconds(None::<i32>);
+    /// ```
+    pub fn set_or_clear_shutdown_grace_period_seconds<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shutdown_grace_period_seconds = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [shutdown_grace_period_critical_pods_seconds][crate::model::NodeKubeletConfig::shutdown_grace_period_critical_pods_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_shutdown_grace_period_critical_pods_seconds(42);
+    /// ```
+    pub fn set_shutdown_grace_period_critical_pods_seconds<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shutdown_grace_period_critical_pods_seconds = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [shutdown_grace_period_critical_pods_seconds][crate::model::NodeKubeletConfig::shutdown_grace_period_critical_pods_seconds].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeKubeletConfig;
+    /// let x = NodeKubeletConfig::new().set_or_clear_shutdown_grace_period_critical_pods_seconds(Some(42));
+    /// let x = NodeKubeletConfig::new().set_or_clear_shutdown_grace_period_critical_pods_seconds(None::<i32>);
+    /// ```
+    pub fn set_or_clear_shutdown_grace_period_critical_pods_seconds<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<i32>,
+    {
+        self.shutdown_grace_period_critical_pods_seconds = v.map(|x| x.into());
         self
     }
 }
@@ -2607,6 +3378,9 @@ pub struct NodeConfig {
     pub secondary_boot_disk_update_strategy:
         std::option::Option<crate::model::SecondaryBootDiskUpdateStrategy>,
 
+    /// The configuration for GPU Direct
+    pub gpu_direct_config: std::option::Option<crate::model::GPUDirectConfig>,
+
     /// The maximum duration for the nodes to exist.
     /// If unspecified, the nodes can exist indefinitely.
     pub max_run_duration: std::option::Option<wkt::Duration>,
@@ -2627,6 +3401,11 @@ pub struct NodeConfig {
 
     /// The boot disk configuration for the node pool.
     pub boot_disk: std::option::Option<crate::model::BootDisk>,
+
+    /// Consolidation delay defines duration after which the Cluster Autoscaler can
+    /// scale down underutilized nodes. If not set, nodes are scaled down by
+    /// default behavior, i.e. according to the chosen autoscaling profile.
+    pub consolidation_delay: std::option::Option<wkt::Duration>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3599,6 +4378,39 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [gpu_direct_config][crate::model::NodeConfig::gpu_direct_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::GPUDirectConfig;
+    /// let x = NodeConfig::new().set_gpu_direct_config(GPUDirectConfig::default()/* use setters */);
+    /// ```
+    pub fn set_gpu_direct_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUDirectConfig>,
+    {
+        self.gpu_direct_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_direct_config][crate::model::NodeConfig::gpu_direct_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use google_cloud_container_v1::model::GPUDirectConfig;
+    /// let x = NodeConfig::new().set_or_clear_gpu_direct_config(Some(GPUDirectConfig::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_gpu_direct_config(None::<GPUDirectConfig>);
+    /// ```
+    pub fn set_or_clear_gpu_direct_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::GPUDirectConfig>,
+    {
+        self.gpu_direct_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [max_run_duration][crate::model::NodeConfig::max_run_duration].
     ///
     /// # Example
@@ -3747,6 +4559,39 @@ impl NodeConfig {
         T: std::convert::Into<crate::model::BootDisk>,
     {
         self.boot_disk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [consolidation_delay][crate::model::NodeConfig::consolidation_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use wkt::Duration;
+    /// let x = NodeConfig::new().set_consolidation_delay(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_consolidation_delay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.consolidation_delay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [consolidation_delay][crate::model::NodeConfig::consolidation_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodeConfig;
+    /// use wkt::Duration;
+    /// let x = NodeConfig::new().set_or_clear_consolidation_delay(Some(Duration::default()/* use setters */));
+    /// let x = NodeConfig::new().set_or_clear_consolidation_delay(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_consolidation_delay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.consolidation_delay = v.map(|x| x.into());
         self
     }
 }
@@ -4404,11 +5249,16 @@ pub struct NodeNetworkConfig {
     /// Usage=numNodes*numZones*podIPsPerNode.
     pub pod_ipv4_range_utilization: f64,
 
-    /// Output only. The subnetwork path for the node pool.
+    /// Optional. The subnetwork name/path for the node pool.
     /// Format: projects/{project}/regions/{region}/subnetworks/{subnetwork}
-    /// If the cluster is associated with multiple subnetworks, the subnetwork for
-    /// the node pool is picked based on the IP utilization during node pool
-    /// creation and is immutable.
+    /// If the cluster is associated with multiple subnetworks, the subnetwork can
+    /// be either:
+    ///
+    /// 1. A user supplied subnetwork name/full path during node pool creation.
+    ///    Example1: my-subnet
+    ///    Example2: projects/gke-project/regions/us-central1/subnetworks/my-subnet
+    /// 1. A subnetwork path picked based on the IP utilization during node pool
+    ///    creation and is immutable.
     pub subnetwork: std::string::String,
 
     /// Output only. The network tier configuration for the node pool inherits from
@@ -5825,6 +6675,11 @@ pub struct ContainerdConfig {
     /// node pool.
     pub writable_cgroups: std::option::Option<crate::model::containerd_config::WritableCgroups>,
 
+    /// RegistryHostConfig configures containerd registry host configuration.
+    /// Each registry_hosts represents a hosts.toml file.
+    /// At most 25 registry_hosts are allowed.
+    pub registry_hosts: std::vec::Vec<crate::model::containerd_config::RegistryHostConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5899,6 +6754,28 @@ impl ContainerdConfig {
         T: std::convert::Into<crate::model::containerd_config::WritableCgroups>,
     {
         self.writable_cgroups = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [registry_hosts][crate::model::ContainerdConfig::registry_hosts].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ContainerdConfig;
+    /// use google_cloud_container_v1::model::containerd_config::RegistryHostConfig;
+    /// let x = ContainerdConfig::new()
+    ///     .set_registry_hosts([
+    ///         RegistryHostConfig::default()/* use setters */,
+    ///         RegistryHostConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_registry_hosts<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::containerd_config::RegistryHostConfig>,
+    {
+        use std::iter::Iterator;
+        self.registry_hosts = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -6134,7 +7011,7 @@ pub mod containerd_config {
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum CertificateConfig {
-                /// Google Secret Manager (GCP) certificate configuration.
+                /// Secret Manager certificate configuration.
                 GcpSecretManagerCertificateConfig(std::boxed::Box<crate::model::containerd_config::private_registry_access_config::certificate_authority_domain_config::GCPSecretManagerCertificateConfig>),
             }
         }
@@ -6171,6 +7048,699 @@ pub mod containerd_config {
     impl wkt::message::Message for WritableCgroups {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.ContainerdConfig.WritableCgroups"
+        }
+    }
+
+    /// RegistryHostConfig configures the top-level structure for a single
+    /// containerd registry server's configuration, which represents one hosts.toml
+    /// file on the node. It will override the same fqdns in
+    /// PrivateRegistryAccessConfig.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RegistryHostConfig {
+        /// Defines the host name of the registry server, which will be used to
+        /// create configuration file as /etc/containerd/hosts.d/\<server\>/hosts.toml.
+        /// It supports fully qualified domain names (FQDN) and IP addresses:
+        /// Specifying port is supported.
+        /// Wildcards are NOT supported.
+        /// Examples:
+        ///
+        /// - my.customdomain.com
+        /// - 10.0.1.2:5000
+        pub server: std::string::String,
+
+        /// HostConfig configures a list of host-specific configurations for the
+        /// server.
+        /// Each server can have at most 10 host configurations.
+        pub hosts: std::vec::Vec<crate::model::containerd_config::registry_host_config::HostConfig>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RegistryHostConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [server][crate::model::containerd_config::RegistryHostConfig::server].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::containerd_config::RegistryHostConfig;
+        /// let x = RegistryHostConfig::new().set_server("example");
+        /// ```
+        pub fn set_server<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.server = v.into();
+            self
+        }
+
+        /// Sets the value of [hosts][crate::model::containerd_config::RegistryHostConfig::hosts].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::containerd_config::RegistryHostConfig;
+        /// use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+        /// let x = RegistryHostConfig::new()
+        ///     .set_hosts([
+        ///         HostConfig::default()/* use setters */,
+        ///         HostConfig::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_hosts<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<
+                    crate::model::containerd_config::registry_host_config::HostConfig,
+                >,
+        {
+            use std::iter::Iterator;
+            self.hosts = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RegistryHostConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.ContainerdConfig.RegistryHostConfig"
+        }
+    }
+
+    /// Defines additional types related to [RegistryHostConfig].
+    pub mod registry_host_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// CertificateConfig configures certificate for the registry.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CertificateConfig {
+
+            /// One of the methods to configure the certificate.
+            pub certificate: std::option::Option<crate::model::containerd_config::registry_host_config::certificate_config::Certificate>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CertificateConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [certificate][crate::model::containerd_config::registry_host_config::CertificateConfig::certificate].
+            ///
+            /// Note that all the setters affecting `certificate` are mutually
+            /// exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::certificate_config::Certificate;
+            /// let x = CertificateConfig::new().set_certificate(Some(Certificate::GcpSecretManagerSecretUri("example".to_string())));
+            /// ```
+            pub fn set_certificate<T: std::convert::Into<std::option::Option<crate::model::containerd_config::registry_host_config::certificate_config::Certificate>>>(mut self, v: T) -> Self
+            {
+                self.certificate = v.into();
+                self
+            }
+
+            /// The value of [certificate][crate::model::containerd_config::registry_host_config::CertificateConfig::certificate]
+            /// if it holds a `GcpSecretManagerSecretUri`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn gcp_secret_manager_secret_uri(
+                &self,
+            ) -> std::option::Option<&std::string::String> {
+                #[allow(unreachable_patterns)]
+                self.certificate.as_ref().and_then(|v| match v {
+                    crate::model::containerd_config::registry_host_config::certificate_config::Certificate::GcpSecretManagerSecretUri(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [certificate][crate::model::containerd_config::registry_host_config::CertificateConfig::certificate]
+            /// to hold a `GcpSecretManagerSecretUri`.
+            ///
+            /// Note that all the setters affecting `certificate` are
+            /// mutually exclusive.
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = CertificateConfig::new().set_gcp_secret_manager_secret_uri("example");
+            /// assert!(x.gcp_secret_manager_secret_uri().is_some());
+            /// ```
+            pub fn set_gcp_secret_manager_secret_uri<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.certificate = std::option::Option::Some(
+                    crate::model::containerd_config::registry_host_config::certificate_config::Certificate::GcpSecretManagerSecretUri(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for CertificateConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.ContainerdConfig.RegistryHostConfig.CertificateConfig"
+            }
+        }
+
+        /// Defines additional types related to [CertificateConfig].
+        pub mod certificate_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// One of the methods to configure the certificate.
+            #[derive(Clone, Debug, PartialEq)]
+            #[non_exhaustive]
+            pub enum Certificate {
+                /// The URI configures a secret from
+                /// [Secret Manager](https://cloud.google.com/secret-manager)
+                /// in the format
+                /// "projects/$PROJECT_ID/secrets/$SECRET_NAME/versions/$VERSION" for
+                /// global secret or
+                /// "projects/$PROJECT_ID/locations/$REGION/secrets/$SECRET_NAME/versions/$VERSION"
+                /// for regional secret. Version can be fixed (e.g. "2") or "latest"
+                GcpSecretManagerSecretUri(std::string::String),
+            }
+        }
+
+        /// CertificateConfigPair configures pairs of certificates, which is used for
+        /// client certificate and key pairs under a registry.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct CertificateConfigPair {
+            /// Cert configures the client certificate.
+            pub cert: std::option::Option<
+                crate::model::containerd_config::registry_host_config::CertificateConfig,
+            >,
+
+            /// Key configures the client private key. Optional.
+            pub key: std::option::Option<
+                crate::model::containerd_config::registry_host_config::CertificateConfig,
+            >,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CertificateConfigPair {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [cert][crate::model::containerd_config::registry_host_config::CertificateConfigPair::cert].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfigPair;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = CertificateConfigPair::new().set_cert(CertificateConfig::default()/* use setters */);
+            /// ```
+            pub fn set_cert<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::CertificateConfig,
+                    >,
+            {
+                self.cert = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [cert][crate::model::containerd_config::registry_host_config::CertificateConfigPair::cert].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfigPair;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = CertificateConfigPair::new().set_or_clear_cert(Some(CertificateConfig::default()/* use setters */));
+            /// let x = CertificateConfigPair::new().set_or_clear_cert(None::<CertificateConfig>);
+            /// ```
+            pub fn set_or_clear_cert<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::CertificateConfig,
+                    >,
+            {
+                self.cert = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [key][crate::model::containerd_config::registry_host_config::CertificateConfigPair::key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfigPair;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = CertificateConfigPair::new().set_key(CertificateConfig::default()/* use setters */);
+            /// ```
+            pub fn set_key<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::CertificateConfig,
+                    >,
+            {
+                self.key = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [key][crate::model::containerd_config::registry_host_config::CertificateConfigPair::key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfigPair;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = CertificateConfigPair::new().set_or_clear_key(Some(CertificateConfig::default()/* use setters */));
+            /// let x = CertificateConfigPair::new().set_or_clear_key(None::<CertificateConfig>);
+            /// ```
+            pub fn set_or_clear_key<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::CertificateConfig,
+                    >,
+            {
+                self.key = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for CertificateConfigPair {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.ContainerdConfig.RegistryHostConfig.CertificateConfigPair"
+            }
+        }
+
+        /// RegistryHeader configures headers for the registry.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct RegistryHeader {
+            /// Key configures the header key.
+            pub key: std::string::String,
+
+            /// Value configures the header value.
+            pub value: std::vec::Vec<std::string::String>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RegistryHeader {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [key][crate::model::containerd_config::registry_host_config::RegistryHeader::key].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::RegistryHeader;
+            /// let x = RegistryHeader::new().set_key("example");
+            /// ```
+            pub fn set_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.key = v.into();
+                self
+            }
+
+            /// Sets the value of [value][crate::model::containerd_config::registry_host_config::RegistryHeader::value].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::RegistryHeader;
+            /// let x = RegistryHeader::new().set_value(["a", "b", "c"]);
+            /// ```
+            pub fn set_value<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.value = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RegistryHeader {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.ContainerdConfig.RegistryHostConfig.RegistryHeader"
+            }
+        }
+
+        /// HostConfig configures the registry host under a given Server.
+        #[derive(Clone, Default, PartialEq)]
+        #[non_exhaustive]
+        pub struct HostConfig {
+            /// Host configures the registry host/mirror.
+            /// It supports fully qualified domain names (FQDN) and IP addresses:
+            /// Specifying port is supported.
+            /// Wildcards are NOT supported.
+            /// Examples:
+            ///
+            /// - my.customdomain.com
+            /// - 10.0.1.2:5000
+            pub host: std::string::String,
+
+            /// Capabilities represent the capabilities of the registry host,
+            /// specifying what operations a host is capable of performing.
+            /// If not set, containerd enables all capabilities by default.
+            pub capabilities: std::vec::Vec<
+                crate::model::containerd_config::registry_host_config::HostCapability,
+            >,
+
+            /// OverridePath is used to indicate the host's API root endpoint is
+            /// defined in the URL path rather than by the API specification. This may
+            /// be used with non-compliant OCI registries which are missing the /v2
+            /// prefix.
+            /// If not set, containerd sets default false.
+            pub override_path: bool,
+
+            /// Header configures the registry host headers.
+            pub header: std::vec::Vec<
+                crate::model::containerd_config::registry_host_config::RegistryHeader,
+            >,
+
+            /// CA configures the registry host certificate.
+            pub ca: std::vec::Vec<
+                crate::model::containerd_config::registry_host_config::CertificateConfig,
+            >,
+
+            /// Client configures the registry host client certificate and key.
+            pub client: std::vec::Vec<
+                crate::model::containerd_config::registry_host_config::CertificateConfigPair,
+            >,
+
+            /// Specifies the maximum duration allowed for a connection attempt to
+            /// complete. A shorter timeout helps reduce delays when falling back to
+            /// the original registry if the mirror is unreachable.
+            /// Maximum allowed value is 180s. If not set, containerd sets default 30s.
+            /// The value should be a decimal number of seconds with an `s` suffix.
+            pub dial_timeout: std::option::Option<wkt::Duration>,
+
+            pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl HostConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [host][crate::model::containerd_config::registry_host_config::HostConfig::host].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// let x = HostConfig::new().set_host("example");
+            /// ```
+            pub fn set_host<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+                self.host = v.into();
+                self
+            }
+
+            /// Sets the value of [capabilities][crate::model::containerd_config::registry_host_config::HostConfig::capabilities].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::HostCapability;
+            /// let x = HostConfig::new().set_capabilities([
+            ///     HostCapability::Pull,
+            ///     HostCapability::Resolve,
+            ///     HostCapability::Push,
+            /// ]);
+            /// ```
+            pub fn set_capabilities<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::HostCapability,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.capabilities = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [override_path][crate::model::containerd_config::registry_host_config::HostConfig::override_path].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// let x = HostConfig::new().set_override_path(true);
+            /// ```
+            pub fn set_override_path<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.override_path = v.into();
+                self
+            }
+
+            /// Sets the value of [header][crate::model::containerd_config::registry_host_config::HostConfig::header].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::RegistryHeader;
+            /// let x = HostConfig::new()
+            ///     .set_header([
+            ///         RegistryHeader::default()/* use setters */,
+            ///         RegistryHeader::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_header<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::RegistryHeader,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.header = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [ca][crate::model::containerd_config::registry_host_config::HostConfig::ca].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfig;
+            /// let x = HostConfig::new()
+            ///     .set_ca([
+            ///         CertificateConfig::default()/* use setters */,
+            ///         CertificateConfig::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_ca<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<
+                        crate::model::containerd_config::registry_host_config::CertificateConfig,
+                    >,
+            {
+                use std::iter::Iterator;
+                self.ca = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [client][crate::model::containerd_config::registry_host_config::HostConfig::client].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use google_cloud_container_v1::model::containerd_config::registry_host_config::CertificateConfigPair;
+            /// let x = HostConfig::new()
+            ///     .set_client([
+            ///         CertificateConfigPair::default()/* use setters */,
+            ///         CertificateConfigPair::default()/* use (different) setters */,
+            ///     ]);
+            /// ```
+            pub fn set_client<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::containerd_config::registry_host_config::CertificateConfigPair>
+            {
+                use std::iter::Iterator;
+                self.client = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [dial_timeout][crate::model::containerd_config::registry_host_config::HostConfig::dial_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use wkt::Duration;
+            /// let x = HostConfig::new().set_dial_timeout(Duration::default()/* use setters */);
+            /// ```
+            pub fn set_dial_timeout<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.dial_timeout = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [dial_timeout][crate::model::containerd_config::registry_host_config::HostConfig::dial_timeout].
+            ///
+            /// # Example
+            /// ```ignore,no_run
+            /// # use google_cloud_container_v1::model::containerd_config::registry_host_config::HostConfig;
+            /// use wkt::Duration;
+            /// let x = HostConfig::new().set_or_clear_dial_timeout(Some(Duration::default()/* use setters */));
+            /// let x = HostConfig::new().set_or_clear_dial_timeout(None::<Duration>);
+            /// ```
+            pub fn set_or_clear_dial_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Duration>,
+            {
+                self.dial_timeout = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for HostConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.container.v1.ContainerdConfig.RegistryHostConfig.HostConfig"
+            }
+        }
+
+        /// HostCapability configures capabilities for the registry host.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum HostCapability {
+            /// UNKNOWN should never be set.
+            Unspecified,
+            /// Pull represents the capability to fetch manifests and blobs by digest.
+            Pull,
+            /// Resolve represents the capability to fetch manifests by name.
+            Resolve,
+            /// Push represents the capability to push blobs and manifests.
+            Push,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [HostCapability::value] or
+            /// [HostCapability::name].
+            UnknownValue(host_capability::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod host_capability {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl HostCapability {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Pull => std::option::Option::Some(1),
+                    Self::Resolve => std::option::Option::Some(2),
+                    Self::Push => std::option::Option::Some(3),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("HOST_CAPABILITY_UNSPECIFIED"),
+                    Self::Pull => std::option::Option::Some("HOST_CAPABILITY_PULL"),
+                    Self::Resolve => std::option::Option::Some("HOST_CAPABILITY_RESOLVE"),
+                    Self::Push => std::option::Option::Some("HOST_CAPABILITY_PUSH"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for HostCapability {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for HostCapability {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for HostCapability {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Pull,
+                    2 => Self::Resolve,
+                    3 => Self::Push,
+                    _ => Self::UnknownValue(host_capability::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for HostCapability {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "HOST_CAPABILITY_UNSPECIFIED" => Self::Unspecified,
+                    "HOST_CAPABILITY_PULL" => Self::Pull,
+                    "HOST_CAPABILITY_RESOLVE" => Self::Resolve,
+                    "HOST_CAPABILITY_PUSH" => Self::Push,
+                    _ => Self::UnknownValue(host_capability::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for HostCapability {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Pull => serializer.serialize_i32(1),
+                    Self::Resolve => serializer.serialize_i32(2),
+                    Self::Push => serializer.serialize_i32(3),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for HostCapability {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<HostCapability>::new(
+                    ".google.container.v1.ContainerdConfig.RegistryHostConfig.HostCapability",
+                ))
+            }
         }
     }
 }
@@ -6835,6 +8405,9 @@ pub struct AddonsConfig {
     /// Configuration for the Lustre CSI driver.
     pub lustre_csi_driver_config: std::option::Option<crate::model::LustreCsiDriverConfig>,
 
+    /// Optional. Configuration for the slice controller add-on.
+    pub slice_controller_config: std::option::Option<crate::model::SliceControllerConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7382,6 +8955,39 @@ impl AddonsConfig {
         T: std::convert::Into<crate::model::LustreCsiDriverConfig>,
     {
         self.lustre_csi_driver_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [slice_controller_config][crate::model::AddonsConfig::slice_controller_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::SliceControllerConfig;
+    /// let x = AddonsConfig::new().set_slice_controller_config(SliceControllerConfig::default()/* use setters */);
+    /// ```
+    pub fn set_slice_controller_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SliceControllerConfig>,
+    {
+        self.slice_controller_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [slice_controller_config][crate::model::AddonsConfig::slice_controller_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AddonsConfig;
+    /// use google_cloud_container_v1::model::SliceControllerConfig;
+    /// let x = AddonsConfig::new().set_or_clear_slice_controller_config(Some(SliceControllerConfig::default()/* use setters */));
+    /// let x = AddonsConfig::new().set_or_clear_slice_controller_config(None::<SliceControllerConfig>);
+    /// ```
+    pub fn set_or_clear_slice_controller_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SliceControllerConfig>,
+    {
+        self.slice_controller_config = v.map(|x| x.into());
         self
     }
 }
@@ -8342,6 +9948,40 @@ impl wkt::message::Message for LustreCsiDriverConfig {
     }
 }
 
+/// Configuration for the Slice Controller.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SliceControllerConfig {
+    /// Optional. Indicates whether Slice Controller is enabled in the cluster.
+    pub enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SliceControllerConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::SliceControllerConfig::enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::SliceControllerConfig;
+    /// let x = SliceControllerConfig::new().set_enabled(true);
+    /// ```
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SliceControllerConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.SliceControllerConfig"
+    }
+}
+
 /// Configuration options for the Ray Operator add-on.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -9238,7 +10878,7 @@ pub struct IPAllocationPolicy {
     /// netmask.
     ///
     /// Set to a
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
     /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
     /// to use.
@@ -9254,7 +10894,7 @@ pub struct IPAllocationPolicy {
     /// netmask.
     ///
     /// Set to a
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
     /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
     /// to use.
@@ -9271,7 +10911,7 @@ pub struct IPAllocationPolicy {
     /// netmask.
     ///
     /// Set to a
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
     /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
     /// to use.
@@ -9288,7 +10928,7 @@ pub struct IPAllocationPolicy {
     /// netmask.
     ///
     /// Set to a
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
     /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
     /// to use.
@@ -9873,7 +11513,7 @@ pub struct Cluster {
     pub network: std::string::String,
 
     /// The IP address range of the container pods in this cluster, in
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `10.96.0.0/14`). Leave blank to have
     /// one automatically chosen or specify a `/14` block in `10.0.0.0/8`.
     pub cluster_ipv4_cidr: std::string::String,
@@ -10073,7 +11713,7 @@ pub struct Cluster {
 
     /// Output only. The IP address range of the Kubernetes services in
     /// this cluster, in
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `1.2.3.4/29`). Service addresses are
     /// typically put in the last `/16` from the container CIDR.
     pub services_ipv4_cidr: std::string::String,
@@ -10105,7 +11745,7 @@ pub struct Cluster {
     pub enable_tpu: bool,
 
     /// Output only. The IP address range of the Cloud TPUs in this cluster, in
-    /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
+    /// [CIDR](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `1.2.3.4/29`).
     /// This field is deprecated due to the deprecation of 2VM TPU. The end of life
     /// date for 2VM TPU is 2025-04-25.
@@ -10189,6 +11829,9 @@ pub struct Cluster {
     /// health checks.
     pub anonymous_authentication_config:
         std::option::Option<crate::model::AnonymousAuthenticationConfig>,
+
+    /// Configuration for Managed OpenTelemetry pipeline.
+    pub managed_opentelemetry_config: std::option::Option<crate::model::ManagedOpenTelemetryConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12150,6 +13793,39 @@ impl Cluster {
         self.anonymous_authentication_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [managed_opentelemetry_config][crate::model::Cluster::managed_opentelemetry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// let x = Cluster::new().set_managed_opentelemetry_config(ManagedOpenTelemetryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_managed_opentelemetry_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
+    {
+        self.managed_opentelemetry_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [managed_opentelemetry_config][crate::model::Cluster::managed_opentelemetry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::Cluster;
+    /// use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// let x = Cluster::new().set_or_clear_managed_opentelemetry_config(Some(ManagedOpenTelemetryConfig::default()/* use setters */));
+    /// let x = Cluster::new().set_or_clear_managed_opentelemetry_config(None::<ManagedOpenTelemetryConfig>);
+    /// ```
+    pub fn set_or_clear_managed_opentelemetry_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
+    {
+        self.managed_opentelemetry_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Cluster {
@@ -12464,6 +14140,10 @@ pub struct UserManagedKeysConfig {
     /// plane nodes.
     pub control_plane_disk_encryption_key: std::string::String,
 
+    /// Output only. All of the versions of the Cloud KMS cryptoKey that are used
+    /// by Confidential Hyperdisks on the control plane nodes.
+    pub control_plane_disk_encryption_key_versions: std::vec::Vec<std::string::String>,
+
     /// Resource path of the Cloud KMS cryptoKey to use for encryption of internal
     /// etcd backups.
     pub gkeops_etcd_backup_encryption_key: std::string::String,
@@ -12570,6 +14250,23 @@ impl UserManagedKeysConfig {
         v: T,
     ) -> Self {
         self.control_plane_disk_encryption_key = v.into();
+        self
+    }
+
+    /// Sets the value of [control_plane_disk_encryption_key_versions][crate::model::UserManagedKeysConfig::control_plane_disk_encryption_key_versions].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UserManagedKeysConfig;
+    /// let x = UserManagedKeysConfig::new().set_control_plane_disk_encryption_key_versions(["a", "b", "c"]);
+    /// ```
+    pub fn set_control_plane_disk_encryption_key_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.control_plane_disk_encryption_key_versions = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -14217,6 +15914,14 @@ pub struct ClusterUpdate {
 
     /// The desired network tier configuration for the cluster.
     pub desired_network_tier_config: std::option::Option<crate::model::NetworkTierConfig>,
+
+    /// The desired privileged admission config for the cluster.
+    pub desired_privileged_admission_config:
+        std::option::Option<crate::model::PrivilegedAdmissionConfig>,
+
+    /// The desired managed open telemetry configuration.
+    pub desired_managed_opentelemetry_config:
+        std::option::Option<crate::model::ManagedOpenTelemetryConfig>,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -16514,6 +18219,78 @@ impl ClusterUpdate {
         self.desired_network_tier_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [desired_privileged_admission_config][crate::model::ClusterUpdate::desired_privileged_admission_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PrivilegedAdmissionConfig;
+    /// let x = ClusterUpdate::new().set_desired_privileged_admission_config(PrivilegedAdmissionConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_privileged_admission_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
+    {
+        self.desired_privileged_admission_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_privileged_admission_config][crate::model::ClusterUpdate::desired_privileged_admission_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::PrivilegedAdmissionConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_privileged_admission_config(Some(PrivilegedAdmissionConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_privileged_admission_config(None::<PrivilegedAdmissionConfig>);
+    /// ```
+    pub fn set_or_clear_desired_privileged_admission_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::PrivilegedAdmissionConfig>,
+    {
+        self.desired_privileged_admission_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_managed_opentelemetry_config][crate::model::ClusterUpdate::desired_managed_opentelemetry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// let x = ClusterUpdate::new().set_desired_managed_opentelemetry_config(ManagedOpenTelemetryConfig::default()/* use setters */);
+    /// ```
+    pub fn set_desired_managed_opentelemetry_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
+    {
+        self.desired_managed_opentelemetry_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_managed_opentelemetry_config][crate::model::ClusterUpdate::desired_managed_opentelemetry_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterUpdate;
+    /// use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// let x = ClusterUpdate::new().set_or_clear_desired_managed_opentelemetry_config(Some(ManagedOpenTelemetryConfig::default()/* use setters */));
+    /// let x = ClusterUpdate::new().set_or_clear_desired_managed_opentelemetry_config(None::<ManagedOpenTelemetryConfig>);
+    /// ```
+    pub fn set_or_clear_desired_managed_opentelemetry_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::ManagedOpenTelemetryConfig>,
+    {
+        self.desired_managed_opentelemetry_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ClusterUpdate {
@@ -16604,6 +18381,9 @@ pub struct AdditionalIPRangesConfig {
     /// Example2: gke-pod-range1,gke-pod-range2
     pub pod_ipv4_range_names: std::vec::Vec<std::string::String>,
 
+    /// Draining status of the additional subnet.
+    pub status: crate::model::additional_ip_ranges_config::Status,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -16640,11 +18420,173 @@ impl AdditionalIPRangesConfig {
         self.pod_ipv4_range_names = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [status][crate::model::AdditionalIPRangesConfig::status].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::AdditionalIPRangesConfig;
+    /// use google_cloud_container_v1::model::additional_ip_ranges_config::Status;
+    /// let x0 = AdditionalIPRangesConfig::new().set_status(Status::Active);
+    /// let x1 = AdditionalIPRangesConfig::new().set_status(Status::Draining);
+    /// ```
+    pub fn set_status<T: std::convert::Into<crate::model::additional_ip_ranges_config::Status>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.status = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for AdditionalIPRangesConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.AdditionalIPRangesConfig"
+    }
+}
+
+/// Defines additional types related to [AdditionalIPRangesConfig].
+pub mod additional_ip_ranges_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Additional subnet with DRAINING status will not be selected during new node
+    /// pool creation. To undrain the draining status, update the cluster to set
+    /// the sunbet to ACTIVE status. To remove the additional subnet, use the
+    /// update cluster API to remove the subnet from the
+    /// desired_additional_ip_ranges list. IP ranges can be removed regardless of
+    /// its status, as long as no node pools are using them.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Status {
+        /// Not set, same as ACTIVE.
+        Unspecified,
+        /// ACTIVE status indicates that the subnet is available for new node pool
+        /// creation.
+        Active,
+        /// DRAINING status indicates that the subnet is not used for new node pool
+        /// creation.
+        Draining,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Status::value] or
+        /// [Status::name].
+        UnknownValue(status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Status {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Draining => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATUS_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Draining => std::option::Option::Some("DRAINING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Status {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Status {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Status {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Draining,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Status {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATUS_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "DRAINING" => Self::Draining,
+                _ => Self::UnknownValue(status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Status {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Draining => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Status {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Status>::new(
+                ".google.container.v1.AdditionalIPRangesConfig.Status",
+            ))
+        }
     }
 }
 
@@ -18492,6 +20434,14 @@ pub struct UpdateNodePoolRequest {
     /// node pool to the specified boot disk config.
     pub boot_disk: std::option::Option<crate::model::BootDisk>,
 
+    /// The desired node drain configuration for nodes in the node pool.
+    pub node_drain_config: std::option::Option<crate::model::node_pool::NodeDrainConfig>,
+
+    /// Consolidation delay defines duration after which the Cluster Autoscaler can
+    /// scale down underutilized nodes. If not set, nodes are scaled down by
+    /// default behavior, i.e. according to the chosen autoscaling profile.
+    pub consolidation_delay: std::option::Option<wkt::Duration>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -19380,6 +21330,72 @@ impl UpdateNodePoolRequest {
         T: std::convert::Into<crate::model::BootDisk>,
     {
         self.boot_disk = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [node_drain_config][crate::model::UpdateNodePoolRequest::node_drain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+    /// let x = UpdateNodePoolRequest::new().set_node_drain_config(NodeDrainConfig::default()/* use setters */);
+    /// ```
+    pub fn set_node_drain_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+    {
+        self.node_drain_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_drain_config][crate::model::UpdateNodePoolRequest::node_drain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_drain_config(Some(NodeDrainConfig::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_node_drain_config(None::<NodeDrainConfig>);
+    /// ```
+    pub fn set_or_clear_node_drain_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+    {
+        self.node_drain_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [consolidation_delay][crate::model::UpdateNodePoolRequest::consolidation_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use wkt::Duration;
+    /// let x = UpdateNodePoolRequest::new().set_consolidation_delay(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_consolidation_delay<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.consolidation_delay = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [consolidation_delay][crate::model::UpdateNodePoolRequest::consolidation_delay].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpdateNodePoolRequest;
+    /// use wkt::Duration;
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_consolidation_delay(Some(Duration::default()/* use setters */));
+    /// let x = UpdateNodePoolRequest::new().set_or_clear_consolidation_delay(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_consolidation_delay<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.consolidation_delay = v.map(|x| x.into());
         self
     }
 }
@@ -22267,6 +24283,9 @@ pub struct NodePool {
     /// Enable best effort provisioning for nodes
     pub best_effort_provisioning: std::option::Option<crate::model::BestEffortProvisioning>,
 
+    /// Specifies the node drain configuration for this node pool.
+    pub node_drain_config: std::option::Option<crate::model::node_pool::NodeDrainConfig>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -22763,6 +24782,39 @@ impl NodePool {
         self.best_effort_provisioning = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [node_drain_config][crate::model::NodePool::node_drain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+    /// let x = NodePool::new().set_node_drain_config(NodeDrainConfig::default()/* use setters */);
+    /// ```
+    pub fn set_node_drain_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+    {
+        self.node_drain_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [node_drain_config][crate::model::NodePool::node_drain_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::NodePool;
+    /// use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+    /// let x = NodePool::new().set_or_clear_node_drain_config(Some(NodeDrainConfig::default()/* use setters */));
+    /// let x = NodePool::new().set_or_clear_node_drain_config(None::<NodeDrainConfig>);
+    /// ```
+    pub fn set_or_clear_node_drain_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::node_pool::NodeDrainConfig>,
+    {
+        self.node_drain_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for NodePool {
@@ -22882,6 +24934,7 @@ pub mod node_pool {
         /// use google_cloud_container_v1::model::NodePoolUpdateStrategy;
         /// let x0 = UpgradeSettings::new().set_strategy(NodePoolUpdateStrategy::BlueGreen);
         /// let x1 = UpgradeSettings::new().set_strategy(NodePoolUpdateStrategy::Surge);
+        /// let x2 = UpgradeSettings::new().set_strategy(NodePoolUpdateStrategy::ShortLived);
         /// ```
         pub fn set_strategy<T>(mut self, v: T) -> Self
         where
@@ -22899,6 +24952,7 @@ pub mod node_pool {
         /// use google_cloud_container_v1::model::NodePoolUpdateStrategy;
         /// let x0 = UpgradeSettings::new().set_or_clear_strategy(Some(NodePoolUpdateStrategy::BlueGreen));
         /// let x1 = UpgradeSettings::new().set_or_clear_strategy(Some(NodePoolUpdateStrategy::Surge));
+        /// let x2 = UpgradeSettings::new().set_or_clear_strategy(Some(NodePoolUpdateStrategy::ShortLived));
         /// let x_none = UpgradeSettings::new().set_or_clear_strategy(None::<NodePoolUpdateStrategy>);
         /// ```
         pub fn set_or_clear_strategy<T>(mut self, v: std::option::Option<T>) -> Self
@@ -23554,6 +25608,63 @@ pub mod node_pool {
     impl wkt::message::Message for QueuedProvisioning {
         fn typename() -> &'static str {
             "type.googleapis.com/google.container.v1.NodePool.QueuedProvisioning"
+        }
+    }
+
+    /// NodeDrainConfig contains the node drain related configurations for this
+    /// nodepool.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct NodeDrainConfig {
+        /// Whether to respect PDB during node pool deletion.
+        pub respect_pdb_during_node_pool_deletion: std::option::Option<bool>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl NodeDrainConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [respect_pdb_during_node_pool_deletion][crate::model::node_pool::NodeDrainConfig::respect_pdb_during_node_pool_deletion].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// let x = NodeDrainConfig::new().set_respect_pdb_during_node_pool_deletion(true);
+        /// ```
+        pub fn set_respect_pdb_during_node_pool_deletion<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.respect_pdb_during_node_pool_deletion = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [respect_pdb_during_node_pool_deletion][crate::model::node_pool::NodeDrainConfig::respect_pdb_during_node_pool_deletion].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::node_pool::NodeDrainConfig;
+        /// let x = NodeDrainConfig::new().set_or_clear_respect_pdb_during_node_pool_deletion(Some(false));
+        /// let x = NodeDrainConfig::new().set_or_clear_respect_pdb_during_node_pool_deletion(None::<bool>);
+        /// ```
+        pub fn set_or_clear_respect_pdb_during_node_pool_deletion<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.respect_pdb_during_node_pool_deletion = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for NodeDrainConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.NodePool.NodeDrainConfig"
         }
     }
 
@@ -24682,7 +26793,7 @@ pub struct RecurringTimeWindow {
     pub window: std::option::Option<crate::model::TimeWindow>,
 
     /// An RRULE (<https://tools.ietf.org/html/rfc5545#section-3.8.5.3>) for how
-    /// this window reccurs. They go on for the span of time between the start and
+    /// this window recurs. They go on for the span of time between the start and
     /// end time.
     ///
     /// For example, to have something repeat every weekday, you'd use:
@@ -25345,6 +27456,10 @@ pub struct ClusterAutoscaling {
     /// Default compute class is a configuration for default compute class.
     pub default_compute_class_config: std::option::Option<crate::model::DefaultComputeClassConfig>,
 
+    /// Autopilot general profile for the cluster, which defines the
+    /// configuration for the cluster.
+    pub autopilot_general_profile: crate::model::cluster_autoscaling::AutopilotGeneralProfile,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -25491,6 +27606,24 @@ impl ClusterAutoscaling {
         self.default_compute_class_config = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [autopilot_general_profile][crate::model::ClusterAutoscaling::autopilot_general_profile].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ClusterAutoscaling;
+    /// use google_cloud_container_v1::model::cluster_autoscaling::AutopilotGeneralProfile;
+    /// let x0 = ClusterAutoscaling::new().set_autopilot_general_profile(AutopilotGeneralProfile::NoPerformance);
+    /// ```
+    pub fn set_autopilot_general_profile<
+        T: std::convert::Into<crate::model::cluster_autoscaling::AutopilotGeneralProfile>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.autopilot_general_profile = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ClusterAutoscaling {
@@ -25633,6 +27766,135 @@ pub mod cluster_autoscaling {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoscalingProfile>::new(
                 ".google.container.v1.ClusterAutoscaling.AutoscalingProfile",
             ))
+        }
+    }
+
+    /// Defines possible options for Autopilot general profile.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutopilotGeneralProfile {
+        /// Use default configuration.
+        Unspecified,
+        /// Avoid extra IP consumption.
+        NoPerformance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutopilotGeneralProfile::value] or
+        /// [AutopilotGeneralProfile::name].
+        UnknownValue(autopilot_general_profile::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod autopilot_general_profile {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutopilotGeneralProfile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NoPerformance => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("AUTOPILOT_GENERAL_PROFILE_UNSPECIFIED")
+                }
+                Self::NoPerformance => std::option::Option::Some("NO_PERFORMANCE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutopilotGeneralProfile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutopilotGeneralProfile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutopilotGeneralProfile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NoPerformance,
+                _ => Self::UnknownValue(autopilot_general_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutopilotGeneralProfile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTOPILOT_GENERAL_PROFILE_UNSPECIFIED" => Self::Unspecified,
+                "NO_PERFORMANCE" => Self::NoPerformance,
+                _ => Self::UnknownValue(autopilot_general_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutopilotGeneralProfile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NoPerformance => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutopilotGeneralProfile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<AutopilotGeneralProfile>::new(
+                    ".google.container.v1.ClusterAutoscaling.AutopilotGeneralProfile",
+                ),
+            )
         }
     }
 }
@@ -32063,6 +34325,193 @@ impl wkt::message::Message for FastSocket {
     }
 }
 
+/// GPUDirectConfig specifies the GPU direct strategy on the node pool.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GPUDirectConfig {
+    /// The type of GPU direct strategy to enable on the node pool.
+    pub gpu_direct_strategy:
+        std::option::Option<crate::model::gpu_direct_config::GPUDirectStrategy>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GPUDirectConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gpu_direct_strategy][crate::model::GPUDirectConfig::gpu_direct_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::GPUDirectConfig;
+    /// use google_cloud_container_v1::model::gpu_direct_config::GPUDirectStrategy;
+    /// let x0 = GPUDirectConfig::new().set_gpu_direct_strategy(GPUDirectStrategy::Rdma);
+    /// ```
+    pub fn set_gpu_direct_strategy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_direct_config::GPUDirectStrategy>,
+    {
+        self.gpu_direct_strategy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [gpu_direct_strategy][crate::model::GPUDirectConfig::gpu_direct_strategy].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::GPUDirectConfig;
+    /// use google_cloud_container_v1::model::gpu_direct_config::GPUDirectStrategy;
+    /// let x0 = GPUDirectConfig::new().set_or_clear_gpu_direct_strategy(Some(GPUDirectStrategy::Rdma));
+    /// let x_none = GPUDirectConfig::new().set_or_clear_gpu_direct_strategy(None::<GPUDirectStrategy>);
+    /// ```
+    pub fn set_or_clear_gpu_direct_strategy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::gpu_direct_config::GPUDirectStrategy>,
+    {
+        self.gpu_direct_strategy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for GPUDirectConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.GPUDirectConfig"
+    }
+}
+
+/// Defines additional types related to [GPUDirectConfig].
+pub mod gpu_direct_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Option for GPU direct Strategies
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum GPUDirectStrategy {
+        /// Default value. No GPU Direct strategy is enabled on the node.
+        Unspecified,
+        /// GPUDirect-RDMA on A3 Ultra, and A4 machine types
+        Rdma,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [GPUDirectStrategy::value] or
+        /// [GPUDirectStrategy::name].
+        UnknownValue(gpu_direct_strategy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod gpu_direct_strategy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl GPUDirectStrategy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Rdma => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("GPU_DIRECT_STRATEGY_UNSPECIFIED"),
+                Self::Rdma => std::option::Option::Some("RDMA"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for GPUDirectStrategy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for GPUDirectStrategy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for GPUDirectStrategy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                2 => Self::Rdma,
+                _ => Self::UnknownValue(gpu_direct_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for GPUDirectStrategy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "GPU_DIRECT_STRATEGY_UNSPECIFIED" => Self::Unspecified,
+                "RDMA" => Self::Rdma,
+                _ => Self::UnknownValue(gpu_direct_strategy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for GPUDirectStrategy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Rdma => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for GPUDirectStrategy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<GPUDirectStrategy>::new(
+                ".google.container.v1.GPUDirectConfig.GPUDirectStrategy",
+            ))
+        }
+    }
+}
+
 /// NotificationConfig is the configuration of notifications.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -32792,6 +35241,10 @@ pub struct UpgradeInfoEvent {
     /// The type of the event.
     pub event_type: crate::model::upgrade_info_event::EventType,
 
+    /// The information about the disruption event. This field is only populated
+    /// when event_type is DISRUPTION_EVENT.
+    pub disruption_event: std::option::Option<crate::model::DisruptionEvent>,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -33044,6 +35497,39 @@ impl UpgradeInfoEvent {
         self.event_type = v.into();
         self
     }
+
+    /// Sets the value of [disruption_event][crate::model::UpgradeInfoEvent::disruption_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use google_cloud_container_v1::model::DisruptionEvent;
+    /// let x = UpgradeInfoEvent::new().set_disruption_event(DisruptionEvent::default()/* use setters */);
+    /// ```
+    pub fn set_disruption_event<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DisruptionEvent>,
+    {
+        self.disruption_event = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disruption_event][crate::model::UpgradeInfoEvent::disruption_event].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::UpgradeInfoEvent;
+    /// use google_cloud_container_v1::model::DisruptionEvent;
+    /// let x = UpgradeInfoEvent::new().set_or_clear_disruption_event(Some(DisruptionEvent::default()/* use setters */));
+    /// let x = UpgradeInfoEvent::new().set_or_clear_disruption_event(None::<DisruptionEvent>);
+    /// ```
+    pub fn set_or_clear_disruption_event<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DisruptionEvent>,
+    {
+        self.disruption_event = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for UpgradeInfoEvent {
@@ -33232,6 +35718,8 @@ pub mod upgrade_info_event {
         CosMilestoneVersionUpdate,
         /// UPGRADE_LIFECYCLE indicates the event is about the upgrade lifecycle.
         UpgradeLifecycle,
+        /// DISRUPTION_EVENT indicates the event is about the disruption.
+        DisruptionEvent,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [EventType::value] or
@@ -33258,6 +35746,7 @@ pub mod upgrade_info_event {
                 Self::EndOfSupport => std::option::Option::Some(1),
                 Self::CosMilestoneVersionUpdate => std::option::Option::Some(2),
                 Self::UpgradeLifecycle => std::option::Option::Some(3),
+                Self::DisruptionEvent => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -33274,6 +35763,7 @@ pub mod upgrade_info_event {
                     std::option::Option::Some("COS_MILESTONE_VERSION_UPDATE")
                 }
                 Self::UpgradeLifecycle => std::option::Option::Some("UPGRADE_LIFECYCLE"),
+                Self::DisruptionEvent => std::option::Option::Some("DISRUPTION_EVENT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -33299,6 +35789,7 @@ pub mod upgrade_info_event {
                 1 => Self::EndOfSupport,
                 2 => Self::CosMilestoneVersionUpdate,
                 3 => Self::UpgradeLifecycle,
+                4 => Self::DisruptionEvent,
                 _ => Self::UnknownValue(event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -33314,6 +35805,7 @@ pub mod upgrade_info_event {
                 "END_OF_SUPPORT" => Self::EndOfSupport,
                 "COS_MILESTONE_VERSION_UPDATE" => Self::CosMilestoneVersionUpdate,
                 "UPGRADE_LIFECYCLE" => Self::UpgradeLifecycle,
+                "DISRUPTION_EVENT" => Self::DisruptionEvent,
                 _ => Self::UnknownValue(event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -33331,6 +35823,7 @@ pub mod upgrade_info_event {
                 Self::EndOfSupport => serializer.serialize_i32(1),
                 Self::CosMilestoneVersionUpdate => serializer.serialize_i32(2),
                 Self::UpgradeLifecycle => serializer.serialize_i32(3),
+                Self::DisruptionEvent => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -33343,6 +35836,321 @@ pub mod upgrade_info_event {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
                 ".google.container.v1.UpgradeInfoEvent.EventType",
+            ))
+        }
+    }
+}
+
+/// DisruptionEvent is a notification sent to customers about the disruption
+/// event of a resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DisruptionEvent {
+    /// The type of the disruption event.
+    pub disruption_type: crate::model::disruption_event::DisruptionType,
+
+    /// The node whose drain is blocked by PDB. This field is set for both
+    /// POD_PDB_VIOLATION and POD_NOT_ENOUGH_PDB event.
+    pub pdb_blocked_node: std::string::String,
+
+    /// The pods whose evictions are blocked by PDB. This field is set for
+    /// both POD_PDB_VIOLATION and POD_NOT_ENOUGH_PDB event.
+    pub pdb_blocked_pod: std::vec::Vec<crate::model::disruption_event::PdbBlockedPod>,
+
+    /// The timeout in seconds for which the node drain is blocked by PDB.
+    /// After this timeout, pods are forcefully evicted.
+    /// This field is only populated when event_type is
+    /// POD_PDB_VIOLATION.
+    pub pdb_violation_timeout: std::option::Option<wkt::Duration>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DisruptionEvent {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [disruption_type][crate::model::DisruptionEvent::disruption_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionEvent;
+    /// use google_cloud_container_v1::model::disruption_event::DisruptionType;
+    /// let x0 = DisruptionEvent::new().set_disruption_type(DisruptionType::PodNotEnoughPdb);
+    /// let x1 = DisruptionEvent::new().set_disruption_type(DisruptionType::PodPdbViolation);
+    /// ```
+    pub fn set_disruption_type<
+        T: std::convert::Into<crate::model::disruption_event::DisruptionType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.disruption_type = v.into();
+        self
+    }
+
+    /// Sets the value of [pdb_blocked_node][crate::model::DisruptionEvent::pdb_blocked_node].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionEvent;
+    /// let x = DisruptionEvent::new().set_pdb_blocked_node("example");
+    /// ```
+    pub fn set_pdb_blocked_node<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.pdb_blocked_node = v.into();
+        self
+    }
+
+    /// Sets the value of [pdb_blocked_pod][crate::model::DisruptionEvent::pdb_blocked_pod].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionEvent;
+    /// use google_cloud_container_v1::model::disruption_event::PdbBlockedPod;
+    /// let x = DisruptionEvent::new()
+    ///     .set_pdb_blocked_pod([
+    ///         PdbBlockedPod::default()/* use setters */,
+    ///         PdbBlockedPod::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_pdb_blocked_pod<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::disruption_event::PdbBlockedPod>,
+    {
+        use std::iter::Iterator;
+        self.pdb_blocked_pod = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [pdb_violation_timeout][crate::model::DisruptionEvent::pdb_violation_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionEvent;
+    /// use wkt::Duration;
+    /// let x = DisruptionEvent::new().set_pdb_violation_timeout(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_pdb_violation_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.pdb_violation_timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pdb_violation_timeout][crate::model::DisruptionEvent::pdb_violation_timeout].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::DisruptionEvent;
+    /// use wkt::Duration;
+    /// let x = DisruptionEvent::new().set_or_clear_pdb_violation_timeout(Some(Duration::default()/* use setters */));
+    /// let x = DisruptionEvent::new().set_or_clear_pdb_violation_timeout(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_pdb_violation_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.pdb_violation_timeout = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DisruptionEvent {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.DisruptionEvent"
+    }
+}
+
+/// Defines additional types related to [DisruptionEvent].
+pub mod disruption_event {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The namespace/name of the pod whose eviction is blocked by PDB.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct PdbBlockedPod {
+        /// The namespace of the pod.
+        pub namespace: std::string::String,
+
+        /// The name of the pod.
+        pub name: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PdbBlockedPod {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [namespace][crate::model::disruption_event::PdbBlockedPod::namespace].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::disruption_event::PdbBlockedPod;
+        /// let x = PdbBlockedPod::new().set_namespace("example");
+        /// ```
+        pub fn set_namespace<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.namespace = v.into();
+            self
+        }
+
+        /// Sets the value of [name][crate::model::disruption_event::PdbBlockedPod::name].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_container_v1::model::disruption_event::PdbBlockedPod;
+        /// let x = PdbBlockedPod::new().set_name("example");
+        /// ```
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PdbBlockedPod {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.container.v1.DisruptionEvent.PdbBlockedPod"
+        }
+    }
+
+    /// The type of the disruption event.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum DisruptionType {
+        /// DISRUPTION_TYPE_UNSPECIFIED indicates the disruption type is unspecified.
+        Unspecified,
+        /// POD_NOT_ENOUGH_PDB indicates there are still running pods
+        /// on the node during node drain because their evictions are blocked by PDB.
+        PodNotEnoughPdb,
+        /// POD_PDB_VIOLATION indicates that there are force pod
+        /// evictions during node drain which violate the PDB.
+        PodPdbViolation,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [DisruptionType::value] or
+        /// [DisruptionType::name].
+        UnknownValue(disruption_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod disruption_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl DisruptionType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PodNotEnoughPdb => std::option::Option::Some(1),
+                Self::PodPdbViolation => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("DISRUPTION_TYPE_UNSPECIFIED"),
+                Self::PodNotEnoughPdb => std::option::Option::Some("POD_NOT_ENOUGH_PDB"),
+                Self::PodPdbViolation => std::option::Option::Some("POD_PDB_VIOLATION"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for DisruptionType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for DisruptionType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for DisruptionType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PodNotEnoughPdb,
+                2 => Self::PodPdbViolation,
+                _ => Self::UnknownValue(disruption_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for DisruptionType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "DISRUPTION_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "POD_NOT_ENOUGH_PDB" => Self::PodNotEnoughPdb,
+                "POD_PDB_VIOLATION" => Self::PodPdbViolation,
+                _ => Self::UnknownValue(disruption_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for DisruptionType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PodNotEnoughPdb => serializer.serialize_i32(1),
+                Self::PodPdbViolation => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for DisruptionType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<DisruptionType>::new(
+                ".google.container.v1.DisruptionEvent.DisruptionType",
             ))
         }
     }
@@ -39162,6 +41970,207 @@ pub mod network_tier_config {
     }
 }
 
+/// ManagedOpenTelemetryConfig is the configuration for the GKE Managed
+/// OpenTelemetry pipeline.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ManagedOpenTelemetryConfig {
+    /// Scope of the Managed OpenTelemetry pipeline.
+    pub scope: std::option::Option<crate::model::managed_open_telemetry_config::Scope>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ManagedOpenTelemetryConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope][crate::model::ManagedOpenTelemetryConfig::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// use google_cloud_container_v1::model::managed_open_telemetry_config::Scope;
+    /// let x0 = ManagedOpenTelemetryConfig::new().set_scope(Scope::None);
+    /// let x1 = ManagedOpenTelemetryConfig::new().set_scope(Scope::CollectionAndInstrumentationComponents);
+    /// ```
+    pub fn set_scope<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::managed_open_telemetry_config::Scope>,
+    {
+        self.scope = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [scope][crate::model::ManagedOpenTelemetryConfig::scope].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_container_v1::model::ManagedOpenTelemetryConfig;
+    /// use google_cloud_container_v1::model::managed_open_telemetry_config::Scope;
+    /// let x0 = ManagedOpenTelemetryConfig::new().set_or_clear_scope(Some(Scope::None));
+    /// let x1 = ManagedOpenTelemetryConfig::new().set_or_clear_scope(Some(Scope::CollectionAndInstrumentationComponents));
+    /// let x_none = ManagedOpenTelemetryConfig::new().set_or_clear_scope(None::<Scope>);
+    /// ```
+    pub fn set_or_clear_scope<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::managed_open_telemetry_config::Scope>,
+    {
+        self.scope = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ManagedOpenTelemetryConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ManagedOpenTelemetryConfig"
+    }
+}
+
+/// Defines additional types related to [ManagedOpenTelemetryConfig].
+pub mod managed_open_telemetry_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Scope is the scope of the Managed OpenTelemetry pipeline.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// SCOPE_UNSPECIFIED is when the scope is not set.
+        Unspecified,
+        /// NONE is used to disable the Managed OpenTelemetry pipeline.
+        None,
+        /// COLLECTION_AND_INSTRUMENTATION_COMPONENTS is used to enable the Managed
+        /// OpenTelemetry pipeline for collection and instrumentation components.
+        CollectionAndInstrumentationComponents,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Scope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::CollectionAndInstrumentationComponents => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCOPE_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::CollectionAndInstrumentationComponents => {
+                    std::option::Option::Some("COLLECTION_AND_INSTRUMENTATION_COMPONENTS")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::CollectionAndInstrumentationComponents,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "COLLECTION_AND_INSTRUMENTATION_COMPONENTS" => {
+                    Self::CollectionAndInstrumentationComponents
+                }
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::CollectionAndInstrumentationComponents => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.container.v1.ManagedOpenTelemetryConfig.Scope",
+            ))
+        }
+    }
+}
+
 /// PrivateIPv6GoogleAccess controls whether and how the pods can communicate
 /// with Google Services through gRPC over IPv6.
 ///
@@ -39607,6 +42616,10 @@ pub enum NodePoolUpdateStrategy {
     /// SURGE is the traditional way of upgrade a node pool.
     /// max_surge and max_unavailable determines the level of upgrade parallelism.
     Surge,
+    /// SHORT_LIVED is the dedicated upgrade strategy for
+    /// QueuedProvisioning and flex start nodepools scaled up only by enqueueing to
+    /// the Dynamic Workload Scheduler (DWS).
+    ShortLived,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [NodePoolUpdateStrategy::value] or
@@ -39632,6 +42645,7 @@ impl NodePoolUpdateStrategy {
             Self::Unspecified => std::option::Option::Some(0),
             Self::BlueGreen => std::option::Option::Some(2),
             Self::Surge => std::option::Option::Some(3),
+            Self::ShortLived => std::option::Option::Some(5),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -39645,6 +42659,7 @@ impl NodePoolUpdateStrategy {
             Self::Unspecified => std::option::Option::Some("NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED"),
             Self::BlueGreen => std::option::Option::Some("BLUE_GREEN"),
             Self::Surge => std::option::Option::Some("SURGE"),
+            Self::ShortLived => std::option::Option::Some("SHORT_LIVED"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -39669,6 +42684,7 @@ impl std::convert::From<i32> for NodePoolUpdateStrategy {
             0 => Self::Unspecified,
             2 => Self::BlueGreen,
             3 => Self::Surge,
+            5 => Self::ShortLived,
             _ => Self::UnknownValue(node_pool_update_strategy::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -39683,6 +42699,7 @@ impl std::convert::From<&str> for NodePoolUpdateStrategy {
             "NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED" => Self::Unspecified,
             "BLUE_GREEN" => Self::BlueGreen,
             "SURGE" => Self::Surge,
+            "SHORT_LIVED" => Self::ShortLived,
             _ => Self::UnknownValue(node_pool_update_strategy::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -39699,6 +42716,7 @@ impl serde::ser::Serialize for NodePoolUpdateStrategy {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::BlueGreen => serializer.serialize_i32(2),
             Self::Surge => serializer.serialize_i32(3),
+            Self::ShortLived => serializer.serialize_i32(5),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

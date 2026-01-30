@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! The token cache
+
 use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};

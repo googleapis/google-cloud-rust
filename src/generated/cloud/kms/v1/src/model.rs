@@ -2390,6 +2390,3683 @@ impl wkt::message::Message for VerifyConnectivityResponse {
     }
 }
 
+/// A [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+/// represents a single-tenant HSM instance. It can be used for creating
+/// [CryptoKeys][google.cloud.kms.v1.CryptoKey] with a
+/// [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of
+/// [HSM_SINGLE_TENANT][CryptoKeyVersion.ProtectionLevel.HSM_SINGLE_TENANT], as
+/// well as performing cryptographic operations using keys created within the
+/// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+///
+/// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+/// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+/// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SingleTenantHsmInstance {
+    /// Identifier. The resource name for this
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] in
+    /// the format `projects/*/locations/*/singleTenantHsmInstances/*`.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub name: std::string::String,
+
+    /// Output only. The time at which the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] was
+    /// created.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub state: crate::model::single_tenant_hsm_instance::State,
+
+    /// Required. The quorum auth configuration for the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub quorum_auth: std::option::Option<crate::model::single_tenant_hsm_instance::QuorumAuth>,
+
+    /// Output only. The time at which the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] was
+    /// deleted.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The system-defined duration that an instance can remain
+    /// unrefreshed until it is automatically disabled. This will have a value of
+    /// 120 days.
+    pub unrefreshed_duration_until_disable: std::option::Option<wkt::Duration>,
+
+    /// Output only. The time at which the instance will be automatically disabled
+    /// if not refreshed. This field is updated upon creation and after each
+    /// successful refresh operation and enable. A
+    /// [RefreshSingleTenantHsmInstance][] operation must be made via a
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// before this time otherwise the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] will
+    /// become disabled.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub disable_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SingleTenantHsmInstance {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SingleTenantHsmInstance::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstance::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SingleTenantHsmInstance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SingleTenantHsmInstance::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SingleTenantHsmInstance::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance::State;
+    /// let x0 = SingleTenantHsmInstance::new().set_state(State::Creating);
+    /// let x1 = SingleTenantHsmInstance::new().set_state(State::PendingTwoFactorAuthRegistration);
+    /// let x2 = SingleTenantHsmInstance::new().set_state(State::Active);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::single_tenant_hsm_instance::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [quorum_auth][crate::model::SingleTenantHsmInstance::quorum_auth].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance::QuorumAuth;
+    /// let x = SingleTenantHsmInstance::new().set_quorum_auth(QuorumAuth::default()/* use setters */);
+    /// ```
+    pub fn set_quorum_auth<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::single_tenant_hsm_instance::QuorumAuth>,
+    {
+        self.quorum_auth = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [quorum_auth][crate::model::SingleTenantHsmInstance::quorum_auth].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance::QuorumAuth;
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_quorum_auth(Some(QuorumAuth::default()/* use setters */));
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_quorum_auth(None::<QuorumAuth>);
+    /// ```
+    pub fn set_or_clear_quorum_auth<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::single_tenant_hsm_instance::QuorumAuth>,
+    {
+        self.quorum_auth = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::SingleTenantHsmInstance::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::SingleTenantHsmInstance::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [unrefreshed_duration_until_disable][crate::model::SingleTenantHsmInstance::unrefreshed_duration_until_disable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Duration;
+    /// let x = SingleTenantHsmInstance::new().set_unrefreshed_duration_until_disable(Duration::default()/* use setters */);
+    /// ```
+    pub fn set_unrefreshed_duration_until_disable<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.unrefreshed_duration_until_disable = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [unrefreshed_duration_until_disable][crate::model::SingleTenantHsmInstance::unrefreshed_duration_until_disable].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Duration;
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_unrefreshed_duration_until_disable(Some(Duration::default()/* use setters */));
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_unrefreshed_duration_until_disable(None::<Duration>);
+    /// ```
+    pub fn set_or_clear_unrefreshed_duration_until_disable<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.unrefreshed_duration_until_disable = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disable_time][crate::model::SingleTenantHsmInstance::disable_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_disable_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_disable_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.disable_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disable_time][crate::model::SingleTenantHsmInstance::disable_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_disable_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstance::new().set_or_clear_disable_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_disable_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.disable_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for SingleTenantHsmInstance {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstance"
+    }
+}
+
+/// Defines additional types related to [SingleTenantHsmInstance].
+pub mod single_tenant_hsm_instance {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for M of N quorum auth.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QuorumAuth {
+        /// Required. The total number of approvers. This is the N value used
+        /// for M of N quorum auth. Must be greater than or equal to 3 and less than
+        /// or equal to 16.
+        pub total_approver_count: i32,
+
+        /// Output only. The required numbers of approvers. The M value used for M of
+        /// N quorum auth. Must be greater than or equal to 2 and less than or equal
+        /// to
+        /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+        ///
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+        pub required_approver_count: i32,
+
+        /// Output only. The public keys associated with the 2FA keys for M of N
+        /// quorum auth.
+        pub two_factor_public_key_pems: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QuorumAuth {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [total_approver_count][crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance::QuorumAuth;
+        /// let x = QuorumAuth::new().set_total_approver_count(42);
+        /// ```
+        pub fn set_total_approver_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.total_approver_count = v.into();
+            self
+        }
+
+        /// Sets the value of [required_approver_count][crate::model::single_tenant_hsm_instance::QuorumAuth::required_approver_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance::QuorumAuth;
+        /// let x = QuorumAuth::new().set_required_approver_count(42);
+        /// ```
+        pub fn set_required_approver_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.required_approver_count = v.into();
+            self
+        }
+
+        /// Sets the value of [two_factor_public_key_pems][crate::model::single_tenant_hsm_instance::QuorumAuth::two_factor_public_key_pems].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance::QuorumAuth;
+        /// let x = QuorumAuth::new().set_two_factor_public_key_pems(["a", "b", "c"]);
+        /// ```
+        pub fn set_two_factor_public_key_pems<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.two_factor_public_key_pems = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for QuorumAuth {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth"
+        }
+    }
+
+    /// The set of states of a
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not specified.
+        Unspecified,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// being created.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Creating,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// waiting for 2FA keys to be registered. This can be done by calling
+        /// [CreateSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal]
+        /// with the [RegisterTwoFactorAuthKeys][] operation.
+        ///
+        /// [google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::create_single_tenant_hsm_instance_proposal
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        PendingTwoFactorAuthRegistration,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// ready to use. A
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state
+        /// for all [CryptoKeys][google.cloud.kms.v1.CryptoKey] created within the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] to
+        /// be usable.
+        ///
+        /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+        Active,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// being disabled.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Disabling,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// disabled.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Disabled,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] is
+        /// being deleted. Requests to the instance will be rejected in this state.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Deleting,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// has been deleted.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Deleted,
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// has failed and can not be recovered or used.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        Failed,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::PendingTwoFactorAuthRegistration => std::option::Option::Some(2),
+                Self::Active => std::option::Option::Some(3),
+                Self::Disabling => std::option::Option::Some(4),
+                Self::Disabled => std::option::Option::Some(5),
+                Self::Deleting => std::option::Option::Some(6),
+                Self::Deleted => std::option::Option::Some(7),
+                Self::Failed => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::PendingTwoFactorAuthRegistration => {
+                    std::option::Option::Some("PENDING_TWO_FACTOR_AUTH_REGISTRATION")
+                }
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Disabling => std::option::Option::Some("DISABLING"),
+                Self::Disabled => std::option::Option::Some("DISABLED"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::PendingTwoFactorAuthRegistration,
+                3 => Self::Active,
+                4 => Self::Disabling,
+                5 => Self::Disabled,
+                6 => Self::Deleting,
+                7 => Self::Deleted,
+                8 => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "PENDING_TWO_FACTOR_AUTH_REGISTRATION" => Self::PendingTwoFactorAuthRegistration,
+                "ACTIVE" => Self::Active,
+                "DISABLING" => Self::Disabling,
+                "DISABLED" => Self::Disabled,
+                "DELETING" => Self::Deleting,
+                "DELETED" => Self::Deleted,
+                "FAILED" => Self::Failed,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::PendingTwoFactorAuthRegistration => serializer.serialize_i32(2),
+                Self::Active => serializer.serialize_i32(3),
+                Self::Disabling => serializer.serialize_i32(4),
+                Self::Disabled => serializer.serialize_i32(5),
+                Self::Deleting => serializer.serialize_i32(6),
+                Self::Deleted => serializer.serialize_i32(7),
+                Self::Failed => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.kms.v1.SingleTenantHsmInstance.State",
+            ))
+        }
+    }
+}
+
+/// A
+/// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+/// represents a proposal to perform an operation on a
+/// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+///
+/// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+/// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SingleTenantHsmInstanceProposal {
+    /// Identifier. The resource name for this
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] in
+    /// the format `projects/*/locations/*/singleTenantHsmInstances/*/proposals/*`.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub name: std::string::String,
+
+    /// Output only. The time at which the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// was created.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The state of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub state: crate::model::single_tenant_hsm_instance_proposal::State,
+
+    /// Output only. The root cause of the most recent failure. Only present if
+    /// [state][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.state] is
+    /// [FAILED][SingleTenantHsmInstanceProposal.FAILED].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.state]: crate::model::SingleTenantHsmInstanceProposal::state
+    pub failure_reason: std::string::String,
+
+    /// Output only. The time at which the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// was deleted.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The time at which the soft-deleted
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// will be permanently purged. This field is only populated
+    /// when the state is DELETED and will be set a time after expiration of the
+    /// proposal, i.e. >= expire_time or (create_time + ttl).
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub purge_time: std::option::Option<wkt::Timestamp>,
+
+    /// The approval parameters for the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    /// The type of parameters is determined by the operation being proposed.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub approval_parameters:
+        std::option::Option<crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters>,
+
+    /// The expiration of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    /// If not set, the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// will expire in 1 day. The maximum expire time is 7 days. The minimum expire
+    /// time is 5 minutes.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub expiration:
+        std::option::Option<crate::model::single_tenant_hsm_instance_proposal::Expiration>,
+
+    /// The operation to perform on the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub operation:
+        std::option::Option<crate::model::single_tenant_hsm_instance_proposal::Operation>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SingleTenantHsmInstanceProposal {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SingleTenantHsmInstanceProposal::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::SingleTenantHsmInstanceProposal::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_create_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::SingleTenantHsmInstanceProposal::create_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_create_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_create_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [state][crate::model::SingleTenantHsmInstanceProposal::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::State;
+    /// let x0 = SingleTenantHsmInstanceProposal::new().set_state(State::Creating);
+    /// let x1 = SingleTenantHsmInstanceProposal::new().set_state(State::Pending);
+    /// let x2 = SingleTenantHsmInstanceProposal::new().set_state(State::Approved);
+    /// ```
+    pub fn set_state<
+        T: std::convert::Into<crate::model::single_tenant_hsm_instance_proposal::State>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [failure_reason][crate::model::SingleTenantHsmInstanceProposal::failure_reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_failure_reason("example");
+    /// ```
+    pub fn set_failure_reason<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.failure_reason = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_time][crate::model::SingleTenantHsmInstanceProposal::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_delete_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_delete_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [delete_time][crate::model::SingleTenantHsmInstanceProposal::delete_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_delete_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_delete_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_delete_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [purge_time][crate::model::SingleTenantHsmInstanceProposal::purge_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_purge_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_purge_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.purge_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [purge_time][crate::model::SingleTenantHsmInstanceProposal::purge_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_purge_time(Some(Timestamp::default()/* use setters */));
+    /// let x = SingleTenantHsmInstanceProposal::new().set_or_clear_purge_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_purge_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.purge_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [approval_parameters][crate::model::SingleTenantHsmInstanceProposal::approval_parameters].
+    ///
+    /// Note that all the setters affecting `approval_parameters` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::QuorumParameters;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_approval_parameters(Some(
+    ///     google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::ApprovalParameters::QuorumParameters(QuorumParameters::default().into())));
+    /// ```
+    pub fn set_approval_parameters<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.approval_parameters = v.into();
+        self
+    }
+
+    /// The value of [approval_parameters][crate::model::SingleTenantHsmInstanceProposal::approval_parameters]
+    /// if it holds a `QuorumParameters`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn quorum_parameters(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::QuorumParameters>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.approval_parameters.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters::QuorumParameters(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [approval_parameters][crate::model::SingleTenantHsmInstanceProposal::approval_parameters]
+    /// to hold a `QuorumParameters`.
+    ///
+    /// Note that all the setters affecting `approval_parameters` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::QuorumParameters;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_quorum_parameters(QuorumParameters::default()/* use setters */);
+    /// assert!(x.quorum_parameters().is_some());
+    /// assert!(x.required_action_quorum_parameters().is_none());
+    /// ```
+    pub fn set_quorum_parameters<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::single_tenant_hsm_instance_proposal::QuorumParameters,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.approval_parameters = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters::QuorumParameters(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [approval_parameters][crate::model::SingleTenantHsmInstanceProposal::approval_parameters]
+    /// if it holds a `RequiredActionQuorumParameters`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn required_action_quorum_parameters(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.approval_parameters.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters::RequiredActionQuorumParameters(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [approval_parameters][crate::model::SingleTenantHsmInstanceProposal::approval_parameters]
+    /// to hold a `RequiredActionQuorumParameters`.
+    ///
+    /// Note that all the setters affecting `approval_parameters` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_required_action_quorum_parameters(RequiredActionQuorumParameters::default()/* use setters */);
+    /// assert!(x.required_action_quorum_parameters().is_some());
+    /// assert!(x.quorum_parameters().is_none());
+    /// ```
+    pub fn set_required_action_quorum_parameters<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters>>>(mut self, v: T) -> Self{
+        self.approval_parameters = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::ApprovalParameters::RequiredActionQuorumParameters(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// Sets the value of [expiration][crate::model::SingleTenantHsmInstanceProposal::expiration].
+    ///
+    /// Note that all the setters affecting `expiration` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_expiration(Some(
+    ///     google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::Expiration::ExpireTime(Timestamp::default().into())));
+    /// ```
+    pub fn set_expiration<
+        T: std::convert::Into<
+                std::option::Option<crate::model::single_tenant_hsm_instance_proposal::Expiration>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expiration = v.into();
+        self
+    }
+
+    /// The value of [expiration][crate::model::SingleTenantHsmInstanceProposal::expiration]
+    /// if it holds a `ExpireTime`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn expire_time(&self) -> std::option::Option<&std::boxed::Box<wkt::Timestamp>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Expiration::ExpireTime(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [expiration][crate::model::SingleTenantHsmInstanceProposal::expiration]
+    /// to hold a `ExpireTime`.
+    ///
+    /// Note that all the setters affecting `expiration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Timestamp;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_expire_time(Timestamp::default()/* use setters */);
+    /// assert!(x.expire_time().is_some());
+    /// assert!(x.ttl().is_none());
+    /// ```
+    pub fn set_expire_time<T: std::convert::Into<std::boxed::Box<wkt::Timestamp>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.expiration = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Expiration::ExpireTime(v.into()),
+        );
+        self
+    }
+
+    /// The value of [expiration][crate::model::SingleTenantHsmInstanceProposal::expiration]
+    /// if it holds a `Ttl`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ttl(&self) -> std::option::Option<&std::boxed::Box<wkt::Duration>> {
+        #[allow(unreachable_patterns)]
+        self.expiration.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Expiration::Ttl(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [expiration][crate::model::SingleTenantHsmInstanceProposal::expiration]
+    /// to hold a `Ttl`.
+    ///
+    /// Note that all the setters affecting `expiration` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use wkt::Duration;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_ttl(Duration::default()/* use setters */);
+    /// assert!(x.ttl().is_some());
+    /// assert!(x.expire_time().is_none());
+    /// ```
+    pub fn set_ttl<T: std::convert::Into<std::boxed::Box<wkt::Duration>>>(mut self, v: T) -> Self {
+        self.expiration = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Expiration::Ttl(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation].
+    ///
+    /// Note that all the setters affecting `operation` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_operation(Some(
+    ///     google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::Operation::RegisterTwoFactorAuthKeys(RegisterTwoFactorAuthKeys::default().into())));
+    /// ```
+    pub fn set_operation<
+        T: std::convert::Into<
+                std::option::Option<crate::model::single_tenant_hsm_instance_proposal::Operation>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = v.into();
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `RegisterTwoFactorAuthKeys`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn register_two_factor_auth_keys(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RegisterTwoFactorAuthKeys(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `RegisterTwoFactorAuthKeys`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_register_two_factor_auth_keys(RegisterTwoFactorAuthKeys::default()/* use setters */);
+    /// assert!(x.register_two_factor_auth_keys().is_some());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_register_two_factor_auth_keys<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RegisterTwoFactorAuthKeys(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `DisableSingleTenantHsmInstance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disable_single_tenant_hsm_instance(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::DisableSingleTenantHsmInstance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `DisableSingleTenantHsmInstance`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_disable_single_tenant_hsm_instance(DisableSingleTenantHsmInstance::default()/* use setters */);
+    /// assert!(x.disable_single_tenant_hsm_instance().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_disable_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::DisableSingleTenantHsmInstance(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `EnableSingleTenantHsmInstance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn enable_single_tenant_hsm_instance(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::EnableSingleTenantHsmInstance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `EnableSingleTenantHsmInstance`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_enable_single_tenant_hsm_instance(EnableSingleTenantHsmInstance::default()/* use setters */);
+    /// assert!(x.enable_single_tenant_hsm_instance().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_enable_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::EnableSingleTenantHsmInstance(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `DeleteSingleTenantHsmInstance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn delete_single_tenant_hsm_instance(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::DeleteSingleTenantHsmInstance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `DeleteSingleTenantHsmInstance`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_delete_single_tenant_hsm_instance(DeleteSingleTenantHsmInstance::default()/* use setters */);
+    /// assert!(x.delete_single_tenant_hsm_instance().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_delete_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::DeleteSingleTenantHsmInstance(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `AddQuorumMember`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn add_quorum_member(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::AddQuorumMember>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::AddQuorumMember(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `AddQuorumMember`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::AddQuorumMember;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_add_quorum_member(AddQuorumMember::default()/* use setters */);
+    /// assert!(x.add_quorum_member().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_add_quorum_member<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::AddQuorumMember>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::AddQuorumMember(v.into()),
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `RemoveQuorumMember`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn remove_quorum_member(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RemoveQuorumMember(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `RemoveQuorumMember`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_remove_quorum_member(RemoveQuorumMember::default()/* use setters */);
+    /// assert!(x.remove_quorum_member().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_none());
+    /// ```
+    pub fn set_remove_quorum_member<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RemoveQuorumMember(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// if it holds a `RefreshSingleTenantHsmInstance`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn refresh_single_tenant_hsm_instance(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.operation.as_ref().and_then(|v| match v {
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RefreshSingleTenantHsmInstance(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [operation][crate::model::SingleTenantHsmInstanceProposal::operation]
+    /// to hold a `RefreshSingleTenantHsmInstance`.
+    ///
+    /// Note that all the setters affecting `operation` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance;
+    /// let x = SingleTenantHsmInstanceProposal::new().set_refresh_single_tenant_hsm_instance(RefreshSingleTenantHsmInstance::default()/* use setters */);
+    /// assert!(x.refresh_single_tenant_hsm_instance().is_some());
+    /// assert!(x.register_two_factor_auth_keys().is_none());
+    /// assert!(x.disable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.enable_single_tenant_hsm_instance().is_none());
+    /// assert!(x.delete_single_tenant_hsm_instance().is_none());
+    /// assert!(x.add_quorum_member().is_none());
+    /// assert!(x.remove_quorum_member().is_none());
+    /// ```
+    pub fn set_refresh_single_tenant_hsm_instance<T: std::convert::Into<std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance>>>(mut self, v: T) -> Self{
+        self.operation = std::option::Option::Some(
+            crate::model::single_tenant_hsm_instance_proposal::Operation::RefreshSingleTenantHsmInstance(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for SingleTenantHsmInstanceProposal {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal"
+    }
+}
+
+/// Defines additional types related to [SingleTenantHsmInstanceProposal].
+pub mod single_tenant_hsm_instance_proposal {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Parameters of quorum approval for the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QuorumParameters {
+        /// Output only. The required numbers of approvers. This is the M value used
+        /// for M of N quorum auth. It is less than the number of public keys.
+        pub required_approver_count: i32,
+
+        /// Output only. The challenges to be signed by 2FA keys for quorum auth. M
+        /// of N of these challenges are required to be signed to approve the
+        /// operation.
+        pub challenges: std::vec::Vec<crate::model::Challenge>,
+
+        /// Output only. The public keys associated with the 2FA keys that have
+        /// already approved the
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// by signing the challenge.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        pub approved_two_factor_public_key_pems: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QuorumParameters {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [required_approver_count][crate::model::single_tenant_hsm_instance_proposal::QuorumParameters::required_approver_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::QuorumParameters;
+        /// let x = QuorumParameters::new().set_required_approver_count(42);
+        /// ```
+        pub fn set_required_approver_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.required_approver_count = v.into();
+            self
+        }
+
+        /// Sets the value of [challenges][crate::model::single_tenant_hsm_instance_proposal::QuorumParameters::challenges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::QuorumParameters;
+        /// use google_cloud_kms_v1::model::Challenge;
+        /// let x = QuorumParameters::new()
+        ///     .set_challenges([
+        ///         Challenge::default()/* use setters */,
+        ///         Challenge::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_challenges<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Challenge>,
+        {
+            use std::iter::Iterator;
+            self.challenges = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [approved_two_factor_public_key_pems][crate::model::single_tenant_hsm_instance_proposal::QuorumParameters::approved_two_factor_public_key_pems].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::QuorumParameters;
+        /// let x = QuorumParameters::new().set_approved_two_factor_public_key_pems(["a", "b", "c"]);
+        /// ```
+        pub fn set_approved_two_factor_public_key_pems<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.approved_two_factor_public_key_pems = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for QuorumParameters {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters"
+        }
+    }
+
+    /// Parameters for an approval that has both required challenges and a
+    /// quorum.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RequiredActionQuorumParameters {
+        /// Output only. A list of specific challenges that must be signed.
+        /// For some operations, this will contain a single challenge.
+        pub required_challenges: std::vec::Vec<crate::model::Challenge>,
+
+        /// Output only. The required number of quorum approvers. This is the M value
+        /// used for M of N quorum auth. It is less than the number of public keys.
+        pub required_approver_count: i32,
+
+        /// Output only. The challenges to be signed by 2FA keys for quorum auth. M
+        /// of N of these challenges are required to be signed to approve the
+        /// operation.
+        pub quorum_challenges: std::vec::Vec<crate::model::Challenge>,
+
+        /// Output only. The public keys associated with the 2FA keys that have
+        /// already approved the
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// by signing the challenge.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        pub approved_two_factor_public_key_pems: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RequiredActionQuorumParameters {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [required_challenges][crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters::required_challenges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters;
+        /// use google_cloud_kms_v1::model::Challenge;
+        /// let x = RequiredActionQuorumParameters::new()
+        ///     .set_required_challenges([
+        ///         Challenge::default()/* use setters */,
+        ///         Challenge::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_required_challenges<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Challenge>,
+        {
+            use std::iter::Iterator;
+            self.required_challenges = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [required_approver_count][crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters::required_approver_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters;
+        /// let x = RequiredActionQuorumParameters::new().set_required_approver_count(42);
+        /// ```
+        pub fn set_required_approver_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.required_approver_count = v.into();
+            self
+        }
+
+        /// Sets the value of [quorum_challenges][crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters::quorum_challenges].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters;
+        /// use google_cloud_kms_v1::model::Challenge;
+        /// let x = RequiredActionQuorumParameters::new()
+        ///     .set_quorum_challenges([
+        ///         Challenge::default()/* use setters */,
+        ///         Challenge::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_quorum_challenges<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::Challenge>,
+        {
+            use std::iter::Iterator;
+            self.quorum_challenges = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [approved_two_factor_public_key_pems][crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters::approved_two_factor_public_key_pems].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters;
+        /// let x = RequiredActionQuorumParameters::new().set_approved_two_factor_public_key_pems(["a", "b", "c"]);
+        /// ```
+        pub fn set_approved_two_factor_public_key_pems<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.approved_two_factor_public_key_pems = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RequiredActionQuorumParameters {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters"
+        }
+    }
+
+    /// Register 2FA keys for the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// This operation requires all Challenges to be signed by 2FA keys. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [PENDING_TWO_FACTOR_AUTH_REGISTRATION][google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]
+    /// state to perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]: crate::model::single_tenant_hsm_instance::State::PendingTwoFactorAuthRegistration
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RegisterTwoFactorAuthKeys {
+        /// Required. The required numbers of approvers to set for the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// This is the M value used for M of N quorum auth. Must be greater than or
+        /// equal to 2 and less than or equal to
+        /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+        ///
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+        pub required_approver_count: i32,
+
+        /// Required. The public keys associated with the 2FA keys for M of N quorum
+        /// auth. Public keys must be associated with RSA 2048 keys.
+        pub two_factor_public_key_pems: std::vec::Vec<std::string::String>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RegisterTwoFactorAuthKeys {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [required_approver_count][crate::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys::required_approver_count].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys;
+        /// let x = RegisterTwoFactorAuthKeys::new().set_required_approver_count(42);
+        /// ```
+        pub fn set_required_approver_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.required_approver_count = v.into();
+            self
+        }
+
+        /// Sets the value of [two_factor_public_key_pems][crate::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys::two_factor_public_key_pems].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys;
+        /// let x = RegisterTwoFactorAuthKeys::new().set_two_factor_public_key_pems(["a", "b", "c"]);
+        /// ```
+        pub fn set_two_factor_public_key_pems<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.two_factor_public_key_pems = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RegisterTwoFactorAuthKeys {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RegisterTwoFactorAuthKeys"
+        }
+    }
+
+    /// Disable the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state to
+    /// perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DisableSingleTenantHsmInstance {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DisableSingleTenantHsmInstance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for DisableSingleTenantHsmInstance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.DisableSingleTenantHsmInstance"
+        }
+    }
+
+    /// Enable the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [DISABLED][google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED]
+    /// state to perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED]: crate::model::single_tenant_hsm_instance::State::Disabled
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct EnableSingleTenantHsmInstance {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl EnableSingleTenantHsmInstance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for EnableSingleTenantHsmInstance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.EnableSingleTenantHsmInstance"
+        }
+    }
+
+    /// Delete the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// Deleting a
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] will
+    /// make all [CryptoKeys][google.cloud.kms.v1.CryptoKey] attached to the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+    /// unusable. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// not be in the
+    /// [DELETING][google.cloud.kms.v1.SingleTenantHsmInstance.State.DELETING] or
+    /// [DELETED][google.cloud.kms.v1.SingleTenantHsmInstance.State.DELETED] state
+    /// to perform this operation.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.DELETED]: crate::model::single_tenant_hsm_instance::State::Deleted
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.DELETING]: crate::model::single_tenant_hsm_instance::State::Deleting
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DeleteSingleTenantHsmInstance {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DeleteSingleTenantHsmInstance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for DeleteSingleTenantHsmInstance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.DeleteSingleTenantHsmInstance"
+        }
+    }
+
+    /// Add a quorum member to the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// This will increase the
+    /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+    /// by 1. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state to
+    /// perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct AddQuorumMember {
+        /// Required. The public key associated with the 2FA key for the new quorum
+        /// member to add. Public keys must be associated with RSA 2048 keys.
+        pub two_factor_public_key_pem: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AddQuorumMember {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [two_factor_public_key_pem][crate::model::single_tenant_hsm_instance_proposal::AddQuorumMember::two_factor_public_key_pem].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::AddQuorumMember;
+        /// let x = AddQuorumMember::new().set_two_factor_public_key_pem("example");
+        /// ```
+        pub fn set_two_factor_public_key_pem<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.two_factor_public_key_pem = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AddQuorumMember {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.AddQuorumMember"
+        }
+    }
+
+    /// Remove a quorum member from the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// This will reduce
+    /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+    /// by 1. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state to
+    /// perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RemoveQuorumMember {
+        /// Required. The public key associated with the 2FA key for the quorum
+        /// member to remove. Public keys must be associated with RSA 2048 keys.
+        pub two_factor_public_key_pem: std::string::String,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RemoveQuorumMember {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [two_factor_public_key_pem][crate::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember::two_factor_public_key_pem].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember;
+        /// let x = RemoveQuorumMember::new().set_two_factor_public_key_pem("example");
+        /// ```
+        pub fn set_two_factor_public_key_pem<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.two_factor_public_key_pem = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RemoveQuorumMember {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RemoveQuorumMember"
+        }
+    }
+
+    /// Refreshes the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    /// This operation must be performed periodically to keep the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+    /// active. This operation must be performed before
+    /// [unrefreshed_duration_until_disable][google.cloud.kms.v1.SingleTenantHsmInstance.unrefreshed_duration_until_disable]
+    /// has passed. The
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] must
+    /// be in the
+    /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state to
+    /// perform this operation.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.unrefreshed_duration_until_disable]: crate::model::SingleTenantHsmInstance::unrefreshed_duration_until_disable
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RefreshSingleTenantHsmInstance {
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RefreshSingleTenantHsmInstance {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+    }
+
+    impl wkt::message::Message for RefreshSingleTenantHsmInstance {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RefreshSingleTenantHsmInstance"
+        }
+    }
+
+    /// The set of states of a
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Not specified.
+        Unspecified,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// is being created.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Creating,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// is pending approval.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Pending,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// has been approved.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Approved,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// is being executed.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Running,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// has been executed successfully.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Succeeded,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// has failed.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Failed,
+        /// The
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// has been deleted and will be purged after the purge_time.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Pending => std::option::Option::Some(2),
+                Self::Approved => std::option::Option::Some(3),
+                Self::Running => std::option::Option::Some(4),
+                Self::Succeeded => std::option::Option::Some(5),
+                Self::Failed => std::option::Option::Some(6),
+                Self::Deleted => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Pending => std::option::Option::Some("PENDING"),
+                Self::Approved => std::option::Option::Some("APPROVED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Pending,
+                3 => Self::Approved,
+                4 => Self::Running,
+                5 => Self::Succeeded,
+                6 => Self::Failed,
+                7 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "PENDING" => Self::Pending,
+                "APPROVED" => Self::Approved,
+                "RUNNING" => Self::Running,
+                "SUCCEEDED" => Self::Succeeded,
+                "FAILED" => Self::Failed,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Pending => serializer.serialize_i32(2),
+                Self::Approved => serializer.serialize_i32(3),
+                Self::Running => serializer.serialize_i32(4),
+                Self::Succeeded => serializer.serialize_i32(5),
+                Self::Failed => serializer.serialize_i32(6),
+                Self::Deleted => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.kms.v1.SingleTenantHsmInstanceProposal.State",
+            ))
+        }
+    }
+
+    /// The approval parameters for the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    /// The type of parameters is determined by the operation being proposed.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ApprovalParameters {
+        /// Output only. The quorum approval parameters for the
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        QuorumParameters(
+            std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::QuorumParameters>,
+        ),
+        /// Output only. Parameters for an approval of a
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// that has both required challenges and a quorum.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        RequiredActionQuorumParameters(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters,
+            >,
+        ),
+    }
+
+    /// The expiration of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    /// If not set, the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// will expire in 1 day. The maximum expire time is 7 days. The minimum expire
+    /// time is 5 minutes.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Expiration {
+        /// The time at which the
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+        /// will expire if not approved and executed.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        ExpireTime(std::boxed::Box<wkt::Timestamp>),
+        /// Input only. The TTL for the
+        /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+        /// Proposals will expire after this duration.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+        Ttl(std::boxed::Box<wkt::Duration>),
+    }
+
+    /// The operation to perform on the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Operation {
+        /// Register 2FA keys for the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// This operation requires all N Challenges to be signed by 2FA keys. The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [PENDING_TWO_FACTOR_AUTH_REGISTRATION][google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]
+        /// state to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]: crate::model::single_tenant_hsm_instance::State::PendingTwoFactorAuthRegistration
+        RegisterTwoFactorAuthKeys(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys,
+            >,
+        ),
+        /// Disable the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state
+        /// to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+        DisableSingleTenantHsmInstance(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance,
+            >,
+        ),
+        /// Enable the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [DISABLED][google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED]
+        /// state to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED]: crate::model::single_tenant_hsm_instance::State::Disabled
+        EnableSingleTenantHsmInstance(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance,
+            >,
+        ),
+        /// Delete the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// Deleting a
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// will make all [CryptoKeys][google.cloud.kms.v1.CryptoKey] attached to the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// unusable. The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [DISABLED][google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED] or
+        /// [PENDING_TWO_FACTOR_AUTH_REGISTRATION][google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]
+        /// state to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.DISABLED]: crate::model::single_tenant_hsm_instance::State::Disabled
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.PENDING_TWO_FACTOR_AUTH_REGISTRATION]: crate::model::single_tenant_hsm_instance::State::PendingTwoFactorAuthRegistration
+        DeleteSingleTenantHsmInstance(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance,
+            >,
+        ),
+        /// Add a quorum member to the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// This will increase the
+        /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+        /// by 1. The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state
+        /// to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+        AddQuorumMember(
+            std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::AddQuorumMember>,
+        ),
+        /// Remove a quorum member from the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// This will reduce
+        /// [total_approver_count][google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]
+        /// by 1. The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state
+        /// to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.QuorumAuth.total_approver_count]: crate::model::single_tenant_hsm_instance::QuorumAuth::total_approver_count
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+        RemoveQuorumMember(
+            std::boxed::Box<crate::model::single_tenant_hsm_instance_proposal::RemoveQuorumMember>,
+        ),
+        /// Refreshes the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+        /// This operation must be performed periodically to keep the
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// active. This operation must be performed before
+        /// [unrefreshed_duration_until_disable][google.cloud.kms.v1.SingleTenantHsmInstance.unrefreshed_duration_until_disable]
+        /// has passed. The
+        /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+        /// must be in the
+        /// [ACTIVE][google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE] state
+        /// to perform this operation.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.State.ACTIVE]: crate::model::single_tenant_hsm_instance::State::Active
+        /// [google.cloud.kms.v1.SingleTenantHsmInstance.unrefreshed_duration_until_disable]: crate::model::SingleTenantHsmInstance::unrefreshed_duration_until_disable
+        RefreshSingleTenantHsmInstance(
+            std::boxed::Box<
+                crate::model::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance,
+            >,
+        ),
+    }
+}
+
+/// A challenge to be signed by a 2FA key.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct Challenge {
+    /// Output only. The challenge to be signed by the 2FA key indicated by the
+    /// public key.
+    pub challenge: ::bytes::Bytes,
+
+    /// Output only. The public key associated with the 2FA key that should sign
+    /// the challenge.
+    pub public_key_pem: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Challenge {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [challenge][crate::model::Challenge::challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Challenge;
+    /// let x = Challenge::new().set_challenge(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_challenge<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [public_key_pem][crate::model::Challenge::public_key_pem].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::Challenge;
+    /// let x = Challenge::new().set_public_key_pem("example");
+    /// ```
+    pub fn set_public_key_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.public_key_pem = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for Challenge {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.Challenge"
+    }
+}
+
+/// A reply to a challenge signed by a 2FA key.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ChallengeReply {
+    /// Required. The signed challenge associated with the 2FA key.
+    /// The signature must be RSASSA-PKCS1 v1.5 with a SHA256 digest.
+    pub signed_challenge: ::bytes::Bytes,
+
+    /// Required. The public key associated with the 2FA key.
+    pub public_key_pem: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ChallengeReply {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [signed_challenge][crate::model::ChallengeReply::signed_challenge].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ChallengeReply;
+    /// let x = ChallengeReply::new().set_signed_challenge(bytes::Bytes::from_static(b"example"));
+    /// ```
+    pub fn set_signed_challenge<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.signed_challenge = v.into();
+        self
+    }
+
+    /// Sets the value of [public_key_pem][crate::model::ChallengeReply::public_key_pem].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ChallengeReply;
+    /// let x = ChallengeReply::new().set_public_key_pem("example");
+    /// ```
+    pub fn set_public_key_pem<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.public_key_pem = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ChallengeReply {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ChallengeReply"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.ListSingleTenantHsmInstances][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances].
+///
+/// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances]: crate::client::HsmManagement::list_single_tenant_hsm_instances
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSingleTenantHsmInstancesRequest {
+    /// Required. The resource name of the location associated with the
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance] to
+    /// list, in the format `projects/*/locations/*`.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub parent: std::string::String,
+
+    /// Optional. Optional limit on the number of
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance] to
+    /// include in the response. Further
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance] can
+    /// subsequently be
+    /// obtained by including the
+    /// [ListSingleTenantHsmInstancesResponse.next_page_token][google.cloud.kms.v1.ListSingleTenantHsmInstancesResponse.next_page_token]
+    /// in a subsequent request. If unspecified, the server will pick an
+    /// appropriate default.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstancesResponse.next_page_token]: crate::model::ListSingleTenantHsmInstancesResponse::next_page_token
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub page_size: i32,
+
+    /// Optional. Optional pagination token, returned earlier via
+    /// [ListSingleTenantHsmInstancesResponse.next_page_token][google.cloud.kms.v1.ListSingleTenantHsmInstancesResponse.next_page_token].
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstancesResponse.next_page_token]: crate::model::ListSingleTenantHsmInstancesResponse::next_page_token
+    pub page_token: std::string::String,
+
+    /// Optional. Only include resources that match the filter in the response. For
+    /// more information, see
+    /// [Sorting and filtering list
+    /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+    pub filter: std::string::String,
+
+    /// Optional. Specify how the results should be sorted. If not specified, the
+    /// results will be sorted in the default order.  For more information, see
+    /// [Sorting and filtering list
+    /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+    pub order_by: std::string::String,
+
+    /// Optional. If set to true,
+    /// [HsmManagement.ListSingleTenantHsmInstances][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances]
+    /// will also return
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance] in
+    /// DELETED state.
+    ///
+    /// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances]: crate::client::HsmManagement::list_single_tenant_hsm_instances
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub show_deleted: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSingleTenantHsmInstancesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSingleTenantHsmInstancesRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSingleTenantHsmInstancesRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSingleTenantHsmInstancesRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSingleTenantHsmInstancesRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListSingleTenantHsmInstancesRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [show_deleted][crate::model::ListSingleTenantHsmInstancesRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesRequest;
+    /// let x = ListSingleTenantHsmInstancesRequest::new().set_show_deleted(true);
+    /// ```
+    pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.show_deleted = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSingleTenantHsmInstancesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListSingleTenantHsmInstancesRequest"
+    }
+}
+
+/// Response message for
+/// [HsmManagement.ListSingleTenantHsmInstances][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances].
+///
+/// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstances]: crate::client::HsmManagement::list_single_tenant_hsm_instances
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSingleTenantHsmInstancesResponse {
+    /// The list of
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub single_tenant_hsm_instances: std::vec::Vec<crate::model::SingleTenantHsmInstance>,
+
+    /// A token to retrieve next page of results. Pass this value in
+    /// [ListSingleTenantHsmInstancesRequest.page_token][google.cloud.kms.v1.ListSingleTenantHsmInstancesRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstancesRequest.page_token]: crate::model::ListSingleTenantHsmInstancesRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// The total number of
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance]
+    /// that matched the query.
+    ///
+    /// This field is not populated if
+    /// [ListSingleTenantHsmInstancesRequest.filter][google.cloud.kms.v1.ListSingleTenantHsmInstancesRequest.filter]
+    /// is applied.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstancesRequest.filter]: crate::model::ListSingleTenantHsmInstancesRequest::filter
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub total_size: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSingleTenantHsmInstancesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [single_tenant_hsm_instances][crate::model::ListSingleTenantHsmInstancesResponse::single_tenant_hsm_instances].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesResponse;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// let x = ListSingleTenantHsmInstancesResponse::new()
+    ///     .set_single_tenant_hsm_instances([
+    ///         SingleTenantHsmInstance::default()/* use setters */,
+    ///         SingleTenantHsmInstance::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_single_tenant_hsm_instances<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SingleTenantHsmInstance>,
+    {
+        use std::iter::Iterator;
+        self.single_tenant_hsm_instances = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSingleTenantHsmInstancesResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesResponse;
+    /// let x = ListSingleTenantHsmInstancesResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_size][crate::model::ListSingleTenantHsmInstancesResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstancesResponse;
+    /// let x = ListSingleTenantHsmInstancesResponse::new().set_total_size(42);
+    /// ```
+    pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSingleTenantHsmInstancesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListSingleTenantHsmInstancesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSingleTenantHsmInstancesResponse {
+    type PageItem = crate::model::SingleTenantHsmInstance;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.single_tenant_hsm_instances
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for
+/// [HsmManagement.GetSingleTenantHsmInstance][google.cloud.kms.v1.HsmManagement.GetSingleTenantHsmInstance].
+///
+/// [google.cloud.kms.v1.HsmManagement.GetSingleTenantHsmInstance]: crate::client::HsmManagement::get_single_tenant_hsm_instance
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSingleTenantHsmInstanceRequest {
+    /// Required. The [name][google.cloud.kms.v1.SingleTenantHsmInstance.name] of
+    /// the [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+    /// to get.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.name]: crate::model::SingleTenantHsmInstance::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSingleTenantHsmInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSingleTenantHsmInstanceRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetSingleTenantHsmInstanceRequest;
+    /// let x = GetSingleTenantHsmInstanceRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSingleTenantHsmInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.GetSingleTenantHsmInstanceRequest"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.CreateSingleTenantHsmInstance][google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstance].
+///
+/// [google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstance]: crate::client::HsmManagement::create_single_tenant_hsm_instance
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSingleTenantHsmInstanceRequest {
+    /// Required. The resource name of the location associated with the
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance], in
+    /// the format `projects/*/locations/*`.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub parent: std::string::String,
+
+    /// Optional. It must be unique within a location and match the regular
+    /// expression `[a-zA-Z0-9_-]{1,63}`.
+    pub single_tenant_hsm_instance_id: std::string::String,
+
+    /// Required. An
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] with
+    /// initial field values.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub single_tenant_hsm_instance: std::option::Option<crate::model::SingleTenantHsmInstance>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSingleTenantHsmInstanceRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceRequest;
+    /// let x = CreateSingleTenantHsmInstanceRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [single_tenant_hsm_instance_id][crate::model::CreateSingleTenantHsmInstanceRequest::single_tenant_hsm_instance_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceRequest;
+    /// let x = CreateSingleTenantHsmInstanceRequest::new().set_single_tenant_hsm_instance_id("example");
+    /// ```
+    pub fn set_single_tenant_hsm_instance_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.single_tenant_hsm_instance_id = v.into();
+        self
+    }
+
+    /// Sets the value of [single_tenant_hsm_instance][crate::model::CreateSingleTenantHsmInstanceRequest::single_tenant_hsm_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceRequest;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// let x = CreateSingleTenantHsmInstanceRequest::new().set_single_tenant_hsm_instance(SingleTenantHsmInstance::default()/* use setters */);
+    /// ```
+    pub fn set_single_tenant_hsm_instance<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SingleTenantHsmInstance>,
+    {
+        self.single_tenant_hsm_instance = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [single_tenant_hsm_instance][crate::model::CreateSingleTenantHsmInstanceRequest::single_tenant_hsm_instance].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceRequest;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstance;
+    /// let x = CreateSingleTenantHsmInstanceRequest::new().set_or_clear_single_tenant_hsm_instance(Some(SingleTenantHsmInstance::default()/* use setters */));
+    /// let x = CreateSingleTenantHsmInstanceRequest::new().set_or_clear_single_tenant_hsm_instance(None::<SingleTenantHsmInstance>);
+    /// ```
+    pub fn set_or_clear_single_tenant_hsm_instance<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SingleTenantHsmInstance>,
+    {
+        self.single_tenant_hsm_instance = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSingleTenantHsmInstanceRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.CreateSingleTenantHsmInstanceRequest"
+    }
+}
+
+/// Metadata message for
+/// [CreateSingleTenantHsmInstance][google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstance]
+/// long-running operation response.
+///
+/// [google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstance]: crate::client::HsmManagement::create_single_tenant_hsm_instance
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSingleTenantHsmInstanceMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSingleTenantHsmInstanceMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for CreateSingleTenantHsmInstanceMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.CreateSingleTenantHsmInstanceMetadata"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.CreateSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::create_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSingleTenantHsmInstanceProposalRequest {
+    /// Required. The [name][google.cloud.kms.v1.SingleTenantHsmInstance.name] of
+    /// the [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+    /// associated with the
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance.name]: crate::model::SingleTenantHsmInstance::name
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub parent: std::string::String,
+
+    /// Optional. It must be unique within a location and match the regular
+    /// expression `[a-zA-Z0-9_-]{1,63}`.
+    pub single_tenant_hsm_instance_proposal_id: std::string::String,
+
+    /// Required. The
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to create.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub single_tenant_hsm_instance_proposal:
+        std::option::Option<crate::model::SingleTenantHsmInstanceProposal>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSingleTenantHsmInstanceProposalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSingleTenantHsmInstanceProposalRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceProposalRequest;
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [single_tenant_hsm_instance_proposal_id][crate::model::CreateSingleTenantHsmInstanceProposalRequest::single_tenant_hsm_instance_proposal_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceProposalRequest;
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_single_tenant_hsm_instance_proposal_id("example");
+    /// ```
+    pub fn set_single_tenant_hsm_instance_proposal_id<
+        T: std::convert::Into<std::string::String>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.single_tenant_hsm_instance_proposal_id = v.into();
+        self
+    }
+
+    /// Sets the value of [single_tenant_hsm_instance_proposal][crate::model::CreateSingleTenantHsmInstanceProposalRequest::single_tenant_hsm_instance_proposal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceProposalRequest;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_single_tenant_hsm_instance_proposal(SingleTenantHsmInstanceProposal::default()/* use setters */);
+    /// ```
+    pub fn set_single_tenant_hsm_instance_proposal<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SingleTenantHsmInstanceProposal>,
+    {
+        self.single_tenant_hsm_instance_proposal = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [single_tenant_hsm_instance_proposal][crate::model::CreateSingleTenantHsmInstanceProposalRequest::single_tenant_hsm_instance_proposal].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::CreateSingleTenantHsmInstanceProposalRequest;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_or_clear_single_tenant_hsm_instance_proposal(Some(SingleTenantHsmInstanceProposal::default()/* use setters */));
+    /// let x = CreateSingleTenantHsmInstanceProposalRequest::new().set_or_clear_single_tenant_hsm_instance_proposal(None::<SingleTenantHsmInstanceProposal>);
+    /// ```
+    pub fn set_or_clear_single_tenant_hsm_instance_proposal<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::SingleTenantHsmInstanceProposal>,
+    {
+        self.single_tenant_hsm_instance_proposal = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSingleTenantHsmInstanceProposalRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.CreateSingleTenantHsmInstanceProposalRequest"
+    }
+}
+
+/// Metadata message for
+/// [CreateSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal]
+/// long-running operation response.
+///
+/// [google.cloud.kms.v1.HsmManagement.CreateSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::create_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSingleTenantHsmInstanceProposalMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSingleTenantHsmInstanceProposalMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for CreateSingleTenantHsmInstanceProposalMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.CreateSingleTenantHsmInstanceProposalMetadata"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.GetSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.GetSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.GetSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::get_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSingleTenantHsmInstanceProposalRequest {
+    /// Required. The
+    /// [name][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name] of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to get.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name]: crate::model::SingleTenantHsmInstanceProposal::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSingleTenantHsmInstanceProposalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSingleTenantHsmInstanceProposalRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::GetSingleTenantHsmInstanceProposalRequest;
+    /// let x = GetSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSingleTenantHsmInstanceProposalRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.GetSingleTenantHsmInstanceProposalRequest"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.ApproveSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.ApproveSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.ApproveSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::approve_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ApproveSingleTenantHsmInstanceProposalRequest {
+    /// Required. The
+    /// [name][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name] of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to approve.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name]: crate::model::SingleTenantHsmInstanceProposal::name
+    pub name: std::string::String,
+
+    /// The approval payload. The type of approval payload must correspond to the
+    /// type of approval_parameters in the proposal.
+    pub approval_payload: std::option::Option<
+        crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload,
+    >,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ApproveSingleTenantHsmInstanceProposalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ApproveSingleTenantHsmInstanceProposalRequest;
+    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [approval_payload][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::approval_payload].
+    ///
+    /// Note that all the setters affecting `approval_payload` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ApproveSingleTenantHsmInstanceProposalRequest;
+    /// use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply;
+    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_approval_payload(Some(
+    ///     google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::QuorumReply(QuorumReply::default().into())));
+    /// ```
+    pub fn set_approval_payload<T: std::convert::Into<std::option::Option<crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload>>>(mut self, v: T) -> Self
+    {
+        self.approval_payload = v.into();
+        self
+    }
+
+    /// The value of [approval_payload][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::approval_payload]
+    /// if it holds a `QuorumReply`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn quorum_reply(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<
+            crate::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply,
+        >,
+    > {
+        #[allow(unreachable_patterns)]
+        self.approval_payload.as_ref().and_then(|v| match v {
+            crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::QuorumReply(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [approval_payload][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::approval_payload]
+    /// to hold a `QuorumReply`.
+    ///
+    /// Note that all the setters affecting `approval_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ApproveSingleTenantHsmInstanceProposalRequest;
+    /// use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply;
+    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_quorum_reply(QuorumReply::default()/* use setters */);
+    /// assert!(x.quorum_reply().is_some());
+    /// assert!(x.required_action_quorum_reply().is_none());
+    /// ```
+    pub fn set_quorum_reply<
+        T: std::convert::Into<
+                std::boxed::Box<
+                    crate::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.approval_payload = std::option::Option::Some(
+            crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::QuorumReply(
+                v.into()
+            )
+        );
+        self
+    }
+
+    /// The value of [approval_payload][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::approval_payload]
+    /// if it holds a `RequiredActionQuorumReply`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn required_action_quorum_reply(&self) -> std::option::Option<&std::boxed::Box<crate::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply>>{
+        #[allow(unreachable_patterns)]
+        self.approval_payload.as_ref().and_then(|v| match v {
+            crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::RequiredActionQuorumReply(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [approval_payload][crate::model::ApproveSingleTenantHsmInstanceProposalRequest::approval_payload]
+    /// to hold a `RequiredActionQuorumReply`.
+    ///
+    /// Note that all the setters affecting `approval_payload` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ApproveSingleTenantHsmInstanceProposalRequest;
+    /// use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply;
+    /// let x = ApproveSingleTenantHsmInstanceProposalRequest::new().set_required_action_quorum_reply(RequiredActionQuorumReply::default()/* use setters */);
+    /// assert!(x.required_action_quorum_reply().is_some());
+    /// assert!(x.quorum_reply().is_none());
+    /// ```
+    pub fn set_required_action_quorum_reply<T: std::convert::Into<std::boxed::Box<crate::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply>>>(mut self, v: T) -> Self{
+        self.approval_payload = std::option::Option::Some(
+            crate::model::approve_single_tenant_hsm_instance_proposal_request::ApprovalPayload::RequiredActionQuorumReply(
+                v.into()
+            )
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ApproveSingleTenantHsmInstanceProposalRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ApproveSingleTenantHsmInstanceProposalRequest"
+    }
+}
+
+/// Defines additional types related to [ApproveSingleTenantHsmInstanceProposalRequest].
+pub mod approve_single_tenant_hsm_instance_proposal_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The reply to
+    /// [QuorumParameters][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters]
+    /// for approving the proposal.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters]: crate::model::single_tenant_hsm_instance_proposal::QuorumParameters
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct QuorumReply {
+        /// Required. The challenge replies to approve the proposal. Challenge
+        /// replies can be sent across multiple requests. The proposal will be
+        /// approved when
+        /// [required_approver_count][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters.required_approver_count]
+        /// challenge replies are provided.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters.required_approver_count]: crate::model::single_tenant_hsm_instance_proposal::QuorumParameters::required_approver_count
+        pub challenge_replies: std::vec::Vec<crate::model::ChallengeReply>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl QuorumReply {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [challenge_replies][crate::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply::challenge_replies].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply;
+        /// use google_cloud_kms_v1::model::ChallengeReply;
+        /// let x = QuorumReply::new()
+        ///     .set_challenge_replies([
+        ///         ChallengeReply::default()/* use setters */,
+        ///         ChallengeReply::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_challenge_replies<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ChallengeReply>,
+        {
+            use std::iter::Iterator;
+            self.challenge_replies = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for QuorumReply {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.ApproveSingleTenantHsmInstanceProposalRequest.QuorumReply"
+        }
+    }
+
+    /// The reply to
+    /// [RequiredActionQuorumParameters][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters]
+    /// for approving the proposal.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters]: crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct RequiredActionQuorumReply {
+        /// Required. All required challenges must be signed for the proposal to be
+        /// approved. These can be sent across multiple requests.
+        pub required_challenge_replies: std::vec::Vec<crate::model::ChallengeReply>,
+
+        /// Required. Quorum members' signed challenge replies. These can be provided
+        /// across multiple requests. The proposal will be approved when
+        /// [required_approver_count][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters.required_approver_count]
+        /// quorum_challenge_replies are provided and when all
+        /// required_challenge_replies are provided.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters.required_approver_count]: crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters::required_approver_count
+        pub quorum_challenge_replies: std::vec::Vec<crate::model::ChallengeReply>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl RequiredActionQuorumReply {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [required_challenge_replies][crate::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply::required_challenge_replies].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply;
+        /// use google_cloud_kms_v1::model::ChallengeReply;
+        /// let x = RequiredActionQuorumReply::new()
+        ///     .set_required_challenge_replies([
+        ///         ChallengeReply::default()/* use setters */,
+        ///         ChallengeReply::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_required_challenge_replies<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ChallengeReply>,
+        {
+            use std::iter::Iterator;
+            self.required_challenge_replies = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [quorum_challenge_replies][crate::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply::quorum_challenge_replies].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_kms_v1::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply;
+        /// use google_cloud_kms_v1::model::ChallengeReply;
+        /// let x = RequiredActionQuorumReply::new()
+        ///     .set_quorum_challenge_replies([
+        ///         ChallengeReply::default()/* use setters */,
+        ///         ChallengeReply::default()/* use (different) setters */,
+        ///     ]);
+        /// ```
+        pub fn set_quorum_challenge_replies<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::ChallengeReply>,
+        {
+            use std::iter::Iterator;
+            self.quorum_challenge_replies = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for RequiredActionQuorumReply {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.kms.v1.ApproveSingleTenantHsmInstanceProposalRequest.RequiredActionQuorumReply"
+        }
+    }
+
+    /// The approval payload. The type of approval payload must correspond to the
+    /// type of approval_parameters in the proposal.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ApprovalPayload {
+        /// Required. The reply to
+        /// [QuorumParameters][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters]
+        /// for approving the proposal.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.QuorumParameters]: crate::model::single_tenant_hsm_instance_proposal::QuorumParameters
+        QuorumReply(std::boxed::Box<crate::model::approve_single_tenant_hsm_instance_proposal_request::QuorumReply>),
+        /// Required. The reply to
+        /// [RequiredActionQuorumParameters][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters]
+        /// for approving the proposal.
+        ///
+        /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.RequiredActionQuorumParameters]: crate::model::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters
+        RequiredActionQuorumReply(std::boxed::Box<crate::model::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply>),
+    }
+}
+
+/// Response message for
+/// [HsmManagement.ApproveSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.ApproveSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.ApproveSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::approve_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ApproveSingleTenantHsmInstanceProposalResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ApproveSingleTenantHsmInstanceProposalResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ApproveSingleTenantHsmInstanceProposalResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ApproveSingleTenantHsmInstanceProposalResponse"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.ExecuteSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::execute_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSingleTenantHsmInstanceProposalRequest {
+    /// Required. The
+    /// [name][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name] of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to execute.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name]: crate::model::SingleTenantHsmInstanceProposal::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSingleTenantHsmInstanceProposalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ExecuteSingleTenantHsmInstanceProposalRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ExecuteSingleTenantHsmInstanceProposalRequest;
+    /// let x = ExecuteSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExecuteSingleTenantHsmInstanceProposalRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ExecuteSingleTenantHsmInstanceProposalRequest"
+    }
+}
+
+/// Response message for
+/// [HsmManagement.ExecuteSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::execute_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSingleTenantHsmInstanceProposalResponse {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSingleTenantHsmInstanceProposalResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ExecuteSingleTenantHsmInstanceProposalResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ExecuteSingleTenantHsmInstanceProposalResponse"
+    }
+}
+
+/// Metadata message for
+/// [ExecuteSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal]
+/// long-running operation response.
+///
+/// [google.cloud.kms.v1.HsmManagement.ExecuteSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::execute_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ExecuteSingleTenantHsmInstanceProposalMetadata {
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExecuteSingleTenantHsmInstanceProposalMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for ExecuteSingleTenantHsmInstanceProposalMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ExecuteSingleTenantHsmInstanceProposalMetadata"
+    }
+}
+
+/// Request message for
+/// [HsmManagement.ListSingleTenantHsmInstanceProposals][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals].
+///
+/// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals]: crate::client::HsmManagement::list_single_tenant_hsm_instance_proposals
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSingleTenantHsmInstanceProposalsRequest {
+    /// Required. The resource name of the single tenant HSM instance associated
+    /// with the
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to list, in the format `projects/*/locations/*/singleTenantHsmInstances/*`.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub parent: std::string::String,
+
+    /// Optional. Optional limit on the number of
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to include in the response. Further
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// can subsequently be obtained by including the
+    /// [ListSingleTenantHsmInstanceProposalsResponse.next_page_token][google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsResponse.next_page_token]
+    /// in a subsequent request. If unspecified, the server will pick an
+    /// appropriate default.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsResponse.next_page_token]: crate::model::ListSingleTenantHsmInstanceProposalsResponse::next_page_token
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub page_size: i32,
+
+    /// Optional. Optional pagination token, returned earlier via
+    /// [ListSingleTenantHsmInstanceProposalsResponse.next_page_token][google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsResponse.next_page_token].
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsResponse.next_page_token]: crate::model::ListSingleTenantHsmInstanceProposalsResponse::next_page_token
+    pub page_token: std::string::String,
+
+    /// Optional. Only include resources that match the filter in the response. For
+    /// more information, see
+    /// [Sorting and filtering list
+    /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+    pub filter: std::string::String,
+
+    /// Optional. Specify how the results should be sorted. If not specified, the
+    /// results will be sorted in the default order.  For more information, see
+    /// [Sorting and filtering list
+    /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
+    pub order_by: std::string::String,
+
+    /// Optional. If set to true,
+    /// [HsmManagement.ListSingleTenantHsmInstanceProposals][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals]
+    /// will also return
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// in DELETED state.
+    ///
+    /// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals]: crate::client::HsmManagement::list_single_tenant_hsm_instance_proposals
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub show_deleted: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSingleTenantHsmInstanceProposalsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSingleTenantHsmInstanceProposalsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSingleTenantHsmInstanceProposalsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSingleTenantHsmInstanceProposalsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListSingleTenantHsmInstanceProposalsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListSingleTenantHsmInstanceProposalsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+
+    /// Sets the value of [show_deleted][crate::model::ListSingleTenantHsmInstanceProposalsRequest::show_deleted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsRequest;
+    /// let x = ListSingleTenantHsmInstanceProposalsRequest::new().set_show_deleted(true);
+    /// ```
+    pub fn set_show_deleted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.show_deleted = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSingleTenantHsmInstanceProposalsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsRequest"
+    }
+}
+
+/// Response message for
+/// [HsmManagement.ListSingleTenantHsmInstanceProposals][google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals].
+///
+/// [google.cloud.kms.v1.HsmManagement.ListSingleTenantHsmInstanceProposals]: crate::client::HsmManagement::list_single_tenant_hsm_instance_proposals
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSingleTenantHsmInstanceProposalsResponse {
+    /// The list of
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub single_tenant_hsm_instance_proposals:
+        std::vec::Vec<crate::model::SingleTenantHsmInstanceProposal>,
+
+    /// A token to retrieve next page of results. Pass this value in
+    /// [ListSingleTenantHsmInstanceProposalsRequest.page_token][google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsRequest.page_token]
+    /// to retrieve the next page of results.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsRequest.page_token]: crate::model::ListSingleTenantHsmInstanceProposalsRequest::page_token
+    pub next_page_token: std::string::String,
+
+    /// The total number of
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// that matched the query.
+    ///
+    /// This field is not populated if
+    /// [ListSingleTenantHsmInstanceProposalsRequest.filter][google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsRequest.filter]
+    /// is applied.
+    ///
+    /// [google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsRequest.filter]: crate::model::ListSingleTenantHsmInstanceProposalsRequest::filter
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub total_size: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSingleTenantHsmInstanceProposalsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [single_tenant_hsm_instance_proposals][crate::model::ListSingleTenantHsmInstanceProposalsResponse::single_tenant_hsm_instance_proposals].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsResponse;
+    /// use google_cloud_kms_v1::model::SingleTenantHsmInstanceProposal;
+    /// let x = ListSingleTenantHsmInstanceProposalsResponse::new()
+    ///     .set_single_tenant_hsm_instance_proposals([
+    ///         SingleTenantHsmInstanceProposal::default()/* use setters */,
+    ///         SingleTenantHsmInstanceProposal::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_single_tenant_hsm_instance_proposals<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SingleTenantHsmInstanceProposal>,
+    {
+        use std::iter::Iterator;
+        self.single_tenant_hsm_instance_proposals = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSingleTenantHsmInstanceProposalsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsResponse;
+    /// let x = ListSingleTenantHsmInstanceProposalsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [total_size][crate::model::ListSingleTenantHsmInstanceProposalsResponse::total_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ListSingleTenantHsmInstanceProposalsResponse;
+    /// let x = ListSingleTenantHsmInstanceProposalsResponse::new().set_total_size(42);
+    /// ```
+    pub fn set_total_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.total_size = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSingleTenantHsmInstanceProposalsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.ListSingleTenantHsmInstanceProposalsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSingleTenantHsmInstanceProposalsResponse {
+    type PageItem = crate::model::SingleTenantHsmInstanceProposal;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.single_tenant_hsm_instance_proposals
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for
+/// [HsmManagement.DeleteSingleTenantHsmInstanceProposal][google.cloud.kms.v1.HsmManagement.DeleteSingleTenantHsmInstanceProposal].
+///
+/// [google.cloud.kms.v1.HsmManagement.DeleteSingleTenantHsmInstanceProposal]: crate::client::HsmManagement::delete_single_tenant_hsm_instance_proposal
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSingleTenantHsmInstanceProposalRequest {
+    /// Required. The
+    /// [name][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name] of the
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// to delete.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.name]: crate::model::SingleTenantHsmInstanceProposal::name
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSingleTenantHsmInstanceProposalRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSingleTenantHsmInstanceProposalRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::DeleteSingleTenantHsmInstanceProposalRequest;
+    /// let x = DeleteSingleTenantHsmInstanceProposalRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSingleTenantHsmInstanceProposalRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.kms.v1.DeleteSingleTenantHsmInstanceProposalRequest"
+    }
+}
+
 /// A [KeyRing][google.cloud.kms.v1.KeyRing] is a toplevel logical grouping of
 /// [CryptoKeys][google.cloud.kms.v1.CryptoKey].
 ///
@@ -2585,7 +6262,12 @@ pub struct CryptoKey {
     /// if [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion] have a
     /// [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of
     /// [EXTERNAL_VPC][google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC], with the
-    /// resource name in the format `projects/*/locations/*/ekmConnections/*`.
+    /// resource name in the format `projects/*/locations/*/ekmConnections/*`. Only
+    /// applicable if [CryptoKeyVersions][google.cloud.kms.v1.CryptoKeyVersion]
+    /// have a [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT],
+    /// with the resource name in the format
+    /// `projects/*/locations/*/singleTenantHsmInstances/*`.
     /// Note, this list is non-exhaustive and may apply to additional
     /// [ProtectionLevels][google.cloud.kms.v1.ProtectionLevel] in the future.
     ///
@@ -2593,6 +6275,7 @@ pub struct CryptoKey {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
     pub crypto_key_backend: std::string::String,
 
     /// Optional. The policy used for Key Access Justifications Policy Enforcement.
@@ -5670,6 +9353,19 @@ pub struct ImportJob {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     pub attestation: std::option::Option<crate::model::KeyOperationAttestation>,
 
+    /// Immutable. The resource name of the backend environment where the key
+    /// material for the wrapping key resides and where all related cryptographic
+    /// operations are performed. Currently, this field is only populated for keys
+    /// stored in HSM_SINGLE_TENANT. Note, this list is non-exhaustive and may
+    /// apply to additional [ProtectionLevels][google.cloud.kms.v1.ProtectionLevel]
+    /// in the future.
+    /// Supported resources:
+    ///
+    /// * `"projects/*/locations/*/singleTenantHsmInstances/*"`
+    ///
+    /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
+    pub crypto_key_backend: std::string::String,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5939,6 +9635,21 @@ impl ImportJob {
         T: std::convert::Into<crate::model::KeyOperationAttestation>,
     {
         self.attestation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [crypto_key_backend][crate::model::ImportJob::crypto_key_backend].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::ImportJob;
+    /// let x = ImportJob::new().set_crypto_key_backend("example");
+    /// ```
+    pub fn set_crypto_key_backend<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.crypto_key_backend = v.into();
         self
     }
 }
@@ -12492,6 +16203,16 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
     pub ekm_available: bool,
 
+    /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
+    /// [protection_level][google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]
+    /// [HSM_SINGLE_TENANT][google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]
+    /// can be created in this location.
+    ///
+    /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
+    /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
+    /// [google.cloud.kms.v1.ProtectionLevel.HSM_SINGLE_TENANT]: crate::model::ProtectionLevel::HsmSingleTenant
+    pub hsm_single_tenant_available: bool,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -12521,6 +16242,18 @@ impl LocationMetadata {
     /// ```
     pub fn set_ekm_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.ekm_available = v.into();
+        self
+    }
+
+    /// Sets the value of [hsm_single_tenant_available][crate::model::LocationMetadata::hsm_single_tenant_available].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_kms_v1::model::LocationMetadata;
+    /// let x = LocationMetadata::new().set_hsm_single_tenant_available(true);
+    /// ```
+    pub fn set_hsm_single_tenant_available<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.hsm_single_tenant_available = v.into();
         self
     }
 }
@@ -12563,6 +16296,8 @@ pub enum ProtectionLevel {
     External,
     /// Crypto operations are performed in an EKM-over-VPC backend.
     ExternalVpc,
+    /// Crypto operations are performed in a single-tenant HSM.
+    HsmSingleTenant,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ProtectionLevel::value] or
@@ -12590,6 +16325,7 @@ impl ProtectionLevel {
             Self::Hsm => std::option::Option::Some(2),
             Self::External => std::option::Option::Some(3),
             Self::ExternalVpc => std::option::Option::Some(4),
+            Self::HsmSingleTenant => std::option::Option::Some(5),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -12605,6 +16341,7 @@ impl ProtectionLevel {
             Self::Hsm => std::option::Option::Some("HSM"),
             Self::External => std::option::Option::Some("EXTERNAL"),
             Self::ExternalVpc => std::option::Option::Some("EXTERNAL_VPC"),
+            Self::HsmSingleTenant => std::option::Option::Some("HSM_SINGLE_TENANT"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -12631,6 +16368,7 @@ impl std::convert::From<i32> for ProtectionLevel {
             2 => Self::Hsm,
             3 => Self::External,
             4 => Self::ExternalVpc,
+            5 => Self::HsmSingleTenant,
             _ => Self::UnknownValue(protection_level::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -12647,6 +16385,7 @@ impl std::convert::From<&str> for ProtectionLevel {
             "HSM" => Self::Hsm,
             "EXTERNAL" => Self::External,
             "EXTERNAL_VPC" => Self::ExternalVpc,
+            "HSM_SINGLE_TENANT" => Self::HsmSingleTenant,
             _ => Self::UnknownValue(protection_level::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -12665,6 +16404,7 @@ impl serde::ser::Serialize for ProtectionLevel {
             Self::Hsm => serializer.serialize_i32(2),
             Self::External => serializer.serialize_i32(3),
             Self::ExternalVpc => serializer.serialize_i32(4),
+            Self::HsmSingleTenant => serializer.serialize_i32(5),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }
@@ -12719,6 +16459,12 @@ pub enum AccessReason {
     GoogleInitiatedSystemOperation,
     /// No reason is expected for this key request.
     ReasonNotExpected,
+    /// Deprecated: This code is no longer generated by
+    /// Google Cloud. The GOOGLE_RESPONSE_TO_PRODUCTION_ALERT justification codes
+    /// available in both Key Access Justifications and Access Transparency logs
+    /// provide customer-visible signals of emergency access in more precise
+    /// contexts.
+    ///
     /// Customer uses their account to perform any access to their own data which
     /// their IAM policy authorizes, and one of the following is true:
     ///
@@ -12727,7 +16473,14 @@ pub enum AccessReason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
+    #[deprecated]
     ModifiedCustomerInitiatedAccess,
+    /// Deprecated: This code is no longer generated by
+    /// Google Cloud. The GOOGLE_RESPONSE_TO_PRODUCTION_ALERT justification codes
+    /// available in both Key Access Justifications and Access Transparency logs
+    /// provide customer-visible signals of emergency access in more precise
+    /// contexts.
+    ///
     /// Google systems access customer data to help optimize the structure of the
     /// data or quality for future uses by the customer, and one of the following
     /// is true:
@@ -12737,6 +16490,7 @@ pub enum AccessReason {
     /// * A Google-initiated emergency access operation has interacted with a
     ///   resource in the same project or folder as the currently accessed resource
     ///   within the past 7 days.
+    #[deprecated]
     ModifiedGoogleInitiatedSystemOperation,
     /// Google-initiated access to maintain system reliability.
     GoogleResponseToProductionAlert,

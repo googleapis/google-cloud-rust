@@ -14,9 +14,32 @@ also describes the common terminology used with authentication, such as
 > surface. [@yoshidan](https://github.com/yoshidan) generously donated the crate
 > name to Google. Their crate continues to live as [gcloud-auth].
 
+# Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::CryptoProvider::install_default()`.
+- `idtoken`: disabled by default, this feature enables support to create and
+  verify [OIDC ID Tokens].
+- `default-idtoken-backend`: enabled by default, this feature enables a default
+  backend for the `idtoken` feature. Currently the feature is implemented using
+  the [jsonwebtoken] crate and uses `aws-lc-rs` as its default backend. We may
+  change the default backend at any time, applications that have specific needs
+  for this backend should not rely on the current default. To control the
+  backend selection:
+  - Configure this crate with `default-features = false`, and
+    `features = ["idtoken"]`
+  - Select the desired backend for `jsonwebtoken`.
+
 [authentication methods at google]: https://cloud.google.com/docs/authentication
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 [credentials]: https://cloud.google.com/docs/authentication#credentials
 [credentials::credentials]: https://docs.rs/google-cloud-auth/latest/google_cloud_auth/credentials/struct.Credentials.html
 [gcloud-auth]: https://crates.io/crates/gcloud-auth
+[jsonwebtoken]: https://crates.io/crates/jsonwebtoken
+[oidc id tokens]: https://cloud.google.com/docs/authentication/token-types#identity-tokens
 [principals]: https://cloud.google.com/docs/authentication#principal
+[ring]: https://crates.io/crates/ring
 [tokens]: https://cloud.google.com/docs/authentication#token

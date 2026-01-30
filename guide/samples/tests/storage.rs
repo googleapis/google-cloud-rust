@@ -23,7 +23,7 @@ pub mod storage {
     pub mod terminate_uploads;
 
     use google_cloud_storage::client::StorageControl;
-    pub use storage_samples::random_bucket_id;
+    pub use google_cloud_test_utils::resource_names::random_bucket_id;
 
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {

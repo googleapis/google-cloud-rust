@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.7.7"
+version     = "0.7.8"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -35,6 +35,7 @@ features = []
 workspace = true
 
 [features]
+default = ["_default-rustls-provider"]
 _internal-http-client = [
   "_internal-common",
   "dep:bytes",
@@ -72,6 +73,7 @@ _internal-grpc-client = [
   "dep:wkt",
 ]
 _internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
+_default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
 
 [dependencies]
 bytes                              = { workspace = true, optional = true, features = ["serde"] }
@@ -85,7 +87,7 @@ percent-encoding                   = { workspace = true, optional = true }
 pin-project                        = { workspace = true, optional = true }
 prost                              = { workspace = true, optional = true }
 prost-types                        = { workspace = true, optional = true }
-reqwest                            = { workspace = true, optional = true }
+reqwest                            = { workspace = true, optional = true, features = ["json", "query"] }
 serde                              = { workspace = true, optional = true }
 serde_json                         = { workspace = true, optional = true }
 thiserror                          = { workspace = true, optional = true }
@@ -118,6 +120,11 @@ tracing-subscriber                = { workspace = true, features = ["registry", 
 # Local crates
 echo-server = { path = "echo-server" }
 grpc-server = { path = "grpc-server" }
+# reqwest panics if (1) configured to support TLS and (2) no default crypto
+# provider is configured via features or installed at runtime. Even if reqwest
+# is being used without TLS. Enabling the default provider in tests to
+# workaround this issue.
+google-cloud-gax-internal = { path = ".", features = ["_default-rustls-provider"] }
 
 [build-dependencies]
 rustc_version.workspace = true

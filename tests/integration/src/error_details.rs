@@ -14,11 +14,12 @@
 
 use crate::Result;
 use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_test_utils::runtime_config::{project_id, region_id};
 use storage::client::StorageControl;
 
 pub async fn error_details_http() -> Result<()> {
-    let project_id = crate::project_id()?;
-    let region_id = crate::region_id();
+    let project_id = project_id()?;
+    let region_id = region_id();
     let client = ta::client::TelcoAutomation::builder()
         .with_tracing()
         .with_retry_policy(AlwaysRetry.with_attempt_limit(2))
@@ -57,8 +58,8 @@ pub async fn error_details_grpc() -> Result<()> {
 }
 
 pub async fn check_code_for_http() -> Result<()> {
-    let project_id = crate::project_id()?;
-    let location_id = crate::region_id();
+    let project_id = project_id()?;
+    let location_id = region_id();
     let workflow_id = crate::random_workflow_id();
     let workflow_name =
         format!("projects/{project_id}/locations/{location_id}/workflows/{workflow_id}");

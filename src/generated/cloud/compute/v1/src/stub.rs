@@ -318,6 +318,17 @@ pub trait Autoscalers: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::Autoscalers::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::autoscalers::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::Autoscalers::update].
     fn update(
         &self,
@@ -2610,6 +2621,17 @@ pub trait HealthChecks: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::HealthChecks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::health_checks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::HealthChecks::update].
     fn update(
         &self,
@@ -2724,6 +2746,17 @@ pub trait HttpHealthChecks: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::HttpHealthChecks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::http_health_checks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::HttpHealthChecks::update].
     fn update(
         &self,
@@ -2834,6 +2867,17 @@ pub trait HttpsHealthChecks: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::HttpsHealthChecks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::https_health_checks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -7922,6 +7966,17 @@ pub trait RegionAutoscalers: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RegionAutoscalers::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_autoscalers::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionAutoscalers::update].
     fn update(
         &self,
@@ -8690,6 +8745,17 @@ pub trait RegionHealthChecks: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::RegionHealthChecks::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_health_checks::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -9866,6 +9932,17 @@ pub trait RegionNotificationEndpoints: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::RegionNotificationEndpoints::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::RegionNotificationEndpoints::get_operation].
     fn get_operation(
         &self,
@@ -10947,6 +11024,87 @@ pub trait ReservationBlocks: std::fmt::Debug + Send + Sync {
     }
 }
 
+/// Defines the trait used to implement [super::client::ReservationSlots].
+///
+/// Application developers may need to implement this trait to mock
+/// `client::ReservationSlots`.  In other use-cases, application developers only
+/// use `client::ReservationSlots` and need not be concerned with this trait or
+/// its implementations.
+///
+/// Services gain new RPCs routinely. Consequently, this trait gains new methods
+/// too. To avoid breaking applications the trait provides a default
+/// implementation of each method. Most of these implementations just return an
+/// error.
+#[cfg(feature = "reservation-slots")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reservation-slots")))]
+pub trait ReservationSlots: std::fmt::Debug + Send + Sync {
+    /// Implements [super::client::ReservationSlots::get].
+    fn get(
+        &self,
+        _req: crate::model::reservation_slots::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSlots::list].
+    fn list(
+        &self,
+        _req: crate::model::reservation_slots::ListRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ReservationSlotsListResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSlots::update].
+    fn update(
+        &self,
+        _req: crate::model::reservation_slots::UpdateRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ReservationSlots::get_operation].
+    fn get_operation(
+        &self,
+        _req: crate::model::zone_operations::GetRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Returns the polling error policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_error_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        std::sync::Arc::new(gax::polling_error_policy::Aip194Strict)
+    }
+
+    /// Returns the polling backoff policy.
+    ///
+    /// When mocking, this method is typically irrelevant. Do not try to verify
+    /// it is called by your mocks.
+    fn get_polling_backoff_policy(
+        &self,
+        _options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        std::sync::Arc::new(gax::exponential_backoff::ExponentialBackoff::default())
+    }
+}
+
 /// Defines the trait used to implement [super::client::ReservationSubBlocks].
 ///
 /// Application developers may need to implement this trait to mock
@@ -11683,6 +11841,17 @@ pub trait Routes: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::RouteList>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::Routes::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::routes::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -13712,6 +13881,17 @@ pub trait TargetSslProxies: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::TargetSslProxies::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::TargetSslProxies::get_operation].
     fn get_operation(
         &self,
@@ -13833,6 +14013,17 @@ pub trait TargetTcpProxies: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::TargetTcpProxies::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
@@ -14074,6 +14265,17 @@ pub trait UrlMaps: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<crate::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::UrlMaps::test_iam_permissions].
+    fn test_iam_permissions(
+        &self,
+        _req: crate::model::url_maps::TestIamPermissionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::TestPermissionsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }

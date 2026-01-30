@@ -33,10 +33,8 @@ use google_cloud_storage::model::bucket::{
 };
 use google_cloud_storage::model::{Bucket, Object};
 use google_cloud_storage::retry_policy::RetryableErrors;
-use rand::{Rng, distr::Distribution};
+use google_cloud_test_utils::resource_names::random_bucket_id;
 use std::time::Duration;
-
-pub const BUCKET_ID_LENGTH: usize = 63;
 
 pub async fn run_anywhere_cache_examples(buckets: &mut Vec<String>) -> anyhow::Result<()> {
     let _guard = {
@@ -876,19 +874,6 @@ pub async fn cleanup_bucket(client: StorageControl, name: String) -> anyhow::Res
     Ok(())
 }
 
-pub fn random_bucket_id() -> String {
-    const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz0123456789";
-
-    let distr = RandomChars { chars: CHARSET };
-    const PREFIX: &str = "rust-sdk-testing-";
-    let bucket_id: String = rand::rng()
-        .sample_iter(distr)
-        .take(BUCKET_ID_LENGTH - PREFIX.len())
-        .map(char::from)
-        .collect();
-    format!("{PREFIX}{bucket_id}")
-}
-
 trait RetryPolicyExt2: Sized {
     fn always_idempotent(self) -> AlwaysIdempotent<Self> {
         AlwaysIdempotent { inner: self }
@@ -920,41 +905,5 @@ where
 
     fn remaining_time(&self, state: &RetryState) -> Option<Duration> {
         self.inner.remaining_time(state)
-    }
-}
-
-pub struct RandomChars {
-    chars: &'static [u8],
-}
-
-impl RandomChars {
-    pub fn new(chars: &'static [u8]) -> Self {
-        Self { chars }
-    }
-}
-
-impl Distribution<u8> for RandomChars {
-    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> u8 {
-        let index = rng.random_range(0..self.chars.len());
-        self.chars[index]
-    }
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn random_chars() {
-        let chars = RandomChars::new("abcde".as_bytes());
-        let got: String = rand::rng()
-            .sample_iter(chars)
-            .take(64)
-            .map(char::from)
-            .collect();
-        assert!(
-            !got.contains(|c| !("abcde".contains(c))),
-            "{got:?} contains unexpected character"
-        );
     }
 }

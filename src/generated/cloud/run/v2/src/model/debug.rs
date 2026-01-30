@@ -106,6 +106,18 @@ impl std::fmt::Debug for super::Condition {
     }
 }
 
+impl std::fmt::Debug for super::ContainerStatus {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ContainerStatus");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("image_digest", &self.image_digest);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::GetExecutionRequest {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("GetExecutionRequest");
@@ -215,6 +227,152 @@ impl std::fmt::Debug for super::ExecutionTemplate {
         debug_struct.field("parallelism", &self.parallelism);
         debug_struct.field("task_count", &self.task_count);
         debug_struct.field("template", &self.template);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("instance", &self.instance);
+        debug_struct.field("instance_id", &self.instance_id);
+        debug_struct.field("validate_only", &self.validate_only);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListInstancesResponse");
+        debug_struct.field("instances", &self.instances);
+        debug_struct.field("next_page_token", &self.next_page_token);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StopInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StopInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::StartInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("StartInstanceRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("validate_only", &self.validate_only);
+        debug_struct.field("etag", &self.etag);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Instance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Instance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("description", &self.description);
+        debug_struct.field("uid", &self.uid);
+        debug_struct.field("generation", &self.generation);
+        debug_struct.field("labels", &self.labels);
+        debug_struct.field("annotations", &self.annotations);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("expire_time", &self.expire_time);
+        debug_struct.field("creator", &self.creator);
+        debug_struct.field("last_modifier", &self.last_modifier);
+        debug_struct.field("client", &self.client);
+        debug_struct.field("client_version", &self.client_version);
+        debug_struct.field("launch_stage", &self.launch_stage);
+        debug_struct.field("binary_authorization", &self.binary_authorization);
+        debug_struct.field("vpc_access", &self.vpc_access);
+        debug_struct.field("service_account", &self.service_account);
+        debug_struct.field("containers", &self.containers);
+        debug_struct.field("volumes", &self.volumes);
+        debug_struct.field("encryption_key", &self.encryption_key);
+        debug_struct.field(
+            "encryption_key_revocation_action",
+            &self.encryption_key_revocation_action,
+        );
+        debug_struct.field(
+            "encryption_key_shutdown_duration",
+            &self.encryption_key_shutdown_duration,
+        );
+        debug_struct.field("node_selector", &self.node_selector);
+        debug_struct.field(
+            "gpu_zonal_redundancy_disabled",
+            &self.gpu_zonal_redundancy_disabled,
+        );
+        debug_struct.field("ingress", &self.ingress);
+        debug_struct.field("invoker_iam_disabled", &self.invoker_iam_disabled);
+        debug_struct.field("iap_enabled", &self.iap_enabled);
+        debug_struct.field("observed_generation", &self.observed_generation);
+        debug_struct.field("log_uri", &self.log_uri);
+        debug_struct.field("terminal_condition", &self.terminal_condition);
+        debug_struct.field("conditions", &self.conditions);
+        debug_struct.field("container_statuses", &self.container_statuses);
+        debug_struct.field("satisfies_pzs", &self.satisfies_pzs);
+        debug_struct.field("urls", &self.urls);
+        debug_struct.field("reconciling", &self.reconciling);
+        debug_struct.field("etag", &self.etag);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -431,6 +589,7 @@ impl std::fmt::Debug for super::Container {
         debug_struct.field("working_dir", &self.working_dir);
         debug_struct.field("liveness_probe", &self.liveness_probe);
         debug_struct.field("startup_probe", &self.startup_probe);
+        debug_struct.field("readiness_probe", &self.readiness_probe);
         debug_struct.field("depends_on", &self.depends_on);
         debug_struct.field("base_image_uri", &self.base_image_uri);
         debug_struct.field("build_info", &self.build_info);

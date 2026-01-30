@@ -15,12 +15,13 @@
 use crate::Result;
 use futures::stream::StreamExt;
 use gax::{error::rpc::Code, paginator::ItemPaginator};
+use google_cloud_test_utils::runtime_config::project_id;
 use rand::{Rng, distr::Alphanumeric};
 
 const INSTANCE_LABEL: &str = "rust-sdk-integration-test";
 
 pub async fn dataset_admin() -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let client = bigquery::client::DatasetService::builder()
         .with_tracing()
         .build()
@@ -179,7 +180,7 @@ fn extract_dataset_id(project_id: &str, id: &str) -> Option<String> {
 }
 
 pub async fn job_service() -> Result<()> {
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let client = bigquery::client::JobService::builder()
         .with_tracing()
         .build()

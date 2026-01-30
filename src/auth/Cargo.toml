@@ -18,7 +18,7 @@ name = "google-cloud-auth"
 #     version of all downstream dependencies. For details see:
 #         https://github.com/googleapis/google-cloud-rust/issues/3237
 #         https://github.com/googleapis/google-cloud-rust/issues/3265
-version     = "1.4.0"
+version     = "1.5.0"
 description = "Google Cloud Client Libraries for Rust - Authentication"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -38,16 +38,18 @@ async-trait.workspace = true
 base64.workspace      = true
 bytes.workspace       = true
 http.workspace        = true
-reqwest               = { workspace = true, features = ["json", "rustls-tls"] }
-rustls                = { workspace = true, features = ["logging", "ring", "std", "tls12"] }
+reqwest               = { workspace = true, features = ["form", "json", "query", "rustls-no-provider"] }
+rustls                = { workspace = true, features = ["logging", "std", "tls12"] }
 rustls-pki-types      = { workspace = true, features = ["std"] }
 serde.workspace       = true
 serde_json.workspace  = true
 thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
-bon.workspace         = true
-jsonwebtoken          = { workspace = true, features = ["rust_crypto"], optional = true }
+jsonwebtoken          = { workspace = true, optional = true }
+# We do not use this directly, but without it the minimal-versions build breaks.
+# See: https://github.com/Keats/jsonwebtoken/pull/481
+aws-lc-rs = { workspace = true, optional = true }
 # Local dependencies
 gax.workspace = true
 
@@ -56,7 +58,8 @@ anyhow.workspace      = true
 httptest.workspace    = true
 mockall.workspace     = true
 regex.workspace       = true
-rsa                   = { workspace = true, features = ["pem"] }
+rsa                   = { workspace = true, features = ["pem", "sha2"] }
+p256                  = { workspace = true, features = ["ecdsa", "pem"] }
 scoped-env.workspace  = true
 serial_test.workspace = true
 tempfile.workspace    = true
@@ -65,10 +68,26 @@ tokio                 = { workspace = true, features = ["macros", "rt-multi-thre
 tokio-test.workspace  = true
 url.workspace         = true
 mutants.workspace     = true
+static_assertions     = { workspace = true }
 
 [features]
-default = []
-idtoken = ["jsonwebtoken"]
+default = ["default-idtoken-backend", "default-rustls-provider"]
+# The `idtoken` feature enables support to create and validate OIDC ID Tokens.
+# See the create top-level documentation for more information.
+idtoken = ["dep:jsonwebtoken", "jsonwebtoken"]
+# By default this crate enables the `aws_lc_rs` backend. Applications can
+# link `google-cloud-auth` with `default-features = false, features = ["idtoken"]
+# and then directly configure the `jsonwebtoken` features to select the
+# `rust_crypto` backend.
+default-idtoken-backend = ["dep:aws-lc-rs", "jsonwebtoken?/aws_lc_rs"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["reqwest/default-tls", "rustls/aws_lc_rs"]
+# Do not use, this was a mistake in the 1.3 release. We accidentally introduced
+# this feature. The intent was to only introduce `idtoken`.
+jsonwebtoken = ["dep:jsonwebtoken"]
 
 [lints]
 workspace = true

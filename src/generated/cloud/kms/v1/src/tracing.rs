@@ -377,6 +377,198 @@ where
     }
 }
 
+/// Implements a [HsmManagement](super::stub::HsmManagement) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct HsmManagement<T>
+where
+    T: super::stub::HsmManagement + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> HsmManagement<T>
+where
+    T: super::stub::HsmManagement + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::HsmManagement for HsmManagement<T>
+where
+    T: super::stub::HsmManagement + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn list_single_tenant_hsm_instances(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListSingleTenantHsmInstancesResponse>> {
+        self.inner
+            .list_single_tenant_hsm_instances(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SingleTenantHsmInstance>> {
+        self.inner
+            .get_single_tenant_hsm_instance(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_single_tenant_hsm_instance(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .create_single_tenant_hsm_instance(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::CreateSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .create_single_tenant_hsm_instance_proposal(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn approve_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ApproveSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ApproveSingleTenantHsmInstanceProposalResponse>>
+    {
+        self.inner
+            .approve_single_tenant_hsm_instance_proposal(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn execute_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::ExecuteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner
+            .execute_single_tenant_hsm_instance_proposal(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::GetSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::SingleTenantHsmInstanceProposal>> {
+        self.inner
+            .get_single_tenant_hsm_instance_proposal(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_single_tenant_hsm_instance_proposals(
+        &self,
+        req: crate::model::ListSingleTenantHsmInstanceProposalsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListSingleTenantHsmInstanceProposalsResponse>>
+    {
+        self.inner
+            .list_single_tenant_hsm_instance_proposals(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_single_tenant_hsm_instance_proposal(
+        &self,
+        req: crate::model::DeleteSingleTenantHsmInstanceProposalRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner
+            .delete_single_tenant_hsm_instance_proposal(req, options)
+            .await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn set_iam_policy(
+        &self,
+        req: iam_v1::model::SetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.set_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_iam_policy(
+        &self,
+        req: iam_v1::model::GetIamPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
+        self.inner.get_iam_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: iam_v1::model::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [KeyManagementService](super::stub::KeyManagementService) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct KeyManagementService<T>

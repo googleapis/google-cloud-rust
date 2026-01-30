@@ -60,6 +60,7 @@ impl std::fmt::Debug for super::Endpoint {
         debug_struct.field("cloud_sql_instance", &self.cloud_sql_instance);
         debug_struct.field("redis_instance", &self.redis_instance);
         debug_struct.field("redis_cluster", &self.redis_cluster);
+        debug_struct.field("gke_pod", &self.gke_pod);
         debug_struct.field("cloud_function", &self.cloud_function);
         debug_struct.field("app_engine_version", &self.app_engine_version);
         debug_struct.field("cloud_run_revision", &self.cloud_run_revision);
@@ -676,6 +677,31 @@ impl std::fmt::Debug for super::GKEMasterInfo {
     }
 }
 
+impl std::fmt::Debug for super::GkePodInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GkePodInfo");
+        debug_struct.field("pod_uri", &self.pod_uri);
+        debug_struct.field("ip_address", &self.ip_address);
+        debug_struct.field("network_uri", &self.network_uri);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::IpMasqueradingSkippedInfo {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("IpMasqueradingSkippedInfo");
+        debug_struct.field("reason", &self.reason);
+        debug_struct.field("non_masquerade_range", &self.non_masquerade_range);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::CloudSQLInstanceInfo {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("CloudSQLInstanceInfo");
@@ -827,6 +853,7 @@ impl std::fmt::Debug for super::NatInfo {
         debug_struct.field("new_destination_port", &self.new_destination_port);
         debug_struct.field("router_uri", &self.router_uri);
         debug_struct.field("nat_gateway_name", &self.nat_gateway_name);
+        debug_struct.field("cloud_nat_gateway_type", &self.cloud_nat_gateway_type);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

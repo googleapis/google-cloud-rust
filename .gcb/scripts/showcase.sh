@@ -24,7 +24,7 @@ export PATH=${PATH}:/usr/local/go/bin
 cargo version
 rustup show active-toolchain -v
 
-cargo test -p integration-tests --features run-showcase-tests
+cargo test -p integration-tests-showcase --features run-showcase-tests
 
 echo "==== DONE ===="
 

@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::as_inner::as_inner;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::{
     create_http_attempt_span, record_http_response_attributes, record_intermediate_client_request,
@@ -57,8 +58,11 @@ impl ReqwestClient {
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
         let mut builder = reqwest::Client::builder();
+        // Force http1 as http2 with not currently supported.
+        // TODO(#4298): Remove after adding HTTP2 support.
+        builder = builder.http1_only();
         if config.disable_automatic_decompression {
-            builder = builder.no_gzip().no_brotli().no_deflate();
+            builder = builder.no_gzip().no_brotli().no_deflate().no_zstd();
         }
         if config.disable_follow_redirects {
             builder = builder.redirect(reqwest::redirect::Policy::none());
@@ -111,6 +115,16 @@ impl ReqwestClient {
     pub fn builder(&self, method: Method, path: String) -> reqwest::RequestBuilder {
         self.inner
             .request(method, format!("{}{path}", &self.endpoint))
+    }
+
+    /// Creates a builder for a complete URL.
+    ///
+    /// Most clients use a single endpoint for all requests. Therefore, the
+    /// [builder()][Self::builder()] prepends the endpoint to a request path.
+    /// The most notable exception is the storage client, which receives the URL
+    /// for uploads dynamically, and needs to make requests to arbitrary URLs.
+    pub fn builder_with_url(&self, method: Method, url: &str) -> reqwest::RequestBuilder {
+        self.inner.request(method, url)
     }
 
     pub async fn execute<I: serde::ser::Serialize, O: serde::de::DeserializeOwned + Default>(
@@ -324,26 +338,8 @@ impl ReqwestClient {
     }
 }
 
-fn as_inner<E>(error: &reqwest::Error) -> Option<&E>
-where
-    E: std::error::Error + 'static,
-{
-    use std::error::Error as _;
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<E>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
-}
-
 pub fn map_send_error(err: reqwest::Error) -> Error {
-    if let Some(e) = as_inner::<hyper::Error>(&err) {
+    if let Some(e) = as_inner::<hyper::Error, _>(&err) {
         if e.is_user() {
             return Error::ser(err);
         }

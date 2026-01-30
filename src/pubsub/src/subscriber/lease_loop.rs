@@ -31,7 +31,7 @@ pub(super) struct LeaseLoop {
 impl LeaseLoop {
     pub(super) fn new<L>(leaser: L, options: LeaseOptions) -> Self
     where
-        L: Leaser + Send + 'static,
+        L: Leaser + Clone + Send + 'static,
     {
         let (message_tx, mut message_rx) = unbounded_channel();
         let (ack_tx, mut ack_rx) = unbounded_channel();
@@ -77,7 +77,7 @@ impl LeaseLoop {
 // triggers a shutdown of the lease state.
 async fn shutdown<L>(mut state: LeaseState<L>, mut ack_rx: UnboundedReceiver<AckResult>)
 where
-    L: Leaser + Send + 'static,
+    L: Leaser + Clone + Send + 'static,
 {
     while let Ok(r) = ack_rx.try_recv() {
         if let AckResult::Ack(ack_id) = r {
@@ -263,7 +263,7 @@ mod tests {
     async fn drop_does_not_wait_for_pending_operations() -> anyhow::Result<()> {
         let start = Instant::now();
         let mock = MockLeaser::new();
-        let lease_loop = LeaseLoop::new(mock, LeaseOptions::default());
+        let lease_loop = LeaseLoop::new(Arc::new(mock), LeaseOptions::default());
         // Yield execution, so tokio can actually start the lease loop.
         tokio::task::yield_now().await;
 
@@ -292,6 +292,7 @@ mod tests {
 
         let start = Instant::now();
 
+        #[derive(Clone)]
         struct FakeLeaser;
         #[async_trait::async_trait]
         impl Leaser for FakeLeaser {

@@ -139,6 +139,9 @@ impl serde::ser::Serialize for super::Endpoint {
         if !self.redis_cluster.is_empty() {
             state.serialize_entry("redisCluster", &self.redis_cluster)?;
         }
+        if !self.gke_pod.is_empty() {
+            state.serialize_entry("gkePod", &self.gke_pod)?;
+        }
         if self.cloud_function.is_some() {
             state.serialize_entry("cloudFunction", &self.cloud_function)?;
         }
@@ -838,6 +841,12 @@ impl serde::ser::Serialize for super::Step {
         }
         if let Some(value) = self.gke_master() {
             state.serialize_entry("gkeMaster", value)?;
+        }
+        if let Some(value) = self.gke_pod() {
+            state.serialize_entry("gkePod", value)?;
+        }
+        if let Some(value) = self.ip_masquerading_skipped() {
+            state.serialize_entry("ipMasqueradingSkipped", value)?;
         }
         if let Some(value) = self.cloud_sql_instance() {
             state.serialize_entry("cloudSqlInstance", value)?;
@@ -1698,6 +1707,59 @@ impl serde::ser::Serialize for super::GKEMasterInfo {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::GkePodInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.pod_uri.is_empty() {
+            state.serialize_entry("podUri", &self.pod_uri)?;
+        }
+        if !self.ip_address.is_empty() {
+            state.serialize_entry("ipAddress", &self.ip_address)?;
+        }
+        if !self.network_uri.is_empty() {
+            state.serialize_entry("networkUri", &self.network_uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::IpMasqueradingSkippedInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.reason) {
+            state.serialize_entry("reason", &self.reason)?;
+        }
+        if !self.non_masquerade_range.is_empty() {
+            state.serialize_entry("nonMasqueradeRange", &self.non_masquerade_range)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::CloudSQLInstanceInfo {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -2084,6 +2146,9 @@ impl serde::ser::Serialize for super::NatInfo {
         }
         if !self.nat_gateway_name.is_empty() {
             state.serialize_entry("natGatewayName", &self.nat_gateway_name)?;
+        }
+        if !wkt::internal::is_default(&self.cloud_nat_gateway_type) {
+            state.serialize_entry("cloudNatGatewayType", &self.cloud_nat_gateway_type)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

@@ -16,8 +16,7 @@ use rustls::crypto::{CryptoProvider, ring::default_provider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // TODO(#4170) - verify no default crypto provider is enabled. Currently
-    // `ring` is always installed, so we cannot enable the test.
+    test_metadata::only_ring(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), true)?;
 
     // Install a default crypto provider and verify gax-internal works.
     CryptoProvider::install_default(default_provider())

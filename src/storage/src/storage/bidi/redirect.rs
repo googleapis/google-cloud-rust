@@ -16,6 +16,7 @@ use crate::Error;
 use crate::google::rpc::Status as RpcStatus;
 use crate::google::storage::v2::{BidiReadObjectRedirectedError, BidiReadObjectSpec};
 use gax::error::rpc::Code;
+use gaxi::as_inner::as_inner;
 use gaxi::grpc::from_status::to_gax_error;
 use prost::Message;
 use std::sync::{Arc, Mutex};
@@ -42,7 +43,7 @@ pub fn is_redirect(error: &Error) -> bool {
     if error.status().is_none_or(|s| s.code != Code::Aborted) {
         return false;
     }
-    let Some(status) = as_inner::<tonic::Status, Error>(error) else {
+    let Some(status) = as_inner::<tonic::Status, _>(error) else {
         return false;
     };
 
@@ -53,24 +54,6 @@ pub fn is_redirect(error: &Error) -> bool {
         .details
         .iter()
         .any(|d| d.to_msg::<BidiReadObjectRedirectedError>().is_ok())
-}
-
-fn as_inner<T, E>(error: &E) -> Option<&T>
-where
-    T: std::error::Error + 'static,
-    E: std::error::Error,
-{
-    let mut e = error.source()?;
-    // Prevent infinite loops due to cycles in the `source()` errors. This seems
-    // unlikely, and it would require effort to create, but it is easy to
-    // prevent.
-    for _ in 0..32 {
-        if let Some(value) = e.downcast_ref::<T>() {
-            return Some(value);
-        }
-        e = e.source()?;
-    }
-    None
 }
 
 #[cfg(test)]

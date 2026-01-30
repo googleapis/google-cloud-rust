@@ -122,7 +122,7 @@ where
         let builder = self
             .inner
             .client
-            .request(reqwest::Method::PUT, upload_url)
+            .builder_with_url(reqwest::Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", range)
             .header(

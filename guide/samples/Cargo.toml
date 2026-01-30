@@ -34,11 +34,12 @@ httptest.workspace                      = true
 futures.workspace                       = true
 reqwest.workspace                       = true
 google-cloud-aiplatform-v1              = { workspace = true, default-features = false, features = ["prediction-service"] }
-google-cloud-auth                       = { workspace = true, features = ["idtoken"] }
+google-cloud-auth                       = { workspace = true, features = ["default", "idtoken"] }
 google-cloud-gax                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-iam-v1                     = { workspace = true }
 google-cloud-language-v2.workspace      = true
 google-cloud-longrunning.workspace      = true
+google-cloud-test-utils.workspace       = true
 google-cloud-lro                        = { workspace = true, features = ["unstable-stream"] }
 google-cloud-rpc.workspace              = true
 google-cloud-secretmanager-v1.workspace = true

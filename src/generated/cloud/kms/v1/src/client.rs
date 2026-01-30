@@ -622,6 +622,312 @@ impl EkmService {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_kms_v1::client::HsmManagement;
+/// let client = HsmManagement::builder().build().await?;
+/// // use `client` to make requests to the Cloud Key Management Service (KMS) API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Google Cloud HSM Management Service
+///
+/// Provides interfaces for managing HSM instances.
+///
+/// Implements a REST model with the following objects:
+///
+/// * [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]
+/// * [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+///
+/// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+/// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+///
+/// # Configuration
+///
+/// To configure `HsmManagement` use the `with_*` methods in the type returned
+/// by [builder()][HsmManagement::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://cloudkms.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::hsm_management::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::hsm_management::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `HsmManagement` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `HsmManagement` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct HsmManagement {
+    inner: std::sync::Arc<dyn super::stub::dynamic::HsmManagement>,
+}
+
+impl HsmManagement {
+    /// Returns a builder for [HsmManagement].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_kms_v1::client::HsmManagement;
+    /// let client = HsmManagement::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::hsm_management::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::hsm_management::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::HsmManagement + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::HsmManagement>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::HsmManagement> {
+        super::transport::HsmManagement::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::HsmManagement> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::HsmManagement::new)
+    }
+
+    /// Lists
+    /// [SingleTenantHsmInstances][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub fn list_single_tenant_hsm_instances(
+        &self,
+    ) -> super::builder::hsm_management::ListSingleTenantHsmInstances {
+        super::builder::hsm_management::ListSingleTenantHsmInstances::new(self.inner.clone())
+    }
+
+    /// Returns metadata for a given
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    pub fn get_single_tenant_hsm_instance(
+        &self,
+    ) -> super::builder::hsm_management::GetSingleTenantHsmInstance {
+        super::builder::hsm_management::GetSingleTenantHsmInstance::new(self.inner.clone())
+    }
+
+    /// Creates a new
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance] in a
+    /// given Project and Location. User must create a RegisterTwoFactorAuthKeys
+    /// proposal with this single-tenant HSM instance to finish setup of the
+    /// instance.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_single_tenant_hsm_instance(
+        &self,
+    ) -> super::builder::hsm_management::CreateSingleTenantHsmInstance {
+        super::builder::hsm_management::CreateSingleTenantHsmInstance::new(self.inner.clone())
+    }
+
+    /// Creates a new
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// for a given
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_single_tenant_hsm_instance_proposal(
+        &self,
+    ) -> super::builder::hsm_management::CreateSingleTenantHsmInstanceProposal {
+        super::builder::hsm_management::CreateSingleTenantHsmInstanceProposal::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Approves a
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// for a given
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]. The
+    /// proposal must be in the
+    /// [PENDING][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.State.PENDING]
+    /// state.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.State.PENDING]: crate::model::single_tenant_hsm_instance_proposal::State::Pending
+    pub fn approve_single_tenant_hsm_instance_proposal(
+        &self,
+    ) -> super::builder::hsm_management::ApproveSingleTenantHsmInstanceProposal {
+        super::builder::hsm_management::ApproveSingleTenantHsmInstanceProposal::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Executes a
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal]
+    /// for a given
+    /// [SingleTenantHsmInstance][google.cloud.kms.v1.SingleTenantHsmInstance]. The
+    /// proposal must be in the
+    /// [APPROVED][google.cloud.kms.v1.SingleTenantHsmInstanceProposal.State.APPROVED]
+    /// state.
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstance]: crate::model::SingleTenantHsmInstance
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal.State.APPROVED]: crate::model::single_tenant_hsm_instance_proposal::State::Approved
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn execute_single_tenant_hsm_instance_proposal(
+        &self,
+    ) -> super::builder::hsm_management::ExecuteSingleTenantHsmInstanceProposal {
+        super::builder::hsm_management::ExecuteSingleTenantHsmInstanceProposal::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Returns metadata for a given
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub fn get_single_tenant_hsm_instance_proposal(
+        &self,
+    ) -> super::builder::hsm_management::GetSingleTenantHsmInstanceProposal {
+        super::builder::hsm_management::GetSingleTenantHsmInstanceProposal::new(self.inner.clone())
+    }
+
+    /// Lists
+    /// [SingleTenantHsmInstanceProposals][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub fn list_single_tenant_hsm_instance_proposals(
+        &self,
+    ) -> super::builder::hsm_management::ListSingleTenantHsmInstanceProposals {
+        super::builder::hsm_management::ListSingleTenantHsmInstanceProposals::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes a
+    /// [SingleTenantHsmInstanceProposal][google.cloud.kms.v1.SingleTenantHsmInstanceProposal].
+    ///
+    /// [google.cloud.kms.v1.SingleTenantHsmInstanceProposal]: crate::model::SingleTenantHsmInstanceProposal
+    pub fn delete_single_tenant_hsm_instance_proposal(
+        &self,
+    ) -> super::builder::hsm_management::DeleteSingleTenantHsmInstanceProposal {
+        super::builder::hsm_management::DeleteSingleTenantHsmInstanceProposal::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::hsm_management::ListLocations {
+        super::builder::hsm_management::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::hsm_management::GetLocation {
+        super::builder::hsm_management::GetLocation::new(self.inner.clone())
+    }
+
+    /// Sets the access control policy on the specified resource. Replaces
+    /// any existing policy.
+    ///
+    /// Can return `NOT_FOUND`, `INVALID_ARGUMENT`, and `PERMISSION_DENIED`
+    /// errors.
+    pub fn set_iam_policy(&self) -> super::builder::hsm_management::SetIamPolicy {
+        super::builder::hsm_management::SetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Gets the access control policy for a resource. Returns an empty policy
+    /// if the resource exists and does not have a policy set.
+    pub fn get_iam_policy(&self) -> super::builder::hsm_management::GetIamPolicy {
+        super::builder::hsm_management::GetIamPolicy::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource. If the
+    /// resource does not exist, this will return an empty set of
+    /// permissions, not a `NOT_FOUND` error.
+    ///
+    /// Note: This operation is designed to be used for building
+    /// permission-aware UIs and command-line tools, not for authorization
+    /// checking. This operation may "fail open" without warning.
+    pub fn test_iam_permissions(&self) -> super::builder::hsm_management::TestIamPermissions {
+        super::builder::hsm_management::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::hsm_management::GetOperation {
+        super::builder::hsm_management::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud Key Management Service (KMS) API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_kms_v1::client::KeyManagementService;
 /// let client = KeyManagementService::builder().build().await?;
 /// // use `client` to make requests to the Cloud Key Management Service (KMS) API.

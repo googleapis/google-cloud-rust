@@ -559,6 +559,11 @@ impl Autoscalers {
         super::builder::autoscalers::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::autoscalers::TestIamPermissions {
+        super::builder::autoscalers::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates an autoscaler in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::autoscalers::Update {
@@ -3362,6 +3367,11 @@ impl HealthChecks {
         super::builder::health_checks::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::health_checks::TestIamPermissions {
+        super::builder::health_checks::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates a HealthCheck resource in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::health_checks::Update {
@@ -3512,6 +3522,11 @@ impl HttpHealthChecks {
         super::builder::http_health_checks::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::http_health_checks::TestIamPermissions {
+        super::builder::http_health_checks::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates a HttpHealthCheck resource in the specified project using the data
     /// included in the request.
     pub fn update(&self) -> super::builder::http_health_checks::Update {
@@ -3660,6 +3675,11 @@ impl HttpsHealthChecks {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::https_health_checks::Patch {
         super::builder::https_health_checks::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::https_health_checks::TestIamPermissions {
+        super::builder::https_health_checks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a HttpsHealthCheck resource in the specified project using the data
@@ -9951,6 +9971,11 @@ impl RegionAutoscalers {
         super::builder::region_autoscalers::Patch::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_autoscalers::TestIamPermissions {
+        super::builder::region_autoscalers::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Updates an autoscaler in the specified project using
     /// the data included in the request.
     pub fn update(&self) -> super::builder::region_autoscalers::Update {
@@ -10919,6 +10944,11 @@ impl RegionHealthChecks {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::region_health_checks::Patch {
         super::builder::region_health_checks::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::region_health_checks::TestIamPermissions {
+        super::builder::region_health_checks::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates a HealthCheck resource in the specified project using the data
@@ -12459,6 +12489,13 @@ impl RegionNotificationEndpoints {
     /// Lists the NotificationEndpoints for a project in the given region.
     pub fn list(&self) -> super::builder::region_notification_endpoints::List {
         super::builder::region_notification_endpoints::List::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(
+        &self,
+    ) -> super::builder::region_notification_endpoints::TestIamPermissions {
+        super::builder::region_notification_endpoints::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified region-specific Operations resource.
@@ -14079,6 +14116,135 @@ impl ReservationBlocks {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_compute_v1::client::ReservationSlots;
+/// let client = ReservationSlots::builder().build().await?;
+/// // use `client` to make requests to the Google Compute Engine API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for the `reservationSlots` resource.
+///
+/// # Configuration
+///
+/// To configure `ReservationSlots` use the `with_*` methods in the type returned
+/// by [builder()][ReservationSlots::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://compute.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::reservation_slots::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::reservation_slots::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `ReservationSlots` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `ReservationSlots` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "reservation-slots")]
+#[cfg_attr(docsrs, doc(cfg(feature = "reservation-slots")))]
+#[derive(Clone, Debug)]
+pub struct ReservationSlots {
+    inner: std::sync::Arc<dyn super::stub::dynamic::ReservationSlots>,
+}
+
+#[cfg(feature = "reservation-slots")]
+impl ReservationSlots {
+    /// Returns a builder for [ReservationSlots].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_compute_v1::client::ReservationSlots;
+    /// let client = ReservationSlots::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::reservation_slots::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::reservation_slots::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::ReservationSlots + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::ReservationSlots>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReservationSlots> {
+        super::transport::ReservationSlots::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::ReservationSlots> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::ReservationSlots::new)
+    }
+
+    /// Retrieves information about the specified reservation slot.
+    pub fn get(&self) -> super::builder::reservation_slots::Get {
+        super::builder::reservation_slots::Get::new(self.inner.clone())
+    }
+
+    /// Retrieves a list of reservation slots under a single reservation.
+    pub fn list(&self) -> super::builder::reservation_slots::List {
+        super::builder::reservation_slots::List::new(self.inner.clone())
+    }
+
+    /// Update a reservation slot in the specified sub-block.
+    pub fn update(&self) -> super::builder::reservation_slots::Update {
+        super::builder::reservation_slots::Update::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified zone-specific Operations resource.
+    pub fn get_operation(&self) -> super::builder::reservation_slots::GetOperation {
+        super::builder::reservation_slots::GetOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Google Compute Engine API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_compute_v1::client::ReservationSubBlocks;
 /// let client = ReservationSubBlocks::builder().build().await?;
 /// // use `client` to make requests to the Google Compute Engine API.
@@ -14901,6 +15067,11 @@ impl Routes {
     /// Retrieves the list of Route resources available to the specified project.
     pub fn list(&self) -> super::builder::routes::List {
         super::builder::routes::List::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::routes::TestIamPermissions {
+        super::builder::routes::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
@@ -17326,6 +17497,11 @@ impl TargetSslProxies {
         super::builder::target_ssl_proxies::SetSslPolicy::new(self.inner.clone())
     }
 
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::target_ssl_proxies::TestIamPermissions {
+        super::builder::target_ssl_proxies::TestIamPermissions::new(self.inner.clone())
+    }
+
     /// Retrieves the specified Operations resource.
     pub fn get_operation(&self) -> super::builder::target_ssl_proxies::GetOperation {
         super::builder::target_ssl_proxies::GetOperation::new(self.inner.clone())
@@ -17479,6 +17655,11 @@ impl TargetTcpProxies {
     /// Changes the ProxyHeaderType for TargetTcpProxy.
     pub fn set_proxy_header(&self) -> super::builder::target_tcp_proxies::SetProxyHeader {
         super::builder::target_tcp_proxies::SetProxyHeader::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::target_tcp_proxies::TestIamPermissions {
+        super::builder::target_tcp_proxies::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Retrieves the specified Operations resource.
@@ -17788,6 +17969,11 @@ impl UrlMaps {
     /// patch format and processing rules.
     pub fn patch(&self) -> super::builder::url_maps::Patch {
         super::builder::url_maps::Patch::new(self.inner.clone())
+    }
+
+    /// Returns permissions that a caller has on the specified resource.
+    pub fn test_iam_permissions(&self) -> super::builder::url_maps::TestIamPermissions {
+        super::builder::url_maps::TestIamPermissions::new(self.inner.clone())
     }
 
     /// Updates the specified UrlMap resource with the data included in the

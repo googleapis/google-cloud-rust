@@ -14,7 +14,7 @@
 
 use anyhow::bail;
 use google_cloud_auth::credentials::Builder as CredentialsBuilder;
-use google_cloud_gax::{options::RequestOptions, response::Response};
+use google_cloud_gax::options::RequestOptions;
 use google_cloud_gax_internal::{http::ReqwestClient, options::ClientConfig};
 use serde_json::Value;
 
