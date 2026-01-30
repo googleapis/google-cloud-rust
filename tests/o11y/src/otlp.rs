@@ -38,7 +38,7 @@ const OTEL_KEY_SERVICE_NAME: &str = "service.name";
 /// # Examples
 ///
 /// ```no_run
-/// use integration_tests::observability::otlp::CloudTelemetryTracerProviderBuilder;
+/// use integration_tests_o11::otlp::CloudTelemetryTracerProviderBuilder;
 ///
 /// # async fn example() -> anyhow::Result<()> {
 /// let provider = CloudTelemetryTracerProviderBuilder::new("my-project", "my-service")

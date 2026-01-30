@@ -30,7 +30,7 @@ const INSTRUMENTATION_SCOPE_NAME: &str = "google-cloud-rust";
 /// ```
 /// use opentelemetry_sdk::trace::SdkTracerProvider;
 /// use tracing_subscriber::{Registry, layer::SubscriberExt};
-/// use integration_tests::observability::tracing::layer;
+/// use integration_tests_o11::tracing::layer;
 ///
 /// // Assume you have a configured SdkTracerProvider
 /// let tracer_provider = SdkTracerProvider::builder().build();
