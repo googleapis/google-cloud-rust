@@ -17,13 +17,15 @@ mod protobuf {
     use google_cloud_secretmanager_v1::builder::secret_manager_service::ClientBuilder;
     use google_cloud_secretmanager_v1::client::SecretManagerService;
     use google_cloud_test_utils::tracing::enable_tracing;
+    use integration_tests_protobuf::retry_policy;
+    use test_case::test_case;
 
     #[test_case(SecretManagerService::builder(); "default")]
     #[test_case(SecretManagerService::builder().with_tracing(); "with tracing enabled")]
     #[test_case(SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
     #[test_case(SecretManagerService::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run(builder: ClientBuilder) -> integration_tests::Result<()> {
+    #[tokio::test]
+    async fn run(builder: ClientBuilder) -> anyhow::Result<()> {
         let _guard = enable_tracing();
         integration_tests_protobuf::run(builder).await
     }

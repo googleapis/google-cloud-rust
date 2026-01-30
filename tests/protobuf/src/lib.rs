@@ -18,7 +18,7 @@ mod pagination;
 use anyhow::Result;
 use google_cloud_gax::options::RequestOptionsBuilder;
 use google_cloud_gax::paginator::{ItemPaginator, Paginator};
-use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyExt};
 use google_cloud_iam_v1::model::Binding;
 use google_cloud_secretmanager_v1::builder::secret_manager_service::ClientBuilder;
 use google_cloud_secretmanager_v1::client::SecretManagerService;
@@ -28,6 +28,7 @@ use google_cloud_secretmanager_v1::model::{
 use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
 use google_cloud_wkt::{FieldMask, Timestamp};
+use std::time::Duration;
 
 pub async fn run(builder: ClientBuilder) -> Result<()> {
     let project_id = project_id()?;
@@ -140,6 +141,12 @@ pub async fn run(builder: ClientBuilder) -> Result<()> {
     println!("DELETE finished");
 
     Ok(())
+}
+
+pub fn retry_policy() -> impl RetryPolicy {
+    AlwaysRetry
+        .with_time_limit(Duration::from_secs(15))
+        .with_attempt_limit(5)
 }
 
 async fn run_locations(client: &SecretManagerService, project_id: &str) -> Result<()> {

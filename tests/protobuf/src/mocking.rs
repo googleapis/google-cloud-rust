@@ -15,7 +15,7 @@
 //! Verify it is possible to mock most API calls.
 
 #[cfg(test)]
-mod mocking {
+mod tests {
     use google_cloud_gax::Result as GaxResult;
     use google_cloud_gax::error::Error;
     use google_cloud_gax::options::RequestOptions;

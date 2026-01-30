@@ -15,7 +15,7 @@
 //! Verify it is possible to mock pagination APIs.
 
 #[cfg(test)]
-mod mocking {
+mod tests {
     use google_cloud_gax::Result as GaxResult;
     use google_cloud_gax::options::RequestOptions;
     use google_cloud_gax::paginator::{ItemPaginator, Paginator};
