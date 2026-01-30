@@ -13,7 +13,7 @@
 # limitations under the License.
 
 [workspace]
-resolver = "2"
+resolver = "3"
 
 default-members = [
   "guide/samples",
