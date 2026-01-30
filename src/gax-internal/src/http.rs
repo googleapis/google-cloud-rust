@@ -12,6 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Implements the HTTP client for the client libraries.
+//!
+//! This is a wrapper around `reqwest::Client` with some helpers to simplify
+//! authentication, the retry loops, the telemetry headers, default endpoints,
+//! etc.  We are not trying to make it a secret that we use `reqwest`. We
+//! must be careful to export enough symbols so the callers can use this crate
+//! without having to link `reqwest` directly. That leads to unexpected breaking
+//! changes.
+
+pub mod reqwest;
+
 use crate::as_inner::as_inner;
 #[cfg(google_cloud_unstable_tracing)]
 use crate::observability::{
@@ -31,27 +42,15 @@ use google_cloud_auth::credentials::{
     Builder as CredentialsBuilder, CacheableResource, Credentials,
 };
 use http::Extensions;
+use reqwest::Method;
 use std::sync::Arc;
 use std::time::Duration;
 #[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
 
-// Re-export the symbols from `reqwest` so the downstream crates can use the
-// same version of `reqwest` as this crate does without having to match the
-// version in their dependencies.
-pub use reqwest::Body as ReqwestBody;
-pub use reqwest::Method;
-pub use reqwest::Request as Reqwest;
-pub use reqwest::RequestBuilder as ReqwestBuilder;
-pub use reqwest::Response as ReqwestResponse;
-pub use reqwest::StatusCode;
-pub use reqwest::header::{HeaderMap, HeaderName, HeaderValue};
-#[cfg(feature = "_internal-http-multipart")]
-pub use reqwest::multipart;
-
 #[derive(Clone, Debug)]
 pub struct ReqwestClient {
-    inner: reqwest::Client,
+    inner: ::reqwest::Client,
     cred: Credentials,
     endpoint: String,
     host: String,
@@ -70,7 +69,7 @@ impl ReqwestClient {
         default_endpoint: &str,
     ) -> gax::client_builder::Result<Self> {
         let cred = Self::make_credentials(&config).await?;
-        let mut builder = reqwest::Client::builder();
+        let mut builder = ::reqwest::Client::builder();
         // Force http1 as http2 with not currently supported.
         // TODO(#4298): Remove after adding HTTP2 support.
         builder = builder.http1_only();
@@ -78,7 +77,7 @@ impl ReqwestClient {
             builder = builder.no_gzip().no_brotli().no_deflate().no_zstd();
         }
         if config.disable_follow_redirects {
-            builder = builder.redirect(reqwest::redirect::Policy::none());
+            builder = builder.redirect(::reqwest::redirect::Policy::none());
         }
         let inner = builder.build().map_err(BuilderError::transport)?;
         let host = crate::host::from_endpoint(
@@ -193,11 +192,11 @@ impl ReqwestClient {
     ) -> Result<reqwest::RequestBuilder> {
         if let Some(user_agent) = options.user_agent() {
             builder = builder.header(
-                reqwest::header::USER_AGENT,
-                reqwest::header::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
+                ::reqwest::header::USER_AGENT,
+                reqwest::HeaderValue::from_str(user_agent).map_err(Error::ser)?,
             );
         }
-        builder = builder.header(reqwest::header::HOST, &self.host);
+        builder = builder.header(::reqwest::header::HOST, &self.host);
         Ok(builder)
     }
 
@@ -351,7 +350,7 @@ impl ReqwestClient {
     }
 }
 
-pub fn map_send_error(err: reqwest::Error) -> Error {
+pub fn map_send_error(err: ::reqwest::Error) -> Error {
     if let Some(e) = as_inner::<hyper::Error, _>(&err) {
         if e.is_user() {
             return Error::ser(err);

@@ -68,7 +68,7 @@ async fn start_resumable_upload() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
@@ -101,7 +101,7 @@ async fn start_resumable_upload_headers() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=resumable&name=object"
@@ -173,7 +173,7 @@ async fn start_resumable_upload_metadata_in_request() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     let want_pairs: BTreeMap<String, String> = [
         ("uploadType", "resumable"),
         ("name", "object"),
@@ -247,7 +247,7 @@ async fn handle_start_resumable_upload_response() -> Result {
             "http://private.googleapis.com/test-only/session-123",
         )
         .body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let url = super::handle_start_resumable_upload_response(response).await?;
     assert_eq!(url, "http://private.googleapis.com/test-only/session-123");
     Ok(())
@@ -260,7 +260,7 @@ async fn handle_start_resumable_upload_response() -> Result {
 #[test_case(Some("bytes=1-12345"), None)]
 #[test_case(Some(""), None)]
 fn range_end(input: Option<&str>, want: Option<u64>) {
-    use gaxi::http::{HeaderMap, HeaderName, HeaderValue};
+    use gaxi::http::reqwest::{HeaderMap, HeaderName, HeaderValue};
     let headers = HeaderMap::from_iter(input.into_iter().map(|s| {
         (
             HeaderName::from_static("range"),
@@ -281,7 +281,7 @@ async fn query_resumable_upload_partial() -> Result {
         .header("range", "bytes=0-99")
         .status(RESUME_INCOMPLETE)
         .body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let status = super::query_resumable_upload_handle_response(response).await?;
     assert_eq!(status, ResumableUploadStatus::Partial(100_u64));
     Ok(())
@@ -292,7 +292,7 @@ async fn query_resumable_upload_finalized() -> Result {
     let response = http::Response::builder()
         .status(200)
         .body(response_body().to_string())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let status = super::query_resumable_upload_handle_response(response).await?;
     assert!(
         matches!(status, ResumableUploadStatus::Finalized(_)),
@@ -304,7 +304,7 @@ async fn query_resumable_upload_finalized() -> Result {
 #[tokio::test]
 async fn query_resumable_upload_http_error() -> Result {
     let response = http::Response::builder().status(429).body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let err = super::query_resumable_upload_handle_response(response)
         .await
         .expect_err("HTTP error should return error");
@@ -317,7 +317,7 @@ async fn query_resumable_upload_finalized_deser() -> Result {
     let response = http::Response::builder()
         .status(200)
         .body("a string is not a valid object".to_string())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let err = super::query_resumable_upload_handle_response(response)
         .await
         .expect_err("bad response should return an error");
@@ -331,7 +331,7 @@ async fn parse_range() -> Result {
         .header("range", "bytes=0-99")
         .status(RESUME_INCOMPLETE)
         .body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let range = super::parse_range(response).await?;
     assert_eq!(range, ResumableUploadStatus::Partial(100_u64));
     Ok(())
@@ -342,7 +342,7 @@ async fn parse_range_missing() -> Result {
     let response = http::Response::builder()
         .status(RESUME_INCOMPLETE)
         .body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let range = super::parse_range(response).await?;
     assert_eq!(range, ResumableUploadStatus::Partial(0));
     Ok(())
@@ -354,7 +354,7 @@ async fn parse_range_invalid_range() -> Result {
         .header("range", "bytes=100-999")
         .status(RESUME_INCOMPLETE)
         .body(Vec::new())?;
-    let response = ReqwestResponse::from(response);
+    let response = Response::from(response);
     let err = super::parse_range(response)
         .await
         .expect_err("invalid range should create an error");

@@ -26,7 +26,7 @@ use crate::storage::perform_upload::tests::perform_upload;
 use crate::streaming_source::IterSource;
 use crate::streaming_source::SizeHint;
 use gax::retry_policy::RetryPolicyExt;
-use gaxi::http::Reqwest;
+use gaxi::http::reqwest::{Method, Request};
 use google_cloud_auth::credentials::{anonymous::Builder as Anonymous, testing::error_credentials};
 use http_body_util::BodyExt;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -187,7 +187,7 @@ async fn seek_error() -> Result {
 }
 
 async fn parse_multipart_body(
-    mut request: Reqwest,
+    mut request: Request,
 ) -> anyhow::Result<(bytes::Bytes, bytes::Bytes)> {
     let boundary = request
         .headers()
@@ -248,7 +248,7 @@ async fn upload_object_bytes() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
@@ -276,7 +276,7 @@ async fn upload_object_metadata() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
@@ -305,7 +305,7 @@ async fn upload_object_stream() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"
@@ -369,7 +369,7 @@ async fn upload_object_headers() -> Result {
         .await?
         .build()?;
 
-    assert_eq!(request.method(), gaxi::http::Method::POST);
+    assert_eq!(request.method(), Method::POST);
     assert_eq!(
         request.url().as_str(),
         "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=multipart&name=object"

@@ -18,13 +18,13 @@ use crate::model::ObjectChecksums;
 use crate::model_ext::ObjectHighlights;
 use crate::storage::checksum::details::validate;
 use crate::{Error, Result, error::ReadError};
-use gaxi::http::ReqwestResponse;
+use gaxi::http::reqwest::{Response, StatusCode};
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
 pub(crate) struct ResumableResponse {
     reader: Reader,
-    response: Option<ReqwestResponse>,
+    response: Option<Response>,
     highlights: ObjectHighlights,
     // Fields for tracking the crc checksum checks.
     response_checksums: ObjectChecksums,
@@ -35,7 +35,7 @@ pub(crate) struct ResumableResponse {
 }
 
 impl ResumableResponse {
-    pub(crate) fn new(reader: Reader, response: ReqwestResponse) -> Result<Self> {
+    pub(crate) fn new(reader: Reader, response: Response) -> Result<Self> {
         let full = reader.request.read_offset == 0 && reader.request.read_limit == 0;
         let headers = response.headers();
         let response_checksums = checksums_from_response(full, response.status(), headers);
@@ -147,9 +147,9 @@ struct ReadRange {
     limit: u64,
 }
 
-fn response_range(response: &ReqwestResponse) -> std::result::Result<ReadRange, ReadError> {
+fn response_range(response: &Response) -> std::result::Result<ReadRange, ReadError> {
     match response.status() {
-        gaxi::http::StatusCode::OK => {
+        StatusCode::OK => {
             match (
                 read_limit("content-length", response),
                 read_limit("x-goog-stored-content-length", response),
@@ -161,7 +161,7 @@ fn response_range(response: &ReqwestResponse) -> std::result::Result<ReadRange, 
                 (Err(e), Err(_)) => Err(e),
             }
         }
-        gaxi::http::StatusCode::PARTIAL_CONTENT => {
+        StatusCode::PARTIAL_CONTENT => {
             let header = parse_http_response::required_header(response, "content-range")?;
             let header = header.strip_prefix("bytes ").ok_or_else(|| {
                 ReadError::BadHeaderFormat("content-range", "missing bytes prefix".into())
@@ -190,10 +190,7 @@ fn response_range(response: &ReqwestResponse) -> std::result::Result<ReadRange, 
     }
 }
 
-fn read_limit(
-    name: &'static str,
-    response: &ReqwestResponse,
-) -> std::result::Result<u64, ReadError> {
+fn read_limit(name: &'static str, response: &Response) -> std::result::Result<u64, ReadError> {
     let header = parse_http_response::required_header(response, name)?;
     header
         .parse::<u64>()
@@ -287,7 +284,7 @@ mod tests {
             .status(200)
             .header(name, limit)
             .body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let range = response_range(&response)?;
         assert_eq!(range, super::ReadRange { start: 0, limit });
         Ok(())
@@ -296,7 +293,7 @@ mod tests {
     #[test]
     fn response_range_missing() -> Result {
         let response = http::Response::builder().status(200).body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("missing header should result in an error");
         assert!(
             matches!(err, ReadError::MissingHeader(h) if h == "content-length"),
@@ -316,7 +313,7 @@ mod tests {
             .status(200)
             .header(name, value)
             .body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("header value should result in an error");
         assert!(
             matches!(err, ReadError::BadHeaderFormat(h, _) if h == name),
@@ -333,7 +330,7 @@ mod tests {
             .header("content-length", "not-a-number")
             .header("x-goog-stored-content-length", "not-a-number")
             .body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("header value should result in an error");
         assert!(matches!(err, ReadError::BadHeaderFormat(_, _)), "{err:?}");
         assert!(err.source().is_some(), "{err:?}");
@@ -350,7 +347,7 @@ mod tests {
                 format!("bytes {}-{}/{}", start, end, end + 1),
             )
             .body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let range = response_range(&response)?;
         assert_eq!(
             range,
@@ -365,7 +362,7 @@ mod tests {
     #[test]
     fn response_range_partial_missing() -> Result {
         let response = http::Response::builder().status(206).body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("missing header should result in an error");
         assert!(
             matches!(err, ReadError::MissingHeader(h) if h == "content-range"),
@@ -386,7 +383,7 @@ mod tests {
             .status(206)
             .header("content-range", value)
             .body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("header value should result in an error");
         assert!(
             matches!(err, ReadError::BadHeaderFormat(h, _) if h == "content-range"),
@@ -398,9 +395,9 @@ mod tests {
 
     #[test]
     fn response_range_bad_response() -> Result {
-        let code = gaxi::http::StatusCode::CREATED;
+        let code = StatusCode::CREATED;
         let response = http::Response::builder().status(code).body(Vec::new())?;
-        let response = ReqwestResponse::from(response);
+        let response = Response::from(response);
         let err = response_range(&response).expect_err("unexpected status creates error");
         assert!(
             matches!(err, ReadError::UnexpectedSuccessCode(c) if c == code),

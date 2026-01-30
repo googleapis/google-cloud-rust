@@ -20,7 +20,7 @@ use crate::storage::info::X_GOOG_API_CLIENT_HEADER;
 use crate::storage::v1;
 use crate::streaming_source::{IterSource, Seek, SizeHint, StreamingSource};
 use crate::{Error, Result};
-use gaxi::http::{ReqwestBuilder, ReqwestResponse};
+use gaxi::http::reqwest::{HeaderMap, HeaderValue, Method, RequestBuilder, Response, StatusCode};
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
@@ -73,7 +73,7 @@ impl<S> PerformUpload<S> {
         self::handle_start_resumable_upload_response(response).await
     }
 
-    async fn start_resumable_upload_request(&self) -> Result<ReqwestBuilder> {
+    async fn start_resumable_upload_request(&self) -> Result<RequestBuilder> {
         let bucket = &self.resource().bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
@@ -84,16 +84,13 @@ impl<S> PerformUpload<S> {
         let builder = self
             .inner
             .client
-            .builder(
-                gaxi::http::Method::POST,
-                format!("/upload/storage/v1/b/{bucket_id}/o"),
-            )
+            .builder(Method::POST, format!("/upload/storage/v1/b/{bucket_id}/o"))
             .query(&[("uploadType", "resumable")])
             .query(&[("name", object)])
             .header("content-type", "application/json")
             .header(
                 "x-goog-api-client",
-                gaxi::http::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
 
         let builder = self.apply_preconditions(builder);
@@ -110,20 +107,20 @@ impl<S> PerformUpload<S> {
         let builder = self
             .inner
             .client
-            .builder_with_url(gaxi::http::Method::PUT, upload_url)
+            .builder_with_url(Method::PUT, upload_url)
             .header("content-type", "application/octet-stream")
             .header("Content-Range", "bytes */*")
             .header("content-length", 0)
             .header(
                 "x-goog-api-client",
-                gaxi::http::HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
+                HeaderValue::from_static(&X_GOOG_API_CLIENT_HEADER),
             );
         let builder = self.inner.apply_auth_headers(builder).await?;
         let response = builder.send().await.map_err(Error::io)?;
         self::query_resumable_upload_handle_response(response).await
     }
 
-    fn apply_preconditions(&self, builder: ReqwestBuilder) -> ReqwestBuilder {
+    fn apply_preconditions(&self, builder: RequestBuilder) -> RequestBuilder {
         let builder = self
             .spec
             .if_generation_match
@@ -157,7 +154,7 @@ impl<S> PerformUpload<S> {
     }
 }
 
-async fn handle_start_resumable_upload_response(response: ReqwestResponse) -> Result<String> {
+async fn handle_start_resumable_upload_response(response: Response) -> Result<String> {
     if !response.status().is_success() {
         return gaxi::http::to_http_error(response).await;
     }
@@ -169,7 +166,7 @@ async fn handle_start_resumable_upload_response(response: ReqwestResponse) -> Re
 }
 
 async fn query_resumable_upload_handle_response(
-    response: ReqwestResponse,
+    response: Response,
 ) -> Result<ResumableUploadStatus> {
     if response.status() == RESUME_INCOMPLETE {
         return self::parse_range(response).await;
@@ -178,7 +175,7 @@ async fn query_resumable_upload_handle_response(
     Ok(ResumableUploadStatus::Finalized(Box::new(object)))
 }
 
-async fn handle_object_response(response: ReqwestResponse) -> Result<Object> {
+async fn handle_object_response(response: Response) -> Result<Object> {
     if !response.status().is_success() {
         return gaxi::http::to_http_error(response).await;
     }
@@ -186,7 +183,7 @@ async fn handle_object_response(response: ReqwestResponse) -> Result<Object> {
     Ok(Object::from(response))
 }
 
-async fn parse_range(response: ReqwestResponse) -> Result<ResumableUploadStatus> {
+async fn parse_range(response: Response) -> Result<ResumableUploadStatus> {
     let Some(end) = self::parse_range_end(response.headers()) else {
         return gaxi::http::to_http_error(response).await;
     };
@@ -204,7 +201,7 @@ enum ResumableUploadStatus {
     Partial(u64),
 }
 
-fn parse_range_end(headers: &gaxi::http::HeaderMap) -> Option<u64> {
+fn parse_range_end(headers: &HeaderMap) -> Option<u64> {
     let Some(range) = headers.get("range") else {
         // A missing `Range:` header indicates that no bytes are persisted.
         return Some(0_u64);
@@ -220,7 +217,7 @@ fn parse_range_end(headers: &gaxi::http::HeaderMap) -> Option<u64> {
     end.parse::<u64>().ok()
 }
 
-const RESUME_INCOMPLETE: gaxi::http::StatusCode = gaxi::http::StatusCode::PERMANENT_REDIRECT;
+const RESUME_INCOMPLETE: StatusCode = StatusCode::PERMANENT_REDIRECT;
 
 #[cfg(test)]
 mod tests;
