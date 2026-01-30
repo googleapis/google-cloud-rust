@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-gax-internal"
-version     = "0.7.8"
+version     = "0.7.9"
 description = "Google Cloud Client Libraries for Rust - Implementation Details"
 build       = "build.rs"
 # Inherit other attributes from the workspace.
@@ -36,6 +36,10 @@ workspace = true
 
 [features]
 default = ["_default-rustls-provider"]
+# Enables the HTTP client.
+#
+# Currently this is based on reqwest, and this crate implicitly uses the same
+# features of reqwest that `google-cloud-auth` does.
 _internal-http-client = [
   "_internal-common",
   "dep:bytes",
@@ -51,6 +55,10 @@ _internal-http-client = [
   "dep:tokio",
   "dep:tracing",
 ]
+# Enables the gRPC client.
+#
+# Currently this is based on Tonic, and this crate implicitly uses the same
+# features of reqwest that `google-cloud-auth` does.
 _internal-grpc-client = [
   "_internal-common",
   "dep:bytes",
@@ -72,7 +80,20 @@ _internal-grpc-client = [
   "dep:tracing",
   "dep:wkt",
 ]
+# Enable support for the multipart requests in the HTTP client.
+#
+# Specifically, this enables the `reqwest::multipart` module, which is used by
+# the `google-cloud-storage` crate to create multipart POST requests in
+# single-shot uploads.
+_internal-http-multipart = ["_internal-http-client", "reqwest?/multipart"]
+# Enable support for streaming bodies in the HTTP client.
+#
+# Specifically, this enables the `reqwest::Body::wrap_stream()` method, which is
+# used by the `google-cloud-storage` crate to stream upload data.
+_internal-http-stream = ["_internal-http-client", "reqwest?/stream"]
+# Common features required by both HTTP and gRPC clients.
 _internal-common = ["dep:gax", "dep:google-cloud-auth", "dep:percent-encoding", "dep:thiserror"]
+# Enables the default rustls crypto provider for whatever client(s) are enabled.
 _default-rustls-provider = ["google-cloud-auth?/default-rustls-provider", "tonic?/tls-aws-lc"]
 
 [dependencies]
