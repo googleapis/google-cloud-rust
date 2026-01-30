@@ -36,7 +36,9 @@ use std::time::Duration;
 #[cfg(google_cloud_unstable_tracing)]
 use tracing::Instrument;
 
-#[cfg(feature = "_internal-http-stream")]
+// Re-export the symbols from `reqwest` so the downstream crates can use the
+// same version of `reqwest` as this crate does without having to match the
+// version in their dependencies.
 pub use reqwest::Body as ReqwestBody;
 pub use reqwest::Method;
 pub use reqwest::Request as Reqwest;
