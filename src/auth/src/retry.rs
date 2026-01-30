@@ -41,15 +41,15 @@ pub(crate) struct Builder {
     retry_throttler: Option<RetryThrottlerArg>,
 }
 
-/// This is necessary because adding [Builder] to existing, released auth features
-/// caused a breaking change. The containing structs would lose their automatically derived
-/// `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
-/// are not `RefUnwindSafe` nor `UnwindSafe` by default.
-///
-/// This solves that by manually implementing `RefUnwindSafe` and `UnwindSafe`, allowing us to add
-/// retry functionality without triggering a semver-check failure. This is safe because
-/// we control the implementation of the inner types and can ensure that they are
-/// `RefUnwindSafe` and `UnwindSafe`.
+// This is necessary because adding [Builder] to existing, released auth features
+// caused a breaking change. The containing structs would lose their automatically derived
+// `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
+// are not `RefUnwindSafe` nor `UnwindSafe` by default.
+//
+// This solves that by manually implementing `RefUnwindSafe` and `UnwindSafe`, allowing us to add
+// retry functionality without triggering a semver-check failure. This is safe because
+// we control the implementation of the inner types and can ensure that they are
+// `RefUnwindSafe` and `UnwindSafe`.
 impl RefUnwindSafe for Builder {}
 impl UnwindSafe for Builder {}
 
