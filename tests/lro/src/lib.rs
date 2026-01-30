@@ -13,6 +13,7 @@
 // limitations under the License.
 
 pub mod fake;
+pub mod production;
 
 #[cfg(test)]
 mod tests {
