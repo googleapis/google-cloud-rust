@@ -23,85 +23,43 @@ use gax::retry_loop_internal::retry_loop;
 use gax::retry_policy::{AlwaysRetry, RetryPolicy, RetryPolicyArg, RetryPolicyExt};
 use gax::retry_throttler::{AdaptiveThrottler, RetryThrottlerArg, SharedRetryThrottler};
 use std::error::Error;
-use std::panic::RefUnwindSafe;
+use std::panic::{RefUnwindSafe, UnwindSafe};
 use std::sync::{Arc, Mutex};
-
-/// A wrapper to assert `RefUnwindSafe` on the inner type.
-///
-/// This is necessary because adding [TokenProviderWithRetry] to existing, released auth features
-/// caused a breaking change. The containing structs would lose their automatically derived
-/// `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
-/// are not `RefUnwindSafe` by default.
-///
-/// This wrapper solves that by manually implementing `RefUnwindSafe`, allowing us to add
-/// retry functionality without triggering a semver-check failure. This is safe because
-/// we control the implementation of the inner types and can ensure that they are
-/// `RefUnwindSafe`.
-#[derive(Debug)]
-struct UnwindSafeAdapter<T>(T);
-
-impl<T> RefUnwindSafe for UnwindSafeAdapter<T> {}
-
-impl<T> From<T> for UnwindSafeAdapter<T> {
-    fn from(inner: T) -> Self {
-        Self(inner)
-    }
-}
-
-impl RetryPolicy for UnwindSafeAdapter<Arc<dyn RetryPolicy>> {
-    fn on_error(
-        &self,
-        state: &gax::retry_state::RetryState,
-        error: gax::error::Error,
-    ) -> gax::retry_result::RetryResult {
-        self.0.on_error(state, error)
-    }
-    fn on_throttle(
-        &self,
-        state: &gax::retry_state::RetryState,
-        error: gax::error::Error,
-    ) -> gax::throttle_result::ThrottleResult {
-        self.0.on_throttle(state, error)
-    }
-    fn remaining_time(&self, state: &gax::retry_state::RetryState) -> Option<std::time::Duration> {
-        self.0.remaining_time(state)
-    }
-}
-
-impl BackoffPolicy for UnwindSafeAdapter<Arc<dyn BackoffPolicy>> {
-    fn on_failure(&self, state: &gax::retry_state::RetryState) -> std::time::Duration {
-        self.0.on_failure(state)
-    }
-}
 
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
     pub(crate) inner: Arc<T>,
-    retry_policy: Arc<dyn RetryPolicy + RefUnwindSafe>,
-    backoff_policy: Arc<dyn BackoffPolicy + RefUnwindSafe>,
+    retry_policy: Arc<dyn RetryPolicy>,
+    backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
 }
 
 #[derive(Debug, Default)]
 pub(crate) struct Builder {
-    retry_policy: Option<Arc<dyn RetryPolicy + RefUnwindSafe>>,
-    backoff_policy: Option<Arc<dyn BackoffPolicy + RefUnwindSafe>>,
+    retry_policy: Option<RetryPolicyArg>,
+    backoff_policy: Option<BackoffPolicyArg>,
     retry_throttler: Option<RetryThrottlerArg>,
 }
 
+// This is necessary because adding [Builder] to existing, released auth features
+// caused a breaking change. The containing structs would lose their automatically derived
+// `RefUnwindSafe` implementation because the dynamic trait objects (like `dyn RetryPolicy`)
+// are not `RefUnwindSafe` nor `UnwindSafe` by default.
+//
+// This is safe because in the builder, we never call or use the retry policies. We just hold them
+// until we create the client. There is no opportunity for a panic to leave them in an inconsistent
+// state.
+impl RefUnwindSafe for Builder {}
+impl UnwindSafe for Builder {}
+
 impl Builder {
-    pub(crate) fn with_retry_policy<P: Into<RetryPolicyArg>>(mut self, retry_policy: P) -> Self {
-        let inner: Arc<dyn RetryPolicy> = retry_policy.into().into();
-        self.retry_policy = Some(Arc::new(UnwindSafeAdapter::from(inner)));
+    pub(crate) fn with_retry_policy(mut self, retry_policy: RetryPolicyArg) -> Self {
+        self.retry_policy = Some(retry_policy);
         self
     }
 
-    pub(crate) fn with_backoff_policy<P: Into<BackoffPolicyArg>>(
-        mut self,
-        backoff_policy: P,
-    ) -> Self {
-        let inner: Arc<dyn BackoffPolicy> = backoff_policy.into().into();
-        self.backoff_policy = Some(Arc::new(UnwindSafeAdapter::from(inner)));
+    pub(crate) fn with_backoff_policy(mut self, backoff_policy: BackoffPolicyArg) -> Self {
+        self.backoff_policy = Some(backoff_policy);
         self
     }
 
@@ -111,19 +69,19 @@ impl Builder {
     }
 
     pub(crate) fn build<T: TokenProvider>(self, token_provider: T) -> TokenProviderWithRetry<T> {
-        let backoff_policy = self.backoff_policy.unwrap_or_else(|| {
-            let p: Arc<dyn BackoffPolicy> = Arc::new(ExponentialBackoff::default());
-            Arc::new(UnwindSafeAdapter::from(p))
-        });
+        let backoff_policy: Arc<dyn BackoffPolicy> = match self.backoff_policy {
+            Some(p) => p.into(),
+            None => Arc::new(ExponentialBackoff::default()),
+        };
         let retry_throttler: SharedRetryThrottler = match self.retry_throttler {
             Some(p) => p.into(),
             None => Arc::new(Mutex::new(AdaptiveThrottler::default())),
         };
 
-        let retry_policy = self.retry_policy.unwrap_or_else(|| {
-            let p: Arc<dyn RetryPolicy> = Arc::new(AlwaysRetry.with_attempt_limit(1));
-            Arc::new(UnwindSafeAdapter::from(p))
-        });
+        let retry_policy = self
+            .retry_policy
+            .unwrap_or_else(|| AlwaysRetry.with_attempt_limit(1).into())
+            .into();
 
         TokenProviderWithRetry {
             inner: Arc::new(token_provider),
@@ -277,7 +235,7 @@ mod tests {
             .return_once(|| Ok(token));
 
         let provider = Builder::default()
-            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 })
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
         let token = provider.token().await.unwrap();
@@ -308,7 +266,7 @@ mod tests {
             });
 
         let provider = Builder::default()
-            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 })
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
         let token = provider.token().await.unwrap();
@@ -324,7 +282,7 @@ mod tests {
             .returning(|| Err(CredentialsError::from_msg(true, "transient error")));
 
         let provider = Builder::default()
-            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 })
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
@@ -343,7 +301,7 @@ mod tests {
             .returning(|| Err(CredentialsError::from_msg(false, "non transient error")));
 
         let provider = Builder::default()
-            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 })
+            .with_retry_policy(AuthRetryPolicy { max_attempts: 2 }.into())
             .build(mock_provider);
 
         let error = provider.token().await.unwrap_err();
@@ -434,8 +392,8 @@ mod tests {
             let backoff_policy = TestBackoffPolicy::default();
             let retry_throttler = AdaptiveThrottler::new(4.0).unwrap();
             builder = builder
-                .with_retry_policy(retry_policy)
-                .with_backoff_policy(backoff_policy)
+                .with_retry_policy(retry_policy.into())
+                .with_backoff_policy(backoff_policy.into())
                 .with_retry_throttler(retry_throttler.into());
         }
 
@@ -503,8 +461,8 @@ mod tests {
 
         // 4. Build and run
         let provider = Builder::default()
-            .with_retry_policy(retry_policy)
-            .with_backoff_policy(backoff_policy)
+            .with_retry_policy(retry_policy.into())
+            .with_backoff_policy(backoff_policy.into())
             .with_retry_throttler(retry_throttler.into())
             .build(mock_provider);
 
