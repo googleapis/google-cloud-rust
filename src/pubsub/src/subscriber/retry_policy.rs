@@ -13,10 +13,12 @@
 // limitations under the License.
 
 use crate::Error;
+use gax::backoff_policy::BackoffPolicy;
 use gax::error::rpc::Code;
 use gax::retry_policy::RetryPolicy;
 use gax::retry_result::RetryResult;
 use gax::retry_state::RetryState;
+use std::time::Duration;
 
 /// The subscriber's retry policy, specifically for StreamingPull RPCs.
 ///
@@ -52,6 +54,38 @@ impl RetryPolicy for StreamRetryPolicy {
             };
         }
         RetryResult::Permanent(error)
+    }
+}
+
+/// The retry policy for lease management RPCs in at-least-once delivery.
+///
+/// Specifically, these are the `Acknowledge` and `ModifyAckDeadline` RPCs.
+#[derive(Debug)]
+pub(super) struct AtLeastOnceRetryPolicy;
+
+impl RetryPolicy for AtLeastOnceRetryPolicy {
+    fn on_error(&self, state: &RetryState, error: Error) -> RetryResult {
+        if state.attempt_count == 1 && error.is_transport() {
+            // The GFE will send a GO_AWAY frame to a tonic channel that has
+            // been open for an hour. Tonic will reset the connection, but this
+            // can race with accepting one of our requests.
+            //
+            // It is safe to retry these requests immediately.
+            return RetryResult::Continue(error);
+        }
+        return RetryResult::Permanent(error);
+    }
+}
+
+/// The backoff policy for lease management RPCs in at-least-once delivery.
+///
+/// Specifically, these are the `Acknowledge` and `ModifyAckDeadline` RPCs.
+#[derive(Debug)]
+pub(super) struct AtLeastOnceBackoffPolicy;
+
+impl BackoffPolicy for AtLeastOnceBackoffPolicy {
+    fn on_failure(&self, _state: &RetryState) -> Duration {
+        Duration::ZERO
     }
 }
 
@@ -174,5 +208,41 @@ mod tests {
         ));
 
         assert_eq!(retry.remaining_time(&state), None);
+    }
+
+    #[test]
+    fn at_least_once_retry_transport_errors_once() {
+        let retry = AtLeastOnceRetryPolicy;
+        let mut state = RetryState::default();
+        state.attempt_count = 1;
+
+        let transport_err = Error::transport(HeaderMap::new(), "connection closed");
+        assert!(matches!(
+            retry.on_error(&state, transport_err),
+            RetryResult::Continue(_)
+        ));
+
+        let non_transport_err = Error::service(
+            Status::default()
+                .set_code(Code::Unavailable)
+                .set_message("bad gateway, try again"),
+        );
+        assert!(matches!(
+            retry.on_error(&state, non_transport_err),
+            RetryResult::Permanent(_)
+        ));
+
+        state.attempt_count = 2;
+        let transport_err = Error::transport(HeaderMap::new(), "some other error");
+        assert!(matches!(
+            retry.on_error(&state, transport_err),
+            RetryResult::Permanent(_)
+        ));
+    }
+
+    #[test]
+    fn at_least_once_immediate_retry() {
+        let backoff = AtLeastOnceBackoffPolicy;
+        assert_eq!(backoff.on_failure(&RetryState::default()), Duration::ZERO);
     }
 }
