@@ -12,12 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use gax::paginator::{ItemPaginator, Paginator};
+mod mocking;
+mod pagination;
+
+use anyhow::Result;
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::paginator::{ItemPaginator, Paginator};
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_iam_v1::model::Binding;
+use google_cloud_secretmanager_v1::builder::secret_manager_service::ClientBuilder;
+use google_cloud_secretmanager_v1::client::SecretManagerService;
+use google_cloud_secretmanager_v1::model::{
+    Replication, Secret, SecretPayload, replication::Automatic,
+};
 use google_cloud_test_utils::resource_names::random_secret_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
+use google_cloud_wkt::{FieldMask, Timestamp};
 
-pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) -> Result<()> {
+pub async fn run(builder: ClientBuilder) -> Result<()> {
     let project_id = project_id()?;
     let secret_id = random_secret_id();
 
@@ -25,18 +37,14 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     cleanup_stale_secrets(&client, &project_id, &secret_id).await?;
 
     println!("\nTesting create_secret()");
-    use gax::options::RequestOptionsBuilder;
     let create = client
         .create_secret()
         .set_parent(format!("projects/{project_id}"))
         .with_user_agent("test/1.2.3")
         .set_secret_id(&secret_id)
         .set_secret(
-            sm::model::Secret::new()
-                .set_replication(
-                    sm::model::Replication::new()
-                        .set_automatic(sm::model::replication::Automatic::new()),
-                )
+            Secret::new()
+                .set_replication(Replication::new().set_automatic(Automatic::new()))
                 .set_labels([("integration-test", "true")]),
         )
         .send()
@@ -64,19 +72,18 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
         map.insert("updated".to_string(), msg.to_string());
         map
     };
-    use gax::retry_policy::RetryPolicyExt;
     let update = client
         .update_secret()
         .set_secret(
-            sm::model::Secret::new()
+            Secret::new()
                 .set_name(&get.name)
                 .set_etag(get.etag)
                 .set_labels(tag(get.labels.clone(), "test-1"))
                 .set_annotations(tag(get.annotations.clone(), "test-1")),
         )
-        .set_update_mask(wkt::FieldMask::default().set_paths(["annotations", "labels"]))
+        .set_update_mask(FieldMask::default().set_paths(["annotations", "labels"]))
         // Avoid flakes, safe to retry because of the etag.
-        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
+        .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -93,15 +100,15 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     let update = client
         .update_secret()
         .set_secret(
-            sm::model::Secret::new()
+            Secret::new()
                 .set_name(&get.name)
                 .set_etag(update.etag.clone())
                 .set_labels(tag(get.labels.clone(), "test-2"))
                 .set_annotations(tag(get.annotations.clone(), "test-2")),
         )
-        .set_update_mask(wkt::FieldMask::default().set_paths(["annotations"]))
+        .set_update_mask(FieldMask::default().set_paths(["annotations"]))
         // Avoid flakes, safe to retry because of the etag.
-        .with_retry_policy(gax::retry_policy::AlwaysRetry.with_attempt_limit(3))
+        .with_retry_policy(AlwaysRetry.with_attempt_limit(3))
         .send()
         .await?;
     println!("UPDATE = {update:?}");
@@ -135,7 +142,7 @@ pub async fn run(builder: sm::builder::secret_manager_service::ClientBuilder) ->
     Ok(())
 }
 
-async fn run_locations(client: &sm::client::SecretManagerService, project_id: &str) -> Result<()> {
+async fn run_locations(client: &SecretManagerService, project_id: &str) -> Result<()> {
     println!("\nTesting list_locations()");
     let locations = client
         .list_locations()
@@ -170,7 +177,7 @@ async fn run_locations(client: &sm::client::SecretManagerService, project_id: &s
     Ok(())
 }
 
-async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -> Result<()> {
+async fn run_iam(client: &SecretManagerService, secret_name: &str) -> Result<()> {
     let service_account = test_service_account()?;
 
     println!("\nTesting get_iam_policy()");
@@ -206,7 +213,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     }
     if !found {
         new_policy.bindings.push(
-            iam_v1::model::Binding::new()
+            Binding::new()
                 .set_role(ROLE)
                 .set_members([format!("serviceAccount:{service_account}")]),
         );
@@ -214,7 +221,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     let response = client
         .set_iam_policy()
         .set_resource(secret_name)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+        .set_update_mask(FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .send()
         .await?;
@@ -223,10 +230,7 @@ async fn run_iam(client: &sm::client::SecretManagerService, secret_name: &str) -
     Ok(())
 }
 
-async fn run_secret_versions(
-    client: &sm::client::SecretManagerService,
-    secret_name: &str,
-) -> Result<()> {
+async fn run_secret_versions(client: &SecretManagerService, secret_name: &str) -> Result<()> {
     println!("\nTesting create_secret_version()");
     let data = "The quick brown fox jumps over the lazy dog".as_bytes();
     let checksum = crc32c::crc32c(data);
@@ -234,7 +238,7 @@ async fn run_secret_versions(
         .add_secret_version()
         .set_parent(secret_name)
         .set_payload(
-            sm::model::SecretPayload::new()
+            SecretPayload::new()
                 .set_data(bytes::Bytes::from(data))
                 .set_data_crc32c(checksum as i64),
         )
@@ -300,10 +304,7 @@ async fn run_secret_versions(
     Ok(())
 }
 
-async fn run_many_secret_versions(
-    client: &sm::client::SecretManagerService,
-    secret_name: &str,
-) -> Result<()> {
+async fn run_many_secret_versions(client: &SecretManagerService, secret_name: &str) -> Result<()> {
     use std::collections::BTreeSet;
 
     println!("\nTesting list_secret_versions() with multiple pages");
@@ -316,7 +317,7 @@ async fn run_many_secret_versions(
             .add_secret_version()
             .set_parent(secret_name)
             .set_payload(
-                sm::model::SecretPayload::new()
+                SecretPayload::new()
                     .set_data(bytes::Bytes::from(data))
                     .set_data_crc32c(checksum as i64),
             )
@@ -359,7 +360,7 @@ async fn run_many_secret_versions(
 }
 
 async fn get_all_secret_version_names(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     secret_name: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
@@ -384,7 +385,7 @@ async fn get_all_secret_version_names(
 }
 
 async fn get_all_secret_names(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
 ) -> Result<Vec<String>> {
     let mut names = Vec::new();
@@ -400,14 +401,14 @@ async fn get_all_secret_names(
 }
 
 async fn cleanup_stale_secrets(
-    client: &sm::client::SecretManagerService,
+    client: &SecretManagerService,
     project_id: &str,
     secret_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
     let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
-    let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
+    let stale_deadline = Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 
     let mut stale_secrets = Vec::new();
     let mut paginator = client

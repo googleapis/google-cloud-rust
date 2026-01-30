@@ -5994,6 +5994,27 @@ dependencies = [
 ]
 
 [[package]]
+name = "integration-tests-protobuf"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "chrono",
+ "crc32c",
+ "futures",
+ "google-cloud-gax",
+ "google-cloud-iam-v1",
+ "google-cloud-secretmanager-v1",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "mockall",
+ "serde_json",
+ "static_assertions",
+ "test-case",
+ "tokio",
+]
+
+[[package]]
 name = "integration-tests-pubsub"
 version = "0.0.0"
 dependencies = [

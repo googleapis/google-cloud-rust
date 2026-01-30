@@ -12,22 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Verify it is possible to mock pagination APIs.
+
 #[cfg(test)]
 mod mocking {
-    use gax::paginator::{ItemPaginator, Paginator};
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    use google_cloud_gax::Result as GaxResult;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::paginator::{ItemPaginator, Paginator};
+    use google_cloud_gax::response::Response as GaxResponse;
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
+    use google_cloud_secretmanager_v1::model::{ListSecretsRequest, ListSecretsResponse, Secret};
+    use google_cloud_secretmanager_v1::stub::SecretManagerService as Stub;
 
     mockall::mock! {
         #[derive(Debug)]
         SecretManagerService {}
-        impl sm::stub::SecretManagerService for SecretManagerService {
-            async fn list_secrets(&self, req: sm::model::ListSecretsRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<sm::model::ListSecretsResponse>>;
+        impl Stub for SecretManagerService {
+            async fn list_secrets(&self, req: ListSecretsRequest, _options: RequestOptions) -> GaxResult<GaxResponse<ListSecretsResponse>>;
         }
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn paginators_are_send() -> TestResult {
-        use sm::model::ListSecretsResponse;
+    async fn paginators_are_send() -> anyhow::Result<()> {
         let mut mock = MockSecretManagerService::new();
         let mut seq = mockall::Sequence::new();
         mock.expect_list_secrets()
@@ -35,14 +41,14 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
+                Ok(GaxResponse::from(
                     ListSecretsResponse::default().set_secrets(make_secrets(3, 0)),
                 ))
             });
 
         async fn other_task(
-            client: sm::client::SecretManagerService,
-        ) -> gax::Result<Vec<ListSecretsResponse>> {
+            client: SecretManagerService,
+        ) -> anyhow::Result<Vec<ListSecretsResponse>> {
             let mut pages = client
                 .list_secrets()
                 .set_parent("projects/test-project")
@@ -54,7 +60,7 @@ mod mocking {
             Ok(responses)
         }
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let join = tokio::spawn(async move { other_task(client).await });
         let responses = join.await??;
         assert_eq!(
@@ -66,8 +72,8 @@ mod mocking {
     }
 
     #[tokio::test(flavor = "multi_thread")]
-    async fn item_paginators_are_send() -> TestResult {
-        use sm::model::ListSecretsResponse;
+    async fn item_paginators_are_send() -> anyhow::Result<()> {
+        use ListSecretsResponse;
         let mut mock = MockSecretManagerService::new();
         let mut seq = mockall::Sequence::new();
         mock.expect_list_secrets()
@@ -75,14 +81,12 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
+                Ok(GaxResponse::from(
                     ListSecretsResponse::default().set_secrets(make_secrets(3, 0)),
                 ))
             });
 
-        async fn other_task(
-            client: sm::client::SecretManagerService,
-        ) -> gax::Result<Vec<sm::model::Secret>> {
+        async fn other_task(client: SecretManagerService) -> GaxResult<Vec<Secret>> {
             let mut paginator = client
                 .list_secrets()
                 .set_parent("projects/test-project")
@@ -94,7 +98,7 @@ mod mocking {
             Ok(responses)
         }
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let join = tokio::spawn(async move { other_task(client).await });
         let responses = join.await??;
         assert_eq!(responses, make_secrets(3, 0));
@@ -103,7 +107,7 @@ mod mocking {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn list_pages() -> TestResult {
+    async fn list_pages() -> anyhow::Result<()> {
         let mut mock = MockSecretManagerService::new();
         let mut seq = mockall::Sequence::new();
         mock.expect_list_secrets()
@@ -111,8 +115,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-001")
                         .set_secrets(make_secrets(3, 0)),
                 ))
@@ -122,8 +126,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-002")
                         .set_secrets(make_secrets(3, 3)),
                 ))
@@ -133,12 +137,12 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
                 ))
             });
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let mut paginator = client
             .list_secrets()
             .set_parent("projects/test-project")
@@ -151,13 +155,13 @@ mod mocking {
         assert_eq!(
             responses,
             [
-                sm::model::ListSecretsResponse::default()
+                ListSecretsResponse::default()
                     .set_next_page_token("test-page-001")
                     .set_secrets(make_secrets(3, 0)),
-                sm::model::ListSecretsResponse::default()
+                ListSecretsResponse::default()
                     .set_next_page_token("test-page-002")
                     .set_secrets(make_secrets(3, 3)),
-                sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
             ]
         );
 
@@ -165,7 +169,7 @@ mod mocking {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn list_pages_as_stream() -> TestResult {
+    async fn list_pages_as_stream() -> anyhow::Result<()> {
         use futures::stream::StreamExt;
 
         let mut mock = MockSecretManagerService::new();
@@ -175,8 +179,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-001")
                         .set_secrets(make_secrets(3, 0)),
                 ))
@@ -186,8 +190,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-002")
                         .set_secrets(make_secrets(3, 3)),
                 ))
@@ -197,12 +201,12 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
                 ))
             });
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let mut paginator = client
             .list_secrets()
             .set_parent("projects/test-project")
@@ -216,13 +220,13 @@ mod mocking {
         assert_eq!(
             responses,
             [
-                sm::model::ListSecretsResponse::default()
+                ListSecretsResponse::default()
                     .set_next_page_token("test-page-001")
                     .set_secrets(make_secrets(3, 0)),
-                sm::model::ListSecretsResponse::default()
+                ListSecretsResponse::default()
                     .set_next_page_token("test-page-002")
                     .set_secrets(make_secrets(3, 3)),
-                sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
             ]
         );
 
@@ -230,7 +234,7 @@ mod mocking {
     }
 
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn list_items() -> TestResult {
+    async fn list_items() -> anyhow::Result<()> {
         let mut mock = MockSecretManagerService::new();
         let mut seq = mockall::Sequence::new();
         mock.expect_list_secrets()
@@ -238,8 +242,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-001")
                         .set_secrets(make_secrets(3, 0)),
                 ))
@@ -249,8 +253,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-002")
                         .set_secrets(make_secrets(3, 3)),
                 ))
@@ -260,12 +264,12 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
                 ))
             });
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let mut paginator = client
             .list_secrets()
             .set_parent("projects/test-project")
@@ -286,8 +290,8 @@ mod mocking {
         Ok(())
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn list_items_as_stream() -> TestResult {
+    #[tokio::test]
+    async fn list_items_as_stream() -> anyhow::Result<()> {
         use futures::stream::StreamExt;
 
         let mut mock = MockSecretManagerService::new();
@@ -297,8 +301,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token.is_empty())
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-001")
                         .set_secrets(make_secrets(3, 0)),
                 ))
@@ -308,8 +312,8 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-001")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default()
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default()
                         .set_next_page_token("test-page-002")
                         .set_secrets(make_secrets(3, 3)),
                 ))
@@ -319,12 +323,12 @@ mod mocking {
             .in_sequence(&mut seq)
             .withf(|r, _| r.parent == "projects/test-project" && r.page_token == "test-page-002")
             .return_once(|_, _| {
-                Ok(gax::response::Response::from(
-                    sm::model::ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
+                Ok(GaxResponse::from(
+                    ListSecretsResponse::default().set_secrets(make_secrets(3, 6)),
                 ))
             });
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
         let mut stream = client
             .list_secrets()
             .set_parent("projects/test-project")
@@ -346,11 +350,9 @@ mod mocking {
         Ok(())
     }
 
-    fn make_secrets(count: i32, start: i32) -> Vec<sm::model::Secret> {
+    fn make_secrets(count: i32, start: i32) -> Vec<Secret> {
         (start..(start + count))
-            .map(|v| {
-                sm::model::Secret::default().set_name(format!("projects/test-project/secrets/{v}"))
-            })
+            .map(|v| Secret::default().set_name(format!("projects/test-project/secrets/{v}")))
             .collect()
     }
 }

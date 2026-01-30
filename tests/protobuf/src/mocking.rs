@@ -12,26 +12,33 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//! Verify it is possible to mock most API calls.
+
 #[cfg(test)]
 mod mocking {
-    use gax::error::Error;
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+    use google_cloud_gax::Result as GaxResult;
+    use google_cloud_gax::error::Error;
+    use google_cloud_gax::options::RequestOptions;
+    use google_cloud_gax::response::Response as GaxResponse;
+    use google_cloud_secretmanager_v1::client::SecretManagerService;
+    use google_cloud_secretmanager_v1::model::{CreateSecretRequest, Secret};
+    use google_cloud_secretmanager_v1::stub::SecretManagerService as Stub;
 
     mockall::mock! {
         #[derive(Debug)]
         SecretManagerService {}
-        impl sm::stub::SecretManagerService for SecretManagerService {
-            async fn create_secret(&self, req: sm::model::CreateSecretRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<sm::model::Secret>>;
+        impl Stub for SecretManagerService {
+            async fn create_secret(&self, req: CreateSecretRequest, _options: RequestOptions) -> GaxResult<GaxResponse<Secret>>;
         }
     }
 
     /// The function under test.
     async fn helper(
-        client: &sm::client::SecretManagerService,
+        client: &SecretManagerService,
         project: &str,
         region: &str,
         id: &str,
-    ) -> gax::Result<sm::model::Secret> {
+    ) -> GaxResult<Secret> {
         client
             .create_secret()
             .set_parent(format!("projects/{project}/locations/{region}"))
@@ -40,8 +47,8 @@ mod mocking {
             .await
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn test_helper() -> Result<()> {
+    #[tokio::test]
+    async fn test_helper() -> anyhow::Result<()> {
         let mut mock = MockSecretManagerService::new();
         mock.expect_create_secret()
             .withf(|r, _| {
@@ -51,7 +58,7 @@ mod mocking {
             })
             .return_once(|_, _| Err(unavailable()));
 
-        let client = sm::client::SecretManagerService::from_stub(mock);
+        let client = SecretManagerService::from_stub(mock);
 
         let response = helper(&client, "my-project", "us-central1", "my-secret-id").await;
         assert!(response.is_err());
@@ -60,7 +67,7 @@ mod mocking {
     }
 
     fn unavailable() -> Error {
-        use gax::error::rpc::{Code, Status};
+        use google_cloud_gax::error::rpc::{Code, Status};
         Error::service(
             Status::default()
                 .set_code(Code::Unavailable)

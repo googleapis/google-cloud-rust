@@ -299,6 +299,7 @@ members = [
   "tests/lro",
   "tests/o11y",
   "tests/openapi",
+  "tests/protobuf",
   "tests/protojson-conformance",
   "tests/pubsub",
   "tests/showcase",

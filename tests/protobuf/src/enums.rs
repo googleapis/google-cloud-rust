@@ -14,12 +14,12 @@
 
 #[cfg(test)]
 mod enums {
-    use sm::model::*;
+    use google_cloud_secretmanager_v1::model::{SecretVersion, secret_version::State};
 
     #[test]
     fn test_default_value() {
-        let default = secret_version::State::default();
-        assert_eq!(default, secret_version::State::Unspecified);
+        let default = State::default();
+        assert_eq!(default, State::Unspecified);
     }
 
     #[test]
@@ -28,12 +28,11 @@ mod enums {
             "name": "projects/test-only/secrets/my-secret/versions/my-version",
         });
         let secret_version = serde_json::from_value::<SecretVersion>(input).unwrap();
-        assert_eq!(secret_version.state, secret_version::State::Unspecified);
+        assert_eq!(secret_version.state, State::Unspecified);
     }
 
     #[test]
     fn branch() -> anyhow::Result<()> {
-        use secret_version::State;
         use serde_json::json;
         let state = serde_json::from_value::<State>(json!("DISABLED"))?;
         #[warn(clippy::wildcard_enum_match_arm)]
