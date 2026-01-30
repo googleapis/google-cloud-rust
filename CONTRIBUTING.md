@@ -24,7 +24,9 @@ information on using pull requests.
 
 ## Commit Messages
 
-Commit messages for `google-cloud-rust` follow the conventions below.
+Commit messages for `google-cloud-rust` follow the conventions below. Note that
+your PR title defaults to the first commit in your branch, and that the merge
+commit is composed of your PR title and PR description by default.
 
 Here is an example:
 
@@ -56,6 +58,33 @@ Conventional commits are parsed by our release tooling to generate release
 notes. See [Guidelines for Commit Types](#guidelines-for-commit-types) for more
 details.
 
+##### Guidelines for Commit Types
+
+To ensure our release notes are focused and valuable to our users, please adhere
+to the following guidelines when choosing a commit type:
+
+- **`feat(...)`**: Use this for changes that are visible to the end-user. Avoid
+  using it for internal implementation details or features that are not yet
+  released.
+
+- **`fix(...)`**: Use this for bug fixes in released code only.
+
+- **`docs(...)`**: For changes to public documentation only.
+
+- **`impl(...)`**: Use this for new features or functionality that are purely
+  implementation details and not directly visible to the end-user.
+
+- **`refactor(...)`**: Use this for code changes that neither fix a bug nor add
+  a feature, but improve the design or structure of the code.
+
+- **`cleanup(...)`**: For routine code maintenance, such as removing unused code
+  or fixing linter warnings.
+
+- **`test(...)`**: For improvements to tests, deflaking tests, and fixes to the
+  tests themselves.
+
+- **`ci(...)`**: For changes to our CI configuration and scripts.
+
 #### scope
 
 The name of the crate affected by the change, which should be provided in
@@ -64,11 +93,11 @@ parentheses before the colon. Please omit the `google-cloud-` prefix (e.g., use
 
 #### description
 
-A short one-line summary of the change, that it should be written so to complete
-the sentence "This change modifies the crate to ..." That means it does not
-start with a capital letter, is not a complete sentence, and actually summarizes
-the result of the change. Note that the verb after the colon is lowercase, and
-there is no trailing period
+A short one-line summary of the change. It should complete written so to
+complete the sentence "This change modifies the crate to ..." That means it does
+not start with a capital letter, is not a complete sentence, and actually
+summarizes the result of the change. Note that the verb after the colon is
+lowercase, and there is no trailing period.
 
 The first line should be kept as short as possible (many git viewing tools
 prefer under ~76 characters).
@@ -95,33 +124,6 @@ request, but it will not close the issue when the change is applied.
 
 Please don’t use alternate GitHub-supported aliases like Close or Resolves
 instead of Fixes.
-
-### Guidelines for Commit Types
-
-To ensure our release notes are focused and valuable to our users, please adhere
-to the following guidelines when choosing a commit type:
-
-- **`feat(...)`**: Use this for changes that are visible to the end-user. Avoid
-  using it for internal implementation details or features that are not yet
-  released.
-
-- **`fix(...)`**: Use this for bug fixes in released code only.
-
-- **`docs(...)`**: For changes to public documentation only.
-
-- **`impl(...)`**: Use this for new features or functionality that are purely
-  implementation details and not directly visible to the end-user.
-
-- **`refactor(...)`**: Use this for code changes that neither fix a bug nor add
-  a feature, but improve the design or structure of the code.
-
-- **`cleanup(...)`**: For routine code maintenance, such as removing unused code
-  or fixing linter warnings.
-
-- **`test(...)`**: For improvements to tests, deflaking tests, and fixes to the
-  tests themselves.
-
-- **`ci(...)`**: For changes to our CI configuration and scripts.
 
 ## Community Guidelines
 
