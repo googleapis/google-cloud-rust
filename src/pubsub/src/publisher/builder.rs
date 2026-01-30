@@ -483,7 +483,7 @@ mod tests {
 
     #[tokio::test]
     async fn publisher_builder_sets_client_config() {
-        use auth::credentials::anonymous::Builder as Anonymous;
+        use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 
         use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
         let throttler = gax::retry_throttler::CircuitBreaker::default();

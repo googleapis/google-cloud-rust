@@ -12,12 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod base_publisher;
+pub(crate) mod base_publisher;
 pub(crate) mod batch;
-pub mod builder;
-pub mod client;
+pub(crate) mod builder;
+pub(crate) mod client;
 pub(crate) mod client_builder;
 pub(crate) mod constants;
-pub mod model_ext;
-pub mod options;
+pub(crate) mod model_ext;
+pub(crate) mod options;
 pub(crate) mod worker;
