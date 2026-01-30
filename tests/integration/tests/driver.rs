@@ -107,20 +107,6 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
-    #[test_case(sm::client::SecretManagerService::builder(); "default")]
-    #[test_case(sm::client::SecretManagerService::builder().with_tracing(); "with tracing enabled")]
-    #[test_case(sm::client::SecretManagerService::builder().with_retry_policy(retry_policy()); "with retry enabled")]
-    #[test_case(sm::client::SecretManagerService::builder().with_endpoint("https://www.googleapis.com"); "with alternative endpoint")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_secretmanager_protobuf(
-        builder: sm::builder::secret_manager_service::ClientBuilder,
-    ) -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::secret_manager::protobuf::run(builder)
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
     #[test_case(StorageControl::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[test_case(StorageControl::builder().with_endpoint("https://www.googleapis.com"); "with global endpoint")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]

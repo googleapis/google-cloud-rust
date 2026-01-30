@@ -21,7 +21,6 @@ pub mod bigquery;
 pub mod compute;
 pub mod error_details;
 pub mod firestore;
-pub mod secret_manager;
 pub mod storage;
 
 pub const VM_ID_LENGTH: usize = 63;
