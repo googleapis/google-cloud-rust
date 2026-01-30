@@ -23457,6 +23457,1627 @@ impl gax::paginator::internal::PageableResponse
     }
 }
 
+/// Request for ListResourceBackupConfigs.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListResourceBackupConfigsRequest {
+    /// Required. The project and location for which to retrieve resource backup
+    /// configs. Format: 'projects/{project_id}/locations/{location}'. In Google
+    /// Cloud Backup and DR, locations map to Google Cloud regions, for example
+    /// **us-central1**.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, server will use 100 as default. Maximum value is
+    /// 500 and values above 500 will be coerced to 500.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results the server should return.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint for how to order the results.
+    pub order_by: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListResourceBackupConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListResourceBackupConfigsRequest::parent].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsRequest;
+    /// let x = ListResourceBackupConfigsRequest::new().set_parent("example");
+    /// ```
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListResourceBackupConfigsRequest::page_size].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsRequest;
+    /// let x = ListResourceBackupConfigsRequest::new().set_page_size(42);
+    /// ```
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListResourceBackupConfigsRequest::page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsRequest;
+    /// let x = ListResourceBackupConfigsRequest::new().set_page_token("example");
+    /// ```
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListResourceBackupConfigsRequest::filter].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsRequest;
+    /// let x = ListResourceBackupConfigsRequest::new().set_filter("example");
+    /// ```
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListResourceBackupConfigsRequest::order_by].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsRequest;
+    /// let x = ListResourceBackupConfigsRequest::new().set_order_by("example");
+    /// ```
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListResourceBackupConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListResourceBackupConfigsRequest"
+    }
+}
+
+/// Response for ListResourceBackupConfigs.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListResourceBackupConfigsResponse {
+    /// The list of ResourceBackupConfigs for the specified scope.
+    pub resource_backup_configs: std::vec::Vec<crate::model::ResourceBackupConfig>,
+
+    /// A token identifying a page of results the server should return.
+    pub next_page_token: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListResourceBackupConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [resource_backup_configs][crate::model::ListResourceBackupConfigsResponse::resource_backup_configs].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsResponse;
+    /// use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ListResourceBackupConfigsResponse::new()
+    ///     .set_resource_backup_configs([
+    ///         ResourceBackupConfig::default()/* use setters */,
+    ///         ResourceBackupConfig::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_resource_backup_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ResourceBackupConfig>,
+    {
+        use std::iter::Iterator;
+        self.resource_backup_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListResourceBackupConfigsResponse::next_page_token].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ListResourceBackupConfigsResponse;
+    /// let x = ListResourceBackupConfigsResponse::new().set_next_page_token("example");
+    /// ```
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListResourceBackupConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ListResourceBackupConfigsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListResourceBackupConfigsResponse {
+    type PageItem = crate::model::ResourceBackupConfig;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.resource_backup_configs
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// ResourceBackupConfig represents a resource along with its backup
+/// configurations.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ResourceBackupConfig {
+    /// Identifier. The resource name of the ResourceBackupConfig.
+    /// Format:
+    /// projects/{project}/locations/{location}/resourceBackupConfigs/{uid}
+    pub name: std::string::String,
+
+    /// Output only. The unique identifier of the resource backup config.
+    pub uid: std::string::String,
+
+    /// Output only. The [full resource
+    /// name](https://cloud.google.com/asset-inventory/docs/resource-name-format)
+    /// of the cloud resource that this configuration applies to. Supported
+    /// resource types are
+    /// [ResourceBackupConfig.ResourceType][google.cloud.backupdr.v1.ResourceBackupConfig.ResourceType].
+    ///
+    /// [google.cloud.backupdr.v1.ResourceBackupConfig.ResourceType]: crate::model::resource_backup_config::ResourceType
+    pub target_resource: std::string::String,
+
+    /// Output only. The human friendly name of the target resource.
+    pub target_resource_display_name: std::string::String,
+
+    /// Output only. The type of the target resource.
+    pub target_resource_type: crate::model::resource_backup_config::ResourceType,
+
+    /// Labels associated with the target resource.
+    pub target_resource_labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Backup configurations applying to the target resource, including those
+    /// targeting its related/child resources. For example, backup configuration
+    /// applicable to Compute Engine disks will be populated in this field for a
+    /// Compute Engine VM which has the disk associated.
+    pub backup_configs_details: std::vec::Vec<crate::model::BackupConfigDetails>,
+
+    /// Output only. Whether the target resource is configured for backup. This is
+    /// true if the backup_configs_details is not empty.
+    pub backup_configured: bool,
+
+    /// Output only. Whether the target resource is protected by a backup vault.
+    /// This is true if the backup_configs_details is not empty and any of the
+    /// [ResourceBackupConfig.backup_configs_details][google.cloud.backupdr.v1.ResourceBackupConfig.backup_configs_details]
+    /// has a backup configuration with
+    /// [BackupConfigDetails.backup_vault][google.cloud.backupdr.v1.BackupConfigDetails.backup_vault]
+    /// set. set.
+    ///
+    /// [google.cloud.backupdr.v1.BackupConfigDetails.backup_vault]: crate::model::BackupConfigDetails::backup_vault
+    /// [google.cloud.backupdr.v1.ResourceBackupConfig.backup_configs_details]: crate::model::ResourceBackupConfig::backup_configs_details
+    pub vaulted: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ResourceBackupConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ResourceBackupConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [uid][crate::model::ResourceBackupConfig::uid].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_uid("example");
+    /// ```
+    pub fn set_uid<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uid = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource][crate::model::ResourceBackupConfig::target_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_target_resource("example");
+    /// ```
+    pub fn set_target_resource<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_display_name][crate::model::ResourceBackupConfig::target_resource_display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_target_resource_display_name("example");
+    /// ```
+    pub fn set_target_resource_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_resource_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_type][crate::model::ResourceBackupConfig::target_resource_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// use google_cloud_backupdr_v1::model::resource_backup_config::ResourceType;
+    /// let x0 = ResourceBackupConfig::new().set_target_resource_type(ResourceType::CloudSqlInstance);
+    /// let x1 = ResourceBackupConfig::new().set_target_resource_type(ResourceType::ComputeEngineVm);
+    /// let x2 = ResourceBackupConfig::new().set_target_resource_type(ResourceType::ComputeEngineDisk);
+    /// ```
+    pub fn set_target_resource_type<
+        T: std::convert::Into<crate::model::resource_backup_config::ResourceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.target_resource_type = v.into();
+        self
+    }
+
+    /// Sets the value of [target_resource_labels][crate::model::ResourceBackupConfig::target_resource_labels].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_target_resource_labels([
+    ///     ("key0", "abc"),
+    ///     ("key1", "xyz"),
+    /// ]);
+    /// ```
+    pub fn set_target_resource_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.target_resource_labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [backup_configs_details][crate::model::ResourceBackupConfig::backup_configs_details].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// let x = ResourceBackupConfig::new()
+    ///     .set_backup_configs_details([
+    ///         BackupConfigDetails::default()/* use setters */,
+    ///         BackupConfigDetails::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backup_configs_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupConfigDetails>,
+    {
+        use std::iter::Iterator;
+        self.backup_configs_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [backup_configured][crate::model::ResourceBackupConfig::backup_configured].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_backup_configured(true);
+    /// ```
+    pub fn set_backup_configured<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.backup_configured = v.into();
+        self
+    }
+
+    /// Sets the value of [vaulted][crate::model::ResourceBackupConfig::vaulted].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::ResourceBackupConfig;
+    /// let x = ResourceBackupConfig::new().set_vaulted(true);
+    /// ```
+    pub fn set_vaulted<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.vaulted = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ResourceBackupConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.ResourceBackupConfig"
+    }
+}
+
+/// Defines additional types related to [ResourceBackupConfig].
+pub mod resource_backup_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of the cloud resource.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ResourceType {
+        /// Resource type not set.
+        Unspecified,
+        /// Cloud SQL instance.
+        CloudSqlInstance,
+        /// Compute Engine VM.
+        ComputeEngineVm,
+        /// Compute Engine Disk.
+        ComputeEngineDisk,
+        /// Compute Engine Regional Disk.
+        ComputeEngineRegionalDisk,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ResourceType::value] or
+        /// [ResourceType::name].
+        UnknownValue(resource_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod resource_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ResourceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CloudSqlInstance => std::option::Option::Some(1),
+                Self::ComputeEngineVm => std::option::Option::Some(2),
+                Self::ComputeEngineDisk => std::option::Option::Some(3),
+                Self::ComputeEngineRegionalDisk => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("RESOURCE_TYPE_UNSPECIFIED"),
+                Self::CloudSqlInstance => std::option::Option::Some("CLOUD_SQL_INSTANCE"),
+                Self::ComputeEngineVm => std::option::Option::Some("COMPUTE_ENGINE_VM"),
+                Self::ComputeEngineDisk => std::option::Option::Some("COMPUTE_ENGINE_DISK"),
+                Self::ComputeEngineRegionalDisk => {
+                    std::option::Option::Some("COMPUTE_ENGINE_REGIONAL_DISK")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ResourceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ResourceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ResourceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CloudSqlInstance,
+                2 => Self::ComputeEngineVm,
+                3 => Self::ComputeEngineDisk,
+                4 => Self::ComputeEngineRegionalDisk,
+                _ => Self::UnknownValue(resource_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ResourceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "RESOURCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CLOUD_SQL_INSTANCE" => Self::CloudSqlInstance,
+                "COMPUTE_ENGINE_VM" => Self::ComputeEngineVm,
+                "COMPUTE_ENGINE_DISK" => Self::ComputeEngineDisk,
+                "COMPUTE_ENGINE_REGIONAL_DISK" => Self::ComputeEngineRegionalDisk,
+                _ => Self::UnknownValue(resource_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ResourceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CloudSqlInstance => serializer.serialize_i32(1),
+                Self::ComputeEngineVm => serializer.serialize_i32(2),
+                Self::ComputeEngineDisk => serializer.serialize_i32(3),
+                Self::ComputeEngineRegionalDisk => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ResourceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ResourceType>::new(
+                ".google.cloud.backupdr.v1.ResourceBackupConfig.ResourceType",
+            ))
+        }
+    }
+}
+
+/// BackupConfigDetails has information about how the resource is configured
+/// for backups and about the most recent backup taken for this configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupConfigDetails {
+    /// Output only. The full resource name of the backup config source resource.
+    /// For example,
+    /// "//backupdr.googleapis.com/v1/projects/{project}/locations/{region}/backupPlans/{backupplanId}"
+    /// or
+    /// "//compute.googleapis.com/projects/{project}/locations/{region}/resourcePolicies/{resourcePolicyId}".
+    pub backup_config_source: std::string::String,
+
+    /// Output only. The display name of the backup config source resource.
+    pub backup_config_source_display_name: std::string::String,
+
+    /// Output only. The type of the backup config resource.
+    pub r#type: crate::model::backup_config_details::Type,
+
+    /// Output only. The state of the backup config resource.
+    pub state: crate::model::backup_config_details::State,
+
+    /// Output only. Point in time recovery settings of the backup configuration
+    /// resource.
+    pub pitr_settings: std::option::Option<crate::model::PitrSettings>,
+
+    /// Output only. Timestamp of the latest successful backup created via this
+    /// backup configuration.
+    pub latest_successful_backup_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The [full resource
+    /// name](https://cloud.google.com/asset-inventory/docs/resource-name-format)
+    /// of the resource that is applicable for the backup configuration. Example:
+    /// "//compute.googleapis.com/projects/{project}/zones/{zone}/instances/{instance}"
+    pub applicable_resource: std::string::String,
+
+    /// Output only. The [full resource
+    /// name](https://cloud.google.com/asset-inventory/docs/resource-name-format)
+    /// of the backup vault that will store the backups generated through this
+    /// backup configuration. Example:
+    /// "//backupdr.googleapis.com/v1/projects/{project}/locations/{region}/backupVaults/{backupvaultId}"
+    pub backup_vault: std::string::String,
+
+    /// The locations where the backups are to be stored.
+    pub backup_locations: std::vec::Vec<crate::model::BackupLocation>,
+
+    /// The plan specific config. This depends on the value of
+    /// [BackupConfigDetails.type][google.cloud.backupdr.v1.BackupConfigDetails.type].
+    /// For type=BACKUPDR_BACKUP_PLAN, backup_dr_plan_config would be populated to
+    /// capture information related to Google Cloud Backup and DR's Backup Plans.
+    /// For type=BACKUPDR_TEMPLATE, backup_dr_template_config would be populated to
+    /// capture information related to Google Cloud Backup and DR's Template
+    /// details.
+    ///
+    /// [google.cloud.backupdr.v1.BackupConfigDetails.type]: crate::model::BackupConfigDetails::type
+    pub plan_specific_config:
+        std::option::Option<crate::model::backup_config_details::PlanSpecificConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupConfigDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_config_source][crate::model::BackupConfigDetails::backup_config_source].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// let x = BackupConfigDetails::new().set_backup_config_source("example");
+    /// ```
+    pub fn set_backup_config_source<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_config_source = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_config_source_display_name][crate::model::BackupConfigDetails::backup_config_source_display_name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// let x = BackupConfigDetails::new().set_backup_config_source_display_name("example");
+    /// ```
+    pub fn set_backup_config_source_display_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.backup_config_source_display_name = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::BackupConfigDetails::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::backup_config_details::Type;
+    /// let x0 = BackupConfigDetails::new().set_type(Type::CloudSqlInstanceBackupConfig);
+    /// let x1 = BackupConfigDetails::new().set_type(Type::ComputeEngineResourcePolicy);
+    /// let x2 = BackupConfigDetails::new().set_type(Type::BackupdrBackupPlan);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::backup_config_details::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::BackupConfigDetails::state].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::backup_config_details::State;
+    /// let x0 = BackupConfigDetails::new().set_state(State::Active);
+    /// let x1 = BackupConfigDetails::new().set_state(State::Inactive);
+    /// let x2 = BackupConfigDetails::new().set_state(State::Error);
+    /// ```
+    pub fn set_state<T: std::convert::Into<crate::model::backup_config_details::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [pitr_settings][crate::model::BackupConfigDetails::pitr_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::PitrSettings;
+    /// let x = BackupConfigDetails::new().set_pitr_settings(PitrSettings::default()/* use setters */);
+    /// ```
+    pub fn set_pitr_settings<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSettings>,
+    {
+        self.pitr_settings = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pitr_settings][crate::model::BackupConfigDetails::pitr_settings].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::PitrSettings;
+    /// let x = BackupConfigDetails::new().set_or_clear_pitr_settings(Some(PitrSettings::default()/* use setters */));
+    /// let x = BackupConfigDetails::new().set_or_clear_pitr_settings(None::<PitrSettings>);
+    /// ```
+    pub fn set_or_clear_pitr_settings<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PitrSettings>,
+    {
+        self.pitr_settings = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [latest_successful_backup_time][crate::model::BackupConfigDetails::latest_successful_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use wkt::Timestamp;
+    /// let x = BackupConfigDetails::new().set_latest_successful_backup_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_latest_successful_backup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.latest_successful_backup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [latest_successful_backup_time][crate::model::BackupConfigDetails::latest_successful_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use wkt::Timestamp;
+    /// let x = BackupConfigDetails::new().set_or_clear_latest_successful_backup_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupConfigDetails::new().set_or_clear_latest_successful_backup_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_latest_successful_backup_time<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.latest_successful_backup_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [applicable_resource][crate::model::BackupConfigDetails::applicable_resource].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// let x = BackupConfigDetails::new().set_applicable_resource("example");
+    /// ```
+    pub fn set_applicable_resource<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.applicable_resource = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_vault][crate::model::BackupConfigDetails::backup_vault].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// let x = BackupConfigDetails::new().set_backup_vault("example");
+    /// ```
+    pub fn set_backup_vault<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.backup_vault = v.into();
+        self
+    }
+
+    /// Sets the value of [backup_locations][crate::model::BackupConfigDetails::backup_locations].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::BackupLocation;
+    /// let x = BackupConfigDetails::new()
+    ///     .set_backup_locations([
+    ///         BackupLocation::default()/* use setters */,
+    ///         BackupLocation::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backup_locations<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupLocation>,
+    {
+        use std::iter::Iterator;
+        self.backup_locations = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [plan_specific_config][crate::model::BackupConfigDetails::plan_specific_config].
+    ///
+    /// Note that all the setters affecting `plan_specific_config` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::BackupDrPlanConfig;
+    /// let x = BackupConfigDetails::new().set_plan_specific_config(Some(
+    ///     google_cloud_backupdr_v1::model::backup_config_details::PlanSpecificConfig::BackupDrPlanConfig(BackupDrPlanConfig::default().into())));
+    /// ```
+    pub fn set_plan_specific_config<
+        T: std::convert::Into<
+                std::option::Option<crate::model::backup_config_details::PlanSpecificConfig>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plan_specific_config = v.into();
+        self
+    }
+
+    /// The value of [plan_specific_config][crate::model::BackupConfigDetails::plan_specific_config]
+    /// if it holds a `BackupDrPlanConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backup_dr_plan_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupDrPlanConfig>> {
+        #[allow(unreachable_patterns)]
+        self.plan_specific_config.as_ref().and_then(|v| match v {
+            crate::model::backup_config_details::PlanSpecificConfig::BackupDrPlanConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [plan_specific_config][crate::model::BackupConfigDetails::plan_specific_config]
+    /// to hold a `BackupDrPlanConfig`.
+    ///
+    /// Note that all the setters affecting `plan_specific_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::BackupDrPlanConfig;
+    /// let x = BackupConfigDetails::new().set_backup_dr_plan_config(BackupDrPlanConfig::default()/* use setters */);
+    /// assert!(x.backup_dr_plan_config().is_some());
+    /// assert!(x.backup_dr_template_config().is_none());
+    /// ```
+    pub fn set_backup_dr_plan_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::BackupDrPlanConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plan_specific_config = std::option::Option::Some(
+            crate::model::backup_config_details::PlanSpecificConfig::BackupDrPlanConfig(v.into()),
+        );
+        self
+    }
+
+    /// The value of [plan_specific_config][crate::model::BackupConfigDetails::plan_specific_config]
+    /// if it holds a `BackupDrTemplateConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn backup_dr_template_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::BackupDrTemplateConfig>> {
+        #[allow(unreachable_patterns)]
+        self.plan_specific_config.as_ref().and_then(|v| match v {
+            crate::model::backup_config_details::PlanSpecificConfig::BackupDrTemplateConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [plan_specific_config][crate::model::BackupConfigDetails::plan_specific_config]
+    /// to hold a `BackupDrTemplateConfig`.
+    ///
+    /// Note that all the setters affecting `plan_specific_config` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupConfigDetails;
+    /// use google_cloud_backupdr_v1::model::BackupDrTemplateConfig;
+    /// let x = BackupConfigDetails::new().set_backup_dr_template_config(BackupDrTemplateConfig::default()/* use setters */);
+    /// assert!(x.backup_dr_template_config().is_some());
+    /// assert!(x.backup_dr_plan_config().is_none());
+    /// ```
+    pub fn set_backup_dr_template_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::BackupDrTemplateConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plan_specific_config = std::option::Option::Some(
+            crate::model::backup_config_details::PlanSpecificConfig::BackupDrTemplateConfig(
+                v.into(),
+            ),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BackupConfigDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupConfigDetails"
+    }
+}
+
+/// Defines additional types related to [BackupConfigDetails].
+pub mod backup_config_details {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Type of the backup configuration.
+    /// This enum may receive new values in the future.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Backup config type is unspecified.
+        Unspecified,
+        /// Backup config is Cloud SQL instance's automated backup config.
+        CloudSqlInstanceBackupConfig,
+        /// Backup config is Compute Engine Resource Policy.
+        ComputeEngineResourcePolicy,
+        /// Backup config is Google Cloud Backup and DR's Backup Plan.
+        BackupdrBackupPlan,
+        /// Backup config is Google Cloud Backup and DR's Template.
+        BackupdrTemplate,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::CloudSqlInstanceBackupConfig => std::option::Option::Some(1),
+                Self::ComputeEngineResourcePolicy => std::option::Option::Some(2),
+                Self::BackupdrBackupPlan => std::option::Option::Some(3),
+                Self::BackupdrTemplate => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::CloudSqlInstanceBackupConfig => {
+                    std::option::Option::Some("CLOUD_SQL_INSTANCE_BACKUP_CONFIG")
+                }
+                Self::ComputeEngineResourcePolicy => {
+                    std::option::Option::Some("COMPUTE_ENGINE_RESOURCE_POLICY")
+                }
+                Self::BackupdrBackupPlan => std::option::Option::Some("BACKUPDR_BACKUP_PLAN"),
+                Self::BackupdrTemplate => std::option::Option::Some("BACKUPDR_TEMPLATE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::CloudSqlInstanceBackupConfig,
+                2 => Self::ComputeEngineResourcePolicy,
+                3 => Self::BackupdrBackupPlan,
+                4 => Self::BackupdrTemplate,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "CLOUD_SQL_INSTANCE_BACKUP_CONFIG" => Self::CloudSqlInstanceBackupConfig,
+                "COMPUTE_ENGINE_RESOURCE_POLICY" => Self::ComputeEngineResourcePolicy,
+                "BACKUPDR_BACKUP_PLAN" => Self::BackupdrBackupPlan,
+                "BACKUPDR_TEMPLATE" => Self::BackupdrTemplate,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::CloudSqlInstanceBackupConfig => serializer.serialize_i32(1),
+                Self::ComputeEngineResourcePolicy => serializer.serialize_i32(2),
+                Self::BackupdrBackupPlan => serializer.serialize_i32(3),
+                Self::BackupdrTemplate => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.backupdr.v1.BackupConfigDetails.Type",
+            ))
+        }
+    }
+
+    /// The state tells whether the backup config is active or not.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Backup config state not set.
+        Unspecified,
+        /// The config is in an active state protecting the resource
+        Active,
+        /// The config is currently not protecting the resource. Either because it is
+        /// disabled or the owning project has been deleted without cleanup of the
+        /// actual resource.
+        Inactive,
+        /// The config still exists but because of some error state it is not
+        /// protecting the resource. Like the source project is deleted. For eg.
+        /// PlanAssociation, BackupPlan is deleted.
+        Error,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::Inactive => std::option::Option::Some(2),
+                Self::Error => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::Inactive => std::option::Option::Some("INACTIVE"),
+                Self::Error => std::option::Option::Some("ERROR"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Active,
+                2 => Self::Inactive,
+                3 => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "ACTIVE" => Self::Active,
+                "INACTIVE" => Self::Inactive,
+                "ERROR" => Self::Error,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::Inactive => serializer.serialize_i32(2),
+                Self::Error => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.backupdr.v1.BackupConfigDetails.State",
+            ))
+        }
+    }
+
+    /// The plan specific config. This depends on the value of
+    /// [BackupConfigDetails.type][google.cloud.backupdr.v1.BackupConfigDetails.type].
+    /// For type=BACKUPDR_BACKUP_PLAN, backup_dr_plan_config would be populated to
+    /// capture information related to Google Cloud Backup and DR's Backup Plans.
+    /// For type=BACKUPDR_TEMPLATE, backup_dr_template_config would be populated to
+    /// capture information related to Google Cloud Backup and DR's Template
+    /// details.
+    ///
+    /// [google.cloud.backupdr.v1.BackupConfigDetails.type]: crate::model::BackupConfigDetails::type
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PlanSpecificConfig {
+        /// Google Cloud Backup and DR's Backup Plan specific data.
+        BackupDrPlanConfig(std::boxed::Box<crate::model::BackupDrPlanConfig>),
+        /// Google Cloud Backup and DR's Template specific data.
+        BackupDrTemplateConfig(std::boxed::Box<crate::model::BackupDrTemplateConfig>),
+    }
+}
+
+/// Point in time recovery settings of the backup configuration resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct PitrSettings {
+    /// Output only. Number of days to retain the backup.
+    pub retention_days: i32,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PitrSettings {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [retention_days][crate::model::PitrSettings::retention_days].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::PitrSettings;
+    /// let x = PitrSettings::new().set_retention_days(42);
+    /// ```
+    pub fn set_retention_days<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.retention_days = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for PitrSettings {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.PitrSettings"
+    }
+}
+
+/// Provides additional information about Google Cloud Backup
+/// and DR's Template backup configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupDrTemplateConfig {
+    /// Output only. The URI of the BackupDr template resource for the first party
+    /// identity users.
+    pub first_party_management_uri: std::string::String,
+
+    /// Output only. The URI of the BackupDr template resource for the third party
+    /// identity users.
+    pub third_party_management_uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupDrTemplateConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [first_party_management_uri][crate::model::BackupDrTemplateConfig::first_party_management_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrTemplateConfig;
+    /// let x = BackupDrTemplateConfig::new().set_first_party_management_uri("example");
+    /// ```
+    pub fn set_first_party_management_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.first_party_management_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [third_party_management_uri][crate::model::BackupDrTemplateConfig::third_party_management_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrTemplateConfig;
+    /// let x = BackupDrTemplateConfig::new().set_third_party_management_uri("example");
+    /// ```
+    pub fn set_third_party_management_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.third_party_management_uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupDrTemplateConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupDrTemplateConfig"
+    }
+}
+
+/// BackupDrPlanConfig has additional information about Google Cloud Backup and
+/// DR's Plan backup configuration.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupDrPlanConfig {
+    /// Backup rules of the backup plan resource.
+    pub backup_dr_plan_rules: std::vec::Vec<crate::model::BackupDrPlanRule>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupDrPlanConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [backup_dr_plan_rules][crate::model::BackupDrPlanConfig::backup_dr_plan_rules].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrPlanConfig;
+    /// use google_cloud_backupdr_v1::model::BackupDrPlanRule;
+    /// let x = BackupDrPlanConfig::new()
+    ///     .set_backup_dr_plan_rules([
+    ///         BackupDrPlanRule::default()/* use setters */,
+    ///         BackupDrPlanRule::default()/* use (different) setters */,
+    ///     ]);
+    /// ```
+    pub fn set_backup_dr_plan_rules<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::BackupDrPlanRule>,
+    {
+        use std::iter::Iterator;
+        self.backup_dr_plan_rules = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupDrPlanConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupDrPlanConfig"
+    }
+}
+
+/// BackupDrPlanRule has rule specific information of the backup plan resource.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupDrPlanRule {
+    /// Output only. Unique Id of the backup rule.
+    pub rule_id: std::string::String,
+
+    /// Output only. Timestamp of the latest successful backup created via this
+    /// backup rule.
+    pub last_successful_backup_time: std::option::Option<wkt::Timestamp>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupDrPlanRule {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [rule_id][crate::model::BackupDrPlanRule::rule_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrPlanRule;
+    /// let x = BackupDrPlanRule::new().set_rule_id("example");
+    /// ```
+    pub fn set_rule_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.rule_id = v.into();
+        self
+    }
+
+    /// Sets the value of [last_successful_backup_time][crate::model::BackupDrPlanRule::last_successful_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrPlanRule;
+    /// use wkt::Timestamp;
+    /// let x = BackupDrPlanRule::new().set_last_successful_backup_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_last_successful_backup_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_successful_backup_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_successful_backup_time][crate::model::BackupDrPlanRule::last_successful_backup_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupDrPlanRule;
+    /// use wkt::Timestamp;
+    /// let x = BackupDrPlanRule::new().set_or_clear_last_successful_backup_time(Some(Timestamp::default()/* use setters */));
+    /// let x = BackupDrPlanRule::new().set_or_clear_last_successful_backup_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_last_successful_backup_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_successful_backup_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for BackupDrPlanRule {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupDrPlanRule"
+    }
+}
+
+/// BackupLocation represents a cloud location where a backup can be stored.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct BackupLocation {
+    /// Output only. The type of the location.
+    pub r#type: crate::model::backup_location::Type,
+
+    /// Output only. The id of the cloud location. Example: "us-central1"
+    pub location_id: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BackupLocation {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [r#type][crate::model::BackupLocation::type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupLocation;
+    /// use google_cloud_backupdr_v1::model::backup_location::Type;
+    /// let x0 = BackupLocation::new().set_type(Type::Zonal);
+    /// let x1 = BackupLocation::new().set_type(Type::Regional);
+    /// let x2 = BackupLocation::new().set_type(Type::MultiRegional);
+    /// ```
+    pub fn set_type<T: std::convert::Into<crate::model::backup_location::Type>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// Sets the value of [location_id][crate::model::BackupLocation::location_id].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_backupdr_v1::model::BackupLocation;
+    /// let x = BackupLocation::new().set_location_id("example");
+    /// ```
+    pub fn set_location_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.location_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BackupLocation {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.backupdr.v1.BackupLocation"
+    }
+}
+
+/// Defines additional types related to [BackupLocation].
+pub mod backup_location {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of the location.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Location type is unspecified.
+        Unspecified,
+        /// Location type is zonal.
+        Zonal,
+        /// Location type is regional.
+        Regional,
+        /// Location type is multi regional.
+        MultiRegional,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Type::value] or
+        /// [Type::name].
+        UnknownValue(r#type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod r#type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Type {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Zonal => std::option::Option::Some(1),
+                Self::Regional => std::option::Option::Some(2),
+                Self::MultiRegional => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("TYPE_UNSPECIFIED"),
+                Self::Zonal => std::option::Option::Some("ZONAL"),
+                Self::Regional => std::option::Option::Some("REGIONAL"),
+                Self::MultiRegional => std::option::Option::Some("MULTI_REGIONAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Type {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Type {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Type {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Zonal,
+                2 => Self::Regional,
+                3 => Self::MultiRegional,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Type {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "TYPE_UNSPECIFIED" => Self::Unspecified,
+                "ZONAL" => Self::Zonal,
+                "REGIONAL" => Self::Regional,
+                "MULTI_REGIONAL" => Self::MultiRegional,
+                _ => Self::UnknownValue(r#type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Type {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Zonal => serializer.serialize_i32(1),
+                Self::Regional => serializer.serialize_i32(2),
+                Self::MultiRegional => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Type {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
+                ".google.cloud.backupdr.v1.BackupLocation.Type",
+            ))
+        }
+    }
+}
+
 /// Backup configuration state. Is the resource configured for backup?
 ///
 /// # Working with unknown values

@@ -17,8 +17,18 @@ The main types to work with this crate are the clients:
 
 - [OracleDatabase]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/1.5.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-oracledatabase-v1/1.6.0)
 
-[OracleDatabase]: https://docs.rs/google-cloud-oracledatabase-v1/1.5.0/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[OracleDatabase]: https://docs.rs/google-cloud-oracledatabase-v1/1.6.0/google_cloud_oracledatabase_v1/client/struct.OracleDatabase.html

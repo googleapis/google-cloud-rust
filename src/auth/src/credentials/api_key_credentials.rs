@@ -126,11 +126,13 @@ mod tests {
     use crate::credentials::tests::get_headers_from_cache;
     use http::HeaderValue;
     use scoped_env::ScopedEnv;
+    use serial_test::{parallel, serial};
 
     const API_KEY_HEADER_KEY: &str = "x-goog-api-key";
     type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
 
     #[test]
+    #[parallel]
     fn debug_token_provider() {
         let expected = Builder::new("test-api-key").build_token_provider();
 
@@ -139,6 +141,7 @@ mod tests {
     }
 
     #[tokio::test]
+    #[parallel]
     async fn api_key_credentials_token_provider() {
         let tp = Builder::new("test-api-key").build_token_provider();
         assert_eq!(
@@ -153,7 +156,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_api_key_credentials_basic() -> TestResult {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 
@@ -168,7 +171,7 @@ mod tests {
     }
 
     #[tokio::test]
-    #[serial_test::serial]
+    #[serial]
     async fn create_api_key_credentials_basic_with_extensions() -> TestResult {
         let _e = ScopedEnv::remove("GOOGLE_CLOUD_QUOTA_PROJECT");
 

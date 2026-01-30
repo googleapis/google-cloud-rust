@@ -28,6 +28,10 @@ if [[ "${GCB_TRIGGER_NAME:-}" == *"-test-msrv" ]]; then
         --exclude check-copyright
         --exclude minimal-version-helper
     )
+    # Exclude all the crypto providers tests.
+    excluded+=($(git ls-files -- tests/crypto-providers/**Cargo.toml | \
+        xargs sed -n 's/name.*=.*"\(.*\)"/\1/p' | \
+        xargs printf -- "--exclude %s\n"))
 fi
 
 cargo test

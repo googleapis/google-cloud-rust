@@ -192,6 +192,133 @@ where
     }
 }
 
+/// Implements a [Instances](super::stub::Instances) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct Instances<T>
+where
+    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> Instances<T>
+where
+    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::Instances for Instances<T>
+where
+    T: super::stub::Instances + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn create_instance(
+        &self,
+        req: crate::model::CreateInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_instance(
+        &self,
+        req: crate::model::DeleteInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_instance(
+        &self,
+        req: crate::model::GetInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Instance>> {
+        self.inner.get_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_instances(
+        &self,
+        req: crate::model::ListInstancesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
+        self.inner.list_instances(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn stop_instance(
+        &self,
+        req: crate::model::StopInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.stop_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn start_instance(
+        &self,
+        req: crate::model::StartInstanceRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.start_instance(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn wait_operation(
+        &self,
+        req: longrunning::model::WaitOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.wait_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [Jobs](super::stub::Jobs) decorator for logging and tracing.
 #[derive(Clone, Debug)]
 pub struct Jobs<T>

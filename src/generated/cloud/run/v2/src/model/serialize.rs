@@ -237,6 +237,31 @@ impl serde::ser::Serialize for super::Condition {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::ContainerStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.image_digest.is_empty() {
+            state.serialize_entry("imageDigest", &self.image_digest)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::GetExecutionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -605,6 +630,365 @@ impl serde::ser::Serialize for super::ExecutionTemplate {
         }
         if self.template.is_some() {
             state.serialize_entry("template", &self.template)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::CreateInstanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.instance.is_some() {
+            state.serialize_entry("instance", &self.instance)?;
+        }
+        if !self.instance_id.is_empty() {
+            state.serialize_entry("instanceId", &self.instance_id)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::GetInstanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::DeleteInstanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListInstancesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !wkt::internal::is_default(&self.show_deleted) {
+            state.serialize_entry("showDeleted", &self.show_deleted)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::ListInstancesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.instances.is_empty() {
+            state.serialize_entry("instances", &self.instances)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StopInstanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::StartInstanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.validate_only) {
+            state.serialize_entry("validateOnly", &self.validate_only)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for super::Instance {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.uid.is_empty() {
+            state.serialize_entry("uid", &self.uid)?;
+        }
+        if !wkt::internal::is_default(&self.generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("generation", &__With(&self.generation))?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.annotations.is_empty() {
+            state.serialize_entry("annotations", &self.annotations)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if self.delete_time.is_some() {
+            state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.expire_time.is_some() {
+            state.serialize_entry("expireTime", &self.expire_time)?;
+        }
+        if !self.creator.is_empty() {
+            state.serialize_entry("creator", &self.creator)?;
+        }
+        if !self.last_modifier.is_empty() {
+            state.serialize_entry("lastModifier", &self.last_modifier)?;
+        }
+        if !self.client.is_empty() {
+            state.serialize_entry("client", &self.client)?;
+        }
+        if !self.client_version.is_empty() {
+            state.serialize_entry("clientVersion", &self.client_version)?;
+        }
+        if !wkt::internal::is_default(&self.launch_stage) {
+            state.serialize_entry("launchStage", &self.launch_stage)?;
+        }
+        if self.binary_authorization.is_some() {
+            state.serialize_entry("binaryAuthorization", &self.binary_authorization)?;
+        }
+        if self.vpc_access.is_some() {
+            state.serialize_entry("vpcAccess", &self.vpc_access)?;
+        }
+        if !self.service_account.is_empty() {
+            state.serialize_entry("serviceAccount", &self.service_account)?;
+        }
+        if !self.containers.is_empty() {
+            state.serialize_entry("containers", &self.containers)?;
+        }
+        if !self.volumes.is_empty() {
+            state.serialize_entry("volumes", &self.volumes)?;
+        }
+        if !self.encryption_key.is_empty() {
+            state.serialize_entry("encryptionKey", &self.encryption_key)?;
+        }
+        if !wkt::internal::is_default(&self.encryption_key_revocation_action) {
+            state.serialize_entry(
+                "encryptionKeyRevocationAction",
+                &self.encryption_key_revocation_action,
+            )?;
+        }
+        if self.encryption_key_shutdown_duration.is_some() {
+            state.serialize_entry(
+                "encryptionKeyShutdownDuration",
+                &self.encryption_key_shutdown_duration,
+            )?;
+        }
+        if self.node_selector.is_some() {
+            state.serialize_entry("nodeSelector", &self.node_selector)?;
+        }
+        if self.gpu_zonal_redundancy_disabled.is_some() {
+            state.serialize_entry(
+                "gpuZonalRedundancyDisabled",
+                &self.gpu_zonal_redundancy_disabled,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.ingress) {
+            state.serialize_entry("ingress", &self.ingress)?;
+        }
+        if !wkt::internal::is_default(&self.invoker_iam_disabled) {
+            state.serialize_entry("invokerIamDisabled", &self.invoker_iam_disabled)?;
+        }
+        if !wkt::internal::is_default(&self.iap_enabled) {
+            state.serialize_entry("iapEnabled", &self.iap_enabled)?;
+        }
+        if !wkt::internal::is_default(&self.observed_generation) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("observedGeneration", &__With(&self.observed_generation))?;
+        }
+        if !self.log_uri.is_empty() {
+            state.serialize_entry("logUri", &self.log_uri)?;
+        }
+        if self.terminal_condition.is_some() {
+            state.serialize_entry("terminalCondition", &self.terminal_condition)?;
+        }
+        if !self.conditions.is_empty() {
+            state.serialize_entry("conditions", &self.conditions)?;
+        }
+        if !self.container_statuses.is_empty() {
+            state.serialize_entry("containerStatuses", &self.container_statuses)?;
+        }
+        if !wkt::internal::is_default(&self.satisfies_pzs) {
+            state.serialize_entry("satisfiesPzs", &self.satisfies_pzs)?;
+        }
+        if !self.urls.is_empty() {
+            state.serialize_entry("urls", &self.urls)?;
+        }
+        if !wkt::internal::is_default(&self.reconciling) {
+            state.serialize_entry("reconciling", &self.reconciling)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -1165,6 +1549,9 @@ impl serde::ser::Serialize for super::Container {
         }
         if self.startup_probe.is_some() {
             state.serialize_entry("startupProbe", &self.startup_probe)?;
+        }
+        if self.readiness_probe.is_some() {
+            state.serialize_entry("readinessProbe", &self.readiness_probe)?;
         }
         if !self.depends_on.is_empty() {
             state.serialize_entry("dependsOn", &self.depends_on)?;

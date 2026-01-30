@@ -16,8 +16,18 @@ The main types to work with this crate are the clients:
 
 - [TranslationService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-translation-v3/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-translation-v3/1.5.0)
 
-[TranslationService]: https://docs.rs/google-cloud-translation-v3/1.4.0/google_cloud_translation_v3/client/struct.TranslationService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[TranslationService]: https://docs.rs/google-cloud-translation-v3/1.5.0/google_cloud_translation_v3/client/struct.TranslationService.html

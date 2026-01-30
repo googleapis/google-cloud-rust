@@ -700,6 +700,72 @@ pub trait NetApp: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::NetApp::restore_backup_files].
+    fn restore_backup_files(
+        &self,
+        _req: crate::model::RestoreBackupFilesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::list_host_groups].
+    fn list_host_groups(
+        &self,
+        _req: crate::model::ListHostGroupsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListHostGroupsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::get_host_group].
+    fn get_host_group(
+        &self,
+        _req: crate::model::GetHostGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::HostGroup>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::create_host_group].
+    fn create_host_group(
+        &self,
+        _req: crate::model::CreateHostGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::update_host_group].
+    fn update_host_group(
+        &self,
+        _req: crate::model::UpdateHostGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetApp::delete_host_group].
+    fn delete_host_group(
+        &self,
+        _req: crate::model::DeleteHostGroupRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::NetApp::list_locations].
     fn list_locations(
         &self,

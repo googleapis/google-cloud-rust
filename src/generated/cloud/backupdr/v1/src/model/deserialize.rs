@@ -16180,3 +16180,1127 @@ impl<'de> serde::de::Deserialize<'de> for super::FetchDataSourceReferencesForRes
         deserializer.deserialize_any(Visitor)
     }
 }
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListResourceBackupConfigsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListResourceBackupConfigsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListResourceBackupConfigsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListResourceBackupConfigsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ListResourceBackupConfigsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __resource_backup_configs,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListResourceBackupConfigsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "resourceBackupConfigs" => Ok(__FieldTag::__resource_backup_configs),
+                            "resource_backup_configs" => Ok(__FieldTag::__resource_backup_configs),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ListResourceBackupConfigsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListResourceBackupConfigsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__resource_backup_configs => {
+                            if !fields.insert(__FieldTag::__resource_backup_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for resource_backup_configs",
+                                ));
+                            }
+                            result.resource_backup_configs = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ResourceBackupConfig>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::ResourceBackupConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __uid,
+            __target_resource,
+            __target_resource_display_name,
+            __target_resource_type,
+            __target_resource_labels,
+            __backup_configs_details,
+            __backup_configured,
+            __vaulted,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ResourceBackupConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "uid" => Ok(__FieldTag::__uid),
+                            "targetResource" => Ok(__FieldTag::__target_resource),
+                            "target_resource" => Ok(__FieldTag::__target_resource),
+                            "targetResourceDisplayName" => {
+                                Ok(__FieldTag::__target_resource_display_name)
+                            }
+                            "target_resource_display_name" => {
+                                Ok(__FieldTag::__target_resource_display_name)
+                            }
+                            "targetResourceType" => Ok(__FieldTag::__target_resource_type),
+                            "target_resource_type" => Ok(__FieldTag::__target_resource_type),
+                            "targetResourceLabels" => Ok(__FieldTag::__target_resource_labels),
+                            "target_resource_labels" => Ok(__FieldTag::__target_resource_labels),
+                            "backupConfigsDetails" => Ok(__FieldTag::__backup_configs_details),
+                            "backup_configs_details" => Ok(__FieldTag::__backup_configs_details),
+                            "backupConfigured" => Ok(__FieldTag::__backup_configured),
+                            "backup_configured" => Ok(__FieldTag::__backup_configured),
+                            "vaulted" => Ok(__FieldTag::__vaulted),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::ResourceBackupConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ResourceBackupConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uid => {
+                            if !fields.insert(__FieldTag::__uid) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uid",
+                                ));
+                            }
+                            result.uid = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__target_resource => {
+                            if !fields.insert(__FieldTag::__target_resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_resource",
+                                ));
+                            }
+                            result.target_resource = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__target_resource_display_name => {
+                            if !fields.insert(__FieldTag::__target_resource_display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_resource_display_name",
+                                ));
+                            }
+                            result.target_resource_display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__target_resource_type => {
+                            if !fields.insert(__FieldTag::__target_resource_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_resource_type",
+                                ));
+                            }
+                            result.target_resource_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::resource_backup_config::ResourceType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__target_resource_labels => {
+                            if !fields.insert(__FieldTag::__target_resource_labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for target_resource_labels",
+                                ));
+                            }
+                            result.target_resource_labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_configs_details => {
+                            if !fields.insert(__FieldTag::__backup_configs_details) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_configs_details",
+                                ));
+                            }
+                            result.backup_configs_details = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BackupConfigDetails>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_configured => {
+                            if !fields.insert(__FieldTag::__backup_configured) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_configured",
+                                ));
+                            }
+                            result.backup_configured = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vaulted => {
+                            if !fields.insert(__FieldTag::__vaulted) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vaulted",
+                                ));
+                            }
+                            result.vaulted = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BackupConfigDetails {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __backup_config_source,
+            __backup_config_source_display_name,
+            __type,
+            __state,
+            __pitr_settings,
+            __latest_successful_backup_time,
+            __applicable_resource,
+            __backup_vault,
+            __backup_locations,
+            __backup_dr_plan_config,
+            __backup_dr_template_config,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupConfigDetails")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "backupConfigSource" => Ok(__FieldTag::__backup_config_source),
+                            "backup_config_source" => Ok(__FieldTag::__backup_config_source),
+                            "backupConfigSourceDisplayName" => {
+                                Ok(__FieldTag::__backup_config_source_display_name)
+                            }
+                            "backup_config_source_display_name" => {
+                                Ok(__FieldTag::__backup_config_source_display_name)
+                            }
+                            "type" => Ok(__FieldTag::__type),
+                            "state" => Ok(__FieldTag::__state),
+                            "pitrSettings" => Ok(__FieldTag::__pitr_settings),
+                            "pitr_settings" => Ok(__FieldTag::__pitr_settings),
+                            "latestSuccessfulBackupTime" => {
+                                Ok(__FieldTag::__latest_successful_backup_time)
+                            }
+                            "latest_successful_backup_time" => {
+                                Ok(__FieldTag::__latest_successful_backup_time)
+                            }
+                            "applicableResource" => Ok(__FieldTag::__applicable_resource),
+                            "applicable_resource" => Ok(__FieldTag::__applicable_resource),
+                            "backupVault" => Ok(__FieldTag::__backup_vault),
+                            "backup_vault" => Ok(__FieldTag::__backup_vault),
+                            "backupLocations" => Ok(__FieldTag::__backup_locations),
+                            "backup_locations" => Ok(__FieldTag::__backup_locations),
+                            "backupDrPlanConfig" => Ok(__FieldTag::__backup_dr_plan_config),
+                            "backup_dr_plan_config" => Ok(__FieldTag::__backup_dr_plan_config),
+                            "backupDrTemplateConfig" => Ok(__FieldTag::__backup_dr_template_config),
+                            "backup_dr_template_config" => {
+                                Ok(__FieldTag::__backup_dr_template_config)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BackupConfigDetails;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupConfigDetails")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_config_source => {
+                            if !fields.insert(__FieldTag::__backup_config_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_config_source",
+                                ));
+                            }
+                            result.backup_config_source = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_config_source_display_name => {
+                            if !fields.insert(__FieldTag::__backup_config_source_display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_config_source_display_name",
+                                ));
+                            }
+                            result.backup_config_source_display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::backup_config_details::Type>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::backup_config_details::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__pitr_settings => {
+                            if !fields.insert(__FieldTag::__pitr_settings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pitr_settings",
+                                ));
+                            }
+                            result.pitr_settings = map
+                                .next_value::<std::option::Option<crate::model::PitrSettings>>()?;
+                        }
+                        __FieldTag::__latest_successful_backup_time => {
+                            if !fields.insert(__FieldTag::__latest_successful_backup_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for latest_successful_backup_time",
+                                ));
+                            }
+                            result.latest_successful_backup_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__applicable_resource => {
+                            if !fields.insert(__FieldTag::__applicable_resource) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for applicable_resource",
+                                ));
+                            }
+                            result.applicable_resource = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_vault => {
+                            if !fields.insert(__FieldTag::__backup_vault) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_vault",
+                                ));
+                            }
+                            result.backup_vault = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_locations => {
+                            if !fields.insert(__FieldTag::__backup_locations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_locations",
+                                ));
+                            }
+                            result.backup_locations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BackupLocation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__backup_dr_plan_config => {
+                            if !fields.insert(__FieldTag::__backup_dr_plan_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_dr_plan_config",
+                                ));
+                            }
+                            if result.plan_specific_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `plan_specific_config`, a oneof with full ID .google.cloud.backupdr.v1.BackupConfigDetails.backup_dr_plan_config, latest field was backupDrPlanConfig",
+                                ));
+                            }
+                            result.plan_specific_config = std::option::Option::Some(
+                                crate::model::backup_config_details::PlanSpecificConfig::BackupDrPlanConfig(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::BackupDrPlanConfig>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__backup_dr_template_config => {
+                            if !fields.insert(__FieldTag::__backup_dr_template_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_dr_template_config",
+                                ));
+                            }
+                            if result.plan_specific_config.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `plan_specific_config`, a oneof with full ID .google.cloud.backupdr.v1.BackupConfigDetails.backup_dr_template_config, latest field was backupDrTemplateConfig",
+                                ));
+                            }
+                            result.plan_specific_config = std::option::Option::Some(
+                                crate::model::backup_config_details::PlanSpecificConfig::BackupDrTemplateConfig(
+                                    map.next_value::<std::option::Option<std::boxed::Box<crate::model::BackupDrTemplateConfig>>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::PitrSettings {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __retention_days,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PitrSettings")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "retentionDays" => Ok(__FieldTag::__retention_days),
+                            "retention_days" => Ok(__FieldTag::__retention_days),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::PitrSettings;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PitrSettings")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__retention_days => {
+                            if !fields.insert(__FieldTag::__retention_days) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for retention_days",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.retention_days =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BackupDrTemplateConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __first_party_management_uri,
+            __third_party_management_uri,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupDrTemplateConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "firstPartyManagementUri" => {
+                                Ok(__FieldTag::__first_party_management_uri)
+                            }
+                            "first_party_management_uri" => {
+                                Ok(__FieldTag::__first_party_management_uri)
+                            }
+                            "thirdPartyManagementUri" => {
+                                Ok(__FieldTag::__third_party_management_uri)
+                            }
+                            "third_party_management_uri" => {
+                                Ok(__FieldTag::__third_party_management_uri)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BackupDrTemplateConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupDrTemplateConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__first_party_management_uri => {
+                            if !fields.insert(__FieldTag::__first_party_management_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for first_party_management_uri",
+                                ));
+                            }
+                            result.first_party_management_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__third_party_management_uri => {
+                            if !fields.insert(__FieldTag::__third_party_management_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for third_party_management_uri",
+                                ));
+                            }
+                            result.third_party_management_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BackupDrPlanConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __backup_dr_plan_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupDrPlanConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "backupDrPlanRules" => Ok(__FieldTag::__backup_dr_plan_rules),
+                            "backup_dr_plan_rules" => Ok(__FieldTag::__backup_dr_plan_rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BackupDrPlanConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupDrPlanConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__backup_dr_plan_rules => {
+                            if !fields.insert(__FieldTag::__backup_dr_plan_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for backup_dr_plan_rules",
+                                ));
+                            }
+                            result.backup_dr_plan_rules =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::BackupDrPlanRule>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BackupDrPlanRule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __rule_id,
+            __last_successful_backup_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupDrPlanRule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ruleId" => Ok(__FieldTag::__rule_id),
+                            "rule_id" => Ok(__FieldTag::__rule_id),
+                            "lastSuccessfulBackupTime" => {
+                                Ok(__FieldTag::__last_successful_backup_time)
+                            }
+                            "last_successful_backup_time" => {
+                                Ok(__FieldTag::__last_successful_backup_time)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BackupDrPlanRule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupDrPlanRule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__rule_id => {
+                            if !fields.insert(__FieldTag::__rule_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rule_id",
+                                ));
+                            }
+                            result.rule_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__last_successful_backup_time => {
+                            if !fields.insert(__FieldTag::__last_successful_backup_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for last_successful_backup_time",
+                                ));
+                            }
+                            result.last_successful_backup_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for super::BackupLocation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __location_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BackupLocation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "locationId" => Ok(__FieldTag::__location_id),
+                            "location_id" => Ok(__FieldTag::__location_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = super::BackupLocation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BackupLocation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::model::backup_location::Type>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__location_id => {
+                            if !fields.insert(__FieldTag::__location_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location_id",
+                                ));
+                            }
+                            result.location_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}

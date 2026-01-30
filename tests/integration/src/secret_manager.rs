@@ -12,6 +12,4 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-pub mod openapi;
-pub mod openapi_locational;
 pub mod protobuf;

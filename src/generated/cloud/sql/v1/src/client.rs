@@ -149,6 +149,138 @@ impl SqlBackupRunsService {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_sql_v1::client::SqlBackupsService;
+/// let client = SqlBackupsService::builder().build().await?;
+/// // use `client` to make requests to the Cloud SQL Admin API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+///
+/// # Configuration
+///
+/// To configure `SqlBackupsService` use the `with_*` methods in the type returned
+/// by [builder()][SqlBackupsService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://sqladmin.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::sql_backups_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::sql_backups_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `SqlBackupsService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `SqlBackupsService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct SqlBackupsService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::SqlBackupsService>,
+}
+
+impl SqlBackupsService {
+    /// Returns a builder for [SqlBackupsService].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_sql_v1::client::SqlBackupsService;
+    /// let client = SqlBackupsService::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::sql_backups_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::sql_backups_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::SqlBackupsService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::SqlBackupsService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SqlBackupsService> {
+        super::transport::SqlBackupsService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::SqlBackupsService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::SqlBackupsService::new)
+    }
+
+    /// Creates a backup for a Cloud SQL instance. This API can be used only to
+    /// create on-demand backups.
+    pub fn create_backup(&self) -> super::builder::sql_backups_service::CreateBackup {
+        super::builder::sql_backups_service::CreateBackup::new(self.inner.clone())
+    }
+
+    /// Retrieves a resource containing information about a backup.
+    pub fn get_backup(&self) -> super::builder::sql_backups_service::GetBackup {
+        super::builder::sql_backups_service::GetBackup::new(self.inner.clone())
+    }
+
+    /// Lists all backups associated with the project.
+    pub fn list_backups(&self) -> super::builder::sql_backups_service::ListBackups {
+        super::builder::sql_backups_service::ListBackups::new(self.inner.clone())
+    }
+
+    /// Updates the retention period and description of the backup. You can use
+    /// this API to update final backups only.
+    pub fn update_backup(&self) -> super::builder::sql_backups_service::UpdateBackup {
+        super::builder::sql_backups_service::UpdateBackup::new(self.inner.clone())
+    }
+
+    /// Deletes the backup.
+    pub fn delete_backup(&self) -> super::builder::sql_backups_service::DeleteBackup {
+        super::builder::sql_backups_service::DeleteBackup::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud SQL Admin API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_sql_v1::client::SqlConnectService;
 /// let client = SqlConnectService::builder().build().await?;
 /// // use `client` to make requests to the Cloud SQL Admin API.
@@ -531,7 +663,6 @@ impl SqlFlagsService {
 ///
 /// # Service Description
 ///
-/// Service to manage Cloud SQL instances.
 ///
 /// # Configuration
 ///
@@ -628,10 +759,32 @@ impl SqlInstancesService {
     /// was previously added but never used in a certificate rotation, this
     /// operation replaces that version. There cannot be more than one CA version
     /// waiting to be rotated in. For instances that have enabled Certificate
-    /// Authority Service (CAS) based server CA, please use AddServerCertificate to
-    /// add a new server certificate.
+    /// Authority Service (CAS) based server CA, use AddServerCertificate to add a
+    /// new server certificate.
     pub fn add_server_ca(&self) -> super::builder::sql_instances_service::AddServerCa {
         super::builder::sql_instances_service::AddServerCa::new(self.inner.clone())
+    }
+
+    /// Add a new trusted server certificate version for the specified instance
+    /// using Certificate Authority Service (CAS) server CA. Required to prepare
+    /// for a certificate rotation. If a server certificate version was previously
+    /// added but never used in a certificate rotation, this operation replaces
+    /// that version. There cannot be more than one certificate version waiting to
+    /// be rotated in. For instances not using CAS server CA, use AddServerCa
+    /// instead.
+    pub fn add_server_certificate(
+        &self,
+    ) -> super::builder::sql_instances_service::AddServerCertificate {
+        super::builder::sql_instances_service::AddServerCertificate::new(self.inner.clone())
+    }
+
+    /// Adds a new Entra ID certificate for the specified instance. If an Entra ID
+    /// certificate was previously added but never used in a certificate rotation,
+    /// this operation replaces that version.
+    pub fn add_entra_id_certificate(
+        &self,
+    ) -> super::builder::sql_instances_service::AddEntraIdCertificate {
+        super::builder::sql_instances_service::AddEntraIdCertificate::new(self.inner.clone())
     }
 
     /// Creates a Cloud SQL instance as a clone of the source instance. Using this
@@ -711,6 +864,28 @@ impl SqlInstancesService {
         super::builder::sql_instances_service::ListServerCas::new(self.inner.clone())
     }
 
+    /// Lists all versions of server certificates and certificate authorities (CAs)
+    /// for the specified instance. There can be up to three sets of certs listed:
+    /// the certificate that is currently in use, a future that has been added but
+    /// not yet used to sign a certificate, and a certificate that has been rotated
+    /// out. For instances not using Certificate Authority Service (CAS) server CA,
+    /// use ListServerCas instead.
+    pub fn list_server_certificates(
+        &self,
+    ) -> super::builder::sql_instances_service::ListServerCertificates {
+        super::builder::sql_instances_service::ListServerCertificates::new(self.inner.clone())
+    }
+
+    /// Lists all versions of EntraID certificates for the specified instance.
+    /// There can be up to three sets of certificates listed: the certificate that
+    /// is currently in use, a future that has been added but not yet used to sign
+    /// a certificate, and a certificate that has been rotated out.
+    pub fn list_entra_id_certificates(
+        &self,
+    ) -> super::builder::sql_instances_service::ListEntraIdCertificates {
+        super::builder::sql_instances_service::ListEntraIdCertificates::new(self.inner.clone())
+    }
+
     /// Partially updates settings of a Cloud SQL instance by merging the request
     /// with the current configuration. This method supports patch semantics.
     pub fn patch(&self) -> super::builder::sql_instances_service::Patch {
@@ -724,7 +899,7 @@ impl SqlInstancesService {
         super::builder::sql_instances_service::PromoteReplica::new(self.inner.clone())
     }
 
-    /// Switches over from the primary instance to the designated DR replica
+    /// Switches over from the primary instance to the DR replica
     /// instance.
     pub fn switchover(&self) -> super::builder::sql_instances_service::Switchover {
         super::builder::sql_instances_service::Switchover::new(self.inner.clone())
@@ -750,9 +925,26 @@ impl SqlInstancesService {
     /// Rotates the server certificate to one signed by the Certificate Authority
     /// (CA) version previously added with the addServerCA method. For instances
     /// that have enabled Certificate Authority Service (CAS) based server CA,
-    /// please use RotateServerCertificate to rotate the server certificate.
+    /// use RotateServerCertificate to rotate the server certificate.
     pub fn rotate_server_ca(&self) -> super::builder::sql_instances_service::RotateServerCa {
         super::builder::sql_instances_service::RotateServerCa::new(self.inner.clone())
+    }
+
+    /// Rotates the server certificate version to one previously added with the
+    /// addServerCertificate method. For instances not using Certificate Authority
+    /// Service (CAS) server CA, use RotateServerCa instead.
+    pub fn rotate_server_certificate(
+        &self,
+    ) -> super::builder::sql_instances_service::RotateServerCertificate {
+        super::builder::sql_instances_service::RotateServerCertificate::new(self.inner.clone())
+    }
+
+    /// Rotates the server certificate version to one previously added with the
+    /// addEntraIdCertificate method.
+    pub fn rotate_entra_id_certificate(
+        &self,
+    ) -> super::builder::sql_instances_service::RotateEntraIdCertificate {
+        super::builder::sql_instances_service::RotateEntraIdCertificate::new(self.inner.clone())
     }
 
     /// Starts the replication in the read replica instance.
@@ -828,6 +1020,11 @@ impl SqlInstancesService {
         super::builder::sql_instances_service::GetLatestRecoveryTime::new(self.inner.clone())
     }
 
+    /// Execute SQL statements.
+    pub fn execute_sql(&self) -> super::builder::sql_instances_service::ExecuteSql {
+        super::builder::sql_instances_service::ExecuteSql::new(self.inner.clone())
+    }
+
     /// Acquire a lease for the setup of SQL Server Reporting Services (SSRS).
     pub fn acquire_ssrs_lease(&self) -> super::builder::sql_instances_service::AcquireSsrsLease {
         super::builder::sql_instances_service::AcquireSsrsLease::new(self.inner.clone())
@@ -836,6 +1033,21 @@ impl SqlInstancesService {
     /// Release a lease for the setup of SQL Server Reporting Services (SSRS).
     pub fn release_ssrs_lease(&self) -> super::builder::sql_instances_service::ReleaseSsrsLease {
         super::builder::sql_instances_service::ReleaseSsrsLease::new(self.inner.clone())
+    }
+
+    /// Execute MVU Pre-checks
+    pub fn pre_check_major_version_upgrade(
+        &self,
+    ) -> super::builder::sql_instances_service::PreCheckMajorVersionUpgrade {
+        super::builder::sql_instances_service::PreCheckMajorVersionUpgrade::new(self.inner.clone())
+    }
+
+    /// Point in time restore for an instance managed by Google Cloud Backup and
+    /// Disaster Recovery.
+    pub fn point_in_time_restore(
+        &self,
+    ) -> super::builder::sql_instances_service::PointInTimeRestore {
+        super::builder::sql_instances_service::PointInTimeRestore::new(self.inner.clone())
     }
 }
 

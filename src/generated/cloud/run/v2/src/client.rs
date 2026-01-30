@@ -329,6 +329,207 @@ impl Executions {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_run_v2::client::Instances;
+/// let client = Instances::builder().build().await?;
+/// // use `client` to make requests to the Cloud Run Admin API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// The Cloud Run Instances API allows you to manage Cloud Run Instances.
+///
+/// # Configuration
+///
+/// To configure `Instances` use the `with_*` methods in the type returned
+/// by [builder()][Instances::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://run.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::instances::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::instances::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Instances` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Instances` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct Instances {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Instances>,
+}
+
+impl Instances {
+    /// Returns a builder for [Instances].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_run_v2::client::Instances;
+    /// let client = Instances::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::instances::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::instances::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Instances + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Instances>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        super::transport::Instances::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Instances> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Instances::new)
+    }
+
+    /// Creates an Instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_instance(&self) -> super::builder::instances::CreateInstance {
+        super::builder::instances::CreateInstance::new(self.inner.clone())
+    }
+
+    /// Deletes a Instance
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_instance(&self) -> super::builder::instances::DeleteInstance {
+        super::builder::instances::DeleteInstance::new(self.inner.clone())
+    }
+
+    /// Gets a Instance
+    pub fn get_instance(&self) -> super::builder::instances::GetInstance {
+        super::builder::instances::GetInstance::new(self.inner.clone())
+    }
+
+    /// Lists Instances. Results are sorted by creation time, descending.
+    pub fn list_instances(&self) -> super::builder::instances::ListInstances {
+        super::builder::instances::ListInstances::new(self.inner.clone())
+    }
+
+    /// Stops an Instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn stop_instance(&self) -> super::builder::instances::StopInstance {
+        super::builder::instances::StopInstance::new(self.inner.clone())
+    }
+
+    /// Starts an Instance.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn start_instance(&self) -> super::builder::instances::StartInstance {
+        super::builder::instances::StartInstance::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::instances::ListOperations {
+        super::builder::instances::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::instances::GetOperation {
+        super::builder::instances::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::instances::DeleteOperation {
+        super::builder::instances::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn wait_operation(&self) -> super::builder::instances::WaitOperation {
+        super::builder::instances::WaitOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Cloud Run Admin API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_run_v2::client::Jobs;
 /// let client = Jobs::builder().build().await?;
 /// // use `client` to make requests to the Cloud Run Admin API.

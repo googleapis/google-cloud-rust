@@ -524,6 +524,10 @@ pub struct Endpoint {
     /// Applicable only to destination endpoint.
     pub redis_cluster: std::string::String,
 
+    /// A [GKE Pod](https://cloud.google.com/kubernetes-engine/docs/concepts/pod)
+    /// URI.
+    pub gke_pod: std::string::String,
+
     /// A [Cloud Function](https://cloud.google.com/functions). Applicable only to
     /// source endpoint.
     pub cloud_function: std::option::Option<crate::model::endpoint::CloudFunctionEndpoint>,
@@ -538,24 +542,18 @@ pub struct Endpoint {
     /// Applicable only to source endpoint.
     pub cloud_run_revision: std::option::Option<crate::model::endpoint::CloudRunRevisionEndpoint>,
 
-    /// A VPC network URI.
+    /// A VPC network URI. For source endpoints, used according to the
+    /// `network_type`. For destination endpoints, used only when the source is an
+    /// external IP address endpoint, and the destination is an internal IP address
+    /// endpoint.
     pub network: std::string::String,
 
-    /// Type of the network where the endpoint is located.
-    /// Applicable only to source endpoint, as destination network type can be
-    /// inferred from the source.
+    /// For source endpoints, type of the network where the endpoint is located.
+    /// Not relevant for destination endpoints.
     pub network_type: crate::model::endpoint::NetworkType,
 
-    /// Project ID where the endpoint is located.
-    /// The project ID can be derived from the URI if you provide a endpoint or
-    /// network URI.
-    /// The following are two cases where you may need to provide the project ID:
-    ///
-    /// 1. Only the IP address is specified, and the IP address is within a Google
-    ///    Cloud project.
-    /// 1. When you are using Shared VPC and the IP address that you provide is
-    ///    from the service project. In this case, the network that the IP address
-    ///    resides in is defined in the host project.
+    /// For source endpoints, endpoint project ID. Used according to the
+    /// `network_type`. Not relevant for destination endpoints.
     pub project_id: std::string::String,
 
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -785,6 +783,18 @@ impl Endpoint {
         self
     }
 
+    /// Sets the value of [gke_pod][crate::model::Endpoint::gke_pod].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Endpoint;
+    /// let x = Endpoint::new().set_gke_pod("example");
+    /// ```
+    pub fn set_gke_pod<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.gke_pod = v.into();
+        self
+    }
+
     /// Sets the value of [cloud_function][crate::model::Endpoint::cloud_function].
     ///
     /// # Example
@@ -904,6 +914,7 @@ impl Endpoint {
     /// use google_cloud_networkmanagement_v1::model::endpoint::NetworkType;
     /// let x0 = Endpoint::new().set_network_type(NetworkType::GcpNetwork);
     /// let x1 = Endpoint::new().set_network_type(NetworkType::NonGcpNetwork);
+    /// let x2 = Endpoint::new().set_network_type(NetworkType::Internet);
     /// ```
     pub fn set_network_type<T: std::convert::Into<crate::model::endpoint::NetworkType>>(
         mut self,
@@ -1061,8 +1072,8 @@ pub mod endpoint {
         }
     }
 
-    /// The type definition of an endpoint's network. Use one of the
-    /// following choices:
+    /// The type of the network of the IP address endpoint. Relevant for the source
+    /// IP address endpoints.
     ///
     /// # Working with unknown values
     ///
@@ -1080,16 +1091,31 @@ pub mod endpoint {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum NetworkType {
-        /// Default type if unspecified.
+        /// Unspecified. The test will analyze all possible IP address locations.
+        /// This might take longer and produce inaccurate or ambiguous results, so
+        /// prefer specifying an explicit network type.
+        ///
+        /// The `project_id` field should be set to the project where the GCP
+        /// endpoint is located, or where the non-GCP endpoint should be reachable
+        /// from (via routes to non-GCP networks). The project might also be inferred
+        /// from the Connectivity Test project or other projects referenced in the
+        /// request.
         Unspecified,
-        /// A network hosted within Google Cloud.
-        /// To receive more detailed output, specify the URI for the source or
-        /// destination network.
+        /// A VPC network. Should be used for internal IP addresses in VPC networks.
+        /// The `network` field should be set to the URI of this network. Only
+        /// endpoints within this network will be considered.
         GcpNetwork,
-        /// A network hosted outside of Google Cloud.
-        /// This can be an on-premises network, an internet resource or a network
-        /// hosted by another cloud provider.
+        /// A non-GCP network (for example, an on-premises network or another cloud
+        /// provider network). Should be used for internal IP addresses outside of
+        /// Google Cloud. The `network` field should be set to the URI of the VPC
+        /// network containing a corresponding Cloud VPN tunnel, Cloud Interconnect
+        /// VLAN attachment, or a router appliance instance. Only endpoints reachable
+        /// from the provided VPC network via the routes to non-GCP networks will be
+        /// considered.
         NonGcpNetwork,
+        /// Internet. Should be used for internet-routable external IP addresses or
+        /// IP addresses for global Google APIs and services.
+        Internet,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [NetworkType::value] or
@@ -1115,6 +1141,7 @@ pub mod endpoint {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::GcpNetwork => std::option::Option::Some(1),
                 Self::NonGcpNetwork => std::option::Option::Some(2),
+                Self::Internet => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -1128,6 +1155,7 @@ pub mod endpoint {
                 Self::Unspecified => std::option::Option::Some("NETWORK_TYPE_UNSPECIFIED"),
                 Self::GcpNetwork => std::option::Option::Some("GCP_NETWORK"),
                 Self::NonGcpNetwork => std::option::Option::Some("NON_GCP_NETWORK"),
+                Self::Internet => std::option::Option::Some("INTERNET"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1152,6 +1180,7 @@ pub mod endpoint {
                 0 => Self::Unspecified,
                 1 => Self::GcpNetwork,
                 2 => Self::NonGcpNetwork,
+                3 => Self::Internet,
                 _ => Self::UnknownValue(network_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1166,6 +1195,7 @@ pub mod endpoint {
                 "NETWORK_TYPE_UNSPECIFIED" => Self::Unspecified,
                 "GCP_NETWORK" => Self::GcpNetwork,
                 "NON_GCP_NETWORK" => Self::NonGcpNetwork,
+                "INTERNET" => Self::Internet,
                 _ => Self::UnknownValue(network_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1182,6 +1212,7 @@ pub mod endpoint {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::GcpNetwork => serializer.serialize_i32(1),
                 Self::NonGcpNetwork => serializer.serialize_i32(2),
+                Self::Internet => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3502,6 +3533,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3565,6 +3598,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3628,6 +3663,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3690,6 +3727,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3755,6 +3794,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3822,6 +3863,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3889,6 +3932,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -3956,6 +4001,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4019,6 +4066,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4084,6 +4133,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4152,6 +4203,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4221,6 +4274,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4291,6 +4346,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4357,6 +4414,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4419,6 +4478,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4481,6 +4542,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4543,6 +4606,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4608,6 +4673,8 @@ impl Step {
     /// assert!(x.drop().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4674,6 +4741,8 @@ impl Step {
     /// assert!(x.drop().is_none());
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4736,6 +4805,8 @@ impl Step {
     /// assert!(x.drop().is_none());
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -4754,6 +4825,140 @@ impl Step {
     ) -> Self {
         self.step_info =
             std::option::Option::Some(crate::model::step::StepInfo::GkeMaster(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `GkePod`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn gke_pod(&self) -> std::option::Option<&std::boxed::Box<crate::model::GkePodInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::GkePod(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `GkePod`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::GkePodInfo;
+    /// let x = Step::new().set_gke_pod(GkePodInfo::default()/* use setters */);
+    /// assert!(x.gke_pod().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// ```
+    pub fn set_gke_pod<T: std::convert::Into<std::boxed::Box<crate::model::GkePodInfo>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(crate::model::step::StepInfo::GkePod(v.into()));
+        self
+    }
+
+    /// The value of [step_info][crate::model::Step::step_info]
+    /// if it holds a `IpMasqueradingSkipped`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ip_masquerading_skipped(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>> {
+        #[allow(unreachable_patterns)]
+        self.step_info.as_ref().and_then(|v| match v {
+            crate::model::step::StepInfo::IpMasqueradingSkipped(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [step_info][crate::model::Step::step_info]
+    /// to hold a `IpMasqueradingSkipped`.
+    ///
+    /// Note that all the setters affecting `step_info` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::Step;
+    /// use google_cloud_networkmanagement_v1::model::IpMasqueradingSkippedInfo;
+    /// let x = Step::new().set_ip_masquerading_skipped(IpMasqueradingSkippedInfo::default()/* use setters */);
+    /// assert!(x.ip_masquerading_skipped().is_some());
+    /// assert!(x.instance().is_none());
+    /// assert!(x.firewall().is_none());
+    /// assert!(x.route().is_none());
+    /// assert!(x.endpoint().is_none());
+    /// assert!(x.google_service().is_none());
+    /// assert!(x.forwarding_rule().is_none());
+    /// assert!(x.hybrid_subnet().is_none());
+    /// assert!(x.vpn_gateway().is_none());
+    /// assert!(x.vpn_tunnel().is_none());
+    /// assert!(x.interconnect_attachment().is_none());
+    /// assert!(x.vpc_connector().is_none());
+    /// assert!(x.direct_vpc_egress_connection().is_none());
+    /// assert!(x.serverless_external_connection().is_none());
+    /// assert!(x.deliver().is_none());
+    /// assert!(x.forward().is_none());
+    /// assert!(x.abort().is_none());
+    /// assert!(x.drop().is_none());
+    /// assert!(x.load_balancer().is_none());
+    /// assert!(x.network().is_none());
+    /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.cloud_sql_instance().is_none());
+    /// assert!(x.redis_instance().is_none());
+    /// assert!(x.redis_cluster().is_none());
+    /// assert!(x.cloud_function().is_none());
+    /// assert!(x.app_engine_version().is_none());
+    /// assert!(x.cloud_run_revision().is_none());
+    /// assert!(x.nat().is_none());
+    /// assert!(x.proxy_connection().is_none());
+    /// assert!(x.load_balancer_backend_info().is_none());
+    /// assert!(x.storage_bucket().is_none());
+    /// assert!(x.serverless_neg().is_none());
+    /// ```
+    pub fn set_ip_masquerading_skipped<
+        T: std::convert::Into<std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.step_info = std::option::Option::Some(
+            crate::model::step::StepInfo::IpMasqueradingSkipped(v.into()),
+        );
         self
     }
 
@@ -4802,6 +5007,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -4869,6 +5076,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -4936,6 +5145,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.cloud_function().is_none());
@@ -5003,6 +5214,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5070,6 +5283,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5137,6 +5352,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5202,6 +5419,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5266,6 +5485,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5335,6 +5556,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5403,6 +5626,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5470,6 +5695,8 @@ impl Step {
     /// assert!(x.load_balancer().is_none());
     /// assert!(x.network().is_none());
     /// assert!(x.gke_master().is_none());
+    /// assert!(x.gke_pod().is_none());
+    /// assert!(x.ip_masquerading_skipped().is_none());
     /// assert!(x.cloud_sql_instance().is_none());
     /// assert!(x.redis_instance().is_none());
     /// assert!(x.redis_cluster().is_none());
@@ -5545,6 +5772,9 @@ pub mod step {
         /// Initial state: packet originating from a Cloud SQL instance.
         /// A CloudSQLInstanceInfo is populated with starting instance information.
         StartFromCloudSqlInstance,
+        /// Initial state: packet originating from a Google Kubernetes Engine Pod.
+        /// A GkePodInfo is populated with starting Pod information.
+        StartFromGkePod,
         /// Initial state: packet originating from a Redis instance.
         /// A RedisInstanceInfo is populated with starting instance information.
         StartFromRedisInstance,
@@ -5612,6 +5842,9 @@ pub mod step {
         /// Transition state: packet header translated. The `nat` field is populated
         /// with the translation information.
         Nat,
+        /// Transition state: GKE Pod IP masquerading is skipped. The
+        /// `ip_masquerading_skipped` field is populated with the reason.
+        SkipGkePodIpMasquerading,
         /// Transition state: original connection is terminated and a new proxied
         /// connection is initiated.
         ProxyConnection,
@@ -5656,6 +5889,7 @@ pub mod step {
                 Self::StartFromPrivateNetwork => std::option::Option::Some(3),
                 Self::StartFromGkeMaster => std::option::Option::Some(21),
                 Self::StartFromCloudSqlInstance => std::option::Option::Some(22),
+                Self::StartFromGkePod => std::option::Option::Some(39),
                 Self::StartFromRedisInstance => std::option::Option::Some(32),
                 Self::StartFromRedisCluster => std::option::Option::Some(33),
                 Self::StartFromCloudFunction => std::option::Option::Some(23),
@@ -5681,6 +5915,7 @@ pub mod step {
                 Self::DirectVpcEgressConnection => std::option::Option::Some(35),
                 Self::ServerlessExternalConnection => std::option::Option::Some(36),
                 Self::Nat => std::option::Option::Some(14),
+                Self::SkipGkePodIpMasquerading => std::option::Option::Some(40),
                 Self::ProxyConnection => std::option::Option::Some(15),
                 Self::Deliver => std::option::Option::Some(16),
                 Self::Drop => std::option::Option::Some(17),
@@ -5710,6 +5945,7 @@ pub mod step {
                 Self::StartFromCloudSqlInstance => {
                     std::option::Option::Some("START_FROM_CLOUD_SQL_INSTANCE")
                 }
+                Self::StartFromGkePod => std::option::Option::Some("START_FROM_GKE_POD"),
                 Self::StartFromRedisInstance => {
                     std::option::Option::Some("START_FROM_REDIS_INSTANCE")
                 }
@@ -5767,6 +6003,9 @@ pub mod step {
                     std::option::Option::Some("SERVERLESS_EXTERNAL_CONNECTION")
                 }
                 Self::Nat => std::option::Option::Some("NAT"),
+                Self::SkipGkePodIpMasquerading => {
+                    std::option::Option::Some("SKIP_GKE_POD_IP_MASQUERADING")
+                }
                 Self::ProxyConnection => std::option::Option::Some("PROXY_CONNECTION"),
                 Self::Deliver => std::option::Option::Some("DELIVER"),
                 Self::Drop => std::option::Option::Some("DROP"),
@@ -5834,6 +6073,8 @@ pub mod step {
                 36 => Self::ServerlessExternalConnection,
                 37 => Self::ArriveAtInterconnectAttachment,
                 38 => Self::ArriveAtHybridSubnet,
+                39 => Self::StartFromGkePod,
+                40 => Self::SkipGkePodIpMasquerading,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -5852,6 +6093,7 @@ pub mod step {
                 "START_FROM_PRIVATE_NETWORK" => Self::StartFromPrivateNetwork,
                 "START_FROM_GKE_MASTER" => Self::StartFromGkeMaster,
                 "START_FROM_CLOUD_SQL_INSTANCE" => Self::StartFromCloudSqlInstance,
+                "START_FROM_GKE_POD" => Self::StartFromGkePod,
                 "START_FROM_REDIS_INSTANCE" => Self::StartFromRedisInstance,
                 "START_FROM_REDIS_CLUSTER" => Self::StartFromRedisCluster,
                 "START_FROM_CLOUD_FUNCTION" => Self::StartFromCloudFunction,
@@ -5877,6 +6119,7 @@ pub mod step {
                 "DIRECT_VPC_EGRESS_CONNECTION" => Self::DirectVpcEgressConnection,
                 "SERVERLESS_EXTERNAL_CONNECTION" => Self::ServerlessExternalConnection,
                 "NAT" => Self::Nat,
+                "SKIP_GKE_POD_IP_MASQUERADING" => Self::SkipGkePodIpMasquerading,
                 "PROXY_CONNECTION" => Self::ProxyConnection,
                 "DELIVER" => Self::Deliver,
                 "DROP" => Self::Drop,
@@ -5903,6 +6146,7 @@ pub mod step {
                 Self::StartFromPrivateNetwork => serializer.serialize_i32(3),
                 Self::StartFromGkeMaster => serializer.serialize_i32(21),
                 Self::StartFromCloudSqlInstance => serializer.serialize_i32(22),
+                Self::StartFromGkePod => serializer.serialize_i32(39),
                 Self::StartFromRedisInstance => serializer.serialize_i32(32),
                 Self::StartFromRedisCluster => serializer.serialize_i32(33),
                 Self::StartFromCloudFunction => serializer.serialize_i32(23),
@@ -5928,6 +6172,7 @@ pub mod step {
                 Self::DirectVpcEgressConnection => serializer.serialize_i32(35),
                 Self::ServerlessExternalConnection => serializer.serialize_i32(36),
                 Self::Nat => serializer.serialize_i32(14),
+                Self::SkipGkePodIpMasquerading => serializer.serialize_i32(40),
                 Self::ProxyConnection => serializer.serialize_i32(15),
                 Self::Deliver => serializer.serialize_i32(16),
                 Self::Drop => serializer.serialize_i32(17),
@@ -6005,6 +6250,11 @@ pub mod step {
         Network(std::boxed::Box<crate::model::NetworkInfo>),
         /// Display information of a Google Kubernetes Engine cluster master.
         GkeMaster(std::boxed::Box<crate::model::GKEMasterInfo>),
+        /// Display information of a Google Kubernetes Engine Pod.
+        GkePod(std::boxed::Box<crate::model::GkePodInfo>),
+        /// Display information of the reason why GKE Pod IP masquerading was
+        /// skipped.
+        IpMasqueradingSkipped(std::boxed::Box<crate::model::IpMasqueradingSkippedInfo>),
         /// Display information of a Cloud SQL instance.
         CloudSqlInstance(std::boxed::Box<crate::model::CloudSQLInstanceInfo>),
         /// Display information of a Redis Instance.
@@ -6762,14 +7012,18 @@ pub mod firewall_info {
         /// For details, see [VPC connector's implicit
         /// rules](https://cloud.google.com/functions/docs/networking/connecting-vpc#restrict-access).
         ServerlessVpcAccessManagedFirewallRule,
-        /// Global network firewall policy rule.
+        /// User-defined global network firewall policy rule.
         /// For details, see [Network firewall
         /// policies](https://cloud.google.com/vpc/docs/network-firewall-policies).
         NetworkFirewallPolicyRule,
-        /// Regional network firewall policy rule.
+        /// User-defined regional network firewall policy rule.
         /// For details, see [Regional network firewall
         /// policies](https://cloud.google.com/firewall/docs/regional-firewall-policies).
         NetworkRegionalFirewallPolicyRule,
+        /// System-defined global network firewall policy rule.
+        SystemNetworkFirewallPolicyRule,
+        /// System-defined regional network firewall policy rule.
+        SystemRegionalNetworkFirewallPolicyRule,
         /// Firewall policy rule containing attributes not yet supported in
         /// Connectivity tests. Firewall analysis is skipped if such a rule can
         /// potentially be matched. Please see the [list of unsupported
@@ -6812,6 +7066,8 @@ pub mod firewall_info {
                 Self::ServerlessVpcAccessManagedFirewallRule => std::option::Option::Some(4),
                 Self::NetworkFirewallPolicyRule => std::option::Option::Some(5),
                 Self::NetworkRegionalFirewallPolicyRule => std::option::Option::Some(6),
+                Self::SystemNetworkFirewallPolicyRule => std::option::Option::Some(7),
+                Self::SystemRegionalNetworkFirewallPolicyRule => std::option::Option::Some(8),
                 Self::UnsupportedFirewallPolicyRule => std::option::Option::Some(100),
                 Self::TrackingState => std::option::Option::Some(101),
                 Self::AnalysisSkipped => std::option::Option::Some(102),
@@ -6841,6 +7097,12 @@ pub mod firewall_info {
                 }
                 Self::NetworkRegionalFirewallPolicyRule => {
                     std::option::Option::Some("NETWORK_REGIONAL_FIREWALL_POLICY_RULE")
+                }
+                Self::SystemNetworkFirewallPolicyRule => {
+                    std::option::Option::Some("SYSTEM_NETWORK_FIREWALL_POLICY_RULE")
+                }
+                Self::SystemRegionalNetworkFirewallPolicyRule => {
+                    std::option::Option::Some("SYSTEM_REGIONAL_NETWORK_FIREWALL_POLICY_RULE")
                 }
                 Self::UnsupportedFirewallPolicyRule => {
                     std::option::Option::Some("UNSUPPORTED_FIREWALL_POLICY_RULE")
@@ -6875,6 +7137,8 @@ pub mod firewall_info {
                 4 => Self::ServerlessVpcAccessManagedFirewallRule,
                 5 => Self::NetworkFirewallPolicyRule,
                 6 => Self::NetworkRegionalFirewallPolicyRule,
+                7 => Self::SystemNetworkFirewallPolicyRule,
+                8 => Self::SystemRegionalNetworkFirewallPolicyRule,
                 100 => Self::UnsupportedFirewallPolicyRule,
                 101 => Self::TrackingState,
                 102 => Self::AnalysisSkipped,
@@ -6898,6 +7162,10 @@ pub mod firewall_info {
                 }
                 "NETWORK_FIREWALL_POLICY_RULE" => Self::NetworkFirewallPolicyRule,
                 "NETWORK_REGIONAL_FIREWALL_POLICY_RULE" => Self::NetworkRegionalFirewallPolicyRule,
+                "SYSTEM_NETWORK_FIREWALL_POLICY_RULE" => Self::SystemNetworkFirewallPolicyRule,
+                "SYSTEM_REGIONAL_NETWORK_FIREWALL_POLICY_RULE" => {
+                    Self::SystemRegionalNetworkFirewallPolicyRule
+                }
                 "UNSUPPORTED_FIREWALL_POLICY_RULE" => Self::UnsupportedFirewallPolicyRule,
                 "TRACKING_STATE" => Self::TrackingState,
                 "ANALYSIS_SKIPPED" => Self::AnalysisSkipped,
@@ -6921,6 +7189,8 @@ pub mod firewall_info {
                 Self::ServerlessVpcAccessManagedFirewallRule => serializer.serialize_i32(4),
                 Self::NetworkFirewallPolicyRule => serializer.serialize_i32(5),
                 Self::NetworkRegionalFirewallPolicyRule => serializer.serialize_i32(6),
+                Self::SystemNetworkFirewallPolicyRule => serializer.serialize_i32(7),
+                Self::SystemRegionalNetworkFirewallPolicyRule => serializer.serialize_i32(8),
                 Self::UnsupportedFirewallPolicyRule => serializer.serialize_i32(100),
                 Self::TrackingState => serializer.serialize_i32(101),
                 Self::AnalysisSkipped => serializer.serialize_i32(102),
@@ -10393,6 +10663,8 @@ pub mod deliver_info {
         RedisInstance,
         /// Target is a Redis Cluster.
         RedisCluster,
+        /// Target is a GKE Pod.
+        GkePod,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Target::value] or
@@ -10433,6 +10705,7 @@ pub mod deliver_info {
                 Self::GoogleManagedService => std::option::Option::Some(15),
                 Self::RedisInstance => std::option::Option::Some(16),
                 Self::RedisCluster => std::option::Option::Some(17),
+                Self::GkePod => std::option::Option::Some(19),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -10461,6 +10734,7 @@ pub mod deliver_info {
                 Self::GoogleManagedService => std::option::Option::Some("GOOGLE_MANAGED_SERVICE"),
                 Self::RedisInstance => std::option::Option::Some("REDIS_INSTANCE"),
                 Self::RedisCluster => std::option::Option::Some("REDIS_CLUSTER"),
+                Self::GkePod => std::option::Option::Some("GKE_POD"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -10500,6 +10774,7 @@ pub mod deliver_info {
                 15 => Self::GoogleManagedService,
                 16 => Self::RedisInstance,
                 17 => Self::RedisCluster,
+                19 => Self::GkePod,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -10529,6 +10804,7 @@ pub mod deliver_info {
                 "GOOGLE_MANAGED_SERVICE" => Self::GoogleManagedService,
                 "REDIS_INSTANCE" => Self::RedisInstance,
                 "REDIS_CLUSTER" => Self::RedisCluster,
+                "GKE_POD" => Self::GkePod,
                 _ => Self::UnknownValue(target::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -10560,6 +10836,7 @@ pub mod deliver_info {
                 Self::GoogleManagedService => serializer.serialize_i32(15),
                 Self::RedisInstance => serializer.serialize_i32(16),
                 Self::RedisCluster => serializer.serialize_i32(17),
+                Self::GkePod => serializer.serialize_i32(19),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -11182,9 +11459,19 @@ pub mod abort_info {
         /// Aborted because user lacks permission to access Cloud Router configs
         /// required to run the test.
         PermissionDeniedNoCloudRouterConfigs,
-        /// Aborted because no valid source or destination endpoint is derived from
-        /// the input test request.
+        /// Aborted because no valid source or destination endpoint can be derived
+        /// from the test request.
         NoSourceLocation,
+        /// Aborted because the source IP address is not contained within the subnet
+        /// ranges of the provided VPC network.
+        NoSourceGcpNetworkLocation,
+        /// Aborted because the source IP address is not contained within the
+        /// destination ranges of the routes towards non-GCP networks in the provided
+        /// VPC network.
+        NoSourceNonGcpNetworkLocation,
+        /// Aborted because the source IP address can't be resolved as an Internet
+        /// IP address.
+        NoSourceInternetLocation,
         /// Aborted because the source or destination endpoint specified in
         /// the request is invalid. Some examples:
         ///
@@ -11227,6 +11514,10 @@ pub mod abort_info {
         /// Aborted because tests with a PSC-based Cloud SQL instance as a source are
         /// not supported.
         SourcePscCloudSqlUnsupported,
+        /// Aborted because tests with the external database as a source are not
+        /// supported. In such replication scenarios, the connection is initiated by
+        /// the Cloud SQL replica instance.
+        SourceExternalCloudSqlUnsupported,
         /// Aborted because tests with a Redis Cluster as a source are not supported.
         SourceRedisClusterUnsupported,
         /// Aborted because tests with a Redis Instance as a source are not
@@ -11249,6 +11540,10 @@ pub mod abort_info {
         /// Aborted because the used protocol is not supported for the used IP
         /// version.
         IpVersionProtocolMismatch,
+        /// Aborted because selected GKE Pod endpoint location is unknown. This is
+        /// often the case for "Pending" Pods, which don't have assigned IP addresses
+        /// yet.
+        GkePodUnknownEndpointLocation,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -11288,6 +11583,9 @@ pub mod abort_info {
                 Self::PermissionDeniedNoNegEndpointConfigs => std::option::Option::Some(29),
                 Self::PermissionDeniedNoCloudRouterConfigs => std::option::Option::Some(36),
                 Self::NoSourceLocation => std::option::Option::Some(5),
+                Self::NoSourceGcpNetworkLocation => std::option::Option::Some(42),
+                Self::NoSourceNonGcpNetworkLocation => std::option::Option::Some(43),
+                Self::NoSourceInternetLocation => std::option::Option::Some(44),
                 Self::InvalidArgument => std::option::Option::Some(6),
                 Self::TraceTooLong => std::option::Option::Some(9),
                 Self::InternalError => std::option::Option::Some(10),
@@ -11302,6 +11600,7 @@ pub mod abort_info {
                 Self::GoogleManagedServiceAmbiguousPscEndpoint => std::option::Option::Some(19),
                 Self::GoogleManagedServiceAmbiguousEndpoint => std::option::Option::Some(39),
                 Self::SourcePscCloudSqlUnsupported => std::option::Option::Some(20),
+                Self::SourceExternalCloudSqlUnsupported => std::option::Option::Some(45),
                 Self::SourceRedisClusterUnsupported => std::option::Option::Some(34),
                 Self::SourceRedisInstanceUnsupported => std::option::Option::Some(35),
                 Self::SourceForwardingRuleUnsupported => std::option::Option::Some(21),
@@ -11310,6 +11609,7 @@ pub mod abort_info {
                 Self::UnsupportedGoogleManagedProjectConfig => std::option::Option::Some(31),
                 Self::NoServerlessIpRanges => std::option::Option::Some(37),
                 Self::IpVersionProtocolMismatch => std::option::Option::Some(40),
+                Self::GkePodUnknownEndpointLocation => std::option::Option::Some(41),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -11355,6 +11655,15 @@ pub mod abort_info {
                     std::option::Option::Some("PERMISSION_DENIED_NO_CLOUD_ROUTER_CONFIGS")
                 }
                 Self::NoSourceLocation => std::option::Option::Some("NO_SOURCE_LOCATION"),
+                Self::NoSourceGcpNetworkLocation => {
+                    std::option::Option::Some("NO_SOURCE_GCP_NETWORK_LOCATION")
+                }
+                Self::NoSourceNonGcpNetworkLocation => {
+                    std::option::Option::Some("NO_SOURCE_NON_GCP_NETWORK_LOCATION")
+                }
+                Self::NoSourceInternetLocation => {
+                    std::option::Option::Some("NO_SOURCE_INTERNET_LOCATION")
+                }
                 Self::InvalidArgument => std::option::Option::Some("INVALID_ARGUMENT"),
                 Self::TraceTooLong => std::option::Option::Some("TRACE_TOO_LONG"),
                 Self::InternalError => std::option::Option::Some("INTERNAL_ERROR"),
@@ -11385,6 +11694,9 @@ pub mod abort_info {
                 Self::SourcePscCloudSqlUnsupported => {
                     std::option::Option::Some("SOURCE_PSC_CLOUD_SQL_UNSUPPORTED")
                 }
+                Self::SourceExternalCloudSqlUnsupported => {
+                    std::option::Option::Some("SOURCE_EXTERNAL_CLOUD_SQL_UNSUPPORTED")
+                }
                 Self::SourceRedisClusterUnsupported => {
                     std::option::Option::Some("SOURCE_REDIS_CLUSTER_UNSUPPORTED")
                 }
@@ -11404,6 +11716,9 @@ pub mod abort_info {
                 Self::NoServerlessIpRanges => std::option::Option::Some("NO_SERVERLESS_IP_RANGES"),
                 Self::IpVersionProtocolMismatch => {
                     std::option::Option::Some("IP_VERSION_PROTOCOL_MISMATCH")
+                }
+                Self::GkePodUnknownEndpointLocation => {
+                    std::option::Option::Some("GKE_POD_UNKNOWN_ENDPOINT_LOCATION")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -11465,6 +11780,11 @@ pub mod abort_info {
                 37 => Self::NoServerlessIpRanges,
                 39 => Self::GoogleManagedServiceAmbiguousEndpoint,
                 40 => Self::IpVersionProtocolMismatch,
+                41 => Self::GkePodUnknownEndpointLocation,
+                42 => Self::NoSourceGcpNetworkLocation,
+                43 => Self::NoSourceNonGcpNetworkLocation,
+                44 => Self::NoSourceInternetLocation,
+                45 => Self::SourceExternalCloudSqlUnsupported,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -11499,6 +11819,9 @@ pub mod abort_info {
                     Self::PermissionDeniedNoCloudRouterConfigs
                 }
                 "NO_SOURCE_LOCATION" => Self::NoSourceLocation,
+                "NO_SOURCE_GCP_NETWORK_LOCATION" => Self::NoSourceGcpNetworkLocation,
+                "NO_SOURCE_NON_GCP_NETWORK_LOCATION" => Self::NoSourceNonGcpNetworkLocation,
+                "NO_SOURCE_INTERNET_LOCATION" => Self::NoSourceInternetLocation,
                 "INVALID_ARGUMENT" => Self::InvalidArgument,
                 "TRACE_TOO_LONG" => Self::TraceTooLong,
                 "INTERNAL_ERROR" => Self::InternalError,
@@ -11517,6 +11840,7 @@ pub mod abort_info {
                     Self::GoogleManagedServiceAmbiguousEndpoint
                 }
                 "SOURCE_PSC_CLOUD_SQL_UNSUPPORTED" => Self::SourcePscCloudSqlUnsupported,
+                "SOURCE_EXTERNAL_CLOUD_SQL_UNSUPPORTED" => Self::SourceExternalCloudSqlUnsupported,
                 "SOURCE_REDIS_CLUSTER_UNSUPPORTED" => Self::SourceRedisClusterUnsupported,
                 "SOURCE_REDIS_INSTANCE_UNSUPPORTED" => Self::SourceRedisInstanceUnsupported,
                 "SOURCE_FORWARDING_RULE_UNSUPPORTED" => Self::SourceForwardingRuleUnsupported,
@@ -11529,6 +11853,7 @@ pub mod abort_info {
                 }
                 "NO_SERVERLESS_IP_RANGES" => Self::NoServerlessIpRanges,
                 "IP_VERSION_PROTOCOL_MISMATCH" => Self::IpVersionProtocolMismatch,
+                "GKE_POD_UNKNOWN_ENDPOINT_LOCATION" => Self::GkePodUnknownEndpointLocation,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -11559,6 +11884,9 @@ pub mod abort_info {
                 Self::PermissionDeniedNoNegEndpointConfigs => serializer.serialize_i32(29),
                 Self::PermissionDeniedNoCloudRouterConfigs => serializer.serialize_i32(36),
                 Self::NoSourceLocation => serializer.serialize_i32(5),
+                Self::NoSourceGcpNetworkLocation => serializer.serialize_i32(42),
+                Self::NoSourceNonGcpNetworkLocation => serializer.serialize_i32(43),
+                Self::NoSourceInternetLocation => serializer.serialize_i32(44),
                 Self::InvalidArgument => serializer.serialize_i32(6),
                 Self::TraceTooLong => serializer.serialize_i32(9),
                 Self::InternalError => serializer.serialize_i32(10),
@@ -11573,6 +11901,7 @@ pub mod abort_info {
                 Self::GoogleManagedServiceAmbiguousPscEndpoint => serializer.serialize_i32(19),
                 Self::GoogleManagedServiceAmbiguousEndpoint => serializer.serialize_i32(39),
                 Self::SourcePscCloudSqlUnsupported => serializer.serialize_i32(20),
+                Self::SourceExternalCloudSqlUnsupported => serializer.serialize_i32(45),
                 Self::SourceRedisClusterUnsupported => serializer.serialize_i32(34),
                 Self::SourceRedisInstanceUnsupported => serializer.serialize_i32(35),
                 Self::SourceForwardingRuleUnsupported => serializer.serialize_i32(21),
@@ -11581,6 +11910,7 @@ pub mod abort_info {
                 Self::UnsupportedGoogleManagedProjectConfig => serializer.serialize_i32(31),
                 Self::NoServerlessIpRanges => serializer.serialize_i32(37),
                 Self::IpVersionProtocolMismatch => serializer.serialize_i32(40),
+                Self::GkePodUnknownEndpointLocation => serializer.serialize_i32(41),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -11793,9 +12123,10 @@ pub mod drop_info {
         /// Route's next hop forwarding rule type is invalid (it's not a forwarding
         /// rule of the internal passthrough load balancer).
         RouteNextHopForwardingRuleTypeInvalid,
-        /// Packet is sent from the Internet or Google service to the private IPv6
-        /// address.
+        /// Packet is sent from the Internet to the private IPv6 address.
         NoRouteFromInternetToPrivateIpv6Address,
+        /// Packet is sent from the Internet to the private IPv4 address.
+        NoRouteFromInternetToPrivateIpv4Address,
         /// Packet is sent from the external IPv6 source address of an instance to
         /// the private IPv6 address of an instance.
         NoRouteFromExternalIpv6SourceToPrivateIpv6Address,
@@ -11839,6 +12170,8 @@ pub mod drop_info {
         InstanceNotRunning,
         /// Packet sent from or to a GKE cluster that is not in running state.
         GkeClusterNotRunning,
+        /// Packet sent from or to a GKE Pod that is not in running state.
+        GkePodNotRunning,
         /// Packet sent from or to a Cloud SQL instance that is not in running state.
         CloudSqlInstanceNotRunning,
         /// Packet sent from or to a Redis Instance that is not in running state.
@@ -12028,6 +12361,9 @@ pub mod drop_info {
         /// Packet with destination IP address within the reserved NAT64 range is
         /// dropped due to no matching NAT gateway in the subnet.
         NoMatchingNat64Gateway,
+        /// Packet is dropped due to matching a Private NAT64 gateway with no rules
+        /// for source IPv6 addresses.
+        NoConfiguredPrivateNat64Rule,
         /// Packet is dropped due to being sent to a backend of a passthrough load
         /// balancer that doesn't use the same IP version as the frontend.
         LoadBalancerBackendIpVersionMismatch,
@@ -12053,6 +12389,9 @@ pub mod drop_info {
         /// from the region of the next hop of the route matched within this hybrid
         /// subnet.
         HybridSubnetRegionMismatch,
+        /// Packet is dropped because no matching route was found in the hybrid
+        /// subnet.
+        HybridSubnetNoRoute,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Cause::value] or
@@ -12090,6 +12429,7 @@ pub mod drop_info {
                 Self::RouteNextHopVpnTunnelNotEstablished => std::option::Option::Some(52),
                 Self::RouteNextHopForwardingRuleTypeInvalid => std::option::Option::Some(53),
                 Self::NoRouteFromInternetToPrivateIpv6Address => std::option::Option::Some(44),
+                Self::NoRouteFromInternetToPrivateIpv4Address => std::option::Option::Some(109),
                 Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
                     std::option::Option::Some(98)
                 }
@@ -12110,6 +12450,7 @@ pub mod drop_info {
                 }
                 Self::InstanceNotRunning => std::option::Option::Some(14),
                 Self::GkeClusterNotRunning => std::option::Option::Some(27),
+                Self::GkePodNotRunning => std::option::Option::Some(103),
                 Self::CloudSqlInstanceNotRunning => std::option::Option::Some(28),
                 Self::RedisInstanceNotRunning => std::option::Option::Some(68),
                 Self::RedisClusterNotRunning => std::option::Option::Some(69),
@@ -12178,6 +12519,7 @@ pub mod drop_info {
                     std::option::Option::Some(89)
                 }
                 Self::NoMatchingNat64Gateway => std::option::Option::Some(90),
+                Self::NoConfiguredPrivateNat64Rule => std::option::Option::Some(107),
                 Self::LoadBalancerBackendIpVersionMismatch => std::option::Option::Some(96),
                 Self::NoKnownRouteFromNccNetworkToDestination => std::option::Option::Some(97),
                 Self::CloudNatProtocolUnsupported => std::option::Option::Some(99),
@@ -12186,6 +12528,7 @@ pub mod drop_info {
                 Self::L2InterconnectDestinationIpMismatch => std::option::Option::Some(102),
                 Self::NccRouteWithinHybridSubnetUnsupported => std::option::Option::Some(104),
                 Self::HybridSubnetRegionMismatch => std::option::Option::Some(105),
+                Self::HybridSubnetNoRoute => std::option::Option::Some(106),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -12229,6 +12572,9 @@ pub mod drop_info {
                 Self::NoRouteFromInternetToPrivateIpv6Address => {
                     std::option::Option::Some("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS")
                 }
+                Self::NoRouteFromInternetToPrivateIpv4Address => {
+                    std::option::Option::Some("NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV4_ADDRESS")
+                }
                 Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
                     std::option::Option::Some(
                         "NO_ROUTE_FROM_EXTERNAL_IPV6_SOURCE_TO_PRIVATE_IPV6_ADDRESS",
@@ -12267,6 +12613,7 @@ pub mod drop_info {
                 ),
                 Self::InstanceNotRunning => std::option::Option::Some("INSTANCE_NOT_RUNNING"),
                 Self::GkeClusterNotRunning => std::option::Option::Some("GKE_CLUSTER_NOT_RUNNING"),
+                Self::GkePodNotRunning => std::option::Option::Some("GKE_POD_NOT_RUNNING"),
                 Self::CloudSqlInstanceNotRunning => {
                     std::option::Option::Some("CLOUD_SQL_INSTANCE_NOT_RUNNING")
                 }
@@ -12445,6 +12792,9 @@ pub mod drop_info {
                 Self::NoMatchingNat64Gateway => {
                     std::option::Option::Some("NO_MATCHING_NAT64_GATEWAY")
                 }
+                Self::NoConfiguredPrivateNat64Rule => {
+                    std::option::Option::Some("NO_CONFIGURED_PRIVATE_NAT64_RULE")
+                }
                 Self::LoadBalancerBackendIpVersionMismatch => {
                     std::option::Option::Some("LOAD_BALANCER_BACKEND_IP_VERSION_MISMATCH")
                 }
@@ -12469,6 +12819,7 @@ pub mod drop_info {
                 Self::HybridSubnetRegionMismatch => {
                     std::option::Option::Some("HYBRID_SUBNET_REGION_MISMATCH")
                 }
+                Self::HybridSubnetNoRoute => std::option::Option::Some("HYBRID_SUBNET_NO_ROUTE"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -12587,8 +12938,12 @@ pub mod drop_info {
                 100 => Self::L2InterconnectUnsupportedProtocol,
                 101 => Self::L2InterconnectUnsupportedPort,
                 102 => Self::L2InterconnectDestinationIpMismatch,
+                103 => Self::GkePodNotRunning,
                 104 => Self::NccRouteWithinHybridSubnetUnsupported,
                 105 => Self::HybridSubnetRegionMismatch,
+                106 => Self::HybridSubnetNoRoute,
+                107 => Self::NoConfiguredPrivateNat64Rule,
+                109 => Self::NoRouteFromInternetToPrivateIpv4Address,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -12623,6 +12978,9 @@ pub mod drop_info {
                 "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV6_ADDRESS" => {
                     Self::NoRouteFromInternetToPrivateIpv6Address
                 }
+                "NO_ROUTE_FROM_INTERNET_TO_PRIVATE_IPV4_ADDRESS" => {
+                    Self::NoRouteFromInternetToPrivateIpv4Address
+                }
                 "NO_ROUTE_FROM_EXTERNAL_IPV6_SOURCE_TO_PRIVATE_IPV6_ADDRESS" => {
                     Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address
                 }
@@ -12645,6 +13003,7 @@ pub mod drop_info {
                 }
                 "INSTANCE_NOT_RUNNING" => Self::InstanceNotRunning,
                 "GKE_CLUSTER_NOT_RUNNING" => Self::GkeClusterNotRunning,
+                "GKE_POD_NOT_RUNNING" => Self::GkePodNotRunning,
                 "CLOUD_SQL_INSTANCE_NOT_RUNNING" => Self::CloudSqlInstanceNotRunning,
                 "REDIS_INSTANCE_NOT_RUNNING" => Self::RedisInstanceNotRunning,
                 "REDIS_CLUSTER_NOT_RUNNING" => Self::RedisClusterNotRunning,
@@ -12743,6 +13102,7 @@ pub mod drop_info {
                     Self::TrafficFromHybridEndpointToInternetDisallowed
                 }
                 "NO_MATCHING_NAT64_GATEWAY" => Self::NoMatchingNat64Gateway,
+                "NO_CONFIGURED_PRIVATE_NAT64_RULE" => Self::NoConfiguredPrivateNat64Rule,
                 "LOAD_BALANCER_BACKEND_IP_VERSION_MISMATCH" => {
                     Self::LoadBalancerBackendIpVersionMismatch
                 }
@@ -12759,6 +13119,7 @@ pub mod drop_info {
                     Self::NccRouteWithinHybridSubnetUnsupported
                 }
                 "HYBRID_SUBNET_REGION_MISMATCH" => Self::HybridSubnetRegionMismatch,
+                "HYBRID_SUBNET_NO_ROUTE" => Self::HybridSubnetNoRoute,
                 _ => Self::UnknownValue(cause::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -12787,6 +13148,7 @@ pub mod drop_info {
                 Self::RouteNextHopVpnTunnelNotEstablished => serializer.serialize_i32(52),
                 Self::RouteNextHopForwardingRuleTypeInvalid => serializer.serialize_i32(53),
                 Self::NoRouteFromInternetToPrivateIpv6Address => serializer.serialize_i32(44),
+                Self::NoRouteFromInternetToPrivateIpv4Address => serializer.serialize_i32(109),
                 Self::NoRouteFromExternalIpv6SourceToPrivateIpv6Address => {
                     serializer.serialize_i32(98)
                 }
@@ -12807,6 +13169,7 @@ pub mod drop_info {
                 }
                 Self::InstanceNotRunning => serializer.serialize_i32(14),
                 Self::GkeClusterNotRunning => serializer.serialize_i32(27),
+                Self::GkePodNotRunning => serializer.serialize_i32(103),
                 Self::CloudSqlInstanceNotRunning => serializer.serialize_i32(28),
                 Self::RedisInstanceNotRunning => serializer.serialize_i32(68),
                 Self::RedisClusterNotRunning => serializer.serialize_i32(69),
@@ -12871,6 +13234,7 @@ pub mod drop_info {
                 Self::UnsupportedRouteMatchedForNat64Destination => serializer.serialize_i32(88),
                 Self::TrafficFromHybridEndpointToInternetDisallowed => serializer.serialize_i32(89),
                 Self::NoMatchingNat64Gateway => serializer.serialize_i32(90),
+                Self::NoConfiguredPrivateNat64Rule => serializer.serialize_i32(107),
                 Self::LoadBalancerBackendIpVersionMismatch => serializer.serialize_i32(96),
                 Self::NoKnownRouteFromNccNetworkToDestination => serializer.serialize_i32(97),
                 Self::CloudNatProtocolUnsupported => serializer.serialize_i32(99),
@@ -12879,6 +13243,7 @@ pub mod drop_info {
                 Self::L2InterconnectDestinationIpMismatch => serializer.serialize_i32(102),
                 Self::NccRouteWithinHybridSubnetUnsupported => serializer.serialize_i32(104),
                 Self::HybridSubnetRegionMismatch => serializer.serialize_i32(105),
+                Self::HybridSubnetNoRoute => serializer.serialize_i32(106),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -12991,6 +13356,330 @@ impl GKEMasterInfo {
 impl wkt::message::Message for GKEMasterInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkmanagement.v1.GKEMasterInfo"
+    }
+}
+
+/// For display only. Metadata associated with a Google Kubernetes Engine (GKE)
+/// Pod.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GkePodInfo {
+    /// URI of a GKE Pod.
+    /// For Pods in regional Clusters, the URI format is:
+    /// `projects/{project}/locations/{location}/clusters/{cluster}/k8s/namespaces/{namespace}/pods/{pod}`
+    /// For Pods in zonal Clusters, the URI format is:
+    /// `projects/{project}/zones/{zone}/clusters/{cluster}/k8s/namespaces/{namespace}/pods/{pod}`
+    pub pod_uri: std::string::String,
+
+    /// IP address of a GKE Pod. If the Pod is dual-stack, this is the IP address
+    /// relevant to the trace.
+    pub ip_address: std::string::String,
+
+    /// URI of the network containing the GKE Pod.
+    pub network_uri: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GkePodInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [pod_uri][crate::model::GkePodInfo::pod_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkePodInfo;
+    /// let x = GkePodInfo::new().set_pod_uri("example");
+    /// ```
+    pub fn set_pod_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.pod_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [ip_address][crate::model::GkePodInfo::ip_address].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkePodInfo;
+    /// let x = GkePodInfo::new().set_ip_address("example");
+    /// ```
+    pub fn set_ip_address<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.ip_address = v.into();
+        self
+    }
+
+    /// Sets the value of [network_uri][crate::model::GkePodInfo::network_uri].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::GkePodInfo;
+    /// let x = GkePodInfo::new().set_network_uri("example");
+    /// ```
+    pub fn set_network_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network_uri = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GkePodInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.GkePodInfo"
+    }
+}
+
+/// For display only. Contains information about why IP masquerading was skipped
+/// for the packet.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct IpMasqueradingSkippedInfo {
+    /// Reason why IP masquerading was not applied.
+    pub reason: crate::model::ip_masquerading_skipped_info::Reason,
+
+    /// The matched non-masquerade IP range. Only set if reason is
+    /// DESTINATION_IP_IN_CONFIGURED_NON_MASQUERADE_RANGE or
+    /// DESTINATION_IP_IN_DEFAULT_NON_MASQUERADE_RANGE.
+    pub non_masquerade_range: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IpMasqueradingSkippedInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [reason][crate::model::IpMasqueradingSkippedInfo::reason].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::IpMasqueradingSkippedInfo;
+    /// use google_cloud_networkmanagement_v1::model::ip_masquerading_skipped_info::Reason;
+    /// let x0 = IpMasqueradingSkippedInfo::new().set_reason(Reason::DestinationIpInConfiguredNonMasqueradeRange);
+    /// let x1 = IpMasqueradingSkippedInfo::new().set_reason(Reason::DestinationIpInDefaultNonMasqueradeRange);
+    /// let x2 = IpMasqueradingSkippedInfo::new().set_reason(Reason::DestinationOnSameNode);
+    /// ```
+    pub fn set_reason<T: std::convert::Into<crate::model::ip_masquerading_skipped_info::Reason>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.reason = v.into();
+        self
+    }
+
+    /// Sets the value of [non_masquerade_range][crate::model::IpMasqueradingSkippedInfo::non_masquerade_range].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::IpMasqueradingSkippedInfo;
+    /// let x = IpMasqueradingSkippedInfo::new().set_non_masquerade_range("example");
+    /// ```
+    pub fn set_non_masquerade_range<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.non_masquerade_range = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IpMasqueradingSkippedInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkmanagement.v1.IpMasqueradingSkippedInfo"
+    }
+}
+
+/// Defines additional types related to [IpMasqueradingSkippedInfo].
+pub mod ip_masquerading_skipped_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Reason why IP masquerading was skipped.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Reason {
+        /// Unused default value.
+        Unspecified,
+        /// Masquerading not applied because destination IP is in one of configured
+        /// non-masquerade ranges.
+        DestinationIpInConfiguredNonMasqueradeRange,
+        /// Masquerading not applied because destination IP is in one of default
+        /// non-masquerade ranges.
+        DestinationIpInDefaultNonMasqueradeRange,
+        /// Masquerading not applied because destination is on the same Node.
+        DestinationOnSameNode,
+        /// Masquerading not applied because ip-masq-agent doesn't exist and default
+        /// SNAT is disabled.
+        DefaultSnatDisabled,
+        /// Masquerading not applied because the packet's IP version is IPv6.
+        NoMasqueradingForIpv6,
+        /// Masquerading not applied because the source Pod uses the host Node's
+        /// network namespace, including the Node's IP address.
+        PodUsesNodeNetworkNamespace,
+        /// Masquerading not applied because the packet is a return packet.
+        NoMasqueradingForReturnPacket,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Reason::value] or
+        /// [Reason::name].
+        UnknownValue(reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Reason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::DestinationIpInConfiguredNonMasqueradeRange => std::option::Option::Some(1),
+                Self::DestinationIpInDefaultNonMasqueradeRange => std::option::Option::Some(2),
+                Self::DestinationOnSameNode => std::option::Option::Some(3),
+                Self::DefaultSnatDisabled => std::option::Option::Some(4),
+                Self::NoMasqueradingForIpv6 => std::option::Option::Some(5),
+                Self::PodUsesNodeNetworkNamespace => std::option::Option::Some(6),
+                Self::NoMasqueradingForReturnPacket => std::option::Option::Some(7),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("REASON_UNSPECIFIED"),
+                Self::DestinationIpInConfiguredNonMasqueradeRange => {
+                    std::option::Option::Some("DESTINATION_IP_IN_CONFIGURED_NON_MASQUERADE_RANGE")
+                }
+                Self::DestinationIpInDefaultNonMasqueradeRange => {
+                    std::option::Option::Some("DESTINATION_IP_IN_DEFAULT_NON_MASQUERADE_RANGE")
+                }
+                Self::DestinationOnSameNode => {
+                    std::option::Option::Some("DESTINATION_ON_SAME_NODE")
+                }
+                Self::DefaultSnatDisabled => std::option::Option::Some("DEFAULT_SNAT_DISABLED"),
+                Self::NoMasqueradingForIpv6 => {
+                    std::option::Option::Some("NO_MASQUERADING_FOR_IPV6")
+                }
+                Self::PodUsesNodeNetworkNamespace => {
+                    std::option::Option::Some("POD_USES_NODE_NETWORK_NAMESPACE")
+                }
+                Self::NoMasqueradingForReturnPacket => {
+                    std::option::Option::Some("NO_MASQUERADING_FOR_RETURN_PACKET")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Reason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Reason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Reason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::DestinationIpInConfiguredNonMasqueradeRange,
+                2 => Self::DestinationIpInDefaultNonMasqueradeRange,
+                3 => Self::DestinationOnSameNode,
+                4 => Self::DefaultSnatDisabled,
+                5 => Self::NoMasqueradingForIpv6,
+                6 => Self::PodUsesNodeNetworkNamespace,
+                7 => Self::NoMasqueradingForReturnPacket,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Reason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "REASON_UNSPECIFIED" => Self::Unspecified,
+                "DESTINATION_IP_IN_CONFIGURED_NON_MASQUERADE_RANGE" => {
+                    Self::DestinationIpInConfiguredNonMasqueradeRange
+                }
+                "DESTINATION_IP_IN_DEFAULT_NON_MASQUERADE_RANGE" => {
+                    Self::DestinationIpInDefaultNonMasqueradeRange
+                }
+                "DESTINATION_ON_SAME_NODE" => Self::DestinationOnSameNode,
+                "DEFAULT_SNAT_DISABLED" => Self::DefaultSnatDisabled,
+                "NO_MASQUERADING_FOR_IPV6" => Self::NoMasqueradingForIpv6,
+                "POD_USES_NODE_NETWORK_NAMESPACE" => Self::PodUsesNodeNetworkNamespace,
+                "NO_MASQUERADING_FOR_RETURN_PACKET" => Self::NoMasqueradingForReturnPacket,
+                _ => Self::UnknownValue(reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::DestinationIpInConfiguredNonMasqueradeRange => serializer.serialize_i32(1),
+                Self::DestinationIpInDefaultNonMasqueradeRange => serializer.serialize_i32(2),
+                Self::DestinationOnSameNode => serializer.serialize_i32(3),
+                Self::DefaultSnatDisabled => serializer.serialize_i32(4),
+                Self::NoMasqueradingForIpv6 => serializer.serialize_i32(5),
+                Self::PodUsesNodeNetworkNamespace => serializer.serialize_i32(6),
+                Self::NoMasqueradingForReturnPacket => serializer.serialize_i32(7),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Reason>::new(
+                ".google.cloud.networkmanagement.v1.IpMasqueradingSkippedInfo.Reason",
+            ))
+        }
     }
 }
 
@@ -13821,6 +14510,9 @@ pub struct NatInfo {
     /// The name of Cloud NAT Gateway. Only valid when type is CLOUD_NAT.
     pub nat_gateway_name: std::string::String,
 
+    /// Type of Cloud NAT gateway. Only valid when `type` is CLOUD_NAT.
+    pub cloud_nat_gateway_type: crate::model::nat_info::CloudNatGatewayType,
+
     pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -13996,6 +14688,26 @@ impl NatInfo {
         self.nat_gateway_name = v.into();
         self
     }
+
+    /// Sets the value of [cloud_nat_gateway_type][crate::model::NatInfo::cloud_nat_gateway_type].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_networkmanagement_v1::model::NatInfo;
+    /// use google_cloud_networkmanagement_v1::model::nat_info::CloudNatGatewayType;
+    /// let x0 = NatInfo::new().set_cloud_nat_gateway_type(CloudNatGatewayType::PublicNat44);
+    /// let x1 = NatInfo::new().set_cloud_nat_gateway_type(CloudNatGatewayType::PublicNat64);
+    /// let x2 = NatInfo::new().set_cloud_nat_gateway_type(CloudNatGatewayType::PrivateNatNcc);
+    /// ```
+    pub fn set_cloud_nat_gateway_type<
+        T: std::convert::Into<crate::model::nat_info::CloudNatGatewayType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cloud_nat_gateway_type = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for NatInfo {
@@ -14158,6 +14870,161 @@ pub mod nat_info {
         {
             deserializer.deserialize_any(wkt::internal::EnumVisitor::<Type>::new(
                 ".google.cloud.networkmanagement.v1.NatInfo.Type",
+            ))
+        }
+    }
+
+    /// Types of Cloud NAT gateway.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum CloudNatGatewayType {
+        /// Type is unspecified.
+        Unspecified,
+        /// Public NAT gateway.
+        PublicNat44,
+        /// Public NAT64 gateway.
+        PublicNat64,
+        /// Private NAT gateway for NCC.
+        PrivateNatNcc,
+        /// Private NAT gateway for hybrid connectivity.
+        PrivateNatHybrid,
+        /// Private NAT64 gateway.
+        PrivateNat64,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [CloudNatGatewayType::value] or
+        /// [CloudNatGatewayType::name].
+        UnknownValue(cloud_nat_gateway_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cloud_nat_gateway_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl CloudNatGatewayType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::PublicNat44 => std::option::Option::Some(1),
+                Self::PublicNat64 => std::option::Option::Some(2),
+                Self::PrivateNatNcc => std::option::Option::Some(3),
+                Self::PrivateNatHybrid => std::option::Option::Some(4),
+                Self::PrivateNat64 => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CLOUD_NAT_GATEWAY_TYPE_UNSPECIFIED")
+                }
+                Self::PublicNat44 => std::option::Option::Some("PUBLIC_NAT44"),
+                Self::PublicNat64 => std::option::Option::Some("PUBLIC_NAT64"),
+                Self::PrivateNatNcc => std::option::Option::Some("PRIVATE_NAT_NCC"),
+                Self::PrivateNatHybrid => std::option::Option::Some("PRIVATE_NAT_HYBRID"),
+                Self::PrivateNat64 => std::option::Option::Some("PRIVATE_NAT64"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for CloudNatGatewayType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for CloudNatGatewayType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for CloudNatGatewayType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::PublicNat44,
+                2 => Self::PublicNat64,
+                3 => Self::PrivateNatNcc,
+                4 => Self::PrivateNatHybrid,
+                5 => Self::PrivateNat64,
+                _ => Self::UnknownValue(cloud_nat_gateway_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for CloudNatGatewayType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLOUD_NAT_GATEWAY_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "PUBLIC_NAT44" => Self::PublicNat44,
+                "PUBLIC_NAT64" => Self::PublicNat64,
+                "PRIVATE_NAT_NCC" => Self::PrivateNatNcc,
+                "PRIVATE_NAT_HYBRID" => Self::PrivateNatHybrid,
+                "PRIVATE_NAT64" => Self::PrivateNat64,
+                _ => Self::UnknownValue(cloud_nat_gateway_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for CloudNatGatewayType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::PublicNat44 => serializer.serialize_i32(1),
+                Self::PublicNat64 => serializer.serialize_i32(2),
+                Self::PrivateNatNcc => serializer.serialize_i32(3),
+                Self::PrivateNatHybrid => serializer.serialize_i32(4),
+                Self::PrivateNat64 => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for CloudNatGatewayType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<CloudNatGatewayType>::new(
+                ".google.cloud.networkmanagement.v1.NatInfo.CloudNatGatewayType",
             ))
         }
     }
@@ -14807,7 +15674,7 @@ pub struct ListVpcFlowLogsConfigsRequest {
     /// Required. The parent resource of the VpcFlowLogsConfig,
     /// in one of the following formats:
     ///
-    /// - For project-level resourcs: `projects/{project_id}/locations/global`
+    /// - For project-level resources: `projects/{project_id}/locations/global`
     ///
     /// - For organization-level resources:
     ///   `organizations/{organization_id}/locations/global`

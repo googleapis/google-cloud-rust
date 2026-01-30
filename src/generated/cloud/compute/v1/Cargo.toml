@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-compute-v1"
-version                = "2.0.0"
+version                = "2.1.0"
 description            = "Google Cloud Client Libraries for Rust - Google Compute Engine API"
 edition.workspace      = true
 authors.workspace      = true
@@ -27,7 +27,12 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [features]
-default = ["instances", "projects"]
+default = ["default-rustls-provider", "instances", "projects"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::AcceleratorTypes` and all the types it depends on.
 accelerator-types = []
 # Enables `client::Addresses` and all the types it depends on.
@@ -194,6 +199,8 @@ region-zones = []
 regions = []
 # Enables `client::ReservationBlocks` and all the types it depends on.
 reservation-blocks = []
+# Enables `client::ReservationSlots` and all the types it depends on.
+reservation-slots = []
 # Enables `client::ReservationSubBlocks` and all the types it depends on.
 reservation-sub-blocks = []
 # Enables `client::Reservations` and all the types it depends on.

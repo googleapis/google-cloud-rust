@@ -40,6 +40,21 @@ where
     ack_deadline_seconds: i32,
 }
 
+impl<T> Clone for DefaultLeaser<T>
+where
+    T: Stub,
+{
+    fn clone(&self) -> Self {
+        Self {
+            inner: self.inner.clone(),
+            // TODO(#3975) - We can save some clones of the subscription if we
+            // make the `Leaser` API functional.
+            subscription: self.subscription.clone(),
+            ack_deadline_seconds: self.ack_deadline_seconds,
+        }
+    }
+}
+
 impl<T> DefaultLeaser<T>
 where
     T: Stub,
@@ -107,6 +122,19 @@ pub(super) mod tests {
     }
 
     #[async_trait::async_trait]
+    impl Leaser for Arc<MockLeaser> {
+        async fn ack(&self, ack_ids: Vec<String>) {
+            MockLeaser::ack(self, ack_ids).await
+        }
+        async fn nack(&self, ack_ids: Vec<String>) {
+            MockLeaser::nack(self, ack_ids).await
+        }
+        async fn extend(&self, ack_ids: Vec<String>) {
+            MockLeaser::extend(self, ack_ids).await
+        }
+    }
+
+    #[async_trait::async_trait]
     impl Leaser for Arc<Mutex<MockLeaser>> {
         async fn ack(&self, ack_ids: Vec<String>) {
             self.lock().await.ack(ack_ids).await
@@ -117,6 +145,20 @@ pub(super) mod tests {
         async fn extend(&self, ack_ids: Vec<String>) {
             self.lock().await.extend(ack_ids).await
         }
+    }
+
+    #[test]
+    fn clone() {
+        let leaser = DefaultLeaser::new(
+            Arc::new(MockStub::new()),
+            "projects/my-project/subscriptions/my-subscription".to_string(),
+            10,
+        );
+
+        let clone = leaser.clone();
+        assert!(Arc::ptr_eq(&leaser.inner, &clone.inner));
+        assert_eq!(leaser.subscription, clone.subscription);
+        assert_eq!(leaser.ack_deadline_seconds, clone.ack_deadline_seconds);
     }
 
     #[tokio::test]

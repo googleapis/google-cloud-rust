@@ -2546,6 +2546,208 @@ pub mod config {
         }
     }
 
+    /// The request builder for [Config::get_auto_migration_config][crate::client::Config::get_auto_migration_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::builder::config::GetAutoMigrationConfig;
+    /// # async fn sample() -> gax::Result<()> {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> GetAutoMigrationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetAutoMigrationConfig(RequestBuilder<crate::model::GetAutoMigrationConfigRequest>);
+
+    impl GetAutoMigrationConfig {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetAutoMigrationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AutoMigrationConfig> {
+            (*self.0.stub)
+                .get_auto_migration_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetAutoMigrationConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAutoMigrationConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [Config::update_auto_migration_config][crate::client::Config::update_auto_migration_config] calls.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_config_v1::builder::config::UpdateAutoMigrationConfig;
+    /// # async fn sample() -> gax::Result<()> {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # Ok(()) }
+    ///
+    /// fn prepare_request_builder() -> UpdateAutoMigrationConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateAutoMigrationConfig(
+        RequestBuilder<crate::model::UpdateAutoMigrationConfigRequest>,
+    );
+
+    impl UpdateAutoMigrationConfig {
+        pub(crate) fn new(stub: std::sync::Arc<dyn super::super::stub::dynamic::Config>) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateAutoMigrationConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_auto_migration_config][crate::client::Config::update_auto_migration_config].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_auto_migration_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_auto_migration_config`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::AutoMigrationConfig, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::AutoMigrationConfig,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateAutoMigrationConfigRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAutoMigrationConfigRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [auto_migration_config][crate::model::UpdateAutoMigrationConfigRequest::auto_migration_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_auto_migration_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoMigrationConfig>,
+        {
+            self.0.request.auto_migration_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [auto_migration_config][crate::model::UpdateAutoMigrationConfigRequest::auto_migration_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_auto_migration_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AutoMigrationConfig>,
+        {
+            self.0.request.auto_migration_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAutoMigrationConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [Config::list_locations][crate::client::Config::list_locations] calls.
     ///
     /// # Example

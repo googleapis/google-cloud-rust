@@ -27,8 +27,20 @@
 //! donated the crate name to Google. Their crate continues to live as
 //! [gcloud-storage].
 //!
+//! # Features
+//!
+//! - `default-rustls-provider`: enabled by default. Use the default rustls crypto
+//!   provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+//!   requirements for cryptography (such as exclusively using the [ring] crate)
+//!   should disable this default and call
+//!   `rustls::crypto::CryptoProvider::install_default()`.
+//! - `unstable-stream`: enable the (unstable) features to convert several types to
+//!   a `future::Stream`.
+//!
+//! [aws-lc-rs]: https://crates.io/crates/aws-lc-rs
 //! [gcloud-storage]: https://crates.io/crates/gcloud-storage
 //! [Google Cloud Storage]: https://cloud.google.com/storage
+//! [ring]: https://crates.io/crates/ring
 
 pub use gax::Result;
 pub use gax::error::Error;
@@ -41,6 +53,15 @@ pub mod retry_policy;
 pub mod signed_url;
 pub use crate::storage::request_options;
 pub use crate::storage::streaming_source;
+
+/// Re-export types from the `http` crate used in this module.
+pub mod http {
+    /// HTTP method used by the [SignedUrlBuilder][crate::builder::storage::SignedUrlBuilder].
+    pub use http::Method;
+
+    /// Metadata attributes used by the [Client::open_object][crate::client::Storage::open_object].
+    pub use http::HeaderMap;
+}
 
 mod control;
 mod storage;

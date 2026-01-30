@@ -97,6 +97,7 @@
     feature = "region-zones",
     feature = "regions",
     feature = "reservation-blocks",
+    feature = "reservation-slots",
     feature = "reservation-sub-blocks",
     feature = "reservations",
     feature = "resource-policies",
@@ -414,6 +415,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::autoscalers::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -2473,6 +2483,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::health_checks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::health_checks::UpdateRequest,
@@ -2576,6 +2595,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::http_health_checks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::http_health_checks::UpdateRequest,
@@ -2676,6 +2704,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::https_health_checks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -7186,6 +7223,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_autoscalers::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn update(
         &self,
         req: crate::model::region_autoscalers::UpdateRequest,
@@ -7877,6 +7923,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_health_checks::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -8912,6 +8967,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::region_notification_endpoints::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: crate::model::region_operations::GetRequest,
@@ -9910,6 +9974,82 @@ where
     }
 }
 
+/// Implements a [ReservationSlots](super::stub::ReservationSlots) decorator for logging and tracing.
+#[cfg(feature = "reservation-slots")]
+#[derive(Clone, Debug)]
+pub struct ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+#[cfg(feature = "reservation-slots")]
+impl<T> ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+#[cfg(feature = "reservation-slots")]
+impl<T> super::stub::ReservationSlots for ReservationSlots<T>
+where
+    T: super::stub::ReservationSlots + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn get(
+        &self,
+        req: crate::model::reservation_slots::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationSlotsGetResponse>> {
+        self.inner.get(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list(
+        &self,
+        req: crate::model::reservation_slots::ListRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ReservationSlotsListResponse>> {
+        self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update(
+        &self,
+        req: crate::model::reservation_slots::UpdateRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.update(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: crate::model::zone_operations::GetRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
 /// Implements a [ReservationSubBlocks](super::stub::ReservationSubBlocks) decorator for logging and tracing.
 #[cfg(feature = "reservation-sub-blocks")]
 #[derive(Clone, Debug)]
@@ -10561,6 +10701,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RouteList>> {
         self.inner.list(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::routes::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -12363,6 +12512,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::target_ssl_proxies::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn get_operation(
         &self,
         req: crate::model::global_operations::GetRequest,
@@ -12472,6 +12630,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.set_proxy_header(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::target_tcp_proxies::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]
@@ -12687,6 +12854,15 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
         self.inner.patch(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn test_iam_permissions(
+        &self,
+        req: crate::model::url_maps::TestIamPermissionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::TestPermissionsResponse>> {
+        self.inner.test_iam_permissions(req, options).await
     }
 
     #[tracing::instrument(ret)]

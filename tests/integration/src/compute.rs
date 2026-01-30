@@ -14,18 +14,22 @@
 
 use crate::Result;
 use gax::paginator::ItemPaginator as _;
+use google_cloud_auth::credentials::anonymous::Builder as Anonymous;
 use google_cloud_compute_v1::client::{Images, Instances, MachineTypes, Zones};
 use google_cloud_compute_v1::model::{
     AttachedDisk, AttachedDiskInitializeParams, Duration as ComputeDuration, Instance,
     NetworkInterface, Scheduling, ServiceAccount, scheduling::InstanceTerminationAction,
     scheduling::ProvisioningModel,
 };
+use google_cloud_test_utils::runtime_config::{
+    project_id, region_id, test_service_account, zone_id,
+};
 use lro::Poller;
 
 pub async fn zones() -> Result<()> {
     let client = Zones::builder().with_tracing().build().await?;
-    let project_id = crate::project_id()?;
-    let zone_id = crate::zone_id();
+    let project_id = project_id()?;
+    let zone_id = zone_id();
 
     tracing::info!("Testing Zones::list()");
     let mut items = client.list().set_project(&project_id).by_item();
@@ -57,10 +61,10 @@ pub async fn errors() -> Result<()> {
     use gax::error::rpc::Code;
     use gax::error::rpc::StatusDetails;
 
-    let project_id = crate::project_id()?;
-    let zone_id = crate::zone_id();
+    let project_id = project_id()?;
+    let zone_id = zone_id();
 
-    let credentials = auth::credentials::anonymous::Builder::new().build();
+    let credentials = Anonymous::new().build();
     let client = Zones::builder()
         .with_credentials(credentials)
         .build()
@@ -137,8 +141,8 @@ pub async fn errors() -> Result<()> {
 
 pub async fn machine_types() -> Result<()> {
     let client = MachineTypes::builder().with_tracing().build().await?;
-    let project_id = crate::project_id()?;
-    let zone_id = crate::zone_id();
+    let project_id = project_id()?;
+    let zone_id = zone_id();
 
     tracing::info!("Testing MachineTypes::list()");
     let mut items = client
@@ -233,7 +237,7 @@ pub async fn images() -> Result<()> {
     use google_cloud_compute_v1::model::Image;
     use rand::seq::IndexedRandom;
 
-    let project_id = crate::project_id()?;
+    let project_id = project_id()?;
     let client = Images::builder().with_tracing().build().await?;
     if let Err(e) = cleanup_stale_images(&client, &project_id).await {
         tracing::error!("Error cleaning up stale test images: {e:?}");
@@ -294,9 +298,9 @@ pub async fn images() -> Result<()> {
 
 pub async fn instances() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
-    let project_id = crate::project_id()?;
-    let service_account = crate::test_service_account()?;
-    let zone_id = crate::zone_id();
+    let project_id = project_id()?;
+    let service_account = test_service_account()?;
+    let zone_id = zone_id();
 
     let id = crate::random_vm_id();
     let body = Instance::new()
@@ -317,7 +321,7 @@ pub async fn instances() -> Result<()> {
     // Automatically shutdown and delete the instance after 15m.
     let body = body.set_scheduling(
         Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_provisioning_model(ProvisioningModel::Standard)
             .set_instance_termination_action(InstanceTerminationAction::Delete)
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );
@@ -360,9 +364,9 @@ pub async fn instances() -> Result<()> {
 
 pub async fn lro_errors() -> Result<()> {
     let client = Instances::builder().with_tracing().build().await?;
-    let project_id = crate::project_id()?;
-    let service_account = crate::test_service_account()?;
-    let zone_id = crate::zone_id();
+    let project_id = project_id()?;
+    let service_account = test_service_account()?;
+    let zone_id = zone_id();
     // A machine type for which the project does not have enough quota.
     const MACHINE_TYPE: &str = "c4d-standard-384";
 
@@ -416,9 +420,9 @@ pub async fn region_instances() -> Result<()> {
     use google_cloud_compute_v1::model::{BulkInsertInstanceResource, InstanceProperties};
 
     let client = RegionInstances::builder().with_tracing().build().await?;
-    let project_id = crate::project_id()?;
-    let service_account = crate::test_service_account()?;
-    let region_id = crate::region_id();
+    let project_id = project_id()?;
+    let service_account = test_service_account()?;
+    let region_id = region_id();
 
     let instance_properties = InstanceProperties::new()
         .set_description("A test VM created by the Rust client library.")
@@ -437,7 +441,7 @@ pub async fn region_instances() -> Result<()> {
     // Automatically shutdown and delete the instance after 15m.
     let instance_properties = instance_properties.set_scheduling(
         Scheduling::new()
-            .set_provisioning_model(ProvisioningModel::Spot)
+            .set_provisioning_model(ProvisioningModel::Standard)
             .set_instance_termination_action(InstanceTerminationAction::Delete)
             .set_max_run_duration(ComputeDuration::new().set_seconds(15 * 60)),
     );

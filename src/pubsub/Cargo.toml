@@ -14,7 +14,7 @@
 
 [package]
 name        = "google-cloud-pubsub"
-version     = "0.32.1-preview"
+version     = "0.32.2-preview"
 description = "Google Cloud Client Libraries for Rust - Pub/Sub"
 # Inherit other attributes from the workspace.
 edition.workspace      = true
@@ -27,7 +27,7 @@ rust-version.workspace = true
 
 [dependencies]
 async-trait.workspace  = true
-auth.workspace         = true
+google-cloud-auth      = { workspace = true }
 bytes.workspace        = true
 futures.workspace      = true
 gax.workspace          = true
@@ -41,6 +41,7 @@ reqwest.workspace      = true
 serde.workspace        = true
 serde_json.workspace   = true
 serde_with.workspace   = true
+thiserror.workspace    = true
 tonic.workspace        = true
 tokio                  = { workspace = true, features = ["sync"] }
 tokio-stream.workspace = true
@@ -49,9 +50,19 @@ tracing.workspace      = true
 uuid.workspace         = true
 wkt.workspace          = true
 
+[features]
+default = ["default-rustls-provider"]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
+
 [dev-dependencies]
 anyhow.workspace     = true
 mockall.workspace    = true
+rand.workspace       = true
+test-case.workspace  = true
 tokio-test.workspace = true
 tokio.workspace      = true
 tonic.workspace      = true

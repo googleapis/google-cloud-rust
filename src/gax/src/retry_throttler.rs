@@ -24,8 +24,8 @@
 //! also known as "retry storms": the retry attempts can grow to be more than
 //! the normal traffic and hinder recovery.
 //!
-//! Advanced applications may want to configure a retry throttler when
-//! [Addressing Cascading Failures] and when [Handling Overload] conditions.
+//! Advanced applications may want to configure a retry throttler to
+//! [Address Cascading Failures] and when [Handling Overload] conditions.
 //! This module contains the traits and some implementations of retry throttling
 //! strategies.
 //!
@@ -39,7 +39,7 @@
 //! [ClientBuilder::with_retry_throttler]: crate::client_builder::ClientBuilder::with_retry_throttler
 //! [RequestOptionsBuilder::with_retry_throttler]: crate::options::RequestOptionsBuilder::with_retry_throttler
 //! [Handling Overload]: https://sre.google/sre-book/handling-overload/
-//! [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+//! [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
 //!
 //! # Example
 //!

@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use google_cloud_gax::paginator::ItemPaginator as _;
 use google_cloud_storage::client::{Storage, StorageControl};
 use google_cloud_storage::model_ext::ReadRange;
-use google_cloud_gax::paginator::ItemPaginator as _;
 
 /// Use a public dataset to verify read operations work.
 const LANDSAT_DATASET: &str = "projects/_/buckets/gcp-public-data-landsat";
@@ -31,7 +31,10 @@ pub async fn run() -> anyhow::Result<()> {
         .list_buckets()
         .set_parent(format!("projects/{project_id}"))
         .by_item();
-    let _ = buckets.next().await.expect("expected at least one bucket")?;
+    let _ = buckets
+        .next()
+        .await
+        .expect("expected at least one bucket")?;
 
     // Verify JSON requests work as expected:
     let storage = Storage::builder().build().await?;

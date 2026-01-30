@@ -13,26 +13,24 @@
 // limitations under the License.
 
 use crate::credentials::Credentials;
-use crate::credentials::mds::{MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE};
+use crate::mds::client::Client as MDSClient;
 use crate::signer::{Result, SigningError, dynamic::SigningProvider};
-use http::HeaderValue;
-use reqwest::Client;
 use std::sync::OnceLock;
 
 // Implements Signer for MDS that extends the existing IamSigner by fetching
 // email via MDS email endpoint.
 #[derive(Clone, Debug)]
 pub(crate) struct MDSSigner {
-    endpoint: String,
+    client: MDSClient,
     iam_endpoint_override: Option<String>,
     client_email: OnceLock<String>,
     inner: Credentials,
 }
 
 impl MDSSigner {
-    pub(crate) fn new(endpoint: String, inner: Credentials) -> Self {
+    pub(crate) fn new(client: MDSClient, inner: Credentials) -> Self {
         Self {
-            endpoint,
+            client,
             client_email: OnceLock::new(),
             inner,
             iam_endpoint_override: None,
@@ -75,19 +73,7 @@ impl SigningProvider for MDSSigner {
 
 impl MDSSigner {
     async fn fetch_client_email(&self) -> Result<String> {
-        let client = Client::new();
-
-        let request = client
-            .get(format!("{}{}/email", self.endpoint, MDS_DEFAULT_URI))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            );
-
-        let response = request.send().await.map_err(SigningError::transport)?;
-        let email = response.text().await.map_err(SigningError::transport)?;
-
-        Ok(email)
+        self.client.email().await.map_err(SigningError::transport)
     }
 }
 
@@ -96,6 +82,7 @@ mod tests {
     use super::*;
     use crate::credentials::{CacheableResource, Credentials, CredentialsProvider, EntityTag};
     use crate::errors::CredentialsError;
+    use crate::mds::MDS_DEFAULT_URI;
     use base64::{Engine, prelude::BASE64_STANDARD};
     use http::header::{HeaderName, HeaderValue};
     use http::{Extensions, HeaderMap};
@@ -126,7 +113,8 @@ mod tests {
         );
         let mock = MockCredentials::new();
         let creds = Credentials::from(mock);
-        let signer = MDSSigner::new(format!("http://{}", server.addr()), creds);
+        let client = MDSClient::new(Some(format!("http://{}", server.addr())));
+        let signer = MDSSigner::new(client, creds);
 
         let client_email = signer.client_email().await?;
         assert_eq!(client_email, "test-client-email");
@@ -171,7 +159,8 @@ mod tests {
 
         let creds = Credentials::from(mock);
         let endpoint = server.url("").to_string().trim_end_matches('/').to_string();
-        let mut signer = MDSSigner::new(endpoint.clone(), creds);
+        let client = MDSClient::new(Some(endpoint.clone()));
+        let mut signer = MDSSigner::new(client, creds);
         signer.iam_endpoint_override = Some(endpoint);
 
         let client_email = signer.client_email().await?;

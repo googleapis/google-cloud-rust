@@ -100,9 +100,8 @@ where
 
 #[derive(Clone, Debug)]
 pub(crate) struct StorageInner {
-    pub client: reqwest::Client,
+    pub client: gaxi::http::ReqwestClient,
     pub cred: Credentials,
-    pub endpoint: String,
     pub options: RequestOptions,
     pub grpc: gaxi::grpc::Client,
 }
@@ -290,17 +289,7 @@ where
 
 impl Storage {
     pub(crate) async fn new(builder: ClientBuilder) -> BuilderResult<Self> {
-        let client = reqwest::Client::builder()
-            // Disable all automatic decompression. These could be enabled by users by enabling
-            // the corresponding features flags, but we will not be able to tell whether this
-            // has happened.
-            .no_brotli()
-            .no_deflate()
-            .no_gzip()
-            .no_zstd()
-            .build()
-            .map_err(BuilderError::transport)?;
-        let inner = StorageInner::from_parts(client, builder).await?;
+        let inner = StorageInner::from_parts(builder).await?;
         let options = inner.options.clone();
         let stub = crate::storage::transport::Storage::new(Arc::new(inner));
         Ok(Self { stub, options })
@@ -310,39 +299,32 @@ impl Storage {
 impl StorageInner {
     /// Builds a client assuming `config.cred` and `config.endpoint` are initialized, panics otherwise.
     pub(self) fn new(
-        client: reqwest::Client,
+        client: gaxi::http::ReqwestClient,
         cred: Credentials,
-        endpoint: String,
         options: RequestOptions,
         grpc: gaxi::grpc::Client,
     ) -> Self {
         Self {
             client,
             cred,
-            endpoint,
             options,
             grpc,
         }
     }
 
-    pub(self) async fn from_parts(
-        client: reqwest::Client,
-        builder: ClientBuilder,
-    ) -> BuilderResult<Self> {
-        let (config, options) = builder.into_parts()?;
-        let endpoint = config
-            .endpoint
-            .clone()
-            .expect("into_parts() assigns a default endpoint");
+    pub(self) async fn from_parts(builder: ClientBuilder) -> BuilderResult<Self> {
+        let (mut config, options) = builder.into_parts()?;
+        config.disable_automatic_decompression = true;
         let cred = config
             .cred
             .clone()
             .expect("into_parts() assigns default credentials");
 
+        let client = gaxi::http::ReqwestClient::new(config.clone(), super::DEFAULT_HOST).await?;
+
         let inner = StorageInner::new(
             client,
             cred,
-            endpoint,
             options,
             gaxi::grpc::Client::new(config, super::DEFAULT_HOST).await?,
         );
@@ -523,7 +505,7 @@ impl ClientBuilder {
     /// customize the default retry throtler.
     ///
     /// [Handling Overload]: https://sre.google/sre-book/handling-overload/
-    /// [Addressing Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
+    /// [Address Cascading Failures]: https://sre.google/sre-book/addressing-cascading-failures/
     ///
     /// # Example
     /// ```
@@ -812,8 +794,7 @@ pub(crate) mod tests {
 
     /// This is used by the request builder tests.
     pub(crate) async fn test_inner_client(builder: ClientBuilder) -> Arc<StorageInner> {
-        let client = reqwest::Client::new();
-        let inner = StorageInner::from_parts(client, builder)
+        let inner = StorageInner::from_parts(builder)
             .await
             .expect("creating an test inner client succeeds");
         Arc::new(inner)

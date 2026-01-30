@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use rustls::crypto::{aws_lc_rs::default_provider, CryptoProvider};
+use rustls::crypto::{CryptoProvider, aws_lc_rs::default_provider};
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
-    // TODO(#4170) - verify no crypto provider is enabled. Currently
-    // `ring` is always installed, so we cannot enable the test.
+    test_metadata::only_aws_lc_rs(env!("CARGO"), env!("CARGO_MANIFEST_DIR"), true)?;
 
     // Install a default crypto provider and verify storage works.
     CryptoProvider::install_default(default_provider())

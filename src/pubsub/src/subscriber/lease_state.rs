@@ -32,6 +32,9 @@ pub(super) struct LeaseOptions {
     pub(super) extend_period: Duration,
     /// How long we wait for the initial extensions
     pub(super) extend_start: Duration,
+    /// How long messages can be kept under lease. A message's lease can be
+    /// extended as long as `max_lease_extension` has not elapsed.
+    pub(super) max_lease_extension: Duration,
 }
 
 impl Default for LeaseOptions {
@@ -41,6 +44,7 @@ impl Default for LeaseOptions {
             flush_start: Duration::from_secs(1),
             extend_period: Duration::from_secs(3),
             extend_start: Duration::from_millis(500),
+            max_lease_extension: Duration::from_secs(600),
         }
     }
 }
@@ -48,7 +52,7 @@ impl Default for LeaseOptions {
 #[derive(Debug)]
 pub(super) struct LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Clone,
 {
     // A map of ack IDs to the time they were first received.
     under_lease: HashMap<String, Instant>,
@@ -61,6 +65,8 @@ where
     flush_interval: Interval,
     // A timer for extending leases
     extend_interval: Interval,
+    // How long messages can be kept under lease
+    max_lease_extension: Duration,
 }
 
 /// Actions taken by the `LeaseState` in the lease loop.
@@ -74,7 +80,7 @@ pub(super) enum LeaseEvent {
 
 impl<L> LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Clone,
 {
     pub(super) fn new(leaser: L, options: LeaseOptions) -> Self {
         let flush_interval =
@@ -88,6 +94,7 @@ where
             leaser,
             flush_interval,
             extend_interval,
+            max_lease_extension: options.max_lease_extension,
         }
     }
 
@@ -152,11 +159,31 @@ where
     ///
     /// Drops messages whose lease deadline cannot be extended any further.
     pub(super) async fn extend(&mut self) {
-        // TODO(#4211) - drop expired messages
-        let all_ack_ids: Vec<&String> = self.under_lease.keys().collect();
-        for chunk in all_ack_ids.chunks(ACK_IDS_PER_RPC) {
-            // TODO(#3975) - await these concurrently.
-            let ack_ids: Vec<String> = chunk.iter().map(|&s| s.clone()).collect();
+        let now = Instant::now();
+        let mut batches = Vec::new();
+        let mut batch = Vec::new();
+        self.under_lease.retain(|ack_id, receive_time| {
+            // Note that using `HashMap::retain` allows us to iterate over the
+            // map and conditionally drop elements in one pass.
+
+            if *receive_time + self.max_lease_extension < now {
+                // Drop messages that have been held for too long.
+                false
+            } else {
+                // Extend leases for all other messages.
+                batch.push(ack_id.clone());
+                if batch.len() == ACK_IDS_PER_RPC {
+                    // Flush the batch when it is full.
+                    batches.push(std::mem::take(&mut batch));
+                }
+                true
+            }
+        });
+        if !batch.is_empty() {
+            batches.push(batch);
+        }
+        for ack_ids in batches {
+            // TODO(#3975) - send RPCs concurrently
             self.leaser.extend(ack_ids).await;
         }
     }
@@ -181,7 +208,7 @@ where
 
 impl<L> PartialEq for LeaseState<L>
 where
-    L: Leaser,
+    L: Leaser + Clone,
 {
     fn eq(&self, other: &Self) -> bool {
         self.under_lease == other.under_lease
@@ -195,6 +222,7 @@ pub(super) mod tests {
     use super::super::leaser::tests::MockLeaser;
     use super::*;
     use std::collections::HashSet;
+    use std::sync::Arc;
     use tokio::sync::mpsc::unbounded_channel;
     use tokio::time::interval;
 
@@ -206,7 +234,11 @@ pub(super) mod tests {
         interval(Duration::from_secs(1))
     }
 
-    fn make_state<L, A, N>(under_lease: L, to_ack: A, to_nack: N) -> LeaseState<MockLeaser>
+    fn test_duration() -> Duration {
+        Duration::from_secs(123)
+    }
+
+    fn make_state<L, A, N>(under_lease: L, to_ack: A, to_nack: N) -> LeaseState<Arc<MockLeaser>>
     where
         L: IntoIterator<Item = &'static str>,
         A: IntoIterator<Item = &'static str>,
@@ -219,9 +251,10 @@ pub(super) mod tests {
                 .collect(),
             to_ack: to_ack.into_iter().map(|s| s.to_string()).collect(),
             to_nack: to_nack.into_iter().map(|s| s.to_string()).collect(),
-            leaser: MockLeaser::new(),
+            leaser: Arc::new(MockLeaser::new()),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         }
     }
 
@@ -242,7 +275,7 @@ pub(super) mod tests {
     #[tokio::test(start_paused = true)]
     async fn basic_add_ack_nack() {
         let mock = MockLeaser::new();
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(state, make_state([], [], []));
 
         state.add("1".to_string());
@@ -275,7 +308,7 @@ pub(super) mod tests {
         let mock = MockLeaser::new();
         // Note that there are no calls expected into the leaser, as there are
         // no messages under lease management.
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         state.extend().await;
         state.flush().await;
         state.shutdown().await;
@@ -293,7 +326,7 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(10..20))
             .returning(|_| ());
 
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..100 {
             state.add(test_id(i));
         }
@@ -310,9 +343,10 @@ pub(super) mod tests {
                 .collect(),
             to_ack: test_ids(0..10),
             to_nack: test_ids(10..20),
-            leaser: MockLeaser::new(),
+            leaser: Arc::new(MockLeaser::new()),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         };
         assert_eq!(state, expected);
 
@@ -324,9 +358,10 @@ pub(super) mod tests {
                 .collect(),
             to_ack: Vec::new(),
             to_nack: Vec::new(),
-            leaser: MockLeaser::new(),
+            leaser: Arc::new(MockLeaser::new()),
             flush_interval: test_interval(),
             extend_interval: test_interval(),
+            max_lease_extension: test_duration(),
         };
         assert_eq!(state, expected);
     }
@@ -356,7 +391,7 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(10..20))
             .returning(|_| ());
 
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
         // Accept 10 messages. These are now under lease management.
         for i in 0..10 {
@@ -395,7 +430,7 @@ pub(super) mod tests {
             .withf(|v| sorted(v) == test_ids(10..30))
             .returning(|_| ());
 
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         for i in 0..30 {
             state.add(test_id(i));
         }
@@ -411,7 +446,7 @@ pub(super) mod tests {
     #[tokio::test(start_paused = true)]
     async fn ack_out_of_lease_included() {
         let mock = MockLeaser::new();
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(state, make_state([], [], []));
 
         state.ack("1".to_string());
@@ -421,7 +456,7 @@ pub(super) mod tests {
     #[tokio::test(start_paused = true)]
     async fn nack_out_of_lease_ignored() {
         let mock = MockLeaser::new();
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
         assert_eq!(state, make_state([], [], []));
 
         state.nack("1".to_string());
@@ -446,8 +481,9 @@ pub(super) mod tests {
             flush_period: FLUSH_PERIOD,
             extend_start: EXTEND_START,
             extend_period: EXTEND_PERIOD,
+            ..Default::default()
         };
-        let mut state = LeaseState::new(mock, options);
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         assert_eq!(state.next_event().await, LeaseEvent::Flush);
         assert_eq!(start.elapsed(), Duration::from_secs(1));
@@ -484,8 +520,9 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
-        let mut state = LeaseState::new(mock, options);
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         for i in 0..ACK_IDS_PER_RPC {
             state.add(test_id(i));
@@ -522,8 +559,9 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
-        let mut state = LeaseState::new(mock, options);
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         for i in 0..ACK_IDS_PER_RPC {
             state.add(test_id(i));
@@ -556,8 +594,9 @@ pub(super) mod tests {
             flush_period: Duration::from_secs(100),
             extend_start: Duration::from_secs(100),
             extend_period: Duration::from_secs(100),
+            ..Default::default()
         };
-        let mut state = LeaseState::new(mock, options);
+        let mut state = LeaseState::new(Arc::new(mock), options);
 
         let over_half_full = ACK_IDS_PER_RPC / 2 + 100;
         for i in 0..over_half_full {
@@ -590,7 +629,7 @@ pub(super) mod tests {
                     .send(ack_ids)
                     .expect("sending on channel always succeeds");
             });
-        let mut state = LeaseState::new(mock, LeaseOptions::default());
+        let mut state = LeaseState::new(Arc::new(mock), LeaseOptions::default());
 
         let mut want = HashSet::new();
         for i in 0..NUM_BATCHES * ACK_IDS_PER_RPC {
@@ -618,6 +657,53 @@ pub(super) mod tests {
 
         // Make sure all ack IDs were extended.
         assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[tokio::test(start_paused = true)]
+    async fn message_expiration() -> anyhow::Result<()> {
+        const MAX_LEASE_EXTENSION: Duration = Duration::from_secs(300);
+        const DELTA: Duration = Duration::from_secs(1);
+
+        let mut seq = mockall::Sequence::new();
+        let mut mock = MockLeaser::new();
+        mock.expect_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(0..20))
+            .returning(|_| ());
+        mock.expect_extend()
+            .times(1)
+            .in_sequence(&mut seq)
+            .withf(|v| sorted(v) == test_ids(10..20))
+            .returning(|_| ());
+
+        let options = LeaseOptions {
+            max_lease_extension: MAX_LEASE_EXTENSION,
+            ..Default::default()
+        };
+        let mut state = LeaseState::new(Arc::new(mock), options);
+
+        // Add 10 messages under lease management
+        for i in 0..10 {
+            state.add(test_id(i));
+        }
+
+        // Add 10 more messages under lease management, a little later.
+        tokio::time::advance(DELTA * 2).await;
+        for i in 10..20 {
+            state.add(test_id(i));
+        }
+        state.extend().await;
+
+        // Advance the time past the expiration of the original 10 messages.
+        tokio::time::advance(MAX_LEASE_EXTENSION - DELTA).await;
+        state.extend().await;
+
+        // Advance the time past the expiration of the subsequent 10 messages.
+        tokio::time::advance(DELTA * 2).await;
+        state.extend().await;
+
         Ok(())
     }
 }

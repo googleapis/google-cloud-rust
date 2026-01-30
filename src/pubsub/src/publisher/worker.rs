@@ -25,8 +25,8 @@ pub(crate) enum ToWorker {
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
     Flush(oneshot::Sender<()>),
-    // TODO(#4015): Add a resume function to allow resume Publishing on a ordering key after a
-    // failure.
+    /// A request to resume publishing on an ordering key.
+    ResumePublish(String),
 }
 
 /// A command sent from the `Worker` to the background `batch` worker.
@@ -35,8 +35,8 @@ pub(crate) enum ToBatchWorker {
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
     Flush(oneshot::Sender<()>),
-    // TODO(#4015): Add a resume function to allow resume Publishing on a ordering key after a
-    // failure.
+    /// A request to resume publishing.
+    ResumePublish(),
 }
 
 /// Object that is passed to the worker task over the
@@ -45,7 +45,7 @@ pub(crate) enum ToBatchWorker {
 #[derive(Debug)]
 pub(crate) struct BundledMessage {
     pub msg: crate::model::PubsubMessage,
-    pub tx: oneshot::Sender<crate::Result<String>>,
+    pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
 /// The worker is spawned in a background task and handles
@@ -118,20 +118,19 @@ impl Worker {
                     match msg {
                         Some(ToWorker::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let batch_worker =
-                                batch_workers
-                                    .entry(ordering_key.clone())
-                                    .or_insert({
-                                        let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-                                        let batch_worker = BatchWorker::new(
-                                                        self.topic_name.clone(),
-                                                        ordering_key,
-                                                        self.client.clone(),
-                                                        self.batching_options.clone(),
-                                                        rx,
-                                                );
-                                        tokio::spawn(batch_worker.run());
-                                        tx
+                            let batch_worker = batch_workers
+                                .entry(ordering_key.clone())
+                                .or_insert_with(|| {
+                                    let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
+                                    let batch_worker = BatchWorker::new(
+                                        self.topic_name.clone(),
+                                        ordering_key,
+                                        self.client.clone(),
+                                        self.batching_options.clone(),
+                                        rx,
+                                    );
+                                    tokio::spawn(batch_worker.run());
+                                    tx
                                 });
                             batch_worker
                                 .send(ToBatchWorker::Publish(msg))
@@ -154,19 +153,18 @@ impl Worker {
                             flush_set.join_all().await;
                             let _ = tx.send(());
                         },
-                        None => {
-                            // The sender has been dropped send batch and stop running.
-                            // This isn't guaranteed to execute if a user does not .await on the
-                            // corresponding PublishHandles for the batch and the program ends.
-                            let mut flush_set = JoinSet::new();
-                            for (_, batch_worker) in batch_workers.iter_mut() {
-                                let (tx, rx) = oneshot::channel();
+                        Some(ToWorker::ResumePublish(ordering_key)) => {
+                            if let Some(batch_worker) = batch_workers.get_mut(&ordering_key) {
+                                // Send down the same tx for the BatchWorker to directly signal completion
+                                // instead of spawning a new task.
                                 batch_worker
-                                    .send(ToBatchWorker::Flush(tx))
+                                    .send(ToBatchWorker::ResumePublish())
                                     .expect(batch_worker_error_msg);
-                                flush_set.spawn(rx);
                             }
-                            flush_set.join_all().await;
+                        }
+                        None => {
+                            // By dropping the BatchWorker Senders, they will individually handle the
+                            // shutdown procedures.
                             break;
                         }
                     }
@@ -187,6 +185,7 @@ pub(crate) struct BatchWorker {
     rx: mpsc::UnboundedReceiver<ToBatchWorker>,
     pending_batch: Batch,
     pending_msgs: VecDeque<BundledMessage>,
+    paused: bool,
 }
 
 impl BatchWorker {
@@ -205,6 +204,7 @@ impl BatchWorker {
             batching_options,
             rx,
             pending_msgs: VecDeque::new(),
+            paused: false,
         }
     }
 
@@ -225,6 +225,39 @@ impl BatchWorker {
         }
     }
 
+    // Pause publish operations.
+    pub(crate) fn pause(&mut self) {
+        self.paused = true;
+        while let Some(publish) = self.pending_msgs.pop_front() {
+            // The user may have dropped the handle, so it is ok if this fails.
+            let _ = publish
+                .tx
+                .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+        }
+    }
+
+    // Flush the pending messages by sending the messages in sequential batches.
+    async fn flush_sequential(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
+        self.handle_inflight_join(inflight.join_next().await);
+        while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+            self.move_to_batch();
+            self.pending_batch
+                .flush(self.client.clone(), self.topic.clone(), &mut inflight);
+            self.handle_inflight_join(inflight.join_next().await);
+        }
+    }
+
+    // Flush the pending batch and pending messages by sending remaining
+    // messages in concurrent batches.
+    async fn flush_concurrent(&mut self, mut inflight: JoinSet<Result<(), gax::error::Error>>) {
+        while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
+            self.move_to_batch();
+            self.pending_batch
+                .flush(self.client.clone(), self.topic.clone(), &mut inflight);
+        }
+        inflight.join_all().await;
+    }
+
     /// The main loop of the batch worker.
     ///
     /// This method concurrently handles the following events:
@@ -240,20 +273,99 @@ impl BatchWorker {
     /// The loop terminates when the `rx` channel is closed, which happens when the
     /// `Worker` drops the Sender.
     pub(crate) async fn run(mut self) {
-        // While it is possible to use Some(JoinHandle) here as there is at max
-        // a single inflight task at any given time, the use of JoinSet
-        // simplify the managing the inflight JoinHandle.
+        if self.ordering_key.is_empty() {
+            self.run_without_ordering_key().await;
+        } else {
+            self.run_with_ordering_key().await;
+        }
+    }
+
+    async fn run_without_ordering_key(&mut self) {
         let mut inflight = JoinSet::new();
-        // For empty ordering key, we do not need to limit the number of inflight batches.
-        let unlimited_inflight = self.ordering_key.is_empty();
+        // For messages without an ordering key, we can have multiple inflight batches concurrently.
         loop {
             tokio::select! {
                 _ = inflight.join_next(), if !inflight.is_empty() => {
-                    if unlimited_inflight {
-                        // When there are no limits to the number of inflight, we can skip sending the
-                        // next batch as it is handled by the Publish and Flush operations.
-                        continue;
+                    continue;
+                }
+                msg = self.rx.recv() => {
+                    match msg {
+                        Some(ToBatchWorker::Publish(msg)) => {
+                            self.pending_msgs.push_back(msg);
+                            self.move_to_batch();
+                            if self.at_batch_threshold() {
+                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            }
+                        },
+                        Some(ToBatchWorker::Flush(tx)) => {
+                            // Send all the batches concurrently.
+                            self.flush_concurrent(inflight).await;
+                            inflight = JoinSet::new();
+                            let _ = tx.send(());
+                        },
+                        Some(ToBatchWorker::ResumePublish()) => {
+                            // Nothing to resume as we do not pause without ordering key.
+                        }
+                        None => {
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishHandles.
+                            self.flush_concurrent(inflight).await;
+                            break;
+                        }
                     }
+                }
+            }
+        }
+    }
+
+    pub(crate) fn handle_inflight_join(
+        &mut self,
+        join_next_option: Option<Result<Result<(), gax::error::Error>, tokio::task::JoinError>>,
+    ) {
+        // If there was a JoinError or non-retryable error:
+        // 1. We need to pause publishing and send out errors for pending_msgs.
+        // 2. The pending batch should have sent out error for its messages.
+        // 3. The messages in rx will be handled when they are received.
+        if let Some(Err(_) | Ok(Err(_))) = join_next_option {
+            self.pause();
+        }
+    }
+
+    async fn run_with_ordering_key(&mut self) {
+        // While it is possible to use Some(JoinHandle) here as there is at max
+        // a single inflight task at any given time, the use of JoinSet
+        // simplify the managing the inflight JoinHandle.
+        let mut inflight: JoinSet<Result<(), gax::error::Error>> = JoinSet::new();
+        loop {
+            if self.paused {
+                // When paused, we do not need to check inflight as handle_inflight_join()
+                // ensures that there are no inflight batch.
+                let msg = self.rx.recv().await;
+                match msg {
+                    Some(ToBatchWorker::Publish(msg)) => {
+                        let _ = msg
+                            .tx
+                            .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
+                    }
+                    Some(ToBatchWorker::Flush(tx)) => {
+                        // There should be no pending messages and messages in the pending batch as
+                        // it was already handled when this was paused.
+                        let _ = tx.send(());
+                    }
+                    Some(ToBatchWorker::ResumePublish()) => {
+                        self.paused = false;
+                    }
+                    None => {
+                        // There should be no pending messages and messages in the pending batch as
+                        // it was already handled when this was paused.
+                        break;
+                    }
+                }
+                continue;
+            }
+            tokio::select! {
+                join = inflight.join_next(), if !inflight.is_empty() => {
+                    self.handle_inflight_join(join);
                     self.move_to_batch();
                     if self.at_batch_threshold() {
                         self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
@@ -263,34 +375,25 @@ impl BatchWorker {
                     match msg {
                         Some(ToBatchWorker::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
-                            self.move_to_batch();
-                            if self.at_batch_threshold() && (unlimited_inflight || inflight.is_empty()) {
-                                self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                            if inflight.is_empty() {
+                                self.move_to_batch();
+                                if self.at_batch_threshold() {
+                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
+                                }
                             }
                         },
                         Some(ToBatchWorker::Flush(tx)) => {
-                            if unlimited_inflight {
-                                // Send all the batches concurrently.
-                                while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                    self.move_to_batch();
-                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                }
-                                inflight.join_all().await;
-                                inflight = JoinSet::new();
-                            } else {
-                                // Send batches sequentially.
-                                if !inflight.is_empty() {
-                                    inflight.join_next().await;
-                                }
-                                while !self.pending_batch.is_empty() || !self.pending_msgs.is_empty() {
-                                    self.move_to_batch();
-                                    self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
-                                    inflight.join_next().await;
-                                }
-                            }
+                            self.flush_sequential(inflight).await;
+                            inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
+                        Some(ToBatchWorker::ResumePublish()) => {
+                            // Nothing to resume as we are not paused.
+                        },
                         None => {
+                            // This isn't guaranteed to execute if a user does not .await on the
+                            // corresponding PublishHandles.
+                            self.flush_sequential(inflight).await;
                             break;
                         }
                     }

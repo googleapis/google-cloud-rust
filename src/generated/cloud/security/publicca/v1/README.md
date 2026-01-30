@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [PublicCertificateAuthorityService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-security-publicca-v1/1.3.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-security-publicca-v1/1.4.0)
 
-[PublicCertificateAuthorityService]: https://docs.rs/google-cloud-security-publicca-v1/1.3.0/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[PublicCertificateAuthorityService]: https://docs.rs/google-cloud-security-publicca-v1/1.4.0/google_cloud_security_publicca_v1/client/struct.PublicCertificateAuthorityService.html

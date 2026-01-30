@@ -578,6 +578,60 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn restore_backup_files(
+        &self,
+        req: crate::model::RestoreBackupFilesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.restore_backup_files(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_host_groups(
+        &self,
+        req: crate::model::ListHostGroupsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListHostGroupsResponse>> {
+        self.inner.list_host_groups(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_host_group(
+        &self,
+        req: crate::model::GetHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::HostGroup>> {
+        self.inner.get_host_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_host_group(
+        &self,
+        req: crate::model::CreateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_host_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_host_group(
+        &self,
+        req: crate::model::UpdateHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_host_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_host_group(
+        &self,
+        req: crate::model::DeleteHostGroupRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_host_group(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

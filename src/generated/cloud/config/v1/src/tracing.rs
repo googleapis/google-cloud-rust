@@ -281,6 +281,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn get_auto_migration_config(
+        &self,
+        req: crate::model::GetAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AutoMigrationConfig>> {
+        self.inner.get_auto_migration_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_auto_migration_config(
+        &self,
+        req: crate::model::UpdateAutoMigrationConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_auto_migration_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

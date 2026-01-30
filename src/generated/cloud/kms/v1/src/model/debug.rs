@@ -321,6 +321,437 @@ impl std::fmt::Debug for super::VerifyConnectivityResponse {
     }
 }
 
+impl std::fmt::Debug for super::SingleTenantHsmInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleTenantHsmInstance");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("quorum_auth", &self.quorum_auth);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field(
+            "unrefreshed_duration_until_disable",
+            &self.unrefreshed_duration_until_disable,
+        );
+        debug_struct.field("disable_time", &self.disable_time);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance::QuorumAuth {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuorumAuth");
+        debug_struct.field("total_approver_count", &self.total_approver_count);
+        debug_struct.field("required_approver_count", &self.required_approver_count);
+        debug_struct.field(
+            "two_factor_public_key_pems",
+            &self.two_factor_public_key_pems,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::SingleTenantHsmInstanceProposal {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("SingleTenantHsmInstanceProposal");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("create_time", &self.create_time);
+        debug_struct.field("state", &self.state);
+        debug_struct.field("failure_reason", &self.failure_reason);
+        debug_struct.field("delete_time", &self.delete_time);
+        debug_struct.field("purge_time", &self.purge_time);
+        debug_struct.field("approval_parameters", &self.approval_parameters);
+        debug_struct.field("expiration", &self.expiration);
+        debug_struct.field("operation", &self.operation);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::QuorumParameters {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuorumParameters");
+        debug_struct.field("required_approver_count", &self.required_approver_count);
+        debug_struct.field("challenges", &self.challenges);
+        debug_struct.field(
+            "approved_two_factor_public_key_pems",
+            &self.approved_two_factor_public_key_pems,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::single_tenant_hsm_instance_proposal::RequiredActionQuorumParameters
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequiredActionQuorumParameters");
+        debug_struct.field("required_challenges", &self.required_challenges);
+        debug_struct.field("required_approver_count", &self.required_approver_count);
+        debug_struct.field("quorum_challenges", &self.quorum_challenges);
+        debug_struct.field(
+            "approved_two_factor_public_key_pems",
+            &self.approved_two_factor_public_key_pems,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::RegisterTwoFactorAuthKeys {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RegisterTwoFactorAuthKeys");
+        debug_struct.field("required_approver_count", &self.required_approver_count);
+        debug_struct.field(
+            "two_factor_public_key_pems",
+            &self.two_factor_public_key_pems,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::single_tenant_hsm_instance_proposal::DisableSingleTenantHsmInstance
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DisableSingleTenantHsmInstance");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::EnableSingleTenantHsmInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("EnableSingleTenantHsmInstance");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::DeleteSingleTenantHsmInstance {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSingleTenantHsmInstance");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::AddQuorumMember {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AddQuorumMember");
+        debug_struct.field("two_factor_public_key_pem", &self.two_factor_public_key_pem);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::single_tenant_hsm_instance_proposal::RemoveQuorumMember {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RemoveQuorumMember");
+        debug_struct.field("two_factor_public_key_pem", &self.two_factor_public_key_pem);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::single_tenant_hsm_instance_proposal::RefreshSingleTenantHsmInstance
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RefreshSingleTenantHsmInstance");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::Challenge {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("Challenge");
+        debug_struct.field("challenge", &self.challenge);
+        debug_struct.field("public_key_pem", &self.public_key_pem);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ChallengeReply {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ChallengeReply");
+        debug_struct.field("signed_challenge", &self.signed_challenge);
+        debug_struct.field("public_key_pem", &self.public_key_pem);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSingleTenantHsmInstancesRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSingleTenantHsmInstancesRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSingleTenantHsmInstancesResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSingleTenantHsmInstancesResponse");
+        debug_struct.field(
+            "single_tenant_hsm_instances",
+            &self.single_tenant_hsm_instances,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetSingleTenantHsmInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSingleTenantHsmInstanceRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateSingleTenantHsmInstanceRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSingleTenantHsmInstanceRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "single_tenant_hsm_instance_id",
+            &self.single_tenant_hsm_instance_id,
+        );
+        debug_struct.field(
+            "single_tenant_hsm_instance",
+            &self.single_tenant_hsm_instance,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateSingleTenantHsmInstanceMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSingleTenantHsmInstanceMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateSingleTenantHsmInstanceProposalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSingleTenantHsmInstanceProposalRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field(
+            "single_tenant_hsm_instance_proposal_id",
+            &self.single_tenant_hsm_instance_proposal_id,
+        );
+        debug_struct.field(
+            "single_tenant_hsm_instance_proposal",
+            &self.single_tenant_hsm_instance_proposal,
+        );
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::CreateSingleTenantHsmInstanceProposalMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("CreateSingleTenantHsmInstanceProposalMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::GetSingleTenantHsmInstanceProposalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetSingleTenantHsmInstanceProposalRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ApproveSingleTenantHsmInstanceProposalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApproveSingleTenantHsmInstanceProposalRequest");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("approval_payload", &self.approval_payload);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::approve_single_tenant_hsm_instance_proposal_request::QuorumReply {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("QuorumReply");
+        debug_struct.field("challenge_replies", &self.challenge_replies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug
+    for super::approve_single_tenant_hsm_instance_proposal_request::RequiredActionQuorumReply
+{
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("RequiredActionQuorumReply");
+        debug_struct.field(
+            "required_challenge_replies",
+            &self.required_challenge_replies,
+        );
+        debug_struct.field("quorum_challenge_replies", &self.quorum_challenge_replies);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ApproveSingleTenantHsmInstanceProposalResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ApproveSingleTenantHsmInstanceProposalResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteSingleTenantHsmInstanceProposalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteSingleTenantHsmInstanceProposalRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteSingleTenantHsmInstanceProposalResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteSingleTenantHsmInstanceProposalResponse");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ExecuteSingleTenantHsmInstanceProposalMetadata {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ExecuteSingleTenantHsmInstanceProposalMetadata");
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSingleTenantHsmInstanceProposalsRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSingleTenantHsmInstanceProposalsRequest");
+        debug_struct.field("parent", &self.parent);
+        debug_struct.field("page_size", &self.page_size);
+        debug_struct.field("page_token", &self.page_token);
+        debug_struct.field("filter", &self.filter);
+        debug_struct.field("order_by", &self.order_by);
+        debug_struct.field("show_deleted", &self.show_deleted);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::ListSingleTenantHsmInstanceProposalsResponse {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("ListSingleTenantHsmInstanceProposalsResponse");
+        debug_struct.field(
+            "single_tenant_hsm_instance_proposals",
+            &self.single_tenant_hsm_instance_proposals,
+        );
+        debug_struct.field("next_page_token", &self.next_page_token);
+        debug_struct.field("total_size", &self.total_size);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::DeleteSingleTenantHsmInstanceProposalRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("DeleteSingleTenantHsmInstanceProposalRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
 impl std::fmt::Debug for super::KeyRing {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         let mut debug_struct = f.debug_struct("KeyRing");
@@ -473,6 +904,7 @@ impl std::fmt::Debug for super::ImportJob {
         debug_struct.field("state", &self.state);
         debug_struct.field("public_key", &self.public_key);
         debug_struct.field("attestation", &self.attestation);
+        debug_struct.field("crypto_key_backend", &self.crypto_key_backend);
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }
@@ -1190,6 +1622,10 @@ impl std::fmt::Debug for super::LocationMetadata {
         let mut debug_struct = f.debug_struct("LocationMetadata");
         debug_struct.field("hsm_available", &self.hsm_available);
         debug_struct.field("ekm_available", &self.ekm_available);
+        debug_struct.field(
+            "hsm_single_tenant_available",
+            &self.hsm_single_tenant_available,
+        );
         if !self._unknown_fields.is_empty() {
             debug_struct.field("_unknown_fields", &self._unknown_fields);
         }

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-grpc-client"))]
-mod test {
+mod tests {
     use gax::options::*;
     use google_cloud_auth::credentials::{Credentials, anonymous::Builder as Anonymous};
     use google_cloud_gax_internal::grpc;

@@ -27,7 +27,7 @@ steps:
       #!/usr/bin/env bash
       set -euv
       go install golang.org/x/tools/cmd/goimports@latest
-      go test -race -coverprofile=coverage.out -covermode=atomic ./tools/...
+      go -C tools test -race -coverprofile=coverage.out -covermode=atomic ./...
 substitutions:
   _POOL_REGION: us-central1
   _POOL_ID: rust-sdk-pool

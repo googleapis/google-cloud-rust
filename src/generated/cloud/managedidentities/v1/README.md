@@ -18,8 +18,18 @@ The main types to work with this crate are the clients:
 
 - [ManagedIdentitiesService]
 
+## Features
+
+- `default-rustls-provider`: enabled by default. Use the default rustls crypto
+  provider ([aws-lc-rs]) for TLS and authentication. Applications with specific
+  requirements for cryptography (such as exclusively using the [ring] crate)
+  should disable this default and call
+  `rustls::crypto::CryptoProvider::install_default()`.
+
 ## More Information
 
-- Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/1.4.0)
+- Read the [crate's documentation](https://docs.rs/google-cloud-managedidentities-v1/1.5.0)
 
-[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.4.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html
+[aws-lc-rs]: https://crates.io/crates/aws-lc-rs
+[ring]: https://crates.io/crates/ring
+[ManagedIdentitiesService]: https://docs.rs/google-cloud-managedidentities-v1/1.5.0/google_cloud_managedidentities_v1/client/struct.ManagedIdentitiesService.html

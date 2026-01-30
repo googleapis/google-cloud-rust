@@ -16,7 +16,7 @@
 
 [package]
 name                   = "google-cloud-aiplatform-v1"
-version                = "1.5.0"
+version                = "1.6.0"
 description            = "Google Cloud Client Libraries for Rust - Vertex AI API"
 edition.workspace      = true
 authors.workspace      = true
@@ -30,6 +30,7 @@ rust-version.workspace = true
 default = [
   "data-foundry-service",
   "dataset-service",
+  "default-rustls-provider",
   "deployment-resource-pool-service",
   "endpoint-service",
   "evaluation-service",
@@ -62,6 +63,11 @@ default = [
   "vertex-rag-service",
   "vizier-service",
 ]
+# Enabled by default. Use the default rustls crypto provider ([aws-lc-rs]) for
+# TLS and authentication. Applications with specific requirements for
+# cryptography (such as exclusively using the [ring] crate) should disable this
+# default and call `rustls::crypto::CryptoProvider::install_default()`.
+default-rustls-provider = ["gaxi/_default-rustls-provider"]
 # Enables `client::DataFoundryService` and all the types it depends on.
 data-foundry-service = []
 # Enables `client::DatasetService` and all the types it depends on.

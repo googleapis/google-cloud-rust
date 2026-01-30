@@ -2624,6 +2624,203 @@ impl wkt::message::Message for JavaScriptUDF {
     }
 }
 
+/// Configuration for making inference requests against Vertex AI models.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AIInference {
+    /// Required. An endpoint to a Vertex AI model of the form
+    /// `projects/{project}/locations/{location}/endpoints/{endpoint}` or
+    /// `projects/{project}/locations/{location}/publishers/{publisher}/models/{model}`.
+    /// Vertex AI API requests will be sent to this endpoint.
+    pub endpoint: std::string::String,
+
+    /// Optional. The service account to use to make prediction requests against
+    /// endpoints. The resource creator or updater that specifies this field must
+    /// have `iam.serviceAccounts.actAs` permission on the service account. If not
+    /// specified, the Pub/Sub [service
+    /// agent]({$universe.dns_names.final_documentation_domain}/iam/docs/service-agents),
+    /// service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
+    pub service_account_email: std::string::String,
+
+    /// The format of inference requests made to the endpoint.
+    pub inference_mode: std::option::Option<crate::model::ai_inference::InferenceMode>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AIInference {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [endpoint][crate::model::AIInference::endpoint].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::AIInference;
+    /// let x = AIInference::new().set_endpoint("example");
+    /// ```
+    pub fn set_endpoint<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.endpoint = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account_email][crate::model::AIInference::service_account_email].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::AIInference;
+    /// let x = AIInference::new().set_service_account_email("example");
+    /// ```
+    pub fn set_service_account_email<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_account_email = v.into();
+        self
+    }
+
+    /// Sets the value of [inference_mode][crate::model::AIInference::inference_mode].
+    ///
+    /// Note that all the setters affecting `inference_mode` are mutually
+    /// exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::AIInference;
+    /// use google_cloud_pubsub::model::ai_inference::UnstructuredInference;
+    /// let x = AIInference::new().set_inference_mode(Some(
+    ///     google_cloud_pubsub::model::ai_inference::InferenceMode::UnstructuredInference(UnstructuredInference::default().into())));
+    /// ```
+    pub fn set_inference_mode<
+        T: std::convert::Into<std::option::Option<crate::model::ai_inference::InferenceMode>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inference_mode = v.into();
+        self
+    }
+
+    /// The value of [inference_mode][crate::model::AIInference::inference_mode]
+    /// if it holds a `UnstructuredInference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn unstructured_inference(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ai_inference::UnstructuredInference>>
+    {
+        #[allow(unreachable_patterns)]
+        self.inference_mode.as_ref().and_then(|v| match v {
+            crate::model::ai_inference::InferenceMode::UnstructuredInference(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [inference_mode][crate::model::AIInference::inference_mode]
+    /// to hold a `UnstructuredInference`.
+    ///
+    /// Note that all the setters affecting `inference_mode` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::AIInference;
+    /// use google_cloud_pubsub::model::ai_inference::UnstructuredInference;
+    /// let x = AIInference::new().set_unstructured_inference(UnstructuredInference::default()/* use setters */);
+    /// assert!(x.unstructured_inference().is_some());
+    /// ```
+    pub fn set_unstructured_inference<
+        T: std::convert::Into<std::boxed::Box<crate::model::ai_inference::UnstructuredInference>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.inference_mode = std::option::Option::Some(
+            crate::model::ai_inference::InferenceMode::UnstructuredInference(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for AIInference {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.pubsub.v1.AIInference"
+    }
+}
+
+/// Defines additional types related to [AIInference].
+pub mod ai_inference {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Configuration for making inferences using arbitrary JSON payloads.
+    #[derive(Clone, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UnstructuredInference {
+        /// Optional. A parameters object to be included in each inference request.
+        /// The parameters object is combined with the data field of the Pub/Sub
+        /// message to form the inference request.
+        pub parameters: std::option::Option<wkt::Struct>,
+
+        pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UnstructuredInference {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [parameters][crate::model::ai_inference::UnstructuredInference::parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ai_inference::UnstructuredInference;
+        /// use wkt::Struct;
+        /// let x = UnstructuredInference::new().set_parameters(Struct::default()/* use setters */);
+        /// ```
+        pub fn set_parameters<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.parameters = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [parameters][crate::model::ai_inference::UnstructuredInference::parameters].
+        ///
+        /// # Example
+        /// ```ignore,no_run
+        /// # use google_cloud_pubsub::model::ai_inference::UnstructuredInference;
+        /// use wkt::Struct;
+        /// let x = UnstructuredInference::new().set_or_clear_parameters(Some(Struct::default()/* use setters */));
+        /// let x = UnstructuredInference::new().set_or_clear_parameters(None::<Struct>);
+        /// ```
+        pub fn set_or_clear_parameters<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.parameters = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for UnstructuredInference {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.pubsub.v1.AIInference.UnstructuredInference"
+        }
+    }
+
+    /// The format of inference requests made to the endpoint.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum InferenceMode {
+        /// Optional. Requests and responses can be any arbitrary JSON object.
+        UnstructuredInference(std::boxed::Box<crate::model::ai_inference::UnstructuredInference>),
+    }
+}
+
 /// All supported message transforms types.
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
@@ -2722,6 +2919,7 @@ impl MessageTransform {
     /// use google_cloud_pubsub::model::JavaScriptUDF;
     /// let x = MessageTransform::new().set_javascript_udf(JavaScriptUDF::default()/* use setters */);
     /// assert!(x.javascript_udf().is_some());
+    /// assert!(x.ai_inference().is_none());
     /// ```
     pub fn set_javascript_udf<
         T: std::convert::Into<std::boxed::Box<crate::model::JavaScriptUDF>>,
@@ -2731,6 +2929,43 @@ impl MessageTransform {
     ) -> Self {
         self.transform = std::option::Option::Some(
             crate::model::message_transform::Transform::JavascriptUdf(v.into()),
+        );
+        self
+    }
+
+    /// The value of [transform][crate::model::MessageTransform::transform]
+    /// if it holds a `AiInference`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn ai_inference(&self) -> std::option::Option<&std::boxed::Box<crate::model::AIInference>> {
+        #[allow(unreachable_patterns)]
+        self.transform.as_ref().and_then(|v| match v {
+            crate::model::message_transform::Transform::AiInference(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [transform][crate::model::MessageTransform::transform]
+    /// to hold a `AiInference`.
+    ///
+    /// Note that all the setters affecting `transform` are
+    /// mutually exclusive.
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_pubsub::model::MessageTransform;
+    /// use google_cloud_pubsub::model::AIInference;
+    /// let x = MessageTransform::new().set_ai_inference(AIInference::default()/* use setters */);
+    /// assert!(x.ai_inference().is_some());
+    /// assert!(x.javascript_udf().is_none());
+    /// ```
+    pub fn set_ai_inference<T: std::convert::Into<std::boxed::Box<crate::model::AIInference>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.transform = std::option::Option::Some(
+            crate::model::message_transform::Transform::AiInference(v.into()),
         );
         self
     }
@@ -2754,6 +2989,10 @@ pub mod message_transform {
         /// Optional. JavaScript User Defined Function. If multiple JavaScriptUDF's
         /// are specified on a resource, each must have a unique `function_name`.
         JavascriptUdf(std::boxed::Box<crate::model::JavaScriptUDF>),
+        /// Optional. AI Inference. Specifies the Vertex AI endpoint that inference
+        /// requests built from the Pub/Sub message data and provided parameters will
+        /// be sent to.
+        AiInference(std::boxed::Box<crate::model::AIInference>),
     }
 }
 
@@ -3231,7 +3470,7 @@ pub mod topic {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetTopicRequest {
-    /// Required. Identifier. The name of the topic to get.
+    /// Required. The name of the topic to get.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
@@ -3361,7 +3600,7 @@ impl wkt::message::Message for UpdateTopicRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListTopicsRequest {
-    /// Required. Identifier. The name of the project in which to list topics.
+    /// Required. The name of the project in which to list topics.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
 
@@ -3749,7 +3988,7 @@ impl wkt::message::Message for ListTopicSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteTopicRequest {
-    /// Required. Identifier. Name of the topic to delete.
+    /// Required. Name of the topic to delete.
     /// Format is `projects/{project}/topics/{topic}`.
     pub topic: std::string::String,
 
@@ -3982,7 +4221,7 @@ pub struct Subscription {
     pub state: crate::model::subscription::State,
 
     /// Output only. Information about the associated Analytics Hub subscription.
-    /// Only set if the subscritpion is created by Analytics Hub.
+    /// Only set if the subscription is created by Analytics Hub.
     pub analytics_hub_subscription_info:
         std::option::Option<crate::model::subscription::AnalyticsHubSubscriptionInfo>,
 
@@ -5529,6 +5768,10 @@ pub mod big_query_config {
         /// Cannot write to the destination because enforce_in_transit is set to true
         /// and the destination locations are not in the allowed regions.
         InTransitLocationRestriction,
+        /// Cannot write to the BigQuery table because the table is not in the same
+        /// location as where Vertex AI models used in `message_transform`s are
+        /// deployed.
+        VertexAiLocationRestriction,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -5557,6 +5800,7 @@ pub mod big_query_config {
                 Self::NotFound => std::option::Option::Some(3),
                 Self::SchemaMismatch => std::option::Option::Some(4),
                 Self::InTransitLocationRestriction => std::option::Option::Some(5),
+                Self::VertexAiLocationRestriction => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -5574,6 +5818,9 @@ pub mod big_query_config {
                 Self::SchemaMismatch => std::option::Option::Some("SCHEMA_MISMATCH"),
                 Self::InTransitLocationRestriction => {
                     std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION")
+                }
+                Self::VertexAiLocationRestriction => {
+                    std::option::Option::Some("VERTEX_AI_LOCATION_RESTRICTION")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -5602,6 +5849,7 @@ pub mod big_query_config {
                 3 => Self::NotFound,
                 4 => Self::SchemaMismatch,
                 5 => Self::InTransitLocationRestriction,
+                6 => Self::VertexAiLocationRestriction,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -5619,6 +5867,7 @@ pub mod big_query_config {
                 "NOT_FOUND" => Self::NotFound,
                 "SCHEMA_MISMATCH" => Self::SchemaMismatch,
                 "IN_TRANSIT_LOCATION_RESTRICTION" => Self::InTransitLocationRestriction,
+                "VERTEX_AI_LOCATION_RESTRICTION" => Self::VertexAiLocationRestriction,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -5638,6 +5887,7 @@ pub mod big_query_config {
                 Self::NotFound => serializer.serialize_i32(3),
                 Self::SchemaMismatch => serializer.serialize_i32(4),
                 Self::InTransitLocationRestriction => serializer.serialize_i32(5),
+                Self::VertexAiLocationRestriction => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -6083,6 +6333,10 @@ pub mod cloud_storage_config {
         /// Cannot write to the Cloud Storage bucket due to an incompatibility
         /// between the topic schema and subscription settings.
         SchemaMismatch,
+        /// Cannot write to the Cloud Storage bucket because the bucket is not in the
+        /// same location as where Vertex AI models used in `message_transform`s are
+        /// deployed.
+        VertexAiLocationRestriction,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [State::value] or
@@ -6111,6 +6365,7 @@ pub mod cloud_storage_config {
                 Self::NotFound => std::option::Option::Some(3),
                 Self::InTransitLocationRestriction => std::option::Option::Some(4),
                 Self::SchemaMismatch => std::option::Option::Some(5),
+                Self::VertexAiLocationRestriction => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -6129,6 +6384,9 @@ pub mod cloud_storage_config {
                     std::option::Option::Some("IN_TRANSIT_LOCATION_RESTRICTION")
                 }
                 Self::SchemaMismatch => std::option::Option::Some("SCHEMA_MISMATCH"),
+                Self::VertexAiLocationRestriction => {
+                    std::option::Option::Some("VERTEX_AI_LOCATION_RESTRICTION")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -6156,6 +6414,7 @@ pub mod cloud_storage_config {
                 3 => Self::NotFound,
                 4 => Self::InTransitLocationRestriction,
                 5 => Self::SchemaMismatch,
+                6 => Self::VertexAiLocationRestriction,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6173,6 +6432,7 @@ pub mod cloud_storage_config {
                 "NOT_FOUND" => Self::NotFound,
                 "IN_TRANSIT_LOCATION_RESTRICTION" => Self::InTransitLocationRestriction,
                 "SCHEMA_MISMATCH" => Self::SchemaMismatch,
+                "VERTEX_AI_LOCATION_RESTRICTION" => Self::VertexAiLocationRestriction,
                 _ => Self::UnknownValue(state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -6192,6 +6452,7 @@ pub mod cloud_storage_config {
                 Self::NotFound => serializer.serialize_i32(3),
                 Self::InTransitLocationRestriction => serializer.serialize_i32(4),
                 Self::SchemaMismatch => serializer.serialize_i32(5),
+                Self::VertexAiLocationRestriction => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -6225,7 +6486,7 @@ pub mod cloud_storage_config {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSubscriptionRequest {
-    /// Required. Identifier. The name of the subscription to get.
+    /// Required. The name of the subscription to get.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
 
@@ -6352,8 +6613,8 @@ impl wkt::message::Message for UpdateSubscriptionRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSubscriptionsRequest {
-    /// Required. Identifier. The name of the project in which to list
-    /// subscriptions. Format is `projects/{project-id}`.
+    /// Required. The name of the project in which to list subscriptions.
+    /// Format is `projects/{project-id}`.
     pub project: std::string::String,
 
     /// Optional. Maximum number of subscriptions to return.
@@ -6494,7 +6755,7 @@ impl gax::paginator::internal::PageableResponse for ListSubscriptionsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSubscriptionRequest {
-    /// Required. Identifier. The subscription to delete.
+    /// Required. The subscription to delete.
     /// Format is `projects/{project}/subscriptions/{sub}`.
     pub subscription: std::string::String,
 
@@ -6605,10 +6866,10 @@ impl wkt::message::Message for ModifyPushConfigRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSnapshotRequest {
-    /// Required. Identifier. User-provided name for this snapshot. If the name is
-    /// not provided in the request, the server will assign a random name for this
-    /// snapshot on the same project as the subscription. Note that for REST API
-    /// requests, you must specify a name.  See the [resource name
+    /// Required. User-provided name for this snapshot. If the name is not provided
+    /// in the request, the server will assign a random name for this snapshot on
+    /// the same project as the subscription. Note that for REST API requests, you
+    /// must specify a name.  See the [resource name
     /// rules](https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names).
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub name: std::string::String,
@@ -6937,7 +7198,7 @@ impl wkt::message::Message for Snapshot {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GetSnapshotRequest {
-    /// Required. Identifier. The name of the snapshot to get.
+    /// Required. The name of the snapshot to get.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
 
@@ -6972,7 +7233,7 @@ impl wkt::message::Message for GetSnapshotRequest {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ListSnapshotsRequest {
-    /// Required. Identifier. The name of the project in which to list snapshots.
+    /// Required. The name of the project in which to list snapshots.
     /// Format is `projects/{project-id}`.
     pub project: std::string::String,
 
@@ -7114,7 +7375,7 @@ impl gax::paginator::internal::PageableResponse for ListSnapshotsResponse {
 #[derive(Clone, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DeleteSnapshotRequest {
-    /// Required. Identifier. The name of the snapshot to delete.
+    /// Required. The name of the snapshot to delete.
     /// Format is `projects/{project}/snapshots/{snap}`.
     pub snapshot: std::string::String,
 

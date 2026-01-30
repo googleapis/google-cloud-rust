@@ -492,6 +492,28 @@ impl serde::ser::Serialize for super::SpeakerDiarizationConfig {
 }
 
 #[doc(hidden)]
+impl serde::ser::Serialize for super::CustomPromptConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.custom_prompt.is_empty() {
+            state.serialize_entry("customPrompt", &self.custom_prompt)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[doc(hidden)]
 impl serde::ser::Serialize for super::RecognitionFeatures {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -539,6 +561,9 @@ impl serde::ser::Serialize for super::RecognitionFeatures {
                 }
             }
             state.serialize_entry("maxAlternatives", &__With(&self.max_alternatives))?;
+        }
+        if self.custom_prompt_config.is_some() {
+            state.serialize_entry("customPromptConfig", &self.custom_prompt_config)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -809,6 +834,9 @@ impl serde::ser::Serialize for super::RecognitionResponseMetadata {
         }
         if self.total_billed_duration.is_some() {
             state.serialize_entry("totalBilledDuration", &self.total_billed_duration)?;
+        }
+        if self.prompt.is_some() {
+            state.serialize_entry("prompt", &self.prompt)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {

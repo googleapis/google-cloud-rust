@@ -1075,6 +1075,170 @@ impl Environments {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_dialogflow_cx_v3::client::Examples;
+/// let client = Examples::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing [Examples][google.cloud.dialogflow.cx.v3.Example].
+///
+/// [google.cloud.dialogflow.cx.v3.Example]: crate::model::Example
+///
+/// # Configuration
+///
+/// To configure `Examples` use the `with_*` methods in the type returned
+/// by [builder()][Examples::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::examples::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::examples::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Examples` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Examples` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "examples")]
+#[cfg_attr(docsrs, doc(cfg(feature = "examples")))]
+#[derive(Clone, Debug)]
+pub struct Examples {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Examples>,
+}
+
+#[cfg(feature = "examples")]
+impl Examples {
+    /// Returns a builder for [Examples].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_dialogflow_cx_v3::client::Examples;
+    /// let client = Examples::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::examples::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::examples::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Examples + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Examples>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Examples> {
+        super::transport::Examples::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Examples> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Examples::new)
+    }
+
+    /// Creates an example in the specified playbook.
+    pub fn create_example(&self) -> super::builder::examples::CreateExample {
+        super::builder::examples::CreateExample::new(self.inner.clone())
+    }
+
+    /// Deletes the specified example.
+    pub fn delete_example(&self) -> super::builder::examples::DeleteExample {
+        super::builder::examples::DeleteExample::new(self.inner.clone())
+    }
+
+    /// Returns a list of examples in the specified playbook.
+    pub fn list_examples(&self) -> super::builder::examples::ListExamples {
+        super::builder::examples::ListExamples::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified example.
+    pub fn get_example(&self) -> super::builder::examples::GetExample {
+        super::builder::examples::GetExample::new(self.inner.clone())
+    }
+
+    /// Update the specified example.
+    pub fn update_example(&self) -> super::builder::examples::UpdateExample {
+        super::builder::examples::UpdateExample::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::examples::ListLocations {
+        super::builder::examples::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::examples::GetLocation {
+        super::builder::examples::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::examples::ListOperations {
+        super::builder::examples::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::examples::GetOperation {
+        super::builder::examples::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::examples::CancelOperation {
+        super::builder::examples::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::Experiments;
 /// let client = Experiments::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2115,6 +2279,229 @@ impl Pages {
 /// # Example
 /// ```
 /// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
+/// let client = Playbooks::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing [Playbooks][google.cloud.dialogflow.cx.v3.Playbook].
+///
+/// [google.cloud.dialogflow.cx.v3.Playbook]: crate::model::Playbook
+///
+/// # Configuration
+///
+/// To configure `Playbooks` use the `with_*` methods in the type returned
+/// by [builder()][Playbooks::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::playbooks::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::playbooks::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Playbooks` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Playbooks` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "playbooks")]
+#[cfg_attr(docsrs, doc(cfg(feature = "playbooks")))]
+#[derive(Clone, Debug)]
+pub struct Playbooks {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Playbooks>,
+}
+
+#[cfg(feature = "playbooks")]
+impl Playbooks {
+    /// Returns a builder for [Playbooks].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_dialogflow_cx_v3::client::Playbooks;
+    /// let client = Playbooks::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::playbooks::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::playbooks::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Playbooks + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Playbooks>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Playbooks> {
+        super::transport::Playbooks::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Playbooks> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Playbooks::new)
+    }
+
+    /// Creates a playbook in a specified agent.
+    pub fn create_playbook(&self) -> super::builder::playbooks::CreatePlaybook {
+        super::builder::playbooks::CreatePlaybook::new(self.inner.clone())
+    }
+
+    /// Deletes a specified playbook.
+    pub fn delete_playbook(&self) -> super::builder::playbooks::DeletePlaybook {
+        super::builder::playbooks::DeletePlaybook::new(self.inner.clone())
+    }
+
+    /// Returns a list of playbooks in the specified agent.
+    pub fn list_playbooks(&self) -> super::builder::playbooks::ListPlaybooks {
+        super::builder::playbooks::ListPlaybooks::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified Playbook.
+    pub fn get_playbook(&self) -> super::builder::playbooks::GetPlaybook {
+        super::builder::playbooks::GetPlaybook::new(self.inner.clone())
+    }
+
+    /// Exports the specified playbook to a binary file.
+    ///
+    /// Note that resources (e.g. examples, tools) that the playbook
+    /// references will also be exported.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn export_playbook(&self) -> super::builder::playbooks::ExportPlaybook {
+        super::builder::playbooks::ExportPlaybook::new(self.inner.clone())
+    }
+
+    /// Imports the specified playbook to the specified agent from a binary file.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn import_playbook(&self) -> super::builder::playbooks::ImportPlaybook {
+        super::builder::playbooks::ImportPlaybook::new(self.inner.clone())
+    }
+
+    /// Updates the specified Playbook.
+    pub fn update_playbook(&self) -> super::builder::playbooks::UpdatePlaybook {
+        super::builder::playbooks::UpdatePlaybook::new(self.inner.clone())
+    }
+
+    /// Creates a version for the specified Playbook.
+    pub fn create_playbook_version(&self) -> super::builder::playbooks::CreatePlaybookVersion {
+        super::builder::playbooks::CreatePlaybookVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified version of the Playbook.
+    pub fn get_playbook_version(&self) -> super::builder::playbooks::GetPlaybookVersion {
+        super::builder::playbooks::GetPlaybookVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified version of the Playbook and stores it as the
+    /// current playbook draft, returning the playbook with resources updated.
+    pub fn restore_playbook_version(&self) -> super::builder::playbooks::RestorePlaybookVersion {
+        super::builder::playbooks::RestorePlaybookVersion::new(self.inner.clone())
+    }
+
+    /// Lists versions for the specified Playbook.
+    pub fn list_playbook_versions(&self) -> super::builder::playbooks::ListPlaybookVersions {
+        super::builder::playbooks::ListPlaybookVersions::new(self.inner.clone())
+    }
+
+    /// Deletes the specified version of the Playbook.
+    pub fn delete_playbook_version(&self) -> super::builder::playbooks::DeletePlaybookVersion {
+        super::builder::playbooks::DeletePlaybookVersion::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::playbooks::ListLocations {
+        super::builder::playbooks::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::playbooks::GetLocation {
+        super::builder::playbooks::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::playbooks::ListOperations {
+        super::builder::playbooks::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::playbooks::GetOperation {
+        super::builder::playbooks::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::playbooks::CancelOperation {
+        super::builder::playbooks::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
 /// # use google_cloud_dialogflow_cx_v3::client::SecuritySettingsService;
 /// let client = SecuritySettingsService::builder().build().await?;
 /// // use `client` to make requests to the Dialogflow API.
@@ -2944,6 +3331,219 @@ impl TestCases {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::test_cases::CancelOperation {
         super::builder::test_cases::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Dialogflow API.
+///
+/// # Example
+/// ```
+/// # async fn sample() -> gax::client_builder::Result<()> {
+/// # use google_cloud_dialogflow_cx_v3::client::Tools;
+/// let client = Tools::builder().build().await?;
+/// // use `client` to make requests to the Dialogflow API.
+/// # Ok(()) }
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing [Tools][google.cloud.dialogflow.cx.v3.Tool].
+///
+/// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+///
+/// # Configuration
+///
+/// To configure `Tools` use the `with_*` methods in the type returned
+/// by [builder()][Tools::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://dialogflow.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::tools::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::tools::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `Tools` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `Tools` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[cfg(feature = "tools")]
+#[cfg_attr(docsrs, doc(cfg(feature = "tools")))]
+#[derive(Clone, Debug)]
+pub struct Tools {
+    inner: std::sync::Arc<dyn super::stub::dynamic::Tools>,
+}
+
+#[cfg(feature = "tools")]
+impl Tools {
+    /// Returns a builder for [Tools].
+    ///
+    /// ```
+    /// # async fn sample() -> gax::client_builder::Result<()> {
+    /// # use google_cloud_dialogflow_cx_v3::client::Tools;
+    /// let client = Tools::builder().build().await?;
+    /// # Ok(()) }
+    /// ```
+    pub fn builder() -> super::builder::tools::ClientBuilder {
+        gax::client_builder::internal::new_builder(super::builder::tools::client::Factory)
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::Tools + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::Tools>> {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Tools> {
+        super::transport::Tools::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::Tools> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::Tools::new)
+    }
+
+    /// Creates a [Tool][google.cloud.dialogflow.cx.v3.Tool] in the specified
+    /// agent.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn create_tool(&self) -> super::builder::tools::CreateTool {
+        super::builder::tools::CreateTool::new(self.inner.clone())
+    }
+
+    /// Returns a list of [Tools][google.cloud.dialogflow.cx.v3.Tool] in the
+    /// specified agent.
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn list_tools(&self) -> super::builder::tools::ListTools {
+        super::builder::tools::ListTools::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn get_tool(&self) -> super::builder::tools::GetTool {
+        super::builder::tools::GetTool::new(self.inner.clone())
+    }
+
+    /// Update the specified [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn update_tool(&self) -> super::builder::tools::UpdateTool {
+        super::builder::tools::UpdateTool::new(self.inner.clone())
+    }
+
+    /// Deletes a specified [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn delete_tool(&self) -> super::builder::tools::DeleteTool {
+        super::builder::tools::DeleteTool::new(self.inner.clone())
+    }
+
+    /// List versions of the specified [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn list_tool_versions(&self) -> super::builder::tools::ListToolVersions {
+        super::builder::tools::ListToolVersions::new(self.inner.clone())
+    }
+
+    /// Creates a version for the specified
+    /// [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn create_tool_version(&self) -> super::builder::tools::CreateToolVersion {
+        super::builder::tools::CreateToolVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified version of the
+    /// [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn get_tool_version(&self) -> super::builder::tools::GetToolVersion {
+        super::builder::tools::GetToolVersion::new(self.inner.clone())
+    }
+
+    /// Deletes the specified version of the
+    /// [Tool][google.cloud.dialogflow.cx.v3.Tool].
+    ///
+    /// [google.cloud.dialogflow.cx.v3.Tool]: crate::model::Tool
+    pub fn delete_tool_version(&self) -> super::builder::tools::DeleteToolVersion {
+        super::builder::tools::DeleteToolVersion::new(self.inner.clone())
+    }
+
+    /// Retrieves the specified version of the Tool and stores it as the
+    /// current tool draft, returning the tool with resources updated.
+    pub fn restore_tool_version(&self) -> super::builder::tools::RestoreToolVersion {
+        super::builder::tools::RestoreToolVersion::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::tools::ListLocations {
+        super::builder::tools::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::tools::GetLocation {
+        super::builder::tools::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::tools::ListOperations {
+        super::builder::tools::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::tools::GetOperation {
+        super::builder::tools::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::tools::CancelOperation {
+        super::builder::tools::CancelOperation::new(self.inner.clone())
     }
 }
 

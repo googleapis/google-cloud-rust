@@ -943,6 +943,8 @@ pub mod deployment {
         /// Cloud Storage bucket creation failed due to an issue unrelated to
         /// permissions.
         BucketCreationFailed,
+        /// Failed to import values from an external source.
+        ExternalValueSourceImportFailed,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ErrorCode::value] or
@@ -972,6 +974,7 @@ pub mod deployment {
                 Self::DeleteBuildRunFailed => std::option::Option::Some(6),
                 Self::BucketCreationPermissionDenied => std::option::Option::Some(7),
                 Self::BucketCreationFailed => std::option::Option::Some(8),
+                Self::ExternalValueSourceImportFailed => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -993,6 +996,9 @@ pub mod deployment {
                     std::option::Option::Some("BUCKET_CREATION_PERMISSION_DENIED")
                 }
                 Self::BucketCreationFailed => std::option::Option::Some("BUCKET_CREATION_FAILED"),
+                Self::ExternalValueSourceImportFailed => {
+                    std::option::Option::Some("EXTERNAL_VALUE_SOURCE_IMPORT_FAILED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -1021,6 +1027,7 @@ pub mod deployment {
                 6 => Self::DeleteBuildRunFailed,
                 7 => Self::BucketCreationPermissionDenied,
                 8 => Self::BucketCreationFailed,
+                10 => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -1039,6 +1046,7 @@ pub mod deployment {
                 "DELETE_BUILD_RUN_FAILED" => Self::DeleteBuildRunFailed,
                 "BUCKET_CREATION_PERMISSION_DENIED" => Self::BucketCreationPermissionDenied,
                 "BUCKET_CREATION_FAILED" => Self::BucketCreationFailed,
+                "EXTERNAL_VALUE_SOURCE_IMPORT_FAILED" => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -1059,6 +1067,7 @@ pub mod deployment {
                 Self::DeleteBuildRunFailed => serializer.serialize_i32(6),
                 Self::BucketCreationPermissionDenied => serializer.serialize_i32(7),
                 Self::BucketCreationFailed => serializer.serialize_i32(8),
+                Self::ExternalValueSourceImportFailed => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -3732,6 +3741,8 @@ pub mod revision {
         /// quota validation failed for one or more resources in terraform
         /// configuration files.
         QuotaValidationFailed,
+        /// Failed to import values from an external source.
+        ExternalValueSourceImportFailed,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ErrorCode::value] or
@@ -3759,6 +3770,7 @@ pub mod revision {
                 Self::ApplyBuildApiFailed => std::option::Option::Some(4),
                 Self::ApplyBuildRunFailed => std::option::Option::Some(5),
                 Self::QuotaValidationFailed => std::option::Option::Some(7),
+                Self::ExternalValueSourceImportFailed => std::option::Option::Some(8),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -3776,6 +3788,9 @@ pub mod revision {
                 Self::ApplyBuildApiFailed => std::option::Option::Some("APPLY_BUILD_API_FAILED"),
                 Self::ApplyBuildRunFailed => std::option::Option::Some("APPLY_BUILD_RUN_FAILED"),
                 Self::QuotaValidationFailed => std::option::Option::Some("QUOTA_VALIDATION_FAILED"),
+                Self::ExternalValueSourceImportFailed => {
+                    std::option::Option::Some("EXTERNAL_VALUE_SOURCE_IMPORT_FAILED")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -3802,6 +3817,7 @@ pub mod revision {
                 4 => Self::ApplyBuildApiFailed,
                 5 => Self::ApplyBuildRunFailed,
                 7 => Self::QuotaValidationFailed,
+                8 => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -3818,6 +3834,7 @@ pub mod revision {
                 "APPLY_BUILD_API_FAILED" => Self::ApplyBuildApiFailed,
                 "APPLY_BUILD_RUN_FAILED" => Self::ApplyBuildRunFailed,
                 "QUOTA_VALIDATION_FAILED" => Self::QuotaValidationFailed,
+                "EXTERNAL_VALUE_SOURCE_IMPORT_FAILED" => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -3836,6 +3853,7 @@ pub mod revision {
                 Self::ApplyBuildApiFailed => serializer.serialize_i32(4),
                 Self::ApplyBuildRunFailed => serializer.serialize_i32(5),
                 Self::QuotaValidationFailed => serializer.serialize_i32(7),
+                Self::ExternalValueSourceImportFailed => serializer.serialize_i32(8),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -6638,6 +6656,8 @@ pub mod preview {
         PreviewBuildApiFailed,
         /// Preview created a build but build failed and logs were generated.
         PreviewBuildRunFailed,
+        /// Failed to import values from an external source.
+        ExternalValueSourceImportFailed,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [ErrorCode::value] or
@@ -6667,6 +6687,7 @@ pub mod preview {
                 Self::DeploymentLockAcquireFailed => std::option::Option::Some(4),
                 Self::PreviewBuildApiFailed => std::option::Option::Some(5),
                 Self::PreviewBuildRunFailed => std::option::Option::Some(6),
+                Self::ExternalValueSourceImportFailed => std::option::Option::Some(7),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -6693,6 +6714,9 @@ pub mod preview {
                 }
                 Self::PreviewBuildRunFailed => {
                     std::option::Option::Some("PREVIEW_BUILD_RUN_FAILED")
+                }
+                Self::ExternalValueSourceImportFailed => {
+                    std::option::Option::Some("EXTERNAL_VALUE_SOURCE_IMPORT_FAILED")
                 }
                 Self::UnknownValue(u) => u.0.name(),
             }
@@ -6722,6 +6746,7 @@ pub mod preview {
                 4 => Self::DeploymentLockAcquireFailed,
                 5 => Self::PreviewBuildApiFailed,
                 6 => Self::PreviewBuildRunFailed,
+                7 => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -6740,6 +6765,7 @@ pub mod preview {
                 "DEPLOYMENT_LOCK_ACQUIRE_FAILED" => Self::DeploymentLockAcquireFailed,
                 "PREVIEW_BUILD_API_FAILED" => Self::PreviewBuildApiFailed,
                 "PREVIEW_BUILD_RUN_FAILED" => Self::PreviewBuildRunFailed,
+                "EXTERNAL_VALUE_SOURCE_IMPORT_FAILED" => Self::ExternalValueSourceImportFailed,
                 _ => Self::UnknownValue(error_code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -6760,6 +6786,7 @@ pub mod preview {
                 Self::DeploymentLockAcquireFailed => serializer.serialize_i32(4),
                 Self::PreviewBuildApiFailed => serializer.serialize_i32(5),
                 Self::PreviewBuildRunFailed => serializer.serialize_i32(6),
+                Self::ExternalValueSourceImportFailed => serializer.serialize_i32(7),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -9783,6 +9810,223 @@ pub mod provider_config {
                 ".google.cloud.config.v1.ProviderConfig.ProviderSource",
             ))
         }
+    }
+}
+
+/// The request message for the GetAutoMigrationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAutoMigrationConfigRequest {
+    /// Required. The name of the AutoMigrationConfig.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/AutoMigrationConfig'.
+    pub name: std::string::String,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAutoMigrationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAutoMigrationConfigRequest::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::GetAutoMigrationConfigRequest;
+    /// let x = GetAutoMigrationConfigRequest::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAutoMigrationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.GetAutoMigrationConfigRequest"
+    }
+}
+
+/// AutoMigrationConfig contains the automigration configuration for a project.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AutoMigrationConfig {
+    /// Identifier. The name of the AutoMigrationConfig.
+    /// Format:
+    /// 'projects/{project_id}/locations/{location}/AutoMigrationConfig'.
+    pub name: std::string::String,
+
+    /// Output only. Time the AutoMigrationConfig was last updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Whether the auto migration is enabled for the project.
+    pub auto_migration_enabled: bool,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoMigrationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AutoMigrationConfig::name].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// let x = AutoMigrationConfig::new().set_name("example");
+    /// ```
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AutoMigrationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// use wkt::Timestamp;
+    /// let x = AutoMigrationConfig::new().set_update_time(Timestamp::default()/* use setters */);
+    /// ```
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AutoMigrationConfig::update_time].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// use wkt::Timestamp;
+    /// let x = AutoMigrationConfig::new().set_or_clear_update_time(Some(Timestamp::default()/* use setters */));
+    /// let x = AutoMigrationConfig::new().set_or_clear_update_time(None::<Timestamp>);
+    /// ```
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_migration_enabled][crate::model::AutoMigrationConfig::auto_migration_enabled].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// let x = AutoMigrationConfig::new().set_auto_migration_enabled(true);
+    /// ```
+    pub fn set_auto_migration_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.auto_migration_enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AutoMigrationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.AutoMigrationConfig"
+    }
+}
+
+/// The request message for the UpdateAutoMigrationConfig method.
+#[derive(Clone, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAutoMigrationConfigRequest {
+    /// Optional. The update mask applies to the resource. See
+    /// [google.protobuf.FieldMask][google.protobuf.FieldMask].
+    ///
+    /// [google.protobuf.FieldMask]: wkt::FieldMask
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. The AutoMigrationConfig to update.
+    pub auto_migration_config: std::option::Option<crate::model::AutoMigrationConfig>,
+
+    pub(crate) _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAutoMigrationConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAutoMigrationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateAutoMigrationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_update_mask(FieldMask::default()/* use setters */);
+    /// ```
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAutoMigrationConfigRequest::update_mask].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateAutoMigrationConfigRequest;
+    /// use wkt::FieldMask;
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_or_clear_update_mask(Some(FieldMask::default()/* use setters */));
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_or_clear_update_mask(None::<FieldMask>);
+    /// ```
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_migration_config][crate::model::UpdateAutoMigrationConfigRequest::auto_migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateAutoMigrationConfigRequest;
+    /// use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_auto_migration_config(AutoMigrationConfig::default()/* use setters */);
+    /// ```
+    pub fn set_auto_migration_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoMigrationConfig>,
+    {
+        self.auto_migration_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_migration_config][crate::model::UpdateAutoMigrationConfigRequest::auto_migration_config].
+    ///
+    /// # Example
+    /// ```ignore,no_run
+    /// # use google_cloud_config_v1::model::UpdateAutoMigrationConfigRequest;
+    /// use google_cloud_config_v1::model::AutoMigrationConfig;
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_or_clear_auto_migration_config(Some(AutoMigrationConfig::default()/* use setters */));
+    /// let x = UpdateAutoMigrationConfigRequest::new().set_or_clear_auto_migration_config(None::<AutoMigrationConfig>);
+    /// ```
+    pub fn set_or_clear_auto_migration_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoMigrationConfig>,
+    {
+        self.auto_migration_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAutoMigrationConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.config.v1.UpdateAutoMigrationConfigRequest"
     }
 }
 

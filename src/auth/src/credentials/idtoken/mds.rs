@@ -66,11 +66,8 @@
 
 use crate::Result;
 use crate::credentials::CacheableResource;
-use crate::credentials::mds::{
-    GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI, METADATA_FLAVOR, METADATA_FLAVOR_VALUE,
-    METADATA_ROOT,
-};
 use crate::errors::CredentialsError;
+use crate::mds::client::Client as MDSClient;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{
@@ -79,8 +76,7 @@ use crate::{
     credentials::idtoken::{IDTokenCredentials, parse_id_token_from_str},
 };
 use async_trait::async_trait;
-use http::{Extensions, HeaderValue};
-use reqwest::Client;
+use http::Extensions;
 use std::sync::Arc;
 
 #[derive(Debug)]
@@ -223,24 +219,12 @@ impl Builder {
     }
 
     fn build_token_provider(self) -> MDSTokenProvider {
-        let final_endpoint: String;
-
-        // Determine the endpoint and whether it was overridden
-        if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
-            // Check GCE_METADATA_HOST environment variable first
-            final_endpoint = format!("http://{host_from_env}");
-        } else if let Some(builder_endpoint) = self.endpoint {
-            // Else, check if an endpoint was provided to the mds::Builder
-            final_endpoint = builder_endpoint;
-        } else {
-            // Else, use the default metadata root
-            final_endpoint = METADATA_ROOT.to_string();
-        };
+        let client = MDSClient::new(self.endpoint);
 
         MDSTokenProvider {
             format: self.format,
             licenses: self.licenses,
-            endpoint: final_endpoint,
+            client,
             target_audience: self.target_audience,
         }
     }
@@ -257,9 +241,9 @@ impl Builder {
     }
 }
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone)]
 struct MDSTokenProvider {
-    endpoint: String,
+    client: MDSClient,
     format: Option<Format>,
     licenses: Option<String>,
     target_audience: String,
@@ -268,37 +252,11 @@ struct MDSTokenProvider {
 #[async_trait]
 impl TokenProvider for MDSTokenProvider {
     async fn token(&self) -> Result<Token> {
-        let client = Client::new();
-        let audience = self.target_audience.clone();
-        let request = client
-            .get(format!("{}{}/identity", self.endpoint, MDS_DEFAULT_URI))
-            .header(
-                METADATA_FLAVOR,
-                HeaderValue::from_static(METADATA_FLAVOR_VALUE),
-            )
-            .query(&[("audience", audience)]);
+        let format = self.format.clone().map(|f| String::from(f.as_str()));
+        let licenses = self.licenses.clone();
+        let aud = self.target_audience.clone();
 
-        let request = self.format.iter().fold(request, |builder, format| {
-            builder.query(&[("format", format.as_str())])
-        });
-        let request = self.licenses.iter().fold(request, |builder, licenses| {
-            builder.query(&[("licenses", licenses)])
-        });
-
-        let response = request
-            .send()
-            .await
-            .map_err(|e| crate::errors::from_http_error(e, "failed to fetch token"))?;
-
-        if !response.status().is_success() {
-            let err = crate::errors::from_http_response(response, "failed to fetch token").await;
-            return Err(err);
-        }
-
-        let token = response
-            .text()
-            .await
-            .map_err(|e| CredentialsError::from_source(!e.is_decode(), e))?;
+        let token = self.client.id_token(&aud, format, licenses).await?;
 
         parse_id_token_from_str(token)
     }
@@ -309,6 +267,7 @@ mod tests {
     use super::*;
     use crate::credentials::idtoken::tests::generate_test_id_token;
     use crate::credentials::tests::find_source_error;
+    use crate::mds::{GCE_METADATA_HOST_ENV_VAR, MDS_DEFAULT_URI};
     use httptest::matchers::{all_of, contains, request, url_decoded};
     use httptest::responders::status_code;
     use httptest::{Expectation, Server};
@@ -365,14 +324,14 @@ mod tests {
         );
 
         let addr = server.addr().to_string();
-        let _e = ScopedEnv::set(super::GCE_METADATA_HOST_ENV_VAR, &addr);
+        let _e = ScopedEnv::set(GCE_METADATA_HOST_ENV_VAR, &addr);
 
         let creds = Builder::new(audience).build()?;
 
         let id_token = creds.id_token().await?;
         assert_eq!(id_token, token_string);
 
-        let _e = ScopedEnv::remove(super::GCE_METADATA_HOST_ENV_VAR);
+        let _e = ScopedEnv::remove(GCE_METADATA_HOST_ENV_VAR);
         Ok(())
     }
 

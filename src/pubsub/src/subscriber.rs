@@ -26,6 +26,7 @@ mod keepalive;
 mod lease_loop;
 mod lease_state;
 mod leaser;
+mod retry_policy;
 mod stream;
 mod stub;
 mod transport;

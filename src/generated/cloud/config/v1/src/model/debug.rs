@@ -879,3 +879,39 @@ impl std::fmt::Debug for super::ProviderConfig {
         debug_struct.finish()
     }
 }
+
+impl std::fmt::Debug for super::GetAutoMigrationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("GetAutoMigrationConfigRequest");
+        debug_struct.field("name", &self.name);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::AutoMigrationConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("AutoMigrationConfig");
+        debug_struct.field("name", &self.name);
+        debug_struct.field("update_time", &self.update_time);
+        debug_struct.field("auto_migration_enabled", &self.auto_migration_enabled);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
+
+impl std::fmt::Debug for super::UpdateAutoMigrationConfigRequest {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let mut debug_struct = f.debug_struct("UpdateAutoMigrationConfigRequest");
+        debug_struct.field("update_mask", &self.update_mask);
+        debug_struct.field("auto_migration_config", &self.auto_migration_config);
+        if !self._unknown_fields.is_empty() {
+            debug_struct.field("_unknown_fields", &self._unknown_fields);
+        }
+        debug_struct.finish()
+    }
+}
