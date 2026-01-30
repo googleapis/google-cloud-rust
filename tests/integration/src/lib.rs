@@ -17,7 +17,6 @@ use google_cloud_test_utils::resource_names::random_bucket_id;
 pub(crate) use google_cloud_test_utils::resource_names::random_workflow_id;
 
 pub type Result<T> = anyhow::Result<T>;
-pub mod aiplatform;
 pub mod bigquery;
 pub mod compute;
 pub mod error_details;
