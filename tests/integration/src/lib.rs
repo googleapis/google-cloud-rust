@@ -23,7 +23,6 @@ pub mod error_details;
 pub mod firestore;
 pub mod secret_manager;
 pub mod storage;
-pub mod workflows;
 
 pub const VM_ID_LENGTH: usize = 63;
 

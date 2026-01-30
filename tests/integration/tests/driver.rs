@@ -281,28 +281,4 @@ mod driver {
             .await
             .map_err(integration_tests::report_error)
     }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_until_done() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::until_done()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_explicit() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::explicit_loop()
-            .await
-            .map_err(integration_tests::report_error)
-    }
-
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn workflows_manual() -> integration_tests::Result<()> {
-        let _guard = enable_tracing();
-        integration_tests::workflows::until_done()
-            .await
-            .map_err(integration_tests::report_error)
-    }
 }
