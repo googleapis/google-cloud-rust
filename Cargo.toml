@@ -37,8 +37,17 @@ default-members = [
   "src/generated/cloud/speech/v2",
   "src/generated/cloud/workflows/v1",
   "src/generated/openapi-validation",
+  "tests/dns",
+  "tests/endurance",
+  "tests/enums-query-parameters",
   "tests/integration",
   "tests/integration-auth",
+  "tests/locational-endpoints",
+  "tests/lro",
+  "tests/o11y",
+  "tests/openapi",
+  "tests/pubsub",
+  "tests/showcase",
 ]
 
 members = [

@@ -42,7 +42,7 @@ steps:
     script: |
       #!/usr/bin/env bash
       set -e
-      cargo test --features run-integration-tests --workspace --tests
+      cargo test --features run-integration-tests --tests
   - id: Validate default crypto provider behavior
     name: 'rust:${_RUST_VERSION}-bookworm'
     # For these tests, we need to run them one package at a time. Otherwise all
