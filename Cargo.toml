@@ -390,9 +390,9 @@ reqwest = { default-features = false, version = "0.13.0" }
 tonic             = { default-features = false, version = "0.14.1", features = ["tls-native-roots"] }
 tonic-prost       = { default-features = false, version = "0.14.2" }
 tonic-prost-build = { default-features = false, version = "0.14.1" }
-# WARNING: Why this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
+# WARNING: When this changes to 0.6 we need to bump the google-cloud-gax-internal major version.
 tower = { default-features = false, version = "0.5.2", features = ["util"] }
-# WARNING: Why this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
+# WARNING: When this changes to 0.2 we need to bump the google-cloud-gax-internal major version.
 tracing = { default-features = false, version = "0.1.44", features = ["attributes"] }
 
 # Some of our direct dependencies fail to declare the minimum version
