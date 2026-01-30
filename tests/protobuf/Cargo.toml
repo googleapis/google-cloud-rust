@@ -33,7 +33,7 @@ crc32c.workspace              = true
 futures.workspace             = true
 google-cloud-gax              = { workspace = true, features = ["unstable-stream"] }
 google-cloud-iam-v1           = { workspace = true }
-google-cloud-secretmanager-v1 = { workspace = true }
+google-cloud-secretmanager-v1 = { workspace = true, features = ["default"] }
 google-cloud-test-utils       = { workspace = true }
 google-cloud-wkt.workspace    = true
 tokio.workspace               = true
