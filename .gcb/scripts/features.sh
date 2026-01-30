@@ -51,6 +51,8 @@ for sub in test doc; do
   cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-common
   cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client
   cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-grpc-client
+  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client,_internal-http-multipart
+  cargo "${sub}" --package google-cloud-gax-internal --no-default-features --features _internal-http-client,_internal-http-stream
   cargo "${sub}" --package google-cloud-gax-internal --all-features
 done
 cargo clippy --no-deps --package google-cloud-gax-internal --all-targets -- --deny warnings
