@@ -15,8 +15,8 @@ use super::constants::*;
 use super::options::BatchingOptions;
 use crate::client::Publisher;
 use crate::generated::gapic_dataplane::client::Publisher as GapicPublisher;
+use crate::publisher::actor::Dispatcher;
 use crate::publisher::base_publisher::{BasePublisher, BasePublisherBuilder};
-use crate::publisher::worker::Worker;
 use gax::{
     backoff_policy::BackoffPolicyArg, retry_policy::RetryPolicyArg,
     retry_throttler::RetryThrottlerArg,
@@ -387,12 +387,12 @@ impl PublisherPartialBuilder {
             .set_byte_threshold(self.batching_options.byte_threshold.clamp(0, MAX_BYTES));
 
         let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-        // Create the batching worker that will run in the background.
-        // We don't need to keep track of a handle to the worker.
+        // Create the Dispatcher that will run in the background.
+        // We don't need to keep track of a handle to the dispatcher.
         // Dropping the Publisher will drop the only sender to the channel.
-        // This will cause worker.run() to read None from the channel and close.
-        let worker = Worker::new(self.topic, self.inner, batching_options.clone(), rx);
-        tokio::spawn(worker.run());
+        // This will cause the dispatcher to gracefully exit.
+        let dispatcher = Dispatcher::new(self.topic, self.inner, batching_options.clone(), rx);
+        tokio::spawn(dispatcher.run());
 
         Publisher {
             batching_options,

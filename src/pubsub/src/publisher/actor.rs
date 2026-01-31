@@ -19,8 +19,8 @@ use std::collections::{HashMap, VecDeque};
 use tokio::sync::{mpsc, oneshot};
 use tokio::task::JoinSet;
 
-/// A command sent from the `Publisher` to the background `Worker`.
-pub(crate) enum ToWorker {
+/// A command sent from the `Publisher` to the background Dispatcher actor.
+pub(crate) enum ToDispatcher {
     /// A request to publish a single message.
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
@@ -29,8 +29,8 @@ pub(crate) enum ToWorker {
     ResumePublish(String),
 }
 
-/// A command sent from the `Worker` to the background `batch` worker.
-pub(crate) enum ToBatchWorker {
+/// A command sent from the Dispatcher to a batch actor.
+pub(crate) enum ToBatchActor {
     /// A request to publish a single message.
     Publish(BundledMessage),
     /// A request to flush all outstanding messages.
@@ -39,7 +39,7 @@ pub(crate) enum ToBatchWorker {
     ResumePublish(),
 }
 
-/// Object that is passed to the worker task over the
+/// Object that is passed to the actor tasks over the
 /// main channel. This represents a single message and the sender
 /// half of the channel to resolve the [PublishHandle].
 #[derive(Debug)]
@@ -48,23 +48,23 @@ pub(crate) struct BundledMessage {
     pub tx: oneshot::Sender<std::result::Result<String, crate::error::PublishError>>,
 }
 
-/// The worker is spawned in a background task and handles
-/// batching and publishing all messages that are sent to the publisher.
+/// This actor is spawned as background task and handles all Publisher operations
+/// by dispatching it to BatchActors.
 #[derive(Debug)]
-pub(crate) struct Worker {
+pub(crate) struct Dispatcher {
     topic_name: String,
     client: GapicPublisher,
     #[allow(dead_code)]
     batching_options: BatchingOptions,
-    rx: mpsc::UnboundedReceiver<ToWorker>,
+    rx: mpsc::UnboundedReceiver<ToDispatcher>,
 }
 
-impl Worker {
+impl Dispatcher {
     pub(crate) fn new(
         topic_name: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
-        rx: mpsc::UnboundedReceiver<ToWorker>,
+        rx: mpsc::UnboundedReceiver<ToDispatcher>,
     ) -> Self {
         Self {
             topic_name,
@@ -74,15 +74,17 @@ impl Worker {
         }
     }
 
-    /// The main loop of the background worker.
+    /// The main loop of the Dispatcher.
     ///
-    /// This method concurrently handles four main events:
+    /// This method concurrently handles main events:
     ///
-    /// 1. Publish command from the `Publisher` is demultiplexed to the batch worker
+    /// 1. Publish command from the `Publisher` is dispatched to the BatchActor
     ///    for its ordering key.
-    /// 2. A Flush command from the `Publisher` causes all batch workers to flush
+    /// 2. A Flush command from the `Publisher` causes all BatchActors to flush
     ///    all pending messages.
-    /// 2. A timer fire causes the Worker to flush all pending batches.
+    /// 3. A ResumePublish command from the `Publisher` is dispatched to the BatchActor
+    ///    for its ordering key.
+    /// 4. A timer fire causes the Dispatcher to flush all BatchActors.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when all
     /// `Publisher` clones have been dropped.
@@ -90,80 +92,80 @@ impl Worker {
         // A dictionary of ordering key to outstanding publish operations.
         // We batch publish operations on the same ordering key together.
         // Publish without ordering keys are treated as having the key "".
-        // TODO(#4012): Remove batch workers when there are no outstanding operations on the ordering key.
-        let mut batch_workers: HashMap<String, mpsc::UnboundedSender<ToBatchWorker>> =
-            HashMap::new();
+        // TODO(#4012): Remove batch actors when there are no outstanding operations on the ordering key.
+        let mut batch_actors: HashMap<String, mpsc::UnboundedSender<ToBatchActor>> = HashMap::new();
         let delay = self.batching_options.delay_threshold;
-        let batch_worker_error_msg = "Batch worker should not close the channel";
+        let batch_actor_error_msg = "Batch actor should not close the channel";
 
         let timer = tokio::time::sleep(delay);
         // Pin the timer to the stack.
         tokio::pin!(timer);
         loop {
             tokio::select! {
-                // Currently, the batch worker periodically flush on a shared timer. If needed,
-                // this can be moved into the batch worker such that each are running on a
+                // Currently, the Dispatcher periodically flush on a shared timer. If needed,
+                // this can be moved into the batch actors such that each are running on a
                 // separate timer.
                 _ = &mut timer => {
-                    for (_, batch_worker) in batch_workers.iter_mut() {
+                    for (_, batch_actor) in batch_actors.iter_mut() {
                         let (tx, _) = oneshot::channel();
-                        batch_worker
-                            .send(ToBatchWorker::Flush(tx))
-                            .expect(batch_worker_error_msg);
+                        batch_actor
+                            .send(ToBatchActor::Flush(tx))
+                            .expect(batch_actor_error_msg);
                     }
                     timer.as_mut().reset(tokio::time::Instant::now() + delay);
                 }
                 // Handle receiving a message from the channel.
                 msg = self.rx.recv() => {
                     match msg {
-                        Some(ToWorker::Publish(msg)) => {
+                        Some(ToDispatcher::Publish(msg)) => {
                             let ordering_key = msg.msg.ordering_key.clone();
-                            let batch_worker = batch_workers
+                            let batch_actor = batch_actors
                                 .entry(ordering_key.clone())
                                 .or_insert_with(|| {
                                     let (tx, rx) = tokio::sync::mpsc::unbounded_channel();
-                                    let batch_worker = BatchWorker::new(
+                                    let batch_actor = BatchActor::new(
                                         self.topic_name.clone(),
                                         ordering_key,
                                         self.client.clone(),
                                         self.batching_options.clone(),
                                         rx,
                                     );
-                                    tokio::spawn(batch_worker.run());
+                                    tokio::spawn(batch_actor.run());
                                     tx
                                 });
-                            batch_worker
-                                .send(ToBatchWorker::Publish(msg))
-                                .expect(batch_worker_error_msg);
+                            batch_actor
+                                .send(ToBatchActor::Publish(msg))
+                                .expect(batch_actor_error_msg);
                         },
-                        Some(ToWorker::Flush(tx)) => {
+                        Some(ToDispatcher::Flush(tx)) => {
                             let mut flush_set = JoinSet::new();
-                            for (_, batch_worker) in batch_workers.iter_mut() {
+                            for (_, batch_actor) in batch_actors.iter_mut() {
                                 let (tx, rx) = oneshot::channel();
-                                batch_worker
-                                    .send(ToBatchWorker::Flush(tx))
-                                    .expect(batch_worker_error_msg);
+                                batch_actor
+                                    .send(ToBatchActor::Flush(tx))
+                                    .expect(batch_actor_error_msg);
                                 flush_set.spawn(rx);
                             }
                             // Wait on all the tasks that exist right now.
                             // We could instead tokio::spawn this as well so the publisher
-                            // can keep working on additional messages. The worker would
+                            // can keep working on additional messages. The Dispatcher would
                             // also need to keep track of any pending flushes, and make sure
                             // all of those resolve as well.
                             flush_set.join_all().await;
                             let _ = tx.send(());
                         },
-                        Some(ToWorker::ResumePublish(ordering_key)) => {
-                            if let Some(batch_worker) = batch_workers.get_mut(&ordering_key) {
-                                // Send down the same tx for the BatchWorker to directly signal completion
+                        Some(ToDispatcher::ResumePublish(ordering_key)) => {
+                            if let Some(batch_actor) = batch_actors.get_mut(&ordering_key) {
+                                // Send down the same tx for the BatchActors to directly signal completion
                                 // instead of spawning a new task.
-                                batch_worker
-                                    .send(ToBatchWorker::ResumePublish())
-                                    .expect(batch_worker_error_msg);
+                                batch_actor
+                                    .send(ToBatchActor::ResumePublish())
+                                    .expect(batch_actor_error_msg);
                             }
                         }
                         None => {
-                            // By dropping the BatchWorker Senders, they will individually handle the
+                            // Gracefully shutdown since the Publisher has dropped the Sender.
+                            // By dropping the batch actor Senders, they will individually handle the
                             // shutdown procedures.
                             break;
                         }
@@ -175,28 +177,28 @@ impl Worker {
     }
 }
 
-/// A background worker that continuously handles Publisher commands for a specific ordering key.
+/// A actor that continuously handles Publisher commands for a specific ordering key.
 #[derive(Debug)]
-pub(crate) struct BatchWorker {
+pub(crate) struct BatchActor {
     topic: String,
     ordering_key: String,
     client: GapicPublisher,
     batching_options: BatchingOptions,
-    rx: mpsc::UnboundedReceiver<ToBatchWorker>,
+    rx: mpsc::UnboundedReceiver<ToBatchActor>,
     pending_batch: Batch,
     pending_msgs: VecDeque<BundledMessage>,
     paused: bool,
 }
 
-impl BatchWorker {
+impl BatchActor {
     pub(crate) fn new(
         topic: String,
         ordering_key: String,
         client: GapicPublisher,
         batching_options: BatchingOptions,
-        rx: mpsc::UnboundedReceiver<ToBatchWorker>,
+        rx: mpsc::UnboundedReceiver<ToBatchActor>,
     ) -> Self {
-        BatchWorker {
+        BatchActor {
             pending_batch: Batch::new(topic.len() as u32),
             topic,
             ordering_key,
@@ -258,20 +260,22 @@ impl BatchWorker {
         inflight.join_all().await;
     }
 
-    /// The main loop of the batch worker.
+    /// The main loop of the batch actor.
     ///
     /// This method concurrently handles the following events:
     ///
-    /// 1. A Publish command from the `Worker` causes the new message to be
+    /// 1. A Publish command from the Dispatcher causes the new message to be
     ///    added a pending message queue. If there is enough message to create
     ///    a full batch, then also flush the batch.
-    /// 2. A `Flush` command from the `Publisher` causes all the pending messages
+    /// 2. A `Flush` command from the Dispatcher causes all the pending messages
     ///    to be flushed respecting the configured batch size and message ordering.
+    /// 3. A ResumePublish command from the Dispatcher causes the actor to resume
+    ///    publishing.
     /// 4. A `inflight` batch completion causes the next batch to send if it satisfies
     ///    the configured batch threshold.
     ///
     /// The loop terminates when the `rx` channel is closed, which happens when the
-    /// `Worker` drops the Sender.
+    /// Dispatcher drops the Sender.
     pub(crate) async fn run(mut self) {
         if self.ordering_key.is_empty() {
             self.run_without_ordering_key().await;
@@ -290,20 +294,20 @@ impl BatchWorker {
                 }
                 msg = self.rx.recv() => {
                     match msg {
-                        Some(ToBatchWorker::Publish(msg)) => {
+                        Some(ToBatchActor::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
                             self.move_to_batch();
                             if self.at_batch_threshold() {
                                 self.pending_batch.flush(self.client.clone(), self.topic.clone(), &mut inflight);
                             }
                         },
-                        Some(ToBatchWorker::Flush(tx)) => {
+                        Some(ToBatchActor::Flush(tx)) => {
                             // Send all the batches concurrently.
                             self.flush_concurrent(inflight).await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
-                        Some(ToBatchWorker::ResumePublish()) => {
+                        Some(ToBatchActor::ResumePublish()) => {
                             // Nothing to resume as we do not pause without ordering key.
                         }
                         None => {
@@ -342,17 +346,17 @@ impl BatchWorker {
                 // ensures that there are no inflight batch.
                 let msg = self.rx.recv().await;
                 match msg {
-                    Some(ToBatchWorker::Publish(msg)) => {
+                    Some(ToBatchActor::Publish(msg)) => {
                         let _ = msg
                             .tx
                             .send(Err(crate::error::PublishError::OrderingKeyPaused(())));
                     }
-                    Some(ToBatchWorker::Flush(tx)) => {
+                    Some(ToBatchActor::Flush(tx)) => {
                         // There should be no pending messages and messages in the pending batch as
                         // it was already handled when this was paused.
                         let _ = tx.send(());
                     }
-                    Some(ToBatchWorker::ResumePublish()) => {
+                    Some(ToBatchActor::ResumePublish()) => {
                         self.paused = false;
                     }
                     None => {
@@ -373,7 +377,7 @@ impl BatchWorker {
                 }
                 msg = self.rx.recv() => {
                     match msg {
-                        Some(ToBatchWorker::Publish(msg)) => {
+                        Some(ToBatchActor::Publish(msg)) => {
                             self.pending_msgs.push_back(msg);
                             if inflight.is_empty() {
                                 self.move_to_batch();
@@ -382,12 +386,12 @@ impl BatchWorker {
                                 }
                             }
                         },
-                        Some(ToBatchWorker::Flush(tx)) => {
+                        Some(ToBatchActor::Flush(tx)) => {
                             self.flush_sequential(inflight).await;
                             inflight = JoinSet::new();
                             let _ = tx.send(());
                         },
-                        Some(ToBatchWorker::ResumePublish()) => {
+                        Some(ToBatchActor::ResumePublish()) => {
                             // Nothing to resume as we are not paused.
                         },
                         None => {
