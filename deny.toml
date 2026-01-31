@@ -61,7 +61,8 @@ registries = []
 
 [bans]
 # Allow multiple versions, there are too many of them via indirect dependencies.
-# Note that `
+# Note that `bans.workspace-dependencies` can make sure we avoid dups in our
+# direct dependencies.
 multiple-versions = "allow"
 # Lint level for when a crate version requirement is `*`
 wildcards                  = "allow"
