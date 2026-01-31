@@ -27,7 +27,6 @@ extern crate lazy_static;
 extern crate longrunning;
 extern crate lro;
 extern crate orgpolicy_v2;
-extern crate reqwest;
 extern crate rpc;
 extern crate serde;
 extern crate serde_json;
