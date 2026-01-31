@@ -63,4 +63,4 @@ tokio                = { workspace = true, features = ["test-util"] }
 tokio-test.workspace = true
 # Local dependencies
 google-cloud-auth.workspace = true
-google-cloud-lro = { path = ".", features = ["unstable-stream"] }
+google-cloud-lro            = { path = ".", features = ["unstable-stream"] }
