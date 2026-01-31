@@ -12,15 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use super::read_all;
-use crate::Result;
-use storage::client::Storage;
-use storage::model_ext::{KeyAes256, ReadRange};
+use super::{Result, StorageBuilder, read_all};
+use google_cloud_storage::client::Storage;
+use google_cloud_storage::model_ext::{KeyAes256, ReadRange};
 
-pub async fn run(
-    builder: storage::builder::storage::ClientBuilder,
-    bucket_name: &str,
-) -> anyhow::Result<()> {
+pub async fn run(builder: StorageBuilder, bucket_name: &str) -> anyhow::Result<()> {
     let client = builder.build().await?;
     let pending: Vec<std::pin::Pin<Box<dyn Future<Output = Result<()>>>>> = vec![
         Box::pin(customer_supplied_encryption(&client, bucket_name)),

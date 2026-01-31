@@ -13,13 +13,13 @@
 // limitations under the License.
 
 use crate::Result;
-use storage::client::Storage;
-use storage::streaming_source::{Seek, SizeHint, StreamingSource};
+use crate::StorageBuilder;
+use google_cloud_storage::builder::storage::WriteObject;
+use google_cloud_storage::client::Storage;
+use google_cloud_storage::model::Object;
+use google_cloud_storage::streaming_source::{Seek, SizeHint, StreamingSource};
 
-pub async fn run(
-    builder: storage::builder::storage::ClientBuilder,
-    bucket_name: &str,
-) -> Result<()> {
+pub async fn run(builder: StorageBuilder, bucket_name: &str) -> Result<()> {
     // Run all the upload tests in parallel, using the same bucket.
     // Creating a new bucket is rate-limited, and slow. Creating objects
     // is relatively cheap.
@@ -435,7 +435,7 @@ const ABORT_TEST_SIZE: u64 = 1024 * 1024;
 
 struct AbortUploadTestCase {
     name: String,
-    upload: storage::builder::storage::WriteObject<TestDataSource>,
+    upload: WriteObject<TestDataSource>,
 }
 
 fn abort_upload_test_cases(
@@ -526,7 +526,7 @@ pub async fn checksums(client: &Storage, bucket_name: &str) -> Result<()> {
 
     const VEXING: &str = "how vexingly quick daft zebras jump";
 
-    type ObjectResult = storage::Result<storage::model::Object>;
+    type ObjectResult = google_cloud_storage::Result<Object>;
     type Boxed = futures::future::BoxFuture<'static, ObjectResult>;
     let uploads: Vec<(&str, Boxed)> = vec![
         (

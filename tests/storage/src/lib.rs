@@ -16,26 +16,29 @@ pub mod bidi_read;
 pub mod read_object;
 pub mod write_object;
 
-use crate::Result;
-use gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
-use gax::options::RequestOptionsBuilder;
-use gax::paginator::ItemPaginator as _;
+use anyhow::Result;
 use google_cloud_auth::signer::Signer;
+use google_cloud_gax::exponential_backoff::{ExponentialBackoff, ExponentialBackoffBuilder};
+use google_cloud_gax::options::RequestOptionsBuilder;
+use google_cloud_gax::paginator::ItemPaginator as _;
+use google_cloud_gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
+use google_cloud_iam_v1::model::Binding;
+use google_cloud_lro::Poller;
+pub use google_cloud_storage::builder::storage::ClientBuilder as StorageBuilder;
+use google_cloud_storage::builder::storage::SignedUrlBuilder;
+pub use google_cloud_storage::builder::storage_control::ClientBuilder as StorageControlBuilder;
+use google_cloud_storage::client::StorageControl;
+use google_cloud_storage::model::Bucket;
+use google_cloud_storage::model::bucket::iam_config::UniformBucketLevelAccess;
+use google_cloud_storage::model::bucket::{HierarchicalNamespace, IamConfig};
+use google_cloud_storage::read_object::ReadObjectResponse;
+use google_cloud_test_utils::resource_names::random_bucket_id;
 use google_cloud_test_utils::runtime_config::{project_id, test_service_account};
-use lro::Poller;
+use google_cloud_wkt::FieldMask;
 use std::time::Duration;
-use storage::client::StorageControl;
-use storage::model::Bucket;
-use storage::model::bucket::iam_config::UniformBucketLevelAccess;
-use storage::model::bucket::{HierarchicalNamespace, IamConfig};
-use storage::read_object::ReadObjectResponse;
 pub use storage_samples::{cleanup_stale_buckets, create_test_bucket, create_test_hns_bucket};
 
-pub async fn objects(
-    builder: storage::builder::storage::ClientBuilder,
-    bucket_name: &str,
-    prefix: &str,
-) -> Result<()> {
+pub async fn objects(builder: StorageBuilder, bucket_name: &str, prefix: &str) -> Result<()> {
     let client = builder.build().await?;
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
@@ -87,7 +90,7 @@ pub async fn objects(
 }
 
 pub async fn signed_urls(
-    builder: storage::builder::storage::ClientBuilder,
+    builder: StorageBuilder,
     signer: &Signer,
     bucket_name: &str,
     prefix: &str,
@@ -104,13 +107,12 @@ pub async fn signed_urls(
         .await?;
 
     tracing::info!("testing signed_url()");
-    let signed_url =
-        storage::builder::storage::SignedUrlBuilder::for_object(bucket_name, &insert.name)
-            .with_method(http::Method::GET)
-            .with_expiration(Duration::from_secs(60))
-            .with_header("Content-Type", "text/plain")
-            .sign_with(signer)
-            .await?;
+    let signed_url = SignedUrlBuilder::for_object(bucket_name, &insert.name)
+        .with_method(http::Method::GET)
+        .with_expiration(Duration::from_secs(60))
+        .with_header("Content-Type", "text/plain")
+        .sign_with(signer)
+        .await?;
 
     tracing::info!("signed_url={signed_url}");
 
@@ -137,8 +139,8 @@ async fn read_all(mut response: ReadObjectResponse) -> Result<Vec<u8>> {
 }
 
 pub async fn object_names(
-    builder: storage::builder::storage::ClientBuilder,
-    control: storage::client::StorageControl,
+    builder: StorageBuilder,
+    control: StorageControl,
     bucket_name: &str,
 ) -> Result<()> {
     tracing::info!("object names test, using bucket {bucket_name}");
@@ -189,7 +191,6 @@ pub async fn object_names(
         assert_eq!(get.checksums, upload.checksums);
     }
 
-    use gax::paginator::ItemPaginator;
     let mut list = control
         .list_objects()
         .set_parent(bucket_name)
@@ -224,13 +225,13 @@ pub async fn object_names(
     Ok(())
 }
 
-pub async fn buckets(builder: storage::builder::storage_control::ClientBuilder) -> Result<()> {
+pub async fn buckets(builder: StorageControlBuilder) -> Result<()> {
     let project_id = project_id()?;
     let client = builder.build().await?;
 
     cleanup_stale_buckets(&client, &project_id).await?;
 
-    let bucket_id = crate::random_bucket_id();
+    let bucket_id = random_bucket_id();
     let bucket_name = format!("projects/_/buckets/{bucket_id}");
 
     println!("\nTesting create_bucket()");
@@ -314,14 +315,14 @@ async fn buckets_iam(client: &StorageControl, bucket_name: &str) -> Result<()> {
     println!("\nTesting set_iam_policy()");
     let mut new_policy = policy.clone();
     new_policy.bindings.push(
-        iam_v1::model::Binding::new()
+        Binding::new()
             .set_role("roles/storage.legacyBucketReader")
             .set_members([format!("serviceAccount:{service_account}")]),
     );
     let policy = client
         .set_iam_policy()
         .set_resource(bucket_name)
-        .set_update_mask(wkt::FieldMask::default().set_paths(["bindings"]))
+        .set_update_mask(FieldMask::default().set_paths(["bindings"]))
         .set_policy(new_policy)
         .with_idempotency(true)
         .send()
@@ -390,4 +391,10 @@ fn test_backoff() -> ExponentialBackoff {
         .with_maximum_delay(Duration::from_secs(10))
         .build()
         .unwrap()
+}
+
+pub fn retry_policy() -> impl google_cloud_gax::retry_policy::RetryPolicy {
+    AlwaysRetry
+        .with_time_limit(Duration::from_secs(15))
+        .with_attempt_limit(5)
 }

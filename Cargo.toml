@@ -51,6 +51,7 @@ default-members = [
   "tests/openapi",
   "tests/pubsub",
   "tests/showcase",
+  "tests/storage",
 ]
 
 members = [
@@ -316,6 +317,7 @@ members = [
   "tests/protojson-conformance",
   "tests/pubsub",
   "tests/showcase",
+  "tests/storage",
   "tools/check-copyright",
   "tools/minimal-version-helper",
 ]

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use storage::client::Storage;
-use storage::model_ext::ReadRange;
+use google_cloud_storage::client::Storage;
+use google_cloud_storage::model_ext::ReadRange;
 
 pub async fn run(bucket_name: &str) -> anyhow::Result<()> {
     let client = Storage::builder().build().await?;

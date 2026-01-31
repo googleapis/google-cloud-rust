@@ -5813,8 +5813,6 @@ version = "0.0.0"
 dependencies = [
  "anyhow",
  "bytes",
- "crc32c",
- "flate2",
  "futures",
  "google-cloud-aiplatform-v1",
  "google-cloud-auth",
@@ -5822,9 +5820,6 @@ dependencies = [
  "google-cloud-firestore",
  "google-cloud-gax",
  "google-cloud-gax-internal",
- "google-cloud-iam-v1",
- "google-cloud-longrunning",
- "google-cloud-lro",
  "google-cloud-secretmanager-v1",
  "google-cloud-storage",
  "google-cloud-telcoautomation-v1",
@@ -5840,8 +5835,6 @@ dependencies = [
  "serde_json",
  "serde_with",
  "static_assertions",
- "storage-samples",
- "test-case",
  "tokio",
  "tracing",
  "tracing-subscriber",
@@ -6069,6 +6062,32 @@ dependencies = [
  "tracing",
  "tracing-subscriber",
  "uuid",
+]
+
+[[package]]
+name = "integration-tests-storage"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "bytes",
+ "chrono",
+ "crc32c",
+ "flate2",
+ "futures",
+ "google-cloud-auth",
+ "google-cloud-gax",
+ "google-cloud-iam-v1",
+ "google-cloud-lro",
+ "google-cloud-storage",
+ "google-cloud-test-utils",
+ "google-cloud-wkt",
+ "http",
+ "reqwest 0.13.1",
+ "storage-samples",
+ "test-case",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
 ]
 
 [[package]]

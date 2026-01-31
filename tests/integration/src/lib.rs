@@ -19,7 +19,6 @@ pub type Result<T> = anyhow::Result<T>;
 pub mod bigquery;
 pub mod error_details;
 pub mod firestore;
-pub mod storage;
 
 pub fn report_error(e: anyhow::Error) -> anyhow::Error {
     eprintln!("\n\nERROR {e:?}\n");
