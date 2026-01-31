@@ -68,5 +68,5 @@ google-cloud-auth.workspace = true
 # provider is configured via features or installed at runtime. Even if reqwest
 # is being used without TLS. Enabling the default provider in tests to
 # workaround this issue.
-gaxi = { workspace = true, features = ["_default-rustls-provider"] }
-lro  = { path = ".", package = "google-cloud-lro", features = ["unstable-stream"] }
+gaxi             = { workspace = true, features = ["_default-rustls-provider"] }
+google-cloud-lro = { path = ".", features = ["unstable-stream"] }

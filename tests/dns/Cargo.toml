@@ -14,10 +14,11 @@
 
 [package]
 description       = "Integration tests for google-cloud-dns-v1."
-edition.workspace = true
 name              = "integration-tests-dns-v1"
 publish           = false
 version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
 
 [features]
 # These are normally disabled because they run against production.

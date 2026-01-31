@@ -1,0 +1,93 @@
+# Copyright 2026 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     https://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+[graph]
+targets             = []
+all-features        = false
+no-default-features = false
+
+[output]
+feature-depth = 1
+
+# This section is considered when running `cargo deny check advisories`
+# More documentation for the advisories section can be found here:
+# https://embarkstudios.github.io/cargo-deny/checks/advisories/cfg.html
+[advisories]
+ignore             = [{ id = "RUSTSEC-2023-0071", reason = "Only used in tests and no new version available" }]
+git-fetch-with-cli = false
+
+[licenses]
+allow                = ["Apache-2.0", "BSD-3-Clause", "ISC", "MIT", "Unicode-3.0"]
+confidence-threshold = 0.8
+
+[[licenses.exceptions]]
+allow = ["ISC"]
+crate = "aws-lc-rs"
+
+[[licenses.exceptions]]
+allow = ["Apache-2.0", "ISC", "OpenSSL"]
+crate = "aws-lc-sys"
+
+[[licenses.exceptions]]
+allow = ["CDLA-Permissive-2.0"]
+crate = "webpki-root-certs"
+
+[[licenses.exceptions]]
+allow = ["Zlib"]
+crate = "zlib-rs"
+
+# Visually inspected by coryan circa 2026-01-31
+#     https://github.com/Nokel81/scoped-env/blob/master/LICENSE
+[[licenses.clarify]]
+crate         = "scoped-env"
+expression    = "MIT"
+license-files = []
+
+# Even private crates must have a license.
+[licenses.private]
+ignore     = false
+registries = []
+
+[bans]
+# Allow multiple versions, there are too many of them via indirect dependencies.
+# Note that `bans.workspace-dependencies` can make sure we avoid dups in our
+# direct dependencies.
+multiple-versions = "allow"
+# Lint level for when a crate version requirement is `*`
+wildcards                  = "allow"
+highlight                  = "all"
+workspace-default-features = "allow"
+external-default-features  = "allow"
+# An empty list allows all crates.
+allow = []
+# If true, workspace members are automatically allowed even when using deny-by-default
+# This is useful for organizations that want to deny all external dependencies by default
+# but allow their own workspace crates without having to explicitly list them
+allow-workspace = false
+# List of crates to deny.
+deny = []
+skip = []
+
+[bans.workspace-dependencies]
+# TODO(#4477) - use `duplicates = "deny"`.
+duplicates                = "allow"
+include-path-dependencies = true
+unused                    = "allow"
+
+# Only allow dependencies via crates.io
+[sources]
+unknown-registry = "deny"
+unknown-git      = "deny"
+allow-registry   = ["https://github.com/rust-lang/crates.io-index"]
+allow-git        = []

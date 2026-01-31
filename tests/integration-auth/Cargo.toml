@@ -16,8 +16,9 @@
 name              = "integration-tests-auth"
 description       = "Integration tests for google-cloud-auth."
 version           = "0.0.0"
-edition.workspace = true
 publish           = false
+edition.workspace = true
+license.workspace = true
 
 [features]
 run-auth-integration-tests  = []

@@ -14,10 +14,11 @@
 
 [package]
 description       = "Google Cloud client libraries for Rust: endurance test"
-edition.workspace = true
 name              = "endurance-test"
 publish           = false
 version           = "0.0.0"
+edition.workspace = true
+license.workspace = true
 
 [dependencies.sm]
 package = "google-cloud-secretmanager-v1"

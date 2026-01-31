@@ -17,8 +17,9 @@ name              = "grpc-server"
 description       = "A server used in the gax integration tests."
 version           = "0.0.0"
 build             = "build.rs"
-edition.workspace = true
 publish           = false
+edition.workspace = true
+license.workspace = true
 
 [features]
 _generate-protos = ["dep:tonic-prost-build"]
