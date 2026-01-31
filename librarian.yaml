@@ -91,9 +91,6 @@ default:
       - name: lro
         package: google-cloud-lro
         used_if: lro
-      - name: reqwest
-        package: reqwest
-        used_if: services
       - name: rpc
         package: google-cloud-rpc
         source: google.rpc
