@@ -28,6 +28,7 @@ pub mod storage {
     #[cfg(all(test, feature = "run-integration-tests"))]
     mod driver {
         use super::*;
+        use storage_samples::create_test_hns_bucket;
 
         #[ignore = "TODO(#3916) - disabled because it is flaky"]
         #[tokio::test(flavor = "multi_thread")]
@@ -43,7 +44,7 @@ pub mod storage {
 
         #[tokio::test(flavor = "multi_thread")]
         async fn run() -> anyhow::Result<()> {
-            let (control, bucket) = integration_tests::storage::create_test_hns_bucket().await?;
+            let (control, bucket) = create_test_hns_bucket().await?;
             let result = super::run(&control, &bucket.name).await;
             if let Err(e) = storage_samples::cleanup_bucket(control, bucket.name.clone()).await {
                 eprintln!("error cleaning up run() bucket {}: {e:?}", bucket.name);

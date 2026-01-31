@@ -28,17 +28,12 @@ run-integration-tests = []
 [dependencies]
 anyhow.workspace        = true
 bytes.workspace         = true
-crc32c.workspace        = true
-flate2                  = { workspace = true, features = ["zlib-rs"] }
 futures.workspace       = true
 google-cloud-auth       = { workspace = true, features = ["default"] }
 gax                     = { workspace = true, features = ["unstable-stream"] }
 gaxi                    = { workspace = true, features = ["_internal-http-client"] }
 google-cloud-test-utils = { workspace = true }
 http.workspace          = true
-iam_v1.workspace        = true
-longrunning.workspace   = true
-lro.workspace           = true
 rand                    = { workspace = true, features = ["thread_rng"] }
 reqwest.workspace       = true
 serde_json.workspace    = true
@@ -71,8 +66,6 @@ package  = "google-cloud-storage"
 path     = "../../src/storage"
 features = ["unstable-stream"]
 
-[dependencies.storage-samples]
-path = "../../src/storage/examples"
 
 [dependencies.ta]
 package = "google-cloud-telcoautomation-v1"
@@ -89,7 +82,6 @@ mockall.workspace           = true
 serde.workspace             = true
 serde_with.workspace        = true
 static_assertions.workspace = true
-test-case.workspace         = true
 tokio.workspace             = true
 
 [lints]
